@@ -245,9 +245,12 @@ DIAG_ROWS = 25
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
 # reach the item a walk is standing on** -- measured 2026-09-02, `THIS.MakeScope`
 # fails and the bracket is echoed literally -- so every number is parked in one of
-# these first and printed from there. Sixteen because the widest line, a good's,
-# has sixteen numbers on it.
-DIAG_SCRATCH = 16
+# these first and printed from there. **Seventeen because the widest line, a
+# good's, has seventeen numbers on it** -- and a line that parks past this number
+# prints a blank, because the script value it reads through is not generated.
+# Nothing catches that: `read(17)` against sixteen slots came within one build of
+# shipping on 2026-09-06.
+DIAG_SCRATCH = 17
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
@@ -3972,7 +3975,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t# nothing qualified, so this narrows the choice and never blocks it.
 \t\t\t\tOR = {{
 \t\t\t\t\tglobal_var:{MOD_ID}_edit_strict = 0
-\t\t\t\t\tglobal_var:{MOD_ID}_pn{index} > global_var:{MOD_ID}_edit_quota
+\t\t\t\t\tglobal_var:{MOD_ID}_pn{index} > global_var:{MOD_ID}_eq{index}
 \t\t\t\t}}
 \t\t\t\tOR = {{
 \t\t\t\t\tvar:{MOD_ID}_esw = -1
@@ -4175,6 +4178,27 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 """
         for i in range(1, len(order) + 1))
+    # **The share is per good, because an RGO already counts against it.** The
+    # plan has always done this -- `_pq<n>` is `quota - _nrgo<n>`, floored at 1
+    # -- and the editor did not: it compared every good against the same flat
+    # number, so a good the ground already yields three times as an RGO was
+    # filled to the same six buildings as one it yields never. He caught it,
+    # 2026-09-06: «не учитывая что их аналогичных РГО уже есть там по 3 штуки, и
+    # того счёт для них по сути уже 9, а всего остального 6». Same arithmetic as
+    # the plan now, and the same floor.
+    #
+    # **`has_global_variable` before the subtraction**: `_nrgo<n>` is written by
+    # `_plan_prepare`, so it does not exist until a plan has been run once, and
+    # the editor can be opened before that.
+    shares = "".join(
+        f"""\tset_global_variable = {{ name = {MOD_ID}_eq{i} value = global_var:{MOD_ID}_edit_quota }}
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_nrgo{i} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_eq{i} subtract = global_var:{MOD_ID}_nrgo{i} }}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_eq{i} max = 1 }}
+"""
+        for i in range(1, len(order) + 1))
     shortfalls = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_esh{i} value = 0 }}
 \tif = {{
@@ -4182,9 +4206,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tglobal_var:{MOD_ID}_ng{i} > 0
 \t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{i} }}
 \t\t\tNOT = {{ has_global_variable = {MOD_ID}_skip{i} }}
-\t\t\tglobal_var:{MOD_ID}_pn{i} < global_var:{MOD_ID}_edit_quota
+\t\t\tglobal_var:{MOD_ID}_pn{i} < global_var:{MOD_ID}_eq{i}
 \t\t}}
-\t\tset_global_variable = {{ name = {MOD_ID}_esh{i} value = global_var:{MOD_ID}_edit_quota }}
+\t\tset_global_variable = {{ name = {MOD_ID}_esh{i} value = global_var:{MOD_ID}_eq{i} }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_esh{i} subtract = global_var:{MOD_ID}_pn{i} }}
 \t}}
 """
@@ -4237,7 +4261,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# The same floor `_plan_set_quota` carries and for the same reason: a ground
 \t# too small to give every free good one building still owes each of them one.
 \tchange_global_variable = {{ name = {MOD_ID}_edit_quota max = 1 }}
-{shortfalls}}}
+{shares}{shortfalls}}}
 
 """)
 
@@ -6612,7 +6636,12 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              (7, f"{MOD_ID}_fpr{index}"), (8, f"{MOD_ID}_for{index}"),
                              (9, f"{MOD_ID}_ng{index}"), (10, f"{MOD_ID}_pq{index}"),
                              (11, f"{MOD_ID}_pn{index}"), (12, f"{MOD_ID}_nrgo{index}"),
-                             (15, f"{MOD_ID}_frt{index}"), (16, f"{MOD_ID}_frr{index}")):
+                             (15, f"{MOD_ID}_frt{index}"), (16, f"{MOD_ID}_frr{index}"),
+                             # The editor's own share for this good, which is the
+                             # plan's arithmetic applied to the editor's quota:
+                             # `_edit_quota - rgo`, floored at 1. It is here so a
+                             # run can check the two against each other.
+                             (17, f"{MOD_ID}_eq{index}")):
             out.append(park(slot, source))
         # Availability is the country's advance and not the location's ground:
         # `can_build_building` asked here answers the advance, asked in a
@@ -6630,7 +6659,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"r={read(15)} g={read(2)} p={read(3)} o={read(4)} "
                        f"| R m={len(village)}({village_end}) a={read(14)} w={read(5)} "
                        f"r={read(16)} g={read(6)} p={read(7)} o={read(8)} "
-                       f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)}"))
+                       f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)} "
+                       f"eq={read(17)}"))
         out.append("}\n")
 
     # --------------------------------------------------------------- the passes

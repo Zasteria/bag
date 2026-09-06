@@ -38,13 +38,10 @@ rules each step implements are
 2. **Share, `_lock<n>`, and the «не нужен» flag** — **done and confirmed
    2026-09-06**, with one change reverted: **pins, flags, the share and the star
    belong to the editor window alone, and a fresh plan reads none of them.**
-2а. **Reshuffle the buildings a fill placed** — **built 2026-09-06 and never
-   run.** The fill decides *which* good by shortfall, which is right, and
-   *where* by the accident of press order, which nothing decides; the buildings
-   it placed now trade locations between themselves while a trade is worth
-   anything. No count changes. **«Показать изменения» prints how many trades and
-   what they bought**, and the diagnosis separates «never ran» from «nothing to
-   trade». One fix fell out of it: a removal did not ask town or village and
+2а. **Reshuffle the buildings a fill placed** — **confirmed 2026-09-06**:
+   `shuffle rounds=68 swaps=19 gain=1971`. The buildings a fill placed trade
+   locations between themselves while a trade is worth anything; no count
+   changes. One fix fell out of it: a removal did not ask town or village and
    charged the wrong side's gain.
 2в. **Rebuild the mod's menu** — **closed 2026-09-06**, three rounds of fixes
    and all three confirmed on screen: «столбцы встали как надо, права встали как
@@ -58,6 +55,12 @@ rules each step implements are
 
 2г. **He asked for urban rights in the editor** — that is step 5 below, not a
    layout change, so **the order of what is left is his to pick**: 2а, 3 or 5.
+2д. **The editor's share counts the RGOs now** — his catch, 2026-09-06, and the
+   code agreed at once: the plan subtracts `_nrgo<n>` from every good's share
+   and the editor's fill compared them all against one flat number, so a good
+   the ground already yields three times was filled as high as one it never
+   yields. `_eq<n> = max(1, _edit_quota − _nrgo<n>)`, read by the fill and by
+   step 3 alike; `eq=` beside `q=` in the diagnosis.
 3. **Even eviction on «+1»** — **built 2026-09-06 and never run.** The victim
    must be a good over its share: the test sits in `_edit_worst`'s own `limit`
    under `_edit_strict`, the scan is one effect run twice — strict, then open if

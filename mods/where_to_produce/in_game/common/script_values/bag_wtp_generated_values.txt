@@ -10975,6 +10975,7 @@ bag_wtp_dg13 = { value = global_var:bag_wtp_dv13 }
 bag_wtp_dg14 = { value = global_var:bag_wtp_dv14 }
 bag_wtp_dg15 = { value = global_var:bag_wtp_dv15 }
 bag_wtp_dg16 = { value = global_var:bag_wtp_dv16 }
+bag_wtp_dg17 = { value = global_var:bag_wtp_dv17 }
 
 
 # What the plan pass counted, each of them printed on the button that ran it.

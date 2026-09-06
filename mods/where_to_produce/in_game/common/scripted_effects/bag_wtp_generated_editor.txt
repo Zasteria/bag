@@ -45,7 +45,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn1 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn1 > global_var:bag_wtp_eq1
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -83,7 +83,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn2 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn2 > global_var:bag_wtp_eq2
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -121,7 +121,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn3 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn3 > global_var:bag_wtp_eq3
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -159,7 +159,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn4 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn4 > global_var:bag_wtp_eq4
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -197,7 +197,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn5 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn5 > global_var:bag_wtp_eq5
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -235,7 +235,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn6 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn6 > global_var:bag_wtp_eq6
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -273,7 +273,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn7 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn7 > global_var:bag_wtp_eq7
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -311,7 +311,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn8 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn8 > global_var:bag_wtp_eq8
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -349,7 +349,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn9 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn9 > global_var:bag_wtp_eq9
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -387,7 +387,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn10 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn10 > global_var:bag_wtp_eq10
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -425,7 +425,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn11 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn11 > global_var:bag_wtp_eq11
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -463,7 +463,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn12 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn12 > global_var:bag_wtp_eq12
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -501,7 +501,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn13 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn13 > global_var:bag_wtp_eq13
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -539,7 +539,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn14 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn14 > global_var:bag_wtp_eq14
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -577,7 +577,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn15 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn15 > global_var:bag_wtp_eq15
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -615,7 +615,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn16 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn16 > global_var:bag_wtp_eq16
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -653,7 +653,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn17 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn17 > global_var:bag_wtp_eq17
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -691,7 +691,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn18 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn18 > global_var:bag_wtp_eq18
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -729,7 +729,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn19 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn19 > global_var:bag_wtp_eq19
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -767,7 +767,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn20 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn20 > global_var:bag_wtp_eq20
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -805,7 +805,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn21 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn21 > global_var:bag_wtp_eq21
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -843,7 +843,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn22 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn22 > global_var:bag_wtp_eq22
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -881,7 +881,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn23 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn23 > global_var:bag_wtp_eq23
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -919,7 +919,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn24 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn24 > global_var:bag_wtp_eq24
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -957,7 +957,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn25 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn25 > global_var:bag_wtp_eq25
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -995,7 +995,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn26 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn26 > global_var:bag_wtp_eq26
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1033,7 +1033,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn27 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn27 > global_var:bag_wtp_eq27
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1071,7 +1071,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn28 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn28 > global_var:bag_wtp_eq28
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1109,7 +1109,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn29 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn29 > global_var:bag_wtp_eq29
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1147,7 +1147,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn30 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn30 > global_var:bag_wtp_eq30
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1185,7 +1185,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn31 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn31 > global_var:bag_wtp_eq31
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1223,7 +1223,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn32 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn32 > global_var:bag_wtp_eq32
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1261,7 +1261,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn33 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn33 > global_var:bag_wtp_eq33
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1299,7 +1299,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn34 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn34 > global_var:bag_wtp_eq34
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1337,7 +1337,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn35 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn35 > global_var:bag_wtp_eq35
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1375,7 +1375,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn36 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn36 > global_var:bag_wtp_eq36
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1413,7 +1413,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn37 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn37 > global_var:bag_wtp_eq37
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1451,7 +1451,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn38 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn38 > global_var:bag_wtp_eq38
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1489,7 +1489,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn39 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn39 > global_var:bag_wtp_eq39
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1527,7 +1527,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn40 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn40 > global_var:bag_wtp_eq40
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1565,7 +1565,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn41 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn41 > global_var:bag_wtp_eq41
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1603,7 +1603,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn42 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn42 > global_var:bag_wtp_eq42
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1641,7 +1641,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn43 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn43 > global_var:bag_wtp_eq43
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1679,7 +1679,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn44 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn44 > global_var:bag_wtp_eq44
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1717,7 +1717,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn45 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn45 > global_var:bag_wtp_eq45
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1755,7 +1755,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn46 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn46 > global_var:bag_wtp_eq46
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1793,7 +1793,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn47 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn47 > global_var:bag_wtp_eq47
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1833,7 +1833,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn1 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn1 > global_var:bag_wtp_eq1
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1871,7 +1871,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn2 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn2 > global_var:bag_wtp_eq2
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1909,7 +1909,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn3 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn3 > global_var:bag_wtp_eq3
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1947,7 +1947,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn4 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn4 > global_var:bag_wtp_eq4
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -1985,7 +1985,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn5 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn5 > global_var:bag_wtp_eq5
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2023,7 +2023,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn6 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn6 > global_var:bag_wtp_eq6
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2061,7 +2061,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn7 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn7 > global_var:bag_wtp_eq7
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2099,7 +2099,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn8 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn8 > global_var:bag_wtp_eq8
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2137,7 +2137,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn9 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn9 > global_var:bag_wtp_eq9
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2175,7 +2175,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn10 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn10 > global_var:bag_wtp_eq10
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2213,7 +2213,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn11 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn11 > global_var:bag_wtp_eq11
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2251,7 +2251,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn12 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn12 > global_var:bag_wtp_eq12
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2289,7 +2289,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn13 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn13 > global_var:bag_wtp_eq13
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2327,7 +2327,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn14 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn14 > global_var:bag_wtp_eq14
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2365,7 +2365,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn15 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn15 > global_var:bag_wtp_eq15
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2403,7 +2403,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn16 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn16 > global_var:bag_wtp_eq16
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2441,7 +2441,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn17 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn17 > global_var:bag_wtp_eq17
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2479,7 +2479,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn18 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn18 > global_var:bag_wtp_eq18
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2517,7 +2517,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn19 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn19 > global_var:bag_wtp_eq19
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2555,7 +2555,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn20 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn20 > global_var:bag_wtp_eq20
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2593,7 +2593,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn21 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn21 > global_var:bag_wtp_eq21
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2631,7 +2631,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn22 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn22 > global_var:bag_wtp_eq22
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2669,7 +2669,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn23 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn23 > global_var:bag_wtp_eq23
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2707,7 +2707,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn24 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn24 > global_var:bag_wtp_eq24
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2745,7 +2745,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn25 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn25 > global_var:bag_wtp_eq25
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2783,7 +2783,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn26 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn26 > global_var:bag_wtp_eq26
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2821,7 +2821,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn27 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn27 > global_var:bag_wtp_eq27
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2859,7 +2859,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn28 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn28 > global_var:bag_wtp_eq28
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2897,7 +2897,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn29 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn29 > global_var:bag_wtp_eq29
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2935,7 +2935,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn30 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn30 > global_var:bag_wtp_eq30
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -2973,7 +2973,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn31 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn31 > global_var:bag_wtp_eq31
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3011,7 +3011,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn32 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn32 > global_var:bag_wtp_eq32
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3049,7 +3049,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn33 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn33 > global_var:bag_wtp_eq33
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3087,7 +3087,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn34 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn34 > global_var:bag_wtp_eq34
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3125,7 +3125,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn35 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn35 > global_var:bag_wtp_eq35
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3163,7 +3163,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn36 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn36 > global_var:bag_wtp_eq36
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3201,7 +3201,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn37 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn37 > global_var:bag_wtp_eq37
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3239,7 +3239,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn38 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn38 > global_var:bag_wtp_eq38
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3277,7 +3277,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn39 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn39 > global_var:bag_wtp_eq39
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3315,7 +3315,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn40 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn40 > global_var:bag_wtp_eq40
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3353,7 +3353,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn41 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn41 > global_var:bag_wtp_eq41
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3391,7 +3391,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn42 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn42 > global_var:bag_wtp_eq42
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3429,7 +3429,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn43 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn43 > global_var:bag_wtp_eq43
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3467,7 +3467,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn44 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn44 > global_var:bag_wtp_eq44
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3505,7 +3505,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn45 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn45 > global_var:bag_wtp_eq45
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3543,7 +3543,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn46 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn46 > global_var:bag_wtp_eq46
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -3581,7 +3581,7 @@ bag_wtp_edit_worst = {
 				# nothing qualified, so this narrows the choice and never blocks it.
 				OR = {
 					global_var:bag_wtp_edit_strict = 0
-					global_var:bag_wtp_pn47 > global_var:bag_wtp_edit_quota
+					global_var:bag_wtp_pn47 > global_var:bag_wtp_eq47
 				}
 				OR = {
 					var:bag_wtp_esw = -1
@@ -9277,15 +9277,297 @@ bag_wtp_edit_set_quota = {
 	# The same floor `_plan_set_quota` carries and for the same reason: a ground
 	# too small to give every free good one building still owes each of them one.
 	change_global_variable = { name = bag_wtp_edit_quota max = 1 }
+	set_global_variable = { name = bag_wtp_eq1 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo1 }
+		change_global_variable = { name = bag_wtp_eq1 subtract = global_var:bag_wtp_nrgo1 }
+	}
+	change_global_variable = { name = bag_wtp_eq1 max = 1 }
+	set_global_variable = { name = bag_wtp_eq2 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo2 }
+		change_global_variable = { name = bag_wtp_eq2 subtract = global_var:bag_wtp_nrgo2 }
+	}
+	change_global_variable = { name = bag_wtp_eq2 max = 1 }
+	set_global_variable = { name = bag_wtp_eq3 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo3 }
+		change_global_variable = { name = bag_wtp_eq3 subtract = global_var:bag_wtp_nrgo3 }
+	}
+	change_global_variable = { name = bag_wtp_eq3 max = 1 }
+	set_global_variable = { name = bag_wtp_eq4 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo4 }
+		change_global_variable = { name = bag_wtp_eq4 subtract = global_var:bag_wtp_nrgo4 }
+	}
+	change_global_variable = { name = bag_wtp_eq4 max = 1 }
+	set_global_variable = { name = bag_wtp_eq5 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo5 }
+		change_global_variable = { name = bag_wtp_eq5 subtract = global_var:bag_wtp_nrgo5 }
+	}
+	change_global_variable = { name = bag_wtp_eq5 max = 1 }
+	set_global_variable = { name = bag_wtp_eq6 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo6 }
+		change_global_variable = { name = bag_wtp_eq6 subtract = global_var:bag_wtp_nrgo6 }
+	}
+	change_global_variable = { name = bag_wtp_eq6 max = 1 }
+	set_global_variable = { name = bag_wtp_eq7 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo7 }
+		change_global_variable = { name = bag_wtp_eq7 subtract = global_var:bag_wtp_nrgo7 }
+	}
+	change_global_variable = { name = bag_wtp_eq7 max = 1 }
+	set_global_variable = { name = bag_wtp_eq8 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo8 }
+		change_global_variable = { name = bag_wtp_eq8 subtract = global_var:bag_wtp_nrgo8 }
+	}
+	change_global_variable = { name = bag_wtp_eq8 max = 1 }
+	set_global_variable = { name = bag_wtp_eq9 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo9 }
+		change_global_variable = { name = bag_wtp_eq9 subtract = global_var:bag_wtp_nrgo9 }
+	}
+	change_global_variable = { name = bag_wtp_eq9 max = 1 }
+	set_global_variable = { name = bag_wtp_eq10 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo10 }
+		change_global_variable = { name = bag_wtp_eq10 subtract = global_var:bag_wtp_nrgo10 }
+	}
+	change_global_variable = { name = bag_wtp_eq10 max = 1 }
+	set_global_variable = { name = bag_wtp_eq11 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo11 }
+		change_global_variable = { name = bag_wtp_eq11 subtract = global_var:bag_wtp_nrgo11 }
+	}
+	change_global_variable = { name = bag_wtp_eq11 max = 1 }
+	set_global_variable = { name = bag_wtp_eq12 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo12 }
+		change_global_variable = { name = bag_wtp_eq12 subtract = global_var:bag_wtp_nrgo12 }
+	}
+	change_global_variable = { name = bag_wtp_eq12 max = 1 }
+	set_global_variable = { name = bag_wtp_eq13 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo13 }
+		change_global_variable = { name = bag_wtp_eq13 subtract = global_var:bag_wtp_nrgo13 }
+	}
+	change_global_variable = { name = bag_wtp_eq13 max = 1 }
+	set_global_variable = { name = bag_wtp_eq14 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo14 }
+		change_global_variable = { name = bag_wtp_eq14 subtract = global_var:bag_wtp_nrgo14 }
+	}
+	change_global_variable = { name = bag_wtp_eq14 max = 1 }
+	set_global_variable = { name = bag_wtp_eq15 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo15 }
+		change_global_variable = { name = bag_wtp_eq15 subtract = global_var:bag_wtp_nrgo15 }
+	}
+	change_global_variable = { name = bag_wtp_eq15 max = 1 }
+	set_global_variable = { name = bag_wtp_eq16 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo16 }
+		change_global_variable = { name = bag_wtp_eq16 subtract = global_var:bag_wtp_nrgo16 }
+	}
+	change_global_variable = { name = bag_wtp_eq16 max = 1 }
+	set_global_variable = { name = bag_wtp_eq17 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo17 }
+		change_global_variable = { name = bag_wtp_eq17 subtract = global_var:bag_wtp_nrgo17 }
+	}
+	change_global_variable = { name = bag_wtp_eq17 max = 1 }
+	set_global_variable = { name = bag_wtp_eq18 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo18 }
+		change_global_variable = { name = bag_wtp_eq18 subtract = global_var:bag_wtp_nrgo18 }
+	}
+	change_global_variable = { name = bag_wtp_eq18 max = 1 }
+	set_global_variable = { name = bag_wtp_eq19 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo19 }
+		change_global_variable = { name = bag_wtp_eq19 subtract = global_var:bag_wtp_nrgo19 }
+	}
+	change_global_variable = { name = bag_wtp_eq19 max = 1 }
+	set_global_variable = { name = bag_wtp_eq20 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo20 }
+		change_global_variable = { name = bag_wtp_eq20 subtract = global_var:bag_wtp_nrgo20 }
+	}
+	change_global_variable = { name = bag_wtp_eq20 max = 1 }
+	set_global_variable = { name = bag_wtp_eq21 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo21 }
+		change_global_variable = { name = bag_wtp_eq21 subtract = global_var:bag_wtp_nrgo21 }
+	}
+	change_global_variable = { name = bag_wtp_eq21 max = 1 }
+	set_global_variable = { name = bag_wtp_eq22 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo22 }
+		change_global_variable = { name = bag_wtp_eq22 subtract = global_var:bag_wtp_nrgo22 }
+	}
+	change_global_variable = { name = bag_wtp_eq22 max = 1 }
+	set_global_variable = { name = bag_wtp_eq23 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo23 }
+		change_global_variable = { name = bag_wtp_eq23 subtract = global_var:bag_wtp_nrgo23 }
+	}
+	change_global_variable = { name = bag_wtp_eq23 max = 1 }
+	set_global_variable = { name = bag_wtp_eq24 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo24 }
+		change_global_variable = { name = bag_wtp_eq24 subtract = global_var:bag_wtp_nrgo24 }
+	}
+	change_global_variable = { name = bag_wtp_eq24 max = 1 }
+	set_global_variable = { name = bag_wtp_eq25 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo25 }
+		change_global_variable = { name = bag_wtp_eq25 subtract = global_var:bag_wtp_nrgo25 }
+	}
+	change_global_variable = { name = bag_wtp_eq25 max = 1 }
+	set_global_variable = { name = bag_wtp_eq26 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo26 }
+		change_global_variable = { name = bag_wtp_eq26 subtract = global_var:bag_wtp_nrgo26 }
+	}
+	change_global_variable = { name = bag_wtp_eq26 max = 1 }
+	set_global_variable = { name = bag_wtp_eq27 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo27 }
+		change_global_variable = { name = bag_wtp_eq27 subtract = global_var:bag_wtp_nrgo27 }
+	}
+	change_global_variable = { name = bag_wtp_eq27 max = 1 }
+	set_global_variable = { name = bag_wtp_eq28 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo28 }
+		change_global_variable = { name = bag_wtp_eq28 subtract = global_var:bag_wtp_nrgo28 }
+	}
+	change_global_variable = { name = bag_wtp_eq28 max = 1 }
+	set_global_variable = { name = bag_wtp_eq29 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo29 }
+		change_global_variable = { name = bag_wtp_eq29 subtract = global_var:bag_wtp_nrgo29 }
+	}
+	change_global_variable = { name = bag_wtp_eq29 max = 1 }
+	set_global_variable = { name = bag_wtp_eq30 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo30 }
+		change_global_variable = { name = bag_wtp_eq30 subtract = global_var:bag_wtp_nrgo30 }
+	}
+	change_global_variable = { name = bag_wtp_eq30 max = 1 }
+	set_global_variable = { name = bag_wtp_eq31 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo31 }
+		change_global_variable = { name = bag_wtp_eq31 subtract = global_var:bag_wtp_nrgo31 }
+	}
+	change_global_variable = { name = bag_wtp_eq31 max = 1 }
+	set_global_variable = { name = bag_wtp_eq32 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo32 }
+		change_global_variable = { name = bag_wtp_eq32 subtract = global_var:bag_wtp_nrgo32 }
+	}
+	change_global_variable = { name = bag_wtp_eq32 max = 1 }
+	set_global_variable = { name = bag_wtp_eq33 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo33 }
+		change_global_variable = { name = bag_wtp_eq33 subtract = global_var:bag_wtp_nrgo33 }
+	}
+	change_global_variable = { name = bag_wtp_eq33 max = 1 }
+	set_global_variable = { name = bag_wtp_eq34 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo34 }
+		change_global_variable = { name = bag_wtp_eq34 subtract = global_var:bag_wtp_nrgo34 }
+	}
+	change_global_variable = { name = bag_wtp_eq34 max = 1 }
+	set_global_variable = { name = bag_wtp_eq35 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo35 }
+		change_global_variable = { name = bag_wtp_eq35 subtract = global_var:bag_wtp_nrgo35 }
+	}
+	change_global_variable = { name = bag_wtp_eq35 max = 1 }
+	set_global_variable = { name = bag_wtp_eq36 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo36 }
+		change_global_variable = { name = bag_wtp_eq36 subtract = global_var:bag_wtp_nrgo36 }
+	}
+	change_global_variable = { name = bag_wtp_eq36 max = 1 }
+	set_global_variable = { name = bag_wtp_eq37 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo37 }
+		change_global_variable = { name = bag_wtp_eq37 subtract = global_var:bag_wtp_nrgo37 }
+	}
+	change_global_variable = { name = bag_wtp_eq37 max = 1 }
+	set_global_variable = { name = bag_wtp_eq38 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo38 }
+		change_global_variable = { name = bag_wtp_eq38 subtract = global_var:bag_wtp_nrgo38 }
+	}
+	change_global_variable = { name = bag_wtp_eq38 max = 1 }
+	set_global_variable = { name = bag_wtp_eq39 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo39 }
+		change_global_variable = { name = bag_wtp_eq39 subtract = global_var:bag_wtp_nrgo39 }
+	}
+	change_global_variable = { name = bag_wtp_eq39 max = 1 }
+	set_global_variable = { name = bag_wtp_eq40 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo40 }
+		change_global_variable = { name = bag_wtp_eq40 subtract = global_var:bag_wtp_nrgo40 }
+	}
+	change_global_variable = { name = bag_wtp_eq40 max = 1 }
+	set_global_variable = { name = bag_wtp_eq41 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo41 }
+		change_global_variable = { name = bag_wtp_eq41 subtract = global_var:bag_wtp_nrgo41 }
+	}
+	change_global_variable = { name = bag_wtp_eq41 max = 1 }
+	set_global_variable = { name = bag_wtp_eq42 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo42 }
+		change_global_variable = { name = bag_wtp_eq42 subtract = global_var:bag_wtp_nrgo42 }
+	}
+	change_global_variable = { name = bag_wtp_eq42 max = 1 }
+	set_global_variable = { name = bag_wtp_eq43 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo43 }
+		change_global_variable = { name = bag_wtp_eq43 subtract = global_var:bag_wtp_nrgo43 }
+	}
+	change_global_variable = { name = bag_wtp_eq43 max = 1 }
+	set_global_variable = { name = bag_wtp_eq44 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo44 }
+		change_global_variable = { name = bag_wtp_eq44 subtract = global_var:bag_wtp_nrgo44 }
+	}
+	change_global_variable = { name = bag_wtp_eq44 max = 1 }
+	set_global_variable = { name = bag_wtp_eq45 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo45 }
+		change_global_variable = { name = bag_wtp_eq45 subtract = global_var:bag_wtp_nrgo45 }
+	}
+	change_global_variable = { name = bag_wtp_eq45 max = 1 }
+	set_global_variable = { name = bag_wtp_eq46 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo46 }
+		change_global_variable = { name = bag_wtp_eq46 subtract = global_var:bag_wtp_nrgo46 }
+	}
+	change_global_variable = { name = bag_wtp_eq46 max = 1 }
+	set_global_variable = { name = bag_wtp_eq47 value = global_var:bag_wtp_edit_quota }
+	if = {
+		limit = { has_global_variable = bag_wtp_nrgo47 }
+		change_global_variable = { name = bag_wtp_eq47 subtract = global_var:bag_wtp_nrgo47 }
+	}
+	change_global_variable = { name = bag_wtp_eq47 max = 1 }
 	set_global_variable = { name = bag_wtp_esh1 value = 0 }
 	if = {
 		limit = {
 			global_var:bag_wtp_ng1 > 0
 			NOT = { has_global_variable = bag_wtp_lock1 }
 			NOT = { has_global_variable = bag_wtp_skip1 }
-			global_var:bag_wtp_pn1 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn1 < global_var:bag_wtp_eq1
 		}
-		set_global_variable = { name = bag_wtp_esh1 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh1 value = global_var:bag_wtp_eq1 }
 		change_global_variable = { name = bag_wtp_esh1 subtract = global_var:bag_wtp_pn1 }
 	}
 	set_global_variable = { name = bag_wtp_esh2 value = 0 }
@@ -9294,9 +9576,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng2 > 0
 			NOT = { has_global_variable = bag_wtp_lock2 }
 			NOT = { has_global_variable = bag_wtp_skip2 }
-			global_var:bag_wtp_pn2 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn2 < global_var:bag_wtp_eq2
 		}
-		set_global_variable = { name = bag_wtp_esh2 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh2 value = global_var:bag_wtp_eq2 }
 		change_global_variable = { name = bag_wtp_esh2 subtract = global_var:bag_wtp_pn2 }
 	}
 	set_global_variable = { name = bag_wtp_esh3 value = 0 }
@@ -9305,9 +9587,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng3 > 0
 			NOT = { has_global_variable = bag_wtp_lock3 }
 			NOT = { has_global_variable = bag_wtp_skip3 }
-			global_var:bag_wtp_pn3 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn3 < global_var:bag_wtp_eq3
 		}
-		set_global_variable = { name = bag_wtp_esh3 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh3 value = global_var:bag_wtp_eq3 }
 		change_global_variable = { name = bag_wtp_esh3 subtract = global_var:bag_wtp_pn3 }
 	}
 	set_global_variable = { name = bag_wtp_esh4 value = 0 }
@@ -9316,9 +9598,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng4 > 0
 			NOT = { has_global_variable = bag_wtp_lock4 }
 			NOT = { has_global_variable = bag_wtp_skip4 }
-			global_var:bag_wtp_pn4 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn4 < global_var:bag_wtp_eq4
 		}
-		set_global_variable = { name = bag_wtp_esh4 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh4 value = global_var:bag_wtp_eq4 }
 		change_global_variable = { name = bag_wtp_esh4 subtract = global_var:bag_wtp_pn4 }
 	}
 	set_global_variable = { name = bag_wtp_esh5 value = 0 }
@@ -9327,9 +9609,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng5 > 0
 			NOT = { has_global_variable = bag_wtp_lock5 }
 			NOT = { has_global_variable = bag_wtp_skip5 }
-			global_var:bag_wtp_pn5 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn5 < global_var:bag_wtp_eq5
 		}
-		set_global_variable = { name = bag_wtp_esh5 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh5 value = global_var:bag_wtp_eq5 }
 		change_global_variable = { name = bag_wtp_esh5 subtract = global_var:bag_wtp_pn5 }
 	}
 	set_global_variable = { name = bag_wtp_esh6 value = 0 }
@@ -9338,9 +9620,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng6 > 0
 			NOT = { has_global_variable = bag_wtp_lock6 }
 			NOT = { has_global_variable = bag_wtp_skip6 }
-			global_var:bag_wtp_pn6 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn6 < global_var:bag_wtp_eq6
 		}
-		set_global_variable = { name = bag_wtp_esh6 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh6 value = global_var:bag_wtp_eq6 }
 		change_global_variable = { name = bag_wtp_esh6 subtract = global_var:bag_wtp_pn6 }
 	}
 	set_global_variable = { name = bag_wtp_esh7 value = 0 }
@@ -9349,9 +9631,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng7 > 0
 			NOT = { has_global_variable = bag_wtp_lock7 }
 			NOT = { has_global_variable = bag_wtp_skip7 }
-			global_var:bag_wtp_pn7 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn7 < global_var:bag_wtp_eq7
 		}
-		set_global_variable = { name = bag_wtp_esh7 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh7 value = global_var:bag_wtp_eq7 }
 		change_global_variable = { name = bag_wtp_esh7 subtract = global_var:bag_wtp_pn7 }
 	}
 	set_global_variable = { name = bag_wtp_esh8 value = 0 }
@@ -9360,9 +9642,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng8 > 0
 			NOT = { has_global_variable = bag_wtp_lock8 }
 			NOT = { has_global_variable = bag_wtp_skip8 }
-			global_var:bag_wtp_pn8 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn8 < global_var:bag_wtp_eq8
 		}
-		set_global_variable = { name = bag_wtp_esh8 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh8 value = global_var:bag_wtp_eq8 }
 		change_global_variable = { name = bag_wtp_esh8 subtract = global_var:bag_wtp_pn8 }
 	}
 	set_global_variable = { name = bag_wtp_esh9 value = 0 }
@@ -9371,9 +9653,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng9 > 0
 			NOT = { has_global_variable = bag_wtp_lock9 }
 			NOT = { has_global_variable = bag_wtp_skip9 }
-			global_var:bag_wtp_pn9 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn9 < global_var:bag_wtp_eq9
 		}
-		set_global_variable = { name = bag_wtp_esh9 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh9 value = global_var:bag_wtp_eq9 }
 		change_global_variable = { name = bag_wtp_esh9 subtract = global_var:bag_wtp_pn9 }
 	}
 	set_global_variable = { name = bag_wtp_esh10 value = 0 }
@@ -9382,9 +9664,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng10 > 0
 			NOT = { has_global_variable = bag_wtp_lock10 }
 			NOT = { has_global_variable = bag_wtp_skip10 }
-			global_var:bag_wtp_pn10 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn10 < global_var:bag_wtp_eq10
 		}
-		set_global_variable = { name = bag_wtp_esh10 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh10 value = global_var:bag_wtp_eq10 }
 		change_global_variable = { name = bag_wtp_esh10 subtract = global_var:bag_wtp_pn10 }
 	}
 	set_global_variable = { name = bag_wtp_esh11 value = 0 }
@@ -9393,9 +9675,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng11 > 0
 			NOT = { has_global_variable = bag_wtp_lock11 }
 			NOT = { has_global_variable = bag_wtp_skip11 }
-			global_var:bag_wtp_pn11 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn11 < global_var:bag_wtp_eq11
 		}
-		set_global_variable = { name = bag_wtp_esh11 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh11 value = global_var:bag_wtp_eq11 }
 		change_global_variable = { name = bag_wtp_esh11 subtract = global_var:bag_wtp_pn11 }
 	}
 	set_global_variable = { name = bag_wtp_esh12 value = 0 }
@@ -9404,9 +9686,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng12 > 0
 			NOT = { has_global_variable = bag_wtp_lock12 }
 			NOT = { has_global_variable = bag_wtp_skip12 }
-			global_var:bag_wtp_pn12 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn12 < global_var:bag_wtp_eq12
 		}
-		set_global_variable = { name = bag_wtp_esh12 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh12 value = global_var:bag_wtp_eq12 }
 		change_global_variable = { name = bag_wtp_esh12 subtract = global_var:bag_wtp_pn12 }
 	}
 	set_global_variable = { name = bag_wtp_esh13 value = 0 }
@@ -9415,9 +9697,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng13 > 0
 			NOT = { has_global_variable = bag_wtp_lock13 }
 			NOT = { has_global_variable = bag_wtp_skip13 }
-			global_var:bag_wtp_pn13 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn13 < global_var:bag_wtp_eq13
 		}
-		set_global_variable = { name = bag_wtp_esh13 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh13 value = global_var:bag_wtp_eq13 }
 		change_global_variable = { name = bag_wtp_esh13 subtract = global_var:bag_wtp_pn13 }
 	}
 	set_global_variable = { name = bag_wtp_esh14 value = 0 }
@@ -9426,9 +9708,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng14 > 0
 			NOT = { has_global_variable = bag_wtp_lock14 }
 			NOT = { has_global_variable = bag_wtp_skip14 }
-			global_var:bag_wtp_pn14 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn14 < global_var:bag_wtp_eq14
 		}
-		set_global_variable = { name = bag_wtp_esh14 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh14 value = global_var:bag_wtp_eq14 }
 		change_global_variable = { name = bag_wtp_esh14 subtract = global_var:bag_wtp_pn14 }
 	}
 	set_global_variable = { name = bag_wtp_esh15 value = 0 }
@@ -9437,9 +9719,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng15 > 0
 			NOT = { has_global_variable = bag_wtp_lock15 }
 			NOT = { has_global_variable = bag_wtp_skip15 }
-			global_var:bag_wtp_pn15 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn15 < global_var:bag_wtp_eq15
 		}
-		set_global_variable = { name = bag_wtp_esh15 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh15 value = global_var:bag_wtp_eq15 }
 		change_global_variable = { name = bag_wtp_esh15 subtract = global_var:bag_wtp_pn15 }
 	}
 	set_global_variable = { name = bag_wtp_esh16 value = 0 }
@@ -9448,9 +9730,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng16 > 0
 			NOT = { has_global_variable = bag_wtp_lock16 }
 			NOT = { has_global_variable = bag_wtp_skip16 }
-			global_var:bag_wtp_pn16 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn16 < global_var:bag_wtp_eq16
 		}
-		set_global_variable = { name = bag_wtp_esh16 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh16 value = global_var:bag_wtp_eq16 }
 		change_global_variable = { name = bag_wtp_esh16 subtract = global_var:bag_wtp_pn16 }
 	}
 	set_global_variable = { name = bag_wtp_esh17 value = 0 }
@@ -9459,9 +9741,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng17 > 0
 			NOT = { has_global_variable = bag_wtp_lock17 }
 			NOT = { has_global_variable = bag_wtp_skip17 }
-			global_var:bag_wtp_pn17 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn17 < global_var:bag_wtp_eq17
 		}
-		set_global_variable = { name = bag_wtp_esh17 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh17 value = global_var:bag_wtp_eq17 }
 		change_global_variable = { name = bag_wtp_esh17 subtract = global_var:bag_wtp_pn17 }
 	}
 	set_global_variable = { name = bag_wtp_esh18 value = 0 }
@@ -9470,9 +9752,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng18 > 0
 			NOT = { has_global_variable = bag_wtp_lock18 }
 			NOT = { has_global_variable = bag_wtp_skip18 }
-			global_var:bag_wtp_pn18 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn18 < global_var:bag_wtp_eq18
 		}
-		set_global_variable = { name = bag_wtp_esh18 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh18 value = global_var:bag_wtp_eq18 }
 		change_global_variable = { name = bag_wtp_esh18 subtract = global_var:bag_wtp_pn18 }
 	}
 	set_global_variable = { name = bag_wtp_esh19 value = 0 }
@@ -9481,9 +9763,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng19 > 0
 			NOT = { has_global_variable = bag_wtp_lock19 }
 			NOT = { has_global_variable = bag_wtp_skip19 }
-			global_var:bag_wtp_pn19 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn19 < global_var:bag_wtp_eq19
 		}
-		set_global_variable = { name = bag_wtp_esh19 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh19 value = global_var:bag_wtp_eq19 }
 		change_global_variable = { name = bag_wtp_esh19 subtract = global_var:bag_wtp_pn19 }
 	}
 	set_global_variable = { name = bag_wtp_esh20 value = 0 }
@@ -9492,9 +9774,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng20 > 0
 			NOT = { has_global_variable = bag_wtp_lock20 }
 			NOT = { has_global_variable = bag_wtp_skip20 }
-			global_var:bag_wtp_pn20 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn20 < global_var:bag_wtp_eq20
 		}
-		set_global_variable = { name = bag_wtp_esh20 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh20 value = global_var:bag_wtp_eq20 }
 		change_global_variable = { name = bag_wtp_esh20 subtract = global_var:bag_wtp_pn20 }
 	}
 	set_global_variable = { name = bag_wtp_esh21 value = 0 }
@@ -9503,9 +9785,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng21 > 0
 			NOT = { has_global_variable = bag_wtp_lock21 }
 			NOT = { has_global_variable = bag_wtp_skip21 }
-			global_var:bag_wtp_pn21 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn21 < global_var:bag_wtp_eq21
 		}
-		set_global_variable = { name = bag_wtp_esh21 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh21 value = global_var:bag_wtp_eq21 }
 		change_global_variable = { name = bag_wtp_esh21 subtract = global_var:bag_wtp_pn21 }
 	}
 	set_global_variable = { name = bag_wtp_esh22 value = 0 }
@@ -9514,9 +9796,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng22 > 0
 			NOT = { has_global_variable = bag_wtp_lock22 }
 			NOT = { has_global_variable = bag_wtp_skip22 }
-			global_var:bag_wtp_pn22 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn22 < global_var:bag_wtp_eq22
 		}
-		set_global_variable = { name = bag_wtp_esh22 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh22 value = global_var:bag_wtp_eq22 }
 		change_global_variable = { name = bag_wtp_esh22 subtract = global_var:bag_wtp_pn22 }
 	}
 	set_global_variable = { name = bag_wtp_esh23 value = 0 }
@@ -9525,9 +9807,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng23 > 0
 			NOT = { has_global_variable = bag_wtp_lock23 }
 			NOT = { has_global_variable = bag_wtp_skip23 }
-			global_var:bag_wtp_pn23 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn23 < global_var:bag_wtp_eq23
 		}
-		set_global_variable = { name = bag_wtp_esh23 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh23 value = global_var:bag_wtp_eq23 }
 		change_global_variable = { name = bag_wtp_esh23 subtract = global_var:bag_wtp_pn23 }
 	}
 	set_global_variable = { name = bag_wtp_esh24 value = 0 }
@@ -9536,9 +9818,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng24 > 0
 			NOT = { has_global_variable = bag_wtp_lock24 }
 			NOT = { has_global_variable = bag_wtp_skip24 }
-			global_var:bag_wtp_pn24 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn24 < global_var:bag_wtp_eq24
 		}
-		set_global_variable = { name = bag_wtp_esh24 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh24 value = global_var:bag_wtp_eq24 }
 		change_global_variable = { name = bag_wtp_esh24 subtract = global_var:bag_wtp_pn24 }
 	}
 	set_global_variable = { name = bag_wtp_esh25 value = 0 }
@@ -9547,9 +9829,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng25 > 0
 			NOT = { has_global_variable = bag_wtp_lock25 }
 			NOT = { has_global_variable = bag_wtp_skip25 }
-			global_var:bag_wtp_pn25 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn25 < global_var:bag_wtp_eq25
 		}
-		set_global_variable = { name = bag_wtp_esh25 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh25 value = global_var:bag_wtp_eq25 }
 		change_global_variable = { name = bag_wtp_esh25 subtract = global_var:bag_wtp_pn25 }
 	}
 	set_global_variable = { name = bag_wtp_esh26 value = 0 }
@@ -9558,9 +9840,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng26 > 0
 			NOT = { has_global_variable = bag_wtp_lock26 }
 			NOT = { has_global_variable = bag_wtp_skip26 }
-			global_var:bag_wtp_pn26 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn26 < global_var:bag_wtp_eq26
 		}
-		set_global_variable = { name = bag_wtp_esh26 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh26 value = global_var:bag_wtp_eq26 }
 		change_global_variable = { name = bag_wtp_esh26 subtract = global_var:bag_wtp_pn26 }
 	}
 	set_global_variable = { name = bag_wtp_esh27 value = 0 }
@@ -9569,9 +9851,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng27 > 0
 			NOT = { has_global_variable = bag_wtp_lock27 }
 			NOT = { has_global_variable = bag_wtp_skip27 }
-			global_var:bag_wtp_pn27 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn27 < global_var:bag_wtp_eq27
 		}
-		set_global_variable = { name = bag_wtp_esh27 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh27 value = global_var:bag_wtp_eq27 }
 		change_global_variable = { name = bag_wtp_esh27 subtract = global_var:bag_wtp_pn27 }
 	}
 	set_global_variable = { name = bag_wtp_esh28 value = 0 }
@@ -9580,9 +9862,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng28 > 0
 			NOT = { has_global_variable = bag_wtp_lock28 }
 			NOT = { has_global_variable = bag_wtp_skip28 }
-			global_var:bag_wtp_pn28 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn28 < global_var:bag_wtp_eq28
 		}
-		set_global_variable = { name = bag_wtp_esh28 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh28 value = global_var:bag_wtp_eq28 }
 		change_global_variable = { name = bag_wtp_esh28 subtract = global_var:bag_wtp_pn28 }
 	}
 	set_global_variable = { name = bag_wtp_esh29 value = 0 }
@@ -9591,9 +9873,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng29 > 0
 			NOT = { has_global_variable = bag_wtp_lock29 }
 			NOT = { has_global_variable = bag_wtp_skip29 }
-			global_var:bag_wtp_pn29 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn29 < global_var:bag_wtp_eq29
 		}
-		set_global_variable = { name = bag_wtp_esh29 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh29 value = global_var:bag_wtp_eq29 }
 		change_global_variable = { name = bag_wtp_esh29 subtract = global_var:bag_wtp_pn29 }
 	}
 	set_global_variable = { name = bag_wtp_esh30 value = 0 }
@@ -9602,9 +9884,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng30 > 0
 			NOT = { has_global_variable = bag_wtp_lock30 }
 			NOT = { has_global_variable = bag_wtp_skip30 }
-			global_var:bag_wtp_pn30 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn30 < global_var:bag_wtp_eq30
 		}
-		set_global_variable = { name = bag_wtp_esh30 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh30 value = global_var:bag_wtp_eq30 }
 		change_global_variable = { name = bag_wtp_esh30 subtract = global_var:bag_wtp_pn30 }
 	}
 	set_global_variable = { name = bag_wtp_esh31 value = 0 }
@@ -9613,9 +9895,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng31 > 0
 			NOT = { has_global_variable = bag_wtp_lock31 }
 			NOT = { has_global_variable = bag_wtp_skip31 }
-			global_var:bag_wtp_pn31 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn31 < global_var:bag_wtp_eq31
 		}
-		set_global_variable = { name = bag_wtp_esh31 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh31 value = global_var:bag_wtp_eq31 }
 		change_global_variable = { name = bag_wtp_esh31 subtract = global_var:bag_wtp_pn31 }
 	}
 	set_global_variable = { name = bag_wtp_esh32 value = 0 }
@@ -9624,9 +9906,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng32 > 0
 			NOT = { has_global_variable = bag_wtp_lock32 }
 			NOT = { has_global_variable = bag_wtp_skip32 }
-			global_var:bag_wtp_pn32 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn32 < global_var:bag_wtp_eq32
 		}
-		set_global_variable = { name = bag_wtp_esh32 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh32 value = global_var:bag_wtp_eq32 }
 		change_global_variable = { name = bag_wtp_esh32 subtract = global_var:bag_wtp_pn32 }
 	}
 	set_global_variable = { name = bag_wtp_esh33 value = 0 }
@@ -9635,9 +9917,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng33 > 0
 			NOT = { has_global_variable = bag_wtp_lock33 }
 			NOT = { has_global_variable = bag_wtp_skip33 }
-			global_var:bag_wtp_pn33 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn33 < global_var:bag_wtp_eq33
 		}
-		set_global_variable = { name = bag_wtp_esh33 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh33 value = global_var:bag_wtp_eq33 }
 		change_global_variable = { name = bag_wtp_esh33 subtract = global_var:bag_wtp_pn33 }
 	}
 	set_global_variable = { name = bag_wtp_esh34 value = 0 }
@@ -9646,9 +9928,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng34 > 0
 			NOT = { has_global_variable = bag_wtp_lock34 }
 			NOT = { has_global_variable = bag_wtp_skip34 }
-			global_var:bag_wtp_pn34 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn34 < global_var:bag_wtp_eq34
 		}
-		set_global_variable = { name = bag_wtp_esh34 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh34 value = global_var:bag_wtp_eq34 }
 		change_global_variable = { name = bag_wtp_esh34 subtract = global_var:bag_wtp_pn34 }
 	}
 	set_global_variable = { name = bag_wtp_esh35 value = 0 }
@@ -9657,9 +9939,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng35 > 0
 			NOT = { has_global_variable = bag_wtp_lock35 }
 			NOT = { has_global_variable = bag_wtp_skip35 }
-			global_var:bag_wtp_pn35 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn35 < global_var:bag_wtp_eq35
 		}
-		set_global_variable = { name = bag_wtp_esh35 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh35 value = global_var:bag_wtp_eq35 }
 		change_global_variable = { name = bag_wtp_esh35 subtract = global_var:bag_wtp_pn35 }
 	}
 	set_global_variable = { name = bag_wtp_esh36 value = 0 }
@@ -9668,9 +9950,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng36 > 0
 			NOT = { has_global_variable = bag_wtp_lock36 }
 			NOT = { has_global_variable = bag_wtp_skip36 }
-			global_var:bag_wtp_pn36 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn36 < global_var:bag_wtp_eq36
 		}
-		set_global_variable = { name = bag_wtp_esh36 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh36 value = global_var:bag_wtp_eq36 }
 		change_global_variable = { name = bag_wtp_esh36 subtract = global_var:bag_wtp_pn36 }
 	}
 	set_global_variable = { name = bag_wtp_esh37 value = 0 }
@@ -9679,9 +9961,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng37 > 0
 			NOT = { has_global_variable = bag_wtp_lock37 }
 			NOT = { has_global_variable = bag_wtp_skip37 }
-			global_var:bag_wtp_pn37 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn37 < global_var:bag_wtp_eq37
 		}
-		set_global_variable = { name = bag_wtp_esh37 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh37 value = global_var:bag_wtp_eq37 }
 		change_global_variable = { name = bag_wtp_esh37 subtract = global_var:bag_wtp_pn37 }
 	}
 	set_global_variable = { name = bag_wtp_esh38 value = 0 }
@@ -9690,9 +9972,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng38 > 0
 			NOT = { has_global_variable = bag_wtp_lock38 }
 			NOT = { has_global_variable = bag_wtp_skip38 }
-			global_var:bag_wtp_pn38 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn38 < global_var:bag_wtp_eq38
 		}
-		set_global_variable = { name = bag_wtp_esh38 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh38 value = global_var:bag_wtp_eq38 }
 		change_global_variable = { name = bag_wtp_esh38 subtract = global_var:bag_wtp_pn38 }
 	}
 	set_global_variable = { name = bag_wtp_esh39 value = 0 }
@@ -9701,9 +9983,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng39 > 0
 			NOT = { has_global_variable = bag_wtp_lock39 }
 			NOT = { has_global_variable = bag_wtp_skip39 }
-			global_var:bag_wtp_pn39 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn39 < global_var:bag_wtp_eq39
 		}
-		set_global_variable = { name = bag_wtp_esh39 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh39 value = global_var:bag_wtp_eq39 }
 		change_global_variable = { name = bag_wtp_esh39 subtract = global_var:bag_wtp_pn39 }
 	}
 	set_global_variable = { name = bag_wtp_esh40 value = 0 }
@@ -9712,9 +9994,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng40 > 0
 			NOT = { has_global_variable = bag_wtp_lock40 }
 			NOT = { has_global_variable = bag_wtp_skip40 }
-			global_var:bag_wtp_pn40 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn40 < global_var:bag_wtp_eq40
 		}
-		set_global_variable = { name = bag_wtp_esh40 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh40 value = global_var:bag_wtp_eq40 }
 		change_global_variable = { name = bag_wtp_esh40 subtract = global_var:bag_wtp_pn40 }
 	}
 	set_global_variable = { name = bag_wtp_esh41 value = 0 }
@@ -9723,9 +10005,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng41 > 0
 			NOT = { has_global_variable = bag_wtp_lock41 }
 			NOT = { has_global_variable = bag_wtp_skip41 }
-			global_var:bag_wtp_pn41 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn41 < global_var:bag_wtp_eq41
 		}
-		set_global_variable = { name = bag_wtp_esh41 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh41 value = global_var:bag_wtp_eq41 }
 		change_global_variable = { name = bag_wtp_esh41 subtract = global_var:bag_wtp_pn41 }
 	}
 	set_global_variable = { name = bag_wtp_esh42 value = 0 }
@@ -9734,9 +10016,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng42 > 0
 			NOT = { has_global_variable = bag_wtp_lock42 }
 			NOT = { has_global_variable = bag_wtp_skip42 }
-			global_var:bag_wtp_pn42 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn42 < global_var:bag_wtp_eq42
 		}
-		set_global_variable = { name = bag_wtp_esh42 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh42 value = global_var:bag_wtp_eq42 }
 		change_global_variable = { name = bag_wtp_esh42 subtract = global_var:bag_wtp_pn42 }
 	}
 	set_global_variable = { name = bag_wtp_esh43 value = 0 }
@@ -9745,9 +10027,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng43 > 0
 			NOT = { has_global_variable = bag_wtp_lock43 }
 			NOT = { has_global_variable = bag_wtp_skip43 }
-			global_var:bag_wtp_pn43 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn43 < global_var:bag_wtp_eq43
 		}
-		set_global_variable = { name = bag_wtp_esh43 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh43 value = global_var:bag_wtp_eq43 }
 		change_global_variable = { name = bag_wtp_esh43 subtract = global_var:bag_wtp_pn43 }
 	}
 	set_global_variable = { name = bag_wtp_esh44 value = 0 }
@@ -9756,9 +10038,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng44 > 0
 			NOT = { has_global_variable = bag_wtp_lock44 }
 			NOT = { has_global_variable = bag_wtp_skip44 }
-			global_var:bag_wtp_pn44 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn44 < global_var:bag_wtp_eq44
 		}
-		set_global_variable = { name = bag_wtp_esh44 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh44 value = global_var:bag_wtp_eq44 }
 		change_global_variable = { name = bag_wtp_esh44 subtract = global_var:bag_wtp_pn44 }
 	}
 	set_global_variable = { name = bag_wtp_esh45 value = 0 }
@@ -9767,9 +10049,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng45 > 0
 			NOT = { has_global_variable = bag_wtp_lock45 }
 			NOT = { has_global_variable = bag_wtp_skip45 }
-			global_var:bag_wtp_pn45 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn45 < global_var:bag_wtp_eq45
 		}
-		set_global_variable = { name = bag_wtp_esh45 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh45 value = global_var:bag_wtp_eq45 }
 		change_global_variable = { name = bag_wtp_esh45 subtract = global_var:bag_wtp_pn45 }
 	}
 	set_global_variable = { name = bag_wtp_esh46 value = 0 }
@@ -9778,9 +10060,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng46 > 0
 			NOT = { has_global_variable = bag_wtp_lock46 }
 			NOT = { has_global_variable = bag_wtp_skip46 }
-			global_var:bag_wtp_pn46 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn46 < global_var:bag_wtp_eq46
 		}
-		set_global_variable = { name = bag_wtp_esh46 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh46 value = global_var:bag_wtp_eq46 }
 		change_global_variable = { name = bag_wtp_esh46 subtract = global_var:bag_wtp_pn46 }
 	}
 	set_global_variable = { name = bag_wtp_esh47 value = 0 }
@@ -9789,9 +10071,9 @@ bag_wtp_edit_set_quota = {
 			global_var:bag_wtp_ng47 > 0
 			NOT = { has_global_variable = bag_wtp_lock47 }
 			NOT = { has_global_variable = bag_wtp_skip47 }
-			global_var:bag_wtp_pn47 < global_var:bag_wtp_edit_quota
+			global_var:bag_wtp_pn47 < global_var:bag_wtp_eq47
 		}
-		set_global_variable = { name = bag_wtp_esh47 value = global_var:bag_wtp_edit_quota }
+		set_global_variable = { name = bag_wtp_esh47 value = global_var:bag_wtp_eq47 }
 		change_global_variable = { name = bag_wtp_esh47 subtract = global_var:bag_wtp_pn47 }
 	}
 }

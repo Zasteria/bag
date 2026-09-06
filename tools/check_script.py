@@ -145,6 +145,46 @@ def unresolved(root: Path, known: set[str]) -> list[str]:
     return found
 
 
+def unresolved_script_values(root: Path) -> list[str]:
+    """Every `ScriptValue('x')` this mod prints, against the values it defines.
+
+    **A `ScriptValue` that names nothing prints a blank and says so nowhere.**
+    Not in `error.log`, not on screen -- the line simply comes out with a hole
+    where the number was, and a diagnosis full of them still looks like a
+    diagnosis. On 2026-09-06 a `WTP G<n>` line was one build from shipping with
+    `bag_wtp_dg17` on it against sixteen generated scratch values.
+
+    Reads every place a value can be printed from: the localization, the
+    windows, and `debug_log` strings in `common/`. Only this mod's own names --
+    another mod's value is that mod's business, and the engine's own are not
+    script values at all.
+    """
+    defined: set[str] = set()
+    for path in sorted((root / "in_game/common/script_values").rglob("*.txt")):
+        defined.update(DEFINITION.findall(
+            path.read_text(encoding="utf-8-sig", errors="replace")))
+    if not defined:
+        return []
+    prefixes = tuple(sorted({n.split("_")[0] + "_" for n in defined}))
+    found = []
+    for pattern in ("in_game/**/*.txt", "in_game/**/*.gui",
+                    "main_menu/**/*.yml"):
+        for path in sorted(root.glob(pattern)):
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding="utf-8-sig", errors="replace")
+            for match in re.finditer(r"ScriptValue\('([\w.]+)'\)", text):
+                name = match.group(1)
+                if name in defined or not name.startswith(prefixes):
+                    continue
+                line = text[:match.start()].count("\n") + 1
+                found.append(
+                    f"{path.relative_to(REPO)}:{line}: `ScriptValue('{name}')` "
+                    f"and no script value of that name — it prints a blank, in "
+                    f"`error.log` and everywhere else")
+    return found
+
+
 def unwritten(root: Path) -> list[str]:
     """Variables this mod reads that nothing in it, and not CMF, ever writes.
 
@@ -803,6 +843,7 @@ def main(argv: list[str]) -> int:
             continue
         root = root if root.is_absolute() else REPO / root
         found = (problems(root) + unresolved(root, known) + unwritten(root)
+                 + unresolved_script_values(root)
                  + unregistered_windows(root) + unresolved_interface(root)
                  + flowcontainer_datamodels(root)
                  + scope_mixed_variables(root)
