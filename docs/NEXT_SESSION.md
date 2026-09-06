@@ -46,16 +46,14 @@ rules each step implements are
 3. **Even eviction on «+1»** — **closed 2026-09-06**: ten «+1» on one good
    evicted ten *different* goods, each the most bloated. The victim is the good
    furthest above its share, cheapest building only breaking ties.
-3а. **The press journal, and the changes window ordered by press** — **both
-   confirmed 2026-09-06.** A diff cannot hold chronology, so the mod writes
-   `WTP PRESS …` into `debug.log` at press time and `tools/diag.py` renders
-   «Журнал нажатий»; the window is sorted by press number and carries it. **The
-   window is a diff and it is correct**: after «+1» then «−1» on one good neither
-   column holds that good, because the two presses displaced two others — that,
-   and not the reshuffle, is what he read as «фарш». Idle presses are counted and
-   printed now, at his word «отсутствие изменений — тоже изменение».
-4. **Provinces fold in the two plan windows.** Pure interface, cheap run.
-5. **Charters in the editor** — **built 2026-09-06, never run.** A charter is not
+3а. **The press journal** — **confirmed 2026-09-06.** A diff cannot hold
+   chronology, so the mod writes `WTP PRESS …` into `debug.log` at press time and
+   `tools/diag.py` renders «Журнал нажатий». **The changes window is a diff and it
+   is correct**: after «+1» then «−1» on one good neither column holds that good,
+   because the two presses displaced two others.
+4. **Provinces fold in the two plan windows.** Pure interface, cheap run. **This
+   is the next step.**
+5. **Charters in the editor** — **closed 2026-09-06.** A charter is not
    a building: every town of a finished plan holds exactly one, so a press is a
    *move*. «+1» K takes the town where K earns most from a charter that has more
    than its share (strict, then open); «−1» K takes it off its worst town and
@@ -69,7 +67,9 @@ rules each step implements are
    `_edit_place_town_<n>` refuses on a full town, so a bundle bigger than the one
    it replaced lost a building silently. Room is made *before* the bundle is
    planted now, and what still did not fit is `_edit_rshort`
-   ([`PITFALLS.md`](PITFALLS.md)).
+   ([`PITFALLS.md`](PITFALLS.md)). **The changes window is shelved at his own
+   word** — «правок требует много, функциональности несёт мало»; do not touch it
+   until he asks.
 6. **New ground fitted to a finished plan.**
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
@@ -83,7 +83,6 @@ Build's interface. Why, in [`CONVENTIONS.md`](CONVENTIONS.md).
 
 **Instrument before the third theory**, and **state the player cannot see or
 clear is the mod's fault** — [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
-The silent GUI faults: [`pitfalls/interface.md`](pitfalls/interface.md).
 
 ### Answered elsewhere, not here
 
