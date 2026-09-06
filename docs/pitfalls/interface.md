@@ -6,70 +6,38 @@ game, and none of them raises an error you would notice.
 
 Ask for one rather than reading the file: `python3 tools/kb.py <words>`.
 
+**Всё про окно как таковое — рамка, шапка, ширина, регистрация — переехало в
+[`windows.md`](windows.md), одним чек-листом.** Здесь осталось про коробки, ряды,
+датамодели и то, что внутри окна.
 
-**«An expanding child in a sized parent» is about the child, not the parent.**
-The line further down this file says a fixed width beats an expanding one because
-an expanding child inside a parent that has a size of its own comes out at zero.
-That is true and it is about the *child*. A widget that has both an expanding
-policy and a size **of its own** is a different thing and is not fatal: three of
-them are in `bag_wtp_result_window.gui` and `bag_wtp_right_window.gui`, in windows
-that have drawn correctly since the first build. Reaching for that line to explain
-a window that came out empty on 2026-09-04 was a guess, and it did not survive
-the scan that tested it.
+
+**«An expanding child in a sized parent» is about the child, not the parent.** An
+expanding child inside a sized parent comes out at zero; a widget that has both
+an expanding policy **and a size of its own** is a different thing and is not
+fatal — three of them have drawn correctly since the first build. Reaching for
+that line to explain an empty window on 2026-09-04 was a guess and did not
+survive the scan that tested it.
 
 **A `flowcontainer` with a `datamodel` of its own crashes the game.** Silently,
 natively, with nothing in `error.log`, `gui.log` or `debug.log`. It cost four
 builds, five of the owner's runs and four sessions, because each of those
-sessions went looking at what was *inside* the window instead of at the widget
-holding it. The run history settles it on its own:
-
-| build | `flowcontainer` widget | what the game did |
-| --- | --- | --- |
-| `59e1c61` | 0 | окно открылось |
-| `8808561` | 0 | окно открылось |
-| `c14aa0f` | **1** | never loaded — the next build was stacked on it |
-| `cc6064d` | **1** | краш при открытии, дважды |
-| `feded5f` | **1** | краш при открытии, с тумблером и без |
-| `92a8af4` | **1**, with 47 written-out children | **краш на загрузке** |
-| `a55e14b` | **1** | краш при открытии |
-
-Zero for zero, one for one. **The variable map, the flag key, the `ScriptValue`
+sessions looked at what was *inside* the window instead of at the widget holding
+it. **Seven builds settle it zero for zero and one for one**: the three without
+the widget opened, the four with it crashed — one of them on loading, with 47
+written-out children instead of a datamodel. **The variable map, the flag key, the `ScriptValue`
 in a localization value and the texticon were all innocent** — three of them were
 reverted for nothing, and the fourth build removed every map in the mod and still
 died, harder, because static children are built when the window is created rather
 than when the list fills.
 
 **The game's own files say it plainly, and nobody asked them.** There is no
-`flowcontainer` with a real datamodel anywhere in vanilla. Its two `wrap_count`
-pickers (`agenda_view.gui`, `multiplayer_lobby.gui`) hold literal children, and
-where a flowcontainer does take a `datamodel` it is `DataModelRepeatedItem(N)` — a
-counter, not a list. **A wrapping grid of a list is a `fixedgridbox`**, all 138
-times the game draws one:
-
-    fixedgridbox = {
-        addcolumn = 106        # cell width  + spacing
-        addrow = 34            # cell height + spacing
-        datamodel_wrap = 10    # cells to a row
-        flipdirection = yes    # fill along the row, not down the column
-        datamodel = "[...]"
-        item = { ... }
-    }
-
-**`check_script.py` refuses the pairing now** — a `flowcontainer` whose own block
-carries a datamodel that is not `DataModelRepeatedItem`. A flowcontainer of
-literal children is fine and stays fine.
-
-**And the `fixedgridbox` that replaced it laid the cells out wrong on its first
-load**: some past the window's right edge, some drawn underneath each other.
-`addcolumn`/`addrow` did not behave as either a pitch or an item size at
-104×32 with `datamodel_wrap = 10`. **So the picker does not wrap at all now.**
-The rows are cut in script — `bag_wtp_edit_fill_pool` deals the goods into
-`_edit_pool1..5`, ten each — and the window draws five `hbox` datamodels, which
-is the one horizontal list this mod has drawn correctly since its first build
-(every location's goods in the plan window is exactly that shape). **Where a
-layout can be decided in script, decide it in script**: an `hbox` with a
-datamodel has never once come out wrong here, and both widgets that would have
-saved the five lists failed on their first load.
+`flowcontainer` with a real datamodel anywhere in vanilla; a wrapping grid of a
+list is a `fixedgridbox`, all 138 times the game draws one. **`check_script.py`
+refuses the pairing now.** And **the `fixedgridbox` that replaced it laid the
+cells out wrong on its first load** — some past the window's edge, some drawn
+underneath each other — so **the picker does not wrap at all**: the rows are cut
+in the generator and the window draws five of them. **Where a layout can be
+decided in script, decide it in script.**
 
 **A variable read on the wrong scope is a condition that is quietly false, for
 ever.** The plan editor's `_edit_good` was written with `set_variable` in a
@@ -118,31 +86,23 @@ inside a localization value, both, because a map read only from localization
 would be missed by looking in the `.gui` alone.
 
 **A window that says «a rule refused it, or there was nowhere» has said
-nothing.** Those are two different answers and the reader takes the first. The
-plan editor told him a rule had refused a «+1» on iron; iron can be made in four
-locations of Westphalia and stood in all four, so the true answer was the second.
-An «or» in a failure message is a failure message that has not been written yet —
-count the thing that decides, and say which.
+nothing.** Those are two answers and the reader takes the first. An «or» in a
+failure message is a message that has not been written yet — count the thing that
+decides, and say which.
 
 **One good to a row with its name beside it is half a window.** 35 goods came to
-35 rows and he could not use it. A `flowcontainer` with `wrap_count` is vanilla's
-own wrapping row (`agenda_view.gui`), and the icon's tooltip already carries the
-name, so the cell is «−1, icon, +1» and nothing else.
+35 rows and he could not use it; the icon's tooltip already carries the name, so
+the cell is «−1, icon, +1» and nothing else.
 
 **A control you have to discover by clicking is a control that is not there.**
-The plan editor's first working build showed the goods as bare icons; clicking
-one added a row elsewhere, and «−1» and «+1» appeared on that row. He opened the
-window and reported there was no way to edit anything — «там только их иконки и
-ничего больше, что могло бы дать мне инструмент влияния, никаких кнопочек +1 или
--1» — which was true of everything he could see. The buttons went into the picker
-rows themselves and the second list was deleted.
+The editor's first working build showed bare icons; clicking one made «−1» and
+«+1» appear on a row elsewhere, and he reported there was no way to edit anything
+— true of everything he could see. The buttons went into the cells themselves.
 
 **And when a press does nothing, say whether it arrived.** A button that never
-reaches its effect and a rule that refuses look identical on screen. The editor
-keeps `_edit_reached` beside `_edit_done` for exactly that: the label reads
-«кнопка не донесла товар» when the scope never came through, and «правило не
-дало» only when it did. Both of this window's earlier failures were diagnosed as
-the wrong one of those.
+reaches its effect and a rule that refuses look identical on screen; the editor
+keeps `_edit_reached` beside `_edit_done` so the label can tell them apart. Both
+of this window's earlier failures were diagnosed as the wrong one.
 
 **`tools/check_script.py` resolves every name a window says** — a `text` or
 `tooltip` key against the mod's own localization, a `Custom()` against
@@ -275,46 +235,20 @@ with a size of its own, size the children too.
 
 ---
 
+**Ячейка, написанная под номер, держит своё место даже невидимой.** Тринадцать
+грамот в окне при девяти доступных вставали рваными столбцами: `ignoreinvisible`
+убирает ребёнка из раскладки, но ряд из пяти ячеек, где видимы вторая и пятая,
+всё равно ряд с дырами. Его слова, 2026-09-06: «мод должен сначала узнать какие
+грамоты доступны, а потом загружать доступные в окна». **Ячейку писать под
+*место*, а не под сущность**: `_rslot<p>` говорит, что на месте p, заполняется
+подряд, и дыр не бывает вовсе. Имя, счётчик и кнопки попадают в свою сущность
+через диспетчер.
+
 ## Окно, коробка и её содержимое
 
-Расследование целиком, с числами и таблицей размеров, —
-[`../archive/wtp_window_width.md`](../archive/wtp_window_width.md). Правила,
-которые из него остались:
-
-- **Коробка окна — цифра, набранная руками, а содержимое растёт.** Когда строка
-  шире коробки, `allow_outside` выпускает её наружу, и по размеру остаются
-  только фон, шапка и крестик. На экране это читается как «плашка не
-  растягивается»: она не отстаёт, она единственная стоит правильно.
-- **`allow_outside` снимать нельзя.** Крестик стоит `parentanchor = right` с
-  `position = { -5 5 }` при размере 40×40 и торчит за рамку намеренно — ровно
-  так же его ставит игра в `lateralview_topbuttons`.
-- **Ширину мерить, а не прикидывать**, и `check_script.py` →
-  `overflowing_windows` делает это на каждой сборке: сумма ширин детей `hbox` со
-  `spacing` против коробки, плюс сверка числа на окне с числом на его фоне.
-  **Тип, нарисованный внутри окна, разрешается к своей ширине** — и считается
-  строкой везде, где нарисован, а не только внутри `hbox`.
-- **Проверка, которая не может сработать, хуже отсутствующей.** Две её версии
-  молчали: одна мерила ширину до первой `{`, а `size = { 128 34 }` открывает
-  скобку сам; вторая не видела типов из чужого файла. Обе половины проверены на
-  подломленном файле — и любую новую надо проверять так же.
-- **Скрытая ячейка ломает столбики, и объявленный `size` на `hbox` её не
-  держит.** `ignoreinvisible = yes` с `visible` на ячейке даёт рваные строки.
-  Упаковать их нельзя (нужен datamodel, а `flowcontainer` с ним роняет игру и
-  `fixedgridbox` рисует ячейки друг на друге) — значит выравнивать: `visible`
-  переезжает на органы ячейки, а **сама ячейка становится `widget` с размером, и
-  только внутри него `hbox`**. Иначе, когда все органы скрыты, hbox схлопывается
-  в ноль вместе со своим объявленным размером, и строка снова рваная — **это
-  ровно то, что случилось 2026-09-05**, и правило про «fixed positions inside a
-  plain `widget`» уже стояло абзацем выше в этом же файле. **Второй раз за
-  сессию правило было записано и не применено**; первым был `§` в локализации.
-  Оба раза стоило прогона.
-- **Значок — это текстура, а не символ.** `✔` пришёл пустым квадратом, но игра
-  рисует галочку прекрасно: `checkbutton_round_alt` (`shared/buttons.gui:1973`)
-  берёт оба состояния из `checkbox_round.dds`, а контекстное меню игры —
-  из `flats/accept.dds`. **Вывод «в игре такого нет» был неверным**, и как
-  проверять правильно — [`localization.md`](localization.md), там же про `#Y`
-  против `§Y`.
-- **Имена виджетов `check_script.py` не разрешает, и пока не может**: в
-  `reference/` нет полного набора типов игры — `button_regular` работает и
-  используется 114 раз, а объявления его в дереве нет. До тех пор имя виджета
-  сверяется руками по `reference/game/in_game/gui/`.
+**Коробка окна — цифра, набранная руками, а содержимое растёт**, и `allow_outside`
+выпускает наружу то, что не влезло, — на экране это читается как «плашка не
+растягивается». **Ширину мерить, а не прикидывать**: `check_script.py` →
+`overflowing_windows` делает это на каждой сборке. Правила целиком, с числами:
+[`../archive/wtp_window_rules.md`](../archive/wtp_window_rules.md), расследование —
+[`../archive/wtp_window_width.md`](../archive/wtp_window_width.md).

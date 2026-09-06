@@ -245,19 +245,25 @@ DIAG_ROWS = 25
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
 # reach the item a walk is standing on** -- measured 2026-09-02, `THIS.MakeScope`
 # fails and the bracket is echoed literally -- so every number is parked in one of
-# these first and printed from there. Sixteen because the widest line, a good's,
-# has sixteen numbers on it.
-DIAG_SCRATCH = 16
+# these first and printed from there. **Seventeen because the widest line, a
+# good's, has seventeen numbers on it** -- and a line that parks past this number
+# prints a blank, because the script value it reads through is not generated.
+# Nothing catches that: `read(17)` against sixteen slots came within one build of
+# shipping on 2026-09-06.
+DIAG_SCRATCH = 17
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
 CONTINENTS = ("europe", "asia", "africa", "america", "oceania")
 
 # One tab per job. A CMM tab is just a `tab_id` on the settings under it, so this
-# costs nothing but the three localization keys -- and the first build had five
-# groups stacked on one tab, which meant scrolling past the goods to reach the
-# answer.
-TAB_GOODS = "goods"
+# costs nothing but the localization keys -- and the first build had five groups
+# stacked on one tab, which meant scrolling past the goods to reach the answer.
+#
+# **«Товар» is gone, 2026-09-06.** Its four lists were the only way to choose a
+# good or a right, and both are chosen in the ranking window now; what is left
+# on the mod page is «Земля», three «open» buttons under «Расчёты» and the
+# technical tab. `docs/investigations/wtp_menu_rebuild.md`.
 TAB_ZONE = "zone"
 TAB_PLAN = "plan"
 
@@ -780,54 +786,14 @@ def triggers_file(rows, split, game) -> str:
 """)
     out.append("\t}\n}\n")
 
-    # "Only where it can be built today", per good. `can_build_building` is the
-    # documented trigger and takes a literal building type, so the alternative --
-    # walking `any_building_type` and asking what it produces -- would have needed
-    # a trigger that does not exist.
+    # **«Только там, где здание может стоять» is gone, 2026-09-06, and its
+    # triggers with it.** It was a tick on the mod page, then a circle in the
+    # ranking window, and he threw it out with three reasons at once: «её
+    # название не даёт смысл того, что она действительно делает», it did not
+    # work, and «она вообще не нужна». What he wanted in its place is «Выбрать
+    # мою землю», which is a button and needs none of this. `_stands_<building>`
+    # stays -- the scorer asks it per method, which is the honest place for it.
     order = [good for kind in ("raw", "made") for good in split[kind]]
-    by_good: dict[str, list[str]] = {}
-    for method in rows:
-        by_good.setdefault(method.produced, [])
-        if method.building not in by_good[method.produced]:
-            by_good[method.produced].append(method.building)
-
-    out.append(f"""
-# **`trigger_if`, not `if`.** A trigger has its own conditional: `if` is an
-# effect and `else_if` is nothing at all, which the game says once per line at
-# load -- `Unknown trigger type: else_if` -- and the whole of this then came
-# back true, so "only where it can be built today" filtered nothing whatever it
-# was set to, for as long as the tick has existed.
-#
-# Scope: location
-{MOD_ID}_can_build_something = {{
-""")
-    first = True
-    for index, right in enumerate(output_rights(rows, game), start=1):
-        keyword = "trigger_if" if first else "trigger_else_if"
-        first = False
-        inner = " ".join(f"{MOD_ID}_can_build_{order.index(g) + 1} = yes"
-                         for g in sorted(right.output) if g in order)
-        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_right_index = {index} }} "
-                   f"OR = {{ {inner} }} }}\n")
-    for index, good in enumerate(order, start=1):
-        keyword = "trigger_if" if first else "trigger_else_if"
-        first = False
-        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
-                   f"{MOD_ID}_can_build_{index} = yes }}\n")
-    # **A `trigger_if` chain has to end in a `trigger_else`.** Without one the
-    # game logs `PostValidate of trigger 'trigger_else_if' returned false` at the
-    # last link and the whole trigger is void -- which is the twenty-third run's
-    # one real line in `error.log`. Nothing ticked means nothing to build.
-    out.append("\ttrigger_else = { always = no }\n")
-    out.append("}\n")
-
-    for index, good in enumerate(order, start=1):
-        out.append(f"\n# {good}\n# Scope: location\n{MOD_ID}_can_build_{index} = {{\n\tOR = {{\n")
-        # The same trigger the scoring uses, so the buildable tick and the plan
-        # cannot disagree about a location the player has ticked into a town.
-        for building in sorted(by_good.get(good, [])):
-            out.append(f"\t\t{MOD_ID}_stands_{building} = yes\n")
-        out.append("\t}\n}\n")
 
     # Which methods this country may actually run.
     #
@@ -938,140 +904,81 @@ def triggers_file(rows, split, game) -> str:
 
 
 def picker_file(split: dict[str, list[str]], rows: list[eu5data.Method]) -> str:
-    """The good picker: two lists, and only one tick standing across both."""
-    out = [HEADER, """#
-# Two lists rather than a dropdown, and not by preference: CMF handles a dropdown
-# option click through `CMM_MarkDropdownSelection_<index>` and defines exactly
-# twenty of them, so the twenty-first option onwards renders, scrolls, and
-# silently keeps the old selection.
-#
-# One answer across both lists. Ticking a second row anywhere leaves two ticks
-# standing for the instant between the click and the callback; the tick that is
-# not the stored answer wins and everything else is forced off, so the tick
-# visibly moves to one row and stays there.
-#
-# The `root`s below are safe and are the only ones left in this mod: everything
-# here is reached from a CMM callback, where `root` is the country. Nothing on
-# this page is reachable from a generic action, which is where `root` is not --
-# see the header of `{MOD_ID}_generated_score.txt`.
-"""]
+    """The good the search answers for, set straight from the window's own cell.
 
-    order = [(kind, good) for kind in ("raw", "made") for good in split[kind]]
-    index_of = {good: i for i, (_, good) in enumerate(order, start=1)}
-    by_good_index: dict[str, list[int]] = {}
-    for i, method in enumerate(rows, start=1):
-        by_good_index.setdefault(method.produced, []).append(i)
+    **This was 47 branches of tick-parsing and it is four lines a good now.**
+    Until 2026-09-06 the good was chosen on the mod's settings page, in two CMM
+    lists, and everything here existed to turn a tick into one number:
+    `cmm_build_list_bool_list` handed back the ticked goods as scopes,
+    `if = { limit = { this = goods:clay } }` turned a scope into an index, and
+    a second pass forced every other row off. His words, 2026-09-06: «просто
+    добавишь в окно расчёта иконки товаров и прав как ты это сделал в редакторе
+    и поставишь каждому кружочек для активации нужного, далее кнопку искать
+    локации, всё» -- and he was right, because the whole machine only ever
+    produced `bag_wtp_good_index`, which a window can write itself.
 
-    for kind in ("raw", "made"):
-        goods = split[kind]
-        out.append(f"""
+    So a cell in `bag_wtp_pick_cells.gui` calls the effect for its own number.
+    **The selection is also a flag per good**, `_sel<n>`, because that is what
+    the cell's circle reads: a checkbutton's `down` takes a boolean, and
+    `.IsSet` on a variable is the one this mod has already proved on screen.
+    """
+    order = goods_order(split)
+    out = [HEADER, f"""#
+# One good at a time, and a right is the other answer to the same question --
+# so setting either clears the other. `{MOD_ID}_good_index` is what the ranking
+# pass reads; `_sel<n>` is what the circle in the window draws itself from.
+#
+# The `root`s that used to be here are gone with the CMM callbacks that made
+# them safe: every effect below is called from a scripted GUI in the country's
+# own scope.
+
+# Every good's circle off. One press writes one on again.
 # Scope: country
-{MOD_ID}_register_good_{kind}_list = {{
-\tcmm_register_settings_list = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = good_{kind}
-\t\ttab_id = {TAB_GOODS}
-\t\titem_count = {len(goods)}
-\t\tis_ordered = 0
-\t}}
+{MOD_ID}_clear_good_sel = {{
+"""]
+    for i in range(1, len(order) + 1):
+        out.append(f"\tremove_global_variable = {MOD_ID}_sel{i}\n")
+    out.append("}\n")
 
+    # **The circle and the stored answer, made to agree.** `_good_index` outlives
+    # a save and `_sel<n>` was only invented on 2026-09-06, so the first load
+    # after this build would otherwise show a chosen good with no circle on it --
+    # and state the player can neither see nor clear is this mod's own fault
+    # twice over (`docs/pitfalls/diagnosis.md`). Run from the registration hook,
+    # which fires on load; a press writes both anyway.
+    out.append(f"""
+# Scope: country
+{MOD_ID}_sync_sel = {{
+\t{MOD_ID}_clear_good_sel = yes
+\t{MOD_ID}_clear_right_sel = yes
 """)
-        for row, good in enumerate(goods, start=1):
-            out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                       f"setting_id = good_{kind} item = {row} value = goods:{good} }}\n")
-        out.append("\n")
-        for row, good in enumerate(goods, start=1):
-            out.append(f"\tset_variable = {{ name = {MOD_ID}__good_{kind}_i{row}_name "
-                       f"value = flag:{MOD_ID}_good_{good} }}\n")
+    for i in range(1, len(order) + 1):
+        keyword = "if" if i == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_good_index = {i} }} "
+                   f"set_global_variable = {{ name = {MOD_ID}_sel{i} value = 1 }} }}\n")
+    out.append(f"\t{MOD_ID}_sync_right_sel = yes\n}}\n")
+
+    for i, good in enumerate(order, start=1):
         out.append(f"""
-\tcmm_register_list_bool_field = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = good_{kind}
-\t\tfield_id = pick
-\t\tdefault_value = 0
-\t}}
+# {good}
+# Scope: country
+{MOD_ID}_set_good_{i} = {{
+\t{MOD_ID}_clear_good_sel = yes
+\t{MOD_ID}_clear_right_sel = yes
+\tset_variable = {{ name = {MOD_ID}_good_index value = {i} }}
+\tset_global_variable = {{ name = {MOD_ID}_good_index value = {i} }}
+\tset_global_variable = {{ name = {MOD_ID}_good value = goods:{good} }}
+\tset_global_variable = {{ name = {MOD_ID}_sel{i} value = 1 }}
+
+\t# A right and a good are two answers to one question.
+\tset_variable = {{ name = {MOD_ID}_right_index value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_right_index value = 0 }}
+
+\t# The table on screen answered for the good before this one. Clearing it is
+\t# the honest state: «Искать локации» is what fills it again.
+\t{MOD_ID}_clear_rows = yes
 }}
 """)
-
-    out.append(f"""
-# Read both lists and settle on one good.
-# Scope: country
-{MOD_ID}_read_good = {{
-\tset_variable = {{ name = {MOD_ID}_good_new value = 0 }}
-\tset_variable = {{ name = {MOD_ID}_tick_count value = 0 }}
-""")
-    for kind in ("raw", "made"):
-        out.append(f"""\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__good_{kind} field_slot = 1 list_name = {MOD_ID}_good_{kind}_ticks }}
-\tevery_in_list = {{
-\t\tvariable = {MOD_ID}_good_{kind}_ticks
-\t\troot = {{ change_variable = {{ name = {MOD_ID}_tick_count add = 1 }} }}
-""")
-        for good in split[kind]:
-            index = index_of[good]
-            out.append(f"\t\tif = {{ limit = {{ this = goods:{good} }} root = {{ "
-                       f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_good_index = {index} }} }} "
-                       f"set_variable = {{ name = {MOD_ID}_good_new value = {index} }} }} }} }}\n")
-        out.append("\t}\n")
-    out.append(f"""
-\t# A tick that is not the stored answer is the new answer. Nothing new ticked
-\t# means the player unticked the old one, and the answer goes with it.
-\tif = {{
-\t\tlimit = {{ var:{MOD_ID}_good_new > 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_good_index value = var:{MOD_ID}_good_new }}
-\t}}
-\telse_if = {{
-\t\tlimit = {{ var:{MOD_ID}_tick_count = 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
-\t}}
-
-\t# The same number as a global. `{MOD_ID}_can_build_something` is asked in a
-\t# location's own scope, where a country variable is not reachable, and it was
-\t# reading a global nothing ever wrote -- so every branch missed, the trigger
-\t# came back true, and "only where it can be built today" filtered nothing.
-\tset_global_variable = {{ name = {MOD_ID}_good_index value = var:{MOD_ID}_good_index }}
-
-""")
-    for good, index in ((g, index_of[g]) for _, g in order):
-        keyword = "if" if index == 1 else "else_if"
-        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_good_index = {index} }} "
-                   f"set_global_variable = {{ name = {MOD_ID}_good value = goods:{good} }} }}\n")
-    out.append("}\n")
-
-    out.append(f"""
-# Force every row but the answer off.
-# Scope: country
-{MOD_ID}_only_one_good = {{
-""")
-    for kind in ("raw", "made"):
-        for row, good in enumerate(split[kind], start=1):
-            out.append(f"""\tif = {{
-\t\tlimit = {{ NOT = {{ var:{MOD_ID}_good_index = {index_of[good]} }} }}
-\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = good_{kind} field_id = pick item = {row} value = 0 }}
-\t}}
-""")
-    out.append("}\n")
-
-    out.append(f"""
-# Every good stays on the list, whatever age this country is in.
-#
-# Until the eighteenth run a good whose every recipe was still behind an advance
-# was hidden here, and the owner went looking for cannons and firearms in the
-# second age and found neither. Hiding was the right answer when a row could
-# only say what you can build today; it is the wrong one now that a row also
-# says what the ground gives at the end of the game, which is the same whatever
-# age you are in -- and it was always the wrong one for a good another mod adds
-# a building for.
-#
-# What is still not offered is a good no building makes at all: `goods_split`
-# only ever lists what some method produces, so a pure RGO material is absent
-# because there is nothing to choose, not because it is hidden.
-# Scope: country
-{MOD_ID}_refresh_goods = {{
-""")
-    for kind in ("raw", "made"):
-        for row, _ in enumerate(split[kind], start=1):
-            out.append(f"\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}\n")
-    out.append("}\n")
     return "".join(out)
 
 
@@ -1448,6 +1355,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # -- the «магнит» the feature is named for.
 # Scope: location
 {MOD_ID}_plan_prov_order = {{ value = var:{MOD_ID}_plan_prov_load }}
+# И как встают области: по сумме домиков во всех своих провинциях. Провинции
+# упорядочены внутри области, а не поперёк неё — «я не хочу, чтобы провинции
+# разных областей были в перемешку», 2026-09-06.
+# Scope: location
+{MOD_ID}_plan_area_order = {{ value = var:{MOD_ID}_plan_area_load }}
+# И тот же порядок наоборот, чтобы свёрнутый список строился по возрастанию:
+# `ordered_in_global_list` читает от большего к меньшему.
+{MOD_ID}_plan_pseq_order = {{ value = 9999 subtract = var:{MOD_ID}_plan_prank }}
 
 # And how a location's row is ordered: by its province's place, so a province's
 # locations stay together, with its towns ahead of its villages. Negated because
@@ -1536,6 +1451,21 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # may not be taken out is exactly such a case.
 # Scope: country
 {MOD_ID}_show_edit_moved = {{ value = global_var:{MOD_ID}_edit_moved }}
+# **Нажатие, которое ничего не сделало, тоже нажатие.** Его слова,
+# 2026-09-06: «отсутствие изменений -- тоже изменение… журнал должен
+# регистрировать такие клики». В списке изменений их видно только дырой в
+# нумерации -- она начинается с 3, если первые два нажатия никуда не встали,
+# -- и дыра без подписи читается как потерянная строка. Счётчик самих нажатий
+# уже есть ниже, `_show_edit_presses`.
+{MOD_ID}_show_edit_idle = {{ value = global_var:{MOD_ID}_edit_idle }}
+# **The reshuffle's own two numbers**, and they are on screen because the pass
+# is invisible otherwise: it moves buildings the player did not ask about, and
+# «traded nothing», «traded and it was worth nothing» and «never ran» are three
+# different answers that look identical on the map.
+# Scope: country
+{MOD_ID}_show_rs_swaps = {{ value = global_var:{MOD_ID}_rs_swaps }}
+# Scope: country
+{MOD_ID}_show_rs_gain = {{ value = global_var:{MOD_ID}_rs_gain }}
 # Scope: country
 {MOD_ID}_show_edit_saved = {{ value = global_var:{MOD_ID}_save_n }}
 # Scope: country
@@ -1596,6 +1526,10 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # What the plan pass counted, each of them printed on the button that ran it.
 # The first zero among them is the diagnosis, which is the only debugging a
 # player can be asked for: an effect that merely does nothing logs nothing.
+# **Ключ, по которому «Показать изменения» раскладывает локации** -- номер
+# нажатия, вывернутый наизнанку (`order_by` читает от большего к меньшему).
+{MOD_ID}_chg_order = {{ value = var:{MOD_ID}_chg_rank }}
+
 {MOD_ID}_show_plan_scored = {{ value = global_var:{MOD_ID}_plan_scored }}
 {MOD_ID}_show_plan_placed = {{ value = global_var:{MOD_ID}_plan_placed }}
 {MOD_ID}_show_plan_found = {{ value = global_var:{MOD_ID}_plan_found }}
@@ -1607,6 +1541,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The window draws one page of {PLAN_ROWS} at a time; these four are what the page
 # bar above the table prints, so «показано 150» is never read as the size of the
 # plan again.
+# Сколько провинций план застроил (а `_plan_provn` — сколько их на выбранной
+# земле вообще) и сколько из них поместилось в свёрнутый список.
+{MOD_ID}_show_plan_provfill = {{ value = global_var:{MOD_ID}_plan_provfill }}
+{MOD_ID}_show_plan_provshown = {{ value = global_var:{MOD_ID}_plan_provshown }}
+# Scope: location
+{MOD_ID}_show_prov_locn = {{ value = var:{MOD_ID}_plan_prov_locn }}
+{MOD_ID}_show_prov_load = {{ value = var:{MOD_ID}_plan_prov_load }}
+{MOD_ID}_show_prov_rank = {{ value = var:{MOD_ID}_plan_prank }}
 {MOD_ID}_show_plan_page = {{ value = global_var:{MOD_ID}_plan_page }}
 {MOD_ID}_show_plan_pages = {{ value = global_var:{MOD_ID}_plan_pages }}
 {MOD_ID}_show_plan_from = {{ value = global_var:{MOD_ID}_plan_from }}
@@ -2149,6 +2091,58 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t\tlocalization_key = {MOD_ID}_plan_no_right
 \t}}
 }}
+
+# **Какая грамота сидит на месте p, словами и числом.**
+#
+# Ячейка редактора написана под *место*, а не под грамоту: места заполняются
+# подряд, так что дыр в ряду не бывает вовсе. Номер в число и в имя переводит вот
+# этот диспетчер -- по одному на каждое место, тринадцать веток в каждом. Дорого
+# на вид и даром на деле: обе строки рисуются раз в кадр и читают одну глобалку.
+""")
+    for p_slot in range(1, len(rights) + 1):
+        for kind, key in (("name", f"{MOD_ID}_right_%s"),
+                          ("count", f"{MOD_ID}_edit_rcount_%s")):
+            out.append(f"""
+# Scope: country
+{MOD_ID}_rslot_{kind}_{p_slot} = {{
+\ttype = country
+""")
+            for k, right in enumerate(rights, start=1):
+                target = key % (right.key if kind == "name" else k)
+                out.append(f"""\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_rslot{p_slot} = {k} }}
+\t\tlocalization_key = {target}
+\t}}
+""")
+            out.append(f"""\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_rslot_empty
+\t}}
+}}
+""")
+    out.append(f"""
+# **The charter this town held in the *saved* plan.** «Показать изменения» lists
+# what left and what arrived, and until 2026-09-06 a charter moving between towns
+# showed only as its buildings: «тогда уж там должна показываться вся связка —
+# право, товары ушли — право, товары встали». `_save_right` is written by the
+# same effect that writes `_save_goods`, so the two halves of a row are read the
+# same way.
+#
+# Scope: location
+{MOD_ID}_save_right_label = {{
+\ttype = location
+""")
+    for k, right in enumerate(rights, start=1):
+        out.append(f"""\ttext = {{
+\t\ttrigger = {{ has_variable = {MOD_ID}_save_right var:{MOD_ID}_save_right = {k} }}
+\t\tlocalization_key = {MOD_ID}_right_{right.key}
+\t}}
+""")
+    out.append(f"""\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_plan_no_right
+\t}}
+}}
 """)
     # **The editor's own two branching labels.** A plain localization key reads a
     # number through a script value -- `{MOD_ID}_plan_pass_summary` is nothing but
@@ -2171,6 +2165,18 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t}}
 }}
 """)
+    rfrom_branches = "".join(
+        f"\ttext = {{\n"
+        f"\t\ttrigger = {{ global_var:{MOD_ID}_edit_rfrom = {k} }}\n"
+        f"\t\tlocalization_key = {MOD_ID}_right_{right.key}\n"
+        f"\t}}\n"
+        for k, right in enumerate(rights, start=1))
+    rto_branches = "".join(
+        f"\ttext = {{\n"
+        f"\t\ttrigger = {{ global_var:{MOD_ID}_edit_rto = {k} }}\n"
+        f"\t\tlocalization_key = {MOD_ID}_right_{right.key}\n"
+        f"\t}}\n"
+        for k, right in enumerate(rights, start=1))
     out.append(f"""
 # Whether the last «+1» or «−1» did anything. **An effect that merely does
 # nothing logs nothing at all**, and both of them have rules that refuse: a good
@@ -2189,6 +2195,28 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # success. It cannot happen now -- the victim goes back -- but the window must
 # still say that the press did nothing, and why.
 # Scope: country
+# The charter `_edit_rfrom` names, in the game's own wording. A number
+# reaches no name in localization, so this is the dispatch that does it.
+# Scope: country
+{MOD_ID}_edit_rfrom_name = {{
+	type = country
+{rfrom_branches}	text = {{
+		fallback = yes
+		localization_key = {MOD_ID}_edit_right_unnamed
+	}}
+}}
+
+# The charter `_edit_rto` names, in the game's own wording. A number
+# reaches no name in localization, so this is the dispatch that does it.
+# Scope: country
+{MOD_ID}_edit_rto_name = {{
+	type = country
+{rto_branches}	text = {{
+		fallback = yes
+		localization_key = {MOD_ID}_edit_right_unnamed
+	}}
+}}
+
 {MOD_ID}_edit_last_label = {{
 \ttype = country
 \ttext = {{
@@ -2224,6 +2252,26 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_op = 2 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_drop_refill
 \t}}
+\t# **A charter press is a move and its line has to say both ends.**
+\t# Which charter left the town and which arrived are numbers, and a
+\t# number has no name -- `_edit_rfrom_name` and `_edit_rto_name` are
+\t# the thirteen-branch dispatches that turn them into the game's own
+\t# wording.
+\t# **Before both «сделано» branches**: the charter did move, and the
+\t# town could not give up enough rooms for its bundle. Half a bundle is
+\t# a state the player has to be told about, not one to read off a map.
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_rshort > 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_right_short
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_op = 3 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_right_add
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_op = 4 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_right_drop
+\t}}
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_done
@@ -2231,6 +2279,21 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_reached = 0 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_lost
+\t}}
+\t# **Before the goods' own refusal, because op 4 fails for its own
+\t# reason**: the town's charter could go, and no other charter this
+\t# country may grant can stand there.
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 4 global_var:{MOD_ID}_edit_fail = 1 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_right_noheir
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 3 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_right_notown
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 4 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_right_none
 \t}}
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_fail = 1 }}
@@ -2305,7 +2368,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_plan_run = {{
 \tsave_scope_as = {MOD_ID}_country
-\t{MOD_ID}_sync = yes
+\t# **Nothing is re-read from CMM here any more.** The caps, the rights tick and
+\t# «на конец» were settings on the mod page and had to be copied into globals
+\t# at the top of every run; they are controls in the plan\'s own window now and
+\t# write their globals themselves.
 \t{MOD_ID}_collect_candidates = yes
 \t{MOD_ID}_rebuild_browse = yes
 \t{MOD_ID}_plan_prepare = yes
@@ -2343,13 +2409,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_variable = {MOD_ID}_plan_right
 \t\tremove_variable = {MOD_ID}_plan_town_row
 \t\tremove_variable = {MOD_ID}_plan_prov_load
+\t\tremove_variable = {MOD_ID}_plan_prov_locn
+\t\tremove_variable = {MOD_ID}_plan_area_load
+\t\tremove_variable = {MOD_ID}_plan_pexp
 \t\tremove_variable = {MOD_ID}_plan_seen
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
 \t}}
 \tclear_global_variable_list = {MOD_ID}_plan_touched
 \tclear_global_variable_list = {MOD_ID}_plan_prov_locs
+\tclear_global_variable_list = {MOD_ID}_plan_area_locs
 \tclear_global_variable_list = {MOD_ID}_plan_ranked
+\tclear_global_variable_list = {MOD_ID}_plan_provs
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tset_global_variable = {{ name = {MOD_ID}_plan_placed value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_fed value = 0 }}
@@ -3293,21 +3364,83 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t}}
 \t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_plan_prov_load value = global_var:{MOD_ID}_plan_count }}
-\t}}
-\tset_global_variable = {{ name = {MOD_ID}_plan_prov_n value = 0 }}
-\tordered_in_global_list = {{
-\t\tvariable = {MOD_ID}_plan_prov_locs
-\t\torder_by = {MOD_ID}_plan_prov_order
-\t\tmax = {PLAN_PROVS}
-\t\tcheck_range_bounds = no
-\t\tchange_global_variable = {{ name = {MOD_ID}_plan_prov_n add = 1 }}
+\t\t# **And how many of its locations the plan uses**, for the province row
+\t\t# of the folded list. Counted in the walk that is already standing in
+\t\t# the province rather than in a second one.
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_count value = 0 }}
 \t\tprovince_definition = {{
 \t\t\tevery_location_in_province_definition = {{
-\t\t\t\tlimit = {{ has_variable = {MOD_ID}_plan_prank }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_prank value = global_var:{MOD_ID}_plan_prov_n }}
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_load var:{MOD_ID}_load > 0 }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_count add = 1 }}
 \t\t\t}}
 \t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_plan_prov_locn value = global_var:{MOD_ID}_plan_count }}
 \t}}
+	# **Области сперва, провинции внутри области — и это одно место, а не два.**
+	# Его слова 2026-09-06: «провинции должны идти по списку внутри своих
+	# областей… я не хочу, чтобы провинции разных областей были в перемешку».
+	# Порядок один на оба вида списка: `_plan_prank` несёт его целиком, и плоский
+	# список читает то же число, что свёрнутый.
+	#
+	# **Без упаковки двух ключей в одно число.** Область и загрузка провинции
+	# влезли бы в одно `order_by`, но предел фиксированной точки движка отсюда
+	# неизвестен — предупреждение об этом уже стоит при `_plan_order`. Вместо
+	# этого обход внутри обхода: области по своей загрузке, внутри каждой
+	# провинции по своей, и номер выдаётся по ходу.
+	set_global_variable = {{ name = {MOD_ID}_plan_area_load value = 0 }}
+	clear_global_variable_list = {MOD_ID}_plan_area_locs
+	every_in_global_list = {{
+		variable = {MOD_ID}_plan_prov_locs
+		save_scope_as = {MOD_ID}_plan_prov_at
+		# **«Эту область уже видели?» -- через глобалку, потому что внутренний обход
+		# не может писать в скоуп, из которого его позвали.** Список областей короток
+		# (у него шестнадцать провинций на пять областей), так что квадрат здесь
+		# дешевле любого хитрого способа.
+		set_global_variable = {{ name = {MOD_ID}_plan_aseen value = 0 }}
+		every_in_global_list = {{
+			variable = {MOD_ID}_plan_area_locs
+			limit = {{ area = scope:{MOD_ID}_plan_prov_at.area }}
+			set_global_variable = {{ name = {MOD_ID}_plan_aseen value = 1 }}
+		}}
+		if = {{
+			limit = {{ global_var:{MOD_ID}_plan_aseen = 0 }}
+			add_to_global_variable_list = {{ name = {MOD_ID}_plan_area_locs target = this }}
+		}}
+	}}
+	# Сколько домиков во всей области -- по этому числу области и встанут.
+	every_in_global_list = {{
+		variable = {MOD_ID}_plan_area_locs
+		save_scope_as = {MOD_ID}_plan_area_at
+		set_global_variable = {{ name = {MOD_ID}_plan_count value = 0 }}
+		every_in_global_list = {{
+			variable = {MOD_ID}_plan_prov_locs
+			limit = {{ area = scope:{MOD_ID}_plan_area_at.area }}
+			change_global_variable = {{ name = {MOD_ID}_plan_count add = var:{MOD_ID}_plan_prov_load }}
+		}}
+		set_variable = {{ name = {MOD_ID}_plan_area_load value = global_var:{MOD_ID}_plan_count }}
+	}}
+	set_global_variable = {{ name = {MOD_ID}_plan_prov_n value = 0 }}
+	ordered_in_global_list = {{
+		variable = {MOD_ID}_plan_area_locs
+		order_by = {MOD_ID}_plan_area_order
+		max = {PLAN_PROVS}
+		check_range_bounds = no
+		save_scope_as = {MOD_ID}_plan_area_at
+		ordered_in_global_list = {{
+			variable = {MOD_ID}_plan_prov_locs
+			limit = {{ area = scope:{MOD_ID}_plan_area_at.area }}
+			order_by = {MOD_ID}_plan_prov_order
+			max = {PLAN_PROVS}
+			check_range_bounds = no
+			change_global_variable = {{ name = {MOD_ID}_plan_prov_n add = 1 }}
+			province_definition = {{
+				every_location_in_province_definition = {{
+					limit = {{ has_variable = {MOD_ID}_plan_prank }}
+					set_variable = {{ name = {MOD_ID}_plan_prank value = global_var:{MOD_ID}_plan_prov_n }}
+				}}
+			}}
+		}}
+	}}
 \t# Counted before the rows are taken and separately from them: the walk below
 \t# stops at {PLAN_RANKED}, and a count that stopped with it would say the plan
 \t# used exactly as many locations as the window can keep, whatever it really
@@ -3411,6 +3544,33 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \telse = {{
 \t\tremove_variable = {MOD_ID}_plan_paged
 \t}}
+	# **The folded list, and it is a second list rather than a second shape for
+	# the first.** A datamodel item sees one scope, so a province row and a
+	# location row cannot be the same row -- and the flat list is what he has
+	# been reading since the plan existed, so it stays untouched and the fold is
+	# a switch beside it.
+	#
+	# One representative location a province (`_plan_prov_locs` already holds
+	# exactly that), ordered by the province's own place, and the province's
+	# locations are drawn under it from `GetProvinceDefinition.GetLocations` --
+	# the same nesting the search window has used since it was built.
+	set_global_variable = {{ name = {MOD_ID}_plan_provfill value = 0 }}
+	set_global_variable = {{ name = {MOD_ID}_plan_provshown value = 0 }}
+	clear_global_variable_list = {MOD_ID}_plan_provs
+	every_in_global_list = {{
+		variable = {MOD_ID}_plan_prov_locs
+		limit = {{ has_variable = {MOD_ID}_plan_prov_locn var:{MOD_ID}_plan_prov_locn > 0 }}
+		change_global_variable = {{ name = {MOD_ID}_plan_provfill add = 1 }}
+	}}
+	ordered_in_global_list = {{
+		variable = {MOD_ID}_plan_prov_locs
+		limit = {{ has_variable = {MOD_ID}_plan_prov_locn var:{MOD_ID}_plan_prov_locn > 0 }}
+		order_by = {MOD_ID}_plan_pseq_order
+		max = {PLAN_ROWS}
+		check_range_bounds = no
+		change_global_variable = {{ name = {MOD_ID}_plan_provshown add = 1 }}
+		add_to_global_variable_list = {{ name = {MOD_ID}_plan_provs target = this }}
+	}}
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_ranked
@@ -3446,6 +3606,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_plan_hide = {{
 \tclear_global_variable_list = {MOD_ID}_plan_results
+\tclear_global_variable_list = {MOD_ID}_plan_provs
 }}
 
 # The same thing the window's own scripted GUI does, reachable from an effect,
@@ -3506,10 +3667,25 @@ CELL_W, CELL_H, CELL_GAP = 127, 28, 14
 EDIT_CELLS_OUT = MOD / "in_game/gui/bag_wtp_edit_cells.gui"
 
 
-def edit_cells_file(order: list[str]) -> str:
+# **The charter cell is bigger than a good's**, and he asked for it after seeing
+# it on screen: «текст городских прав можно попытаться увеличить… было бы неплохо
+# увеличить шрифт и иконки слегка». The icon is a texticon inside the name's own
+# key, so it grows with the font and nothing else has to change.
+# **Пять колонок по три, а не три по пять**, и высота блока — ровно три строки.
+# Его слова 2026-09-06: «инструментарий занимает половину окна… вместо 4 строк они
+# вполне могли бы уместиться в 2 строки по всей ширине». Держава выдаёт девять или
+# десять грамот из тринадцати, невидимая ячейка в колонке места не занимает — так
+# что на его земле пять колонок дают две строки, а на полных тринадцати три.
+EDIT_RIGHT_W = 264
+EDIT_RIGHT_H = 32
+EDIT_RIGHT_ROW = 5
+
+
+def edit_cells_file(order: list[str],
+                    rights: list[eu5data.TownRight]) -> str:
     """Five rows of ten cells: «−1», the good's icon with its count, «+1».
 
-    **Every cell is a static child of a plain `hbox`.** Both widgets that would
+    **All 47, not the ground's 38.** Every cell is a static child of a plain `hbox`. Both widgets that would
     have wrapped one list -- `flowcontainer`, `fixedgridbox` -- failed on their
     first load, one by crashing the game four builds running and one by drawing
     the cells on top of each other. `ignoreinvisible` keeps the goods this ground
@@ -3554,7 +3730,6 @@ def edit_cells_file(order: list[str]) -> str:
 
 			widget = {{
 				size = {{ 28 28 }}
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				button_regular = {{
 					size = {{ 26 26 }}
 					parentanchor = center
@@ -3586,7 +3761,6 @@ def edit_cells_file(order: list[str]) -> str:
 			widget = {{
 				size = {{ 42 28 }}
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				tooltip = "{MOD_ID}_cell_tt"
 				text_single = {{
 					parentanchor = center
@@ -3608,7 +3782,6 @@ def edit_cells_file(order: list[str]) -> str:
 
 			widget = {{
 				size = {{ 28 28 }}
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				button_regular = {{
 					size = {{ 26 26 }}
 					parentanchor = center
@@ -3636,7 +3809,6 @@ def edit_cells_file(order: list[str]) -> str:
 			# glyph, and the state is legible.
 			widget = {{
 				size = {{ 26 28 }}
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				checkbutton_round_alt = {{
 					size = {{ 24 24 }}
 					parentanchor = center
@@ -3666,22 +3838,313 @@ def edit_cells_file(order: list[str]) -> str:
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = {CELL_GAP}
-		# **Said out loud, because the default is not verifiable from here.**
-		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
-		# cell holding its column; the game writes `= no` explicitly five times
-		# of its own accord, so whatever the default is, relying on it was the
-		# guess. A cell this ground cannot use keeps its place either way now.
+		# **Every good is here and every cell is identical**, which is the whole
+		# of what he asked for twice: «точно такое же удобное расположение
+		# товаров как это было реализовано в поиске по 1 товару/праву». Two
+		# builds tried to draw only the goods this ground can make — first
+		# aligned, which left holes scattered through the block, then packed,
+		# which left rows of three beside rows of nine. Both were «страшный набор
+		# столбиков». A full grid has neither, and a good this ground cannot make
+		# is not a lie on screen: «+1» on it walks the ground, finds nowhere, and
+		# says so in the press line (`_edit_last_nowhere`).
+		#
+		# **`ignoreinvisible = no` is what keeps the columns still**: the pads at
+		# the end of the last row are empty widgets, and they have to hold their
+		# width or the short row centres itself somewhere else.
 		ignoreinvisible = no
 {cells}{pad}	}}
 """)
+    # **Места, а не грамоты, и это разница, которую он назвал сам.** 2026-09-06:
+    # «мод должен сначала узнать какие грамоты доступны, а потом загружать
+    # доступные в окна». Ячейка, написанная под номер грамоты, держит своё место в
+    # ряду даже невидимой -- девять грамот из тринадцати вставали рваными
+    # столбцами, и «ювелирное производство» оставалось одно на третьей строке.
+    #
+    # Здесь ячейка написана под **место**: `_rslot<p>` говорит, какая грамота на
+    # нём сидит, а имя, счётчик и обе кнопки попадают в свою грамоту через
+    # диспетчер. Места заполняются подряд, так что дыр не бывает вовсе, и ряд из
+    # пяти заполнен ровно настолько, сколько грамот держава может выдать.
+    for r in range((len(rights) + EDIT_RIGHT_ROW - 1) // EDIT_RIGHT_ROW):
+        first = r * EDIT_RIGHT_ROW + 1
+        last = min((r + 1) * EDIT_RIGHT_ROW, len(rights))
+        cells = ""
+        for p in range(first, last + 1):
+            cells += f"""
+		widget = {{
+			size = {{ {EDIT_RIGHT_W} {EDIT_RIGHT_H} }}
+			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_rslotok{p}').IsSet]"
+			hbox = {{
+				spacing = 1
+
+				widget = {{
+					size = {{ 28 {EDIT_RIGHT_H} }}
+					button_regular = {{
+						size = {{ 26 26 }}
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "{MOD_ID}_edit_right_minus_tt"
+						onclick = "[GetScriptedGui('{MOD_ID}_right_minus_slot_{p}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {{
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "{MOD_ID}_edit_minus"
+						}}
+					}}
+				}}
+
+				widget = {{
+					size = {{ 32 {EDIT_RIGHT_H} }}
+					alwaystransparent = no
+					tooltip = "{MOD_ID}_edit_right_count_tt"
+					text_single = {{
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 18
+						text = "[GetPlayer.Custom('{MOD_ID}_rslot_count_{p}')]"
+					}}
+				}}
+
+				widget = {{
+					size = {{ 28 {EDIT_RIGHT_H} }}
+					button_regular = {{
+						size = {{ 26 26 }}
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "{MOD_ID}_edit_right_plus_tt"
+						onclick = "[GetScriptedGui('{MOD_ID}_right_plus_slot_{p}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {{
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "{MOD_ID}_edit_plus"
+						}}
+					}}
+				}}
+
+				widget = {{
+					size = {{ {EDIT_RIGHT_W - 91} {EDIT_RIGHT_H} }}
+					alwaystransparent = no
+					tooltip = "[GetPlayer.Custom('{MOD_ID}_rslot_name_{p}')]"
+					text_single = {{
+						size = {{ {EDIT_RIGHT_W - 95} {EDIT_RIGHT_H - 2} }}
+						parentanchor = left|vcenter
+						widgetanchor = left|vcenter
+						autoresize = no
+						maximumsize = {{ {EDIT_RIGHT_W - 95} {EDIT_RIGHT_H - 2} }}
+						fontsize = 16
+						fontsize_min = 12
+						align = left|vcenter
+						elide = right
+						text = "[GetPlayer.Custom('{MOD_ID}_rslot_name_{p}')]"
+					}}
+				}}
+			}}
+		}}
+"""
+        # **`ignoreinvisible = no` и добивка до полного ряда.** Места заполняются
+        # подряд, так что пустыми бывают только последние; короткий `hbox` в
+        # центрирующем родителе уезжает, а пустышка держит его на месте.
+        pad = "".join(f"		widget = {{ size = {{ {EDIT_RIGHT_W} {EDIT_RIGHT_H} }} }}\n"
+                      for _ in range(EDIT_RIGHT_ROW - (last - first + 1)))
+        rows.append(f"""
+	# Места {first}..{last}: какая грамота на каком, решает `_rslot<p>`.
+	#
+	# **Ряд гаснет целиком по своему первому месту.** Места заполняются подряд, так
+	# что ряд пуст тогда и только тогда, когда пусто его первое место -- а `hbox`,
+	# у которого невидимы все дети, сам остаётся видимым и держит свои 32 пикселя.
+	type {MOD_ID}_edit_right_row{r + 1} = hbox {{
+		spacing = 14
+		ignoreinvisible = no
+		visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_rslotok{first}').IsSet]"
+{cells}{pad}	}}
+""")
     return (HEADER + f"""#
-# The plan editor's picker, a cell a good. `{MOD_ID}_edit_window.gui` draws the
-# five rows; this file only declares them, so it has no `window` and needs no
-# line in `gui/scripted_widgets/`.
+# The plan editor's picker, a cell a good and a cell a charter.
+# `{MOD_ID}_edit_window.gui` draws the rows and the columns; this file only
+# declares them, so it has no `window` and needs no line in
+# `gui/scripted_widgets/`.
 
 types BagWtpEditCells {{
 {"".join(rows)}}}
 """)
+
+
+# The search picker's cells, in the same shape and for the same reason as the
+# editor's: a cell knows its own number, so nothing has to carry a scope from
+# the press to the effect.
+#
+# **A good is a circle and an icon; a right is a circle and its name.** Thirteen
+# rights share their icons with the goods they favour, so an icon alone would
+# not tell two of them apart -- and 47 goods with their names beside them would
+# be four times the window wide. The tooltip carries the good's name.
+# **The gap between cells is bigger than the gap inside one, and that is the
+# whole point of it.** A circle two pixels from its own icon and four from the
+# next good's reads as one row of loose parts: «они все в куче и не всегда
+# понимаешь сразу на какую галочку нужно нажать — правую или левую от товара»,
+# 2026-09-06. The editor learnt the same thing on 2026-09-05 and its gap is 14.
+PICK_ROW = 10
+PICK_ROWS = 5
+PICK_W, PICK_H, PICK_GAP = 62, 28, 14
+RIGHT_PICK_COL = 7
+RIGHT_PICK_COLS = 2
+RIGHT_PICK_W = 250
+PICK_CELLS_OUT = MOD / "in_game/gui/bag_wtp_pick_cells.gui"
+
+
+def pick_cells_file(order: list[str], rights: list[eu5data.TownRight]) -> str:
+    """Which good, or which right, the ranking answers for -- picked in the window.
+
+    **The mod page had four lists for this and now has none.** His words,
+    2026-09-06: «мод внутри стал довольно громоздким и неудобным» and «просто
+    добавишь в окно расчёта иконки товаров и прав как ты это сделал в редакторе
+    и поставишь каждому кружочек для активации нужного, далее кнопку искать
+    локации, всё». So the cells are the editor's cells with the counters taken
+    off: a `checkbutton_round_alt` whose `down` reads `_sel<n>` and whose
+    `onclick` calls the effect for that number.
+
+    **Every cell is a static child of a plain `hbox` and keeps its column**,
+    both rules paid for in `docs/pitfalls/interface.md`: `flowcontainer` crashed
+    the game, `fixedgridbox` drew cells on top of each other, and a declared
+    size does not hold an `hbox` whose children go invisible -- which is why a
+    cell is a `widget` with a size and the `hbox` is inside it.
+
+    A row of goods is 10 cells of 62 -- 656 with its spacing -- and the rights
+    are two columns of 250 beside it; both windows that draw them are wide enough
+    for the pair, and `check_script.py` measures that rather than trusting it.
+    """
+    out = [HEADER, f"""#
+# The ranking windows' picker, a cell a good and a cell a right. Neither window
+# declares these: `{MOD_ID}_result_window.gui` and `{MOD_ID}_right_window.gui`
+# both draw the same rows, so the two can never offer different goods.
+#
+# This file has no `window` and needs no line in `gui/scripted_widgets/`.
+
+types BagWtpPickCells {{
+"""]
+
+    for r in range(PICK_ROWS):
+        first, last = r * PICK_ROW + 1, min((r + 1) * PICK_ROW, len(order))
+        cells = ""
+        for i in range(first, last + 1):
+            good = order[i - 1]
+            cells += f"""
+		widget = {{
+			size = {{ {PICK_W} {PICK_H} }}
+			hbox = {{
+				spacing = 2
+
+				widget = {{
+					size = {{ 26 {PICK_H} }}
+					checkbutton_round_alt = {{
+						size = {{ 24 24 }}
+						parentanchor = center
+						widgetanchor = center
+						down = "[GetGlobalVariable('{MOD_ID}_sel{i}').IsSet]"
+						tooltip = "{MOD_ID}_good_{good}"
+						onclick = "[GetScriptedGui('{MOD_ID}_pick_good_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}}
+				}}
+
+				widget = {{
+					size = {{ 34 {PICK_H} }}
+					alwaystransparent = no
+					tooltip = "{MOD_ID}_good_{good}"
+					text_single = {{
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 16
+						text = "{MOD_ID}_pick_{i}"
+					}}
+				}}
+			}}
+		}}
+"""
+        pad = "".join(f"		widget = {{ size = {{ {PICK_W} {PICK_H} }} }}\n"
+                      for _ in range(PICK_ROW - (last - first + 1)))
+        out.append(f"""
+	# Goods {first}..{last} of the plan's own order.
+	type {MOD_ID}_pick_row{r + 1} = hbox {{
+		spacing = {PICK_GAP}
+		ignoreinvisible = no
+{cells}{pad}	}}
+""")
+
+    # **The rights are two columns that pack upward, not rows that leave holes.**
+    # A country is offered nine or ten of the thirteen, and on 2026-09-06 the
+    # missing ones left gaps scattered through the block: «нужно сделать, чтобы
+    # городские права справа вставали примерно по такому же принципу, аккуратно
+    # и без пробелов». Two rows of two cannot pack -- half a row is a hole
+    # wherever it falls -- but a column can, so each column is a `vbox` with
+    # `ignoreinvisible = yes` and the cell itself carries the `visible`. What is
+    # left over is a short second column, which is a gap at the end and the shape
+    # he approved on the goods.
+    for c in range(RIGHT_PICK_COLS):
+        first = c * RIGHT_PICK_COL + 1
+        last = min((c + 1) * RIGHT_PICK_COL, len(rights))
+        cells = ""
+        for i in range(first, last + 1):
+            right = rights[i - 1]
+            cells += f"""
+		widget = {{
+			size = {{ {RIGHT_PICK_W} {PICK_H} }}
+			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{i}').IsSet]"
+			hbox = {{
+				spacing = 2
+
+				widget = {{
+					size = {{ 26 {PICK_H} }}
+					checkbutton_round_alt = {{
+						size = {{ 24 24 }}
+						parentanchor = center
+						widgetanchor = center
+						down = "[GetGlobalVariable('{MOD_ID}_rsel{i}').IsSet]"
+						tooltip = "{MOD_ID}_right_{right.key}"
+						onclick = "[GetScriptedGui('{MOD_ID}_pick_right_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}}
+				}}
+
+				widget = {{
+					size = {{ {RIGHT_PICK_W - 28} {PICK_H} }}
+					alwaystransparent = no
+					tooltip = "{MOD_ID}_right_{right.key}"
+					text_single = {{
+						size = {{ {RIGHT_PICK_W - 32} 26 }}
+						parentanchor = left|vcenter
+						widgetanchor = left|vcenter
+						autoresize = no
+						maximumsize = {{ {RIGHT_PICK_W - 32} 26 }}
+						fontsize = 14
+						fontsize_min = 10
+						align = left|vcenter
+						elide = right
+						text = "{MOD_ID}_right_{right.key}"
+					}}
+				}}
+			}}
+		}}
+"""
+        out.append(f"""
+	# Urban rights {first}..{last}, packed upward: a right this country cannot
+	# hold takes no space at all.
+	type {MOD_ID}_pick_right_col{c + 1} = vbox {{
+		spacing = 2
+		ignoreinvisible = yes
+{cells}
+		# **The slack goes here and not between the rights.** Drawn in a box
+		# taller than the rights it has, this `vbox` shared the difference out
+		# between them — «список городских прав во втором столбце вообще решил
+		# поделить территорию на равные части, а не встать списком», 2026-09-06.
+		# An expanding child takes it all, and the list stays a list.
+		widget = {{ layoutpolicy_vertical = expanding size = {{ {RIGHT_PICK_W} -1 }} }}
+	}}
+""")
+    out.append("}\n")
+    return "".join(out)
 
 
 def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
@@ -3869,16 +4332,41 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t# past its minimum», which makes its buildings *better* candidates to
 \t\t\t\t# give up, not protected ones.
 \t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{index} }}
+\t\t\t\t# **The good that gave way is the one furthest above its share, and
+\t\t\t\t# its cheapest building is the one that goes.** Step 3, and it is
+\t\t\t\t# the eviction side of the rule the fill already obeys: «−1» hands
+\t\t\t\t# a freed room to the good furthest *below* its share.
+\t\t\t\t#
+\t\t\t\t# **Two keys and one pass, exactly as the fill does it** -- `_esx`
+\t\t\t\t# carries the best excess so far and `_esw` the gain that goes with
+\t\t\t\t# it, so «more bloated» and «as bloated but cheaper to lose» are two
+\t\t\t\t# arms of one `OR`. Not a packed `превышение × K + выгода`: the
+\t\t\t\t# engine's fixed-point limit is not known from here, and the same
+\t\t\t\t# warning already stands over `_plan_order`.
+\t\t\t\t#
+\t\t\t\t# On the strict pass a good at or below its share is not a victim
+\t\t\t\t# at all. `{MOD_ID}_edit_add` runs the scan strict first and repeats
+\t\t\t\t# it open only if nothing qualified, so this narrows and never blocks.
 \t\t\t\tOR = {{
-\t\t\t\t\tvar:{MOD_ID}_esw = -1
-\t\t\t\t\tvar:{MOD_ID}_p{index} < var:{MOD_ID}_esw
+\t\t\t\t\tglobal_var:{MOD_ID}_edit_strict = 0
+\t\t\t\t\tglobal_var:{MOD_ID}_exs{index} > 0
+\t\t\t\t}}
+\t\t\t\tOR = {{
+\t\t\t\t\tvar:{MOD_ID}_esx < global_var:{MOD_ID}_exs{index}
+\t\t\t\t\tAND = {{
+\t\t\t\t\t\tvar:{MOD_ID}_esx = global_var:{MOD_ID}_exs{index}
+\t\t\t\t\t\tOR = {{
+\t\t\t\t\t\t\tvar:{MOD_ID}_esw = -1
+\t\t\t\t\t\t\tvar:{MOD_ID}_{gain_var}{index} < var:{MOD_ID}_esw
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
 \t\t\t\t}}
 \t\t\t}}
+\t\t\tset_variable = {{ name = {MOD_ID}_esx value = global_var:{MOD_ID}_exs{index} }}
 \t\t\tset_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_{gain_var}{index} }}
 \t\t\tset_variable = {{ name = {MOD_ID}_esg value = {index} }}
 \t\t}}
-""".replace(f"var:{MOD_ID}_p{index} < var:{MOD_ID}_esw",
-            f"var:{MOD_ID}_{gain_var}{index} < var:{MOD_ID}_esw")
+"""
         for index, good in enumerate(order, start=1))
     out.append(f"""
 # The building this location would give up most cheaply, and which good it is.
@@ -3892,6 +4380,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_edit_worst = {{
 \tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
 \tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
+\t# Below every excess, which is floored at zero, so the first good that
+\t# may go wins outright and the rest is a comparison between goods.
+\tset_variable = {{ name = {MOD_ID}_esx value = -1 }}
 \tif = {{
 \t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 {worst["t"]}\t}}
@@ -3958,7 +4449,16 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_edit_remove_{listname}_{index} = {{
 \tif = {{
-\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
+\t\tlimit = {{
+\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+\t\t\t# **The side is asked here too, and it was not.** `call()` emits both
+\t\t\t# variants and the town one came first, so a village location had its
+\t\t\t# *town* gain subtracted from `_plan_gain` and its building matched
+\t\t\t# against `_pm<n>` instead of `_prm<n>`. Placement has always asked --
+\t\t\t# `_edit_fits_*` carries `{MOD_ID}_plan_is_town` -- and the two halves
+\t\t\t# of one edit have to agree about what kind of place this is.
+\t\t\t{MOD_ID}_plan_is_town = {"yes" if side == "t" else "no"}
+\t\t}}
 \t\tremove_list_variable = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 {branches}\t\tchange_variable = {{ name = {MOD_ID}_load subtract = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed subtract = 1 }}
@@ -4061,6 +4561,39 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 """
         for i in range(1, len(order) + 1))
+    # **The share is per good, because an RGO already counts against it.** The
+    # plan has always done this -- `_pq<n>` is `quota - _nrgo<n>`, floored at 1
+    # -- and the editor did not: it compared every good against the same flat
+    # number, so a good the ground already yields three times as an RGO was
+    # filled to the same six buildings as one it yields never. He caught it,
+    # 2026-09-06: «не учитывая что их аналогичных РГО уже есть там по 3 штуки, и
+    # того счёт для них по сути уже 9, а всего остального 6». Same arithmetic as
+    # the plan now, and the same floor.
+    #
+    # **`has_global_variable` before the subtraction**: `_nrgo<n>` is written by
+    # `_plan_prepare`, so it does not exist until a plan has been run once, and
+    # the editor can be opened before that.
+    shares = "".join(
+        f"""\tset_global_variable = {{ name = {MOD_ID}_eq{i} value = global_var:{MOD_ID}_edit_quota }}
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_nrgo{i} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_eq{i} subtract = global_var:{MOD_ID}_nrgo{i} }}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_eq{i} max = 1 }}
+"""
+        for i in range(1, len(order) + 1))
+    # **The other side of the same number.** `_esh<n>` is how far a good is below
+    # its share and the fill reads it; `_exs<n>` is how far it is above, and the
+    # eviction reads it. Both floored at zero, both computed once a press.
+    excesses = "".join(
+        f"""\tset_global_variable = {{ name = {MOD_ID}_exs{i} value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_pn{i} > global_var:{MOD_ID}_eq{i} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_exs{i} value = global_var:{MOD_ID}_pn{i} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_exs{i} subtract = global_var:{MOD_ID}_eq{i} }}
+\t}}
+"""
+        for i in range(1, len(order) + 1))
     shortfalls = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_esh{i} value = 0 }}
 \tif = {{
@@ -4068,9 +4601,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tglobal_var:{MOD_ID}_ng{i} > 0
 \t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{i} }}
 \t\t\tNOT = {{ has_global_variable = {MOD_ID}_skip{i} }}
-\t\t\tglobal_var:{MOD_ID}_pn{i} < global_var:{MOD_ID}_edit_quota
+\t\t\tglobal_var:{MOD_ID}_pn{i} < global_var:{MOD_ID}_eq{i}
 \t\t}}
-\t\tset_global_variable = {{ name = {MOD_ID}_esh{i} value = global_var:{MOD_ID}_edit_quota }}
+\t\tset_global_variable = {{ name = {MOD_ID}_esh{i} value = global_var:{MOD_ID}_eq{i} }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_esh{i} subtract = global_var:{MOD_ID}_pn{i} }}
 \t}}
 """
@@ -4123,7 +4656,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# The same floor `_plan_set_quota` carries and for the same reason: a ground
 \t# too small to give every free good one building still owes each of them one.
 \tchange_global_variable = {{ name = {MOD_ID}_edit_quota max = 1 }}
-{shortfalls}}}
+{shares}{shortfalls}{excesses}}}
 
 """)
 
@@ -4156,6 +4689,31 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 """)
 
+    # **The press journal reads through the report's own scratch globals.**
+    # `_dv<n>` is filled by an effect and `_dg<n>` is the script value that reads
+    # it back, because the guard has to live in an effect: a script value that
+    # guards itself with `value = 0` plus `if = { ... add = ... }` reads zero in
+    # silence, and that is what emptied the first report of 2026-09-02.
+    press_fields = (f"{MOD_ID}_edit_presses", f"{MOD_ID}_edit_op",
+                    f"{MOD_ID}_edit_good", f"{MOD_ID}_ev_hit",
+                    f"{MOD_ID}_edit_done", f"{MOD_ID}_edit_fail",
+                    f"{MOD_ID}_edit_norefill", f"{MOD_ID}_ev_esg",
+                    f"{MOD_ID}_edit_evicted", f"{MOD_ID}_edit_rfrom",
+                    f"{MOD_ID}_edit_rto", f"{MOD_ID}_edit_right",
+                    f"{MOD_ID}_edit_rshort")
+    assert len(press_fields) <= DIAG_SCRATCH, (
+        f"the press line parks {len(press_fields)} numbers and there are only "
+        f"{DIAG_SCRATCH} scratch globals: raise `DIAG_SCRATCH`")
+    park = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_dv{slot} value = 0 }}\n"
+        f"\tif = {{ limit = {{ has_global_variable = {source} }} "
+        f"set_global_variable = {{ name = {MOD_ID}_dv{slot} "
+        f"value = global_var:{source} }} }}\n"
+        for slot, source in enumerate(press_fields, start=1))
+    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13 = (
+        f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_dg{slot}')|0]"
+        for slot in range(1, len(press_fields) + 1))
+
     out.append(f"""
 # The walk's trace, cleared before every press.
 #
@@ -4182,8 +4740,78 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_mark value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_rshort value = 0 }}
 }}
 
+
+# **The press journal, one line a press, straight into `debug.log`.**
+#
+# The changes window is a diff against the saved plan and not a log: two presses
+# on the same location merge into one row and the order of them is gone. The
+# owner, 2026-09-05: «В окне изменений -- всё смешивается. Там нет хронологии
+# изменений… Так что сам проверяй всё в диагностике.» A diff cannot hold
+# chronology, and the log already is chronology -- it is written in press order
+# by construction and nothing has to remember anything.
+#
+# **The location is named by `debug_log_scopes`, from inside its own scope.** A
+# `debug_log` string cannot reach a scope, and `_ev_loc` is a global holding one,
+# so the effect steps into it and lets the engine write the name on the line
+# above. That is the same trick every `L` block of the report uses.
+#
+# Numbers go through the report's own scratch globals, because
+# `[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue(...)]` is the one form that
+# reads from a `debug_log` anywhere -- measured 2026-09-02. Goods are numbers
+# here and names in the report's `G<n>` lines: `tools/diag.py` puts the two
+# together, and baking 47 branches into every press to save it the trouble would
+# cost a dispatch on the hot path for nothing.
+# Scope: country
+{MOD_ID}_edit_journal = {{
+{park}\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_ev_loc }}
+\t\tglobal_var:{MOD_ID}_ev_loc = {{
+\t\t\tdebug_log_scopes = no
+\t\t\t# **Метка, потому что «строка выше» -- не адрес.** В первом прогоне
+\t\t\t# 2026-09-06 между именем локации и строкой нажатия влезла
+\t\t\t# `Important assertion failed: … (Getting player in synchronous
+\t\t\t# state)` -- движок ругается на `GetPlayer` внутри `debug_log`, один
+\t\t\t# раз за сессию, -- и читалка подписала нажатие ею. Метка не читает
+\t\t\t# ничего: между ней и именем встать нечему.
+\t\t\tdebug_log = "WTP PRESSAT"
+\t\t}}
+\t}}
+\tdebug_log = "WTP PRESS n={r1} op={r2} good={r3} right={r12} hit={r4} | done={r5} fail={r6} norefill={r7} | esg={r8} evicted={r9} | rfrom={r10} rto={r11} short={r13}"
+}}
+
+# One scan of every candidate: who could hold this good, what it would cost
+# there, and how many qualified. Called twice by `{MOD_ID}_edit_add` — once
+# strict, once open — so the two passes cannot drift apart.
+# Scope: country
+{MOD_ID}_edit_scan_pass = {{
+\tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
+\t\t{MOD_ID}_edit_worst = yes
+\t}}
+{fit_dispatch}{scan_dispatch}\t# **Two counts, because two different things read as «не дало правило».**
+\t# `_edit_fitn` is how many locations could hold this good at all -- the
+\t# ground's own answer, and 0 means it already stands everywhere this land
+\t# can make it. `_edit_cands` is how many of those had a free room or a
+\t# building that may be taken out. The owner pressed «+1» on iron and was
+\t# told a rule refused it; iron can be made in four locations of Westphalia
+\t# and stood in all four. That is the ground, not a rule, and saying so
+\t# needs the number.
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_edit_cands add = 1 }}
+\t}}
+}}
+""")
+
+    out.append(f"""
 # **One more building of the chosen good, and exactly one.**
 #
 # The ordered walk is the whole of the choice: `_esv` is what each candidate
@@ -4209,24 +4837,22 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_edit_good > 0 }}
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_candidates
-\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
-\t\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
-\t\t\t{MOD_ID}_edit_worst = yes
-\t\t}}
-{fit_dispatch}{scan_dispatch}\t\t# **Two counts, because two different things read as «не дало правило».**
-\t\t# `_edit_fitn` is how many locations could hold this good at all -- the
-\t\t# ground's own answer, and 0 means it already stands everywhere this land
-\t\t# can make it. `_edit_cands` is how many of those had a free room or a
-\t\t# building that may be taken out. The owner pressed «+1» on iron and was
-\t\t# told a rule refused it; iron can be made in four locations of Westphalia
-\t\t# and stood in all four. That is the ground, not a rule, and saying so
-\t\t# needs the number.
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_candidates
-\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_cands add = 1 }}
+\t\t# **Two passes, and the second only when the first found nobody.**
+\t\t# Strict: the building given up must belong to a good that is over
+\t\t# its share. Open: any building that may be taken out at all. A
+\t\t# location with a free room qualifies on both — it has no victim to
+\t\t# ask about, and a free room outbids every eviction anyway.
+\t\t#
+\t\t# **Not one packed `order_by` number.** `превышение × K + выгода`
+\t\t# was the other way and it is rejected: the engine's fixed-point
+\t\t# limit is not known from here, and the same warning already
+\t\t# stands over `_plan_order`.
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_strict value = 1 }}
+\t\t{MOD_ID}_edit_scan_pass = yes
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_edit_cands = 0 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_strict value = 0 }}
+\t\t\t{MOD_ID}_edit_scan_pass = yes
 \t\t}}
 \t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
@@ -4268,6 +4894,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t{MOD_ID}_edit_name_esg = yes
 \t\t\tsave_scope_as = {MOD_ID}_ev_where
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
+\t\t\t# **And which press this was, on the location itself.** The changes
+\t\t\t# window is a diff and cannot hold chronology, but it can be *ordered*
+\t\t\t# by it: `_chg_seq` is what `{MOD_ID}_chg_order` sorts the list on, so
+\t\t\t# ten «+1» on one good come out as ten rows in a row instead of
+\t\t\t# scattered through the land by location id. The owner, 2026-09-06:
+\t\t\t# «я ожидаю увидеть несколько строк подряд, где участвует кожа».
+\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \t\t\tif = {{
@@ -4312,6 +4945,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = var:{MOD_ID}_load }}
 \t\t}}
 \t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_edit_done = 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_edit_idle add = 1 }}
+\t}}
+\t{MOD_ID}_edit_journal = yes
 \t{MOD_ID}_plan_rank = yes
 \t# **And the window's rows again.** A location the edit gave its first building
 \t# is not in `_plan_results` and would not appear until something else refilled
@@ -4334,6 +4972,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_op value = 2 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_nofill value = global_var:{MOD_ID}_edit_good }}
 \t{MOD_ID}_edit_set_quota = yes
 \t{MOD_ID}_edit_count_held = yes
 \tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
@@ -4386,39 +5025,39 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # shortfall so far and `_esw` the gain that goes with it, so «strictly
     # hungrier» and «equally hungry but worth more» are two arms of one `OR`.
     fill = "".join(
-        f"\t\t\tif = {{\n"
-        f"\t\t\t\tlimit = {{\n"
+        f"\tif = {{\n"
+        f"\t\tlimit = {{\n"
         # **Never the good that just left.** It fits by construction -- it stood
         # here a moment ago -- and it is almost always the best fit as well, so
         # without this «−1» removes a building and hands the room straight back
         # to the same good. The press then reports «сделано» and nothing on the
         # map has changed, which is what he saw on 2026-09-04.
-        f"\t\t\t\t\tNOT = {{ global_var:{MOD_ID}_edit_good = {i} }}\n"
+        f"\t\t\tNOT = {{ global_var:{MOD_ID}_edit_nofill = {i} }}\n"
         # Pinned by a press, or flagged «не нужен»: stands where it was put.
-        f"\t\t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{i} }}\n"
-        f"\t\t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_skip{i} }}\n"
-        f"\t\t\t\t\tOR = {{ {MOD_ID}_edit_fits_town_{i} = yes {MOD_ID}_edit_fits_rural_{i} = yes }}\n"
+        f"\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{i} }}\n"
+        f"\t\t\tNOT = {{ has_global_variable = {MOD_ID}_skip{i} }}\n"
+        f"\t\t\tOR = {{ {MOD_ID}_edit_fits_town_{i} = yes {MOD_ID}_edit_fits_rural_{i} = yes }}\n"
+        f"\t\t\tOR = {{\n"
+        f"\t\t\t\tvar:{MOD_ID}_esd < global_var:{MOD_ID}_esh{i}\n"
+        f"\t\t\t\tAND = {{\n"
+        f"\t\t\t\t\tvar:{MOD_ID}_esd = global_var:{MOD_ID}_esh{i}\n"
         f"\t\t\t\t\tOR = {{\n"
-        f"\t\t\t\t\t\tvar:{MOD_ID}_esd < global_var:{MOD_ID}_esh{i}\n"
-        f"\t\t\t\t\t\tAND = {{\n"
-        f"\t\t\t\t\t\t\tvar:{MOD_ID}_esd = global_var:{MOD_ID}_esh{i}\n"
-        f"\t\t\t\t\t\t\tOR = {{\n"
-        f"\t\t\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes var:{MOD_ID}_p{i} > var:{MOD_ID}_esw }}\n"
-        f"\t\t\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = no var:{MOD_ID}_pr{i} > var:{MOD_ID}_esw }}\n"
-        f"\t\t\t\t\t\t\t}}\n"
-        f"\t\t\t\t\t\t}}\n"
+        f"\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes var:{MOD_ID}_p{i} > var:{MOD_ID}_esw }}\n"
+        f"\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = no var:{MOD_ID}_pr{i} > var:{MOD_ID}_esw }}\n"
         f"\t\t\t\t\t}}\n"
         f"\t\t\t\t}}\n"
-        f"\t\t\t\tset_variable = {{ name = {MOD_ID}_esd value = global_var:{MOD_ID}_esh{i} }}\n"
-        f"\t\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}\n"
-        f"\t\t\t\t\tset_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_p{i} }} }}\n"
-        f"\t\t\t\telse = {{ set_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_pr{i} }} }}\n"
-        f"\t\t\t\tset_variable = {{ name = {MOD_ID}_esg value = {i} }}\n"
         f"\t\t\t}}\n"
+        f"\t\t}}\n"
+        f"\t\tset_variable = {{ name = {MOD_ID}_esd value = global_var:{MOD_ID}_esh{i} }}\n"
+        f"\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}\n"
+        f"\t\t\tset_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_p{i} }} }}\n"
+        f"\t\telse = {{ set_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_pr{i} }} }}\n"
+        f"\t\tset_variable = {{ name = {MOD_ID}_esg value = {i} }}\n"
+        f"\t}}\n"
         for i in range(1, len(order) + 1))
     fill_dispatch = "".join(
-        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
-        f"{call('edit_place', i, chr(9) * 4)}\t\t\t}}\n"
+        f"\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
+        f"{call('edit_place', i, chr(9) * 2)}\t}}\n"
         for i in range(1, len(order) + 1))
     out.append(f"""\t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
@@ -4441,13 +5080,29 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load value = var:{MOD_ID}_load }}
 \t\t\tsave_scope_as = {MOD_ID}_ev_where
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
+\t\t\t# **And which press this was, on the location itself.** The changes
+\t\t\t# window is a diff and cannot hold chronology, but it can be *ordered*
+\t\t\t# by it: `_chg_seq` is what `{MOD_ID}_chg_order` sorts the list on, so
+\t\t\t# ten «+1» on one good come out as ten rows in a row instead of
+\t\t\t# scattered through the land by location id. The owner, 2026-09-06:
+\t\t\t# «я ожидаю увидеть несколько строк подряд, где участвует кожа».
+\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
 {drop_dispatch}\t\t\t# The room is free now; the good furthest below its share takes it.
-\t\t\tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
-\t\t\tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
-\t\t\t# Below every shortfall, which is floored at zero, so the first good
-\t\t\t# that fits wins outright and the rest is a comparison between goods.
-\t\t\tset_variable = {{ name = {MOD_ID}_esd value = -1 }}
-{fill}{fill_dispatch}\t\t\t# **Who took it, for the report and for the press line.** On «−1» `_esg` is
+\t\t\t{MOD_ID}_edit_fill_room = yes
+\t\t\t# **What the fill just put here, remembered for the reshuffle.** Which
+\t\t\t# good takes the room is settled by shortfall, and that is right; *where*
+\t\t\t# it lands is settled by which press freed which room, and that is
+\t\t\t# nobody's decision at all. `{MOD_ID}_edit_reshuffle` trades these
+\t\t\t# buildings between their own locations afterwards.
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_esg > 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_fillg value = var:{MOD_ID}_esg }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ NOT = {{ is_target_in_global_variable_list = {{ name = {MOD_ID}_edit_fillset target = this }} }} }}
+\t\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_fillset target = this }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\t# **Who took it, for the report and for the press line.** On «−1» `_esg` is
 \t\t\t# the good that moved in rather than a victim, and both readings are the
 \t\t\t# walk's answer to «what changed here», so they share the globals.
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esg value = var:{MOD_ID}_esg }}
@@ -4465,6 +5120,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
 \t\t}}
 \t}}
+\t{MOD_ID}_edit_reshuffle = yes
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_edit_done = 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_edit_idle add = 1 }}
+\t}}
+\t{MOD_ID}_edit_journal = yes
 \t{MOD_ID}_plan_rank = yes
 \t# **And the window's rows again.** A location the edit gave its first building
 \t# is not in `_plan_results` and would not appear until something else refilled
@@ -4473,6 +5134,807 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_plan_show = yes
 }}
 """)
+
+    # ---- step 2а: the fill's buildings, traded between their own locations ---
+    #
+    # **His words, 2026-09-05:** «когда я нажимаю "−1" допустим освобождая 9
+    # ячеек — их заполняют по степени лимита и недобора… им не особо важно встают
+    # они в бонус или нет. После такого заполнения все новопоставленные домики
+    # должны переменяться местами в поисках наибольшей выгоды от земли.»
+    #
+    # **He named a real flaw of the order.** The fill puts one building in the
+    # room this press freed: *which* good is decided by shortfall, which is
+    # right, and *where* by the accident of press order, which nothing decides.
+    # Good X can take a room that suits good Y, placed a press later, far better.
+    #
+    # **The scope is strictly the fill's own buildings and their own locations.**
+    # No count changes, so the share, the locks and the covering constraint are
+    # all untouched, and charters and everything placed earlier are not looked
+    # at. That makes it a pure improvement of the gain and nothing else.
+    #
+    # **A round is one pass over pairs, and rounds repeat while one swaps.** The
+    # round is one effect called three times behind a guard rather than a `while`
+    # — the same body, no unrolling, and a bound that cannot run away. A swap is
+    # taken only on a strict improvement, so a pair cannot oscillate.
+    town_of = "\n".join(
+        f"\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rsA{i} value = var:{MOD_ID}_p{i} }}"
+        for i in range(1, len(order) + 1))
+    rural_of = "\n".join(
+        f"\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rsA{i} value = var:{MOD_ID}_pr{i} }}"
+        for i in range(1, len(order) + 1))
+    fits_of = "".join(
+        f"\t\t\tset_global_variable = {{ name = {MOD_ID}_rsF{i} value = 0 }}\n"
+        f"\t\t\tif = {{\n"
+        f"\t\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
+        f"{MOD_ID}_edit_fits_rural_{i} = yes }} }}\n"
+        f"\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rsF{i} value = 1 }}\n"
+        f"\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    # Is the good the fill left here still standing? A later «−1» may have taken
+    # it out, and a stale marker would trade a building that is not there.
+    still_here = "".join(
+        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_fillg = {i} is_target_in_variable_list = "
+        f"{{ name = {MOD_ID}_plan_goods target = goods:{order[i - 1]} }} }} "
+        f"set_global_variable = {{ name = {MOD_ID}_rs_ok value = 1 }} }}\n"
+        for i in range(1, len(order) + 1))
+    # B's side of the comparison: what B pays for its own good, what A would pay
+    # for it, and whether A may hold it at all.
+    read_b = "".join(
+        f"\t\t\t\tif = {{\n"
+        f"\t\t\t\t\tlimit = {{ var:{MOD_ID}_fillg = {i} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bg value = {i} }}\n"
+        f"\t\t\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}\n"
+        f"\t\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bb value = var:{MOD_ID}_p{i} }} }}\n"
+        f"\t\t\t\t\telse = {{ set_global_variable = {{ name = {MOD_ID}_rs_bb "
+        f"value = var:{MOD_ID}_pr{i} }} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_ab "
+        f"value = global_var:{MOD_ID}_rsA{i} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_afit "
+        f"value = global_var:{MOD_ID}_rsF{i} }}\n"
+        f"\t\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    # A's good, asked of B: what B would pay for it, what A pays now, and whether
+    # B may hold it.
+    read_a = "".join(
+        f"\t\t\t\tif = {{\n"
+        f"\t\t\t\t\tlimit = {{ global_var:{MOD_ID}_rs_ag = {i} }}\n"
+        f"\t\t\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}\n"
+        f"\t\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_ba value = var:{MOD_ID}_p{i} }} }}\n"
+        f"\t\t\t\t\telse = {{ set_global_variable = {{ name = {MOD_ID}_rs_ba "
+        f"value = var:{MOD_ID}_pr{i} }} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_aa "
+        f"value = global_var:{MOD_ID}_rsA{i} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bfit value = 0 }}\n"
+        f"\t\t\t\t\tif = {{\n"
+        f"\t\t\t\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
+        f"{MOD_ID}_edit_fits_rural_{i} = yes }} }}\n"
+        f"\t\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bfit value = 1 }}\n"
+        f"\t\t\t\t\t}}\n"
+        f"\t\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+
+    def dispatch(prefix: str, key: str, tab: str) -> str:
+        return "".join(
+            f"{tab}if = {{ limit = {{ {key} = {i} }}\n"
+            f"{call(prefix, i, tab + chr(9))}{tab}}}\n"
+            for i in range(1, len(order) + 1))
+
+    swap_b = (dispatch("edit_remove", f"var:{MOD_ID}_fillg", "\t" * 5)
+              + dispatch("edit_place", f"global_var:{MOD_ID}_rs_ag", "\t" * 5))
+    swap_a = (dispatch("edit_remove", f"global_var:{MOD_ID}_rs_ag", "\t" * 6)
+              + dispatch("edit_place", f"global_var:{MOD_ID}_rs_bg", "\t" * 6))
+
+    out.append(f"""
+# **One free room, given to the good furthest below its share.**
+#
+# Called by «−1», which frees a room by taking a building out, and by the
+# charter machine, which frees rooms by taking a whole bundle out. **The
+# exclusion is `_edit_nofill` and not `_edit_good`**: «−1» must not hand the room
+# straight back to the good it just took out -- it fits by construction and is
+# almost always the best fit, so the press would report «сделано» with nothing
+# changed on the map -- but a charter press has no such good and excluding
+# whatever the goods picker happens to point at would be an accident.
+#
+# **The freed room goes to the good furthest below its share, not to the
+# richest.** His words, 2026-09-04: «остальные, у которых не хватало до 7
+# равномерных, начнут по 1 заполнять места, чтобы добрать свою
+# равнозначность по количеству. А если у всех уже и так равность… туда будут
+# вставать по своей выгоде от земли.» Gain decides only a tie -- and «no
+# shortfall at all» is a tie at zero, which is that second sentence.
+#
+# **This is also why the lock had to be built in the same step.** Under
+# hunger alone, a good the player has just pressed down to one building is
+# the hungriest thing on the ground and climbs straight back into the next
+# good's rooms -- he found that himself, walking court materials from 7 to 1
+# and then herbs from 8 to 1. `_lock<n>` is what keeps a pressed good out of
+# this scan entirely, and on 2026-09-05 he confirmed the behaviour this must
+# preserve: goods he drops by hand stay dropped.
+#
+# Two keys and one pass, not a packed number: `_esd` carries the best
+# shortfall so far and `_esw` the gain that goes with it, so «strictly
+# hungrier» and «equally hungry but worth more» are two arms of one `OR`.
+# Scope: location
+{MOD_ID}_edit_fill_room = {{
+\tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
+\tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
+\t# Below every shortfall, which is floored at zero, so the first good
+\t# that fits wins outright and the rest is a comparison between goods.
+\tset_variable = {{ name = {MOD_ID}_esd value = -1 }}
+{fill}{fill_dispatch}}}
+""")
+
+    out.append(f"""
+# Everything the reshuffle remembers, forgotten. A fresh plan or a loaded slot
+# is a different set of buildings, and a marker left on a location would trade
+# something the fill never put there.
+# Scope: country
+{MOD_ID}_edit_clear_fillset = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_edit_fillset
+\t\tremove_variable = {MOD_ID}_fillg
+\t}}
+\t# **И номера нажатий тоже.** Они упорядочивают «Показать изменения», а
+\t# счётчик нажатий обнуляется вместе с окном: оставленный номер разложил
+\t# бы новую правку по порядку старой.
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tremove_variable = {MOD_ID}_chg_seq
+\t}}
+\tclear_global_variable_list = {MOD_ID}_edit_fillset
+\tclear_global_variable_list = {MOD_ID}_edit_fillset2
+\tset_global_variable = {{ name = {MOD_ID}_rs_swaps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_rounds value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_pairs value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_same value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_nofit value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_worse value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_gain value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 0 }}
+}}
+
+# Three rounds at most, and it stops the moment one of them trades nothing.
+# Scope: country
+{MOD_ID}_edit_reshuffle = {{
+\t# **What the trading is worth, kept as one number.** The gain is the
+\t# whole reason this pass exists and nothing on screen showed it, so a
+\t# run could not tell «traded nothing» from «traded and it was worth
+\t# nothing» from «never ran». The changes window prints it.
+\tset_global_variable = {{ name = {MOD_ID}_rs_gain0 value = global_var:{MOD_ID}_plan_gain }}
+\t{MOD_ID}_edit_reshuffle_round = yes
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
+\t\t{MOD_ID}_edit_reshuffle_round = yes
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
+\t\t{MOD_ID}_edit_reshuffle_round = yes
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_rs_gain add = global_var:{MOD_ID}_plan_gain }}
+\tchange_global_variable = {{ name = {MOD_ID}_rs_gain subtract = global_var:{MOD_ID}_rs_gain0 }}
+}}
+
+# One pass over the pairs. **`_rounds` and `_swaps` are the probe**: a reshuffle
+# that never ran and one that found nothing to trade are the same picture on the
+# map, and the diagnosis prints both.
+# Scope: country
+{MOD_ID}_edit_reshuffle_round = {{
+\tchange_global_variable = {{ name = {MOD_ID}_rs_rounds add = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 0 }}
+\t# **The inner walk reads a copy.** Iterating one list inside itself is a
+\t# shape this mod has never proved, and copying it costs one pass over a
+\t# handful of locations.
+\tclear_global_variable_list = {MOD_ID}_edit_fillset2
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_edit_fillset
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_fillset2 target = this }}
+\t}}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_edit_fillset
+\t\tlimit = {{ has_variable = {MOD_ID}_fillg }}
+\t\tsave_scope_as = {MOD_ID}_rs_a
+\t\tset_global_variable = {{ name = {MOD_ID}_rs_ag value = var:{MOD_ID}_fillg }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rs_stop value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rs_ok value = 0 }}
+{still_here}\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_rs_ok = 0 }}
+\t\t\tremove_variable = {MOD_ID}_fillg
+\t\t}}
+\t\t# **A's whole row, parked before the inner walk.** Two scopes cannot be
+\t\t# read at once, so what A pays for every good and what A may hold go into
+\t\t# globals here, and B compares against them in its own scope.
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_rs_ok = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+{town_of}
+\t\t\t}}
+\t\t\telse = {{
+{rural_of}
+\t\t\t}}
+{fits_of}\t\t\tevery_in_global_list = {{
+\t\t\t\tvariable = {MOD_ID}_edit_fillset2
+\t\t\t\tlimit = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_rs_stop = 0
+\t\t\t\t\thas_variable = {MOD_ID}_fillg
+\t\t\t\t\tNOT = {{ this = scope:{MOD_ID}_rs_a }}
+\t\t\t\t}}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_pairs add = 1 }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bg value = 0 }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_afit value = 0 }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bfit value = 0 }}
+{read_b}{read_a}\t\t\t\t# What the pair is worth now, and what it would be worth traded.
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_now value = global_var:{MOD_ID}_rs_aa }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_now add = global_var:{MOD_ID}_rs_bb }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_new value = global_var:{MOD_ID}_rs_ab }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_new add = global_var:{MOD_ID}_rs_ba }}
+
+\t\t\t\t# **Why a pair was not traded, counted.** «Traded nothing» has three
+\t\t\t\t# causes that look identical on the map: both rooms hold the same
+\t\t\t\t# good (a trade is a no-op), one of the two locations may not hold
+\t\t\t\t# the other's good, or the trade is simply not worth anything.
+\t\t\t\t# Every location of one province scores the same for a good, so the
+\t\t\t\t# third is the common one and the numbers have to show it.
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ global_var:{MOD_ID}_rs_bg = global_var:{MOD_ID}_rs_ag }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_same add = 1 }}
+\t\t\t\t}}
+\t\t\t\telse_if = {{
+\t\t\t\t\tlimit = {{
+\t\t\t\t\t\tOR = {{
+\t\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_afit = 0
+\t\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bfit = 0
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_nofit add = 1 }}
+\t\t\t\t}}
+\t\t\t\telse_if = {{
+\t\t\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_rs_new > global_var:{MOD_ID}_rs_now }} }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_worse add = 1 }}
+\t\t\t\t}}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bg > 0
+\t\t\t\t\t\tNOT = {{ global_var:{MOD_ID}_rs_bg = global_var:{MOD_ID}_rs_ag }}
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_afit = 1
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bfit = 1
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_new > global_var:{MOD_ID}_rs_now
+\t\t\t\t\t}}
+\t\t\t\t\t# **Out before in, on both sides.** The placement asks the cap for
+\t\t\t\t\t# itself, and the room it needs is the one being freed a line above.
+{swap_b}\t\t\t\t\tset_variable = {{ name = {MOD_ID}_fillg value = global_var:{MOD_ID}_rs_ag }}
+\t\t\t\t\tscope:{MOD_ID}_rs_a = {{
+{swap_a}\t\t\t\t\t\tset_variable = {{ name = {MOD_ID}_fillg value = global_var:{MOD_ID}_rs_bg }}
+\t\t\t\t\t}}
+\t\t\t\t\t# One trade per location per round: A's parked row still holds, but
+\t\t\t\t\t# what A may hold does not — it carries B's good now.
+\t\t\t\t\t# **A swap is this press's work too.** Two locations change after the
+\t\t\t\t\t# walk has left them, and without a stamp they would sort with whatever
+\t\t\t\t\t# press put the building there first.
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
+\t\t\t\t\tscope:{MOD_ID}_rs_a = {{ set_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }} }}
+\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_stop value = 1 }}
+\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 1 }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t}}
+}}
+""")
+
+    # ---- step 5: the charters, moved from one town to another ---------------
+    #
+    # **A charter is not a building and «+1» on one cannot mean «one more».**
+    # Every town of a finished plan holds exactly one charter -- the grant pass
+    # walks empty towns and gives each the best it may have -- so there is no
+    # free town to put another in. What he asked for, 2026-09-04, is a *move*:
+    # «снять грамоту с города вместе со всеми её домиками и посадить в другой».
+    #
+    # So both presses are the same machine seen from two ends:
+    #
+    # - **«+1» on charter K** takes the town where K would earn most away from
+    #   whatever charter it has now, and gives it to K. Strictly: among towns
+    #   whose own charter is at or above its share; if none is, among all towns.
+    #   The same two passes «+1» on a good already uses, and the same reason --
+    #   the counts must come out level, which is what he has asked for three
+    #   times: «относительно одинаковое количество каждого городского права».
+    # - **«−1» on charter K** takes K off the town where it earns least and
+    #   hands that town to whichever charter is furthest below its share and can
+    #   stand there. The town keeps a charter either way: a town without one is
+    #   a state the plan never produces and nothing else here knows how to read.
+    #
+    # **The bundle goes whole, and the rooms are squared up afterwards.** A
+    # bundle is one to three buildings and the two bundles of a swap need not be
+    # the same size, so the swap plants first and then fixes the load: over the
+    # cap, the worst ordinary building gives way; under it, the good furthest
+    # below its share takes the room. Three of each is the bound, because three
+    # is the largest bundle in the game.
+    substitute = market_inputs(game)
+
+    # **The plan's `_plan_right_fits_<k>` is the wrong question here, and asking
+    # it cost the run of 2026-09-06.** It is built out of `_plan_can_town_<n>`,
+    # which requires a *free room* -- true of the empty towns the grant pass
+    # walks, false of every town of a finished plan. So «+1» found no candidate
+    # anywhere and «−1» found no charter to hand the town to: one cause, both
+    # symptoms, and both read on screen as «кнопка не работает».
+    #
+    # What the editor has to ask is whether the ground can make one of the
+    # charter's goods at all -- `_pm<n>` is the method that won here, and it does
+    # not care what already stands. A bundle good that is already standing is not
+    # a refusal: the swap plants what is missing, and `_edit_locked_<n>` takes the
+    # rest into the bundle once `_plan_right` says so.
+    for k, right in enumerate(rights, start=1):
+        makes = [order.index(good) + 1 for good in sorted(right.output)
+                 if groups.get((good, "t"))]
+        if not makes:
+            gate.append(f"\n# {right.key}: no town building at all.\n"
+                        f"# Scope: location\n"
+                        f"{MOD_ID}_edit_right_fits_{k} = {{ always = no }}\n")
+            continue
+        inside = "".join(f"\t\tvar:{MOD_ID}_pm{i} > 0\n" for i in makes)
+        gate.append(f"""
+# {right.key}: {", ".join(sorted(right.output))}. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+{MOD_ID}_edit_right_fits_{k} = {{
+\t{MOD_ID}_plan_is_town = yes
+\tOR = {{
+{inside}\t}}
+}}
+""")
+
+    def charter(k: int, right: eu5data.TownRight, prefix: str, tab: str) -> str:
+        """A charter's bundle, planted or removed, exactly as the plan plants it.
+
+        **The substitution is mirrored and not re-decided.** Where the ground
+        refuses a bundle good the grant pass plants its market input instead
+        (`glass` -> `sand`, the one pair in the game), so a removal that asked
+        the question differently would leave the substitute standing for ever.
+        """
+        lines = []
+        for good in sorted(right.output):
+            if not groups.get((good, "t")):
+                continue
+            index = order.index(good) + 1
+            feeder = substitute.get(good)
+            other = order.index(feeder) + 1 if feeder in order else 0
+            if other and groups.get((feeder, "t")):
+                lines.append(
+                    f"{tab}# The substitute goes in only where the ground cannot make\n"
+                    f"{tab}# the bundle good at all. **`_plan_can_town_<n>` is not that\n"
+                    f"{tab}# question**: it also wants a free room, so on a full town it\n"
+                    f"{tab}# would plant the substitute every time and the removal would\n"
+                    f"{tab}# take out the wrong building.\n"
+                    f"{tab}if = {{\n"
+                    f"{tab}\tlimit = {{ var:{MOD_ID}_pm{index} > 0 }}\n"
+                    f"{tab}\t{MOD_ID}_{prefix}_town_{index} = yes\n"
+                    f"{tab}}}\n"
+                    f"{tab}else = {{ {MOD_ID}_{prefix}_town_{other} = yes }}\n")
+            else:
+                lines.append(f"{tab}{MOD_ID}_{prefix}_town_{index} = yes\n")
+        return "".join(lines)
+
+    def charter_need(k: int, right: eu5data.TownRight) -> str:
+        """How many rooms this charter's bundle actually wants in this town.
+
+        **Counted before anything is planted, because the placement can say no.**
+        `_edit_place_town_<n>` carries `var:_load < cap` as its last line -- the
+        invariant that stopped 27 buildings going in over the cap on 2026-09-04 --
+        so a bundle bigger than the one it replaces loses its extra building
+        silently. He caught it in the window: «ювелирный домик уходит, а
+        стекольному праву надо два, и для кладки места не нашлось».
+
+        A good already standing here needs no room, which is what
+        `_edit_fits_town_<n>` answers; the same effect run *after* the plant
+        therefore counts what did not get in.
+        """
+        lines = []
+        for good in sorted(right.output):
+            if not groups.get((good, "t")):
+                continue
+            index = order.index(good) + 1
+            feeder = substitute.get(good)
+            other = order.index(feeder) + 1 if feeder in order else 0
+            count = (lambda i, tab: f"{tab}if = {{ limit = {{ {MOD_ID}_edit_fits_town_{i} = yes }} "
+                     f"change_variable = {{ name = {MOD_ID}_esrn add = 1 }} }}\n")
+            if other and groups.get((feeder, "t")):
+                lines.append(f"\tif = {{\n"
+                             f"\t\tlimit = {{ var:{MOD_ID}_pm{index} > 0 }}\n"
+                             f"{count(index, chr(9) * 2)}"
+                             f"\t}}\n"
+                             f"\telse = {{\n{count(other, chr(9) * 2)}\t}}\n")
+            else:
+                lines.append(count(index, chr(9)))
+        return "".join(lines)
+
+    for k, right in enumerate(rights, start=1):
+        out.append(f"""
+# {right.key}: how many rooms its bundle wants here, and afterwards how many it
+# did not get. Read `charter_need` for why both readings are the same effect.
+# Scope: location
+{MOD_ID}_edit_right_need_{k} = {{
+\tset_variable = {{ name = {MOD_ID}_esrn value = 0 }}
+{charter_need(k, right)}}}
+
+# {right.key}: {", ".join(sorted(right.output))} -- off this town, bundle and all.
+# Scope: location
+{MOD_ID}_edit_right_out_{k} = {{
+{charter(k, right, "edit_remove", chr(9))}\tremove_variable = {MOD_ID}_plan_right
+\tchange_global_variable = {{ name = {MOD_ID}_rn{k} subtract = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} subtract = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn subtract = 1 }}
+}}
+
+# {right.key}: onto this town, bundle and all.
+# Scope: location
+{MOD_ID}_edit_right_in_{k} = {{
+{charter(k, right, "edit_place", chr(9))}\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
+\tchange_global_variable = {{ name = {MOD_ID}_rn{k} add = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
+}}
+""")
+
+    worst_one = "".join(
+        f"\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
+        f"{call('edit_remove', i, chr(9) * 2)}\t}}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""
+# The worst ordinary building here, given up. **`_edit_worst` refuses a charter's
+# own bundle** (`_edit_locked_<n>`) and a good the player pinned, so squaring up
+# the load after a swap cannot eat the charter that was just planted.
+# Scope: location
+{MOD_ID}_edit_take_worst = {{
+\t{MOD_ID}_edit_worst = yes
+{worst_one}}}
+
+# **One room made for the arriving bundle, if it still needs one.** Called three
+# times: three is the largest bundle in the game, so a swap can be short by no
+# more than that.
+#
+# `_esrn` is how many rooms the bundle wants and `_load` how many are taken, so
+# their sum against the cap is the whole question. It is recomputed each time
+# because `_edit_take_worst` moves `_load`.
+# Scope: location
+{MOD_ID}_edit_right_make_room = {{
+\tset_variable = {{ name = {MOD_ID}_esrneed value = var:{MOD_ID}_load }}
+\tchange_variable = {{ name = {MOD_ID}_esrneed add = var:{MOD_ID}_esrn }}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_esrneed > global_var:{MOD_ID}_plan_cap_urban }}
+\t\t{MOD_ID}_edit_take_worst = yes
+\t}}
+}}
+
+# The load, squared up after a swap. Three each way: three is the largest bundle
+# in the game, so the two sides of a swap can differ by no more than that.
+# Scope: location
+{MOD_ID}_edit_right_fix_load = {{
+""" + "".join(
+        f"\tif = {{ limit = {{ var:{MOD_ID}_load > global_var:{MOD_ID}_plan_cap_urban }}\n"
+        f"\t\t{MOD_ID}_edit_take_worst = yes }}\n" for _ in range(3))
+    + "".join(
+        f"\tif = {{ limit = {{ var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban }}\n"
+        f"\t\t{MOD_ID}_edit_fill_room = yes }}\n" for _ in range(3))
+    + "}\n")
+
+    swap_out = "".join(
+        f"\tif = {{ limit = {{ global_var:{MOD_ID}_edit_rfrom = {k} }} "
+        f"{MOD_ID}_edit_right_out_{k} = yes }}\n" for k in range(1, len(rights) + 1))
+    swap_need = "".join(
+        f"\tif = {{ limit = {{ global_var:{MOD_ID}_edit_rto = {k} }} "
+        f"{MOD_ID}_edit_right_need_{k} = yes }}\n" for k in range(1, len(rights) + 1))
+    swap_in = "".join(
+        f"\tif = {{ limit = {{ global_var:{MOD_ID}_edit_rto = {k} }} "
+        f"{MOD_ID}_edit_right_in_{k} = yes }}\n" for k in range(1, len(rights) + 1))
+    out.append(f"""
+# One town's charter exchanged for another. **Out before in**, because the rooms
+# the old bundle frees are the ones the new one wants, and the load is squared up
+# only once both have moved.
+# Scope: location
+{MOD_ID}_edit_right_swap = {{
+{swap_out}\t# **Room first, then the bundle.** `_edit_place_town_<n>` refuses on a
+\t# full town -- the invariant that stopped 27 buildings going over the cap
+\t# on 2026-09-04 -- so a bundle bigger than the one it replaces used to
+\t# lose its extra building without a word. He caught it: «ювелирный домик
+\t# уходит, а стекольному праву надо два, и для кладки места не нашлось».
+{swap_need}\t{MOD_ID}_edit_right_make_room = yes
+\t{MOD_ID}_edit_right_make_room = yes
+\t{MOD_ID}_edit_right_make_room = yes
+{swap_in}\t# **And the same count again, which is now what did not get in.** Zero is
+\t# the answer the press line wants; anything else means the town had
+\t# nothing left it was allowed to give up, and that is worth saying out
+\t# loud rather than leaving a charter standing with half a bundle.
+\tset_variable = {{ name = {MOD_ID}_esrn value = 0 }}
+{swap_need}\tset_global_variable = {{ name = {MOD_ID}_edit_rshort value = var:{MOD_ID}_esrn }}
+\t{MOD_ID}_edit_right_fix_load = yes
+\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
+}}
+
+""")
+
+    # The share, the country's gate and «is this charter over its share» -- all
+    # three are the same for every location, so they are read once a press.
+    # **The counts a charter press divides by are the plan's, and before a plan
+    # they are not there at all.** A `limit` that reads a global which does not
+    # exist fails silently, so the press would refuse and say nothing -- the one
+    # failure this repository names first.
+    prepare = "".join(
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_rn{k} }} }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n"
+        f"\t}}\n"
+        for k in range(1, len(rights) + 1)) + "".join(
+        f"\t# **Not floored at zero, and that is the point.** With a share of 5, a\n"
+        f"\t# charter holding 6 towns and one holding 5 both have «no shortfall»,\n"
+        f"\t# and a floor would make them equal -- so «−1» could hand a town to the\n"
+        f"\t# charter that already has the most. Negative reads «over its share by\n"
+        f"\t# that much», and the walk prefers the larger number.\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_rsh{k} value = global_var:{MOD_ID}_rquota }}\n"
+        f"\tchange_global_variable = {{ name = {MOD_ID}_rsh{k} "
+        f"subtract = global_var:{MOD_ID}_rn{k} }}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_rover{k} value = 0 }}\n"
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_rquota > global_var:{MOD_ID}_rn{k} }} }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_rover{k} value = 1 }}\n"
+        f"\t}}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_rok{k} value = 0 }}\n"
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ {MOD_ID}_plan_right_gate_{k} = yes }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_rok{k} value = 1 }}\n"
+        f"\t}}\n"
+        for k in range(1, len(rights) + 1))
+    mark_over = "".join(
+        f"\t\tif = {{ limit = {{ var:{MOD_ID}_plan_right = {k} }} "
+        f"set_variable = {{ name = {MOD_ID}_esover value = global_var:{MOD_ID}_rover{k} }} }}\n"
+        for k in range(1, len(rights) + 1))
+    out.append(f"""
+# Everything a charter press reads that does not vary by location.
+#
+# `_rsh<k>` is how far charter k is below its share and `_rover<k>` says it is at
+# or above it -- **the same share the plan itself granted by**, `_rquota`, which
+# is towns divided by the charters this country may grant. `_rok<k>` is that
+# permission, asked once at country scope because `_plan_right_gate_<k>` is a
+# country trigger and a walk cannot ask one from a location.
+#
+# `_esover` is the answer carried onto each town: whether the charter it holds
+# now is one that has more than its share. Thirteen branches once, rather than
+# thirteen inside every charter's own block.
+# Scope: country
+{MOD_ID}_edit_right_prepare = {{
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_rquota }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rquota value = 1 }}
+\t}}
+{prepare}\t# The fill is not to be steered by whatever the goods picker points at.
+\tset_global_variable = {{ name = {MOD_ID}_edit_nofill value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_strict value = 0 }}
+\t{MOD_ID}_edit_set_quota = yes
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tset_variable = {{ name = {MOD_ID}_esover value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
+{mark_over}\t}}
+}}
+
+""")
+
+    def scan(k: int, strict: bool, tab: str) -> str:
+        """Towns charter k could take, scored by what it would earn there."""
+        over = (f"{tab}\t\tvar:{MOD_ID}_esover = 1\n" if strict else "")
+        return (f"{tab}every_in_global_list = {{\n"
+                f"{tab}\tvariable = {MOD_ID}_candidates\n"
+                f"{tab}\tlimit = {{\n"
+                f"{tab}\t\t{MOD_ID}_plan_is_town = yes\n"
+                f"{tab}\t\thas_variable = {MOD_ID}_plan_right\n"
+                f"{tab}\t\tNOT = {{ var:{MOD_ID}_plan_right = {k} }}\n"
+                f"{tab}\t\t{MOD_ID}_edit_right_fits_{k} = yes\n"
+                f"{over}{tab}\t}}\n"
+                f"{tab}\tset_variable = {{ name = {MOD_ID}_esc value = 1 }}\n"
+                f"{tab}\tset_variable = {{ name = {MOD_ID}_esv value = {MOD_ID}_rq{k} }}\n"
+                f"{tab}}}\n")
+
+    add_blocks = "".join(
+        f"\t\tif = {{\n"
+        f"\t\t\tlimit = {{ global_var:{MOD_ID}_edit_right = {k} "
+        f"global_var:{MOD_ID}_rok{k} = 1 }}\n"
+        f"{scan(k, True, chr(9) * 3)}"
+        f"\t\t\t{MOD_ID}_edit_right_count = yes\n"
+        f"\t\t\tif = {{\n"
+        f"\t\t\t\tlimit = {{ global_var:{MOD_ID}_edit_cands = 0 }}\n"
+        f"{scan(k, False, chr(9) * 4)}"
+        f"\t\t\t\t{MOD_ID}_edit_right_count = yes\n"
+        f"\t\t\t}}\n"
+        f"\t\t}}\n"
+        for k in range(1, len(rights) + 1))
+    out.append(f"""
+# How many towns the scan found. Its own effect because «+1» runs the scan twice
+# -- strict, then open -- and the count has to mean the same thing both times.
+# Scope: country
+{MOD_ID}_edit_right_count = {{
+\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_edit_cands add = 1 }}
+\t}}
+}}
+
+# **«+1» on a charter: one more town for it, taken from a charter that has more
+# than its share.** Two passes, strict then open, exactly as «+1» on a good.
+# Scope: country
+{MOD_ID}_edit_right_add = {{
+\tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
+\t{MOD_ID}_edit_clear_trace = yes
+\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_op value = 3 }}
+\t{MOD_ID}_edit_right_prepare = yes
+\t# **`_edit_strict` stays 0 through a charter press.** It steers
+\t# `_edit_worst`, which is what squares the load up after the swap;
+\t# left at 1 it would refuse to shed a building unless some good were
+\t# over its share, and the town would stay above its cap. The charter
+\t# scan has its own two passes and reads `_esover` instead.
+\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_edit_right > 0 }}
+{add_blocks}\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\t\torder_by = {MOD_ID}_edit_order
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_hit value = 1 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_town value = 1 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load value = var:{MOD_ID}_load }}
+\t\t\tsave_scope_as = {MOD_ID}_ev_where
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
+\t\t\t# Whose town it was, for the swap and for the press line.
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rfrom value = var:{MOD_ID}_plan_right }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rto value = global_var:{MOD_ID}_edit_right }}
+\t\t\t{MOD_ID}_edit_right_swap = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = var:{MOD_ID}_load }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
+\t\t}}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_edit_done = 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_edit_idle add = 1 }}
+\t}}
+\t{MOD_ID}_edit_reshuffle = yes
+\t{MOD_ID}_edit_journal = yes
+\t{MOD_ID}_plan_rank = yes
+\t{MOD_ID}_plan_show = yes
+}}
+
+""")
+
+    best_here = "".join(
+        f"\tset_variable = {{ name = {MOD_ID}_rtry value = {MOD_ID}_rq{k} }}\n"
+        f"\tif = {{\n"
+        f"\t\tlimit = {{\n"
+        f"\t\t\tNOT = {{ global_var:{MOD_ID}_edit_rfrom = {k} }}\n"
+        f"\t\t\t{MOD_ID}_edit_right_fits_{k} = yes\n"
+        f"\t\t\tglobal_var:{MOD_ID}_rok{k} = 1\n"
+        f"\t\t\tOR = {{\n"
+        f"\t\t\t\tvar:{MOD_ID}_esrd < global_var:{MOD_ID}_rsh{k}\n"
+        f"\t\t\t\tAND = {{\n"
+        f"\t\t\t\t\tvar:{MOD_ID}_esrd = global_var:{MOD_ID}_rsh{k}\n"
+        f"\t\t\t\t\tvar:{MOD_ID}_rtry > var:{MOD_ID}_esrv\n"
+        f"\t\t\t\t}}\n"
+        f"\t\t\t}}\n"
+        f"\t\t}}\n"
+        f"\t\tset_variable = {{ name = {MOD_ID}_esrd value = global_var:{MOD_ID}_rsh{k} }}\n"
+        f"\t\tset_variable = {{ name = {MOD_ID}_esrv value = var:{MOD_ID}_rtry }}\n"
+        f"\t\tset_variable = {{ name = {MOD_ID}_esrj value = {k} }}\n"
+        f"\t}}\n"
+        for k in range(1, len(rights) + 1))
+    drop_blocks = "".join(
+        f"\t\tif = {{\n"
+        f"\t\t\tlimit = {{ global_var:{MOD_ID}_edit_right = {k} }}\n"
+        f"\t\t\tevery_in_global_list = {{\n"
+        f"\t\t\t\tvariable = {MOD_ID}_candidates\n"
+        f"\t\t\t\tlimit = {{ has_variable = {MOD_ID}_plan_right "
+        f"var:{MOD_ID}_plan_right = {k} }}\n"
+        f"\t\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 1 }}\n"
+        f"\t\t\t\t# Worst first: the ordered walk reads highest, and there is no\n"
+        f"\t\t\t\t# other way to ask it for a minimum -- the same inversion «−1»\n"
+        f"\t\t\t\t# on a good already uses.\n"
+        f"\t\t\t\tset_variable = {{ name = {MOD_ID}_esv value = {RANK_SCALE} }}\n"
+        f"\t\t\t\tchange_variable = {{ name = {MOD_ID}_esv "
+        f"subtract = {MOD_ID}_rq{k} }}\n"
+        f"\t\t\t}}\n"
+        f"\t\t}}\n"
+        for k in range(1, len(rights) + 1))
+    out.append(f"""
+# **Which charter this town should get instead**, of those below their share and
+# able to stand here. Shortfall first, what the ground pays for it as the
+# tie-break -- the same two keys, in the same order, as the fill uses for goods.
+#
+# `_esrj` is 0 when nothing qualifies, and **that is a refusal and not a
+# default**: a town with no charter at all is a state the plan never produces.
+# Scope: location
+{MOD_ID}_edit_right_best_here = {{
+\tset_variable = {{ name = {MOD_ID}_esrj value = 0 }}
+\t# Below any shortfall a real ground can produce: a charter over its share
+\t# by every town of the realm would still beat this.
+\tset_variable = {{ name = {MOD_ID}_esrd value = -9999 }}
+\tset_variable = {{ name = {MOD_ID}_esrv value = -1 }}
+{best_here}}}
+
+# **«−1» on a charter: off the town where it earns least, and that town goes to
+# whichever charter is furthest below its share.** The town keeps a charter --
+# the plan grants one to every town it can, and «снять и посадить в другой» is
+# what he asked for, not «снять».
+# Scope: country
+{MOD_ID}_edit_right_drop = {{
+\tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
+\t{MOD_ID}_edit_clear_trace = yes
+\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_op value = 4 }}
+\t{MOD_ID}_edit_right_prepare = yes
+\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_edit_right > 0 }}
+{drop_blocks}\t\t{MOD_ID}_edit_right_count = yes
+\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\t\torder_by = {MOD_ID}_edit_order
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_hit value = 1 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_town value = 1 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load value = var:{MOD_ID}_load }}
+\t\t\tsave_scope_as = {MOD_ID}_ev_where
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rfrom value = global_var:{MOD_ID}_edit_right }}
+\t\t\t{MOD_ID}_edit_right_best_here = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rto value = var:{MOD_ID}_esrj }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_esrj > 0 }}
+\t\t\t\t{MOD_ID}_edit_right_swap = yes
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
+\t\t\t}}
+\t\t\telse = {{ set_global_variable = {{ name = {MOD_ID}_edit_fail value = 1 }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = var:{MOD_ID}_load }}
+\t\t}}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_edit_done = 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_edit_idle add = 1 }}
+\t}}
+\t{MOD_ID}_edit_reshuffle = yes
+\t{MOD_ID}_edit_journal = yes
+\t{MOD_ID}_plan_rank = yes
+\t{MOD_ID}_plan_show = yes
+}}
+
+""")
+
+    out.append("".join(
+        f"""
+# «+1» on {right.key}: one more town for it.
+# Scope: country
+{MOD_ID}_edit_right_plus_{k} = {{
+\tset_global_variable = {{ name = {MOD_ID}_edit_right value = {k} }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
+\t{MOD_ID}_edit_right_add = yes
+}}
+
+# «−1» on {right.key}: its worst town goes to a charter that has fewer.
+# Scope: country
+{MOD_ID}_edit_right_minus_{k} = {{
+\tset_global_variable = {{ name = {MOD_ID}_edit_right value = {k} }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
+\t{MOD_ID}_edit_right_drop = yes
+}}
+"""
+        for k, right in enumerate(rights, start=1)))
 
     # ---- the save slot ------------------------------------------------------
     save_copy = "".join(
@@ -4732,6 +6194,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # that shows up as a number rather than as an error.
 # Scope: country
 {MOD_ID}_edit_clear_plan = {{
+\t# **The reshuffle's markers go with the plan they belong to.** A slot
+\t# loaded is a different set of buildings, and a marker left behind would
+\t# trade something the fill never put there.
+\t{MOD_ID}_edit_clear_fillset = yes
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tclear_variable_list = {MOD_ID}_plan_goods
@@ -4817,11 +6283,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\t\t\t\tAND = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} "
         f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }}\n"
         for good in order)
-    lines = "".join(
-        f'\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} '
+    lines2 = "".join(
+        f'\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} '
         f'NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} }} '
         f'debug_log = "WTP LD -{good}" }}\n'
-        f'\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} '
+        f'\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} '
         f'NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }} '
         f'debug_log = "WTP LD +{good}" }}\n'
         for good in order)
@@ -4860,19 +6326,64 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tdebug_log_date = yes
 \terror_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> «Забрать диагностику из игры» takes it out."
 \tdebug_log = "WTP ==== BEGIN v{DIAG_VERSION} ==== the plan against the saved one"
+\t# **Первый проход считает разницу, второй раскладывает её по порядку.**
+\t# `_chg_rank` -- ключ сортировки: `10000 − номер нажатия`, потому что
+\t# `order_by` читает от большего к меньшему, а нужен порядок нажатий.
+\t# Локация, изменённая не нажатием (новый план против старого слота),
+\t# ранга не получает и уходит в конец списка -- у неё номера нет.
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tclear_variable_list = {MOD_ID}_chg_out
 \t\tclear_variable_list = {MOD_ID}_chg_in
 \t\tset_variable = {{ name = {MOD_ID}_chg_n value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_chg_rank value = 0 }}
+\t\t# **A moved charter is a change even when no building moved.** Two
+\t\t# charters can share a whole bundle -- royal_naval_rights and
+\t\t# scandinavian_tar_privileges are both naval_supplies and tar -- and
+\t\t# without this the town would be missing from the list it belongs in.
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tOR = {{
+\t\t\t\t\tAND = {{ has_variable = {MOD_ID}_plan_right NOT = {{ has_variable = {MOD_ID}_save_right }} }}
+\t\t\t\t\tAND = {{ has_variable = {MOD_ID}_save_right NOT = {{ has_variable = {MOD_ID}_plan_right }} }}
+\t\t\t\t\tAND = {{
+\t\t\t\t\t\thas_variable = {MOD_ID}_plan_right
+\t\t\t\t\t\thas_variable = {MOD_ID}_save_right
+\t\t\t\t\t\tNOT = {{ var:{MOD_ID}_plan_right = var:{MOD_ID}_save_right }}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tchange_variable = {{ name = {MOD_ID}_chg_n add = 1 }}
+\t\t}}
 {rows}\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_chg_n > 0 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_moved add = 1 }}
-\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_chg_locs target = this }}
-\t\t\tdebug_log_scopes = no
-\t\t\tdebug_log = "WTP L rank=0 town=0 load=0"
-{lines}\t\t}}
+\t\t\tset_variable = {{ name = {MOD_ID}_chg_rank value = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_chg_seq }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_rank value = 10000 }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_chg_rank subtract = var:{MOD_ID}_chg_seq }}
+\t\t\t}}
+\t\t}}
 \t}}
+\t# **Список строится вторым проходом, в порядке нажатий.** До 2026-09-06
+\t# он строился первым и шёл по `_plan_touched`, то есть по номерам
+\t# локаций: десять «+1» по коже приходили вперемешку с тем, что было
+\t# изменено раньше. Его слова: «в начале списка я могу увидеть что-то
+\t# другое, а потом кожу-кожу, другое, кожу-кожу».
+\t#
+\t# `max` больше любого правдоподобного числа изменённых локаций, а
+\t# `check_range_bounds = no` -- потому что список почти всегда короче.
+\tordered_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{ var:{MOD_ID}_chg_n > 0 }}
+\t\torder_by = {MOD_ID}_chg_order
+\t\tmax = 1000
+\t\tcheck_range_bounds = no
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_chg_locs target = this }}
+\t\tdebug_log_scopes = no
+\t\tdebug_log = "WTP L rank=0 town=0 load=0"
+{lines2}\t}}
 \tdebug_log = "WTP ==== END v{DIAG_VERSION} ===="
 }}
 """
@@ -4923,6 +6434,14 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_presses }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_presses value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_idle value = 0 }}
+\t\t# **Свёрнутый вид — то, с чего оба окна открываются**, его слова
+\t\t# 2026-09-06. Ставится один раз рядом с остальными умолчаниями, а
+\t\t# не на каждом открытии: снятую галочку надо помнить.
+\t\tset_variable = {{ name = {MOD_ID}_plan_folded value = 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_right value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_rfrom value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_rto value = 0 }}
 \t\t{MOD_ID}_edit_clear_trace = yes
 \t}}
 \tif = {{
@@ -4961,12 +6480,14 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# would have said the press never arrived. A window that opens is a window
 \t# that has taken no presses yet, and it must say so.
 \tset_global_variable = {{ name = {MOD_ID}_edit_presses value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_idle value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_op value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
 \t{MOD_ID}_edit_fill_pool = yes
+\t{MOD_ID}_edit_clear_fillset = yes
 \t{MOD_ID}_plan_show = yes
 \tremove_variable = {MOD_ID}_result_open
 \tremove_variable = {MOD_ID}_right_open
@@ -5282,12 +6803,11 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     dispatch over 218 methods is far too wide to run per candidate.
     """
     rights = output_rights(rows, game)
-    # Two lists, because the owner asked for two: everybody's nine, which one
-    # age-3 advance unlocks, and the country-specific ones. What makes the split
-    # data rather than opinion is `unlock_town_rights` -- a right the general
-    # advance names is general and anything else is not.
-    kinds = {"common": [r for r in rights if r.general],
-             "unique": [r for r in rights if not r.general]}
+    # **The split into «everybody's» and «this country's» was two CMM lists and
+    # is now one number a cell reads**, `_right_ok<n>`: the window draws every
+    # right this country may ever hold, in one block, and `unlock_town_rights`
+    # is no longer what decides which list a right lands in -- `potential` is
+    # what decides whether it is drawn at all.
     index_of_right = {r.key: i for i, r in enumerate(rights, start=1)}
     order = [good for kind in ("raw", "made") for good in split[kind]]
     index_of = {good: i for i, good in enumerate(order, start=1)}
@@ -5297,122 +6817,130 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     slots = range(1, RIGHT_SLOTS + 1)
 
     out = [HEADER, """#
-# Two lists rather than one: the nine an age-3 advance gives everybody, and the
-# handful that belong to one country or culture. Ticking either is one answer,
-# the way the two goods lists are.
+# The right the search answers for, and which rights this country is offered.
+#
+# **This was two CMM lists and their tick-parsing until 2026-09-06.** Both are
+# gone with the mod page's «Товар» tab: a right is picked in the ranking window
+# now, on a cell that knows its own number, exactly as a good is. What survived
+# the move is the one thing the lists did that a cell cannot -- deciding whether
+# this country may be shown a unique right at all -- and it is a variable per
+# right now, because a window can read a variable and cannot ask a trigger.
 """]
-    for kind, group in kinds.items():
-        out.append(f"""
-# Scope: country
-{MOD_ID}_register_right_{kind}_list = {{
-\tcmm_register_settings_list = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = right_{kind}
-\t\ttab_id = {TAB_GOODS}
-\t\titem_count = {max(len(group), 1)}
-\t\tis_ordered = 0
-\t}}
 
+    # Every right's circle off. One press writes one on again.
+    out.append(f"""
+# Scope: country
+{MOD_ID}_clear_right_sel = {{
 """)
-        for row, right in enumerate(group, start=1):
-            out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                       f"setting_id = right_{kind} item = {row} "
-                       f"value = town_rights_type:{right.key} }}\n")
-        out.append("\n")
-        for row, right in enumerate(group, start=1):
-            out.append(f"\tset_variable = {{ name = {MOD_ID}__right_{kind}_i{row}_name "
-                       f"value = flag:{MOD_ID}_right_{right.key} }}\n")
+    for i in range(1, len(rights) + 1):
+        out.append(f"\tremove_global_variable = {MOD_ID}_rsel{i}\n")
+    out.append("}\n")
+
+    for right in rights:
+        index = index_of_right[right.key]
         out.append(f"""
-\tcmm_register_list_bool_field = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = right_{kind}
-\t\tfield_id = pick
-\t\tdefault_value = 0
-\t}}
+# {right.key}
+# Scope: country
+{MOD_ID}_set_right_{index} = {{
+\t{MOD_ID}_clear_good_sel = yes
+\t{MOD_ID}_clear_right_sel = yes
+\tset_variable = {{ name = {MOD_ID}_right_index value = {index} }}
+\tset_global_variable = {{ name = {MOD_ID}_right_index value = {index} }}
+\tset_global_variable = {{ name = {MOD_ID}_rsel{index} value = 1 }}
+
+\t# A good and a right are two answers to one question.
+\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_good_index value = 0 }}
+
+\t{MOD_ID}_clear_rows = yes
 }}
 """)
+
     out.append(f"""
-
-# Which right is ticked, settled exactly as the good is: a tick that is not the
-# stored answer is the new answer, and nothing ticked at all means the player
-# unticked the one that was.
+# The right's circle from the stored answer, for the first load after the cells
+# replaced the lists. Called by `{MOD_ID}_sync_sel`, which clears both blocks
+# first, so this only ever writes the one that is chosen.
 # Scope: country
-{MOD_ID}_read_right = {{
-\tset_variable = {{ name = {MOD_ID}_right_new value = 0 }}
-\tset_variable = {{ name = {MOD_ID}_right_ticks value = 0 }}
+{MOD_ID}_sync_right_sel = {{
 """)
-    for kind, group in kinds.items():
-        out.append(f"""\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__right_{kind} field_slot = 1 list_name = {MOD_ID}_right_ticked }}
-\tevery_in_list = {{
-\t\tvariable = {MOD_ID}_right_ticked
-\t\troot = {{ change_variable = {{ name = {MOD_ID}_right_ticks add = 1 }} }}
-""")
-        for right in group:
-            index = index_of_right[right.key]
-            out.append(f"\t\tif = {{ limit = {{ this = town_rights_type:{right.key} }} root = {{ "
-                       f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_right_index = {index} }} }} "
-                       f"set_variable = {{ name = {MOD_ID}_right_new value = {index} }} }} }} }}\n")
-        out.append("\t}\n")
-    out.append(f"""
-
-\tif = {{
-\t\tlimit = {{ var:{MOD_ID}_right_new > 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_right_index value = var:{MOD_ID}_right_new }}
-\t}}
-\telse_if = {{
-\t\tlimit = {{ var:{MOD_ID}_right_ticks = 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_right_index value = 0 }}
-\t}}
-
-\t# Readable from a location's own scope, where a country variable is not.
-\tset_global_variable = {{ name = {MOD_ID}_right_index value = var:{MOD_ID}_right_index }}
-}}
-
-# Force every row but the answer off.
-# Scope: country
-{MOD_ID}_only_one_right = {{
-""")
-    for kind, group in kinds.items():
-        for row, right in enumerate(group, start=1):
-            out.append(f"""\tif = {{
-\t\tlimit = {{ NOT = {{ var:{MOD_ID}_right_index = {index_of_right[right.key]} }} }}
-\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = right_{kind} field_id = pick item = {row} value = 0 }}
-\t}}
-""")
+    for right in rights:
+        index = index_of_right[right.key]
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_right_index = {index} }} "
+                   f"set_global_variable = {{ name = {MOD_ID}_rsel{index} value = 1 }} }}\n")
     out.append("}\n")
 
     out.append(f"""
-# What this country is offered.
+# What this country is offered, as one variable a cell can read.
 #
-# The nine general ones stay on the page whatever the age: they are everybody's,
-# one advance away, and this mod is for planning ahead -- hiding them until age
-# three would leave an empty list where the answer belongs. **A unique right is
-# another matter.** Wallachia has no business being shown Constantinople's silk
-# monopoly, and the game already says so: the monopoly carries
-# `potential = {{ OR = {{ has_or_had_tag = BYZ has_or_had_tag = ROM }} }}` and the
-# Scandinavian privileges carry an advance nobody else takes. Both are asked
-# here, and neither is this mod's opinion about who owns what.
+# The nine general ones stay whatever the age: they are everybody's, one advance
+# away, and this mod is for planning ahead -- hiding them until age three would
+# leave a gap where the answer belongs. **A unique right is another matter.**
+# Wallachia has no business being shown Constantinople's silk monopoly, and the
+# game already says so: the monopoly carries
+# `potential = {{ OR = {{ has_or_had_tag = BYZ has_or_had_tag = ROM }} }}`. That
+# is asked here, and it is not this mod's opinion about who owns what.
+#
+# **A `visible` in a window cannot call a scripted trigger**, which is why this
+# is an effect leaving a flag rather than a trigger the cell asks. It runs on
+# the registration hook, which fires on load and again every time the mod page
+# is opened.
 # Scope: country
 {MOD_ID}_refresh_rights = {{
 """)
-    for kind, group in kinds.items():
-        for row, right in enumerate(group, start=1):
-            # `potential` only, and never the unlocking advance. Whether a
-            # right *could ever* be yours is a fact about the country -- a tag,
-            # a religion -- and hiding one because you have not taken its
-            # advance yet is hiding the plan from the planner, the same mistake
-            # the goods list made until the eighteenth run.
-            shown = ("always = yes" if not right.potential
-                     else "AND = { %s }" % right.potential)
-            out.append(f"""\tif = {{
+    for right in rights:
+        index = index_of_right[right.key]
+        shown = ("always = yes" if not right.potential
+                 else "AND = { %s }" % right.potential)
+        out.append(f"""\tif = {{
 \t\tlimit = {{ {shown} }}
-\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
+\t\tset_variable = {{ name = {MOD_ID}_right_ok{index} value = 1 }}
 \t}}
 \telse = {{
-\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
+\t\tremove_variable = {MOD_ID}_right_ok{index}
+\t\t# A right that is no longer offered is no longer the answer either.
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_right_index = {index} }}
+\t\t\t{MOD_ID}_drop_right = yes
+\t\t}}
 \t}}
 """)
-    out.append("}\n")
+    # **And the same answer packed into slots, which is what the editor draws.**
+    #
+    # Его слова 2026-09-06: «я не понимаю почему ты вообще не можешь выкинуть
+    # "фантомные" грамоты из окна… мод должен сначала узнать какие грамоты
+    # доступны, а потом загружать доступные в окна». Он прав про механизм: ячейка
+    # написана под номер грамоты, невидимая ячейка держала своё место в колонке, и
+    # девять грамот из тринадцати вставали рваными столбцами.
+    #
+    # **Слот — это место в окне, а не грамота.** `_rslot<p>` говорит, какая грамота
+    # сидит на месте p, и заполняется он подряд, без дыр. Ячейка написана под
+    # *место*: имя, счётчик и обе кнопки спрашивают `_rslot<p>` и попадают в свою
+    # грамоту через диспетчер. Дыр не остаётся вовсе, и строка из пяти мест
+    # заполнена ровно настолько, сколько грамот держава может выдать.
+    slot_reset = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_rslot{p} value = 0 }}\n"
+        f"\tremove_variable = {MOD_ID}_rslotok{p}\n"
+        for p in range(1, len(rights) + 1))
+    fill = "".join(
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ has_variable = {MOD_ID}_right_ok{index_of_right[right.key]} }}\n"
+        f"\t\tchange_global_variable = {{ name = {MOD_ID}_rslotn add = 1 }}\n"
+        + "".join(
+            f"\t\tif = {{\n"
+            f"\t\t\tlimit = {{ global_var:{MOD_ID}_rslotn = {p} }}\n"
+            f"\t\t\tset_global_variable = {{ name = {MOD_ID}_rslot{p} "
+            f"value = {index_of_right[right.key]} }}\n"
+            f"\t\t\tset_variable = {{ name = {MOD_ID}_rslotok{p} value = 1 }}\n"
+            f"\t\t}}\n"
+            for p in range(1, len(rights) + 1))
+        + f"\t}}\n"
+        for right in rights)
+    out.append(f"""\t# Места пересобираются целиком: грамота, которую держава потеряла,
+\t# не должна оставить за собой дыру.
+{slot_reset}\tset_global_variable = {{ name = {MOD_ID}_rslotn value = 0 }}
+{fill}}}
+""")
 
     # ---- the pass -------------------------------------------------------
     out.append(f"""
@@ -5656,11 +7184,7 @@ def list_settings(by_continent) -> list[tuple[str, str, str]]:
     other is the kind of omission nothing reports.
     """
     return ([("zone", f"region_{c}", f"{MOD_ID}_zone_changed = yes") for c in by_continent]
-            + [("zone", "continent", f"{MOD_ID}_zone_changed = yes"),
-               ("goods", "good_raw", f"{MOD_ID}_good_changed = yes"),
-               ("goods", "good_made", f"{MOD_ID}_good_changed = yes"),
-               ("goods", "right_common", f"{MOD_ID}_right_changed = yes"),
-               ("goods", "right_unique", f"{MOD_ID}_right_changed = yes")])
+            + [("zone", "continent", f"{MOD_ID}_zone_changed = yes")])
 
 
 def layout_file(by_continent) -> str:
@@ -5772,12 +7296,27 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
                    f'"@{good}! [GuiScope.SetRoot(GetPlayer.MakeScope)'
                    f".ScriptValue('{MOD_ID}_show_pn{i}')|0]*\"\n")
 
+    # **The search picker's cell: the good's icon and nothing else.** Forty-seven
+    # names side by side would be four windows wide, so the name is the tooltip
+    # and `{MOD_ID}_good_<good>` above is what it draws.
+    for i, good in enumerate(goods_order(split), start=1):
+        out.append(f" {MOD_ID}_pick_{i}: \"@{good}!\"\n")
+
     # A right is named by the game and iconed by the first good it favours, so
     # this needs no translating either.
     for right in output_rights(rows, game):
         icon = sorted(right.output)[0]
         out.append(f" {MOD_ID}_right_{right.key}: "
                    f'"@{icon}! [ShowTownRightsName(\'{right.key}\')]"\n')
+
+    # **How many towns hold this charter**, in its own cell in the editor, for
+    # the same reason the goods cells carry `_pn<n>`: «мне нужно видеть в
+    # редакторе сколько домиков какова вида стоит сейчас», and a charter is the
+    # same question asked of towns.
+    for k, right in enumerate(output_rights(rows, game), start=1):
+        out.append(f" {MOD_ID}_edit_rcount_{k}: "
+                   f'"[GuiScope.SetRoot(GetPlayer.MakeScope)'
+                   f".ScriptValue('{MOD_ID}_show_rgiven{k}')|0]\"\n")
 
     return "".join(out)
 
@@ -5973,10 +7512,11 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(flag(3, f"has_global_variable = {MOD_ID}_plan_rights"))
     out.append(flag(4, f"has_global_variable = {MOD_ID}_plan_by_end"))
     out.append(flag(5, f"has_global_variable = {MOD_ID}_rank_by_end"))
-    out.append(flag(6, f"has_global_variable = {MOD_ID}_only_buildable"))
+    # `buildable_only` was the sixth of these and is gone with the tick itself,
+    # 2026-09-06.
     out.append(say("SET cap_rural=%s cap_urban=%s rights=%s "
-                   "plan_by_end=%s rank_by_end=%s buildable_only=%s"
-                   % tuple(read(i) for i in range(1, 7))))
+                   "plan_by_end=%s rank_by_end=%s"
+                   % tuple(read(i) for i in range(1, 6))))
     # **`ranked_provs` read `{MOD_ID}_found` for three builds**, which is the
     # single-good *ranking*'s province count and has nothing to do with a plan:
     # every report of 2026-09-03 printed `ranked_provs=0` beside `provs=8`,
@@ -6026,19 +7566,31 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for slot, source in enumerate((f"{MOD_ID}_edit_presses", f"{MOD_ID}_edit_op",
                                    f"{MOD_ID}_edit_good", f"{MOD_ID}_edit_reached",
                                    f"{MOD_ID}_edit_done", f"{MOD_ID}_edit_fail",
-                                   f"{MOD_ID}_edit_norefill"), start=1):
+                                   f"{MOD_ID}_edit_norefill", f"{MOD_ID}_edit_right",
+                                   f"{MOD_ID}_edit_idle"), start=1):
         out.append(park(slot, source))
-    out.append(say("EDIT asked presses=%s op=%s good=%s reached=%s | outcome "
-                   "done=%s fail=%s norefill=%s"
-                   % tuple(read(i) for i in range(1, 8))))
+    # **`op` 3 and 4 are the charters** -- «+1» and «−1» on an urban right, which
+    # move a charter between towns rather than add one. `right=` is the charter
+    # the press was pointed at, `idle=` how many presses since the window opened
+    # did nothing at all: «отсутствие изменений -- тоже изменение», 2026-09-06.
+    out.append(say("EDIT asked presses=%s op=%s good=%s right=%s reached=%s | outcome "
+                   "done=%s fail=%s norefill=%s idle=%s"
+                   % (read(1), read(2), read(3), read(8), read(4),
+                      read(5), read(6), read(7), read(9))))
+    # **`strict` says which of «+1»'s two passes chose the victim**, and it is
+    # the one number that separates «the share decided» from «nobody was over
+    # their share, so it fell back to the cheapest». 1 = the strict pass found
+    # candidates, 0 = it did not and the open pass answered.
     for slot, source in enumerate((f"{MOD_ID}_edit_fitn", f"{MOD_ID}_edit_cands",
                                    f"{MOD_ID}_ev_hit", f"{MOD_ID}_ev_town",
                                    f"{MOD_ID}_ev_load", f"{MOD_ID}_ev_esg",
-                                   f"{MOD_ID}_ev_esw"), start=1):
+                                   f"{MOD_ID}_ev_esw", f"{MOD_ID}_edit_strict"),
+                                  start=1):
         out.append(park(slot, source))
-    out.append(say("EDIT scan fitn=%s cands=%s | walk hit=%s town=%s load=%s "
-                   "esg=%s esw=%s"
-                   % tuple(read(i) for i in range(1, 8))))
+    out.append(say("EDIT scan fitn=%s cands=%s strict=%s | walk hit=%s town=%s "
+                   "load=%s esg=%s esw=%s"
+                   % (read(1), read(2), read(8), read(3), read(4),
+                      read(5), read(6), read(7))))
     for slot, source in enumerate((f"{MOD_ID}_edit_evicted", f"{MOD_ID}_edit_room",
                                    f"{MOD_ID}_edit_mark", f"{MOD_ID}_ev_load2",
                                    f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_cap_urban",
@@ -6064,6 +7616,18 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("EDIT share quota=%s free=%s pool_rooms=%s | rooms=%s "
                    "plan_quota=%s"
                    % tuple(read(i) for i in range(1, 6))))
+
+    # **The reshuffle, and it needs three numbers rather than one.** `rounds` at
+    # zero says the pass never ran at all — the one failure that looks exactly
+    # like «there was nothing to trade» on the map and in the window.
+    for slot, source in enumerate((f"{MOD_ID}_rs_rounds", f"{MOD_ID}_rs_swaps",
+                                   f"{MOD_ID}_rs_gain", f"{MOD_ID}_rs_pairs",
+                                   f"{MOD_ID}_rs_same", f"{MOD_ID}_rs_nofit",
+                                   f"{MOD_ID}_rs_worse"), start=1):
+        out.append(park(slot, source))
+    out.append(say("EDIT shuffle rounds=%s swaps=%s gain=%s | pairs=%s same=%s "
+                   "nofit=%s worse=%s"
+                   % tuple(read(i) for i in range(1, 8))))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan
@@ -6254,7 +7818,12 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              (7, f"{MOD_ID}_fpr{index}"), (8, f"{MOD_ID}_for{index}"),
                              (9, f"{MOD_ID}_ng{index}"), (10, f"{MOD_ID}_pq{index}"),
                              (11, f"{MOD_ID}_pn{index}"), (12, f"{MOD_ID}_nrgo{index}"),
-                             (15, f"{MOD_ID}_frt{index}"), (16, f"{MOD_ID}_frr{index}")):
+                             (15, f"{MOD_ID}_frt{index}"), (16, f"{MOD_ID}_frr{index}"),
+                             # The editor's own share for this good, which is the
+                             # plan's arithmetic applied to the editor's quota:
+                             # `_edit_quota - rgo`, floored at 1. It is here so a
+                             # run can check the two against each other.
+                             (17, f"{MOD_ID}_eq{index}")):
             out.append(park(slot, source))
         # Availability is the country's advance and not the location's ground:
         # `can_build_building` asked here answers the advance, asked in a
@@ -6272,7 +7841,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"r={read(15)} g={read(2)} p={read(3)} o={read(4)} "
                        f"| R m={len(village)}({village_end}) a={read(14)} w={read(5)} "
                        f"r={read(16)} g={read(6)} p={read(7)} o={read(8)} "
-                       f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)}"))
+                       f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)} "
+                       f"eq={read(17)}"))
         out.append("}\n")
 
     # --------------------------------------------------------------- the passes
@@ -6483,6 +8053,18 @@ def main() -> int:
     assert len(split["raw"]) + len(split["made"]) <= LIST_CAP, (
         f"{len(split['raw']) + len(split['made'])} goods against a list of "
         f"{LIST_CAP}: CMM handles a row click to fifty and no further")
+    # **The two pickers are rows of a fixed count and the windows name them one
+    # by one**, so a game with more goods or more rights than the rows hold
+    # would simply stop drawing the extra ones -- silently, since a cell that is
+    # never written is a cell nothing complains about.
+    assert len(goods_order(split)) <= PICK_ROW * PICK_ROWS, (
+        f"{len(goods_order(split))} goods and only {PICK_ROW * PICK_ROWS} cells "
+        f"in the search picker: raise `PICK_ROWS` and add the row to both "
+        f"ranking windows")
+    assert len(rights) <= RIGHT_PICK_COL * RIGHT_PICK_COLS, (
+        f"{len(rights)} urban rights and only "
+        f"{RIGHT_PICK_COL * RIGHT_PICK_COLS} cells in the search picker: raise "
+        f"`RIGHT_PICK_COL` and make both ranking windows taller")
     assert max(len(r.output) for r in rights) <= RIGHT_SLOTS, (
         f"a charter favours more than {RIGHT_SLOTS} goods the mod can make; a row "
         f"holds a fixed number of answers, so raise `RIGHT_SLOTS`")
@@ -6498,7 +8080,12 @@ def main() -> int:
         f"# carries a goods scope and a scope reaches no numbered counter.\n"
         f"# Scope: country\n"
         f"{MOD_ID}_show_pn{i} = {{ value = global_var:{MOD_ID}_pn{i} }}\n"
-        for i, good in enumerate(goods_order(split), start=1)))
+        for i, good in enumerate(goods_order(split), start=1))
+        + "".join(
+        f"# How many towns hold {right.key} right now, printed in its own cell.\n"
+        f"# Scope: country\n"
+        f"{MOD_ID}_show_rgiven{k} = {{ value = global_var:{MOD_ID}_rgiven{k} }}\n"
+        for k, right in enumerate(output_rights(rows, game), start=1)))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent) + "".join(
@@ -6522,7 +8109,80 @@ def main() -> int:
 }}
 """
         for i, good in enumerate(goods_order(split), start=1)
-        for what in ("plus", "minus", "skip")))
+        for what in ("plus", "minus", "skip")) + "".join(
+        f"""
+# «{{'plus': '+1', 'minus': '−1'}}[what]» on the {right.key} charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+{MOD_ID}_right_{what}_{k} = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+\t\t{MOD_ID}_edit_right_{what}_{k} = yes
+\t\t{MOD_ID}_recompute_live = yes
+\t}}
+}}
+"""
+        for k, right in enumerate(output_rights(rows, game), start=1)
+        for what in ("plus", "minus")) + "".join(
+        f"""
+# «{{'plus': '+1', 'minus': '−1'}}[what]» на месте {p_slot} блока грамот. **Ячейка
+# написана под место, а не под грамоту**: какая грамота на нём сидит, говорит
+# `_rslot{p_slot}`, и диспетчер ниже попадает в её собственный эффект. Без этого
+# невидимая ячейка держала бы своё место в ряду, а девять грамот из тринадцати
+# вставали бы рваными столбцами -- 2026-09-06.
+{MOD_ID}_right_{what}_slot_{p_slot} = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+""" + "".join(
+            f"\t\tif = {{ limit = {{ global_var:{MOD_ID}_rslot{p_slot} = {k} }} "
+            f"{MOD_ID}_edit_right_{what}_{k} = yes }}\n"
+            for k in range(1, len(output_rights(rows, game)) + 1)) + f"""\t\t{MOD_ID}_recompute_live = yes
+\t}}
+}}
+"""
+        for p_slot in range(1, len(output_rights(rows, game)) + 1)
+        for what in ("plus", "minus")) + "".join(
+        f"""
+# {good} in the ranking window's picker. One circle, one number.
+{MOD_ID}_pick_good_{i} = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+\t\t{MOD_ID}_set_good_{i} = yes
+\t}}
+}}
+"""
+        for i, good in enumerate(goods_order(split), start=1)) + "".join(
+        f"""
+# {right.key} in the ranking window's picker.
+{MOD_ID}_pick_right_{i} = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+\t\t{MOD_ID}_set_right_{i} = yes
+\t}}
+}}
+"""
+        for i, right in enumerate(output_rights(rows, game), start=1)))
     write(LAYOUT_OUT, layout_file(by_continent))
     write(RIGHTS_OUT, rights_file(rows, split, game))
     write(PLAN_OUT, plan_file(rows, split, game))
@@ -6532,7 +8192,8 @@ def main() -> int:
     effects, triggers = editor_file(rows, split, game)
     write(EDITOR_OUT, effects)
     write(EDITOR_TRIGGERS_OUT, triggers)
-    write(EDIT_CELLS_OUT, edit_cells_file(goods_order(split)))
+    write(EDIT_CELLS_OUT, edit_cells_file(goods_order(split), output_rights(rows, game)))
+    write(PICK_CELLS_OUT, pick_cells_file(goods_order(split), rights))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))

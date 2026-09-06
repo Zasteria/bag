@@ -172,44 +172,26 @@ bag_wtp_drop_browse = {
 	set_global_variable = { name = bag_wtp_browse_count value = 0 }
 }
 
-# A tick in either goods list. The answer moved, so everything downstream of it
-# is stale -- and a good and an urban right are two answers to one question, so
-# choosing either drops the other.
-# Scope: country
-bag_wtp_good_changed = {
-	bag_wtp_read_good = yes
-	bag_wtp_only_one_good = yes
-	if = {
-		limit = { var:bag_wtp_good_index > 0 }
-		bag_wtp_drop_right = yes
-	}
-	bag_wtp_clear_rows = yes
-}
-
-# A tick in the rights list.
-# Scope: country
-bag_wtp_right_changed = {
-	bag_wtp_read_right = yes
-	bag_wtp_only_one_right = yes
-	if = {
-		limit = { var:bag_wtp_right_index > 0 }
-		bag_wtp_drop_good = yes
-	}
-	bag_wtp_clear_rows = yes
-}
+# **The two `_changed` callbacks are gone with the lists that called them.**
+# Until 2026-09-06 a good was a tick in a CMM list, the tick arrived here, and
+# everything downstream had to be re-derived from it -- which good is ticked,
+# which other ticks to force off, and whether a right had just lost its answer.
+# The circle in the ranking window writes the number itself
+# (`bag_wtp_set_good_<n>`, generated), so all that is left of it is the two
+# effects below, which say «nothing is chosen» in one place.
 
 # Scope: country
 bag_wtp_drop_right = {
 	set_variable = { name = bag_wtp_right_index value = 0 }
 	set_global_variable = { name = bag_wtp_right_index value = 0 }
-	bag_wtp_only_one_right = yes
+	bag_wtp_clear_right_sel = yes
 }
 
 # Scope: country
 bag_wtp_drop_good = {
 	set_variable = { name = bag_wtp_good_index value = 0 }
 	set_global_variable = { name = bag_wtp_good_index value = 0 }
-	bag_wtp_only_one_good = yes
+	bag_wtp_clear_good_sel = yes
 }
 
 # A tick in the continent list. Nothing is walked; only what the pickers offer
@@ -336,7 +318,21 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_rooms } }
 		set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
 	}
-	# And the two settings, for the frame before the sync has run: the caps are
+	# **The settings are globals of the mod's own now, not CMM's.** Until
+	# 2026-09-06 the caps and the rights tick lived on the mod page and were
+	# copied here at the top of every plan; the plan's window owns them, so
+	# these defaults are the whole of their birth. A default is written once,
+	# under `bag_wtp_defaults_set`, or turning the rights off would turn itself
+	# back on at the next load.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_defaults_set } }
+		set_global_variable = { name = bag_wtp_defaults_set value = 1 }
+		# Urban rights in the plan, on by default: a right is a bundle of two or
+		# three goods, which is the shape of a town's list, so it takes the list
+		# before any good is placed rather than competing for slots.
+		set_global_variable = { name = bag_wtp_plan_rights value = 1 }
+	}
+	# And the caps, for the frame before the window has been opened: they are
 	# read by a trigger asked once per candidate per round.
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_cap_rural } }
@@ -385,5 +381,31 @@ bag_wtp_init_counters = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_sweeps } }
 		set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
+	}
+	# The reshuffle's two counters. The changes window prints both from the
+	# moment it can be opened, which is before anything has ever traded.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_swaps } }
+		set_global_variable = { name = bag_wtp_rs_swaps value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_gain } }
+		set_global_variable = { name = bag_wtp_rs_gain value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_rounds } }
+		set_global_variable = { name = bag_wtp_rs_rounds value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_did } }
+		set_global_variable = { name = bag_wtp_rs_did value = 0 }
+	}
+	# Which pass the eviction is on. `bag_wtp_edit_add` sets it before either
+	# scan, but `bag_wtp_edit_worst` reads it in a trigger, and a trigger reading
+	# a global that does not exist is quietly false — which would be the strict
+	# pass, silently, for ever.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_edit_strict } }
+		set_global_variable = { name = bag_wtp_edit_strict value = 0 }
 	}
 }

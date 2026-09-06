@@ -145,6 +145,74 @@ def unresolved(root: Path, known: set[str]) -> list[str]:
     return found
 
 
+def unresolved_script_values(root: Path) -> list[str]:
+    """Every `ScriptValue('x')` this mod prints, against the values it defines.
+
+    **A `ScriptValue` that names nothing prints a blank and says so nowhere.**
+    Not in `error.log`, not on screen -- the line simply comes out with a hole
+    where the number was, and a diagnosis full of them still looks like a
+    diagnosis. On 2026-09-06 a `WTP G<n>` line was one build from shipping with
+    `bag_wtp_dg17` on it against sixteen generated scratch values.
+
+    Reads every place a value can be printed from: the localization, the
+    windows, and `debug_log` strings in `common/`. Only this mod's own names --
+    another mod's value is that mod's business, and the engine's own are not
+    script values at all.
+    """
+    defined: set[str] = set()
+    for path in sorted((root / "in_game/common/script_values").rglob("*.txt")):
+        defined.update(DEFINITION.findall(
+            path.read_text(encoding="utf-8-sig", errors="replace")))
+    if not defined:
+        return []
+    prefixes = tuple(sorted({n.split("_")[0] + "_" for n in defined}))
+    found = []
+    for pattern in ("in_game/**/*.txt", "in_game/**/*.gui",
+                    "main_menu/**/*.yml"):
+        for path in sorted(root.glob(pattern)):
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding="utf-8-sig", errors="replace")
+            for match in re.finditer(r"ScriptValue\('([\w.]+)'\)", text):
+                name = match.group(1)
+                if name in defined or not name.startswith(prefixes):
+                    continue
+                line = text[:match.start()].count("\n") + 1
+                found.append(
+                    f"{path.relative_to(REPO)}:{line}: `ScriptValue('{name}')` "
+                    f"and no script value of that name — it prints a blank, in "
+                    f"`error.log` and everywhere else")
+    return found
+
+
+def duplicate_definitions(root: Path) -> list[str]:
+    """Two script values of the same name, which the engine resolves silently.
+
+    **The first definition wins and the second is dropped**, the same rule
+    `customizable_localization` obeys (`CLAUDE.md`) -- so a value edited in the
+    wrong copy simply has no effect, and nothing on screen or in `error.log`
+    says which copy the game is reading. Two of these were shipped in one day on
+    2026-09-06, both from a generator adding a reader that already existed
+    forty lines further down.
+    """
+    seen: dict[str, str] = {}
+    found = []
+    for path in sorted((root / "in_game/common/script_values").rglob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        for match in re.finditer(r"^([a-z0-9_]+) = \{", text, re.M):
+            name = match.group(1)
+            line = text[:match.start()].count("\n") + 1
+            where = f"{path.relative_to(REPO)}:{line}"
+            if name in seen:
+                found.append(
+                    f"{where}: `{name}` is defined twice — first at {seen[name]}, "
+                    f"and the engine keeps the first and drops this one without "
+                    f"saying so")
+            else:
+                seen[name] = where
+    return found
+
+
 def unwritten(root: Path) -> list[str]:
     """Variables this mod reads that nothing in it, and not CMF, ever writes.
 
@@ -602,13 +670,21 @@ def overflowing_windows(root: Path) -> list[str]:
     box that clears the bound can still be too small; a box that does not is
     certainly too small, and that is the half worth failing on.
 
-    `SLACK` is what the window's own margin and its scrollbar are allowed to
-    take. `window_margin_alt` is a game template this repository has no copy of,
-    so the figure is an allowance and not a measurement -- and it is deliberately
-    generous, because this check exists to catch a row a third too wide, not to
-    argue about twenty pixels.
+    **`SLACK` is subtracted from the box, not added to it**, and getting that
+    backwards is what let the fault through a sixth time. The window's own margin
+    and its scrollbar take width *away* from what a row may use, so a row is
+    allowed `width - SLACK` and not `width + SLACK`. Under the old direction
+    `bag_wtp_edit_window` sat at 1500 with a 1544 row and passed: the frame ended
+    44px before the sheet, and the owner reported it as the header again --
+    «рамка всего окна вместе с шапкой не увеличивается, а содержимое выходит за
+    пределы рамки в правую сторону», 2026-09-06, which is the first description
+    of it that named the right thing.
+
+    `window_margin_alt` is a game template this repository has no copy of, so the
+    figure is an allowance and not a measurement -- deliberately small, because
+    the margin it stands for is small and the check is now the strict side.
     """
-    SLACK = 60
+    SLACK = 40
     gui = root / "in_game/gui"
     if not gui.is_dir():
         return []
@@ -645,17 +721,64 @@ def overflowing_windows(root: Path) -> list[str]:
             if not rows:
                 continue
             worst, line_off = max(rows)
-            if worst <= width + SLACK:
+            if worst <= width - SLACK:
                 continue
             line = text[:match.end() + line_off].count("\n") + 1
             found.append(
                 f"{path.relative_to(REPO)}:{line}: "
                 f"{name.group(1) if name else 'window'} declares "
                 f"size = {{ {width} ... }} and holds a row at least {worst} wide "
-                f"— the content spills past the frame through `allow_outside` "
-                f"and only the header, the background and the close button stay "
-                f"at the declared size. Widen the box; "
+                f"— with {SLACK} for the margin and the scrollbar a row may use "
+                f"{width - SLACK}. The content spills past the frame through "
+                f"`allow_outside`, and the frame is what stays at the declared "
+                f"size. Widen the box or narrow the row; "
                 f"docs/pitfalls/interface.md")
+    return found
+
+
+def frameless_windows(root: Path) -> list[str]:
+    """A window that draws no frame, and a frame drawn on something that is not one.
+
+    **The frame is one line and its absence is silent.** `using =
+    bg_window_default_alt` on the `window` is what paints the border, the header
+    ground and the sheet; without it the window still opens, still works, and has
+    no edges at all. On 2026-09-06 a script meant to move that line onto the
+    window put it on the first `size = {` line in the file instead — which in four
+    of the five files belongs to a *type* declared above the window — and three
+    windows lost their frame while a goods cell gained one. He found all four.
+
+    So both halves are checked: every `window` carries the line, and nothing that
+    is not a `window` does.
+    """
+    gui = root / "in_game/gui"
+    if not gui.is_dir():
+        return []
+    found = []
+    for path in sorted(gui.rglob("*.gui")):
+        text = _gui_text(path)
+        for match in re.finditer(r"^window\s*=\s*\{", text, re.M):
+            body = text[match.end():_brace_end(text, match.end() - 1)]
+            name = re.search(r'name\s*=\s*"([^"]+)"', body)
+            # **The window's own line, at its own indentation.** Splitting the
+            # body at "the first child" does not work: `size = { 1320 900 }` is a
+            # property and looks exactly like a block opening.
+            if re.search(r"^\tusing = bg_window_default_alt\s*$", body, re.M):
+                continue
+            line = text[:match.end()].count("\n") + 1
+            found.append(
+                f"{path.relative_to(REPO)}:{line}: "
+                f"{name.group(1) if name else 'window'} carries no "
+                f"`using = bg_window_default_alt` — it opens with no frame at all, "
+                f"and nothing logs that; docs/pitfalls/interface.md")
+        for match in re.finditer(r"^\ttype (\w+) = ", text, re.M):
+            body = text[match.end():_brace_end(text, text.index("{", match.end()))]
+            if "bg_window_default_alt" not in body:
+                continue
+            line = text[:match.start()].count("\n") + 1
+            found.append(
+                f"{path.relative_to(REPO)}:{line}: type `{match.group(1)}` carries "
+                f"`using = bg_window_default_alt` — that is a window's frame, and "
+                f"a type wearing it is a line that landed in the wrong place")
     return found
 
 
@@ -803,6 +926,9 @@ def main(argv: list[str]) -> int:
             continue
         root = root if root.is_absolute() else REPO / root
         found = (problems(root) + unresolved(root, known) + unwritten(root)
+                 + unresolved_script_values(root)
+                 + duplicate_definitions(root)
+                 + frameless_windows(root)
                  + unregistered_windows(root) + unresolved_interface(root)
                  + flowcontainer_datamodels(root)
                  + scope_mixed_variables(root)

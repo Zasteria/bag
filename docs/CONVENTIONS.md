@@ -81,13 +81,22 @@ caught it, not only in prose.
 | `workshop.py` | the same work without the menu; `sync_workshop.ps1` is the unattended loop |
 | `check_cmm.py` | every CMM call in a mod against CMF's declared arguments, and every localization key CMM will look for |
 | `check_docs.py` | the documents still describe files that exist, and stay inside their size budget |
-| `check_script.py` | three ways a mod file dies at load and nothing else notices: an effect's `if` inside a trigger, a doubled byte order mark, and a call to a name nothing defines. Runs from `refresh.py` |
+| `check_script.py` | every way a mod file or a window has died quietly here: an effect's `if` inside a trigger, a doubled byte order mark, a name nothing defines, a script value defined twice, a window missing from `scripted_widgets/`, a window without its frame line, a row wider than the window holding it. Each check carries the run it cost in its docstring. Runs from `refresh.py` |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
 | `guicost.py` | what the interface costs before anybody clicks |
 | `playset.py` | which mods the player actually runs, from the mount table in his `debug.log` |
 | `which_build.py` | which *build* of them ran, fingerprinted from the template line numbers in his `gui.log` |
 | `diag.py` | the `where_to_produce` diagnosis out of the game's `debug.log`, folded, **read for the owner in a dozen Russian lines** and copied to the clipboard. `mods.bat → «Забрать диагностику из игры»` is the same from the menu, and asks whether to take every report in the log or the last. `mods.bat → «Забрать из игры файлы или логи»` is its sibling: the game's own files into `reference/`, or its logs into a small zip to attach |
 | `publish.py` | whether a mod is fit to upload |
+
+**Editing a generator is not editing its output.** `generate.py` writes game
+files out of f-strings, and those f-strings carry literal `\t` and doubled
+braces. A replacement built in a shell heredoc has to escape both — `\\t`, and
+`{{` where the string is *substituted into* an outer f-string rather than
+processed by one. Three edits running on 2026-09-06 put `{{ }}` into the
+generated file, and one put `{MOD_ID}` there verbatim because the key was built
+with `%` on a plain string instead of an f-string. **Read the generated file
+after the edit, not the generator.**
 
 `.claude/hooks/session-start.sh` runs the first checkers at the start of every
 session, so a session begins knowing the state of the tree rather than what a

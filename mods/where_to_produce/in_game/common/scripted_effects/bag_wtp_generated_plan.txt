@@ -3,7 +3,10 @@
 # Scope: country
 bag_wtp_plan_run = {
 	save_scope_as = bag_wtp_country
-	bag_wtp_sync = yes
+	# **Nothing is re-read from CMM here any more.** The caps, the rights tick and
+	# «на конец» were settings on the mod page and had to be copied into globals
+	# at the top of every run; they are controls in the plan's own window now and
+	# write their globals themselves.
 	bag_wtp_collect_candidates = yes
 	bag_wtp_rebuild_browse = yes
 	bag_wtp_plan_prepare = yes
@@ -41,13 +44,18 @@ bag_wtp_plan_prepare = {
 		remove_variable = bag_wtp_plan_right
 		remove_variable = bag_wtp_plan_town_row
 		remove_variable = bag_wtp_plan_prov_load
+		remove_variable = bag_wtp_plan_prov_locn
+		remove_variable = bag_wtp_plan_area_load
+		remove_variable = bag_wtp_plan_pexp
 		remove_variable = bag_wtp_plan_seen
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds
 	}
 	clear_global_variable_list = bag_wtp_plan_touched
 	clear_global_variable_list = bag_wtp_plan_prov_locs
+	clear_global_variable_list = bag_wtp_plan_area_locs
 	clear_global_variable_list = bag_wtp_plan_ranked
+	clear_global_variable_list = bag_wtp_plan_provs
 	clear_global_variable_list = bag_wtp_plan_results
 	set_global_variable = { name = bag_wtp_plan_placed value = 0 }
 	set_global_variable = { name = bag_wtp_plan_fed value = 0 }
@@ -26847,18 +26855,80 @@ bag_wtp_plan_rank = {
 			}
 		}
 		set_variable = { name = bag_wtp_plan_prov_load value = global_var:bag_wtp_plan_count }
+		# **And how many of its locations the plan uses**, for the province row
+		# of the folded list. Counted in the walk that is already standing in
+		# the province rather than in a second one.
+		set_global_variable = { name = bag_wtp_plan_count value = 0 }
+		province_definition = {
+			every_location_in_province_definition = {
+				limit = { has_variable = bag_wtp_load var:bag_wtp_load > 0 }
+				change_global_variable = { name = bag_wtp_plan_count add = 1 }
+			}
+		}
+		set_variable = { name = bag_wtp_plan_prov_locn value = global_var:bag_wtp_plan_count }
+	}
+	# **Области сперва, провинции внутри области — и это одно место, а не два.**
+	# Его слова 2026-09-06: «провинции должны идти по списку внутри своих
+	# областей… я не хочу, чтобы провинции разных областей были в перемешку».
+	# Порядок один на оба вида списка: `_plan_prank` несёт его целиком, и плоский
+	# список читает то же число, что свёрнутый.
+	#
+	# **Без упаковки двух ключей в одно число.** Область и загрузка провинции
+	# влезли бы в одно `order_by`, но предел фиксированной точки движка отсюда
+	# неизвестен — предупреждение об этом уже стоит при `_plan_order`. Вместо
+	# этого обход внутри обхода: области по своей загрузке, внутри каждой
+	# провинции по своей, и номер выдаётся по ходу.
+	set_global_variable = { name = bag_wtp_plan_area_load value = 0 }
+	clear_global_variable_list = bag_wtp_plan_area_locs
+	every_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		save_scope_as = bag_wtp_plan_prov_at
+		# **«Эту область уже видели?» -- через глобалку, потому что внутренний обход
+		# не может писать в скоуп, из которого его позвали.** Список областей короток
+		# (у него шестнадцать провинций на пять областей), так что квадрат здесь
+		# дешевле любого хитрого способа.
+		set_global_variable = { name = bag_wtp_plan_aseen value = 0 }
+		every_in_global_list = {
+			variable = bag_wtp_plan_area_locs
+			limit = { area = scope:bag_wtp_plan_prov_at.area }
+			set_global_variable = { name = bag_wtp_plan_aseen value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_plan_aseen = 0 }
+			add_to_global_variable_list = { name = bag_wtp_plan_area_locs target = this }
+		}
+	}
+	# Сколько домиков во всей области -- по этому числу области и встанут.
+	every_in_global_list = {
+		variable = bag_wtp_plan_area_locs
+		save_scope_as = bag_wtp_plan_area_at
+		set_global_variable = { name = bag_wtp_plan_count value = 0 }
+		every_in_global_list = {
+			variable = bag_wtp_plan_prov_locs
+			limit = { area = scope:bag_wtp_plan_area_at.area }
+			change_global_variable = { name = bag_wtp_plan_count add = var:bag_wtp_plan_prov_load }
+		}
+		set_variable = { name = bag_wtp_plan_area_load value = global_var:bag_wtp_plan_count }
 	}
 	set_global_variable = { name = bag_wtp_plan_prov_n value = 0 }
 	ordered_in_global_list = {
-		variable = bag_wtp_plan_prov_locs
-		order_by = bag_wtp_plan_prov_order
+		variable = bag_wtp_plan_area_locs
+		order_by = bag_wtp_plan_area_order
 		max = 600
 		check_range_bounds = no
-		change_global_variable = { name = bag_wtp_plan_prov_n add = 1 }
-		province_definition = {
-			every_location_in_province_definition = {
-				limit = { has_variable = bag_wtp_plan_prank }
-				set_variable = { name = bag_wtp_plan_prank value = global_var:bag_wtp_plan_prov_n }
+		save_scope_as = bag_wtp_plan_area_at
+		ordered_in_global_list = {
+			variable = bag_wtp_plan_prov_locs
+			limit = { area = scope:bag_wtp_plan_area_at.area }
+			order_by = bag_wtp_plan_prov_order
+			max = 600
+			check_range_bounds = no
+			change_global_variable = { name = bag_wtp_plan_prov_n add = 1 }
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_plan_prank }
+					set_variable = { name = bag_wtp_plan_prank value = global_var:bag_wtp_plan_prov_n }
+				}
 			}
 		}
 	}
@@ -26965,6 +27035,33 @@ bag_wtp_plan_show = {
 	else = {
 		remove_variable = bag_wtp_plan_paged
 	}
+	# **The folded list, and it is a second list rather than a second shape for
+	# the first.** A datamodel item sees one scope, so a province row and a
+	# location row cannot be the same row -- and the flat list is what he has
+	# been reading since the plan existed, so it stays untouched and the fold is
+	# a switch beside it.
+	#
+	# One representative location a province (`_plan_prov_locs` already holds
+	# exactly that), ordered by the province's own place, and the province's
+	# locations are drawn under it from `GetProvinceDefinition.GetLocations` --
+	# the same nesting the search window has used since it was built.
+	set_global_variable = { name = bag_wtp_plan_provfill value = 0 }
+	set_global_variable = { name = bag_wtp_plan_provshown value = 0 }
+	clear_global_variable_list = bag_wtp_plan_provs
+	every_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		limit = { has_variable = bag_wtp_plan_prov_locn var:bag_wtp_plan_prov_locn > 0 }
+		change_global_variable = { name = bag_wtp_plan_provfill add = 1 }
+	}
+	ordered_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		limit = { has_variable = bag_wtp_plan_prov_locn var:bag_wtp_plan_prov_locn > 0 }
+		order_by = bag_wtp_plan_pseq_order
+		max = 150
+		check_range_bounds = no
+		change_global_variable = { name = bag_wtp_plan_provshown add = 1 }
+		add_to_global_variable_list = { name = bag_wtp_plan_provs target = this }
+	}
 	clear_global_variable_list = bag_wtp_plan_results
 	ordered_in_global_list = {
 		variable = bag_wtp_plan_ranked
@@ -27000,6 +27097,7 @@ bag_wtp_plan_page_prev_effect = {
 # Scope: country
 bag_wtp_plan_hide = {
 	clear_global_variable_list = bag_wtp_plan_results
+	clear_global_variable_list = bag_wtp_plan_provs
 }
 
 # The same thing the window's own scripted GUI does, reachable from an effect,

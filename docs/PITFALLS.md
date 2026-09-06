@@ -25,52 +25,64 @@ searches like everything else:
 
 ## Script
 
+**Two script values of the same name: the first wins and the second is dropped,
+silently.** The same rule `customizable_localization` obeys, and it costs the
+same way — a value edited in the wrong copy simply has no effect, with nothing on
+screen or in `error.log` to say which copy the game reads. Two shipped in one day
+on 2026-09-06, both from a generator adding a reader that already existed forty
+lines further down. `check_script.py` reports them now.
+
+**A scripted trigger answers the question its first caller needed, not the one
+its name promises.** `bag_wtp_plan_right_fits_<k>` reads as «может ли эта грамота
+тут стоять» and is built out of `_plan_can_town_<n>`, which also demands **a free
+room** — true of the empty towns the grant pass walks, false of every town of a
+finished plan. Reused by the editor 2026-09-06, it was false everywhere: «+1» on
+a charter found no candidate and «−1» found nobody to hand the town to, one cause
+and two symptoms, both reading on screen as «кнопка не работает». **A trigger
+carried into a second pass is read line by line before it is called**, and where
+the question differs it gets its own (`_edit_right_fits_<k>`: a method exists
+here, and never mind what already stands).
+
+**And the same file's other half of that lesson.** `_edit_place_town_<n>` ends on
+`var:_load < cap` — a deliberate invariant, and the right one — so **a placement
+can say no**. The charter swap planted the arriving bundle and squared the load up
+afterwards, which loses a building whenever the new bundle is bigger than the one
+it replaced, and loses it in silence. **Count the rooms and free them first**, then
+count again afterwards: the second reading is what did not get in, and it is worth
+a line on screen.
+
 **A `province_definition` does not keep a variable.** It is static map data, not
 a runtime entity — the runtime one is `province` — and a `set_variable` inside
 `province_definition = { … }` writes nothing, silently. `where_to_produce`'s plan
-kept each province's two lists and their counters there and placed *zero*
-buildings out of 381 places: every `limit` that read one of the counters failed,
-`error.log` carried not one line, and the pass counted its own 127 locations and
-30 goods correctly on the way past. **Nothing in vanilla or in any mod in
-`reference/` writes a variable to a definition** — the way to hold a province's
-state is `every_location_in_province_definition` and a variable on each location,
-which is what `bag_wtp_store_row` has always done. A definition is still a
+kept each province's counters there and placed *zero* buildings out of 381
+places, with not one line in `error.log`. **Nothing in vanilla or in any mod in
+`reference/` writes a variable to a definition** — a province's state lives on
+its locations (`every_location_in_province_definition`). A definition is still a
 perfectly good *scope* to read through, and to iterate from.
 
 **A `trigger_if` chain must end in a `trigger_else`.** Ending on a
 `trigger_else_if` logs `PostValidate of trigger 'trigger_else_if' returned false`
-against the last link and voids the whole trigger — `where_to_produce`'s
-«only where the building can stand» filtered nothing for two loads, and the line
-sat in `error.log` unread because it names a generated file and a line number
-rather than the setting it broke. `trigger_else = { always = no }` closes it.
+and voids the whole trigger — `where_to_produce`'s «only where the building can
+stand» filtered nothing for two loads. `trigger_else = { always = no }` closes it.
 
 **A CMM macro called *without* an argument CMF declares fails exactly like one
-called with an argument it does not.** The known half of this rule was `step`
-where CMF wanted `step_value`; the other half cost `where_to_produce` a whole
-load. `cmm_register_settings_list` declares `is_ordered`, the call omitted it,
-`$is_ordered$` stayed in the pasted text, and every list registration died where
-it stood — taking the row labels and the field registration after it in the same
-effect. The symptom was a Mod Menu tab holding only the settings that happened to
-be registered by a *different* effect, with no error anywhere. `check_cmm.py`
-now reports both directions.
+called with an argument it does not.** `cmm_register_settings_list` declares
+`is_ordered`, the call omitted it, `$is_ordered$` stayed in the pasted text, and
+every list registration died where it stood — taking everything after it in the
+same effect, with no error anywhere. `check_cmm.py` now reports both directions.
 
 **A condition copied out of a game file carries the game's comments with it.**
-`copperworking`'s `potential` has a commented-out religion clause under the live
-one; folded onto a single line for a generated trigger, the `#` swallowed
-everything after it — the closing braces included — and the file was unbalanced.
-Nothing says so but `error.log`, and only after the parser has already abandoned
-the file. **Strip `#` to end of line, per line, before collapsing anything the
-game wrote.** Found 2026-09-03 by the brace count in a session's own check, not
-by the game.
+`copperworking`'s `potential` has a commented-out clause under the live one;
+folded onto one line for a generated trigger, the `#` swallowed everything after
+it — closing braces included — and the file was unbalanced. **Strip `#` to end of
+line, per line, before collapsing anything the game wrote.**
 
 **`cmf_on_mod_registration` fires every time the mod page is opened.** Not on a
 new game, a save load and a country transfer only, whatever it reads like:
 `where_to_produce`'s registration ended with a `clear_rows`, and the result the
-player had just computed was gone by the time he reached the button that
-reopens it — the counters beside it zeroed, the rank taken off every row, and
-the rows themselves left on screen because the newer of the two windows' lists
-had been forgotten in that same `clear_rows`. Registration is for making things
-exist. Anything it destroys, it destroys on a schedule nobody chose.
+player had just computed was gone by the time he reached the button that reopens
+it. Registration is for making things exist. Anything it destroys, it destroys on
+a schedule nobody chose.
 
 **A call to a name nothing defines is not reported where you would look.** The
 patch that was to write `bag_wtp_right_row_is_worth_it` died half way; the
@@ -91,30 +103,23 @@ things "never reported" the whole time. The forms are `trigger_if`,
 `trigger_else_if`, `trigger_else`; `tools/check_script.py` refuses the others.
 
 **A file carries one byte order mark, at byte zero.** A second one is a
-character in the text and the interface parser answers `'﻿' is not a valid
-widget/type/property`, then abandons the file — every type in it missing, the
-window never found, and the only symptom in game a button that does nothing.
-Writing a string that already begins with a BOM through `encoding='utf-8-sig'`
-is how it happens, and nothing about the file looks wrong afterwards.
+character in the text: the interface parser answers `'﻿' is not a valid
+widget/type/property` and abandons the file — every type in it missing and the
+only symptom in game a button that does nothing. Writing a string that already
+begins with a BOM through `encoding='utf-8-sig'` is how it happens.
 `tools/check_script.py` counts them.
 
 **A ranking on fractions does not sort.** `where_to_produce` ranked provinces on
-a method's effective output, which for the one book method a 1369 country has
-unlocked runs 0.3000 to 0.3129 across the whole of Europe. The rows came back in
-alphabetical order of the province key — the unordered walk — and `order_by` had
-plainly done nothing. The tell is in the tree: **not one `order_by` anywhere
-sorts on a fraction.** Vanilla ranks on `military_strength`, `country_tax_base`,
-`population`; Advanced Auto Build on a score built out of `add = 12000`. Scale
-until the differences are whole numbers, and keep the scaled value out of
-anything that prints.
+a method's effective output — 0.3000 to 0.3129 across the whole of Europe — and
+the rows came back in alphabetical order of the province key. The tell is in the
+tree: **not one `order_by` anywhere sorts on a fraction.** Scale until the
+differences are whole numbers, and keep the scaled value out of anything that
+prints.
 
 **A scope rule applied to half a mod is not applied.** The `root`s the rule
-below condemns were taken out of `where_to_produce`'s row pass and left in all
-218 places in the scoring pass beside it, which cost the next run too: the
-pickers reached the pass and the pass found no method available anywhere,
-because each availability check was a country trigger asked through `root` from
-inside a walk over locations. Grep the whole mod for the construct in the
-session the rule turns up.
+below condemns were taken out of one pass and left in all 218 places of the pass
+beside it, which cost the next run too. Grep the whole mod for the construct in
+the session the rule turns up.
 
 **A generic action's `effect` does not run in the actor's scope.** The three map
 pickers in `where_to_produce` ended with two scripted effects written for a

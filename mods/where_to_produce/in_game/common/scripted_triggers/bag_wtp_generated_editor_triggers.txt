@@ -2082,3 +2082,149 @@ bag_wtp_edit_locked_47 = {
 		var:bag_wtp_plan_right = 11
 	}
 }
+
+# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_1 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm29 > 0
+		var:bag_wtp_pm30 > 0
+		var:bag_wtp_pm18 > 0
+	}
+}
+
+# flemish_cloth_industries_right: cloth, fine_cloth. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_2 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm29 > 0
+		var:bag_wtp_pm30 > 0
+	}
+}
+
+# royal_artisan_rights: furniture, leather, pottery. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_3 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm32 > 0
+		var:bag_wtp_pm36 > 0
+		var:bag_wtp_pm42 > 0
+	}
+}
+
+# royal_book_rights: books, dyes, paper. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_4 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm27 > 0
+		var:bag_wtp_pm4 > 0
+		var:bag_wtp_pm40 > 0
+	}
+}
+
+# royal_brewing_rights: beer, liquor, wine. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_5 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm26 > 0
+		var:bag_wtp_pm37 > 0
+		var:bag_wtp_pm24 > 0
+	}
+}
+
+# royal_jewelry_rights: jewelry. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_6 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm34 > 0
+	}
+}
+
+# royal_masonry_rights: glass, masonry. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_7 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm33 > 0
+		var:bag_wtp_pm38 > 0
+	}
+}
+
+# royal_naval_rights: naval_supplies, tar. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_8 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm39 > 0
+		var:bag_wtp_pm45 > 0
+	}
+}
+
+# royal_textile_rights: cloth, dyes, fine_cloth. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_9 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm29 > 0
+		var:bag_wtp_pm4 > 0
+		var:bag_wtp_pm30 > 0
+	}
+}
+
+# royal_tooling_rights: tools. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_10 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm46 > 0
+	}
+}
+
+# royal_weaponry_rights: cannons, firearms, weaponry. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_11 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm28 > 0
+		var:bag_wtp_pm31 > 0
+		var:bag_wtp_pm47 > 0
+	}
+}
+
+# scandinavian_bergslag_privileges: tools. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_12 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm46 > 0
+	}
+}
+
+# scandinavian_tar_privileges: naval_supplies, tar. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+bag_wtp_edit_right_fits_13 = {
+	bag_wtp_plan_is_town = yes
+	OR = {
+		var:bag_wtp_pm39 > 0
+		var:bag_wtp_pm45 > 0
+	}
+}
