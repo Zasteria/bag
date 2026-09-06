@@ -195,6 +195,8 @@ bag_wtp_hide_results = {
 # row draws: one method for a good, or one per good of a right's bundle.
 # Scope: country
 bag_wtp_open_result_window_effect = {
+	# Окно поиска — тоже выход из редактора: выбор плана возвращается.
+	bag_wtp_sel_restore_plan = yes
 	bag_wtp_show_results = yes
 	# The plan is a third answer to a third question and its window is a third
 	# datamodel; leaving it open behind this one would keep every one of its rows

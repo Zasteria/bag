@@ -4,10 +4,10 @@
 
 «Ты постоянно смешиваешь функции плана и редактирования» — его слова.
 
-**The mod page is three tabs — Земля, Расчёты, Техническая — and four buttons
-that only open windows**, every setting inside the window of its function. **Two rules of his, above any layout
-idea**: **no descriptions in a window header** — that is the control's tooltip —
-and **anything technical belongs on «Техническая»**
+**The mod page is three tabs and four buttons that only open windows**, every
+setting inside the window of its function. **Two rules of his**: **no
+descriptions in a window header** — that is the control's tooltip — and
+**anything technical belongs on «Техническая»**
 ([`wtp_menu_rebuild.md`](../../docs/investigations/wtp_menu_rebuild.md)).
 
 | # | what | where | files |
@@ -17,9 +17,8 @@ and **anything technical belongs on «Техническая»**
 | 3 | **A whole plan for that ground** — every production where it pays | the plan window: the caps and both switches there, «Пересчитать» runs it | `_plan_*` |
 | 4 | **Editing that plan afterwards**, one building at a time | the editor window, and only there | `_edit_*` |
 
-**3 and 4 are separate, and the traffic runs one way.** The editor reads the plan
-and changes it; **nothing it holds — a pin, a «не нужен» flag, the star in a cell
-— is ever read by 3**. Crossed once and reverted. **The test: «не нужен», then a
+**3 and 4 are separate and the traffic runs one way**: nothing the editor holds
+is ever read by 3. Crossed once and reverted. **The test: «не нужен», then a
 fresh plan — it must be ordinary.**
 
 **Before touching any `_plan_*`:
@@ -41,20 +40,20 @@ building and a location holds one of each**
 ([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
 **A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
-one building a press, where it costs least, and **the round trip is no undo**.
-**The editor's share subtracts the RGOs** — `_eq<n>`. **A press pins its good**
-(`_lock<n>`); a freed room goes to the good furthest below its share, «+1» takes
-one from the good furthest above, and what a fill placed then trades locations
-between itself (`_fillg`, `_edit_reshuffle`). **A pin is a star, not a colour.** **The changes window is a diff, not a
-chronology** (`_chg_seq` orders it); the journal is `WTP PRESS` in `debug.log`.
-**A charter is not a building**: every town holds exactly one, so «+1»/«−1»
-*moves* it, bundle and all, and no town ends without one (`_edit_right_swap`,
-`_rquota`). `_lock<n>` and `_skip<n>` are existence
-flags a slot stores and restores; **`_edit_locked_<n>` is the charter's bundle,
-not the player's pin.** **«Расширить» доливает новую землю**: новое = выбранное
-минус `_plan_touched`, старое заморожено, замок спадает, когда простая доля его
-переросла. **Оно сужает `_candidates`, а не пишет второй план. Прогона не
-было.**
+one building a press, and **the round trip is no undo**. **The editor's share
+subtracts the RGOs** — `_eq<n>`. **A press pins its good** (`_lock<n>`); **a pin
+is a star, not a colour**. **A charter is not a building**: every town holds
+exactly one, so «+1»/«−1» *moves* it, bundle and all (`_edit_right_swap`,
+`_rquota`). **The changes window is a diff, not a chronology**, and is shelved at
+his word; the journal is `WTP PRESS` in `debug.log`. **«Расширить» доливает новую
+землю**: новое = выбранное минус `_plan_touched`, старое заморожено, замок
+спадает, когда простая доля его переросла — **оно сужает `_candidates`, а не
+пишет второй план**; подтверждено в игре дважды. **Земля редактора своя**:
+сбрасывается на землю плана при открытии, возвращает выбор плана при выходе
+(`_sel_keep_plan`). **Ряд плана рисует товар над своим домиком двумя
+датамоделями**, списки идут индекс в индекс, `WTP ROWPAIR` считает расхождение.
+**`_pout<n>` — зонд выхлопа, не правило**: домик домику не равен, 0.1…4.5
+([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before

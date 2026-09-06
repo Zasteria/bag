@@ -245,12 +245,14 @@ DIAG_ROWS = 25
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
 # reach the item a walk is standing on** -- measured 2026-09-02, `THIS.MakeScope`
 # fails and the bracket is echoed literally -- so every number is parked in one of
-# these first and printed from there. **Seventeen because the widest line, a
-# good's, has seventeen numbers on it** -- and a line that parks past this number
+# these first and printed from there. **Eighteen because the widest line, a
+# good's, has eighteen numbers on it** -- and a line that parks past this number
 # prints a blank, because the script value it reads through is not generated.
 # Nothing catches that: `read(17)` against sixteen slots came within one build of
-# shipping on 2026-09-06.
-DIAG_SCRATCH = 17
+# shipping on 2026-09-06, and `read(18)` against seventeen slots came within one
+# build again the same day, when the good's line gained `out=`. **Raise this
+# whenever a line gains a number, in the same edit.**
+DIAG_SCRATCH = 18
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
@@ -2512,6 +2514,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # true or false, where `global_var:x = 0` on a missing name is silently
         # false and reads as «off» whichever way it was meant.
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_pn{index} value = 0 }}\n"
+                   f"\tset_global_variable = {{ name = {MOD_ID}_pout{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}\n"
@@ -2756,6 +2759,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # can only hold one of. Which building it is comes off the method the harvest
 # kept.
 """)
+    # Номер метода -> сам метод, чтобы ветка знала его выхлоп. Нумерация та же,
+    # что пишут `_pm<n>`/`_prm<n>`: место в `rows`, считая с единицы.
+    by_method = {i: m for i, m in enumerate(rows, start=1)}
     for side, listname, method_var, gain_var, cap in (("t", "town", "pm", "p", "urban"),
                                                      ("r", "rural", "prm", "pr", "rural")):
         for index, good in enumerate(order, start=1):
@@ -2767,10 +2773,25 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 tests = "".join(
                     "\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
                     for mi in sorted(mis))
+                # **Сколько товара этот домик на самом деле даёт, в сотых.**
+                # Зонд, а не правило: план по-прежнему считает домики. Но домик
+                # домику не равен — городская пивоварня-мельница даёт 4.0 пива,
+                # сельская `rural_millet_brewery` 0.5, — и пока выхлоп нигде не
+                # посчитан, «равномерно» и «неравномерно» проверить нечем.
+                # Владелец, 2026-09-06: «усреднять нужно не кол-во домиков, а
+                # количество выхлопа».
+                #
+                # **Ветка на метод, а не на домик**: у одного домика методов
+                # несколько и выхлоп у них разный.
+                outs = "".join(
+                    f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_{method_var}{index} = {mi} }} "
+                    f"change_global_variable = {{ name = {MOD_ID}_pout{index} "
+                    f"add = {int(round(by_method[mi].output * 100))} }} }}\n"
+                    for mi in sorted(mis))
                 branches += f"""\t\tif = {{
 \t\t\tlimit = {{ OR = {{
 {tests}\t\t\t}} }}
-\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+{outs}\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 \t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }}
 \t\t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed add = 1 }}
@@ -3696,6 +3717,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # variable system.
 # Scope: country
 {MOD_ID}_open_plan_window_effect = {{
+\t{MOD_ID}_sel_restore_plan = yes
 \t{MOD_ID}_plan_show = yes
 \tremove_variable = {MOD_ID}_result_open
 \tremove_variable = {MOD_ID}_right_open
@@ -6835,6 +6857,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# nothing had registered it in `gui/scripted_widgets/`, and the engine creates
 \t# only what is registered there. That is a rule a checker can enforce, so it
 \t# does, and a line in `error.log` on every press is noise once the answer is in.
+\t# **Земля редактора — своя, и она сбрасывается на землю плана.** Его слова
+\t# 2026-09-06: «я хочу, чтобы эти две карты были независимыми друг от друга»
+\t# — расширение увеличивало выбор и в окне плана, а выбор в окне плана менял
+\t# то, что доливал редактор. Выбор плана откладывается целиком и возвращается
+\t# при выходе; редактор начинает с того, на чём план стоит сейчас.
+\t{MOD_ID}_sel_keep_plan = yes
+\t{MOD_ID}_sel_load_plan_ground = yes
 \t{MOD_ID}_edit_init_slots = yes
 \t# **The last-press line starts blank, and the press counter starts at zero.**
 \t# Both are globals and both survive a save, so a «сделано» from an hour ago
@@ -6864,6 +6893,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 # Scope: country
 {MOD_ID}_close_edit_window_effect = {{
+\t# Выбор плана возвращается целиком; земля, набранная в редакторе, уходит с
+\t# окном. Возврат идёт и отсюда, и из открытия окна плана или поиска: путей
+\t# наружу больше одного, а вернуть надо по любому.
+\t{MOD_ID}_sel_restore_plan = yes
 \tremove_variable = {MOD_ID}_edit_open
 \tremove_variable = {MOD_ID}_chg_open
 \t{MOD_ID}_plan_hide = yes
@@ -7996,6 +8029,44 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    "placed=%s moved_on_old=%s pins_lifted=%s "
                    "-- moved_on_old must be 0"
                    % tuple(read(i) for i in range(1, 8))))
+    # **Столбики строк плана: товар обязан стоять над своим домиком.**
+    # Окно рисует два списка двумя датамоделями — строка датамодели видит один
+    # скоуп, и другого способа нет, — а в пары их складывает только то, что
+    # `_row_goods` и `_row_builds` идут индекс в индекс. Расхождение длин
+    # сдвинуло бы каждый следующий товар на чужой домик, и **на экране это
+    # выглядит как правильная строка**. Поэтому оно считается здесь, а не
+    # проверяется глазом. `mismatched` обязан быть нулём.
+    out.append(f"""\tset_global_variable = {{ name = {MOD_ID}_dv1 value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_dv2 value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{ has_variable = {MOD_ID}_load var:{MOD_ID}_load > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_dv1 add = 1 }}
+\t\tset_variable = {{ name = {MOD_ID}_rpg value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_rpb value = 0 }}
+\t\tevery_in_list = {{
+\t\t\tvariable = {MOD_ID}_row_goods
+\t\t\tprev = {{ change_variable = {{ name = {MOD_ID}_rpg add = 1 }} }}
+\t\t}}
+\t\tevery_in_list = {{
+\t\t\tvariable = {MOD_ID}_row_builds
+\t\t\tprev = {{ change_variable = {{ name = {MOD_ID}_rpb add = 1 }} }}
+\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_rpd value = var:{MOD_ID}_rpg }}
+\t\tchange_variable = {{ name = {MOD_ID}_rpd subtract = var:{MOD_ID}_rpb }}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ var:{MOD_ID}_rpd = 0 }} }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_dv2 add = 1 }}
+\t\t}}
+\t\tremove_variable = {MOD_ID}_rpg
+\t\tremove_variable = {MOD_ID}_rpb
+\t\tremove_variable = {MOD_ID}_rpd
+\t}}
+""")
+    out.append(say("ROWPAIR rows=%s mismatched=%s -- the plan row draws the good "
+                   "over its own building only while these two lists are the same "
+                   "length; mismatched must be 0"
+                   % (read(1), read(2))))
 
     # **The reshuffle, and it needs three numbers rather than one.** `rounds` at
     # zero says the pass never ran at all — the one failure that looks exactly
@@ -8203,7 +8274,13 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              # plan's arithmetic applied to the editor's quota:
                              # `_edit_quota - rgo`, floored at 1. It is here so a
                              # run can check the two against each other.
-                             (17, f"{MOD_ID}_eq{index}")):
+                             (17, f"{MOD_ID}_eq{index}"),
+                             # **Выхлоп этого товара, в сотых единицы.** Домик
+                             # домику не равен: городская пивоварня-мельница
+                             # даёт 4.00, сельская 0.50. Пока это не посчитано,
+                             # «равномерно» проверить нечем — а `n` про
+                             # равномерность врёт в восемь раз.
+                             (18, f"{MOD_ID}_pout{index}")):
             out.append(park(slot, source))
         # Availability is the country's advance and not the location's ground:
         # `can_build_building` asked here answers the advance, asked in a
@@ -8222,7 +8299,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"| R m={len(village)}({village_end}) a={read(14)} w={read(5)} "
                        f"r={read(16)} g={read(6)} p={read(7)} o={read(8)} "
                        f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)} "
-                       f"eq={read(17)}"))
+                       f"eq={read(17)} out={read(18)}"))
         out.append("}\n")
 
     # --------------------------------------------------------------- the passes

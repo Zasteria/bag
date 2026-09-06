@@ -28120,6 +28120,13 @@ bag_wtp_open_edit_window_effect = {
 	# nothing had registered it in `gui/scripted_widgets/`, and the engine creates
 	# only what is registered there. That is a rule a checker can enforce, so it
 	# does, and a line in `error.log` on every press is noise once the answer is in.
+	# **Земля редактора — своя, и она сбрасывается на землю плана.** Его слова
+	# 2026-09-06: «я хочу, чтобы эти две карты были независимыми друг от друга»
+	# — расширение увеличивало выбор и в окне плана, а выбор в окне плана менял
+	# то, что доливал редактор. Выбор плана откладывается целиком и возвращается
+	# при выходе; редактор начинает с того, на чём план стоит сейчас.
+	bag_wtp_sel_keep_plan = yes
+	bag_wtp_sel_load_plan_ground = yes
 	bag_wtp_edit_init_slots = yes
 	# **The last-press line starts blank, and the press counter starts at zero.**
 	# Both are globals and both survive a save, so a «сделано» from an hour ago
@@ -28149,6 +28156,10 @@ bag_wtp_open_edit_window_effect = {
 
 # Scope: country
 bag_wtp_close_edit_window_effect = {
+	# Выбор плана возвращается целиком; земля, набранная в редакторе, уходит с
+	# окном. Возврат идёт и отсюда, и из открытия окна плана или поиска: путей
+	# наружу больше одного, а вернуть надо по любому.
+	bag_wtp_sel_restore_plan = yes
 	remove_variable = bag_wtp_edit_open
 	remove_variable = bag_wtp_chg_open
 	bag_wtp_plan_hide = yes

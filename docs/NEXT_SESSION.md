@@ -28,26 +28,38 @@ rather than multiply — all confirmed by his runs of 2026-09-05 and 2026-09-06.
 - **The changes window is shelved at his own word** — «правок требует много,
   функциональности несёт мало». Do not touch it until he asks.
 
-### Step 6 — «Расширить» — is built and has never been loaded
+### Step 6 — «Расширить» — is closed, confirmed twice in the game
 
-**He chose the form on 2026-09-06: one button, in the editor, with the ground
-buttons beside it.** New ground is whatever is picked now minus `_plan_touched`;
-the old ground is frozen, the new rooms fill to the new share, and a pin the new
-share outgrew lifts by itself. How it is wired, in one table, is in the
-practice plan — the whole of it is four one-condition edits inside `_plan_*` and
-narrowing `_candidates`.
+Two runs, `сдвинулось на старой земле = 0` both times and corroborated by a
+second counter; a pin lifted when the share outgrew it. Written up in
+[`TESTLOG.md`](TESTLOG.md); how it is wired is one table in the practice plan.
 
-**Nothing about it is verified. It cannot be from here.** The run that closes it
-is written out at the end of that section, and the number that decides is
-**«на старой земле сдвинулось», which must be 0** — on the window under the
-button, and as `WTP EXT` in the diagnosis.
+**Still never run:** the fold-by-default (only a **new game** shows it) and any
+large ground since the ladders were rebuilt — northern Germany's 233 locations;
+Westphalia's 48 does not test it, and the extension re-scores and re-ranks, so it
+carries the same open question.
 
-**Two other things nobody has run and neither is owed a build:** the
-fold-by-default (a save carries its own value, so only a **new game** shows it),
-and the whole plan on a large ground since the ladders were rebuilt — northern
-Germany, 233 locations; Westphalia's 48 does not test it. **The extension has
-the same open question**: it re-scores the ground it adds and re-ranks
-everything, so a large second ground is its own measurement.
+### The live question: what is being made even — buildings or output
+
+**His own turn, 2026-09-06: «усреднять нужно не кол-во домиков, а количество
+выхлопа».** A village weapons shop and a town brewery are both "7 buildings" and
+are not the same thing — measured, the spread of `Method.output` across the
+plan's 241 methods is **0.1 to 4.5**, and beer is 4.00 in a town against 0.50 in
+a village.
+
+**He asked how to compute the target to aim for, and it does not have to be
+chosen** — it falls out of the same division once a room is weighed by what it
+yields instead of by 1. The derivation, and the proof that it collapses into
+today's formula when every output is 1.0, is in
+[`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
+
+**Nothing is being changed on that yet, and that is deliberate.** Measured in
+output rather than buildings, his run looks far more even than it looks on
+screen: dyes at **5 buildings is the top producer at 20.0**, beer at 25 buildings
+is 19.5. That is an upper-bound estimate, so **the probe was built instead of the
+formula**: `_pout<n>` now sums the output of the methods the plan actually
+placed, and prints as `out=` in the good's line. **One run says whether the
+formula needs changing at all.**
 
 ### Then 7 and 8, in that order, and not before
 

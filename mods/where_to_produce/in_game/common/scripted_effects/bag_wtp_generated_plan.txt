@@ -97,6 +97,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_quota value = 1 }
 	set_global_variable = { name = bag_wtp_pn1 value = 0 }
+	set_global_variable = { name = bag_wtp_pout1 value = 0 }
 	set_global_variable = { name = bag_wtp_pq1 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo1 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest1 value = 0 }
@@ -105,6 +106,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz1
 	set_global_variable = { name = bag_wtp_esh1 value = 0 }
 	set_global_variable = { name = bag_wtp_pn2 value = 0 }
+	set_global_variable = { name = bag_wtp_pout2 value = 0 }
 	set_global_variable = { name = bag_wtp_pq2 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo2 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest2 value = 0 }
@@ -113,6 +115,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz2
 	set_global_variable = { name = bag_wtp_esh2 value = 0 }
 	set_global_variable = { name = bag_wtp_pn3 value = 0 }
+	set_global_variable = { name = bag_wtp_pout3 value = 0 }
 	set_global_variable = { name = bag_wtp_pq3 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo3 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest3 value = 0 }
@@ -121,6 +124,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz3
 	set_global_variable = { name = bag_wtp_esh3 value = 0 }
 	set_global_variable = { name = bag_wtp_pn4 value = 0 }
+	set_global_variable = { name = bag_wtp_pout4 value = 0 }
 	set_global_variable = { name = bag_wtp_pq4 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo4 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest4 value = 0 }
@@ -129,6 +133,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz4
 	set_global_variable = { name = bag_wtp_esh4 value = 0 }
 	set_global_variable = { name = bag_wtp_pn5 value = 0 }
+	set_global_variable = { name = bag_wtp_pout5 value = 0 }
 	set_global_variable = { name = bag_wtp_pq5 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo5 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest5 value = 0 }
@@ -137,6 +142,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz5
 	set_global_variable = { name = bag_wtp_esh5 value = 0 }
 	set_global_variable = { name = bag_wtp_pn6 value = 0 }
+	set_global_variable = { name = bag_wtp_pout6 value = 0 }
 	set_global_variable = { name = bag_wtp_pq6 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo6 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest6 value = 0 }
@@ -145,6 +151,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz6
 	set_global_variable = { name = bag_wtp_esh6 value = 0 }
 	set_global_variable = { name = bag_wtp_pn7 value = 0 }
+	set_global_variable = { name = bag_wtp_pout7 value = 0 }
 	set_global_variable = { name = bag_wtp_pq7 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo7 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest7 value = 0 }
@@ -153,6 +160,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz7
 	set_global_variable = { name = bag_wtp_esh7 value = 0 }
 	set_global_variable = { name = bag_wtp_pn8 value = 0 }
+	set_global_variable = { name = bag_wtp_pout8 value = 0 }
 	set_global_variable = { name = bag_wtp_pq8 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo8 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest8 value = 0 }
@@ -161,6 +169,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz8
 	set_global_variable = { name = bag_wtp_esh8 value = 0 }
 	set_global_variable = { name = bag_wtp_pn9 value = 0 }
+	set_global_variable = { name = bag_wtp_pout9 value = 0 }
 	set_global_variable = { name = bag_wtp_pq9 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo9 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest9 value = 0 }
@@ -169,6 +178,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz9
 	set_global_variable = { name = bag_wtp_esh9 value = 0 }
 	set_global_variable = { name = bag_wtp_pn10 value = 0 }
+	set_global_variable = { name = bag_wtp_pout10 value = 0 }
 	set_global_variable = { name = bag_wtp_pq10 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo10 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest10 value = 0 }
@@ -177,6 +187,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz10
 	set_global_variable = { name = bag_wtp_esh10 value = 0 }
 	set_global_variable = { name = bag_wtp_pn11 value = 0 }
+	set_global_variable = { name = bag_wtp_pout11 value = 0 }
 	set_global_variable = { name = bag_wtp_pq11 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo11 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest11 value = 0 }
@@ -185,6 +196,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz11
 	set_global_variable = { name = bag_wtp_esh11 value = 0 }
 	set_global_variable = { name = bag_wtp_pn12 value = 0 }
+	set_global_variable = { name = bag_wtp_pout12 value = 0 }
 	set_global_variable = { name = bag_wtp_pq12 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo12 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest12 value = 0 }
@@ -193,6 +205,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz12
 	set_global_variable = { name = bag_wtp_esh12 value = 0 }
 	set_global_variable = { name = bag_wtp_pn13 value = 0 }
+	set_global_variable = { name = bag_wtp_pout13 value = 0 }
 	set_global_variable = { name = bag_wtp_pq13 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo13 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest13 value = 0 }
@@ -201,6 +214,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz13
 	set_global_variable = { name = bag_wtp_esh13 value = 0 }
 	set_global_variable = { name = bag_wtp_pn14 value = 0 }
+	set_global_variable = { name = bag_wtp_pout14 value = 0 }
 	set_global_variable = { name = bag_wtp_pq14 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo14 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest14 value = 0 }
@@ -209,6 +223,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz14
 	set_global_variable = { name = bag_wtp_esh14 value = 0 }
 	set_global_variable = { name = bag_wtp_pn15 value = 0 }
+	set_global_variable = { name = bag_wtp_pout15 value = 0 }
 	set_global_variable = { name = bag_wtp_pq15 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo15 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest15 value = 0 }
@@ -217,6 +232,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz15
 	set_global_variable = { name = bag_wtp_esh15 value = 0 }
 	set_global_variable = { name = bag_wtp_pn16 value = 0 }
+	set_global_variable = { name = bag_wtp_pout16 value = 0 }
 	set_global_variable = { name = bag_wtp_pq16 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo16 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest16 value = 0 }
@@ -225,6 +241,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz16
 	set_global_variable = { name = bag_wtp_esh16 value = 0 }
 	set_global_variable = { name = bag_wtp_pn17 value = 0 }
+	set_global_variable = { name = bag_wtp_pout17 value = 0 }
 	set_global_variable = { name = bag_wtp_pq17 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo17 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest17 value = 0 }
@@ -233,6 +250,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz17
 	set_global_variable = { name = bag_wtp_esh17 value = 0 }
 	set_global_variable = { name = bag_wtp_pn18 value = 0 }
+	set_global_variable = { name = bag_wtp_pout18 value = 0 }
 	set_global_variable = { name = bag_wtp_pq18 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo18 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest18 value = 0 }
@@ -241,6 +259,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz18
 	set_global_variable = { name = bag_wtp_esh18 value = 0 }
 	set_global_variable = { name = bag_wtp_pn19 value = 0 }
+	set_global_variable = { name = bag_wtp_pout19 value = 0 }
 	set_global_variable = { name = bag_wtp_pq19 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo19 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest19 value = 0 }
@@ -249,6 +268,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz19
 	set_global_variable = { name = bag_wtp_esh19 value = 0 }
 	set_global_variable = { name = bag_wtp_pn20 value = 0 }
+	set_global_variable = { name = bag_wtp_pout20 value = 0 }
 	set_global_variable = { name = bag_wtp_pq20 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo20 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest20 value = 0 }
@@ -257,6 +277,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz20
 	set_global_variable = { name = bag_wtp_esh20 value = 0 }
 	set_global_variable = { name = bag_wtp_pn21 value = 0 }
+	set_global_variable = { name = bag_wtp_pout21 value = 0 }
 	set_global_variable = { name = bag_wtp_pq21 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo21 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest21 value = 0 }
@@ -265,6 +286,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz21
 	set_global_variable = { name = bag_wtp_esh21 value = 0 }
 	set_global_variable = { name = bag_wtp_pn22 value = 0 }
+	set_global_variable = { name = bag_wtp_pout22 value = 0 }
 	set_global_variable = { name = bag_wtp_pq22 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo22 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest22 value = 0 }
@@ -273,6 +295,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz22
 	set_global_variable = { name = bag_wtp_esh22 value = 0 }
 	set_global_variable = { name = bag_wtp_pn23 value = 0 }
+	set_global_variable = { name = bag_wtp_pout23 value = 0 }
 	set_global_variable = { name = bag_wtp_pq23 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo23 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest23 value = 0 }
@@ -281,6 +304,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz23
 	set_global_variable = { name = bag_wtp_esh23 value = 0 }
 	set_global_variable = { name = bag_wtp_pn24 value = 0 }
+	set_global_variable = { name = bag_wtp_pout24 value = 0 }
 	set_global_variable = { name = bag_wtp_pq24 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo24 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest24 value = 0 }
@@ -289,6 +313,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz24
 	set_global_variable = { name = bag_wtp_esh24 value = 0 }
 	set_global_variable = { name = bag_wtp_pn25 value = 0 }
+	set_global_variable = { name = bag_wtp_pout25 value = 0 }
 	set_global_variable = { name = bag_wtp_pq25 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo25 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest25 value = 0 }
@@ -297,6 +322,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz25
 	set_global_variable = { name = bag_wtp_esh25 value = 0 }
 	set_global_variable = { name = bag_wtp_pn26 value = 0 }
+	set_global_variable = { name = bag_wtp_pout26 value = 0 }
 	set_global_variable = { name = bag_wtp_pq26 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo26 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest26 value = 0 }
@@ -305,6 +331,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz26
 	set_global_variable = { name = bag_wtp_esh26 value = 0 }
 	set_global_variable = { name = bag_wtp_pn27 value = 0 }
+	set_global_variable = { name = bag_wtp_pout27 value = 0 }
 	set_global_variable = { name = bag_wtp_pq27 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo27 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest27 value = 0 }
@@ -313,6 +340,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz27
 	set_global_variable = { name = bag_wtp_esh27 value = 0 }
 	set_global_variable = { name = bag_wtp_pn28 value = 0 }
+	set_global_variable = { name = bag_wtp_pout28 value = 0 }
 	set_global_variable = { name = bag_wtp_pq28 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo28 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest28 value = 0 }
@@ -321,6 +349,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz28
 	set_global_variable = { name = bag_wtp_esh28 value = 0 }
 	set_global_variable = { name = bag_wtp_pn29 value = 0 }
+	set_global_variable = { name = bag_wtp_pout29 value = 0 }
 	set_global_variable = { name = bag_wtp_pq29 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo29 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest29 value = 0 }
@@ -329,6 +358,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz29
 	set_global_variable = { name = bag_wtp_esh29 value = 0 }
 	set_global_variable = { name = bag_wtp_pn30 value = 0 }
+	set_global_variable = { name = bag_wtp_pout30 value = 0 }
 	set_global_variable = { name = bag_wtp_pq30 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo30 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest30 value = 0 }
@@ -337,6 +367,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz30
 	set_global_variable = { name = bag_wtp_esh30 value = 0 }
 	set_global_variable = { name = bag_wtp_pn31 value = 0 }
+	set_global_variable = { name = bag_wtp_pout31 value = 0 }
 	set_global_variable = { name = bag_wtp_pq31 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo31 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest31 value = 0 }
@@ -345,6 +376,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz31
 	set_global_variable = { name = bag_wtp_esh31 value = 0 }
 	set_global_variable = { name = bag_wtp_pn32 value = 0 }
+	set_global_variable = { name = bag_wtp_pout32 value = 0 }
 	set_global_variable = { name = bag_wtp_pq32 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo32 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest32 value = 0 }
@@ -353,6 +385,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz32
 	set_global_variable = { name = bag_wtp_esh32 value = 0 }
 	set_global_variable = { name = bag_wtp_pn33 value = 0 }
+	set_global_variable = { name = bag_wtp_pout33 value = 0 }
 	set_global_variable = { name = bag_wtp_pq33 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo33 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest33 value = 0 }
@@ -361,6 +394,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz33
 	set_global_variable = { name = bag_wtp_esh33 value = 0 }
 	set_global_variable = { name = bag_wtp_pn34 value = 0 }
+	set_global_variable = { name = bag_wtp_pout34 value = 0 }
 	set_global_variable = { name = bag_wtp_pq34 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo34 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest34 value = 0 }
@@ -369,6 +403,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz34
 	set_global_variable = { name = bag_wtp_esh34 value = 0 }
 	set_global_variable = { name = bag_wtp_pn35 value = 0 }
+	set_global_variable = { name = bag_wtp_pout35 value = 0 }
 	set_global_variable = { name = bag_wtp_pq35 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo35 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest35 value = 0 }
@@ -377,6 +412,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz35
 	set_global_variable = { name = bag_wtp_esh35 value = 0 }
 	set_global_variable = { name = bag_wtp_pn36 value = 0 }
+	set_global_variable = { name = bag_wtp_pout36 value = 0 }
 	set_global_variable = { name = bag_wtp_pq36 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo36 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest36 value = 0 }
@@ -385,6 +421,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz36
 	set_global_variable = { name = bag_wtp_esh36 value = 0 }
 	set_global_variable = { name = bag_wtp_pn37 value = 0 }
+	set_global_variable = { name = bag_wtp_pout37 value = 0 }
 	set_global_variable = { name = bag_wtp_pq37 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo37 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest37 value = 0 }
@@ -393,6 +430,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz37
 	set_global_variable = { name = bag_wtp_esh37 value = 0 }
 	set_global_variable = { name = bag_wtp_pn38 value = 0 }
+	set_global_variable = { name = bag_wtp_pout38 value = 0 }
 	set_global_variable = { name = bag_wtp_pq38 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo38 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest38 value = 0 }
@@ -401,6 +439,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz38
 	set_global_variable = { name = bag_wtp_esh38 value = 0 }
 	set_global_variable = { name = bag_wtp_pn39 value = 0 }
+	set_global_variable = { name = bag_wtp_pout39 value = 0 }
 	set_global_variable = { name = bag_wtp_pq39 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo39 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest39 value = 0 }
@@ -409,6 +448,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz39
 	set_global_variable = { name = bag_wtp_esh39 value = 0 }
 	set_global_variable = { name = bag_wtp_pn40 value = 0 }
+	set_global_variable = { name = bag_wtp_pout40 value = 0 }
 	set_global_variable = { name = bag_wtp_pq40 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo40 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest40 value = 0 }
@@ -417,6 +457,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz40
 	set_global_variable = { name = bag_wtp_esh40 value = 0 }
 	set_global_variable = { name = bag_wtp_pn41 value = 0 }
+	set_global_variable = { name = bag_wtp_pout41 value = 0 }
 	set_global_variable = { name = bag_wtp_pq41 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo41 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest41 value = 0 }
@@ -425,6 +466,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz41
 	set_global_variable = { name = bag_wtp_esh41 value = 0 }
 	set_global_variable = { name = bag_wtp_pn42 value = 0 }
+	set_global_variable = { name = bag_wtp_pout42 value = 0 }
 	set_global_variable = { name = bag_wtp_pq42 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo42 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest42 value = 0 }
@@ -433,6 +475,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz42
 	set_global_variable = { name = bag_wtp_esh42 value = 0 }
 	set_global_variable = { name = bag_wtp_pn43 value = 0 }
+	set_global_variable = { name = bag_wtp_pout43 value = 0 }
 	set_global_variable = { name = bag_wtp_pq43 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo43 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest43 value = 0 }
@@ -441,6 +484,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz43
 	set_global_variable = { name = bag_wtp_esh43 value = 0 }
 	set_global_variable = { name = bag_wtp_pn44 value = 0 }
+	set_global_variable = { name = bag_wtp_pout44 value = 0 }
 	set_global_variable = { name = bag_wtp_pq44 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo44 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest44 value = 0 }
@@ -449,6 +493,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz44
 	set_global_variable = { name = bag_wtp_esh44 value = 0 }
 	set_global_variable = { name = bag_wtp_pn45 value = 0 }
+	set_global_variable = { name = bag_wtp_pout45 value = 0 }
 	set_global_variable = { name = bag_wtp_pq45 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo45 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest45 value = 0 }
@@ -457,6 +502,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz45
 	set_global_variable = { name = bag_wtp_esh45 value = 0 }
 	set_global_variable = { name = bag_wtp_pn46 value = 0 }
+	set_global_variable = { name = bag_wtp_pout46 value = 0 }
 	set_global_variable = { name = bag_wtp_pq46 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo46 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest46 value = 0 }
@@ -465,6 +511,7 @@ bag_wtp_plan_prepare = {
 	remove_global_variable = bag_wtp_frz46
 	set_global_variable = { name = bag_wtp_esh46 value = 0 }
 	set_global_variable = { name = bag_wtp_pn47 value = 0 }
+	set_global_variable = { name = bag_wtp_pout47 value = 0 }
 	set_global_variable = { name = bag_wtp_pq47 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest47 value = 0 }
@@ -6767,6 +6814,7 @@ bag_wtp_plan_try_town_1 = {
 			limit = { OR = {
 				var:bag_wtp_pm1 = 39
 			} }
+			if = { limit = { var:bag_wtp_pm1 = 39 } change_global_variable = { name = bag_wtp_pout1 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -6820,6 +6868,7 @@ bag_wtp_edit_place_town_1 = {
 			limit = { OR = {
 				var:bag_wtp_pm1 = 39
 			} }
+			if = { limit = { var:bag_wtp_pm1 = 39 } change_global_variable = { name = bag_wtp_pout1 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -6850,6 +6899,7 @@ bag_wtp_plan_try_town_2 = {
 			limit = { OR = {
 				var:bag_wtp_pm2 = 56
 			} }
+			if = { limit = { var:bag_wtp_pm2 = 56 } change_global_variable = { name = bag_wtp_pout2 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -6903,6 +6953,7 @@ bag_wtp_edit_place_town_2 = {
 			limit = { OR = {
 				var:bag_wtp_pm2 = 56
 			} }
+			if = { limit = { var:bag_wtp_pm2 = 56 } change_global_variable = { name = bag_wtp_pout2 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -6933,6 +6984,7 @@ bag_wtp_plan_try_town_3 = {
 			limit = { OR = {
 				var:bag_wtp_pm3 = 57
 			} }
+			if = { limit = { var:bag_wtp_pm3 = 57 } change_global_variable = { name = bag_wtp_pout3 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -6986,6 +7038,7 @@ bag_wtp_edit_place_town_3 = {
 			limit = { OR = {
 				var:bag_wtp_pm3 = 57
 			} }
+			if = { limit = { var:bag_wtp_pm3 = 57 } change_global_variable = { name = bag_wtp_pout3 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7017,6 +7070,8 @@ bag_wtp_plan_try_town_4 = {
 				var:bag_wtp_pm4 = 58
 				var:bag_wtp_pm4 = 59
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 58 } change_global_variable = { name = bag_wtp_pout4 add = 30 } }
+			if = { limit = { var:bag_wtp_pm4 = 59 } change_global_variable = { name = bag_wtp_pout4 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7040,6 +7095,7 @@ bag_wtp_plan_try_town_4 = {
 			limit = { OR = {
 				var:bag_wtp_pm4 = 60
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 60 } change_global_variable = { name = bag_wtp_pout4 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7063,6 +7119,7 @@ bag_wtp_plan_try_town_4 = {
 			limit = { OR = {
 				var:bag_wtp_pm4 = 61
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 61 } change_global_variable = { name = bag_wtp_pout4 add = 40 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7086,6 +7143,7 @@ bag_wtp_plan_try_town_4 = {
 			limit = { OR = {
 				var:bag_wtp_pm4 = 62
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 62 } change_global_variable = { name = bag_wtp_pout4 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7140,6 +7198,8 @@ bag_wtp_edit_place_town_4 = {
 				var:bag_wtp_pm4 = 58
 				var:bag_wtp_pm4 = 59
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 58 } change_global_variable = { name = bag_wtp_pout4 add = 30 } }
+			if = { limit = { var:bag_wtp_pm4 = 59 } change_global_variable = { name = bag_wtp_pout4 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7163,6 +7223,7 @@ bag_wtp_edit_place_town_4 = {
 			limit = { OR = {
 				var:bag_wtp_pm4 = 60
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 60 } change_global_variable = { name = bag_wtp_pout4 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7186,6 +7247,7 @@ bag_wtp_edit_place_town_4 = {
 			limit = { OR = {
 				var:bag_wtp_pm4 = 61
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 61 } change_global_variable = { name = bag_wtp_pout4 add = 40 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7209,6 +7271,7 @@ bag_wtp_edit_place_town_4 = {
 			limit = { OR = {
 				var:bag_wtp_pm4 = 62
 			} }
+			if = { limit = { var:bag_wtp_pm4 = 62 } change_global_variable = { name = bag_wtp_pout4 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7239,6 +7302,7 @@ bag_wtp_plan_try_town_5 = {
 			limit = { OR = {
 				var:bag_wtp_pm5 = 63
 			} }
+			if = { limit = { var:bag_wtp_pm5 = 63 } change_global_variable = { name = bag_wtp_pout5 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7262,6 +7326,7 @@ bag_wtp_plan_try_town_5 = {
 			limit = { OR = {
 				var:bag_wtp_pm5 = 64
 			} }
+			if = { limit = { var:bag_wtp_pm5 = 64 } change_global_variable = { name = bag_wtp_pout5 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7315,6 +7380,7 @@ bag_wtp_edit_place_town_5 = {
 			limit = { OR = {
 				var:bag_wtp_pm5 = 63
 			} }
+			if = { limit = { var:bag_wtp_pm5 = 63 } change_global_variable = { name = bag_wtp_pout5 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7338,6 +7404,7 @@ bag_wtp_edit_place_town_5 = {
 			limit = { OR = {
 				var:bag_wtp_pm5 = 64
 			} }
+			if = { limit = { var:bag_wtp_pm5 = 64 } change_global_variable = { name = bag_wtp_pout5 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7368,6 +7435,7 @@ bag_wtp_plan_try_town_7 = {
 			limit = { OR = {
 				var:bag_wtp_pm7 = 110
 			} }
+			if = { limit = { var:bag_wtp_pm7 = 110 } change_global_variable = { name = bag_wtp_pout7 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7421,6 +7489,7 @@ bag_wtp_edit_place_town_7 = {
 			limit = { OR = {
 				var:bag_wtp_pm7 = 110
 			} }
+			if = { limit = { var:bag_wtp_pm7 = 110 } change_global_variable = { name = bag_wtp_pout7 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7451,6 +7520,7 @@ bag_wtp_plan_try_town_8 = {
 			limit = { OR = {
 				var:bag_wtp_pm8 = 121
 			} }
+			if = { limit = { var:bag_wtp_pm8 = 121 } change_global_variable = { name = bag_wtp_pout8 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7504,6 +7574,7 @@ bag_wtp_edit_place_town_8 = {
 			limit = { OR = {
 				var:bag_wtp_pm8 = 121
 			} }
+			if = { limit = { var:bag_wtp_pm8 = 121 } change_global_variable = { name = bag_wtp_pout8 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7534,6 +7605,7 @@ bag_wtp_plan_try_town_9 = {
 			limit = { OR = {
 				var:bag_wtp_pm9 = 122
 			} }
+			if = { limit = { var:bag_wtp_pm9 = 122 } change_global_variable = { name = bag_wtp_pout9 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:incense }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7587,6 +7659,7 @@ bag_wtp_edit_place_town_9 = {
 			limit = { OR = {
 				var:bag_wtp_pm9 = 122
 			} }
+			if = { limit = { var:bag_wtp_pm9 = 122 } change_global_variable = { name = bag_wtp_pout9 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:incense }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7617,6 +7690,7 @@ bag_wtp_plan_try_town_10 = {
 			limit = { OR = {
 				var:bag_wtp_pm10 = 123
 			} }
+			if = { limit = { var:bag_wtp_pm10 = 123 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7640,6 +7714,7 @@ bag_wtp_plan_try_town_10 = {
 			limit = { OR = {
 				var:bag_wtp_pm10 = 124
 			} }
+			if = { limit = { var:bag_wtp_pm10 = 124 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7693,6 +7768,7 @@ bag_wtp_edit_place_town_10 = {
 			limit = { OR = {
 				var:bag_wtp_pm10 = 123
 			} }
+			if = { limit = { var:bag_wtp_pm10 = 123 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7716,6 +7792,7 @@ bag_wtp_edit_place_town_10 = {
 			limit = { OR = {
 				var:bag_wtp_pm10 = 124
 			} }
+			if = { limit = { var:bag_wtp_pm10 = 124 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7746,6 +7823,7 @@ bag_wtp_plan_try_town_13 = {
 			limit = { OR = {
 				var:bag_wtp_pm13 = 172
 			} }
+			if = { limit = { var:bag_wtp_pm13 = 172 } change_global_variable = { name = bag_wtp_pout13 add = 60 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7799,6 +7877,7 @@ bag_wtp_edit_place_town_13 = {
 			limit = { OR = {
 				var:bag_wtp_pm13 = 172
 			} }
+			if = { limit = { var:bag_wtp_pm13 = 172 } change_global_variable = { name = bag_wtp_pout13 add = 60 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7830,6 +7909,8 @@ bag_wtp_plan_try_town_14 = {
 				var:bag_wtp_pm14 = 176
 				var:bag_wtp_pm14 = 177
 			} }
+			if = { limit = { var:bag_wtp_pm14 = 176 } change_global_variable = { name = bag_wtp_pout14 add = 50 } }
+			if = { limit = { var:bag_wtp_pm14 = 177 } change_global_variable = { name = bag_wtp_pout14 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7884,6 +7965,8 @@ bag_wtp_edit_place_town_14 = {
 				var:bag_wtp_pm14 = 176
 				var:bag_wtp_pm14 = 177
 			} }
+			if = { limit = { var:bag_wtp_pm14 = 176 } change_global_variable = { name = bag_wtp_pout14 add = 50 } }
+			if = { limit = { var:bag_wtp_pm14 = 177 } change_global_variable = { name = bag_wtp_pout14 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7914,6 +7997,7 @@ bag_wtp_plan_try_town_15 = {
 			limit = { OR = {
 				var:bag_wtp_pm15 = 199
 			} }
+			if = { limit = { var:bag_wtp_pm15 = 199 } change_global_variable = { name = bag_wtp_pout15 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7967,6 +8051,7 @@ bag_wtp_edit_place_town_15 = {
 			limit = { OR = {
 				var:bag_wtp_pm15 = 199
 			} }
+			if = { limit = { var:bag_wtp_pm15 = 199 } change_global_variable = { name = bag_wtp_pout15 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -7997,6 +8082,7 @@ bag_wtp_plan_try_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 200
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 200 } change_global_variable = { name = bag_wtp_pout16 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8020,6 +8106,7 @@ bag_wtp_plan_try_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 201
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 201 } change_global_variable = { name = bag_wtp_pout16 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8043,6 +8130,7 @@ bag_wtp_plan_try_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 202
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 202 } change_global_variable = { name = bag_wtp_pout16 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8066,6 +8154,7 @@ bag_wtp_plan_try_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 203
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 203 } change_global_variable = { name = bag_wtp_pout16 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8119,6 +8208,7 @@ bag_wtp_edit_place_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 200
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 200 } change_global_variable = { name = bag_wtp_pout16 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8142,6 +8232,7 @@ bag_wtp_edit_place_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 201
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 201 } change_global_variable = { name = bag_wtp_pout16 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8165,6 +8256,7 @@ bag_wtp_edit_place_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 202
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 202 } change_global_variable = { name = bag_wtp_pout16 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8188,6 +8280,7 @@ bag_wtp_edit_place_town_16 = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 203
 			} }
+			if = { limit = { var:bag_wtp_pm16 = 203 } change_global_variable = { name = bag_wtp_pout16 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8218,6 +8311,7 @@ bag_wtp_plan_try_town_17 = {
 			limit = { OR = {
 				var:bag_wtp_pm17 = 204
 			} }
+			if = { limit = { var:bag_wtp_pm17 = 204 } change_global_variable = { name = bag_wtp_pout17 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8271,6 +8365,7 @@ bag_wtp_edit_place_town_17 = {
 			limit = { OR = {
 				var:bag_wtp_pm17 = 204
 			} }
+			if = { limit = { var:bag_wtp_pm17 = 204 } change_global_variable = { name = bag_wtp_pout17 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8301,6 +8396,7 @@ bag_wtp_plan_try_town_18 = {
 			limit = { OR = {
 				var:bag_wtp_pm18 = 205
 			} }
+			if = { limit = { var:bag_wtp_pm18 = 205 } change_global_variable = { name = bag_wtp_pout18 add = 35 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8324,6 +8420,7 @@ bag_wtp_plan_try_town_18 = {
 			limit = { OR = {
 				var:bag_wtp_pm18 = 206
 			} }
+			if = { limit = { var:bag_wtp_pm18 = 206 } change_global_variable = { name = bag_wtp_pout18 add = 60 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8377,6 +8474,7 @@ bag_wtp_edit_place_town_18 = {
 			limit = { OR = {
 				var:bag_wtp_pm18 = 205
 			} }
+			if = { limit = { var:bag_wtp_pm18 = 205 } change_global_variable = { name = bag_wtp_pout18 add = 35 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8400,6 +8498,7 @@ bag_wtp_edit_place_town_18 = {
 			limit = { OR = {
 				var:bag_wtp_pm18 = 206
 			} }
+			if = { limit = { var:bag_wtp_pm18 = 206 } change_global_variable = { name = bag_wtp_pout18 add = 60 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8430,6 +8529,7 @@ bag_wtp_plan_try_town_19 = {
 			limit = { OR = {
 				var:bag_wtp_pm19 = 207
 			} }
+			if = { limit = { var:bag_wtp_pm19 = 207 } change_global_variable = { name = bag_wtp_pout19 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8483,6 +8583,7 @@ bag_wtp_edit_place_town_19 = {
 			limit = { OR = {
 				var:bag_wtp_pm19 = 207
 			} }
+			if = { limit = { var:bag_wtp_pm19 = 207 } change_global_variable = { name = bag_wtp_pout19 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8514,6 +8615,8 @@ bag_wtp_plan_try_town_20 = {
 				var:bag_wtp_pm20 = 210
 				var:bag_wtp_pm20 = 211
 			} }
+			if = { limit = { var:bag_wtp_pm20 = 210 } change_global_variable = { name = bag_wtp_pout20 add = 50 } }
+			if = { limit = { var:bag_wtp_pm20 = 211 } change_global_variable = { name = bag_wtp_pout20 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8568,6 +8671,8 @@ bag_wtp_edit_place_town_20 = {
 				var:bag_wtp_pm20 = 210
 				var:bag_wtp_pm20 = 211
 			} }
+			if = { limit = { var:bag_wtp_pm20 = 210 } change_global_variable = { name = bag_wtp_pout20 add = 50 } }
+			if = { limit = { var:bag_wtp_pm20 = 211 } change_global_variable = { name = bag_wtp_pout20 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8598,6 +8703,7 @@ bag_wtp_plan_try_town_21 = {
 			limit = { OR = {
 				var:bag_wtp_pm21 = 212
 			} }
+			if = { limit = { var:bag_wtp_pm21 = 212 } change_global_variable = { name = bag_wtp_pout21 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8651,6 +8757,7 @@ bag_wtp_edit_place_town_21 = {
 			limit = { OR = {
 				var:bag_wtp_pm21 = 212
 			} }
+			if = { limit = { var:bag_wtp_pm21 = 212 } change_global_variable = { name = bag_wtp_pout21 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8681,6 +8788,7 @@ bag_wtp_plan_try_town_22 = {
 			limit = { OR = {
 				var:bag_wtp_pm22 = 214
 			} }
+			if = { limit = { var:bag_wtp_pm22 = 214 } change_global_variable = { name = bag_wtp_pout22 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8734,6 +8842,7 @@ bag_wtp_edit_place_town_22 = {
 			limit = { OR = {
 				var:bag_wtp_pm22 = 214
 			} }
+			if = { limit = { var:bag_wtp_pm22 = 214 } change_global_variable = { name = bag_wtp_pout22 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8766,6 +8875,9 @@ bag_wtp_plan_try_town_24 = {
 				var:bag_wtp_pm24 = 236
 				var:bag_wtp_pm24 = 237
 			} }
+			if = { limit = { var:bag_wtp_pm24 = 235 } change_global_variable = { name = bag_wtp_pout24 add = 100 } }
+			if = { limit = { var:bag_wtp_pm24 = 236 } change_global_variable = { name = bag_wtp_pout24 add = 100 } }
+			if = { limit = { var:bag_wtp_pm24 = 237 } change_global_variable = { name = bag_wtp_pout24 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:winery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8791,6 +8903,9 @@ bag_wtp_plan_try_town_24 = {
 				var:bag_wtp_pm24 = 239
 				var:bag_wtp_pm24 = 240
 			} }
+			if = { limit = { var:bag_wtp_pm24 = 238 } change_global_variable = { name = bag_wtp_pout24 add = 200 } }
+			if = { limit = { var:bag_wtp_pm24 = 239 } change_global_variable = { name = bag_wtp_pout24 add = 200 } }
+			if = { limit = { var:bag_wtp_pm24 = 240 } change_global_variable = { name = bag_wtp_pout24 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8846,6 +8961,9 @@ bag_wtp_edit_place_town_24 = {
 				var:bag_wtp_pm24 = 236
 				var:bag_wtp_pm24 = 237
 			} }
+			if = { limit = { var:bag_wtp_pm24 = 235 } change_global_variable = { name = bag_wtp_pout24 add = 100 } }
+			if = { limit = { var:bag_wtp_pm24 = 236 } change_global_variable = { name = bag_wtp_pout24 add = 100 } }
+			if = { limit = { var:bag_wtp_pm24 = 237 } change_global_variable = { name = bag_wtp_pout24 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:winery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8871,6 +8989,9 @@ bag_wtp_edit_place_town_24 = {
 				var:bag_wtp_pm24 = 239
 				var:bag_wtp_pm24 = 240
 			} }
+			if = { limit = { var:bag_wtp_pm24 = 238 } change_global_variable = { name = bag_wtp_pout24 add = 200 } }
+			if = { limit = { var:bag_wtp_pm24 = 239 } change_global_variable = { name = bag_wtp_pout24 add = 200 } }
+			if = { limit = { var:bag_wtp_pm24 = 240 } change_global_variable = { name = bag_wtp_pout24 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8907,6 +9028,13 @@ bag_wtp_plan_try_town_26 = {
 				var:bag_wtp_pm26 = 6
 				var:bag_wtp_pm26 = 7
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 1 } change_global_variable = { name = bag_wtp_pout26 add = 130 } }
+			if = { limit = { var:bag_wtp_pm26 = 2 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 3 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 4 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 5 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 6 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 7 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8936,6 +9064,13 @@ bag_wtp_plan_try_town_26 = {
 				var:bag_wtp_pm26 = 13
 				var:bag_wtp_pm26 = 14
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 8 } change_global_variable = { name = bag_wtp_pout26 add = 120 } }
+			if = { limit = { var:bag_wtp_pm26 = 9 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 10 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 11 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 12 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 13 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 14 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8959,6 +9094,7 @@ bag_wtp_plan_try_town_26 = {
 			limit = { OR = {
 				var:bag_wtp_pm26 = 15
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 15 } change_global_variable = { name = bag_wtp_pout26 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -8982,6 +9118,7 @@ bag_wtp_plan_try_town_26 = {
 			limit = { OR = {
 				var:bag_wtp_pm26 = 16
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 16 } change_global_variable = { name = bag_wtp_pout26 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9041,6 +9178,13 @@ bag_wtp_edit_place_town_26 = {
 				var:bag_wtp_pm26 = 6
 				var:bag_wtp_pm26 = 7
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 1 } change_global_variable = { name = bag_wtp_pout26 add = 130 } }
+			if = { limit = { var:bag_wtp_pm26 = 2 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 3 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 4 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 5 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 6 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
+			if = { limit = { var:bag_wtp_pm26 = 7 } change_global_variable = { name = bag_wtp_pout26 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9070,6 +9214,13 @@ bag_wtp_edit_place_town_26 = {
 				var:bag_wtp_pm26 = 13
 				var:bag_wtp_pm26 = 14
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 8 } change_global_variable = { name = bag_wtp_pout26 add = 120 } }
+			if = { limit = { var:bag_wtp_pm26 = 9 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 10 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 11 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 12 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 13 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
+			if = { limit = { var:bag_wtp_pm26 = 14 } change_global_variable = { name = bag_wtp_pout26 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9093,6 +9244,7 @@ bag_wtp_edit_place_town_26 = {
 			limit = { OR = {
 				var:bag_wtp_pm26 = 15
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 15 } change_global_variable = { name = bag_wtp_pout26 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9116,6 +9268,7 @@ bag_wtp_edit_place_town_26 = {
 			limit = { OR = {
 				var:bag_wtp_pm26 = 16
 			} }
+			if = { limit = { var:bag_wtp_pm26 = 16 } change_global_variable = { name = bag_wtp_pout26 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9146,6 +9299,7 @@ bag_wtp_plan_try_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 18
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 18 } change_global_variable = { name = bag_wtp_pout27 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9169,6 +9323,7 @@ bag_wtp_plan_try_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 19
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 19 } change_global_variable = { name = bag_wtp_pout27 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9192,6 +9347,7 @@ bag_wtp_plan_try_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 20
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 20 } change_global_variable = { name = bag_wtp_pout27 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9215,6 +9371,7 @@ bag_wtp_plan_try_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 21
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 21 } change_global_variable = { name = bag_wtp_pout27 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9268,6 +9425,7 @@ bag_wtp_edit_place_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 18
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 18 } change_global_variable = { name = bag_wtp_pout27 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9291,6 +9449,7 @@ bag_wtp_edit_place_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 19
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 19 } change_global_variable = { name = bag_wtp_pout27 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9314,6 +9473,7 @@ bag_wtp_edit_place_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 20
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 20 } change_global_variable = { name = bag_wtp_pout27 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9337,6 +9497,7 @@ bag_wtp_edit_place_town_27 = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 21
 			} }
+			if = { limit = { var:bag_wtp_pm27 = 21 } change_global_variable = { name = bag_wtp_pout27 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9367,6 +9528,7 @@ bag_wtp_plan_try_town_28 = {
 			limit = { OR = {
 				var:bag_wtp_pm28 = 22
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 22 } change_global_variable = { name = bag_wtp_pout28 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9398,6 +9560,15 @@ bag_wtp_plan_try_town_28 = {
 				var:bag_wtp_pm28 = 30
 				var:bag_wtp_pm28 = 31
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 23 } change_global_variable = { name = bag_wtp_pout28 add = 116 } }
+			if = { limit = { var:bag_wtp_pm28 = 24 } change_global_variable = { name = bag_wtp_pout28 add = 112 } }
+			if = { limit = { var:bag_wtp_pm28 = 25 } change_global_variable = { name = bag_wtp_pout28 add = 109 } }
+			if = { limit = { var:bag_wtp_pm28 = 26 } change_global_variable = { name = bag_wtp_pout28 add = 116 } }
+			if = { limit = { var:bag_wtp_pm28 = 27 } change_global_variable = { name = bag_wtp_pout28 add = 112 } }
+			if = { limit = { var:bag_wtp_pm28 = 28 } change_global_variable = { name = bag_wtp_pout28 add = 109 } }
+			if = { limit = { var:bag_wtp_pm28 = 29 } change_global_variable = { name = bag_wtp_pout28 add = 26 } }
+			if = { limit = { var:bag_wtp_pm28 = 30 } change_global_variable = { name = bag_wtp_pout28 add = 22 } }
+			if = { limit = { var:bag_wtp_pm28 = 31 } change_global_variable = { name = bag_wtp_pout28 add = 19 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9426,6 +9597,12 @@ bag_wtp_plan_try_town_28 = {
 				var:bag_wtp_pm28 = 36
 				var:bag_wtp_pm28 = 37
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 32 } change_global_variable = { name = bag_wtp_pout28 add = 130 } }
+			if = { limit = { var:bag_wtp_pm28 = 33 } change_global_variable = { name = bag_wtp_pout28 add = 125 } }
+			if = { limit = { var:bag_wtp_pm28 = 34 } change_global_variable = { name = bag_wtp_pout28 add = 120 } }
+			if = { limit = { var:bag_wtp_pm28 = 35 } change_global_variable = { name = bag_wtp_pout28 add = 130 } }
+			if = { limit = { var:bag_wtp_pm28 = 36 } change_global_variable = { name = bag_wtp_pout28 add = 125 } }
+			if = { limit = { var:bag_wtp_pm28 = 37 } change_global_variable = { name = bag_wtp_pout28 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9449,6 +9626,7 @@ bag_wtp_plan_try_town_28 = {
 			limit = { OR = {
 				var:bag_wtp_pm28 = 38
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 38 } change_global_variable = { name = bag_wtp_pout28 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9502,6 +9680,7 @@ bag_wtp_edit_place_town_28 = {
 			limit = { OR = {
 				var:bag_wtp_pm28 = 22
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 22 } change_global_variable = { name = bag_wtp_pout28 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9533,6 +9712,15 @@ bag_wtp_edit_place_town_28 = {
 				var:bag_wtp_pm28 = 30
 				var:bag_wtp_pm28 = 31
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 23 } change_global_variable = { name = bag_wtp_pout28 add = 116 } }
+			if = { limit = { var:bag_wtp_pm28 = 24 } change_global_variable = { name = bag_wtp_pout28 add = 112 } }
+			if = { limit = { var:bag_wtp_pm28 = 25 } change_global_variable = { name = bag_wtp_pout28 add = 109 } }
+			if = { limit = { var:bag_wtp_pm28 = 26 } change_global_variable = { name = bag_wtp_pout28 add = 116 } }
+			if = { limit = { var:bag_wtp_pm28 = 27 } change_global_variable = { name = bag_wtp_pout28 add = 112 } }
+			if = { limit = { var:bag_wtp_pm28 = 28 } change_global_variable = { name = bag_wtp_pout28 add = 109 } }
+			if = { limit = { var:bag_wtp_pm28 = 29 } change_global_variable = { name = bag_wtp_pout28 add = 26 } }
+			if = { limit = { var:bag_wtp_pm28 = 30 } change_global_variable = { name = bag_wtp_pout28 add = 22 } }
+			if = { limit = { var:bag_wtp_pm28 = 31 } change_global_variable = { name = bag_wtp_pout28 add = 19 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9561,6 +9749,12 @@ bag_wtp_edit_place_town_28 = {
 				var:bag_wtp_pm28 = 36
 				var:bag_wtp_pm28 = 37
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 32 } change_global_variable = { name = bag_wtp_pout28 add = 130 } }
+			if = { limit = { var:bag_wtp_pm28 = 33 } change_global_variable = { name = bag_wtp_pout28 add = 125 } }
+			if = { limit = { var:bag_wtp_pm28 = 34 } change_global_variable = { name = bag_wtp_pout28 add = 120 } }
+			if = { limit = { var:bag_wtp_pm28 = 35 } change_global_variable = { name = bag_wtp_pout28 add = 130 } }
+			if = { limit = { var:bag_wtp_pm28 = 36 } change_global_variable = { name = bag_wtp_pout28 add = 125 } }
+			if = { limit = { var:bag_wtp_pm28 = 37 } change_global_variable = { name = bag_wtp_pout28 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9584,6 +9778,7 @@ bag_wtp_edit_place_town_28 = {
 			limit = { OR = {
 				var:bag_wtp_pm28 = 38
 			} }
+			if = { limit = { var:bag_wtp_pm28 = 38 } change_global_variable = { name = bag_wtp_pout28 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9616,6 +9811,9 @@ bag_wtp_plan_try_town_29 = {
 				var:bag_wtp_pm29 = 41
 				var:bag_wtp_pm29 = 42
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 40 } change_global_variable = { name = bag_wtp_pout29 add = 100 } }
+			if = { limit = { var:bag_wtp_pm29 = 41 } change_global_variable = { name = bag_wtp_pout29 add = 80 } }
+			if = { limit = { var:bag_wtp_pm29 = 42 } change_global_variable = { name = bag_wtp_pout29 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9641,6 +9839,9 @@ bag_wtp_plan_try_town_29 = {
 				var:bag_wtp_pm29 = 44
 				var:bag_wtp_pm29 = 45
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 43 } change_global_variable = { name = bag_wtp_pout29 add = 200 } }
+			if = { limit = { var:bag_wtp_pm29 = 44 } change_global_variable = { name = bag_wtp_pout29 add = 200 } }
+			if = { limit = { var:bag_wtp_pm29 = 45 } change_global_variable = { name = bag_wtp_pout29 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9666,6 +9867,9 @@ bag_wtp_plan_try_town_29 = {
 				var:bag_wtp_pm29 = 47
 				var:bag_wtp_pm29 = 48
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 46 } change_global_variable = { name = bag_wtp_pout29 add = 110 } }
+			if = { limit = { var:bag_wtp_pm29 = 47 } change_global_variable = { name = bag_wtp_pout29 add = 90 } }
+			if = { limit = { var:bag_wtp_pm29 = 48 } change_global_variable = { name = bag_wtp_pout29 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9691,6 +9895,9 @@ bag_wtp_plan_try_town_29 = {
 				var:bag_wtp_pm29 = 53
 				var:bag_wtp_pm29 = 54
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 52 } change_global_variable = { name = bag_wtp_pout29 add = 300 } }
+			if = { limit = { var:bag_wtp_pm29 = 53 } change_global_variable = { name = bag_wtp_pout29 add = 250 } }
+			if = { limit = { var:bag_wtp_pm29 = 54 } change_global_variable = { name = bag_wtp_pout29 add = 250 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9746,6 +9953,9 @@ bag_wtp_edit_place_town_29 = {
 				var:bag_wtp_pm29 = 41
 				var:bag_wtp_pm29 = 42
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 40 } change_global_variable = { name = bag_wtp_pout29 add = 100 } }
+			if = { limit = { var:bag_wtp_pm29 = 41 } change_global_variable = { name = bag_wtp_pout29 add = 80 } }
+			if = { limit = { var:bag_wtp_pm29 = 42 } change_global_variable = { name = bag_wtp_pout29 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9771,6 +9981,9 @@ bag_wtp_edit_place_town_29 = {
 				var:bag_wtp_pm29 = 44
 				var:bag_wtp_pm29 = 45
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 43 } change_global_variable = { name = bag_wtp_pout29 add = 200 } }
+			if = { limit = { var:bag_wtp_pm29 = 44 } change_global_variable = { name = bag_wtp_pout29 add = 200 } }
+			if = { limit = { var:bag_wtp_pm29 = 45 } change_global_variable = { name = bag_wtp_pout29 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9796,6 +10009,9 @@ bag_wtp_edit_place_town_29 = {
 				var:bag_wtp_pm29 = 47
 				var:bag_wtp_pm29 = 48
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 46 } change_global_variable = { name = bag_wtp_pout29 add = 110 } }
+			if = { limit = { var:bag_wtp_pm29 = 47 } change_global_variable = { name = bag_wtp_pout29 add = 90 } }
+			if = { limit = { var:bag_wtp_pm29 = 48 } change_global_variable = { name = bag_wtp_pout29 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9821,6 +10037,9 @@ bag_wtp_edit_place_town_29 = {
 				var:bag_wtp_pm29 = 53
 				var:bag_wtp_pm29 = 54
 			} }
+			if = { limit = { var:bag_wtp_pm29 = 52 } change_global_variable = { name = bag_wtp_pout29 add = 300 } }
+			if = { limit = { var:bag_wtp_pm29 = 53 } change_global_variable = { name = bag_wtp_pout29 add = 250 } }
+			if = { limit = { var:bag_wtp_pm29 = 54 } change_global_variable = { name = bag_wtp_pout29 add = 250 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9862,6 +10081,18 @@ bag_wtp_plan_try_town_30 = {
 				var:bag_wtp_pm30 = 75
 				var:bag_wtp_pm30 = 76
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 65 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 66 } change_global_variable = { name = bag_wtp_pout30 add = 60 } }
+			if = { limit = { var:bag_wtp_pm30 = 67 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 68 } change_global_variable = { name = bag_wtp_pout30 add = 90 } }
+			if = { limit = { var:bag_wtp_pm30 = 69 } change_global_variable = { name = bag_wtp_pout30 add = 80 } }
+			if = { limit = { var:bag_wtp_pm30 = 70 } change_global_variable = { name = bag_wtp_pout30 add = 90 } }
+			if = { limit = { var:bag_wtp_pm30 = 71 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 72 } change_global_variable = { name = bag_wtp_pout30 add = 60 } }
+			if = { limit = { var:bag_wtp_pm30 = 73 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 74 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 75 } change_global_variable = { name = bag_wtp_pout30 add = 60 } }
+			if = { limit = { var:bag_wtp_pm30 = 76 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9888,6 +10119,10 @@ bag_wtp_plan_try_town_30 = {
 				var:bag_wtp_pm30 = 79
 				var:bag_wtp_pm30 = 80
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 77 } change_global_variable = { name = bag_wtp_pout30 add = 240 } }
+			if = { limit = { var:bag_wtp_pm30 = 78 } change_global_variable = { name = bag_wtp_pout30 add = 220 } }
+			if = { limit = { var:bag_wtp_pm30 = 79 } change_global_variable = { name = bag_wtp_pout30 add = 240 } }
+			if = { limit = { var:bag_wtp_pm30 = 80 } change_global_variable = { name = bag_wtp_pout30 add = 220 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9912,6 +10147,8 @@ bag_wtp_plan_try_town_30 = {
 				var:bag_wtp_pm30 = 81
 				var:bag_wtp_pm30 = 82
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 81 } change_global_variable = { name = bag_wtp_pout30 add = 400 } }
+			if = { limit = { var:bag_wtp_pm30 = 82 } change_global_variable = { name = bag_wtp_pout30 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -9946,6 +10183,18 @@ bag_wtp_plan_try_town_30 = {
 				var:bag_wtp_pm30 = 93
 				var:bag_wtp_pm30 = 94
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 83 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 84 } change_global_variable = { name = bag_wtp_pout30 add = 72 } }
+			if = { limit = { var:bag_wtp_pm30 = 85 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 86 } change_global_variable = { name = bag_wtp_pout30 add = 105 } }
+			if = { limit = { var:bag_wtp_pm30 = 87 } change_global_variable = { name = bag_wtp_pout30 add = 92 } }
+			if = { limit = { var:bag_wtp_pm30 = 88 } change_global_variable = { name = bag_wtp_pout30 add = 105 } }
+			if = { limit = { var:bag_wtp_pm30 = 89 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 90 } change_global_variable = { name = bag_wtp_pout30 add = 72 } }
+			if = { limit = { var:bag_wtp_pm30 = 91 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 92 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 93 } change_global_variable = { name = bag_wtp_pout30 add = 72 } }
+			if = { limit = { var:bag_wtp_pm30 = 94 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10010,6 +10259,18 @@ bag_wtp_edit_place_town_30 = {
 				var:bag_wtp_pm30 = 75
 				var:bag_wtp_pm30 = 76
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 65 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 66 } change_global_variable = { name = bag_wtp_pout30 add = 60 } }
+			if = { limit = { var:bag_wtp_pm30 = 67 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 68 } change_global_variable = { name = bag_wtp_pout30 add = 90 } }
+			if = { limit = { var:bag_wtp_pm30 = 69 } change_global_variable = { name = bag_wtp_pout30 add = 80 } }
+			if = { limit = { var:bag_wtp_pm30 = 70 } change_global_variable = { name = bag_wtp_pout30 add = 90 } }
+			if = { limit = { var:bag_wtp_pm30 = 71 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 72 } change_global_variable = { name = bag_wtp_pout30 add = 60 } }
+			if = { limit = { var:bag_wtp_pm30 = 73 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 74 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
+			if = { limit = { var:bag_wtp_pm30 = 75 } change_global_variable = { name = bag_wtp_pout30 add = 60 } }
+			if = { limit = { var:bag_wtp_pm30 = 76 } change_global_variable = { name = bag_wtp_pout30 add = 70 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10036,6 +10297,10 @@ bag_wtp_edit_place_town_30 = {
 				var:bag_wtp_pm30 = 79
 				var:bag_wtp_pm30 = 80
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 77 } change_global_variable = { name = bag_wtp_pout30 add = 240 } }
+			if = { limit = { var:bag_wtp_pm30 = 78 } change_global_variable = { name = bag_wtp_pout30 add = 220 } }
+			if = { limit = { var:bag_wtp_pm30 = 79 } change_global_variable = { name = bag_wtp_pout30 add = 240 } }
+			if = { limit = { var:bag_wtp_pm30 = 80 } change_global_variable = { name = bag_wtp_pout30 add = 220 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10060,6 +10325,8 @@ bag_wtp_edit_place_town_30 = {
 				var:bag_wtp_pm30 = 81
 				var:bag_wtp_pm30 = 82
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 81 } change_global_variable = { name = bag_wtp_pout30 add = 400 } }
+			if = { limit = { var:bag_wtp_pm30 = 82 } change_global_variable = { name = bag_wtp_pout30 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10094,6 +10361,18 @@ bag_wtp_edit_place_town_30 = {
 				var:bag_wtp_pm30 = 93
 				var:bag_wtp_pm30 = 94
 			} }
+			if = { limit = { var:bag_wtp_pm30 = 83 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 84 } change_global_variable = { name = bag_wtp_pout30 add = 72 } }
+			if = { limit = { var:bag_wtp_pm30 = 85 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 86 } change_global_variable = { name = bag_wtp_pout30 add = 105 } }
+			if = { limit = { var:bag_wtp_pm30 = 87 } change_global_variable = { name = bag_wtp_pout30 add = 92 } }
+			if = { limit = { var:bag_wtp_pm30 = 88 } change_global_variable = { name = bag_wtp_pout30 add = 105 } }
+			if = { limit = { var:bag_wtp_pm30 = 89 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 90 } change_global_variable = { name = bag_wtp_pout30 add = 72 } }
+			if = { limit = { var:bag_wtp_pm30 = 91 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 92 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
+			if = { limit = { var:bag_wtp_pm30 = 93 } change_global_variable = { name = bag_wtp_pout30 add = 72 } }
+			if = { limit = { var:bag_wtp_pm30 = 94 } change_global_variable = { name = bag_wtp_pout30 add = 85 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10124,6 +10403,7 @@ bag_wtp_plan_try_town_31 = {
 			limit = { OR = {
 				var:bag_wtp_pm31 = 95
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 95 } change_global_variable = { name = bag_wtp_pout31 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10147,6 +10427,7 @@ bag_wtp_plan_try_town_31 = {
 			limit = { OR = {
 				var:bag_wtp_pm31 = 96
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 96 } change_global_variable = { name = bag_wtp_pout31 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10175,6 +10456,12 @@ bag_wtp_plan_try_town_31 = {
 				var:bag_wtp_pm31 = 101
 				var:bag_wtp_pm31 = 102
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 97 } change_global_variable = { name = bag_wtp_pout31 add = 120 } }
+			if = { limit = { var:bag_wtp_pm31 = 98 } change_global_variable = { name = bag_wtp_pout31 add = 116 } }
+			if = { limit = { var:bag_wtp_pm31 = 99 } change_global_variable = { name = bag_wtp_pout31 add = 120 } }
+			if = { limit = { var:bag_wtp_pm31 = 100 } change_global_variable = { name = bag_wtp_pout31 add = 116 } }
+			if = { limit = { var:bag_wtp_pm31 = 101 } change_global_variable = { name = bag_wtp_pout31 add = 35 } }
+			if = { limit = { var:bag_wtp_pm31 = 102 } change_global_variable = { name = bag_wtp_pout31 add = 31 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10201,6 +10488,10 @@ bag_wtp_plan_try_town_31 = {
 				var:bag_wtp_pm31 = 105
 				var:bag_wtp_pm31 = 106
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 103 } change_global_variable = { name = bag_wtp_pout31 add = 135 } }
+			if = { limit = { var:bag_wtp_pm31 = 104 } change_global_variable = { name = bag_wtp_pout31 add = 130 } }
+			if = { limit = { var:bag_wtp_pm31 = 105 } change_global_variable = { name = bag_wtp_pout31 add = 125 } }
+			if = { limit = { var:bag_wtp_pm31 = 106 } change_global_variable = { name = bag_wtp_pout31 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10224,6 +10515,7 @@ bag_wtp_plan_try_town_31 = {
 			limit = { OR = {
 				var:bag_wtp_pm31 = 107
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 107 } change_global_variable = { name = bag_wtp_pout31 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10277,6 +10569,7 @@ bag_wtp_edit_place_town_31 = {
 			limit = { OR = {
 				var:bag_wtp_pm31 = 95
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 95 } change_global_variable = { name = bag_wtp_pout31 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10300,6 +10593,7 @@ bag_wtp_edit_place_town_31 = {
 			limit = { OR = {
 				var:bag_wtp_pm31 = 96
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 96 } change_global_variable = { name = bag_wtp_pout31 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10328,6 +10622,12 @@ bag_wtp_edit_place_town_31 = {
 				var:bag_wtp_pm31 = 101
 				var:bag_wtp_pm31 = 102
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 97 } change_global_variable = { name = bag_wtp_pout31 add = 120 } }
+			if = { limit = { var:bag_wtp_pm31 = 98 } change_global_variable = { name = bag_wtp_pout31 add = 116 } }
+			if = { limit = { var:bag_wtp_pm31 = 99 } change_global_variable = { name = bag_wtp_pout31 add = 120 } }
+			if = { limit = { var:bag_wtp_pm31 = 100 } change_global_variable = { name = bag_wtp_pout31 add = 116 } }
+			if = { limit = { var:bag_wtp_pm31 = 101 } change_global_variable = { name = bag_wtp_pout31 add = 35 } }
+			if = { limit = { var:bag_wtp_pm31 = 102 } change_global_variable = { name = bag_wtp_pout31 add = 31 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10354,6 +10654,10 @@ bag_wtp_edit_place_town_31 = {
 				var:bag_wtp_pm31 = 105
 				var:bag_wtp_pm31 = 106
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 103 } change_global_variable = { name = bag_wtp_pout31 add = 135 } }
+			if = { limit = { var:bag_wtp_pm31 = 104 } change_global_variable = { name = bag_wtp_pout31 add = 130 } }
+			if = { limit = { var:bag_wtp_pm31 = 105 } change_global_variable = { name = bag_wtp_pout31 add = 125 } }
+			if = { limit = { var:bag_wtp_pm31 = 106 } change_global_variable = { name = bag_wtp_pout31 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10377,6 +10681,7 @@ bag_wtp_edit_place_town_31 = {
 			limit = { OR = {
 				var:bag_wtp_pm31 = 107
 			} }
+			if = { limit = { var:bag_wtp_pm31 = 107 } change_global_variable = { name = bag_wtp_pout31 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10407,6 +10712,7 @@ bag_wtp_plan_try_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 111
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 111 } change_global_variable = { name = bag_wtp_pout32 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10430,6 +10736,7 @@ bag_wtp_plan_try_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 112
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 112 } change_global_variable = { name = bag_wtp_pout32 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10453,6 +10760,7 @@ bag_wtp_plan_try_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 113
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 113 } change_global_variable = { name = bag_wtp_pout32 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10476,6 +10784,7 @@ bag_wtp_plan_try_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 114
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 114 } change_global_variable = { name = bag_wtp_pout32 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10529,6 +10838,7 @@ bag_wtp_edit_place_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 111
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 111 } change_global_variable = { name = bag_wtp_pout32 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10552,6 +10862,7 @@ bag_wtp_edit_place_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 112
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 112 } change_global_variable = { name = bag_wtp_pout32 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10575,6 +10886,7 @@ bag_wtp_edit_place_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 113
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 113 } change_global_variable = { name = bag_wtp_pout32 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10598,6 +10910,7 @@ bag_wtp_edit_place_town_32 = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 114
 			} }
+			if = { limit = { var:bag_wtp_pm32 = 114 } change_global_variable = { name = bag_wtp_pout32 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10629,6 +10942,8 @@ bag_wtp_plan_try_town_33 = {
 				var:bag_wtp_pm33 = 115
 				var:bag_wtp_pm33 = 116
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 115 } change_global_variable = { name = bag_wtp_pout33 add = 75 } }
+			if = { limit = { var:bag_wtp_pm33 = 116 } change_global_variable = { name = bag_wtp_pout33 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10652,6 +10967,7 @@ bag_wtp_plan_try_town_33 = {
 			limit = { OR = {
 				var:bag_wtp_pm33 = 117
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 117 } change_global_variable = { name = bag_wtp_pout33 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10675,6 +10991,7 @@ bag_wtp_plan_try_town_33 = {
 			limit = { OR = {
 				var:bag_wtp_pm33 = 118
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 118 } change_global_variable = { name = bag_wtp_pout33 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10698,6 +11015,7 @@ bag_wtp_plan_try_town_33 = {
 			limit = { OR = {
 				var:bag_wtp_pm33 = 119
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 119 } change_global_variable = { name = bag_wtp_pout33 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10752,6 +11070,8 @@ bag_wtp_edit_place_town_33 = {
 				var:bag_wtp_pm33 = 115
 				var:bag_wtp_pm33 = 116
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 115 } change_global_variable = { name = bag_wtp_pout33 add = 75 } }
+			if = { limit = { var:bag_wtp_pm33 = 116 } change_global_variable = { name = bag_wtp_pout33 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10775,6 +11095,7 @@ bag_wtp_edit_place_town_33 = {
 			limit = { OR = {
 				var:bag_wtp_pm33 = 117
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 117 } change_global_variable = { name = bag_wtp_pout33 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10798,6 +11119,7 @@ bag_wtp_edit_place_town_33 = {
 			limit = { OR = {
 				var:bag_wtp_pm33 = 118
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 118 } change_global_variable = { name = bag_wtp_pout33 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10821,6 +11143,7 @@ bag_wtp_edit_place_town_33 = {
 			limit = { OR = {
 				var:bag_wtp_pm33 = 119
 			} }
+			if = { limit = { var:bag_wtp_pm33 = 119 } change_global_variable = { name = bag_wtp_pout33 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10862,6 +11185,18 @@ bag_wtp_plan_try_town_34 = {
 				var:bag_wtp_pm34 = 136
 				var:bag_wtp_pm34 = 137
 			} }
+			if = { limit = { var:bag_wtp_pm34 = 126 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 127 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 128 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 129 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 130 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 131 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 132 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 133 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 134 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 135 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 136 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 137 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10885,6 +11220,7 @@ bag_wtp_plan_try_town_34 = {
 			limit = { OR = {
 				var:bag_wtp_pm34 = 139
 			} }
+			if = { limit = { var:bag_wtp_pm34 = 139 } change_global_variable = { name = bag_wtp_pout34 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10949,6 +11285,18 @@ bag_wtp_edit_place_town_34 = {
 				var:bag_wtp_pm34 = 136
 				var:bag_wtp_pm34 = 137
 			} }
+			if = { limit = { var:bag_wtp_pm34 = 126 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 127 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 128 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 129 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 130 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 131 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 132 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 133 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 134 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 135 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 136 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
+			if = { limit = { var:bag_wtp_pm34 = 137 } change_global_variable = { name = bag_wtp_pout34 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -10972,6 +11320,7 @@ bag_wtp_edit_place_town_34 = {
 			limit = { OR = {
 				var:bag_wtp_pm34 = 139
 			} }
+			if = { limit = { var:bag_wtp_pm34 = 139 } change_global_variable = { name = bag_wtp_pout34 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11002,6 +11351,7 @@ bag_wtp_plan_try_town_35 = {
 			limit = { OR = {
 				var:bag_wtp_pm35 = 140
 			} }
+			if = { limit = { var:bag_wtp_pm35 = 140 } change_global_variable = { name = bag_wtp_pout35 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11025,6 +11375,7 @@ bag_wtp_plan_try_town_35 = {
 			limit = { OR = {
 				var:bag_wtp_pm35 = 141
 			} }
+			if = { limit = { var:bag_wtp_pm35 = 141 } change_global_variable = { name = bag_wtp_pout35 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11078,6 +11429,7 @@ bag_wtp_edit_place_town_35 = {
 			limit = { OR = {
 				var:bag_wtp_pm35 = 140
 			} }
+			if = { limit = { var:bag_wtp_pm35 = 140 } change_global_variable = { name = bag_wtp_pout35 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11101,6 +11453,7 @@ bag_wtp_edit_place_town_35 = {
 			limit = { OR = {
 				var:bag_wtp_pm35 = 141
 			} }
+			if = { limit = { var:bag_wtp_pm35 = 141 } change_global_variable = { name = bag_wtp_pout35 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11132,6 +11485,8 @@ bag_wtp_plan_try_town_36 = {
 				var:bag_wtp_pm36 = 143
 				var:bag_wtp_pm36 = 144
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 143 } change_global_variable = { name = bag_wtp_pout36 add = 100 } }
+			if = { limit = { var:bag_wtp_pm36 = 144 } change_global_variable = { name = bag_wtp_pout36 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11156,6 +11511,8 @@ bag_wtp_plan_try_town_36 = {
 				var:bag_wtp_pm36 = 145
 				var:bag_wtp_pm36 = 146
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 145 } change_global_variable = { name = bag_wtp_pout36 add = 200 } }
+			if = { limit = { var:bag_wtp_pm36 = 146 } change_global_variable = { name = bag_wtp_pout36 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11180,6 +11537,8 @@ bag_wtp_plan_try_town_36 = {
 				var:bag_wtp_pm36 = 147
 				var:bag_wtp_pm36 = 148
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 147 } change_global_variable = { name = bag_wtp_pout36 add = 400 } }
+			if = { limit = { var:bag_wtp_pm36 = 148 } change_global_variable = { name = bag_wtp_pout36 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11204,6 +11563,8 @@ bag_wtp_plan_try_town_36 = {
 				var:bag_wtp_pm36 = 149
 				var:bag_wtp_pm36 = 150
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 149 } change_global_variable = { name = bag_wtp_pout36 add = 110 } }
+			if = { limit = { var:bag_wtp_pm36 = 150 } change_global_variable = { name = bag_wtp_pout36 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11258,6 +11619,8 @@ bag_wtp_edit_place_town_36 = {
 				var:bag_wtp_pm36 = 143
 				var:bag_wtp_pm36 = 144
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 143 } change_global_variable = { name = bag_wtp_pout36 add = 100 } }
+			if = { limit = { var:bag_wtp_pm36 = 144 } change_global_variable = { name = bag_wtp_pout36 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11282,6 +11645,8 @@ bag_wtp_edit_place_town_36 = {
 				var:bag_wtp_pm36 = 145
 				var:bag_wtp_pm36 = 146
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 145 } change_global_variable = { name = bag_wtp_pout36 add = 200 } }
+			if = { limit = { var:bag_wtp_pm36 = 146 } change_global_variable = { name = bag_wtp_pout36 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11306,6 +11671,8 @@ bag_wtp_edit_place_town_36 = {
 				var:bag_wtp_pm36 = 147
 				var:bag_wtp_pm36 = 148
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 147 } change_global_variable = { name = bag_wtp_pout36 add = 400 } }
+			if = { limit = { var:bag_wtp_pm36 = 148 } change_global_variable = { name = bag_wtp_pout36 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11330,6 +11697,8 @@ bag_wtp_edit_place_town_36 = {
 				var:bag_wtp_pm36 = 149
 				var:bag_wtp_pm36 = 150
 			} }
+			if = { limit = { var:bag_wtp_pm36 = 149 } change_global_variable = { name = bag_wtp_pout36 add = 110 } }
+			if = { limit = { var:bag_wtp_pm36 = 150 } change_global_variable = { name = bag_wtp_pout36 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11364,6 +11733,11 @@ bag_wtp_plan_try_town_37 = {
 				var:bag_wtp_pm37 = 154
 				var:bag_wtp_pm37 = 155
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 151 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 152 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 153 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 154 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 155 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11391,6 +11765,11 @@ bag_wtp_plan_try_town_37 = {
 				var:bag_wtp_pm37 = 159
 				var:bag_wtp_pm37 = 160
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 156 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 157 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 158 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 159 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 160 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11418,6 +11797,11 @@ bag_wtp_plan_try_town_37 = {
 				var:bag_wtp_pm37 = 164
 				var:bag_wtp_pm37 = 165
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 161 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 162 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 163 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 164 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 165 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11445,6 +11829,11 @@ bag_wtp_plan_try_town_37 = {
 				var:bag_wtp_pm37 = 169
 				var:bag_wtp_pm37 = 170
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 166 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 167 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 168 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 169 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 170 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11502,6 +11891,11 @@ bag_wtp_edit_place_town_37 = {
 				var:bag_wtp_pm37 = 154
 				var:bag_wtp_pm37 = 155
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 151 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 152 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 153 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 154 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
+			if = { limit = { var:bag_wtp_pm37 = 155 } change_global_variable = { name = bag_wtp_pout37 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11529,6 +11923,11 @@ bag_wtp_edit_place_town_37 = {
 				var:bag_wtp_pm37 = 159
 				var:bag_wtp_pm37 = 160
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 156 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 157 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 158 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 159 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
+			if = { limit = { var:bag_wtp_pm37 = 160 } change_global_variable = { name = bag_wtp_pout37 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11556,6 +11955,11 @@ bag_wtp_edit_place_town_37 = {
 				var:bag_wtp_pm37 = 164
 				var:bag_wtp_pm37 = 165
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 161 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 162 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 163 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 164 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
+			if = { limit = { var:bag_wtp_pm37 = 165 } change_global_variable = { name = bag_wtp_pout37 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11583,6 +11987,11 @@ bag_wtp_edit_place_town_37 = {
 				var:bag_wtp_pm37 = 169
 				var:bag_wtp_pm37 = 170
 			} }
+			if = { limit = { var:bag_wtp_pm37 = 166 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 167 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 168 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 169 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
+			if = { limit = { var:bag_wtp_pm37 = 170 } change_global_variable = { name = bag_wtp_pout37 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11614,6 +12023,8 @@ bag_wtp_plan_try_town_38 = {
 				var:bag_wtp_pm38 = 173
 				var:bag_wtp_pm38 = 174
 			} }
+			if = { limit = { var:bag_wtp_pm38 = 173 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
+			if = { limit = { var:bag_wtp_pm38 = 174 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:mason }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11637,6 +12048,7 @@ bag_wtp_plan_try_town_38 = {
 			limit = { OR = {
 				var:bag_wtp_pm38 = 175
 			} }
+			if = { limit = { var:bag_wtp_pm38 = 175 } change_global_variable = { name = bag_wtp_pout38 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11691,6 +12103,8 @@ bag_wtp_edit_place_town_38 = {
 				var:bag_wtp_pm38 = 173
 				var:bag_wtp_pm38 = 174
 			} }
+			if = { limit = { var:bag_wtp_pm38 = 173 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
+			if = { limit = { var:bag_wtp_pm38 = 174 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:mason }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11714,6 +12128,7 @@ bag_wtp_edit_place_town_38 = {
 			limit = { OR = {
 				var:bag_wtp_pm38 = 175
 			} }
+			if = { limit = { var:bag_wtp_pm38 = 175 } change_global_variable = { name = bag_wtp_pout38 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11744,6 +12159,7 @@ bag_wtp_plan_try_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 179
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 179 } change_global_variable = { name = bag_wtp_pout39 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11767,6 +12183,7 @@ bag_wtp_plan_try_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 180
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 180 } change_global_variable = { name = bag_wtp_pout39 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11790,6 +12207,7 @@ bag_wtp_plan_try_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 181
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 181 } change_global_variable = { name = bag_wtp_pout39 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11813,6 +12231,7 @@ bag_wtp_plan_try_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 182
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 182 } change_global_variable = { name = bag_wtp_pout39 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11866,6 +12285,7 @@ bag_wtp_edit_place_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 179
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 179 } change_global_variable = { name = bag_wtp_pout39 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11889,6 +12309,7 @@ bag_wtp_edit_place_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 180
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 180 } change_global_variable = { name = bag_wtp_pout39 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11912,6 +12333,7 @@ bag_wtp_edit_place_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 181
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 181 } change_global_variable = { name = bag_wtp_pout39 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11935,6 +12357,7 @@ bag_wtp_edit_place_town_39 = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 182
 			} }
+			if = { limit = { var:bag_wtp_pm39 = 182 } change_global_variable = { name = bag_wtp_pout39 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11967,6 +12390,9 @@ bag_wtp_plan_try_town_40 = {
 				var:bag_wtp_pm40 = 184
 				var:bag_wtp_pm40 = 185
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 183 } change_global_variable = { name = bag_wtp_pout40 add = 100 } }
+			if = { limit = { var:bag_wtp_pm40 = 184 } change_global_variable = { name = bag_wtp_pout40 add = 100 } }
+			if = { limit = { var:bag_wtp_pm40 = 185 } change_global_variable = { name = bag_wtp_pout40 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -11990,6 +12416,7 @@ bag_wtp_plan_try_town_40 = {
 			limit = { OR = {
 				var:bag_wtp_pm40 = 186
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 186 } change_global_variable = { name = bag_wtp_pout40 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12014,6 +12441,8 @@ bag_wtp_plan_try_town_40 = {
 				var:bag_wtp_pm40 = 187
 				var:bag_wtp_pm40 = 188
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 187 } change_global_variable = { name = bag_wtp_pout40 add = 200 } }
+			if = { limit = { var:bag_wtp_pm40 = 188 } change_global_variable = { name = bag_wtp_pout40 add = 450 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12038,6 +12467,8 @@ bag_wtp_plan_try_town_40 = {
 				var:bag_wtp_pm40 = 189
 				var:bag_wtp_pm40 = 190
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 189 } change_global_variable = { name = bag_wtp_pout40 add = 110 } }
+			if = { limit = { var:bag_wtp_pm40 = 190 } change_global_variable = { name = bag_wtp_pout40 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12093,6 +12524,9 @@ bag_wtp_edit_place_town_40 = {
 				var:bag_wtp_pm40 = 184
 				var:bag_wtp_pm40 = 185
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 183 } change_global_variable = { name = bag_wtp_pout40 add = 100 } }
+			if = { limit = { var:bag_wtp_pm40 = 184 } change_global_variable = { name = bag_wtp_pout40 add = 100 } }
+			if = { limit = { var:bag_wtp_pm40 = 185 } change_global_variable = { name = bag_wtp_pout40 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12116,6 +12550,7 @@ bag_wtp_edit_place_town_40 = {
 			limit = { OR = {
 				var:bag_wtp_pm40 = 186
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 186 } change_global_variable = { name = bag_wtp_pout40 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12140,6 +12575,8 @@ bag_wtp_edit_place_town_40 = {
 				var:bag_wtp_pm40 = 187
 				var:bag_wtp_pm40 = 188
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 187 } change_global_variable = { name = bag_wtp_pout40 add = 200 } }
+			if = { limit = { var:bag_wtp_pm40 = 188 } change_global_variable = { name = bag_wtp_pout40 add = 450 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12164,6 +12601,8 @@ bag_wtp_edit_place_town_40 = {
 				var:bag_wtp_pm40 = 189
 				var:bag_wtp_pm40 = 190
 			} }
+			if = { limit = { var:bag_wtp_pm40 = 189 } change_global_variable = { name = bag_wtp_pout40 add = 110 } }
+			if = { limit = { var:bag_wtp_pm40 = 190 } change_global_variable = { name = bag_wtp_pout40 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12194,6 +12633,7 @@ bag_wtp_plan_try_town_41 = {
 			limit = { OR = {
 				var:bag_wtp_pm41 = 191
 			} }
+			if = { limit = { var:bag_wtp_pm41 = 191 } change_global_variable = { name = bag_wtp_pout41 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12217,6 +12657,7 @@ bag_wtp_plan_try_town_41 = {
 			limit = { OR = {
 				var:bag_wtp_pm41 = 192
 			} }
+			if = { limit = { var:bag_wtp_pm41 = 192 } change_global_variable = { name = bag_wtp_pout41 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12270,6 +12711,7 @@ bag_wtp_edit_place_town_41 = {
 			limit = { OR = {
 				var:bag_wtp_pm41 = 191
 			} }
+			if = { limit = { var:bag_wtp_pm41 = 191 } change_global_variable = { name = bag_wtp_pout41 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12293,6 +12735,7 @@ bag_wtp_edit_place_town_41 = {
 			limit = { OR = {
 				var:bag_wtp_pm41 = 192
 			} }
+			if = { limit = { var:bag_wtp_pm41 = 192 } change_global_variable = { name = bag_wtp_pout41 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12323,6 +12766,7 @@ bag_wtp_plan_try_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 195
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 195 } change_global_variable = { name = bag_wtp_pout42 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12346,6 +12790,7 @@ bag_wtp_plan_try_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 196
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 196 } change_global_variable = { name = bag_wtp_pout42 add = 150 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12369,6 +12814,7 @@ bag_wtp_plan_try_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 197
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 197 } change_global_variable = { name = bag_wtp_pout42 add = 325 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12392,6 +12838,7 @@ bag_wtp_plan_try_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 198
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 198 } change_global_variable = { name = bag_wtp_pout42 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12445,6 +12892,7 @@ bag_wtp_edit_place_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 195
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 195 } change_global_variable = { name = bag_wtp_pout42 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12468,6 +12916,7 @@ bag_wtp_edit_place_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 196
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 196 } change_global_variable = { name = bag_wtp_pout42 add = 150 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12491,6 +12940,7 @@ bag_wtp_edit_place_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 197
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 197 } change_global_variable = { name = bag_wtp_pout42 add = 325 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12514,6 +12964,7 @@ bag_wtp_edit_place_town_42 = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 198
 			} }
+			if = { limit = { var:bag_wtp_pm42 = 198 } change_global_variable = { name = bag_wtp_pout42 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12544,6 +12995,7 @@ bag_wtp_plan_try_town_43 = {
 			limit = { OR = {
 				var:bag_wtp_pm43 = 208
 			} }
+			if = { limit = { var:bag_wtp_pm43 = 208 } change_global_variable = { name = bag_wtp_pout43 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12597,6 +13049,7 @@ bag_wtp_edit_place_town_43 = {
 			limit = { OR = {
 				var:bag_wtp_pm43 = 208
 			} }
+			if = { limit = { var:bag_wtp_pm43 = 208 } change_global_variable = { name = bag_wtp_pout43 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12627,6 +13080,7 @@ bag_wtp_plan_try_town_44 = {
 			limit = { OR = {
 				var:bag_wtp_pm44 = 209
 			} }
+			if = { limit = { var:bag_wtp_pm44 = 209 } change_global_variable = { name = bag_wtp_pout44 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:steel }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12680,6 +13134,7 @@ bag_wtp_edit_place_town_44 = {
 			limit = { OR = {
 				var:bag_wtp_pm44 = 209
 			} }
+			if = { limit = { var:bag_wtp_pm44 = 209 } change_global_variable = { name = bag_wtp_pout44 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:steel }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12710,6 +13165,7 @@ bag_wtp_plan_try_town_45 = {
 			limit = { OR = {
 				var:bag_wtp_pm45 = 213
 			} }
+			if = { limit = { var:bag_wtp_pm45 = 213 } change_global_variable = { name = bag_wtp_pout45 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12763,6 +13219,7 @@ bag_wtp_edit_place_town_45 = {
 			limit = { OR = {
 				var:bag_wtp_pm45 = 213
 			} }
+			if = { limit = { var:bag_wtp_pm45 = 213 } change_global_variable = { name = bag_wtp_pout45 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12793,6 +13250,7 @@ bag_wtp_plan_try_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 216
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 216 } change_global_variable = { name = bag_wtp_pout46 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12816,6 +13274,7 @@ bag_wtp_plan_try_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 217
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 217 } change_global_variable = { name = bag_wtp_pout46 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12839,6 +13298,7 @@ bag_wtp_plan_try_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 219
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 219 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12865,6 +13325,10 @@ bag_wtp_plan_try_town_46 = {
 				var:bag_wtp_pm46 = 222
 				var:bag_wtp_pm46 = 223
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 220 } change_global_variable = { name = bag_wtp_pout46 add = 60 } }
+			if = { limit = { var:bag_wtp_pm46 = 221 } change_global_variable = { name = bag_wtp_pout46 add = 55 } }
+			if = { limit = { var:bag_wtp_pm46 = 222 } change_global_variable = { name = bag_wtp_pout46 add = 100 } }
+			if = { limit = { var:bag_wtp_pm46 = 223 } change_global_variable = { name = bag_wtp_pout46 add = 25 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12888,6 +13352,7 @@ bag_wtp_plan_try_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 224
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 224 } change_global_variable = { name = bag_wtp_pout46 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12941,6 +13406,7 @@ bag_wtp_edit_place_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 216
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 216 } change_global_variable = { name = bag_wtp_pout46 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12964,6 +13430,7 @@ bag_wtp_edit_place_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 217
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 217 } change_global_variable = { name = bag_wtp_pout46 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -12987,6 +13454,7 @@ bag_wtp_edit_place_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 219
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 219 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13013,6 +13481,10 @@ bag_wtp_edit_place_town_46 = {
 				var:bag_wtp_pm46 = 222
 				var:bag_wtp_pm46 = 223
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 220 } change_global_variable = { name = bag_wtp_pout46 add = 60 } }
+			if = { limit = { var:bag_wtp_pm46 = 221 } change_global_variable = { name = bag_wtp_pout46 add = 55 } }
+			if = { limit = { var:bag_wtp_pm46 = 222 } change_global_variable = { name = bag_wtp_pout46 add = 100 } }
+			if = { limit = { var:bag_wtp_pm46 = 223 } change_global_variable = { name = bag_wtp_pout46 add = 25 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13036,6 +13508,7 @@ bag_wtp_edit_place_town_46 = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 224
 			} }
+			if = { limit = { var:bag_wtp_pm46 = 224 } change_global_variable = { name = bag_wtp_pout46 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13066,6 +13539,7 @@ bag_wtp_plan_try_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 227
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 227 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13089,6 +13563,7 @@ bag_wtp_plan_try_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 228
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 228 } change_global_variable = { name = bag_wtp_pout47 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13114,6 +13589,9 @@ bag_wtp_plan_try_town_47 = {
 				var:bag_wtp_pm47 = 230
 				var:bag_wtp_pm47 = 231
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 229 } change_global_variable = { name = bag_wtp_pout47 add = 40 } }
+			if = { limit = { var:bag_wtp_pm47 = 230 } change_global_variable = { name = bag_wtp_pout47 add = 40 } }
+			if = { limit = { var:bag_wtp_pm47 = 231 } change_global_variable = { name = bag_wtp_pout47 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13137,6 +13615,7 @@ bag_wtp_plan_try_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 232
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 232 } change_global_variable = { name = bag_wtp_pout47 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13160,6 +13639,7 @@ bag_wtp_plan_try_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 233
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 233 } change_global_variable = { name = bag_wtp_pout47 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13213,6 +13693,7 @@ bag_wtp_edit_place_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 227
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 227 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13236,6 +13717,7 @@ bag_wtp_edit_place_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 228
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 228 } change_global_variable = { name = bag_wtp_pout47 add = 400 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13261,6 +13743,9 @@ bag_wtp_edit_place_town_47 = {
 				var:bag_wtp_pm47 = 230
 				var:bag_wtp_pm47 = 231
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 229 } change_global_variable = { name = bag_wtp_pout47 add = 40 } }
+			if = { limit = { var:bag_wtp_pm47 = 230 } change_global_variable = { name = bag_wtp_pout47 add = 40 } }
+			if = { limit = { var:bag_wtp_pm47 = 231 } change_global_variable = { name = bag_wtp_pout47 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13284,6 +13769,7 @@ bag_wtp_edit_place_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 232
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 232 } change_global_variable = { name = bag_wtp_pout47 add = 200 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13307,6 +13793,7 @@ bag_wtp_edit_place_town_47 = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 233
 			} }
+			if = { limit = { var:bag_wtp_pm47 = 233 } change_global_variable = { name = bag_wtp_pout47 add = 110 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13337,6 +13824,7 @@ bag_wtp_plan_try_rural_1 = {
 			limit = { OR = {
 				var:bag_wtp_prm1 = 39
 			} }
+			if = { limit = { var:bag_wtp_prm1 = 39 } change_global_variable = { name = bag_wtp_pout1 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13390,6 +13878,7 @@ bag_wtp_edit_place_rural_1 = {
 			limit = { OR = {
 				var:bag_wtp_prm1 = 39
 			} }
+			if = { limit = { var:bag_wtp_prm1 = 39 } change_global_variable = { name = bag_wtp_pout1 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13420,6 +13909,7 @@ bag_wtp_plan_try_rural_2 = {
 			limit = { OR = {
 				var:bag_wtp_prm2 = 55
 			} }
+			if = { limit = { var:bag_wtp_prm2 = 55 } change_global_variable = { name = bag_wtp_pout2 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13443,6 +13933,7 @@ bag_wtp_plan_try_rural_2 = {
 			limit = { OR = {
 				var:bag_wtp_prm2 = 56
 			} }
+			if = { limit = { var:bag_wtp_prm2 = 56 } change_global_variable = { name = bag_wtp_pout2 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13496,6 +13987,7 @@ bag_wtp_edit_place_rural_2 = {
 			limit = { OR = {
 				var:bag_wtp_prm2 = 55
 			} }
+			if = { limit = { var:bag_wtp_prm2 = 55 } change_global_variable = { name = bag_wtp_pout2 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13519,6 +14011,7 @@ bag_wtp_edit_place_rural_2 = {
 			limit = { OR = {
 				var:bag_wtp_prm2 = 56
 			} }
+			if = { limit = { var:bag_wtp_prm2 = 56 } change_global_variable = { name = bag_wtp_pout2 add = 120 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13549,6 +14042,7 @@ bag_wtp_plan_try_rural_3 = {
 			limit = { OR = {
 				var:bag_wtp_prm3 = 57
 			} }
+			if = { limit = { var:bag_wtp_prm3 = 57 } change_global_variable = { name = bag_wtp_pout3 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13602,6 +14096,7 @@ bag_wtp_edit_place_rural_3 = {
 			limit = { OR = {
 				var:bag_wtp_prm3 = 57
 			} }
+			if = { limit = { var:bag_wtp_prm3 = 57 } change_global_variable = { name = bag_wtp_pout3 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13632,6 +14127,7 @@ bag_wtp_plan_try_rural_5 = {
 			limit = { OR = {
 				var:bag_wtp_prm5 = 63
 			} }
+			if = { limit = { var:bag_wtp_prm5 = 63 } change_global_variable = { name = bag_wtp_pout5 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13655,6 +14151,7 @@ bag_wtp_plan_try_rural_5 = {
 			limit = { OR = {
 				var:bag_wtp_prm5 = 64
 			} }
+			if = { limit = { var:bag_wtp_prm5 = 64 } change_global_variable = { name = bag_wtp_pout5 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13708,6 +14205,7 @@ bag_wtp_edit_place_rural_5 = {
 			limit = { OR = {
 				var:bag_wtp_prm5 = 63
 			} }
+			if = { limit = { var:bag_wtp_prm5 = 63 } change_global_variable = { name = bag_wtp_pout5 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13731,6 +14229,7 @@ bag_wtp_edit_place_rural_5 = {
 			limit = { OR = {
 				var:bag_wtp_prm5 = 64
 			} }
+			if = { limit = { var:bag_wtp_prm5 = 64 } change_global_variable = { name = bag_wtp_pout5 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13762,6 +14261,8 @@ bag_wtp_plan_try_rural_6 = {
 				var:bag_wtp_prm6 = 108
 				var:bag_wtp_prm6 = 109
 			} }
+			if = { limit = { var:bag_wtp_prm6 = 108 } change_global_variable = { name = bag_wtp_pout6 add = 50 } }
+			if = { limit = { var:bag_wtp_prm6 = 109 } change_global_variable = { name = bag_wtp_pout6 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13816,6 +14317,8 @@ bag_wtp_edit_place_rural_6 = {
 				var:bag_wtp_prm6 = 108
 				var:bag_wtp_prm6 = 109
 			} }
+			if = { limit = { var:bag_wtp_prm6 = 108 } change_global_variable = { name = bag_wtp_pout6 add = 50 } }
+			if = { limit = { var:bag_wtp_prm6 = 109 } change_global_variable = { name = bag_wtp_pout6 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13846,6 +14349,7 @@ bag_wtp_plan_try_rural_7 = {
 			limit = { OR = {
 				var:bag_wtp_prm7 = 110
 			} }
+			if = { limit = { var:bag_wtp_prm7 = 110 } change_global_variable = { name = bag_wtp_pout7 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13899,6 +14403,7 @@ bag_wtp_edit_place_rural_7 = {
 			limit = { OR = {
 				var:bag_wtp_prm7 = 110
 			} }
+			if = { limit = { var:bag_wtp_prm7 = 110 } change_global_variable = { name = bag_wtp_pout7 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13929,6 +14434,7 @@ bag_wtp_plan_try_rural_8 = {
 			limit = { OR = {
 				var:bag_wtp_prm8 = 121
 			} }
+			if = { limit = { var:bag_wtp_prm8 = 121 } change_global_variable = { name = bag_wtp_pout8 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -13982,6 +14488,7 @@ bag_wtp_edit_place_rural_8 = {
 			limit = { OR = {
 				var:bag_wtp_prm8 = 121
 			} }
+			if = { limit = { var:bag_wtp_prm8 = 121 } change_global_variable = { name = bag_wtp_pout8 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14012,6 +14519,7 @@ bag_wtp_plan_try_rural_10 = {
 			limit = { OR = {
 				var:bag_wtp_prm10 = 123
 			} }
+			if = { limit = { var:bag_wtp_prm10 = 123 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14035,6 +14543,7 @@ bag_wtp_plan_try_rural_10 = {
 			limit = { OR = {
 				var:bag_wtp_prm10 = 124
 			} }
+			if = { limit = { var:bag_wtp_prm10 = 124 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14088,6 +14597,7 @@ bag_wtp_edit_place_rural_10 = {
 			limit = { OR = {
 				var:bag_wtp_prm10 = 123
 			} }
+			if = { limit = { var:bag_wtp_prm10 = 123 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14111,6 +14621,7 @@ bag_wtp_edit_place_rural_10 = {
 			limit = { OR = {
 				var:bag_wtp_prm10 = 124
 			} }
+			if = { limit = { var:bag_wtp_prm10 = 124 } change_global_variable = { name = bag_wtp_pout10 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14141,6 +14652,7 @@ bag_wtp_plan_try_rural_11 = {
 			limit = { OR = {
 				var:bag_wtp_prm11 = 125
 			} }
+			if = { limit = { var:bag_wtp_prm11 = 125 } change_global_variable = { name = bag_wtp_pout11 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:ivory }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14194,6 +14706,7 @@ bag_wtp_edit_place_rural_11 = {
 			limit = { OR = {
 				var:bag_wtp_prm11 = 125
 			} }
+			if = { limit = { var:bag_wtp_prm11 = 125 } change_global_variable = { name = bag_wtp_pout11 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:ivory }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14224,6 +14737,7 @@ bag_wtp_plan_try_rural_12 = {
 			limit = { OR = {
 				var:bag_wtp_prm12 = 171
 			} }
+			if = { limit = { var:bag_wtp_prm12 = 171 } change_global_variable = { name = bag_wtp_pout12 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14277,6 +14791,7 @@ bag_wtp_edit_place_rural_12 = {
 			limit = { OR = {
 				var:bag_wtp_prm12 = 171
 			} }
+			if = { limit = { var:bag_wtp_prm12 = 171 } change_global_variable = { name = bag_wtp_pout12 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14307,6 +14822,7 @@ bag_wtp_plan_try_rural_13 = {
 			limit = { OR = {
 				var:bag_wtp_prm13 = 172
 			} }
+			if = { limit = { var:bag_wtp_prm13 = 172 } change_global_variable = { name = bag_wtp_pout13 add = 60 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14360,6 +14876,7 @@ bag_wtp_edit_place_rural_13 = {
 			limit = { OR = {
 				var:bag_wtp_prm13 = 172
 			} }
+			if = { limit = { var:bag_wtp_prm13 = 172 } change_global_variable = { name = bag_wtp_pout13 add = 60 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14390,6 +14907,7 @@ bag_wtp_plan_try_rural_15 = {
 			limit = { OR = {
 				var:bag_wtp_prm15 = 199
 			} }
+			if = { limit = { var:bag_wtp_prm15 = 199 } change_global_variable = { name = bag_wtp_pout15 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14443,6 +14961,7 @@ bag_wtp_edit_place_rural_15 = {
 			limit = { OR = {
 				var:bag_wtp_prm15 = 199
 			} }
+			if = { limit = { var:bag_wtp_prm15 = 199 } change_global_variable = { name = bag_wtp_pout15 add = 30 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14473,6 +14992,7 @@ bag_wtp_plan_try_rural_17 = {
 			limit = { OR = {
 				var:bag_wtp_prm17 = 204
 			} }
+			if = { limit = { var:bag_wtp_prm17 = 204 } change_global_variable = { name = bag_wtp_pout17 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14526,6 +15046,7 @@ bag_wtp_edit_place_rural_17 = {
 			limit = { OR = {
 				var:bag_wtp_prm17 = 204
 			} }
+			if = { limit = { var:bag_wtp_prm17 = 204 } change_global_variable = { name = bag_wtp_pout17 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14556,6 +15077,7 @@ bag_wtp_plan_try_rural_19 = {
 			limit = { OR = {
 				var:bag_wtp_prm19 = 207
 			} }
+			if = { limit = { var:bag_wtp_prm19 = 207 } change_global_variable = { name = bag_wtp_pout19 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14609,6 +15131,7 @@ bag_wtp_edit_place_rural_19 = {
 			limit = { OR = {
 				var:bag_wtp_prm19 = 207
 			} }
+			if = { limit = { var:bag_wtp_prm19 = 207 } change_global_variable = { name = bag_wtp_pout19 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14640,6 +15163,8 @@ bag_wtp_plan_try_rural_20 = {
 				var:bag_wtp_prm20 = 210
 				var:bag_wtp_prm20 = 211
 			} }
+			if = { limit = { var:bag_wtp_prm20 = 210 } change_global_variable = { name = bag_wtp_pout20 add = 50 } }
+			if = { limit = { var:bag_wtp_prm20 = 211 } change_global_variable = { name = bag_wtp_pout20 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14694,6 +15219,8 @@ bag_wtp_edit_place_rural_20 = {
 				var:bag_wtp_prm20 = 210
 				var:bag_wtp_prm20 = 211
 			} }
+			if = { limit = { var:bag_wtp_prm20 = 210 } change_global_variable = { name = bag_wtp_pout20 add = 50 } }
+			if = { limit = { var:bag_wtp_prm20 = 211 } change_global_variable = { name = bag_wtp_pout20 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14724,6 +15251,7 @@ bag_wtp_plan_try_rural_21 = {
 			limit = { OR = {
 				var:bag_wtp_prm21 = 212
 			} }
+			if = { limit = { var:bag_wtp_prm21 = 212 } change_global_variable = { name = bag_wtp_pout21 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14777,6 +15305,7 @@ bag_wtp_edit_place_rural_21 = {
 			limit = { OR = {
 				var:bag_wtp_prm21 = 212
 			} }
+			if = { limit = { var:bag_wtp_prm21 = 212 } change_global_variable = { name = bag_wtp_pout21 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14807,6 +15336,7 @@ bag_wtp_plan_try_rural_22 = {
 			limit = { OR = {
 				var:bag_wtp_prm22 = 214
 			} }
+			if = { limit = { var:bag_wtp_prm22 = 214 } change_global_variable = { name = bag_wtp_pout22 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14860,6 +15390,7 @@ bag_wtp_edit_place_rural_22 = {
 			limit = { OR = {
 				var:bag_wtp_prm22 = 214
 			} }
+			if = { limit = { var:bag_wtp_prm22 = 214 } change_global_variable = { name = bag_wtp_pout22 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14890,6 +15421,7 @@ bag_wtp_plan_try_rural_23 = {
 			limit = { OR = {
 				var:bag_wtp_prm23 = 234
 			} }
+			if = { limit = { var:bag_wtp_prm23 = 234 } change_global_variable = { name = bag_wtp_pout23 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14943,6 +15475,7 @@ bag_wtp_edit_place_rural_23 = {
 			limit = { OR = {
 				var:bag_wtp_prm23 = 234
 			} }
+			if = { limit = { var:bag_wtp_prm23 = 234 } change_global_variable = { name = bag_wtp_pout23 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -14973,6 +15506,7 @@ bag_wtp_plan_try_rural_25 = {
 			limit = { OR = {
 				var:bag_wtp_prm25 = 241
 			} }
+			if = { limit = { var:bag_wtp_prm25 = 241 } change_global_variable = { name = bag_wtp_pout25 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wool }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15026,6 +15560,7 @@ bag_wtp_edit_place_rural_25 = {
 			limit = { OR = {
 				var:bag_wtp_prm25 = 241
 			} }
+			if = { limit = { var:bag_wtp_prm25 = 241 } change_global_variable = { name = bag_wtp_pout25 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:wool }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15056,6 +15591,7 @@ bag_wtp_plan_try_rural_26 = {
 			limit = { OR = {
 				var:bag_wtp_prm26 = 17
 			} }
+			if = { limit = { var:bag_wtp_prm26 = 17 } change_global_variable = { name = bag_wtp_pout26 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15109,6 +15645,7 @@ bag_wtp_edit_place_rural_26 = {
 			limit = { OR = {
 				var:bag_wtp_prm26 = 17
 			} }
+			if = { limit = { var:bag_wtp_prm26 = 17 } change_global_variable = { name = bag_wtp_pout26 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15141,6 +15678,9 @@ bag_wtp_plan_try_rural_29 = {
 				var:bag_wtp_prm29 = 50
 				var:bag_wtp_prm29 = 51
 			} }
+			if = { limit = { var:bag_wtp_prm29 = 49 } change_global_variable = { name = bag_wtp_pout29 add = 50 } }
+			if = { limit = { var:bag_wtp_prm29 = 50 } change_global_variable = { name = bag_wtp_pout29 add = 40 } }
+			if = { limit = { var:bag_wtp_prm29 = 51 } change_global_variable = { name = bag_wtp_pout29 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15196,6 +15736,9 @@ bag_wtp_edit_place_rural_29 = {
 				var:bag_wtp_prm29 = 50
 				var:bag_wtp_prm29 = 51
 			} }
+			if = { limit = { var:bag_wtp_prm29 = 49 } change_global_variable = { name = bag_wtp_pout29 add = 50 } }
+			if = { limit = { var:bag_wtp_prm29 = 50 } change_global_variable = { name = bag_wtp_pout29 add = 40 } }
+			if = { limit = { var:bag_wtp_prm29 = 51 } change_global_variable = { name = bag_wtp_pout29 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15226,6 +15769,7 @@ bag_wtp_plan_try_rural_33 = {
 			limit = { OR = {
 				var:bag_wtp_prm33 = 120
 			} }
+			if = { limit = { var:bag_wtp_prm33 = 120 } change_global_variable = { name = bag_wtp_pout33 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15279,6 +15823,7 @@ bag_wtp_edit_place_rural_33 = {
 			limit = { OR = {
 				var:bag_wtp_prm33 = 120
 			} }
+			if = { limit = { var:bag_wtp_prm33 = 120 } change_global_variable = { name = bag_wtp_pout33 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15309,6 +15854,7 @@ bag_wtp_plan_try_rural_34 = {
 			limit = { OR = {
 				var:bag_wtp_prm34 = 138
 			} }
+			if = { limit = { var:bag_wtp_prm34 = 138 } change_global_variable = { name = bag_wtp_pout34 add = 10 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15332,6 +15878,7 @@ bag_wtp_plan_try_rural_34 = {
 			limit = { OR = {
 				var:bag_wtp_prm34 = 139
 			} }
+			if = { limit = { var:bag_wtp_prm34 = 139 } change_global_variable = { name = bag_wtp_pout34 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15385,6 +15932,7 @@ bag_wtp_edit_place_rural_34 = {
 			limit = { OR = {
 				var:bag_wtp_prm34 = 138
 			} }
+			if = { limit = { var:bag_wtp_prm34 = 138 } change_global_variable = { name = bag_wtp_pout34 add = 10 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15408,6 +15956,7 @@ bag_wtp_edit_place_rural_34 = {
 			limit = { OR = {
 				var:bag_wtp_prm34 = 139
 			} }
+			if = { limit = { var:bag_wtp_prm34 = 139 } change_global_variable = { name = bag_wtp_pout34 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15438,6 +15987,7 @@ bag_wtp_plan_try_rural_36 = {
 			limit = { OR = {
 				var:bag_wtp_prm36 = 142
 			} }
+			if = { limit = { var:bag_wtp_prm36 = 142 } change_global_variable = { name = bag_wtp_pout36 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15491,6 +16041,7 @@ bag_wtp_edit_place_rural_36 = {
 			limit = { OR = {
 				var:bag_wtp_prm36 = 142
 			} }
+			if = { limit = { var:bag_wtp_prm36 = 142 } change_global_variable = { name = bag_wtp_pout36 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15522,6 +16073,8 @@ bag_wtp_plan_try_rural_38 = {
 				var:bag_wtp_prm38 = 173
 				var:bag_wtp_prm38 = 174
 			} }
+			if = { limit = { var:bag_wtp_prm38 = 173 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
+			if = { limit = { var:bag_wtp_prm38 = 174 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:mason }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15545,6 +16098,7 @@ bag_wtp_plan_try_rural_38 = {
 			limit = { OR = {
 				var:bag_wtp_prm38 = 175
 			} }
+			if = { limit = { var:bag_wtp_prm38 = 175 } change_global_variable = { name = bag_wtp_pout38 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15599,6 +16153,8 @@ bag_wtp_edit_place_rural_38 = {
 				var:bag_wtp_prm38 = 173
 				var:bag_wtp_prm38 = 174
 			} }
+			if = { limit = { var:bag_wtp_prm38 = 173 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
+			if = { limit = { var:bag_wtp_prm38 = 174 } change_global_variable = { name = bag_wtp_pout38 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:mason }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15622,6 +16178,7 @@ bag_wtp_edit_place_rural_38 = {
 			limit = { OR = {
 				var:bag_wtp_prm38 = 175
 			} }
+			if = { limit = { var:bag_wtp_prm38 = 175 } change_global_variable = { name = bag_wtp_pout38 add = 80 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15652,6 +16209,7 @@ bag_wtp_plan_try_rural_39 = {
 			limit = { OR = {
 				var:bag_wtp_prm39 = 178
 			} }
+			if = { limit = { var:bag_wtp_prm39 = 178 } change_global_variable = { name = bag_wtp_pout39 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15705,6 +16263,7 @@ bag_wtp_edit_place_rural_39 = {
 			limit = { OR = {
 				var:bag_wtp_prm39 = 178
 			} }
+			if = { limit = { var:bag_wtp_prm39 = 178 } change_global_variable = { name = bag_wtp_pout39 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15735,6 +16294,7 @@ bag_wtp_plan_try_rural_42 = {
 			limit = { OR = {
 				var:bag_wtp_prm42 = 193
 			} }
+			if = { limit = { var:bag_wtp_prm42 = 193 } change_global_variable = { name = bag_wtp_pout42 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15758,6 +16318,7 @@ bag_wtp_plan_try_rural_42 = {
 			limit = { OR = {
 				var:bag_wtp_prm42 = 194
 			} }
+			if = { limit = { var:bag_wtp_prm42 = 194 } change_global_variable = { name = bag_wtp_pout42 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15811,6 +16372,7 @@ bag_wtp_edit_place_rural_42 = {
 			limit = { OR = {
 				var:bag_wtp_prm42 = 193
 			} }
+			if = { limit = { var:bag_wtp_prm42 = 193 } change_global_variable = { name = bag_wtp_pout42 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15834,6 +16396,7 @@ bag_wtp_edit_place_rural_42 = {
 			limit = { OR = {
 				var:bag_wtp_prm42 = 194
 			} }
+			if = { limit = { var:bag_wtp_prm42 = 194 } change_global_variable = { name = bag_wtp_pout42 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15864,6 +16427,7 @@ bag_wtp_plan_try_rural_43 = {
 			limit = { OR = {
 				var:bag_wtp_prm43 = 208
 			} }
+			if = { limit = { var:bag_wtp_prm43 = 208 } change_global_variable = { name = bag_wtp_pout43 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15917,6 +16481,7 @@ bag_wtp_edit_place_rural_43 = {
 			limit = { OR = {
 				var:bag_wtp_prm43 = 208
 			} }
+			if = { limit = { var:bag_wtp_prm43 = 208 } change_global_variable = { name = bag_wtp_pout43 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -15947,6 +16512,7 @@ bag_wtp_plan_try_rural_45 = {
 			limit = { OR = {
 				var:bag_wtp_prm45 = 213
 			} }
+			if = { limit = { var:bag_wtp_prm45 = 213 } change_global_variable = { name = bag_wtp_pout45 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16000,6 +16566,7 @@ bag_wtp_edit_place_rural_45 = {
 			limit = { OR = {
 				var:bag_wtp_prm45 = 213
 			} }
+			if = { limit = { var:bag_wtp_prm45 = 213 } change_global_variable = { name = bag_wtp_pout45 add = 100 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16030,6 +16597,7 @@ bag_wtp_plan_try_rural_46 = {
 			limit = { OR = {
 				var:bag_wtp_prm46 = 215
 			} }
+			if = { limit = { var:bag_wtp_prm46 = 215 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16053,6 +16621,7 @@ bag_wtp_plan_try_rural_46 = {
 			limit = { OR = {
 				var:bag_wtp_prm46 = 218
 			} }
+			if = { limit = { var:bag_wtp_prm46 = 218 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16076,6 +16645,7 @@ bag_wtp_plan_try_rural_46 = {
 			limit = { OR = {
 				var:bag_wtp_prm46 = 219
 			} }
+			if = { limit = { var:bag_wtp_prm46 = 219 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16129,6 +16699,7 @@ bag_wtp_edit_place_rural_46 = {
 			limit = { OR = {
 				var:bag_wtp_prm46 = 215
 			} }
+			if = { limit = { var:bag_wtp_prm46 = 215 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16152,6 +16723,7 @@ bag_wtp_edit_place_rural_46 = {
 			limit = { OR = {
 				var:bag_wtp_prm46 = 218
 			} }
+			if = { limit = { var:bag_wtp_prm46 = 218 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16175,6 +16747,7 @@ bag_wtp_edit_place_rural_46 = {
 			limit = { OR = {
 				var:bag_wtp_prm46 = 219
 			} }
+			if = { limit = { var:bag_wtp_prm46 = 219 } change_global_variable = { name = bag_wtp_pout46 add = 50 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16205,6 +16778,7 @@ bag_wtp_plan_try_rural_47 = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 225
 			} }
+			if = { limit = { var:bag_wtp_prm47 = 225 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16228,6 +16802,7 @@ bag_wtp_plan_try_rural_47 = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 226
 			} }
+			if = { limit = { var:bag_wtp_prm47 = 226 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16251,6 +16826,7 @@ bag_wtp_plan_try_rural_47 = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 227
 			} }
+			if = { limit = { var:bag_wtp_prm47 = 227 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16304,6 +16880,7 @@ bag_wtp_edit_place_rural_47 = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 225
 			} }
+			if = { limit = { var:bag_wtp_prm47 = 225 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16327,6 +16904,7 @@ bag_wtp_edit_place_rural_47 = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 226
 			} }
+			if = { limit = { var:bag_wtp_prm47 = 226 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -16350,6 +16928,7 @@ bag_wtp_edit_place_rural_47 = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 227
 			} }
+			if = { limit = { var:bag_wtp_prm47 = 227 } change_global_variable = { name = bag_wtp_pout47 add = 20 } }
 			add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
 			change_variable = { name = bag_wtp_load add = 1 }
@@ -28180,6 +28759,7 @@ bag_wtp_plan_hide = {
 # variable system.
 # Scope: country
 bag_wtp_open_plan_window_effect = {
+	bag_wtp_sel_restore_plan = yes
 	bag_wtp_plan_show = yes
 	remove_variable = bag_wtp_result_open
 	remove_variable = bag_wtp_right_open

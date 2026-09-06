@@ -16,14 +16,35 @@
 
 types BagWtpPlanTypes {
 
+	# **Домик и товар — две ячейки одной ширины, одна над другой.**
+	# Ширина здесь и ширина у `bag_wtp_plan_good_entry` обязаны совпадать: обе
+	# строки — датамодели двух списков, которые пишутся одним шагом и потому
+	# идут индекс в индекс, а в столбик их ставит только равная ячейка. Разойдись
+	# ширины — и товар встанет над чужим домиком, молча.
+	#
+	# **Размер держит `widget`, а не текст.** Значок-текст берёт размер шрифта, и
+	# в прошлый раз именно он вылез из своих 20 и наехал на соседнюю строку:
+	# «иконка домика и иконка товара встали друг на друга», 2026-09-06. Теперь
+	# коробка фиксирована, а текст висит по центру внутри неё.
 	type bag_wtp_plan_building_entry = widget {
-		size = { 32 20 }
+		size = { 34 20 }
 		text_single = {
 			parentanchor = center
 			autoresize = yes
-			fontsize = 15
+			fontsize = 14
 			raw_text = "[BuildingType.GetIcon]"
 			tooltip = "[BuildingType.GetName]"
+		}
+	}
+
+	type bag_wtp_plan_good_entry = widget {
+		size = { 34 20 }
+		text_single = {
+			parentanchor = center
+			autoresize = yes
+			fontsize = 14
+			raw_text = "[Goods.GetIcon]"
+			tooltip = "[Goods.GetName]"
 		}
 	}
 
@@ -326,18 +347,53 @@ types BagWtpPlanTypes {
 		# простом `widget` с якорем: `vbox` брал все 260 и центрировал строку
 		# внутри себя — «иконки товаров немного не в столбике», 2026-09-06.
 		widget = {
-			size = { 260 42 }
+			size = { 300 42 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_plan_goods_tt"
 
-			hbox = {
+			# **Товар над своим домиком, столбик в столбик.** Его слова
+			# 2026-09-06: «я не понял, что именно производят в плане эти
+			# деревни… иконки производимого товара к домикам нужно вернуть».
+			# Причина настоящая: торговая деревня делает пиво, посуду и
+			# инструменты, так что по домику товар больше не читается —
+			# `market_village` и есть тот домик, из-за которого 25 пивоварен
+			# выглядели как ошибка.
+			#
+			# **Два списка, а не один, потому что строка датамодели видит один
+			# скоуп** — правило из `SETTLED.md`, и обойти его нечем. `_row_goods`
+			# и `_row_builds` пишутся одним шагом в `row_entry`, по одному
+			# домику на товар, поэтому идут индекс в индекс; равная ширина
+			# ячеек — всё, что превращает это в пары на экране.
+			#
+			# **Что расходится молча, то посчитано:** `WTP ROWPAIR` в
+			# диагностике считает локации, где длины двух списков разошлись.
+			# Не ноль — значит столбики врут, и это видно числом, а не глазом.
+			vbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 6
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_row_builds')]"
-				item = {
-					bag_wtp_plan_building_entry = {
-						datacontext = "[Scope.GetBuildingType]"
+				spacing = 2
+
+				hbox = {
+					parentanchor = left
+					widgetanchor = left
+					spacing = 2
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_row_goods')]"
+					item = {
+						bag_wtp_plan_good_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+
+				hbox = {
+					parentanchor = left
+					widgetanchor = left
+					spacing = 2
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_row_builds')]"
+					item = {
+						bag_wtp_plan_building_entry = {
+							datacontext = "[Scope.GetBuildingType]"
+						}
 					}
 				}
 			}
