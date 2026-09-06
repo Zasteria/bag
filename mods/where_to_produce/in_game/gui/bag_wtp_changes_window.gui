@@ -36,6 +36,30 @@ types BagWtpChangesTypes {
 		# The map answers the row, the same way a plan row does.
 		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.Self)]"
 
+		# **Which press did this, and the list is sorted by it.** A diff cannot
+		# hold chronology -- two presses on one location are one row -- but the
+		# order of the rows can carry it, and without a number on the row that
+		# order is invisible. A location changed by a fresh plan rather than a
+		# press has no number, so the cell is a widget of its own size and the
+		# text inside it is what disappears: an invisible child still holds its
+		# place here, which is what keeps the column straight.
+		widget = {
+			size = { 44 34 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_chg_seq_tt"
+
+			text_single = {
+				parentanchor = right|vcenter
+				widgetanchor = right|vcenter
+				size = { 44 34 }
+				autoresize = no
+				align = right|vcenter
+				fontsize = 13
+				visible = "[Location.MakeScope.GetVariable('bag_wtp_chg_seq').IsSet]"
+				text = "bag_wtp_chg_seq_value"
+			}
+		}
+
 		text_single = {
 			size = { 200 34 }
 			autoresize = no
@@ -121,13 +145,13 @@ window = {
 	widgetanchor = center
 	position = { 60 60 }
 	movable = yes
-	size = { 1120 560 }
+	size = { 1180 560 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
 
 	widget = {
-		size = { 1120 560 }
+		size = { 1180 560 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -163,7 +187,7 @@ window = {
 				# re-plan moved 42 locations of 48 on one press, and this line is where
 				# that would have been obvious without a log.
 				text_single = {
-					size = { 1070 24 }
+					size = { 1130 24 }
 					autoresize = no
 					align = left|vcenter
 					fontsize = 14
@@ -177,7 +201,7 @@ window = {
 				# «traded, and it was worth nothing» and «never ran at all» are three
 				# answers that look the same on the map. Two numbers separate them.
 				text_single = {
-					size = { 1070 22 }
+					size = { 1130 22 }
 					autoresize = no
 					align = left|vcenter
 					fontsize = 13
@@ -189,7 +213,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1070 60 }
+					maximumsize = { 1130 60 }
 					align = center
 					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_chg_locs')))]"
 					text = "bag_wtp_chg_window_empty"

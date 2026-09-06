@@ -1511,6 +1511,10 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # What the plan pass counted, each of them printed on the button that ran it.
 # The first zero among them is the diagnosis, which is the only debugging a
 # player can be asked for: an effect that merely does nothing logs nothing.
+# **Ключ, по которому «Показать изменения» раскладывает локации** -- номер
+# нажатия, вывернутый наизнанку (`order_by` читает от большего к меньшему).
+{MOD_ID}_chg_order = {{ value = var:{MOD_ID}_chg_rank }}
+
 {MOD_ID}_show_plan_scored = {{ value = global_var:{MOD_ID}_plan_scored }}
 {MOD_ID}_show_plan_placed = {{ value = global_var:{MOD_ID}_plan_placed }}
 {MOD_ID}_show_plan_found = {{ value = global_var:{MOD_ID}_plan_found }}
@@ -4398,7 +4402,16 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_edit_journal = {{
 {park}\tif = {{
 \t\tlimit = {{ has_global_variable = {MOD_ID}_ev_loc }}
-\t\tglobal_var:{MOD_ID}_ev_loc = {{ debug_log_scopes = no }}
+\t\tglobal_var:{MOD_ID}_ev_loc = {{
+\t\t\tdebug_log_scopes = no
+\t\t\t# **Метка, потому что «строка выше» -- не адрес.** В первом прогоне
+\t\t\t# 2026-09-06 между именем локации и строкой нажатия влезла
+\t\t\t# `Important assertion failed: … (Getting player in synchronous
+\t\t\t# state)` -- движок ругается на `GetPlayer` внутри `debug_log`, один
+\t\t\t# раз за сессию, -- и читалка подписала нажатие ею. Метка не читает
+\t\t\t# ничего: между ней и именем встать нечему.
+\t\t\tdebug_log = "WTP PRESSAT"
+\t\t}}
 \t}}
 \tdebug_log = "WTP PRESS n={r1} op={r2} good={r3} hit={r4} | done={r5} fail={r6} norefill={r7} | esg={r8} evicted={r9}"
 }}
@@ -4515,6 +4528,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t{MOD_ID}_edit_name_esg = yes
 \t\t\tsave_scope_as = {MOD_ID}_ev_where
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
+\t\t\t# **And which press this was, on the location itself.** The changes
+\t\t\t# window is a diff and cannot hold chronology, but it can be *ordered*
+\t\t\t# by it: `_chg_seq` is what `{MOD_ID}_chg_order` sorts the list on, so
+\t\t\t# ten «+1» on one good come out as ten rows in a row instead of
+\t\t\t# scattered through the land by location id. The owner, 2026-09-06:
+\t\t\t# «я ожидаю увидеть несколько строк подряд, где участвует кожа».
+\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \t\t\tif = {{
@@ -4689,6 +4709,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load value = var:{MOD_ID}_load }}
 \t\t\tsave_scope_as = {MOD_ID}_ev_where
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
+\t\t\t# **And which press this was, on the location itself.** The changes
+\t\t\t# window is a diff and cannot hold chronology, but it can be *ordered*
+\t\t\t# by it: `_chg_seq` is what `{MOD_ID}_chg_order` sorts the list on, so
+\t\t\t# ten «+1» on one good come out as ten rows in a row instead of
+\t\t\t# scattered through the land by location id. The owner, 2026-09-06:
+\t\t\t# «я ожидаю увидеть несколько строк подряд, где участвует кожа».
+\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
 {drop_dispatch}\t\t\t# The room is free now; the good furthest below its share takes it.
 \t\t\tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
 \t\t\tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
@@ -4836,6 +4863,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_edit_fillset
 \t\tremove_variable = {MOD_ID}_fillg
 \t}}
+\t# **И номера нажатий тоже.** Они упорядочивают «Показать изменения», а
+\t# счётчик нажатий обнуляется вместе с окном: оставленный номер разложил
+\t# бы новую правку по порядку старой.
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tremove_variable = {MOD_ID}_chg_seq
+\t}}
 \tclear_global_variable_list = {MOD_ID}_edit_fillset
 \tclear_global_variable_list = {MOD_ID}_edit_fillset2
 \tset_global_variable = {{ name = {MOD_ID}_rs_swaps value = 0 }}
@@ -4963,6 +4997,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\t}}
 \t\t\t\t\t# One trade per location per round: A's parked row still holds, but
 \t\t\t\t\t# what A may hold does not — it carries B's good now.
+\t\t\t\t\t# **A swap is this press's work too.** Two locations change after the
+\t\t\t\t\t# walk has left them, and without a stamp they would sort with whatever
+\t\t\t\t\t# press put the building there first.
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
+\t\t\t\t\tscope:{MOD_ID}_rs_a = {{ set_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }} }}
 \t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_stop value = 1 }}
 \t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 1 }}
 \t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
@@ -5320,11 +5359,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\t\t\t\tAND = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} "
         f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }}\n"
         for good in order)
-    lines = "".join(
-        f'\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} '
+    lines2 = "".join(
+        f'\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} '
         f'NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} }} '
         f'debug_log = "WTP LD -{good}" }}\n'
-        f'\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} '
+        f'\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} '
         f'NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }} '
         f'debug_log = "WTP LD +{good}" }}\n'
         for good in order)
@@ -5363,19 +5402,46 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tdebug_log_date = yes
 \terror_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> «Забрать диагностику из игры» takes it out."
 \tdebug_log = "WTP ==== BEGIN v{DIAG_VERSION} ==== the plan against the saved one"
+\t# **Первый проход считает разницу, второй раскладывает её по порядку.**
+\t# `_chg_rank` -- ключ сортировки: `10000 − номер нажатия`, потому что
+\t# `order_by` читает от большего к меньшему, а нужен порядок нажатий.
+\t# Локация, изменённая не нажатием (новый план против старого слота),
+\t# ранга не получает и уходит в конец списка -- у неё номера нет.
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tclear_variable_list = {MOD_ID}_chg_out
 \t\tclear_variable_list = {MOD_ID}_chg_in
 \t\tset_variable = {{ name = {MOD_ID}_chg_n value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_chg_rank value = 0 }}
 {rows}\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_chg_n > 0 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_moved add = 1 }}
-\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_chg_locs target = this }}
-\t\t\tdebug_log_scopes = no
-\t\t\tdebug_log = "WTP L rank=0 town=0 load=0"
-{lines}\t\t}}
+\t\t\tset_variable = {{ name = {MOD_ID}_chg_rank value = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_chg_seq }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_rank value = 10000 }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_chg_rank subtract = var:{MOD_ID}_chg_seq }}
+\t\t\t}}
+\t\t}}
 \t}}
+\t# **Список строится вторым проходом, в порядке нажатий.** До 2026-09-06
+\t# он строился первым и шёл по `_plan_touched`, то есть по номерам
+\t# локаций: десять «+1» по коже приходили вперемешку с тем, что было
+\t# изменено раньше. Его слова: «в начале списка я могу увидеть что-то
+\t# другое, а потом кожу-кожу, другое, кожу-кожу».
+\t#
+\t# `max` больше любого правдоподобного числа изменённых локаций, а
+\t# `check_range_bounds = no` -- потому что список почти всегда короче.
+\tordered_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{ var:{MOD_ID}_chg_n > 0 }}
+\t\torder_by = {MOD_ID}_chg_order
+\t\tmax = 1000
+\t\tcheck_range_bounds = no
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_chg_locs target = this }}
+\t\tdebug_log_scopes = no
+\t\tdebug_log = "WTP L rank=0 town=0 load=0"
+{lines2}\t}}
 \tdebug_log = "WTP ==== END v{DIAG_VERSION} ===="
 }}
 """

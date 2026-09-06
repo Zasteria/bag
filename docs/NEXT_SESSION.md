@@ -38,12 +38,11 @@ rules each step implements are
 2. **Share, `_lock<n>`, and the «не нужен» flag** — **done and confirmed
    2026-09-06**, with one change reverted: **pins, flags, the share and the star
    belong to the editor window alone, and a fresh plan reads none of them.**
-2а. **Reshuffle the buildings a fill placed** — **confirmed 2026-09-06**:
-   `shuffle rounds=68 swaps=19 gain=1971`, then `rounds=18 swaps=0 gain=0` on the
-   next run. The pass is alive and traded nothing, and **no cause is named** —
-   four counters were added instead (`pairs`, `same`, `nofit`, `worse`) so one
-   run says which. One fix fell out of it: a removal did not ask town or village
-   and charged the wrong side's gain.
+2а. **Reshuffle the buildings a fill placed** — **closed 2026-09-06** by the
+   counters: `rounds=34 swaps=1 gain=749 | pairs=6873 same=186 nofit=1909
+   worse=4777`, and they add up to the pair count exactly. The pass works and
+   there is almost nothing to trade. One fix fell out of it: a removal did not
+   ask town or village and charged the wrong side's gain.
 2в. **Rebuild the mod's menu** — **closed 2026-09-06**, three rounds and all
    three confirmed on screen. **What it taught outlives the menu**: a box given
    more room than its children need divides the difference between them, an
@@ -55,16 +54,15 @@ rules each step implements are
    the editor's fill compared them all against one flat number. `_eq<n> = max(1,
    _edit_quota − _nrgo<n>)`, read by the fill and by step 3 alike; **confirmed in
    the diagnosis**, `G2 coal … rgo=3 eq=2` against `quota=5`.
-3. **Even eviction on «+1»** — **confirmed 2026-09-06**: `EDIT scan fitn=23
-   cands=9 strict=1`, so the share chose the victim. **One change on top, never
-   run:** the victim is now the good furthest *above* its share, with the
-   cheapest building only breaking ties — «cheapest» does not change as a good
-   shrinks, so the same good was evicted press after press.
-3а. **The press journal, because a diff cannot hold chronology.** His blocker,
-   2026-09-06: the changes window merges two presses on one location and loses
-   the order. The mod writes `WTP PRESS …` into `debug.log` at press time and
-   `tools/diag.py` renders «Журнал нажатий»; why that shape, in
-   [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
+3. **Even eviction on «+1»** — **closed 2026-09-06**: ten «+1» on one good
+   evicted ten *different* goods, each the most bloated. The victim is the good
+   furthest above its share, cheapest building only breaking ties.
+3а. **The press journal, and the changes window ordered by press.** A diff cannot
+   hold chronology — the mod writes `WTP PRESS …` into `debug.log` at press time
+   and `tools/diag.py` renders «Журнал нажатий». **The window itself was sorted
+   by location id**, which is what made it unreadable to him; it is sorted by
+   press number now and carries that number. Why both, in
+   [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md). **Neither is run.**
 4. **Provinces fold in the two plan windows.**
 5. **Charters: «+1»/«−1» and whole-bundle eviction.**
 6. **New ground fitted to a finished plan.**

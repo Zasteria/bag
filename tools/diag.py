@@ -36,6 +36,7 @@ BEGIN = "WTP ==== BEGIN"
 END = "WTP ==== END"
 TAG = "WTP "
 PRESS = "WTP PRESS "
+PRESSAT = "WTP PRESSAT"
 
 
 def strip_prefix(line: str) -> str:
@@ -127,9 +128,14 @@ def blocks(text: str) -> list[list[str]]:
     диагностике.» Отчёту достаются нажатия, сделанные после прошлого отчёта, --
     ровно то, что он и описывает.
 
-    **Имя локации берётся только при `hit=1`.** Его пишет `debug_log_scopes`
-    строкой выше, и она есть лишь тогда, когда обход куда-то встал; без этого
-    условия к отказавшему нажатию прилипла бы чужая строка из лога.
+    **Имя локации -- строка над меткой `WTP PRESSAT`, и только она.** Его пишет
+    `debug_log_scopes` изнутри скоупа локации; метка идёт сразу следом и не
+    читает ничего, поэтому между ними встать нечему. Первая версия брала строку
+    над самим нажатием, и в прогоне 2026-09-06 подписала первое нажатие строкой
+    `Important assertion failed: … (Getting player in synchronous state)` --
+    движок ругается на `GetPlayer` внутри `debug_log` один раз за сессию, и это
+    попало ровно между именем и строкой. Метки нет -- нажатие идёт без имени,
+    как и то, у которого обход никуда не встал.
 
     **Список нажатий отдаёт «Диагностика», а «Показать изменения» -- нет.** Обе
     кнопки пишут свой кусок между `BEGIN` и `END`, и первая версия отдавала
@@ -142,14 +148,19 @@ def blocks(text: str) -> list[list[str]]:
     current: list[str] | None = None
     waiting: list[str] = []          # нажатия, у которых отчёта ещё не было
     previous = ""
+    named = ""                       # имя локации, снятое с метки PRESSAT
     for line in text.splitlines():
         if BEGIN in line:
             current = list(waiting)
         if current is None:
-            if PRESS in line:
-                if field(strip_prefix(line), "hit") and TAG not in previous:
-                    waiting.append(strip_prefix(previous))
+            if PRESSAT in line:
+                if TAG not in previous:
+                    named = strip_prefix(previous)
+            elif PRESS in line:
+                if named:
+                    waiting.append(named)
                 waiting.append(strip_prefix(line))
+                named = ""
             previous = line
             continue
         current.append(strip_prefix(line))

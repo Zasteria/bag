@@ -46,13 +46,13 @@ is a building and a location holds one of each**
 one building a press, where it costs least, and **the round trip is no undo**.
 **After a fill, what it placed trades locations between itself** (`_fillg`,
 `_edit_reshuffle`) and **no count changes**. **The editor's share is per good and
-subtracts the RGOs** — `_eq<n>`, exactly as the plan's `_pq<n>` — because a flat
-share fills an RGO-rich good as high as one the ground never yields. **A press
-pins its good** (`_lock<n>`), a freed room goes to the good furthest below its
-share and **«+1» takes its building from the good furthest above one**; **a pin
-is a star, not a colour**. **The changes window is a diff and holds no
-chronology** — the press journal is `WTP PRESS` in `debug.log`, written as the
-press happens, and `tools/diag.py` renders it. `_lock<n>` and `_skip<n>` are existence
+subtracts the RGOs** — `_eq<n>`, as the plan's `_pq<n>` does. **A press pins its
+good** (`_lock<n>`), a freed room goes to the good furthest below its share and
+**«+1» takes its building from the good furthest above one**; **a pin is a star,
+not a colour**. **The changes window is a diff and holds no
+chronology** — one location is one row however many presses touched it, **sorted
+by press number** (`_chg_seq`) and never by location id; the journal itself is
+`WTP PRESS` in `debug.log`. `_lock<n>` and `_skip<n>` are existence
 flags a slot stores and restores; **`_edit_locked_<n>` is the charter's bundle,
 not the player's pin**.
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).

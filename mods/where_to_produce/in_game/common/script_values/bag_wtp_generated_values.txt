@@ -10981,6 +10981,10 @@ bag_wtp_dg17 = { value = global_var:bag_wtp_dv17 }
 # What the plan pass counted, each of them printed on the button that ran it.
 # The first zero among them is the diagnosis, which is the only debugging a
 # player can be asked for: an effect that merely does nothing logs nothing.
+# **Ключ, по которому «Показать изменения» раскладывает локации** -- номер
+# нажатия, вывернутый наизнанку (`order_by` читает от большего к меньшему).
+bag_wtp_chg_order = { value = var:bag_wtp_chg_rank }
+
 bag_wtp_show_plan_scored = { value = global_var:bag_wtp_plan_scored }
 bag_wtp_show_plan_placed = { value = global_var:bag_wtp_plan_placed }
 bag_wtp_show_plan_found = { value = global_var:bag_wtp_plan_found }

@@ -11855,7 +11855,16 @@ bag_wtp_edit_journal = {
 	if = { limit = { has_global_variable = bag_wtp_edit_evicted } set_global_variable = { name = bag_wtp_dv9 value = global_var:bag_wtp_edit_evicted } }
 	if = {
 		limit = { has_global_variable = bag_wtp_ev_loc }
-		global_var:bag_wtp_ev_loc = { debug_log_scopes = no }
+		global_var:bag_wtp_ev_loc = {
+			debug_log_scopes = no
+			# **Метка, потому что «строка выше» -- не адрес.** В первом прогоне
+			# 2026-09-06 между именем локации и строкой нажатия влезла
+			# `Important assertion failed: … (Getting player in synchronous
+			# state)` -- движок ругается на `GetPlayer` внутри `debug_log`, один
+			# раз за сессию, -- и читалка подписала нажатие ею. Метка не читает
+			# ничего: между ней и именем встать нечему.
+			debug_log = "WTP PRESSAT"
+		}
 	}
 	debug_log = "WTP PRESS n=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] op=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] good=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] hit=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | done=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] fail=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] norefill=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] | esg=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] evicted=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0]"
 }
@@ -12393,6 +12402,13 @@ bag_wtp_edit_add = {
 			bag_wtp_edit_name_esg = yes
 			save_scope_as = bag_wtp_ev_where
 			set_global_variable = { name = bag_wtp_ev_loc value = scope:bag_wtp_ev_where }
+			# **And which press this was, on the location itself.** The changes
+			# window is a diff and cannot hold chronology, but it can be *ordered*
+			# by it: `_chg_seq` is what `bag_wtp_chg_order` sorts the list on, so
+			# ten «+1» on one good come out as ten rows in a row instead of
+			# scattered through the land by location id. The owner, 2026-09-06:
+			# «я ожидаю увидеть несколько строк подряд, где участвует кожа».
+			set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			set_global_variable = { name = bag_wtp_edit_evicted value = 0 }
 			set_global_variable = { name = bag_wtp_edit_room value = 0 }
 			if = {
@@ -13744,6 +13760,13 @@ bag_wtp_edit_drop = {
 			set_global_variable = { name = bag_wtp_ev_load value = var:bag_wtp_load }
 			save_scope_as = bag_wtp_ev_where
 			set_global_variable = { name = bag_wtp_ev_loc value = scope:bag_wtp_ev_where }
+			# **And which press this was, on the location itself.** The changes
+			# window is a diff and cannot hold chronology, but it can be *ordered*
+			# by it: `_chg_seq` is what `bag_wtp_chg_order` sorts the list on, so
+			# ten «+1» on one good come out as ten rows in a row instead of
+			# scattered through the land by location id. The owner, 2026-09-06:
+			# «я ожидаю увидеть несколько строк подряд, где участвует кожа».
+			set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			if = { limit = { global_var:bag_wtp_edit_good = 1 }
 				bag_wtp_edit_remove_town_1 = yes
 				bag_wtp_edit_remove_rural_1 = yes
@@ -15214,6 +15237,13 @@ bag_wtp_edit_clear_fillset = {
 	every_in_global_list = {
 		variable = bag_wtp_edit_fillset
 		remove_variable = bag_wtp_fillg
+	}
+	# **И номера нажатий тоже.** Они упорядочивают «Показать изменения», а
+	# счётчик нажатий обнуляется вместе с окном: оставленный номер разложил
+	# бы новую правку по порядку старой.
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		remove_variable = bag_wtp_chg_seq
 	}
 	clear_global_variable_list = bag_wtp_edit_fillset
 	clear_global_variable_list = bag_wtp_edit_fillset2
@@ -17371,6 +17401,11 @@ bag_wtp_edit_reshuffle_round = {
 					}
 					# One trade per location per round: A's parked row still holds, but
 					# what A may hold does not — it carries B's good now.
+					# **A swap is this press's work too.** Two locations change after the
+					# walk has left them, and without a stamp they would sort with whatever
+					# press put the building there first.
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+					scope:bag_wtp_rs_a = { set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses } }
 					set_global_variable = { name = bag_wtp_rs_stop value = 1 }
 					set_global_variable = { name = bag_wtp_rs_did value = 1 }
 					change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
@@ -24143,11 +24178,17 @@ bag_wtp_edit_changes = {
 	debug_log_date = yes
 	error_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> «Забрать диагностику из игры» takes it out."
 	debug_log = "WTP ==== BEGIN v5 ==== the plan against the saved one"
+	# **Первый проход считает разницу, второй раскладывает её по порядку.**
+	# `_chg_rank` -- ключ сортировки: `10000 − номер нажатия`, потому что
+	# `order_by` читает от большего к меньшему, а нужен порядок нажатий.
+	# Локация, изменённая не нажатием (новый план против старого слота),
+	# ранга не получает и уходит в конец списка -- у неё номера нет.
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
 		clear_variable_list = bag_wtp_chg_out
 		clear_variable_list = bag_wtp_chg_in
 		set_variable = { name = bag_wtp_chg_n value = 0 }
+		set_variable = { name = bag_wtp_chg_rank value = 0 }
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } }
 			add_to_variable_list = { name = bag_wtp_chg_out target = goods:clay }
 			change_variable = { name = bag_wtp_chg_n add = 1 }
@@ -24527,104 +24568,125 @@ bag_wtp_edit_changes = {
 		if = {
 			limit = { var:bag_wtp_chg_n > 0 }
 			change_global_variable = { name = bag_wtp_edit_moved add = 1 }
-			add_to_global_variable_list = { name = bag_wtp_chg_locs target = this }
-			debug_log_scopes = no
-			debug_log = "WTP L rank=0 town=0 load=0"
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } } debug_log = "WTP LD -clay" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } } } debug_log = "WTP LD +clay" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } } } debug_log = "WTP LD -coal" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } } } debug_log = "WTP LD +coal" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } } } debug_log = "WTP LD -cotton" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } } } debug_log = "WTP LD +cotton" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } } } debug_log = "WTP LD -dyes" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } } } debug_log = "WTP LD +dyes" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } } } debug_log = "WTP LD -fiber_crops" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } } } debug_log = "WTP LD +fiber_crops" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } } } debug_log = "WTP LD -fish" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } } } debug_log = "WTP LD +fish" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } } } debug_log = "WTP LD -fruit" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } } } debug_log = "WTP LD +fruit" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } } } debug_log = "WTP LD -horses" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } } } debug_log = "WTP LD +horses" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } } } debug_log = "WTP LD -incense" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } } } debug_log = "WTP LD +incense" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } } } debug_log = "WTP LD -iron" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } } } debug_log = "WTP LD +iron" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } } } debug_log = "WTP LD -ivory" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } } } debug_log = "WTP LD +ivory" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } } } debug_log = "WTP LD -livestock" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } } } debug_log = "WTP LD +livestock" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } } } debug_log = "WTP LD -lumber" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } } } debug_log = "WTP LD +lumber" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } } } debug_log = "WTP LD -medicaments" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } } } debug_log = "WTP LD +medicaments" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } } } debug_log = "WTP LD -salt" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } } } debug_log = "WTP LD +salt" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } } } debug_log = "WTP LD -saltpeter" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } } } debug_log = "WTP LD +saltpeter" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } } } debug_log = "WTP LD -sand" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } } } debug_log = "WTP LD +sand" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } } } debug_log = "WTP LD -silk" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } } } debug_log = "WTP LD +silk" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } } } debug_log = "WTP LD -silver" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } } } debug_log = "WTP LD +silver" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } } } debug_log = "WTP LD -stone" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } } } debug_log = "WTP LD +stone" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } } } debug_log = "WTP LD -sugar" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } } } debug_log = "WTP LD +sugar" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } } } debug_log = "WTP LD -tobacco" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } } } debug_log = "WTP LD +tobacco" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } } } debug_log = "WTP LD -wild_game" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } } } debug_log = "WTP LD +wild_game" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } } } debug_log = "WTP LD -wine" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } } } debug_log = "WTP LD +wine" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } } } debug_log = "WTP LD -wool" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } } } debug_log = "WTP LD +wool" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } } } debug_log = "WTP LD -beer" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } } } debug_log = "WTP LD +beer" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } } } debug_log = "WTP LD -books" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } } } debug_log = "WTP LD +books" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } } } debug_log = "WTP LD -cannons" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } } } debug_log = "WTP LD +cannons" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } } } debug_log = "WTP LD -cloth" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } } } debug_log = "WTP LD +cloth" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } } } debug_log = "WTP LD -fine_cloth" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } } } debug_log = "WTP LD +fine_cloth" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } } } debug_log = "WTP LD -firearms" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } } } debug_log = "WTP LD +firearms" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } } } debug_log = "WTP LD -furniture" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } } } debug_log = "WTP LD +furniture" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } } } debug_log = "WTP LD -glass" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } } } debug_log = "WTP LD +glass" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } } } debug_log = "WTP LD -jewelry" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } } } debug_log = "WTP LD +jewelry" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } } } debug_log = "WTP LD -lacquerware" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } } } debug_log = "WTP LD +lacquerware" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } } } debug_log = "WTP LD -leather" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } } } debug_log = "WTP LD +leather" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } } } debug_log = "WTP LD -liquor" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } } } debug_log = "WTP LD +liquor" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } } } debug_log = "WTP LD -masonry" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } } } debug_log = "WTP LD +masonry" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } } } debug_log = "WTP LD -naval_supplies" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } } } debug_log = "WTP LD +naval_supplies" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } } } debug_log = "WTP LD -paper" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } } } debug_log = "WTP LD +paper" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } } } debug_log = "WTP LD -porcelain" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } } } debug_log = "WTP LD +porcelain" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } } } debug_log = "WTP LD -pottery" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } } } debug_log = "WTP LD +pottery" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } } } debug_log = "WTP LD -slaves_goods" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } } } debug_log = "WTP LD +slaves_goods" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } } } debug_log = "WTP LD -steel" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } } } debug_log = "WTP LD +steel" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } } } debug_log = "WTP LD -tar" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } } } debug_log = "WTP LD +tar" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } } } debug_log = "WTP LD -tools" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } } } debug_log = "WTP LD +tools" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } } } debug_log = "WTP LD -weaponry" }
-			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } } } debug_log = "WTP LD +weaponry" }
+			set_variable = { name = bag_wtp_chg_rank value = 1 }
+			if = {
+				limit = { has_variable = bag_wtp_chg_seq }
+				set_variable = { name = bag_wtp_chg_rank value = 10000 }
+				change_variable = { name = bag_wtp_chg_rank subtract = var:bag_wtp_chg_seq }
+			}
 		}
+	}
+	# **Список строится вторым проходом, в порядке нажатий.** До 2026-09-06
+	# он строился первым и шёл по `_plan_touched`, то есть по номерам
+	# локаций: десять «+1» по коже приходили вперемешку с тем, что было
+	# изменено раньше. Его слова: «в начале списка я могу увидеть что-то
+	# другое, а потом кожу-кожу, другое, кожу-кожу».
+	#
+	# `max` больше любого правдоподобного числа изменённых локаций, а
+	# `check_range_bounds = no` -- потому что список почти всегда короче.
+	ordered_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { var:bag_wtp_chg_n > 0 }
+		order_by = bag_wtp_chg_order
+		max = 1000
+		check_range_bounds = no
+		add_to_global_variable_list = { name = bag_wtp_chg_locs target = this }
+		debug_log_scopes = no
+		debug_log = "WTP L rank=0 town=0 load=0"
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } } debug_log = "WTP LD -clay" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } } } debug_log = "WTP LD +clay" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } } } debug_log = "WTP LD -coal" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } } } debug_log = "WTP LD +coal" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } } } debug_log = "WTP LD -cotton" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } } } debug_log = "WTP LD +cotton" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } } } debug_log = "WTP LD -dyes" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } } } debug_log = "WTP LD +dyes" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } } } debug_log = "WTP LD -fiber_crops" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } } } debug_log = "WTP LD +fiber_crops" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } } } debug_log = "WTP LD -fish" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } } } debug_log = "WTP LD +fish" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } } } debug_log = "WTP LD -fruit" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } } } debug_log = "WTP LD +fruit" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } } } debug_log = "WTP LD -horses" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } } } debug_log = "WTP LD +horses" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } } } debug_log = "WTP LD -incense" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } } } debug_log = "WTP LD +incense" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } } } debug_log = "WTP LD -iron" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } } } debug_log = "WTP LD +iron" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } } } debug_log = "WTP LD -ivory" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } } } debug_log = "WTP LD +ivory" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } } } debug_log = "WTP LD -livestock" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } } } debug_log = "WTP LD +livestock" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } } } debug_log = "WTP LD -lumber" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } } } debug_log = "WTP LD +lumber" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } } } debug_log = "WTP LD -medicaments" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } } } debug_log = "WTP LD +medicaments" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } } } debug_log = "WTP LD -salt" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } } } debug_log = "WTP LD +salt" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } } } debug_log = "WTP LD -saltpeter" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } } } debug_log = "WTP LD +saltpeter" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } } } debug_log = "WTP LD -sand" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } } } debug_log = "WTP LD +sand" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } } } debug_log = "WTP LD -silk" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } } } debug_log = "WTP LD +silk" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } } } debug_log = "WTP LD -silver" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } } } debug_log = "WTP LD +silver" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } } } debug_log = "WTP LD -stone" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } } } debug_log = "WTP LD +stone" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } } } debug_log = "WTP LD -sugar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } } } debug_log = "WTP LD +sugar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } } } debug_log = "WTP LD -tobacco" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } } } debug_log = "WTP LD +tobacco" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } } } debug_log = "WTP LD -wild_game" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } } } debug_log = "WTP LD +wild_game" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } } } debug_log = "WTP LD -wine" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } } } debug_log = "WTP LD +wine" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } } } debug_log = "WTP LD -wool" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } } } debug_log = "WTP LD +wool" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } } } debug_log = "WTP LD -beer" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } } } debug_log = "WTP LD +beer" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } } } debug_log = "WTP LD -books" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } } } debug_log = "WTP LD +books" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } } } debug_log = "WTP LD -cannons" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } } } debug_log = "WTP LD +cannons" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } } } debug_log = "WTP LD -cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } } } debug_log = "WTP LD +cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } } } debug_log = "WTP LD -fine_cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } } } debug_log = "WTP LD +fine_cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } } } debug_log = "WTP LD -firearms" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } } } debug_log = "WTP LD +firearms" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } } } debug_log = "WTP LD -furniture" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } } } debug_log = "WTP LD +furniture" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } } } debug_log = "WTP LD -glass" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } } } debug_log = "WTP LD +glass" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } } } debug_log = "WTP LD -jewelry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } } } debug_log = "WTP LD +jewelry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } } } debug_log = "WTP LD -lacquerware" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } } } debug_log = "WTP LD +lacquerware" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } } } debug_log = "WTP LD -leather" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } } } debug_log = "WTP LD +leather" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } } } debug_log = "WTP LD -liquor" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } } } debug_log = "WTP LD +liquor" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } } } debug_log = "WTP LD -masonry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } } } debug_log = "WTP LD +masonry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } } } debug_log = "WTP LD -naval_supplies" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } } } debug_log = "WTP LD +naval_supplies" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } } } debug_log = "WTP LD -paper" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } } } debug_log = "WTP LD +paper" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } } } debug_log = "WTP LD -porcelain" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } } } debug_log = "WTP LD +porcelain" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } } } debug_log = "WTP LD -pottery" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } } } debug_log = "WTP LD +pottery" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } } } debug_log = "WTP LD -slaves_goods" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } } } debug_log = "WTP LD +slaves_goods" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } } } debug_log = "WTP LD -steel" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } } } debug_log = "WTP LD +steel" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } } } debug_log = "WTP LD -tar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } } } debug_log = "WTP LD +tar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } } } debug_log = "WTP LD -tools" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } } } debug_log = "WTP LD +tools" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } } } debug_log = "WTP LD -weaponry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } } } debug_log = "WTP LD +weaponry" }
 	}
 	debug_log = "WTP ==== END v5 ===="
 }
