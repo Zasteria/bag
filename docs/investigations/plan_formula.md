@@ -127,6 +127,37 @@ ceiling is not opportunity cost but concentration.** A good whose best on this
 ground is 362 enters `open800` at 290 — its own top fifth — exactly as cloth
 enters at 800.
 
+## Three questions the owner asked of this order, 2026-09-06
+
+He described the plan back to me as «сначала грамоты, потом городские домики до
+ровного лимита, потом сельские». **The first step is right and the rest is not,
+and the difference is worth stating plainly.**
+
+**There is no town phase and no village phase.** Nothing in the plan ever fills
+one side and then the other. What separates the passes is only two things: **how
+few locations can host a good** (the tiers) and **how much the ground pays**
+(the bands). A town building and a village building are placed in the same sweep,
+by the same rule.
+
+**«Где угодно» goods are not squeezed in at the end.** They are in every pass on
+the same footing; what the tier ladder does is make them *wait* — a good that can
+stand in forty locations is not scarce, so it places after the ones that can
+stand in one. Then the `tierall` passes place the bulk: on his run they took the
+plan from 57 buildings to 117 of 150, and most of that is exactly those goods.
+
+**Bog iron has two guarantees, and both come before the common goods.** The
+covering ladder (passes 2) gives *every* good that holds nothing one building at
+its own best location — that is the hard constraint, and it runs before any band.
+The scarce ladder (pass 3) then lets a good that can stand in at most 1, 2, 4, 8
+or 16 locations finish before common goods start. On his run iron could stand in
+**4** locations and ended with **4**: it took every place it had.
+
+**What the share does through all of this** is bound each good from above; it is
+not a step in the sequence. And the surplus pass at the end is where the spread
+he still sees comes from: on that run 33 of 150 buildings (22 %) were dealt after
+every quota was met, by gain alone — which is why cloth ends at 15 against a
+share of 5.
+
 ## What is not the formula's at all: the editor
 
 **A preference is not a term in the objective, it is an edit afterwards.** That
@@ -149,12 +180,36 @@ charter is worth 1000 there against weaponry's 163. Spreading charters *inside a
 province* was tried and reverted for emptying a province of the charter its ground
 was made for. That is an edit, not a rewrite.
 
-One damper keeps a pass from stacking, and it is the share:
+One damper keeps a pass from stacking, and it is the share. **It is not a phase**
+— it is the ceiling every good carries through all five passes, and the pick tests
+`_pn<n> < _pq<n>` and nothing else.
+
+**Since 2026-09-06 it knows three classes of good and two kinds of room**, because
+they do not mix: a town-only good cannot take a village room however many there
+are. Three ceilings, and the smallest names whoever runs out first:
 
 ```
-share(g)  =  max(1, capacity ÷ |goods|  −  rgo(g))
-capacity  =  every candidate's cap added up, charters included
+town   =  town rooms    ÷ goods that can stand only in a town
+village=  village rooms ÷ goods that can stand only in a village
+all    =  every room    ÷ every good the ground can make
+level  =  the smallest of the three
 ```
+
+If `all` is smallest the ground ran out at once and everybody shares one number,
+as before. If a side is smallest **its goods freeze at that level, their rooms
+leave the pool, and the rest get a second level**:
+
+```
+rest  =  (every room − level × goods of the saturated class) ÷ the other goods
+```
+
+Then, per good, `max(1, its class's level − rgo(g))`. Two levels are enough:
+there are three classes, and once one is frozen the other two share what is left.
+
+**Measured on his ground, 2026-09-06**: 6 towns (24 rooms) against 15 town-only
+goods gives 1.6, so the town side binds at **1**; the other 23 goods get
+(150 − 15) ÷ 23 = **5**. All fifteen town-only goods came out at exactly 1. The
+old one-pool formula said 3 for everyone — a number the towns could never pay.
 
 It is «равномерно» and it is scale-free: three provinces give a share under one,
 so everything is covered once and mixed; a large realm gives a share of
@@ -201,65 +256,16 @@ Without that term a good the charters favoured could not place one building of i
 own — 2026-09-03, `tools` at six charter buildings against a cap of two, locked
 out of a province paying it 799 of 1000.
 
-## Urban rights, and why they are their own pass
+## Грамоты — свой проход, и он первый
 
-A right is a `location_modifier` on the town:
+Разбор целиком (почему связка неделима, почему квота — уровни, а не потолок, и что стоило прогонов) переехал в
+[`../archive/plan_formula_history.md`](../archive/plan_formula_history.md).
+Короткое правило: **грамота выдаётся до всякого обычного товара, целой связкой, и каждый город плана получает ровно одну** — `town_rights.md` про её ворота.
 
-```
-royal_masonry_rights = {
-    location_modifier = {
-        local_masonry_output_modifier = 0.25
-        local_glass_output_modifier   = 0.25
-        local_production_efficiency   = town_right_efficiency_penalty
-    }
-}
-```
+## Что вынесено
 
-So it is **two things at once**, and the owner had it right: «права дают слишком
-жирный бонус и дебафят всё остальное». The bundle's goods get +20% to +50% output
-where the whole RGO ceiling is 10%; and *everything else in that town*, bundle
-included, takes a blanket production-efficiency penalty.
-
-Two consequences, and the first is a hard one:
-
-- **a town holding a right should hold its bundle and as little else as
-  possible.** A non-bundle building there earns the penalty and none of the
-  bonus, so the same building is strictly better in a town without a right. The
-  bands must therefore discount a right-holding town's leftover slots;
-- **rights are worth more than anything the bands can find**, by a factor of two
-  to five, which is why they are dealt first rather than competing.
-
-**`town_right_efficiency_penalty` is a define and it is not in `reference/`** —
-only its eleven uses are. The structure above is certain; the number is not, and
-it is one `grep` on the owner's install. Until then the discount above is a
-direction without a size.
-
-## What the owner's own play says, and where it differs
-
-He described it himself, and marked it as his habit rather than as correct:
-province by province, the top three buildings by local bonus in the town, then
-the same in the countryside, then a rural location set aside to feed the
-province; iron and its like displace a top-three building where nowhere else will
-hold them; and when a right arrives, its bundle replaces the three.
-
-## Равномерно and specialisation are two different questions
-
-**Settled 2026-09-03, and the confusion was the session's, not his.** «Равномерно»
-is *how many* — the quota, rooms ÷ goods — and specialisation is *where those
-land*, which nothing in the quota resists. Two divisors did resist it and both are
-gone: one halved a good's second building in a province, the other made the
-charters' ranges disjoint. What that cost and what he said about it is in
-[`../archive/plan_formula_evenly.md`](../archive/plan_formula_evenly.md).
-
-**The problem he cannot solve by hand is the one the formula exists for.** Doing
-it province by province maximises each province in isolation, and the goods that
-gain nothing anywhere are left with nowhere at the end — «а вдруг у меня вообще
-нет каких-то РГО, например того же песка?». Dealing in bands over the whole
-ground is the same greed, ordered globally instead of locally, and that is
-precisely the difference between his hand play and an optimum.
-
-**Not yet in the formula and named by him:** a rural location per province set
-aside for food. He said «до этого мы пока ещё не дошли».
+**Что говорит его собственная игра**, и **почему «равномерно» и специализация — разные вопросы**: две законченные части переехали в
+[`../archive/plan_formula_history.md`](../archive/plan_formula_history.md); `kb.py` их находит.
 
 ## What only a run can settle
 

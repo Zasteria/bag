@@ -39,26 +39,19 @@ large ground since the ladders were rebuilt — northern Germany's 233 locations
 Westphalia's 48 does not test it, and the extension re-scores and re-ranks, so it
 carries the same open question.
 
-### The share is three classes now, and it owes a run
+### The share is three classes now, and his run confirmed it
 
-**He closed the output question himself, 2026-09-06**: output is not a constant
-(a level-4 brewery yields 4.0, a level-4 pottery 3.25), so evening it would build
-more of what pays less per building. «Довериться балансу разработчиков» — a
-building is a building. The `out=` probe stays; it decides nothing.
+**Confirmed 2026-09-06, number for number.** 24 town rooms against 15 town-only
+goods binds at 1; the other 23 goods get 5. All fifteen came out at exactly 1,
+where the old one-pool formula promised 3 the towns could never pay. Ground full,
+coverage complete, 80 % of buildings earning something — his best numbers yet.
 
-**Built instead: the share knows three classes of good** — town-only,
-village-only, either — and two kinds of room. Where one side saturates, its goods
-freeze at what that side allows and the rest share what is left. On his
-town-poor ground that is 3.47 for town-only goods and 11.5 for the rest, against
-8 for everyone before; on his town-rich ground nothing changes, which is the
-right signature. Derivation, numbers and the edge cases:
-[`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
-
-**Known and deliberate gap: `_edit_set_quota` still divides one pool.** The plan
-may now say a town-only good is owed 3 while the editor says 8, and «+1» would
-chase buildings the ground cannot give — silently. Same arithmetic with the
-pinned goods removed; not done in the same edit because the plan is function 3
-and the editor function 4.
+**The one thing still open, and it is a question for him, not a fix.** Cloth 15,
+masonry 12 against a share of 5: the surplus ladder (`open800…open0`) raises every
+quota a layer a round and lets gain decide, so 22 % of the plan is dealt after all
+quotas are met. Tightening it means «the room goes to whoever has fewest», which
+is the rule the *editor* already uses for a freed room. **It would cost bonus and
+he has not asked for it — put the trade to him before building.**
 
 ### Then 7 and 8, in that order, and not before
 
