@@ -736,6 +736,52 @@ def overflowing_windows(root: Path) -> list[str]:
     return found
 
 
+def frameless_windows(root: Path) -> list[str]:
+    """A window that draws no frame, and a frame drawn on something that is not one.
+
+    **The frame is one line and its absence is silent.** `using =
+    bg_window_default_alt` on the `window` is what paints the border, the header
+    ground and the sheet; without it the window still opens, still works, and has
+    no edges at all. On 2026-09-06 a script meant to move that line onto the
+    window put it on the first `size = {` line in the file instead — which in four
+    of the five files belongs to a *type* declared above the window — and three
+    windows lost their frame while a goods cell gained one. He found all four.
+
+    So both halves are checked: every `window` carries the line, and nothing that
+    is not a `window` does.
+    """
+    gui = root / "in_game/gui"
+    if not gui.is_dir():
+        return []
+    found = []
+    for path in sorted(gui.rglob("*.gui")):
+        text = _gui_text(path)
+        for match in re.finditer(r"^window\s*=\s*\{", text, re.M):
+            body = text[match.end():_brace_end(text, match.end() - 1)]
+            name = re.search(r'name\s*=\s*"([^"]+)"', body)
+            # **The window's own line, at its own indentation.** Splitting the
+            # body at "the first child" does not work: `size = { 1320 900 }` is a
+            # property and looks exactly like a block opening.
+            if re.search(r"^\tusing = bg_window_default_alt\s*$", body, re.M):
+                continue
+            line = text[:match.end()].count("\n") + 1
+            found.append(
+                f"{path.relative_to(REPO)}:{line}: "
+                f"{name.group(1) if name else 'window'} carries no "
+                f"`using = bg_window_default_alt` — it opens with no frame at all, "
+                f"and nothing logs that; docs/pitfalls/interface.md")
+        for match in re.finditer(r"^\ttype (\w+) = ", text, re.M):
+            body = text[match.end():_brace_end(text, text.index("{", match.end()))]
+            if "bg_window_default_alt" not in body:
+                continue
+            line = text[:match.start()].count("\n") + 1
+            found.append(
+                f"{path.relative_to(REPO)}:{line}: type `{match.group(1)}` carries "
+                f"`using = bg_window_default_alt` — that is a window's frame, and "
+                f"a type wearing it is a line that landed in the wrong place")
+    return found
+
+
 def _gui_text(path: Path) -> str:
     """The file with its comments removed, so a `#` note never reads as script."""
     out = []
@@ -882,6 +928,7 @@ def main(argv: list[str]) -> int:
         found = (problems(root) + unresolved(root, known) + unwritten(root)
                  + unresolved_script_values(root)
                  + duplicate_definitions(root)
+                 + frameless_windows(root)
                  + unregistered_windows(root) + unresolved_interface(root)
                  + flowcontainer_datamodels(root)
                  + scope_mixed_variables(root)

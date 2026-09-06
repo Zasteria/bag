@@ -26,7 +26,6 @@ types BagWtpRightTypes {
 	type bag_wtp_right_slot_1 = hbox {
 		layoutpolicy_horizontal = expanding
 		size = { -1 28 }
-	using = bg_window_default_alt
 		spacing = 0
 		visible = "[Location.MakeScope.GetVariable('bag_wtp_r_bt_1').IsSet]"
 
@@ -419,6 +418,7 @@ window = {
 	position = { 0 0 }
 	movable = yes
 	size = { 1380 900 }
+	using = bg_window_default_alt
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"

@@ -26,7 +26,6 @@ types BagWtpResultTypes {
 	# the three actions still name it.
 	type bag_wtp_select_footer = widget {
 		size = { 420 72 }
-	using = bg_window_default_alt
 
 		vbox = {
 			margin = { 8 6 }
@@ -806,6 +805,7 @@ window = {
 	position = { 0 0 }
 	movable = yes
 	size = { 1320 900 }
+	using = bg_window_default_alt
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"

@@ -17,7 +17,6 @@ types BagWtpChangesTypes {
 	# One good, as a texticon. Two of these lists per row: what left, what arrived.
 	type bag_wtp_chg_goods_entry = widget {
 		size = { 30 24 }
-	using = bg_window_default_alt
 		text_single = {
 			parentanchor = center
 			autoresize = yes
@@ -186,6 +185,7 @@ window = {
 	position = { 60 60 }
 	movable = yes
 	size = { 1492 560 }
+	using = bg_window_default_alt
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"

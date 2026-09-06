@@ -357,6 +357,7 @@ window = {
 	position = { 0 0 }
 	movable = yes
 	size = { 1700 760 }
+	using = bg_window_default_alt
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
