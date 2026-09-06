@@ -3497,7 +3497,12 @@ CELL_W, CELL_H, CELL_GAP = 127, 28, 14
 EDIT_CELLS_OUT = MOD / "in_game/gui/bag_wtp_edit_cells.gui"
 
 
-EDIT_RIGHT_W = 330
+# **The charter cell is bigger than a good's**, and he asked for it after seeing
+# it on screen: «текст городских прав можно попытаться увеличить… было бы неплохо
+# увеличить шрифт и иконки слегка». The icon is a texticon inside the name's own
+# key, so it grows with the font and nothing else has to change.
+EDIT_RIGHT_W = 360
+EDIT_RIGHT_H = 32
 EDIT_RIGHT_COL = 5
 
 
@@ -3698,9 +3703,9 @@ def edit_cells_file(order: list[str],
 				spacing = 1
 
 				widget = {{
-					size = {{ 28 28 }}
+					size = {{ 30 {EDIT_RIGHT_H} }}
 					button_regular = {{
-						size = {{ 26 26 }}
+						size = {{ 28 28 }}
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "{MOD_ID}_edit_right_minus_tt"
@@ -3709,29 +3714,29 @@ def edit_cells_file(order: list[str],
 							parentanchor = center
 							widgetanchor = center
 							autoresize = yes
-							fontsize = 14
+							fontsize = 16
 							text = "{MOD_ID}_edit_minus"
 						}}
 					}}
 				}}
 
 				widget = {{
-					size = {{ 34 28 }}
+					size = {{ 36 {EDIT_RIGHT_H} }}
 					alwaystransparent = no
 					tooltip = "{MOD_ID}_edit_right_count_tt"
 					text_single = {{
 						parentanchor = center
 						widgetanchor = center
 						autoresize = yes
-						fontsize = 16
+						fontsize = 18
 						text = "{MOD_ID}_edit_rcount_{k}"
 					}}
 				}}
 
 				widget = {{
-					size = {{ 28 28 }}
+					size = {{ 30 {EDIT_RIGHT_H} }}
 					button_regular = {{
-						size = {{ 26 26 }}
+						size = {{ 28 28 }}
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "{MOD_ID}_edit_right_plus_tt"
@@ -3740,24 +3745,24 @@ def edit_cells_file(order: list[str],
 							parentanchor = center
 							widgetanchor = center
 							autoresize = yes
-							fontsize = 14
+							fontsize = 16
 							text = "{MOD_ID}_edit_plus"
 						}}
 					}}
 				}}
 
 				widget = {{
-					size = {{ {EDIT_RIGHT_W - 94} 28 }}
+					size = {{ {EDIT_RIGHT_W - 106} {EDIT_RIGHT_H} }}
 					alwaystransparent = no
 					tooltip = "{MOD_ID}_right_{right.key}"
 					text_single = {{
-						size = {{ {EDIT_RIGHT_W - 98} 26 }}
+						size = {{ {EDIT_RIGHT_W - 110} {EDIT_RIGHT_H - 2} }}
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = {{ {EDIT_RIGHT_W - 98} 26 }}
-						fontsize = 14
-						fontsize_min = 10
+						maximumsize = {{ {EDIT_RIGHT_W - 110} {EDIT_RIGHT_H - 2} }}
+						fontsize = 17
+						fontsize_min = 13
 						align = left|vcenter
 						elide = right
 						text = "{MOD_ID}_right_{right.key}"
@@ -4514,7 +4519,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                     f"{MOD_ID}_edit_done", f"{MOD_ID}_edit_fail",
                     f"{MOD_ID}_edit_norefill", f"{MOD_ID}_ev_esg",
                     f"{MOD_ID}_edit_evicted", f"{MOD_ID}_edit_rfrom",
-                    f"{MOD_ID}_edit_rto")
+                    f"{MOD_ID}_edit_rto", f"{MOD_ID}_edit_right")
     assert len(press_fields) <= DIAG_SCRATCH, (
         f"the press line parks {len(press_fields)} numbers and there are only "
         f"{DIAG_SCRATCH} scratch globals: raise `DIAG_SCRATCH`")
@@ -4524,7 +4529,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"set_global_variable = {{ name = {MOD_ID}_dv{slot} "
         f"value = global_var:{source} }} }}\n"
         for slot, source in enumerate(press_fields, start=1))
-    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11 = (
+    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12 = (
         f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_dg{slot}')|0]"
         for slot in range(1, len(press_fields) + 1))
 
@@ -4592,7 +4597,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tdebug_log = "WTP PRESSAT"
 \t\t}}
 \t}}
-\tdebug_log = "WTP PRESS n={r1} op={r2} good={r3} hit={r4} | done={r5} fail={r6} norefill={r7} | esg={r8} evicted={r9} | rfrom={r10} rto={r11}"
+\tdebug_log = "WTP PRESS n={r1} op={r2} good={r3} right={r12} hit={r4} | done={r5} fail={r6} norefill={r7} | esg={r8} evicted={r9} | rfrom={r10} rto={r11}"
 }}
 
 # One scan of every candidate: who could hold this good, what it would cost
@@ -5264,6 +5269,38 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # is the largest bundle in the game.
     substitute = market_inputs(game)
 
+    # **The plan's `_plan_right_fits_<k>` is the wrong question here, and asking
+    # it cost the run of 2026-09-06.** It is built out of `_plan_can_town_<n>`,
+    # which requires a *free room* -- true of the empty towns the grant pass
+    # walks, false of every town of a finished plan. So «+1» found no candidate
+    # anywhere and «−1» found no charter to hand the town to: one cause, both
+    # symptoms, and both read on screen as «кнопка не работает».
+    #
+    # What the editor has to ask is whether the ground can make one of the
+    # charter's goods at all -- `_pm<n>` is the method that won here, and it does
+    # not care what already stands. A bundle good that is already standing is not
+    # a refusal: the swap plants what is missing, and `_edit_locked_<n>` takes the
+    # rest into the bundle once `_plan_right` says so.
+    for k, right in enumerate(rights, start=1):
+        makes = [order.index(good) + 1 for good in sorted(right.output)
+                 if groups.get((good, "t"))]
+        if not makes:
+            gate.append(f"\n# {right.key}: no town building at all.\n"
+                        f"# Scope: location\n"
+                        f"{MOD_ID}_edit_right_fits_{k} = {{ always = no }}\n")
+            continue
+        inside = "".join(f"\t\tvar:{MOD_ID}_pm{i} > 0\n" for i in makes)
+        gate.append(f"""
+# {right.key}: {", ".join(sorted(right.output))}. **A method, not a free room** --
+# see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
+# Scope: location
+{MOD_ID}_edit_right_fits_{k} = {{
+\t{MOD_ID}_plan_is_town = yes
+\tOR = {{
+{inside}\t}}
+}}
+""")
+
     def charter(k: int, right: eu5data.TownRight, prefix: str, tab: str) -> str:
         """A charter's bundle, planted or removed, exactly as the plan plants it.
 
@@ -5281,8 +5318,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             other = order.index(feeder) + 1 if feeder in order else 0
             if other and groups.get((feeder, "t")):
                 lines.append(
+                    f"{tab}# The substitute goes in only where the ground cannot make\n"
+                    f"{tab}# the bundle good at all. **`_plan_can_town_<n>` is not that\n"
+                    f"{tab}# question**: it also wants a free room, so on a full town it\n"
+                    f"{tab}# would plant the substitute every time and the removal would\n"
+                    f"{tab}# take out the wrong building.\n"
                     f"{tab}if = {{\n"
-                    f"{tab}\tlimit = {{ {MOD_ID}_plan_can_town_{index} = yes }}\n"
+                    f"{tab}\tlimit = {{ var:{MOD_ID}_pm{index} > 0 }}\n"
                     f"{tab}\t{MOD_ID}_{prefix}_town_{index} = yes\n"
                     f"{tab}}}\n"
                     f"{tab}else = {{ {MOD_ID}_{prefix}_town_{other} = yes }}\n")
@@ -5367,13 +5409,14 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\t\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n"
         f"\t}}\n"
         for k in range(1, len(rights) + 1)) + "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_rsh{k} value = 0 }}\n"
-        f"\tif = {{\n"
-        f"\t\tlimit = {{ global_var:{MOD_ID}_rquota > global_var:{MOD_ID}_rn{k} }}\n"
-        f"\t\tset_global_variable = {{ name = {MOD_ID}_rsh{k} value = global_var:{MOD_ID}_rquota }}\n"
-        f"\t\tchange_global_variable = {{ name = {MOD_ID}_rsh{k} "
+        f"\t# **Not floored at zero, and that is the point.** With a share of 5, a\n"
+        f"\t# charter holding 6 towns and one holding 5 both have «no shortfall»,\n"
+        f"\t# and a floor would make them equal -- so «−1» could hand a town to the\n"
+        f"\t# charter that already has the most. Negative reads «over its share by\n"
+        f"\t# that much», and the walk prefers the larger number.\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_rsh{k} value = global_var:{MOD_ID}_rquota }}\n"
+        f"\tchange_global_variable = {{ name = {MOD_ID}_rsh{k} "
         f"subtract = global_var:{MOD_ID}_rn{k} }}\n"
-        f"\t}}\n"
         f"\tset_global_variable = {{ name = {MOD_ID}_rover{k} value = 0 }}\n"
         f"\tif = {{\n"
         f"\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_rquota > global_var:{MOD_ID}_rn{k} }} }}\n"
@@ -5430,7 +5473,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 f"{tab}\t\t{MOD_ID}_plan_is_town = yes\n"
                 f"{tab}\t\thas_variable = {MOD_ID}_plan_right\n"
                 f"{tab}\t\tNOT = {{ var:{MOD_ID}_plan_right = {k} }}\n"
-                f"{tab}\t\t{MOD_ID}_plan_right_fits_{k} = yes\n"
+                f"{tab}\t\t{MOD_ID}_edit_right_fits_{k} = yes\n"
                 f"{over}{tab}\t}}\n"
                 f"{tab}\tset_variable = {{ name = {MOD_ID}_esc value = 1 }}\n"
                 f"{tab}\tset_variable = {{ name = {MOD_ID}_esv value = {MOD_ID}_rq{k} }}\n"
@@ -5517,7 +5560,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\tif = {{\n"
         f"\t\tlimit = {{\n"
         f"\t\t\tNOT = {{ global_var:{MOD_ID}_edit_rfrom = {k} }}\n"
-        f"\t\t\t{MOD_ID}_plan_right_fits_{k} = yes\n"
+        f"\t\t\t{MOD_ID}_edit_right_fits_{k} = yes\n"
         f"\t\t\tglobal_var:{MOD_ID}_rok{k} = 1\n"
         f"\t\t\tOR = {{\n"
         f"\t\t\t\tvar:{MOD_ID}_esrd < global_var:{MOD_ID}_rsh{k}\n"
@@ -5559,7 +5602,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_edit_right_best_here = {{
 \tset_variable = {{ name = {MOD_ID}_esrj value = 0 }}
-\tset_variable = {{ name = {MOD_ID}_esrd value = -1 }}
+\t# Below any shortfall a real ground can produce: a charter over its share
+\t# by every town of the realm would still beat this.
+\tset_variable = {{ name = {MOD_ID}_esrd value = -9999 }}
 \tset_variable = {{ name = {MOD_ID}_esrv value = -1 }}
 {best_here}}}
 

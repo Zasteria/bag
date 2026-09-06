@@ -414,18 +414,18 @@ window = {
 					ignoreinvisible = no
 
 					widget = {
-						size = { 330 150 }
+						size = { 360 168 }
 						bag_wtp_edit_right_col1 = {}
 					}
 					widget = {
-						size = { 330 150 }
+						size = { 360 168 }
 						bag_wtp_edit_right_col2 = {}
 					}
 					widget = {
-						size = { 330 150 }
+						size = { 360 168 }
 						bag_wtp_edit_right_col3 = {}
 					}
-					widget = { layoutpolicy_horizontal = expanding size = { -1 150 } }
+					widget = { layoutpolicy_horizontal = expanding size = { -1 168 } }
 				}
 
 				# The plan as it stands, in the plan window's own rows.

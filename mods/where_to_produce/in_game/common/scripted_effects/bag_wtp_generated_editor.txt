@@ -11857,6 +11857,8 @@ bag_wtp_edit_journal = {
 	if = { limit = { has_global_variable = bag_wtp_edit_rfrom } set_global_variable = { name = bag_wtp_dv10 value = global_var:bag_wtp_edit_rfrom } }
 	set_global_variable = { name = bag_wtp_dv11 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_edit_rto } set_global_variable = { name = bag_wtp_dv11 value = global_var:bag_wtp_edit_rto } }
+	set_global_variable = { name = bag_wtp_dv12 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_right } set_global_variable = { name = bag_wtp_dv12 value = global_var:bag_wtp_edit_right } }
 	if = {
 		limit = { has_global_variable = bag_wtp_ev_loc }
 		global_var:bag_wtp_ev_loc = {
@@ -11870,7 +11872,7 @@ bag_wtp_edit_journal = {
 			debug_log = "WTP PRESSAT"
 		}
 	}
-	debug_log = "WTP PRESS n=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] op=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] good=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] hit=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | done=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] fail=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] norefill=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] | esg=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] evicted=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] | rfrom=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] rto=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0]"
+	debug_log = "WTP PRESS n=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] op=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] good=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] right=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg12')|0] hit=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | done=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] fail=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] norefill=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] | esg=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] evicted=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] | rfrom=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] rto=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0]"
 }
 
 # One scan of every candidate: who could hold this good, what it would cost
@@ -17602,8 +17604,13 @@ bag_wtp_edit_right_in_6 = {
 # royal_masonry_rights: glass, masonry -- off this town, bundle and all.
 # Scope: location
 bag_wtp_edit_right_out_7 = {
+	# The substitute goes in only where the ground cannot make
+	# the bundle good at all. **`_plan_can_town_<n>` is not that
+	# question**: it also wants a free room, so on a full town it
+	# would plant the substitute every time and the removal would
+	# take out the wrong building.
 	if = {
-		limit = { bag_wtp_plan_can_town_33 = yes }
+		limit = { var:bag_wtp_pm33 > 0 }
 		bag_wtp_edit_remove_town_33 = yes
 	}
 	else = { bag_wtp_edit_remove_town_17 = yes }
@@ -17617,8 +17624,13 @@ bag_wtp_edit_right_out_7 = {
 # royal_masonry_rights: onto this town, bundle and all.
 # Scope: location
 bag_wtp_edit_right_in_7 = {
+	# The substitute goes in only where the ground cannot make
+	# the bundle good at all. **`_plan_can_town_<n>` is not that
+	# question**: it also wants a free room, so on a full town it
+	# would plant the substitute every time and the removal would
+	# take out the wrong building.
 	if = {
-		limit = { bag_wtp_plan_can_town_33 = yes }
+		limit = { var:bag_wtp_pm33 > 0 }
 		bag_wtp_edit_place_town_33 = yes
 	}
 	else = { bag_wtp_edit_place_town_17 = yes }
@@ -18072,12 +18084,13 @@ bag_wtp_edit_right_prepare = {
 		set_global_variable = { name = bag_wtp_rn13 value = 0 }
 		set_global_variable = { name = bag_wtp_rgiven13 value = 0 }
 	}
-	set_global_variable = { name = bag_wtp_rsh1 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn1 }
-		set_global_variable = { name = bag_wtp_rsh1 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh1 subtract = global_var:bag_wtp_rn1 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh1 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh1 subtract = global_var:bag_wtp_rn1 }
 	set_global_variable = { name = bag_wtp_rover1 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn1 } }
@@ -18088,12 +18101,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_1 = yes }
 		set_global_variable = { name = bag_wtp_rok1 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh2 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn2 }
-		set_global_variable = { name = bag_wtp_rsh2 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh2 subtract = global_var:bag_wtp_rn2 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh2 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh2 subtract = global_var:bag_wtp_rn2 }
 	set_global_variable = { name = bag_wtp_rover2 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn2 } }
@@ -18104,12 +18118,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_2 = yes }
 		set_global_variable = { name = bag_wtp_rok2 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh3 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn3 }
-		set_global_variable = { name = bag_wtp_rsh3 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh3 subtract = global_var:bag_wtp_rn3 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh3 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh3 subtract = global_var:bag_wtp_rn3 }
 	set_global_variable = { name = bag_wtp_rover3 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn3 } }
@@ -18120,12 +18135,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_3 = yes }
 		set_global_variable = { name = bag_wtp_rok3 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh4 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn4 }
-		set_global_variable = { name = bag_wtp_rsh4 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh4 subtract = global_var:bag_wtp_rn4 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh4 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh4 subtract = global_var:bag_wtp_rn4 }
 	set_global_variable = { name = bag_wtp_rover4 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn4 } }
@@ -18136,12 +18152,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_4 = yes }
 		set_global_variable = { name = bag_wtp_rok4 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh5 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn5 }
-		set_global_variable = { name = bag_wtp_rsh5 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh5 subtract = global_var:bag_wtp_rn5 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh5 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh5 subtract = global_var:bag_wtp_rn5 }
 	set_global_variable = { name = bag_wtp_rover5 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn5 } }
@@ -18152,12 +18169,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_5 = yes }
 		set_global_variable = { name = bag_wtp_rok5 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh6 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn6 }
-		set_global_variable = { name = bag_wtp_rsh6 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh6 subtract = global_var:bag_wtp_rn6 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh6 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh6 subtract = global_var:bag_wtp_rn6 }
 	set_global_variable = { name = bag_wtp_rover6 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn6 } }
@@ -18168,12 +18186,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_6 = yes }
 		set_global_variable = { name = bag_wtp_rok6 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh7 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn7 }
-		set_global_variable = { name = bag_wtp_rsh7 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh7 subtract = global_var:bag_wtp_rn7 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh7 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh7 subtract = global_var:bag_wtp_rn7 }
 	set_global_variable = { name = bag_wtp_rover7 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn7 } }
@@ -18184,12 +18203,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_7 = yes }
 		set_global_variable = { name = bag_wtp_rok7 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh8 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn8 }
-		set_global_variable = { name = bag_wtp_rsh8 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh8 subtract = global_var:bag_wtp_rn8 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh8 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh8 subtract = global_var:bag_wtp_rn8 }
 	set_global_variable = { name = bag_wtp_rover8 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn8 } }
@@ -18200,12 +18220,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_8 = yes }
 		set_global_variable = { name = bag_wtp_rok8 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh9 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn9 }
-		set_global_variable = { name = bag_wtp_rsh9 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh9 subtract = global_var:bag_wtp_rn9 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh9 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh9 subtract = global_var:bag_wtp_rn9 }
 	set_global_variable = { name = bag_wtp_rover9 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn9 } }
@@ -18216,12 +18237,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_9 = yes }
 		set_global_variable = { name = bag_wtp_rok9 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh10 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn10 }
-		set_global_variable = { name = bag_wtp_rsh10 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh10 subtract = global_var:bag_wtp_rn10 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh10 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh10 subtract = global_var:bag_wtp_rn10 }
 	set_global_variable = { name = bag_wtp_rover10 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn10 } }
@@ -18232,12 +18254,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_10 = yes }
 		set_global_variable = { name = bag_wtp_rok10 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh11 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn11 }
-		set_global_variable = { name = bag_wtp_rsh11 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh11 subtract = global_var:bag_wtp_rn11 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh11 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh11 subtract = global_var:bag_wtp_rn11 }
 	set_global_variable = { name = bag_wtp_rover11 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn11 } }
@@ -18248,12 +18271,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_11 = yes }
 		set_global_variable = { name = bag_wtp_rok11 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh12 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn12 }
-		set_global_variable = { name = bag_wtp_rsh12 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh12 subtract = global_var:bag_wtp_rn12 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh12 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh12 subtract = global_var:bag_wtp_rn12 }
 	set_global_variable = { name = bag_wtp_rover12 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn12 } }
@@ -18264,12 +18288,13 @@ bag_wtp_edit_right_prepare = {
 		limit = { bag_wtp_plan_right_gate_12 = yes }
 		set_global_variable = { name = bag_wtp_rok12 value = 1 }
 	}
-	set_global_variable = { name = bag_wtp_rsh13 value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn13 }
-		set_global_variable = { name = bag_wtp_rsh13 value = global_var:bag_wtp_rquota }
-		change_global_variable = { name = bag_wtp_rsh13 subtract = global_var:bag_wtp_rn13 }
-	}
+	# **Not floored at zero, and that is the point.** With a share of 5, a
+	# charter holding 6 towns and one holding 5 both have «no shortfall»,
+	# and a floor would make them equal -- so «−1» could hand a town to the
+	# charter that already has the most. Negative reads «over its share by
+	# that much», and the walk prefers the larger number.
+	set_global_variable = { name = bag_wtp_rsh13 value = global_var:bag_wtp_rquota }
+	change_global_variable = { name = bag_wtp_rsh13 subtract = global_var:bag_wtp_rn13 }
 	set_global_variable = { name = bag_wtp_rover13 value = 0 }
 	if = {
 		limit = { NOT = { global_var:bag_wtp_rquota > global_var:bag_wtp_rn13 } }
@@ -18345,7 +18370,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 1 }
-					bag_wtp_plan_right_fits_1 = yes
+					bag_wtp_edit_right_fits_1 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18360,7 +18385,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 1 }
-						bag_wtp_plan_right_fits_1 = yes
+						bag_wtp_edit_right_fits_1 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq1 }
@@ -18376,7 +18401,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 2 }
-					bag_wtp_plan_right_fits_2 = yes
+					bag_wtp_edit_right_fits_2 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18391,7 +18416,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 2 }
-						bag_wtp_plan_right_fits_2 = yes
+						bag_wtp_edit_right_fits_2 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq2 }
@@ -18407,7 +18432,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 3 }
-					bag_wtp_plan_right_fits_3 = yes
+					bag_wtp_edit_right_fits_3 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18422,7 +18447,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 3 }
-						bag_wtp_plan_right_fits_3 = yes
+						bag_wtp_edit_right_fits_3 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq3 }
@@ -18438,7 +18463,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 4 }
-					bag_wtp_plan_right_fits_4 = yes
+					bag_wtp_edit_right_fits_4 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18453,7 +18478,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 4 }
-						bag_wtp_plan_right_fits_4 = yes
+						bag_wtp_edit_right_fits_4 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq4 }
@@ -18469,7 +18494,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 5 }
-					bag_wtp_plan_right_fits_5 = yes
+					bag_wtp_edit_right_fits_5 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18484,7 +18509,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 5 }
-						bag_wtp_plan_right_fits_5 = yes
+						bag_wtp_edit_right_fits_5 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq5 }
@@ -18500,7 +18525,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 6 }
-					bag_wtp_plan_right_fits_6 = yes
+					bag_wtp_edit_right_fits_6 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18515,7 +18540,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 6 }
-						bag_wtp_plan_right_fits_6 = yes
+						bag_wtp_edit_right_fits_6 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq6 }
@@ -18531,7 +18556,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 7 }
-					bag_wtp_plan_right_fits_7 = yes
+					bag_wtp_edit_right_fits_7 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18546,7 +18571,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 7 }
-						bag_wtp_plan_right_fits_7 = yes
+						bag_wtp_edit_right_fits_7 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq7 }
@@ -18562,7 +18587,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 8 }
-					bag_wtp_plan_right_fits_8 = yes
+					bag_wtp_edit_right_fits_8 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18577,7 +18602,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 8 }
-						bag_wtp_plan_right_fits_8 = yes
+						bag_wtp_edit_right_fits_8 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq8 }
@@ -18593,7 +18618,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 9 }
-					bag_wtp_plan_right_fits_9 = yes
+					bag_wtp_edit_right_fits_9 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18608,7 +18633,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 9 }
-						bag_wtp_plan_right_fits_9 = yes
+						bag_wtp_edit_right_fits_9 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq9 }
@@ -18624,7 +18649,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 10 }
-					bag_wtp_plan_right_fits_10 = yes
+					bag_wtp_edit_right_fits_10 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18639,7 +18664,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 10 }
-						bag_wtp_plan_right_fits_10 = yes
+						bag_wtp_edit_right_fits_10 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq10 }
@@ -18655,7 +18680,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 11 }
-					bag_wtp_plan_right_fits_11 = yes
+					bag_wtp_edit_right_fits_11 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18670,7 +18695,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 11 }
-						bag_wtp_plan_right_fits_11 = yes
+						bag_wtp_edit_right_fits_11 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq11 }
@@ -18686,7 +18711,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 12 }
-					bag_wtp_plan_right_fits_12 = yes
+					bag_wtp_edit_right_fits_12 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18701,7 +18726,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 12 }
-						bag_wtp_plan_right_fits_12 = yes
+						bag_wtp_edit_right_fits_12 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq12 }
@@ -18717,7 +18742,7 @@ bag_wtp_edit_right_add = {
 					bag_wtp_plan_is_town = yes
 					has_variable = bag_wtp_plan_right
 					NOT = { var:bag_wtp_plan_right = 13 }
-					bag_wtp_plan_right_fits_13 = yes
+					bag_wtp_edit_right_fits_13 = yes
 					var:bag_wtp_esover = 1
 				}
 				set_variable = { name = bag_wtp_esc value = 1 }
@@ -18732,7 +18757,7 @@ bag_wtp_edit_right_add = {
 						bag_wtp_plan_is_town = yes
 						has_variable = bag_wtp_plan_right
 						NOT = { var:bag_wtp_plan_right = 13 }
-						bag_wtp_plan_right_fits_13 = yes
+						bag_wtp_edit_right_fits_13 = yes
 					}
 					set_variable = { name = bag_wtp_esc value = 1 }
 					set_variable = { name = bag_wtp_esv value = bag_wtp_rq13 }
@@ -18779,13 +18804,15 @@ bag_wtp_edit_right_add = {
 # Scope: location
 bag_wtp_edit_right_best_here = {
 	set_variable = { name = bag_wtp_esrj value = 0 }
-	set_variable = { name = bag_wtp_esrd value = -1 }
+	# Below any shortfall a real ground can produce: a charter over its share
+	# by every town of the realm would still beat this.
+	set_variable = { name = bag_wtp_esrd value = -9999 }
 	set_variable = { name = bag_wtp_esrv value = -1 }
 	set_variable = { name = bag_wtp_rtry value = bag_wtp_rq1 }
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 1 }
-			bag_wtp_plan_right_fits_1 = yes
+			bag_wtp_edit_right_fits_1 = yes
 			global_var:bag_wtp_rok1 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh1
@@ -18803,7 +18830,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 2 }
-			bag_wtp_plan_right_fits_2 = yes
+			bag_wtp_edit_right_fits_2 = yes
 			global_var:bag_wtp_rok2 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh2
@@ -18821,7 +18848,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 3 }
-			bag_wtp_plan_right_fits_3 = yes
+			bag_wtp_edit_right_fits_3 = yes
 			global_var:bag_wtp_rok3 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh3
@@ -18839,7 +18866,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 4 }
-			bag_wtp_plan_right_fits_4 = yes
+			bag_wtp_edit_right_fits_4 = yes
 			global_var:bag_wtp_rok4 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh4
@@ -18857,7 +18884,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 5 }
-			bag_wtp_plan_right_fits_5 = yes
+			bag_wtp_edit_right_fits_5 = yes
 			global_var:bag_wtp_rok5 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh5
@@ -18875,7 +18902,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 6 }
-			bag_wtp_plan_right_fits_6 = yes
+			bag_wtp_edit_right_fits_6 = yes
 			global_var:bag_wtp_rok6 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh6
@@ -18893,7 +18920,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 7 }
-			bag_wtp_plan_right_fits_7 = yes
+			bag_wtp_edit_right_fits_7 = yes
 			global_var:bag_wtp_rok7 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh7
@@ -18911,7 +18938,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 8 }
-			bag_wtp_plan_right_fits_8 = yes
+			bag_wtp_edit_right_fits_8 = yes
 			global_var:bag_wtp_rok8 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh8
@@ -18929,7 +18956,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 9 }
-			bag_wtp_plan_right_fits_9 = yes
+			bag_wtp_edit_right_fits_9 = yes
 			global_var:bag_wtp_rok9 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh9
@@ -18947,7 +18974,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 10 }
-			bag_wtp_plan_right_fits_10 = yes
+			bag_wtp_edit_right_fits_10 = yes
 			global_var:bag_wtp_rok10 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh10
@@ -18965,7 +18992,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 11 }
-			bag_wtp_plan_right_fits_11 = yes
+			bag_wtp_edit_right_fits_11 = yes
 			global_var:bag_wtp_rok11 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh11
@@ -18983,7 +19010,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 12 }
-			bag_wtp_plan_right_fits_12 = yes
+			bag_wtp_edit_right_fits_12 = yes
 			global_var:bag_wtp_rok12 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh12
@@ -19001,7 +19028,7 @@ bag_wtp_edit_right_best_here = {
 	if = {
 		limit = {
 			NOT = { global_var:bag_wtp_edit_rfrom = 13 }
-			bag_wtp_plan_right_fits_13 = yes
+			bag_wtp_edit_right_fits_13 = yes
 			global_var:bag_wtp_rok13 = 1
 			OR = {
 				var:bag_wtp_esrd < global_var:bag_wtp_rsh13

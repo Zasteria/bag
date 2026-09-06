@@ -63,7 +63,10 @@ rules each step implements are
    without one**. The bundle moves whole and the load is squared up after: over
    the cap the worst ordinary building goes, under it the good furthest below its
    share takes the room. Cells, counts and press line are in the editor window;
-   `op=3/4`, `rfrom=`, `rto=` in the journal.
+   `op=3/4`, `right=`, `rfrom=`, `rto=` in the journal. **The first build did
+   nothing at all**: both sides asked the plan's `_plan_right_fits_<k>`, which
+   wants a free room and is therefore false in every town of a finished plan
+   ([`PITFALLS.md`](PITFALLS.md)). The editor has its own question now.
 6. **New ground fitted to a finished plan.**
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
