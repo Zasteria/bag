@@ -27013,12 +27013,9 @@ bag_wtp_ext_prepare = {
 		if = {
 			limit = { bag_wtp_plan_is_town = yes }
 			set_variable = { name = bag_wtp_plan_town_row value = 1 }
-			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
-			change_global_variable = { name = bag_wtp_plan_towns add = 1 }
 		}
 		else = {
 			remove_variable = bag_wtp_plan_town_row
-			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
 		}
 		if = {
 			limit = { NOT = { has_variable = bag_wtp_plan_seen } }
@@ -27028,8 +27025,42 @@ bag_wtp_ext_prepare = {
 				}
 			}
 			add_to_global_variable_list = { name = bag_wtp_plan_prov_locs target = this }
-			change_global_variable = { name = bag_wtp_plan_provn add = 1 }
 		}
+	}
+}
+
+# Комнаты, города и провинции — пересчитаны по земле, а не досчитаны к прошлому.
+#
+# **Копить их было ошибкой, и она стоила прогона 2026-09-06.** `_plan_rooms`
+# обнуляет только `_plan_prepare`, которого доливка не зовёт, — а загрузка слота
+# перестраивает `_plan_touched`, ничего не вычитая. Владелец увидел «358 зданий
+# на 690 мест (52% заполнено)» там, где земля была забита целиком: 55 городов по
+# 4 плюс 46 сёл по 3 — это ровно 358. Раздутыми оказались и `_plan_towns` (69
+# против настоящих 55), и доля: 690÷38 дало 18 вместо 9, то есть квота не
+# ограничивала никого и раздачу решала одна выгода.
+#
+# **Три числа считаются по списку, поэтому расходиться им больше не с чем.**
+# Один обход по `_plan_touched` и один по `_plan_prov_locs`; на 101 локации это
+# ничто рядом с самим счётом.
+# Scope: country
+bag_wtp_ext_recount = {
+	set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
+	set_global_variable = { name = bag_wtp_plan_towns value = 0 }
+	set_global_variable = { name = bag_wtp_plan_provn value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
+			change_global_variable = { name = bag_wtp_plan_towns add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
+		}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		change_global_variable = { name = bag_wtp_plan_provn add = 1 }
 	}
 }
 
@@ -27960,6 +27991,7 @@ bag_wtp_edit_extend = {
 				set_variable = { name = bag_wtp_ext_load0 value = var:bag_wtp_load }
 			}
 			bag_wtp_ext_prepare = yes
+			bag_wtp_ext_recount = yes
 			set_global_variable = { name = bag_wtp_ext_rooms value = global_var:bag_wtp_plan_rooms }
 			change_global_variable = { name = bag_wtp_ext_rooms subtract = global_var:bag_wtp_ext_was }
 
@@ -28013,6 +28045,11 @@ bag_wtp_edit_extend = {
 			# пикере считается из `_ng<n>` и должен быть пересобран.
 			bag_wtp_edit_fill_pool = yes
 			bag_wtp_plan_rank = yes
+			# **И строки окна заново.** Новые локации не лежат в `_plan_results`, и
+			# без этого доливка видна только после закрытия и повторного открытия
+			# редактора — его слова 2026-09-06: «в список не добавляется расширенная
+			# земля». Ровно та же строчка и по той же причине стоит в конце нажатия.
+			bag_wtp_plan_show = yes
 		}
 	}
 }

@@ -6602,12 +6602,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tif = {{
 \t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 \t\t\tset_variable = {{ name = {MOD_ID}_plan_town_row value = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
 \t\t}}
 \t\telse = {{
 \t\t\tremove_variable = {MOD_ID}_plan_town_row
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
 \t\t}}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_plan_seen }} }}
@@ -6617,8 +6614,42 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t}}
 \t\t\t}}
 \t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_prov_locs target = this }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_provn add = 1 }}
 \t\t}}
+\t}}
+}}
+
+# Комнаты, города и провинции — пересчитаны по земле, а не досчитаны к прошлому.
+#
+# **Копить их было ошибкой, и она стоила прогона 2026-09-06.** `_plan_rooms`
+# обнуляет только `_plan_prepare`, которого доливка не зовёт, — а загрузка слота
+# перестраивает `_plan_touched`, ничего не вычитая. Владелец увидел «358 зданий
+# на 690 мест (52% заполнено)» там, где земля была забита целиком: 55 городов по
+# 4 плюс 46 сёл по 3 — это ровно 358. Раздутыми оказались и `_plan_towns` (69
+# против настоящих 55), и доля: 690÷38 дало 18 вместо 9, то есть квота не
+# ограничивала никого и раздачу решала одна выгода.
+#
+# **Три числа считаются по списку, поэтому расходиться им больше не с чем.**
+# Один обход по `_plan_touched` и один по `_plan_prov_locs`; на 101 локации это
+# ничто рядом с самим счётом.
+# Scope: country
+{MOD_ID}_ext_recount = {{
+\tset_global_variable = {{ name = {MOD_ID}_plan_rooms value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_towns value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
+\t\t}}
+\t\telse = {{
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
+\t\t}}
+\t}}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_prov_locs
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_provn add = 1 }}
 \t}}
 }}
 
@@ -6703,6 +6734,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tset_variable = {{ name = {MOD_ID}_ext_load0 value = var:{MOD_ID}_load }}
 \t\t\t}}
 \t\t\t{MOD_ID}_ext_prepare = yes
+\t\t\t{MOD_ID}_ext_recount = yes
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ext_rooms value = global_var:{MOD_ID}_plan_rooms }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_ext_rooms subtract = global_var:{MOD_ID}_ext_was }}
 
@@ -6756,6 +6788,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# пикере считается из `_ng<n>` и должен быть пересобран.
 \t\t\t{MOD_ID}_edit_fill_pool = yes
 \t\t\t{MOD_ID}_plan_rank = yes
+\t\t\t# **И строки окна заново.** Новые локации не лежат в `_plan_results`, и
+\t\t\t# без этого доливка видна только после закрытия и повторного открытия
+\t\t\t# редактора — его слова 2026-09-06: «в список не добавляется расширенная
+\t\t\t# земля». Ровно та же строчка и по той же причине стоит в конце нажатия.
+\t\t\t{MOD_ID}_plan_show = yes
 \t\t}}
 \t}}
 }}

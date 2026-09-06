@@ -41,25 +41,20 @@ carries the same open question.
 
 ### The live question: what is being made even — buildings or output
 
-**His own turn, 2026-09-06: «усреднять нужно не кол-во домиков, а количество
-выхлопа».** A village weapons shop and a town brewery are both "7 buildings" and
-are not the same thing — measured, the spread of `Method.output` across the
-plan's 241 methods is **0.1 to 4.5**, and beer is 4.00 in a town against 0.50 in
-a village.
+**Measured now, not estimated.** The `out=` probe ran: buildings 1…24, output
+3.5…99.5, a town building worth 10–13.7 against a village building's 0.84–3.7.
+Masonry with 20 buildings makes 27.5; cannon with 6 makes 80. **His instinct was
+right and the answer to «как находить это число» is that it is never chosen** —
+the share is a turn-taking rule, not a goal, and the ladder already discovers the
+level where the ground runs out. Change the currency, not the machine:
+**evenness decides who picks next (by output), the RGO gain decides where** —
+which is the split the allocator already has. Full derivation and the measured
+cost in [`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
 
-**He asked how to compute the target to aim for, and it does not have to be
-chosen** — it falls out of the same division once a room is weighed by what it
-yields instead of by 1. The derivation, and the proof that it collapses into
-today's formula when every output is 1.0, is in
-[`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
-
-**Nothing is being changed on that yet, and that is deliberate.** Measured in
-output rather than buildings, his run looks far more even than it looks on
-screen: dyes at **5 buildings is the top producer at 20.0**, beer at 25 buildings
-is 19.5. That is an upper-bound estimate, so **the probe was built instead of the
-formula**: `_pout<n>` now sums the output of the methods the plan actually
-placed, and prints as `out=` in the good's line. **One run says whether the
-formula needs changing at all.**
+**Not built, and deliberately.** Evening by output buys evenness with bonus, and
+by how much is unknown — so it belongs behind a switch, two presses of
+«Пересчитать» on one ground and both `GAIN` lines side by side. **Ask him before
+building it.**
 
 ### Then 7 and 8, in that order, and not before
 
