@@ -11011,6 +11011,15 @@ bag_wtp_show_ext_rooms = { value = global_var:bag_wtp_ext_rooms }
 bag_wtp_show_ext_added = { value = global_var:bag_wtp_ext_added }
 bag_wtp_show_ext_moved = { value = global_var:bag_wtp_ext_moved }
 bag_wtp_show_ext_lifted = { value = global_var:bag_wtp_ext_lifted }
+# **Делители трёхклассовой доли.** Скрипт делит только на script value, а не
+# на глобалку напрямую — отсюда эти четыре.
+bag_wtp_qgt_value = { value = global_var:bag_wtp_qgt }
+bag_wtp_qgr_value = { value = global_var:bag_wtp_qgr }
+bag_wtp_qgn_value = { value = global_var:bag_wtp_qgn }
+bag_wtp_qleft_value = { value = global_var:bag_wtp_qleft }
+bag_wtp_show_prooms_t = { value = global_var:bag_wtp_prooms_t }
+bag_wtp_show_prooms_r = { value = global_var:bag_wtp_prooms_r }
+bag_wtp_show_qrest = { value = global_var:bag_wtp_qrest }
 bag_wtp_show_plan_scored = { value = global_var:bag_wtp_plan_scored }
 bag_wtp_show_plan_placed = { value = global_var:bag_wtp_plan_placed }
 bag_wtp_show_plan_found = { value = global_var:bag_wtp_plan_found }

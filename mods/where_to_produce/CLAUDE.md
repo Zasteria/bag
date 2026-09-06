@@ -30,29 +30,27 @@ and outlives a save.**
 **Never gate the plan on `generate.fed_floor`**; **the bonus counts RGOs only**;
 **one method per slot**
 ([`production_ladder.md`](../../docs/investigations/production_ladder.md)).
-**A right's gate is its own
-`potential`, never `has_advance`**
-([`town_rights.md`](../../docs/investigations/town_rights.md)). **The plan is an
-optimisation with a covering constraint** — maximise the bonus captured, subject
-to every good the ground can produce being produced
-([`plan_formula.md`](../../docs/investigations/plan_formula.md)). **An entry is a
-building and a location holds one of each**
+**A right's gate is its own `potential`, never `has_advance`**
+([`town_rights.md`](../../docs/investigations/town_rights.md)). **The plan
+maximises the bonus captured, subject to every good the ground can produce being
+produced** ([`plan_formula.md`](../../docs/investigations/plan_formula.md)).
+**An entry is a building and a location holds one of each**
 ([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
 **A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
 one building a press, and **the round trip is no undo**. **The editor's share
 subtracts the RGOs** — `_eq<n>`. **A press pins its good** (`_lock<n>`); **a pin
 is a star, not a colour**. **A charter is not a building**: every town holds
-exactly one, so «+1»/«−1» *moves* it, bundle and all (`_edit_right_swap`,
-`_rquota`). **The changes window is a diff, not a chronology**, and is shelved at
-his word; the journal is `WTP PRESS` in `debug.log`. **«Расширить» доливает новую
-землю**: новое = выбранное минус `_plan_touched`, старое заморожено, замок
-спадает, когда простая доля его переросла — **оно сужает `_candidates`, а не
-пишет второй план**; подтверждено в игре дважды. **Земля редактора своя**:
-сбрасывается на землю плана при открытии, возвращает выбор плана при выходе
-(`_sel_keep_plan`). **Ряд плана рисует товар над своим домиком двумя
-датамоделями**, списки идут индекс в индекс, `WTP ROWPAIR` считает расхождение.
-**`_pout<n>` — зонд выхлопа, не правило**: домик домику не равен, 0.1…4.5
+exactly one, so «+1»/«−1» *moves* it, bundle and all. **The changes window is a
+diff, not a chronology**, shelved at his word; the journal is `WTP PRESS`. **«Расширить» доливает новую
+землю**: новое = выбранное минус `_plan_touched`, старое заморожено — **оно
+сужает `_candidates`, а не пишет второй план**; подтверждено дважды. **Земля
+редактора своя** (`_sel_keep_plan`). **Ряд плана рисует товар над своим домиком
+двумя датамоделями**, `WTP ROWPAIR` ловит расхождение списков.
+**Доля знает три класса товара** — только город, только село, где угодно — и два
+вида комнат: насытившаяся сторона замирает, остальным считается второй уровень
+(`_qbind`, `_qrest`, проба `WTP SHARE`). **`_edit_set_quota` этого ещё не
+знает.** **Выхлоп отвергнут владельцем**; `_pout<n>` остался зондом
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 

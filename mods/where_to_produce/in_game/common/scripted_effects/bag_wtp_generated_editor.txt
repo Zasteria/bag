@@ -27045,6 +27045,8 @@ bag_wtp_ext_prepare = {
 # Scope: country
 bag_wtp_ext_recount = {
 	set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
+	set_global_variable = { name = bag_wtp_prooms_t value = 0 }
+	set_global_variable = { name = bag_wtp_prooms_r value = 0 }
 	set_global_variable = { name = bag_wtp_plan_towns value = 0 }
 	set_global_variable = { name = bag_wtp_plan_provn value = 0 }
 	every_in_global_list = {
@@ -27052,10 +27054,12 @@ bag_wtp_ext_recount = {
 		if = {
 			limit = { bag_wtp_plan_is_town = yes }
 			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
+			change_global_variable = { name = bag_wtp_prooms_t add = bag_wtp_show_plan_cap_urban }
 			change_global_variable = { name = bag_wtp_plan_towns add = 1 }
 		}
 		else = {
 			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
+			change_global_variable = { name = bag_wtp_prooms_r add = bag_wtp_show_plan_cap_rural }
 		}
 	}
 	every_in_global_list = {

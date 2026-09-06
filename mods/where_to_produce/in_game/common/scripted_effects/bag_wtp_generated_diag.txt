@@ -188,6 +188,29 @@ bag_wtp_diag_state = {
 	if = { limit = { has_global_variable = bag_wtp_plan_quota } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_quota } }
 	debug_log = "WTP EDIT share quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] free=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] pool_rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] plan_quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_prooms_t } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_prooms_t } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_prooms_r } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_prooms_r } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qgt } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_qgt } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qgr } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_qgr } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qgb } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_qgb } }
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qbind } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_qbind } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_quota } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_plan_quota } }
+	set_global_variable = { name = bag_wtp_dv8 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qrest } set_global_variable = { name = bag_wtp_dv8 value = global_var:bag_wtp_qrest } }
+	set_global_variable = { name = bag_wtp_dv9 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qlt } set_global_variable = { name = bag_wtp_dv9 value = global_var:bag_wtp_qlt } }
+	set_global_variable = { name = bag_wtp_dv10 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qlr } set_global_variable = { name = bag_wtp_dv10 value = global_var:bag_wtp_qlr } }
+	set_global_variable = { name = bag_wtp_dv11 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_qla } set_global_variable = { name = bag_wtp_dv11 value = global_var:bag_wtp_qla } }
+	debug_log = "WTP SHARE rooms_town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] rooms_village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] | goods town_only=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] village_only=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] either=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | ceilings town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] all=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0] -> bind=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] level=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] rest=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_ext_ran } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_ext_ran } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_ext_new } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_ext_new } }

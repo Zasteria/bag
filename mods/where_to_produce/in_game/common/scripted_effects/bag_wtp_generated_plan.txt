@@ -87,6 +87,8 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_plan_from value = 0 }
 	set_global_variable = { name = bag_wtp_plan_to value = 0 }
 	set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
+	set_global_variable = { name = bag_wtp_prooms_t value = 0 }
+	set_global_variable = { name = bag_wtp_prooms_r value = 0 }
 	set_global_variable = { name = bag_wtp_plan_towns value = 0 }
 	set_global_variable = { name = bag_wtp_plan_provn value = 0 }
 	set_global_variable = { name = bag_wtp_plan_rightn value = 0 }
@@ -650,11 +652,13 @@ bag_wtp_plan_prepare = {
 			limit = { bag_wtp_plan_is_town = yes }
 			set_variable = { name = bag_wtp_plan_town_row value = 1 }
 			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
+			change_global_variable = { name = bag_wtp_prooms_t add = bag_wtp_show_plan_cap_urban }
 			change_global_variable = { name = bag_wtp_plan_towns add = 1 }
 		}
 		else = {
 			remove_variable = bag_wtp_plan_town_row
 			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
+			change_global_variable = { name = bag_wtp_prooms_r add = bag_wtp_show_plan_cap_rural }
 		}
 		if = {
 			limit = { NOT = { has_variable = bag_wtp_plan_seen } }
@@ -843,6 +847,8 @@ bag_wtp_plan_harvest_1 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng1 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt1 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr1 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo1 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest1 value = 0 }
 	}
@@ -867,6 +873,17 @@ bag_wtp_plan_harvest_1 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng1 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt1 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr1 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -973,6 +990,8 @@ bag_wtp_plan_harvest_2 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng2 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt2 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr2 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo2 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest2 value = 0 }
 	}
@@ -997,6 +1016,17 @@ bag_wtp_plan_harvest_2 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng2 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt2 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr2 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -1103,6 +1133,8 @@ bag_wtp_plan_harvest_3 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng3 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt3 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr3 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo3 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest3 value = 0 }
 	}
@@ -1127,6 +1159,17 @@ bag_wtp_plan_harvest_3 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng3 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt3 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr3 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -1233,6 +1276,8 @@ bag_wtp_plan_harvest_4 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng4 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt4 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr4 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo4 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest4 value = 0 }
 	}
@@ -1257,6 +1302,17 @@ bag_wtp_plan_harvest_4 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng4 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt4 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr4 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -1363,6 +1419,8 @@ bag_wtp_plan_harvest_5 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng5 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt5 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr5 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo5 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest5 value = 0 }
 	}
@@ -1387,6 +1445,17 @@ bag_wtp_plan_harvest_5 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng5 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt5 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr5 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -1493,6 +1562,8 @@ bag_wtp_plan_harvest_6 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng6 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt6 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr6 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo6 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest6 value = 0 }
 	}
@@ -1517,6 +1588,17 @@ bag_wtp_plan_harvest_6 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng6 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt6 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr6 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -1623,6 +1705,8 @@ bag_wtp_plan_harvest_7 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng7 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt7 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr7 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo7 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest7 value = 0 }
 	}
@@ -1647,6 +1731,17 @@ bag_wtp_plan_harvest_7 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng7 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt7 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr7 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -1753,6 +1848,8 @@ bag_wtp_plan_harvest_8 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng8 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt8 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr8 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo8 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest8 value = 0 }
 	}
@@ -1777,6 +1874,17 @@ bag_wtp_plan_harvest_8 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng8 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt8 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr8 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -1883,6 +1991,8 @@ bag_wtp_plan_harvest_9 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng9 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt9 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr9 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo9 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest9 value = 0 }
 	}
@@ -1907,6 +2017,17 @@ bag_wtp_plan_harvest_9 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng9 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt9 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr9 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2013,6 +2134,8 @@ bag_wtp_plan_harvest_10 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng10 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt10 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr10 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo10 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest10 value = 0 }
 	}
@@ -2037,6 +2160,17 @@ bag_wtp_plan_harvest_10 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng10 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt10 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr10 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2143,6 +2277,8 @@ bag_wtp_plan_harvest_11 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng11 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt11 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr11 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo11 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest11 value = 0 }
 	}
@@ -2167,6 +2303,17 @@ bag_wtp_plan_harvest_11 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng11 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt11 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr11 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2273,6 +2420,8 @@ bag_wtp_plan_harvest_12 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng12 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt12 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr12 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo12 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest12 value = 0 }
 	}
@@ -2297,6 +2446,17 @@ bag_wtp_plan_harvest_12 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng12 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt12 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr12 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2403,6 +2563,8 @@ bag_wtp_plan_harvest_13 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng13 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt13 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr13 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo13 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest13 value = 0 }
 	}
@@ -2427,6 +2589,17 @@ bag_wtp_plan_harvest_13 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng13 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt13 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr13 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2533,6 +2706,8 @@ bag_wtp_plan_harvest_14 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng14 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt14 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr14 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo14 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest14 value = 0 }
 	}
@@ -2557,6 +2732,17 @@ bag_wtp_plan_harvest_14 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng14 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt14 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr14 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2663,6 +2849,8 @@ bag_wtp_plan_harvest_15 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng15 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt15 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr15 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo15 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest15 value = 0 }
 	}
@@ -2687,6 +2875,17 @@ bag_wtp_plan_harvest_15 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng15 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt15 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr15 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2793,6 +2992,8 @@ bag_wtp_plan_harvest_16 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng16 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt16 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr16 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo16 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest16 value = 0 }
 	}
@@ -2817,6 +3018,17 @@ bag_wtp_plan_harvest_16 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng16 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt16 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr16 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -2923,6 +3135,8 @@ bag_wtp_plan_harvest_17 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng17 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt17 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr17 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo17 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest17 value = 0 }
 	}
@@ -2947,6 +3161,17 @@ bag_wtp_plan_harvest_17 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng17 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt17 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr17 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3053,6 +3278,8 @@ bag_wtp_plan_harvest_18 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng18 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt18 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr18 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo18 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest18 value = 0 }
 	}
@@ -3077,6 +3304,17 @@ bag_wtp_plan_harvest_18 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng18 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt18 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr18 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3183,6 +3421,8 @@ bag_wtp_plan_harvest_19 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng19 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt19 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr19 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo19 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest19 value = 0 }
 	}
@@ -3207,6 +3447,17 @@ bag_wtp_plan_harvest_19 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng19 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt19 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr19 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3313,6 +3564,8 @@ bag_wtp_plan_harvest_20 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng20 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt20 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr20 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo20 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest20 value = 0 }
 	}
@@ -3337,6 +3590,17 @@ bag_wtp_plan_harvest_20 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng20 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt20 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr20 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3443,6 +3707,8 @@ bag_wtp_plan_harvest_21 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng21 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt21 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr21 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo21 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest21 value = 0 }
 	}
@@ -3467,6 +3733,17 @@ bag_wtp_plan_harvest_21 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng21 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt21 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr21 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3573,6 +3850,8 @@ bag_wtp_plan_harvest_22 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng22 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt22 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr22 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo22 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest22 value = 0 }
 	}
@@ -3597,6 +3876,17 @@ bag_wtp_plan_harvest_22 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng22 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt22 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr22 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3703,6 +3993,8 @@ bag_wtp_plan_harvest_23 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng23 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt23 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr23 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo23 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest23 value = 0 }
 	}
@@ -3727,6 +4019,17 @@ bag_wtp_plan_harvest_23 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng23 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt23 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr23 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3833,6 +4136,8 @@ bag_wtp_plan_harvest_24 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng24 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt24 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr24 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo24 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest24 value = 0 }
 	}
@@ -3857,6 +4162,17 @@ bag_wtp_plan_harvest_24 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng24 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt24 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr24 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -3963,6 +4279,8 @@ bag_wtp_plan_harvest_25 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng25 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt25 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr25 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo25 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest25 value = 0 }
 	}
@@ -3987,6 +4305,17 @@ bag_wtp_plan_harvest_25 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng25 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt25 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr25 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4093,6 +4422,8 @@ bag_wtp_plan_harvest_26 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng26 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt26 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr26 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo26 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest26 value = 0 }
 	}
@@ -4117,6 +4448,17 @@ bag_wtp_plan_harvest_26 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng26 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt26 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr26 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4219,6 +4561,8 @@ bag_wtp_plan_harvest_27 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng27 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt27 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr27 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo27 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest27 value = 0 }
 	}
@@ -4243,6 +4587,17 @@ bag_wtp_plan_harvest_27 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng27 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt27 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr27 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4345,6 +4700,8 @@ bag_wtp_plan_harvest_28 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng28 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt28 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr28 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo28 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest28 value = 0 }
 	}
@@ -4369,6 +4726,17 @@ bag_wtp_plan_harvest_28 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng28 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt28 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr28 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4471,6 +4839,8 @@ bag_wtp_plan_harvest_29 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng29 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt29 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr29 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo29 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest29 value = 0 }
 	}
@@ -4495,6 +4865,17 @@ bag_wtp_plan_harvest_29 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng29 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt29 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr29 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4597,6 +4978,8 @@ bag_wtp_plan_harvest_30 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng30 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt30 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr30 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo30 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest30 value = 0 }
 	}
@@ -4621,6 +5004,17 @@ bag_wtp_plan_harvest_30 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng30 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt30 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr30 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4723,6 +5117,8 @@ bag_wtp_plan_harvest_31 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng31 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt31 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr31 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo31 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest31 value = 0 }
 	}
@@ -4747,6 +5143,17 @@ bag_wtp_plan_harvest_31 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng31 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt31 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr31 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4849,6 +5256,8 @@ bag_wtp_plan_harvest_32 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng32 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt32 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr32 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo32 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest32 value = 0 }
 	}
@@ -4873,6 +5282,17 @@ bag_wtp_plan_harvest_32 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng32 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt32 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr32 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -4975,6 +5395,8 @@ bag_wtp_plan_harvest_33 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng33 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt33 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr33 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo33 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest33 value = 0 }
 	}
@@ -4999,6 +5421,17 @@ bag_wtp_plan_harvest_33 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng33 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt33 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr33 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5101,6 +5534,8 @@ bag_wtp_plan_harvest_34 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng34 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt34 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr34 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo34 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest34 value = 0 }
 	}
@@ -5125,6 +5560,17 @@ bag_wtp_plan_harvest_34 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng34 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt34 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr34 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5227,6 +5673,8 @@ bag_wtp_plan_harvest_35 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng35 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt35 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr35 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo35 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest35 value = 0 }
 	}
@@ -5251,6 +5699,17 @@ bag_wtp_plan_harvest_35 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng35 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt35 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr35 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5353,6 +5812,8 @@ bag_wtp_plan_harvest_36 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng36 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt36 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr36 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo36 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest36 value = 0 }
 	}
@@ -5377,6 +5838,17 @@ bag_wtp_plan_harvest_36 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng36 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt36 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr36 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5479,6 +5951,8 @@ bag_wtp_plan_harvest_37 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng37 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt37 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr37 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo37 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest37 value = 0 }
 	}
@@ -5503,6 +5977,17 @@ bag_wtp_plan_harvest_37 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng37 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt37 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr37 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5605,6 +6090,8 @@ bag_wtp_plan_harvest_38 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng38 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt38 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr38 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo38 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest38 value = 0 }
 	}
@@ -5629,6 +6116,17 @@ bag_wtp_plan_harvest_38 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng38 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt38 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr38 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5731,6 +6229,8 @@ bag_wtp_plan_harvest_39 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng39 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt39 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr39 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo39 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest39 value = 0 }
 	}
@@ -5755,6 +6255,17 @@ bag_wtp_plan_harvest_39 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng39 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt39 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr39 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5857,6 +6368,8 @@ bag_wtp_plan_harvest_40 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng40 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt40 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr40 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo40 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest40 value = 0 }
 	}
@@ -5881,6 +6394,17 @@ bag_wtp_plan_harvest_40 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng40 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt40 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr40 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -5983,6 +6507,8 @@ bag_wtp_plan_harvest_41 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng41 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt41 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr41 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo41 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest41 value = 0 }
 	}
@@ -6007,6 +6533,17 @@ bag_wtp_plan_harvest_41 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng41 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt41 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr41 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -6109,6 +6646,8 @@ bag_wtp_plan_harvest_42 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng42 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt42 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr42 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo42 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest42 value = 0 }
 	}
@@ -6133,6 +6672,17 @@ bag_wtp_plan_harvest_42 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng42 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt42 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr42 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -6235,6 +6785,8 @@ bag_wtp_plan_harvest_43 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng43 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt43 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr43 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo43 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest43 value = 0 }
 	}
@@ -6259,6 +6811,17 @@ bag_wtp_plan_harvest_43 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng43 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt43 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr43 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -6361,6 +6924,8 @@ bag_wtp_plan_harvest_44 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng44 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt44 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr44 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo44 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest44 value = 0 }
 	}
@@ -6385,6 +6950,17 @@ bag_wtp_plan_harvest_44 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng44 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt44 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr44 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -6487,6 +7063,8 @@ bag_wtp_plan_harvest_45 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng45 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt45 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr45 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo45 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest45 value = 0 }
 	}
@@ -6511,6 +7089,17 @@ bag_wtp_plan_harvest_45 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng45 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt45 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr45 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -6613,6 +7202,8 @@ bag_wtp_plan_harvest_46 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng46 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt46 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr46 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo46 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest46 value = 0 }
 	}
@@ -6637,6 +7228,17 @@ bag_wtp_plan_harvest_46 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng46 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt46 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr46 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -6739,6 +7341,8 @@ bag_wtp_plan_harvest_47 = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_ext } }
 		set_global_variable = { name = bag_wtp_ng47 value = 0 }
+		set_global_variable = { name = bag_wtp_ngt47 value = 0 }
+		set_global_variable = { name = bag_wtp_ngr47 value = 0 }
 		set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
 		set_global_variable = { name = bag_wtp_pbest47 value = 0 }
 	}
@@ -6763,6 +7367,17 @@ bag_wtp_plan_harvest_47 = {
 			}
 		}
 		change_global_variable = { name = bag_wtp_ng47 add = 1 }
+		# **И на какой стороне — раздельно.** Комнаты города и села не
+		# смешиваются: товар, который умеет только в городе, не может взять
+		# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+		# котлом, обещает ему то, чего земля не имеет.
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_ngt47 add = 1 }
+		}
+		else = {
+			change_global_variable = { name = bag_wtp_ngr47 add = 1 }
+		}
 		# **And the best this ground ever pays this good**, which is what the open
 		# ladder deals the leftovers by. Taken on the side the location actually is,
 		# inside the walk that was happening anyway: one comparison a candidate and
@@ -20988,151 +21603,1346 @@ bag_wtp_plan_grant_pass = {
 # goods than rooms. The RGO discount comes off the same number, one for one.
 # Scope: country
 bag_wtp_plan_set_quota = {
-	set_global_variable = { name = bag_wtp_plan_quota value = global_var:bag_wtp_plan_rooms }
+	set_global_variable = { name = bag_wtp_qgt value = 0 }
+	set_global_variable = { name = bag_wtp_qgr value = 0 }
+	set_global_variable = { name = bag_wtp_qgb value = 0 }
+	# Создаётся здесь, а читается ниже под условием: глобалка, которой нет,
+	# читается ложью молча — правило этого мода, оплаченное не раз.
+	set_global_variable = { name = bag_wtp_qleft value = 0 }
 	if = {
-		limit = { global_var:bag_wtp_plan_scored > 0 }
-		change_global_variable = { name = bag_wtp_plan_quota divide = bag_wtp_plan_scored_value }
+		limit = { global_var:bag_wtp_ngt1 > 0 global_var:bag_wtp_ngr1 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr1 > 0 global_var:bag_wtp_ngt1 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt1 > 0 global_var:bag_wtp_ngr1 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt2 > 0 global_var:bag_wtp_ngr2 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr2 > 0 global_var:bag_wtp_ngt2 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt2 > 0 global_var:bag_wtp_ngr2 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt3 > 0 global_var:bag_wtp_ngr3 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr3 > 0 global_var:bag_wtp_ngt3 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt3 > 0 global_var:bag_wtp_ngr3 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt4 > 0 global_var:bag_wtp_ngr4 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr4 > 0 global_var:bag_wtp_ngt4 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt4 > 0 global_var:bag_wtp_ngr4 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt5 > 0 global_var:bag_wtp_ngr5 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr5 > 0 global_var:bag_wtp_ngt5 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt5 > 0 global_var:bag_wtp_ngr5 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt6 > 0 global_var:bag_wtp_ngr6 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr6 > 0 global_var:bag_wtp_ngt6 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt6 > 0 global_var:bag_wtp_ngr6 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt7 > 0 global_var:bag_wtp_ngr7 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr7 > 0 global_var:bag_wtp_ngt7 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt7 > 0 global_var:bag_wtp_ngr7 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt8 > 0 global_var:bag_wtp_ngr8 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr8 > 0 global_var:bag_wtp_ngt8 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt8 > 0 global_var:bag_wtp_ngr8 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt9 > 0 global_var:bag_wtp_ngr9 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr9 > 0 global_var:bag_wtp_ngt9 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt9 > 0 global_var:bag_wtp_ngr9 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt10 > 0 global_var:bag_wtp_ngr10 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr10 > 0 global_var:bag_wtp_ngt10 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt10 > 0 global_var:bag_wtp_ngr10 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt11 > 0 global_var:bag_wtp_ngr11 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr11 > 0 global_var:bag_wtp_ngt11 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt11 > 0 global_var:bag_wtp_ngr11 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt12 > 0 global_var:bag_wtp_ngr12 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr12 > 0 global_var:bag_wtp_ngt12 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt12 > 0 global_var:bag_wtp_ngr12 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt13 > 0 global_var:bag_wtp_ngr13 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr13 > 0 global_var:bag_wtp_ngt13 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt13 > 0 global_var:bag_wtp_ngr13 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt14 > 0 global_var:bag_wtp_ngr14 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr14 > 0 global_var:bag_wtp_ngt14 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt14 > 0 global_var:bag_wtp_ngr14 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt15 > 0 global_var:bag_wtp_ngr15 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr15 > 0 global_var:bag_wtp_ngt15 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt15 > 0 global_var:bag_wtp_ngr15 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt16 > 0 global_var:bag_wtp_ngr16 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr16 > 0 global_var:bag_wtp_ngt16 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt16 > 0 global_var:bag_wtp_ngr16 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt17 > 0 global_var:bag_wtp_ngr17 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr17 > 0 global_var:bag_wtp_ngt17 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt17 > 0 global_var:bag_wtp_ngr17 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt18 > 0 global_var:bag_wtp_ngr18 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr18 > 0 global_var:bag_wtp_ngt18 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt18 > 0 global_var:bag_wtp_ngr18 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt19 > 0 global_var:bag_wtp_ngr19 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr19 > 0 global_var:bag_wtp_ngt19 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt19 > 0 global_var:bag_wtp_ngr19 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt20 > 0 global_var:bag_wtp_ngr20 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr20 > 0 global_var:bag_wtp_ngt20 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt20 > 0 global_var:bag_wtp_ngr20 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt21 > 0 global_var:bag_wtp_ngr21 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr21 > 0 global_var:bag_wtp_ngt21 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt21 > 0 global_var:bag_wtp_ngr21 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt22 > 0 global_var:bag_wtp_ngr22 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr22 > 0 global_var:bag_wtp_ngt22 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt22 > 0 global_var:bag_wtp_ngr22 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt23 > 0 global_var:bag_wtp_ngr23 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr23 > 0 global_var:bag_wtp_ngt23 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt23 > 0 global_var:bag_wtp_ngr23 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt24 > 0 global_var:bag_wtp_ngr24 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr24 > 0 global_var:bag_wtp_ngt24 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt24 > 0 global_var:bag_wtp_ngr24 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt25 > 0 global_var:bag_wtp_ngr25 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr25 > 0 global_var:bag_wtp_ngt25 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt25 > 0 global_var:bag_wtp_ngr25 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt26 > 0 global_var:bag_wtp_ngr26 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr26 > 0 global_var:bag_wtp_ngt26 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt26 > 0 global_var:bag_wtp_ngr26 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt27 > 0 global_var:bag_wtp_ngr27 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr27 > 0 global_var:bag_wtp_ngt27 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt27 > 0 global_var:bag_wtp_ngr27 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt28 > 0 global_var:bag_wtp_ngr28 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr28 > 0 global_var:bag_wtp_ngt28 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt28 > 0 global_var:bag_wtp_ngr28 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt29 > 0 global_var:bag_wtp_ngr29 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr29 > 0 global_var:bag_wtp_ngt29 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt29 > 0 global_var:bag_wtp_ngr29 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt30 > 0 global_var:bag_wtp_ngr30 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr30 > 0 global_var:bag_wtp_ngt30 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt30 > 0 global_var:bag_wtp_ngr30 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt31 > 0 global_var:bag_wtp_ngr31 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr31 > 0 global_var:bag_wtp_ngt31 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt31 > 0 global_var:bag_wtp_ngr31 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt32 > 0 global_var:bag_wtp_ngr32 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr32 > 0 global_var:bag_wtp_ngt32 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt32 > 0 global_var:bag_wtp_ngr32 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt33 > 0 global_var:bag_wtp_ngr33 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr33 > 0 global_var:bag_wtp_ngt33 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt33 > 0 global_var:bag_wtp_ngr33 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt34 > 0 global_var:bag_wtp_ngr34 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr34 > 0 global_var:bag_wtp_ngt34 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt34 > 0 global_var:bag_wtp_ngr34 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt35 > 0 global_var:bag_wtp_ngr35 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr35 > 0 global_var:bag_wtp_ngt35 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt35 > 0 global_var:bag_wtp_ngr35 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt36 > 0 global_var:bag_wtp_ngr36 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr36 > 0 global_var:bag_wtp_ngt36 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt36 > 0 global_var:bag_wtp_ngr36 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt37 > 0 global_var:bag_wtp_ngr37 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr37 > 0 global_var:bag_wtp_ngt37 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt37 > 0 global_var:bag_wtp_ngr37 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt38 > 0 global_var:bag_wtp_ngr38 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr38 > 0 global_var:bag_wtp_ngt38 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt38 > 0 global_var:bag_wtp_ngr38 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt39 > 0 global_var:bag_wtp_ngr39 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr39 > 0 global_var:bag_wtp_ngt39 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt39 > 0 global_var:bag_wtp_ngr39 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt40 > 0 global_var:bag_wtp_ngr40 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr40 > 0 global_var:bag_wtp_ngt40 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt40 > 0 global_var:bag_wtp_ngr40 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt41 > 0 global_var:bag_wtp_ngr41 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr41 > 0 global_var:bag_wtp_ngt41 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt41 > 0 global_var:bag_wtp_ngr41 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt42 > 0 global_var:bag_wtp_ngr42 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr42 > 0 global_var:bag_wtp_ngt42 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt42 > 0 global_var:bag_wtp_ngr42 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt43 > 0 global_var:bag_wtp_ngr43 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr43 > 0 global_var:bag_wtp_ngt43 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt43 > 0 global_var:bag_wtp_ngr43 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt44 > 0 global_var:bag_wtp_ngr44 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr44 > 0 global_var:bag_wtp_ngt44 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt44 > 0 global_var:bag_wtp_ngr44 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt45 > 0 global_var:bag_wtp_ngr45 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr45 > 0 global_var:bag_wtp_ngt45 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt45 > 0 global_var:bag_wtp_ngr45 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt46 > 0 global_var:bag_wtp_ngr46 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr46 > 0 global_var:bag_wtp_ngt46 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt46 > 0 global_var:bag_wtp_ngr46 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_ngt47 > 0 global_var:bag_wtp_ngr47 = 0 }
+		change_global_variable = { name = bag_wtp_qgt add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngr47 > 0 global_var:bag_wtp_ngt47 = 0 }
+		change_global_variable = { name = bag_wtp_qgr add = 1 }
+	}
+	else_if = {
+		limit = { global_var:bag_wtp_ngt47 > 0 global_var:bag_wtp_ngr47 > 0 }
+		change_global_variable = { name = bag_wtp_qgb add = 1 }
+	}
+	set_global_variable = { name = bag_wtp_qgn value = global_var:bag_wtp_qgt }
+	change_global_variable = { name = bag_wtp_qgn add = global_var:bag_wtp_qgr }
+	change_global_variable = { name = bag_wtp_qgn add = global_var:bag_wtp_qgb }
+
+	# Три потолка. Каждый — «сколько получит каждый, если раздать эти комнаты
+	# тем, кто на них претендует».
+	set_global_variable = { name = bag_wtp_qla value = global_var:bag_wtp_plan_rooms }
+	if = {
+		limit = { global_var:bag_wtp_qgn > 0 }
+		change_global_variable = { name = bag_wtp_qla divide = bag_wtp_qgn_value }
+	}
+	set_global_variable = { name = bag_wtp_qlt value = global_var:bag_wtp_qla }
+	if = {
+		limit = { global_var:bag_wtp_qgt > 0 }
+		set_global_variable = { name = bag_wtp_qlt value = global_var:bag_wtp_prooms_t }
+		change_global_variable = { name = bag_wtp_qlt divide = bag_wtp_qgt_value }
+	}
+	set_global_variable = { name = bag_wtp_qlr value = global_var:bag_wtp_qla }
+	if = {
+		limit = { global_var:bag_wtp_qgr > 0 }
+		set_global_variable = { name = bag_wtp_qlr value = global_var:bag_wtp_prooms_r }
+		change_global_variable = { name = bag_wtp_qlr divide = bag_wtp_qgr_value }
+	}
+
+	# Меньший из трёх — уровень, до которого все дотягиваются разом. Кто его
+	# задал, тот и насыщен: его комнаты кончились первыми.
+	set_global_variable = { name = bag_wtp_qbind value = 0 }
+	set_global_variable = { name = bag_wtp_plan_quota value = global_var:bag_wtp_qla }
+	if = {
+		limit = { global_var:bag_wtp_qgt > 0 global_var:bag_wtp_qlt < global_var:bag_wtp_plan_quota }
+		set_global_variable = { name = bag_wtp_plan_quota value = global_var:bag_wtp_qlt }
+		set_global_variable = { name = bag_wtp_qbind value = 1 }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qgr > 0 global_var:bag_wtp_qlr < global_var:bag_wtp_plan_quota }
+		set_global_variable = { name = bag_wtp_plan_quota value = global_var:bag_wtp_qlr }
+		set_global_variable = { name = bag_wtp_qbind value = 2 }
 	}
 	change_global_variable = { name = bag_wtp_plan_quota max = 1 }
-	set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
+
+	# **Насыщенный класс упёрся — остальным достаётся то, что он не смог взять.**
+	# Без этого шага земля, бедная городами, опускала бы долю всем: 13 городов на
+	# 15 «только городских» товаров дают 3.47, и село с его 264 комнатами
+	# осталось бы делиться по 3.47 вместо 11.
+	set_global_variable = { name = bag_wtp_qrest value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_qspent value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 }
+		set_global_variable = { name = bag_wtp_qspent value = global_var:bag_wtp_plan_quota }
+		change_global_variable = { name = bag_wtp_qspent multiply = bag_wtp_qgt_value }
+		set_global_variable = { name = bag_wtp_qleft value = global_var:bag_wtp_qgr }
+		change_global_variable = { name = bag_wtp_qleft add = global_var:bag_wtp_qgb }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 }
+		set_global_variable = { name = bag_wtp_qspent value = global_var:bag_wtp_plan_quota }
+		change_global_variable = { name = bag_wtp_qspent multiply = bag_wtp_qgr_value }
+		set_global_variable = { name = bag_wtp_qleft value = global_var:bag_wtp_qgt }
+		change_global_variable = { name = bag_wtp_qleft add = global_var:bag_wtp_qgb }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind > 0 global_var:bag_wtp_qleft > 0 }
+		set_global_variable = { name = bag_wtp_qrest value = global_var:bag_wtp_plan_rooms }
+		change_global_variable = { name = bag_wtp_qrest subtract = global_var:bag_wtp_qspent }
+		change_global_variable = { name = bag_wtp_qrest divide = bag_wtp_qleft_value }
+	}
+	change_global_variable = { name = bag_wtp_qrest max = 1 }
+	set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt1 > 0 global_var:bag_wtp_ngr1 = 0 }
+		set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr1 > 0 global_var:bag_wtp_ngt1 = 0 }
+		set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq1 subtract = global_var:bag_wtp_nrgo1 }
 	change_global_variable = { name = bag_wtp_pq1 max = 1 }
-	set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt2 > 0 global_var:bag_wtp_ngr2 = 0 }
+		set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr2 > 0 global_var:bag_wtp_ngt2 = 0 }
+		set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq2 subtract = global_var:bag_wtp_nrgo2 }
 	change_global_variable = { name = bag_wtp_pq2 max = 1 }
-	set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt3 > 0 global_var:bag_wtp_ngr3 = 0 }
+		set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr3 > 0 global_var:bag_wtp_ngt3 = 0 }
+		set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq3 subtract = global_var:bag_wtp_nrgo3 }
 	change_global_variable = { name = bag_wtp_pq3 max = 1 }
-	set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt4 > 0 global_var:bag_wtp_ngr4 = 0 }
+		set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr4 > 0 global_var:bag_wtp_ngt4 = 0 }
+		set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq4 subtract = global_var:bag_wtp_nrgo4 }
 	change_global_variable = { name = bag_wtp_pq4 max = 1 }
-	set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt5 > 0 global_var:bag_wtp_ngr5 = 0 }
+		set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr5 > 0 global_var:bag_wtp_ngt5 = 0 }
+		set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq5 subtract = global_var:bag_wtp_nrgo5 }
 	change_global_variable = { name = bag_wtp_pq5 max = 1 }
-	set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt6 > 0 global_var:bag_wtp_ngr6 = 0 }
+		set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr6 > 0 global_var:bag_wtp_ngt6 = 0 }
+		set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq6 subtract = global_var:bag_wtp_nrgo6 }
 	change_global_variable = { name = bag_wtp_pq6 max = 1 }
-	set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt7 > 0 global_var:bag_wtp_ngr7 = 0 }
+		set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr7 > 0 global_var:bag_wtp_ngt7 = 0 }
+		set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq7 subtract = global_var:bag_wtp_nrgo7 }
 	change_global_variable = { name = bag_wtp_pq7 max = 1 }
-	set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt8 > 0 global_var:bag_wtp_ngr8 = 0 }
+		set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr8 > 0 global_var:bag_wtp_ngt8 = 0 }
+		set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq8 subtract = global_var:bag_wtp_nrgo8 }
 	change_global_variable = { name = bag_wtp_pq8 max = 1 }
-	set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt9 > 0 global_var:bag_wtp_ngr9 = 0 }
+		set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr9 > 0 global_var:bag_wtp_ngt9 = 0 }
+		set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq9 subtract = global_var:bag_wtp_nrgo9 }
 	change_global_variable = { name = bag_wtp_pq9 max = 1 }
-	set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt10 > 0 global_var:bag_wtp_ngr10 = 0 }
+		set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr10 > 0 global_var:bag_wtp_ngt10 = 0 }
+		set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq10 subtract = global_var:bag_wtp_nrgo10 }
 	change_global_variable = { name = bag_wtp_pq10 max = 1 }
-	set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt11 > 0 global_var:bag_wtp_ngr11 = 0 }
+		set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr11 > 0 global_var:bag_wtp_ngt11 = 0 }
+		set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq11 subtract = global_var:bag_wtp_nrgo11 }
 	change_global_variable = { name = bag_wtp_pq11 max = 1 }
-	set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt12 > 0 global_var:bag_wtp_ngr12 = 0 }
+		set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr12 > 0 global_var:bag_wtp_ngt12 = 0 }
+		set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq12 subtract = global_var:bag_wtp_nrgo12 }
 	change_global_variable = { name = bag_wtp_pq12 max = 1 }
-	set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt13 > 0 global_var:bag_wtp_ngr13 = 0 }
+		set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr13 > 0 global_var:bag_wtp_ngt13 = 0 }
+		set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq13 subtract = global_var:bag_wtp_nrgo13 }
 	change_global_variable = { name = bag_wtp_pq13 max = 1 }
-	set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt14 > 0 global_var:bag_wtp_ngr14 = 0 }
+		set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr14 > 0 global_var:bag_wtp_ngt14 = 0 }
+		set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq14 subtract = global_var:bag_wtp_nrgo14 }
 	change_global_variable = { name = bag_wtp_pq14 max = 1 }
-	set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt15 > 0 global_var:bag_wtp_ngr15 = 0 }
+		set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr15 > 0 global_var:bag_wtp_ngt15 = 0 }
+		set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq15 subtract = global_var:bag_wtp_nrgo15 }
 	change_global_variable = { name = bag_wtp_pq15 max = 1 }
-	set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt16 > 0 global_var:bag_wtp_ngr16 = 0 }
+		set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr16 > 0 global_var:bag_wtp_ngt16 = 0 }
+		set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq16 subtract = global_var:bag_wtp_nrgo16 }
 	change_global_variable = { name = bag_wtp_pq16 max = 1 }
-	set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt17 > 0 global_var:bag_wtp_ngr17 = 0 }
+		set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr17 > 0 global_var:bag_wtp_ngt17 = 0 }
+		set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq17 subtract = global_var:bag_wtp_nrgo17 }
 	change_global_variable = { name = bag_wtp_pq17 max = 1 }
-	set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt18 > 0 global_var:bag_wtp_ngr18 = 0 }
+		set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr18 > 0 global_var:bag_wtp_ngt18 = 0 }
+		set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq18 subtract = global_var:bag_wtp_nrgo18 }
 	change_global_variable = { name = bag_wtp_pq18 max = 1 }
-	set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt19 > 0 global_var:bag_wtp_ngr19 = 0 }
+		set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr19 > 0 global_var:bag_wtp_ngt19 = 0 }
+		set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq19 subtract = global_var:bag_wtp_nrgo19 }
 	change_global_variable = { name = bag_wtp_pq19 max = 1 }
-	set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt20 > 0 global_var:bag_wtp_ngr20 = 0 }
+		set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr20 > 0 global_var:bag_wtp_ngt20 = 0 }
+		set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq20 subtract = global_var:bag_wtp_nrgo20 }
 	change_global_variable = { name = bag_wtp_pq20 max = 1 }
-	set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt21 > 0 global_var:bag_wtp_ngr21 = 0 }
+		set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr21 > 0 global_var:bag_wtp_ngt21 = 0 }
+		set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq21 subtract = global_var:bag_wtp_nrgo21 }
 	change_global_variable = { name = bag_wtp_pq21 max = 1 }
-	set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt22 > 0 global_var:bag_wtp_ngr22 = 0 }
+		set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr22 > 0 global_var:bag_wtp_ngt22 = 0 }
+		set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq22 subtract = global_var:bag_wtp_nrgo22 }
 	change_global_variable = { name = bag_wtp_pq22 max = 1 }
-	set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt23 > 0 global_var:bag_wtp_ngr23 = 0 }
+		set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr23 > 0 global_var:bag_wtp_ngt23 = 0 }
+		set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq23 subtract = global_var:bag_wtp_nrgo23 }
 	change_global_variable = { name = bag_wtp_pq23 max = 1 }
-	set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt24 > 0 global_var:bag_wtp_ngr24 = 0 }
+		set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr24 > 0 global_var:bag_wtp_ngt24 = 0 }
+		set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq24 subtract = global_var:bag_wtp_nrgo24 }
 	change_global_variable = { name = bag_wtp_pq24 max = 1 }
-	set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt25 > 0 global_var:bag_wtp_ngr25 = 0 }
+		set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr25 > 0 global_var:bag_wtp_ngt25 = 0 }
+		set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq25 subtract = global_var:bag_wtp_nrgo25 }
 	change_global_variable = { name = bag_wtp_pq25 max = 1 }
-	set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt26 > 0 global_var:bag_wtp_ngr26 = 0 }
+		set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr26 > 0 global_var:bag_wtp_ngt26 = 0 }
+		set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq26 subtract = global_var:bag_wtp_nrgo26 }
 	change_global_variable = { name = bag_wtp_pq26 max = 1 }
-	set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt27 > 0 global_var:bag_wtp_ngr27 = 0 }
+		set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr27 > 0 global_var:bag_wtp_ngt27 = 0 }
+		set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq27 subtract = global_var:bag_wtp_nrgo27 }
 	change_global_variable = { name = bag_wtp_pq27 max = 1 }
-	set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt28 > 0 global_var:bag_wtp_ngr28 = 0 }
+		set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr28 > 0 global_var:bag_wtp_ngt28 = 0 }
+		set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq28 subtract = global_var:bag_wtp_nrgo28 }
 	change_global_variable = { name = bag_wtp_pq28 max = 1 }
-	set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt29 > 0 global_var:bag_wtp_ngr29 = 0 }
+		set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr29 > 0 global_var:bag_wtp_ngt29 = 0 }
+		set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq29 subtract = global_var:bag_wtp_nrgo29 }
 	change_global_variable = { name = bag_wtp_pq29 max = 1 }
-	set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt30 > 0 global_var:bag_wtp_ngr30 = 0 }
+		set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr30 > 0 global_var:bag_wtp_ngt30 = 0 }
+		set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq30 subtract = global_var:bag_wtp_nrgo30 }
 	change_global_variable = { name = bag_wtp_pq30 max = 1 }
-	set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt31 > 0 global_var:bag_wtp_ngr31 = 0 }
+		set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr31 > 0 global_var:bag_wtp_ngt31 = 0 }
+		set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq31 subtract = global_var:bag_wtp_nrgo31 }
 	change_global_variable = { name = bag_wtp_pq31 max = 1 }
-	set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt32 > 0 global_var:bag_wtp_ngr32 = 0 }
+		set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr32 > 0 global_var:bag_wtp_ngt32 = 0 }
+		set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq32 subtract = global_var:bag_wtp_nrgo32 }
 	change_global_variable = { name = bag_wtp_pq32 max = 1 }
-	set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt33 > 0 global_var:bag_wtp_ngr33 = 0 }
+		set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr33 > 0 global_var:bag_wtp_ngt33 = 0 }
+		set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq33 subtract = global_var:bag_wtp_nrgo33 }
 	change_global_variable = { name = bag_wtp_pq33 max = 1 }
-	set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt34 > 0 global_var:bag_wtp_ngr34 = 0 }
+		set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr34 > 0 global_var:bag_wtp_ngt34 = 0 }
+		set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq34 subtract = global_var:bag_wtp_nrgo34 }
 	change_global_variable = { name = bag_wtp_pq34 max = 1 }
-	set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt35 > 0 global_var:bag_wtp_ngr35 = 0 }
+		set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr35 > 0 global_var:bag_wtp_ngt35 = 0 }
+		set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq35 subtract = global_var:bag_wtp_nrgo35 }
 	change_global_variable = { name = bag_wtp_pq35 max = 1 }
-	set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt36 > 0 global_var:bag_wtp_ngr36 = 0 }
+		set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr36 > 0 global_var:bag_wtp_ngt36 = 0 }
+		set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq36 subtract = global_var:bag_wtp_nrgo36 }
 	change_global_variable = { name = bag_wtp_pq36 max = 1 }
-	set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt37 > 0 global_var:bag_wtp_ngr37 = 0 }
+		set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr37 > 0 global_var:bag_wtp_ngt37 = 0 }
+		set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq37 subtract = global_var:bag_wtp_nrgo37 }
 	change_global_variable = { name = bag_wtp_pq37 max = 1 }
-	set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt38 > 0 global_var:bag_wtp_ngr38 = 0 }
+		set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr38 > 0 global_var:bag_wtp_ngt38 = 0 }
+		set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq38 subtract = global_var:bag_wtp_nrgo38 }
 	change_global_variable = { name = bag_wtp_pq38 max = 1 }
-	set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt39 > 0 global_var:bag_wtp_ngr39 = 0 }
+		set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr39 > 0 global_var:bag_wtp_ngt39 = 0 }
+		set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq39 subtract = global_var:bag_wtp_nrgo39 }
 	change_global_variable = { name = bag_wtp_pq39 max = 1 }
-	set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt40 > 0 global_var:bag_wtp_ngr40 = 0 }
+		set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr40 > 0 global_var:bag_wtp_ngt40 = 0 }
+		set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq40 subtract = global_var:bag_wtp_nrgo40 }
 	change_global_variable = { name = bag_wtp_pq40 max = 1 }
-	set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt41 > 0 global_var:bag_wtp_ngr41 = 0 }
+		set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr41 > 0 global_var:bag_wtp_ngt41 = 0 }
+		set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq41 subtract = global_var:bag_wtp_nrgo41 }
 	change_global_variable = { name = bag_wtp_pq41 max = 1 }
-	set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt42 > 0 global_var:bag_wtp_ngr42 = 0 }
+		set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr42 > 0 global_var:bag_wtp_ngt42 = 0 }
+		set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq42 subtract = global_var:bag_wtp_nrgo42 }
 	change_global_variable = { name = bag_wtp_pq42 max = 1 }
-	set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt43 > 0 global_var:bag_wtp_ngr43 = 0 }
+		set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr43 > 0 global_var:bag_wtp_ngt43 = 0 }
+		set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq43 subtract = global_var:bag_wtp_nrgo43 }
 	change_global_variable = { name = bag_wtp_pq43 max = 1 }
-	set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt44 > 0 global_var:bag_wtp_ngr44 = 0 }
+		set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr44 > 0 global_var:bag_wtp_ngt44 = 0 }
+		set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq44 subtract = global_var:bag_wtp_nrgo44 }
 	change_global_variable = { name = bag_wtp_pq44 max = 1 }
-	set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt45 > 0 global_var:bag_wtp_ngr45 = 0 }
+		set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr45 > 0 global_var:bag_wtp_ngt45 = 0 }
+		set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq45 subtract = global_var:bag_wtp_nrgo45 }
 	change_global_variable = { name = bag_wtp_pq45 max = 1 }
-	set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt46 > 0 global_var:bag_wtp_ngr46 = 0 }
+		set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr46 > 0 global_var:bag_wtp_ngt46 = 0 }
+		set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq46 subtract = global_var:bag_wtp_nrgo46 }
 	change_global_variable = { name = bag_wtp_pq46 max = 1 }
-	set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_qrest }
+	if = {
+		limit = { global_var:bag_wtp_qbind = 0 }
+		set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 1 global_var:bag_wtp_ngt47 > 0 global_var:bag_wtp_ngr47 = 0 }
+		set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
+	}
+	if = {
+		limit = { global_var:bag_wtp_qbind = 2 global_var:bag_wtp_ngr47 > 0 global_var:bag_wtp_ngt47 = 0 }
+		set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
+	}
 	change_global_variable = { name = bag_wtp_pq47 subtract = global_var:bag_wtp_nrgo47 }
 	change_global_variable = { name = bag_wtp_pq47 max = 1 }
 }

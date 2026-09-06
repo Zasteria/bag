@@ -1542,6 +1542,15 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_ext_added = {{ value = global_var:{MOD_ID}_ext_added }}
 {MOD_ID}_show_ext_moved = {{ value = global_var:{MOD_ID}_ext_moved }}
 {MOD_ID}_show_ext_lifted = {{ value = global_var:{MOD_ID}_ext_lifted }}
+# **Делители трёхклассовой доли.** Скрипт делит только на script value, а не
+# на глобалку напрямую — отсюда эти четыре.
+{MOD_ID}_qgt_value = {{ value = global_var:{MOD_ID}_qgt }}
+{MOD_ID}_qgr_value = {{ value = global_var:{MOD_ID}_qgr }}
+{MOD_ID}_qgn_value = {{ value = global_var:{MOD_ID}_qgn }}
+{MOD_ID}_qleft_value = {{ value = global_var:{MOD_ID}_qleft }}
+{MOD_ID}_show_prooms_t = {{ value = global_var:{MOD_ID}_prooms_t }}
+{MOD_ID}_show_prooms_r = {{ value = global_var:{MOD_ID}_prooms_r }}
+{MOD_ID}_show_qrest = {{ value = global_var:{MOD_ID}_qrest }}
 {MOD_ID}_show_plan_scored = {{ value = global_var:{MOD_ID}_plan_scored }}
 {MOD_ID}_show_plan_placed = {{ value = global_var:{MOD_ID}_plan_placed }}
 {MOD_ID}_show_plan_found = {{ value = global_var:{MOD_ID}_plan_found }}
@@ -2487,6 +2496,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_from value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_to value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_rooms value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_prooms_t value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_prooms_r value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_towns value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_rightn value = 0 }}
@@ -2571,11 +2582,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 \t\t\tset_variable = {{ name = {MOD_ID}_plan_town_row value = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_t add = {MOD_ID}_show_plan_cap_urban }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
 \t\t}}
 \t\telse = {{
 \t\t\tremove_variable = {MOD_ID}_plan_town_row
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_r add = {MOD_ID}_show_plan_cap_rural }}
 \t\t}}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_plan_seen }} }}
@@ -2689,6 +2702,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_ext }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_ng{index} value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ngt{index} value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ngr{index} value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}
 \t}}
@@ -2713,6 +2728,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t}}
 \t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_ng{index} add = 1 }}
+\t\t# **И на какой стороне — раздельно.** Комнаты города и села не
+\t\t# смешиваются: товар, который умеет только в городе, не может взять
+\t\t# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
+\t\t# котлом, обещает ему то, чего земля не имеет.
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ngt{index} add = 1 }}
+\t\t}}
+\t\telse = {{
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ngr{index} add = 1 }}
+\t\t}}
 \t\t# **And the best this ground ever pays this good**, which is what the open
 \t\t# ladder deals the leftovers by. Taken on the side the location actually is,
 \t\t# inside the walk that was happening anyway: one comparison a candidate and
@@ -3190,12 +3216,42 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # calls this between `_plan_place_rights` and `_plan_allocate`, and nothing
     # else in the plan writes it -- so the allocator's own `_pn<n> < _pq<n>` is
     # what charges the charters to the share, with no second subtraction here.
+    # Три класса товара, посчитанные по тем же `_ngt`/`_ngr`, что и всё
+    # остальное: только город, только село, где угодно.
+    classes = "".join(
+        f"""\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ngt{index} > 0 global_var:{MOD_ID}_ngr{index} = 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qgt add = 1 }}
+\t}}
+\telse_if = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ngr{index} > 0 global_var:{MOD_ID}_ngt{index} = 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qgr add = 1 }}
+\t}}
+\telse_if = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ngt{index} > 0 global_var:{MOD_ID}_ngr{index} > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qgb add = 1 }}
+\t}}
+"""
+        for index in range(1, len(order) + 1))
+    # Доля товара — уровень его класса, дальше как раньше: минус РГО, пол 1.
     quota_lines = "".join(
-        f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+        f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_qrest }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qbind = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qbind = 1 global_var:{MOD_ID}_ngt{index} > 0 global_var:{MOD_ID}_ngr{index} = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qbind = 2 global_var:{MOD_ID}_ngr{index} > 0 global_var:{MOD_ID}_ngt{index} = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+\t}}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 """
-        for index, good in enumerate(order, start=1))
+        for index in range(1, len(order) + 1))
     out.append(f"""
 # How many buildings each good may claim before the ground is opened to all.
 #
@@ -3211,12 +3267,79 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # goods than rooms. The RGO discount comes off the same number, one for one.
 # Scope: country
 {MOD_ID}_plan_set_quota = {{
-\tset_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_plan_rooms }}
+\tset_global_variable = {{ name = {MOD_ID}_qgt value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_qgr value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_qgb value = 0 }}
+\t# Создаётся здесь, а читается ниже под условием: глобалка, которой нет,
+\t# читается ложью молча — правило этого мода, оплаченное не раз.
+\tset_global_variable = {{ name = {MOD_ID}_qleft value = 0 }}
+{classes}\tset_global_variable = {{ name = {MOD_ID}_qgn value = global_var:{MOD_ID}_qgt }}
+\tchange_global_variable = {{ name = {MOD_ID}_qgn add = global_var:{MOD_ID}_qgr }}
+\tchange_global_variable = {{ name = {MOD_ID}_qgn add = global_var:{MOD_ID}_qgb }}
+
+\t# Три потолка. Каждый — «сколько получит каждый, если раздать эти комнаты
+\t# тем, кто на них претендует».
+\tset_global_variable = {{ name = {MOD_ID}_qla value = global_var:{MOD_ID}_plan_rooms }}
 \tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_plan_scored > 0 }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_plan_quota divide = {MOD_ID}_plan_scored_value }}
+\t\tlimit = {{ global_var:{MOD_ID}_qgn > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qla divide = {MOD_ID}_qgn_value }}
+\t}}
+\tset_global_variable = {{ name = {MOD_ID}_qlt value = global_var:{MOD_ID}_qla }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qgt > 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qlt value = global_var:{MOD_ID}_prooms_t }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qlt divide = {MOD_ID}_qgt_value }}
+\t}}
+\tset_global_variable = {{ name = {MOD_ID}_qlr value = global_var:{MOD_ID}_qla }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qgr > 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qlr value = global_var:{MOD_ID}_prooms_r }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qlr divide = {MOD_ID}_qgr_value }}
+\t}}
+
+\t# Меньший из трёх — уровень, до которого все дотягиваются разом. Кто его
+\t# задал, тот и насыщен: его комнаты кончились первыми.
+\tset_global_variable = {{ name = {MOD_ID}_qbind value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_qla }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qgt > 0 global_var:{MOD_ID}_qlt < global_var:{MOD_ID}_plan_quota }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_qlt }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qbind value = 1 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qgr > 0 global_var:{MOD_ID}_qlr < global_var:{MOD_ID}_plan_quota }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_qlr }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qbind value = 2 }}
 \t}}
 \tchange_global_variable = {{ name = {MOD_ID}_plan_quota max = 1 }}
+
+\t# **Насыщенный класс упёрся — остальным достаётся то, что он не смог взять.**
+\t# Без этого шага земля, бедная городами, опускала бы долю всем: 13 городов на
+\t# 15 «только городских» товаров дают 3.47, и село с его 264 комнатами
+\t# осталось бы делиться по 3.47 вместо 11.
+\tset_global_variable = {{ name = {MOD_ID}_qrest value = global_var:{MOD_ID}_plan_quota }}
+\tset_global_variable = {{ name = {MOD_ID}_qspent value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qbind = 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qspent value = global_var:{MOD_ID}_plan_quota }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qspent multiply = {MOD_ID}_qgt_value }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qleft value = global_var:{MOD_ID}_qgr }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qleft add = global_var:{MOD_ID}_qgb }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qbind = 2 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qspent value = global_var:{MOD_ID}_plan_quota }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qspent multiply = {MOD_ID}_qgr_value }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qleft value = global_var:{MOD_ID}_qgt }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qleft add = global_var:{MOD_ID}_qgb }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qbind > 0 global_var:{MOD_ID}_qleft > 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qrest value = global_var:{MOD_ID}_plan_rooms }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qrest subtract = global_var:{MOD_ID}_qspent }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qrest divide = {MOD_ID}_qleft_value }}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_qrest max = 1 }}
 {quota_lines}}}
 """)
 
@@ -6634,6 +6757,8 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_ext_recount = {{
 \tset_global_variable = {{ name = {MOD_ID}_plan_rooms value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_prooms_t value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_prooms_r value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_towns value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
 \tevery_in_global_list = {{
@@ -6641,10 +6766,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tif = {{
 \t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_t add = {MOD_ID}_show_plan_cap_urban }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
 \t\t}}
 \t\telse = {{
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_r add = {MOD_ID}_show_plan_cap_rural }}
 \t\t}}
 \t}}
 \tevery_in_global_list = {{
@@ -8052,6 +8179,25 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("EDIT share quota=%s free=%s pool_rooms=%s | rooms=%s "
                    "plan_quota=%s"
                    % tuple(read(i) for i in range(1, 6))))
+    # **Доля по трём классам товара, и это главная строка про равномерность.**
+    # Комнаты города и села не смешиваются, а товары бывают трёх видов: только
+    # город, только село, где угодно. Одна доля на общий котёл обещала городским
+    # товарам то, чего земля не имеет -- 13 городов на 15 «только городских»
+    # товаров дают 3.47, а формула говорила 8. `bind` называет, кто упёрся
+    # первым: 0 = никто, вся земля кончилась разом; 1 = городская сторона;
+    # 2 = сельская. `rest` -- уровень для всех остальных после насыщения.
+    for slot, source in enumerate((f"{MOD_ID}_prooms_t", f"{MOD_ID}_prooms_r",
+                                   f"{MOD_ID}_qgt", f"{MOD_ID}_qgr",
+                                   f"{MOD_ID}_qgb", f"{MOD_ID}_qbind",
+                                   f"{MOD_ID}_plan_quota", f"{MOD_ID}_qrest",
+                                   f"{MOD_ID}_qlt", f"{MOD_ID}_qlr",
+                                   f"{MOD_ID}_qla"), start=1):
+        out.append(park(slot, source))
+    out.append(say("SHARE rooms_town=%s rooms_village=%s | goods town_only=%s "
+                   "village_only=%s either=%s | ceilings town=%s village=%s "
+                   "all=%s -> bind=%s level=%s rest=%s"
+                   % (read(1), read(2), read(3), read(4), read(5),
+                      read(9), read(10), read(11), read(6), read(7), read(8))))
     # **Доливка новой земли, и `moved` -- единственное число здесь, у которого
     # есть неправильное значение.** Ноль значит, что на старой земле не сдвинулся
     # ни один домик, то есть замок сработал; всё остальное -- что доливка полезла

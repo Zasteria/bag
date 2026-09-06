@@ -39,22 +39,26 @@ large ground since the ladders were rebuilt — northern Germany's 233 locations
 Westphalia's 48 does not test it, and the extension re-scores and re-ranks, so it
 carries the same open question.
 
-### The live question: what is being made even — buildings or output
+### The share is three classes now, and it owes a run
 
-**Measured now, not estimated.** The `out=` probe ran: buildings 1…24, output
-3.5…99.5, a town building worth 10–13.7 against a village building's 0.84–3.7.
-Masonry with 20 buildings makes 27.5; cannon with 6 makes 80. **His instinct was
-right and the answer to «как находить это число» is that it is never chosen** —
-the share is a turn-taking rule, not a goal, and the ladder already discovers the
-level where the ground runs out. Change the currency, not the machine:
-**evenness decides who picks next (by output), the RGO gain decides where** —
-which is the split the allocator already has. Full derivation and the measured
-cost in [`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
+**He closed the output question himself, 2026-09-06**: output is not a constant
+(a level-4 brewery yields 4.0, a level-4 pottery 3.25), so evening it would build
+more of what pays less per building. «Довериться балансу разработчиков» — a
+building is a building. The `out=` probe stays; it decides nothing.
 
-**Not built, and deliberately.** Evening by output buys evenness with bonus, and
-by how much is unknown — so it belongs behind a switch, two presses of
-«Пересчитать» on one ground and both `GAIN` lines side by side. **Ask him before
-building it.**
+**Built instead: the share knows three classes of good** — town-only,
+village-only, either — and two kinds of room. Where one side saturates, its goods
+freeze at what that side allows and the rest share what is left. On his
+town-poor ground that is 3.47 for town-only goods and 11.5 for the rest, against
+8 for everyone before; on his town-rich ground nothing changes, which is the
+right signature. Derivation, numbers and the edge cases:
+[`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
+
+**Known and deliberate gap: `_edit_set_quota` still divides one pool.** The plan
+may now say a town-only good is owed 3 while the editor says 8, and «+1» would
+chase buildings the ground cannot give — silently. Same arithmetic with the
+pinned goods removed; not done in the same edit because the plan is function 3
+and the editor function 4.
 
 ### Then 7 and 8, in that order, and not before
 
