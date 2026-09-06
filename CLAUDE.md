@@ -57,6 +57,11 @@ for the reference tree and the rebuild loop,
   one, say so outright** — «проверять нечего» is an answer he can act on. Where
   one is owed, name the ground, the presses and what a right answer looks like;
   «протестируй» is not a check.
+- **Before touching any `.gui`, read
+  [`docs/pitfalls/windows.md`](docs/pitfalls/windows.md)** — one short checklist,
+  and every rule in it is one somebody has already paid for. Windows have cost
+  more of his sessions than anything else: «меня заебало решать проблему окон
+  чуть ли не через одну сессию», 2026-09-06.
 - **A CMM macro called with an argument CMF does not declare fails silently**
   and takes the rest of its effect with it. `python3 tools/check_cmm.py
   mods/<mod>/in_game/common` after touching any CMM call.
@@ -69,16 +74,12 @@ for the reference tree and the rebuild loop,
   line for GUI and script failures; an effect that never runs is invisible.
 - **A `building_type` filter receives `root` and nothing else**, whatever
   vanilla's comment says.
-- **A `customizable_localization` cannot be overridden.** First definition wins;
-  later ones are dropped with `gamedatabase.h: Duplicated key`. The way round
-  another mod's rule is to take over the localization key it prints.
-- **Square brackets in a localization value are data function syntax**, so a
-  plain `[debug]` renders as `ERROR:` — one key includes another as `$key$`.
-- **A CMF action bar element is drawn from localization**: `_icon` takes a
-  texticon like `@good!`, and `_color` must name one of CMF's palette entries or
-  the button is invisible in the bottom bars.
-- **Script and localization files carry a UTF-8 BOM**, and localization keys
-  take one leading space. He plays in Russian: a key missing there shows raw.
+- **Localization has its own checklist**,
+  [`docs/pitfalls/localization.md`](docs/pitfalls/localization.md): a
+  `customizable_localization` cannot be overridden, square brackets in a value
+  are data function syntax, a CMF action bar draws its `_icon` and `_color` from
+  localization. Script and localization files carry a UTF-8 BOM and keys take one
+  leading space; he plays in Russian, and a key missing there shows raw.
 
 ## Ask the game whether something exists
 

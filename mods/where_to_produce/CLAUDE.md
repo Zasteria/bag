@@ -57,12 +57,11 @@ flags a slot stores and restores; **`_edit_locked_<n>` is the charter's bundle,
 not the player's pin.**
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**The build stamp is on «Техническая»**, before believing a fix failed. **Every window rule this mod has paid for is in
-[`pitfalls/interface.md`](../../docs/pitfalls/interface.md)**, first among them
-**a box with room to spare divides it between its children** and **«шапка не
-растягивается» is the content spilling past the frame, measured not looked at**.
-`check_script.py` resolves every name a window or a string says **except a widget
-type**, and a row may use the box **minus** the margin.
+**The build stamp is on «Техническая»**, before believing a fix failed. **Before
+touching any `.gui`, the checklist is
+[`pitfalls/windows.md`](../../docs/pitfalls/windows.md)** — the window's own
+shape, the frame line, the row's usable width, what `check_script.py` resolves
+and what it cannot. Every rule in it this mod paid for, most of them twice.
 
 **Not to be attempted again**: eight, rejected
 ([`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md)). **The answer

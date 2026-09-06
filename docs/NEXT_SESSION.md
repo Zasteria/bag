@@ -4,80 +4,63 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `where_to_produce`, the plan editor
+## The job: `where_to_produce`, step 6 — new ground added to a finished plan
 
-**Read [`investigations/plan_gaps.md`](investigations/plan_gaps.md) first and
-nothing else.** The plan itself is finished and confirmed in game; the editor is
-what is live.
+**Read [`investigations/wtp_practice_plan.md`](investigations/wtp_practice_plan.md)
+for the order and what each step cost, and
+[`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md) for
+the rules it implements. `_plan_*` itself is
+[`investigations/plan_gaps.md`](investigations/plan_gaps.md). Nothing else.**
 
-### Where it stands, 2026-09-06
+### Steps 0–5 are closed, and every one of them was seen in the game
 
-**The plan works and he has seen it.** 192 buildings in 192 rooms on Westphalia,
-charters 5–6 each, goods 3–6 each. Nothing about the plan is owed except the
-relative open ladder, which does not engage on 48 locations and wants a large
-ground.
+The window, the share, the reshuffle, the menu, the RGOs, even eviction on «+1»,
+the press journal, provinces folded inside their areas, and charters that move
+rather than multiply — all confirmed by his runs of 2026-09-05 and 2026-09-06,
+each written up in the practice plan together with the faults it cost.
+**Three things outlive them:**
 
-**The editor works, end to end, confirmed 2026-09-04.** A press changes the
-plan, which is the one thing it existed for.
+- **The editor's state is the editor's.** A pin, a «не нужен», the share and the
+  star are read by `_edit_*` alone, and a fresh plan reads none of them.
+- **Windows have their own checklist** —
+  [`pitfalls/windows.md`](pitfalls/windows.md), read **before** touching any
+  `.gui`. Six builds went into one frame; the checklist is what came out, and
+  `check_script.py` now enforces three of its rules.
+- **The changes window is shelved at his own word** — «правок требует много,
+  функциональности несёт мало». Do not touch it until he asks.
 
-**And «+1» and «−1» are not each other's undo** — «+1» X displaces Y, «−1» X
-gives the room to Z, both correct alone and the round trip leaves two other
-goods moved. **The editor has no undo but loading a slot.** Reasoning in
-`TESTLOG.md`; what to do about it is the open design question.
+**Two things nobody has run and neither is owed a build:** the fold-by-default
+(a save carries its own value, so only a **new game** shows it), and the whole
+plan on a large ground since the ladders were rebuilt — northern Germany, 233
+locations; Westphalia's 48 does not test it.
 
-### The plan for the practical sessions
+### Step 6, the live one
 
-**[`investigations/wtp_practice_plan.md`](investigations/wtp_practice_plan.md)
-is the order, the files and what to ask him for.** Do not re-derive it. The
-rules each step implements are
-[`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md).
+**One rule covers all three of his examples** — the section is
+«Решение: новая земля» in
+[`wtp_editor_design.md`](investigations/wtp_editor_design.md): a lock freezes
+**what stands on ground X**, and the new rooms on ground Y fill to the new
+share. **A lock lifts when the share outgrows it** — iron pinned at 15 with the
+share at 5 goes to 20 once the bigger ground makes the share 20 — and that
+comparison runs **only when the ground changed**, not on every edit. A good has
+three states and no more: free (follows the share), pinned at N (holds N until
+the share passes N), «не нужен» (one building, always).
 
-0. **`tools/code.py`** — done 2026-09-04, no run needed.
-1, 2, 2а, 2в, 2д. **The window, the share, the reshuffle, the menu and the
-   RGOs** — **all closed and confirmed in game, 2026-09-05 and 2026-09-06.**
-   What survives them in the code: **pins, flags, the share and the star belong
-   to the editor window alone, and a fresh plan reads none of them**; the
-   editor's share subtracts the RGOs exactly as the plan's does; the buildings a
-   fill placed trade locations between themselves while a trade is worth
-   anything. **What the menu taught outlives the menu**: a box given more room
-   than its children need divides the difference between them, an `hbox` will not
-   hold a written width, and two different things must not share one column —
-   [`pitfalls/interface.md`](pitfalls/interface.md).
-3. **Even eviction on «+1»** — **closed 2026-09-06**: ten «+1» on one good
-   evicted ten *different* goods, each the most bloated. The victim is the good
-   furthest above its share, cheapest building only breaking ties.
-3а. **The press journal** — **confirmed 2026-09-06.** A diff cannot hold
-   chronology, so the mod writes `WTP PRESS …` into `debug.log` at press time and
-   `tools/diag.py` renders «Журнал нажатий».
-4. **Provinces fold in the two plan windows** — **confirmed 2026-09-06**, with
-   three fixes after it: provinces sort inside their areas (a walk inside a walk,
-   never a packed `order_by`), the fold is on by default, and
-   the extra `widget` between `window` and `vbox` came out of all five windows —
-   the header had never stretched, he had said so three times, and the shape is
-   copied from `ai_settings_menu.gui` rather than guessed at. **Charter cells are
-   written per *place*, not per charter** (`_rslot<p>`), so an unavailable charter
-   leaves no hole.
-5. **Charters in the editor** — **closed 2026-09-06.** A charter is not a
-   building: every town holds exactly one, so a press is a *move*, bundle and
-   all, and a town never ends without one. **Two faults found by his runs, both
-   from reusing the plan's own machinery**: the candidate test wanted a free room,
-   so nothing moved at all; and `_edit_place_town_<n>` refuses on a full town, so
-   a bigger bundle lost a building silently. Room is made *before* the bundle is
-   planted now ([`PITFALLS.md`](PITFALLS.md)). **The changes window is shelved at
-   his own word**; do not touch it until he asks.
-6. **New ground fitted to a finished plan.**
-7. **The plan shown in the location panel**, inside Glorp UI's interface.
-8. **The plan stamped onto Construction Manager**, gated on CM being present.
+**One thing neither document decides, and it is his to answer, not the engine's:
+how the second ground is named at all.** The ground buttons write one zone; step
+6 needs "the plan I already have" and "this new ground" to exist at once. **Ask
+him before building it** — it is a question about his hands.
 
-### Two things he asked for and has not seen
+### Then 7 and 8, in that order, and not before
 
-**A frame that fits, and rows that fit in it.** The «header» complaint was the
-content overflowing the frame all along — measured at last on 2026-09-06, 1544 in
-a 1500 box — and the check that should have caught it was subtracting the margin
-the wrong way. Both fixed, neither run.
-
-**The plan rows carry building icons only** now, and the space the goods icons
-held is what he wants for the Construction Manager links of step 8.
+**His order, 2026-09-04: «доработать все начатые функции мода и потом уже
+пытаться интегрировать его в функционал CM и glorp».** 7 is the plan shown in
+the location panel, inside Glorp UI's own interface. 8 stamps the plan onto
+Construction Manager, gated on CM being present — and the space the goods icons
+used to hold in the plan rows is the space he is keeping for CM's links.
+**A session taking either one re-reads those mods' files**: what is recorded here
+came off Glorp UI 10.08.26 and CM 2.2.12, and he updates `reference/` without
+saying so. `python3 tools/refs.py` for the version, grep for the name.
 
 ### Waiting on him, cheap
 
@@ -88,11 +71,8 @@ Build's interface. Why, in [`CONVENTIONS.md`](CONVENTIONS.md).
 
 **Instrument before the third theory**, and **state the player cannot see or
 clear is the mod's fault** — [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
-
-### Answered elsewhere, not here
-
-**Why «выгода от места» fell to 64%** is a row in [`SETTLED.md`](SETTLED.md).
-**Why a preference is an edit and never a term in the objective** is
+**Why «выгода от места» fell to 64%** is a row in [`SETTLED.md`](SETTLED.md);
+**why a preference is an edit and never a term in the objective** is
 [`investigations/plan_formula.md`](investigations/plan_formula.md).
 
 **Do not spend his run on a guess.** Every fault above was found by counting in
