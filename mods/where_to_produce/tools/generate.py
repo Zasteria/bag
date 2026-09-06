@@ -1533,6 +1533,12 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The window draws one page of {PLAN_ROWS} at a time; these four are what the page
 # bar above the table prints, so «показано 150» is never read as the size of the
 # plan again.
+{MOD_ID}_show_plan_provn = {{ value = global_var:{MOD_ID}_plan_provn }}
+{MOD_ID}_show_plan_provshown = {{ value = global_var:{MOD_ID}_plan_provshown }}
+# Scope: location
+{MOD_ID}_show_prov_locn = {{ value = var:{MOD_ID}_plan_prov_locn }}
+{MOD_ID}_show_prov_load = {{ value = var:{MOD_ID}_plan_prov_load }}
+{MOD_ID}_show_prov_rank = {{ value = var:{MOD_ID}_plan_prank }}
 {MOD_ID}_show_plan_page = {{ value = global_var:{MOD_ID}_plan_page }}
 {MOD_ID}_show_plan_pages = {{ value = global_var:{MOD_ID}_plan_pages }}
 {MOD_ID}_show_plan_from = {{ value = global_var:{MOD_ID}_plan_from }}
@@ -2364,6 +2370,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_variable = {MOD_ID}_plan_right
 \t\tremove_variable = {MOD_ID}_plan_town_row
 \t\tremove_variable = {MOD_ID}_plan_prov_load
+\t\tremove_variable = {MOD_ID}_plan_prov_locn
+\t\tremove_variable = {MOD_ID}_plan_pexp
 \t\tremove_variable = {MOD_ID}_plan_seen
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
@@ -2371,6 +2379,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tclear_global_variable_list = {MOD_ID}_plan_touched
 \tclear_global_variable_list = {MOD_ID}_plan_prov_locs
 \tclear_global_variable_list = {MOD_ID}_plan_ranked
+\tclear_global_variable_list = {MOD_ID}_plan_provs
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tset_global_variable = {{ name = {MOD_ID}_plan_placed value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_fed value = 0 }}
@@ -3314,6 +3323,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t}}
 \t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_plan_prov_load value = global_var:{MOD_ID}_plan_count }}
+\t\t# **And how many of its locations the plan uses**, for the province row
+\t\t# of the folded list. Counted in the walk that is already standing in
+\t\t# the province rather than in a second one.
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_count value = 0 }}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_load var:{MOD_ID}_load > 0 }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_count add = 1 }}
+\t\t\t}}
+\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_plan_prov_locn value = global_var:{MOD_ID}_plan_count }}
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_plan_prov_n value = 0 }}
 \tordered_in_global_list = {{
@@ -3432,6 +3452,33 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \telse = {{
 \t\tremove_variable = {MOD_ID}_plan_paged
 \t}}
+	# **The folded list, and it is a second list rather than a second shape for
+	# the first.** A datamodel item sees one scope, so a province row and a
+	# location row cannot be the same row -- and the flat list is what he has
+	# been reading since the plan existed, so it stays untouched and the fold is
+	# a switch beside it.
+	#
+	# One representative location a province (`_plan_prov_locs` already holds
+	# exactly that), ordered by the province's own place, and the province's
+	# locations are drawn under it from `GetProvinceDefinition.GetLocations` --
+	# the same nesting the search window has used since it was built.
+	set_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
+	set_global_variable = {{ name = {MOD_ID}_plan_provshown value = 0 }}
+	clear_global_variable_list = {MOD_ID}_plan_provs
+	every_in_global_list = {{
+		variable = {MOD_ID}_plan_prov_locs
+		limit = {{ has_variable = {MOD_ID}_plan_prov_locn var:{MOD_ID}_plan_prov_locn > 0 }}
+		change_global_variable = {{ name = {MOD_ID}_plan_provn add = 1 }}
+	}}
+	ordered_in_global_list = {{
+		variable = {MOD_ID}_plan_prov_locs
+		limit = {{ has_variable = {MOD_ID}_plan_prov_locn var:{MOD_ID}_plan_prov_locn > 0 }}
+		order_by = {MOD_ID}_plan_prov_order
+		max = {PLAN_ROWS}
+		check_range_bounds = no
+		change_global_variable = {{ name = {MOD_ID}_plan_provshown add = 1 }}
+		add_to_global_variable_list = {{ name = {MOD_ID}_plan_provs target = this }}
+	}}
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_ranked
@@ -3467,6 +3514,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_plan_hide = {{
 \tclear_global_variable_list = {MOD_ID}_plan_results
+\tclear_global_variable_list = {MOD_ID}_plan_provs
 }}
 
 # The same thing the window's own scripted GUI does, reachable from an effect,

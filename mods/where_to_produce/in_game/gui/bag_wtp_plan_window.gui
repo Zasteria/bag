@@ -49,6 +49,121 @@ types BagWtpPlanTypes {
 		}
 	}
 
+	# **A province, and its own locations folded under it.** Step 4: «провинции
+	# сворачиваются в двух окнах плана», and the search window has drawn exactly
+	# this since it was built.
+	#
+	# The row stands on the province's representative location — the one
+	# `bag_wtp_plan_provs` holds — so `_plan_prov_locn`, `_plan_prov_load` and
+	# `_plan_prank` are all read straight off it, and the open/closed state has
+	# somewhere of its own to live (`_plan_pexp`), which a datamodel row does not.
+	#
+	# **The inner rows are the flat list's own row type**, gated on
+	# `_plan_rank`: `GetLocations` gives every location of the province and the
+	# plan uses only some. Nothing is duplicated, and a column that moves moves in
+	# both views at once.
+	type bag_wtp_plan_prov_entry = vbox {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = preferred
+		spacing = 2
+
+		widget = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 40 }
+			using = bg_paper_card
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				size = { -1 40 }
+				spacing = 0
+
+				onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.Self)]"
+
+				widget = {
+					size = { 38 40 }
+					button_square_plus = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_plan_pexp').IsSet)]"
+						tooltip = "bag_wtp_plan_prov_expand_tt"
+						onclick = "[GetScriptedGui('bag_wtp_plan_prov_expand').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+					}
+					button_square_minus = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						visible = "[Location.MakeScope.GetVariable('bag_wtp_plan_pexp').IsSet]"
+						tooltip = "bag_wtp_plan_prov_collapse_tt"
+						onclick = "[GetScriptedGui('bag_wtp_plan_prov_collapse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+					}
+				}
+
+				text_single = {
+					size = { 40 40 }
+					autoresize = no
+					maximumsize = { 40 40 }
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_plan_prov_rank_value"
+					tooltip = "bag_wtp_plan_prov_rank_tt"
+				}
+
+				text_single = {
+					size = { 200 40 }
+					autoresize = no
+					maximumsize = { 200 40 }
+					align = left|vcenter
+					elide = right
+					fontsize = 14
+					text = "[Location.GetProvinceDefinition.GetName]"
+					tooltip = "bag_wtp_plan_province_tt"
+				}
+
+				widget = { size = { 8 40 } }
+
+				text_single = {
+					size = { 120 40 }
+					autoresize = no
+					maximumsize = { 120 40 }
+					align = left|vcenter
+					elide = right
+					fontsize = 13
+					text = "[Location.GetArea.GetNameWithNoTooltip]"
+				}
+
+				widget = { size = { 8 40 } }
+
+				text_single = {
+					size = { 260 40 }
+					autoresize = no
+					maximumsize = { 260 40 }
+					align = left|vcenter
+					elide = right
+					fontsize = 13
+					text = "bag_wtp_plan_prov_sum"
+					tooltip = "bag_wtp_plan_prov_sum_tt"
+				}
+
+				widget = { layoutpolicy_horizontal = expanding size = { -1 40 } }
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = preferred
+			spacing = 3
+			ignoreinvisible = yes
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_plan_pexp').IsSet]"
+			datamodel = "[Location.GetProvinceDefinition.GetLocations]"
+			item = {
+				bag_wtp_plan_entry = {
+					visible = "[Location.MakeScope.GetVariable('bag_wtp_plan_rank').IsSet]"
+				}
+			}
+		}
+	}
+
 	type bag_wtp_plan_entry = hbox {
 		layoutpolicy_horizontal = expanding
 		size = { -1 42 }
@@ -792,15 +907,55 @@ window = {
 				# parent that has a size of its own comes out at zero and elides to
 				# nothing, which reads exactly like a variable that failed to print
 				# (`docs/pitfalls/interface.md`).
-				text_single = {
-					size = { 1130 22 }
-					maximumsize = { 1590 22 }
-					autoresize = no
-					align = left|vcenter
-					fontsize = 13
-					elide = right
-					text = "bag_wtp_plan_pass_summary"
-					tooltip = "bag_wtp_plan_pass_tt"
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					text_single = {
+						size = { 900 22 }
+						maximumsize = { 900 22 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "bag_wtp_plan_pass_summary"
+						tooltip = "bag_wtp_plan_pass_tt"
+					}
+
+					# **How many provinces the plan touched, beside the switch that
+					# folds them.** Drawn only while folded, because a count of
+					# provinces above a list of locations answers nothing.
+					text_single = {
+						size = { 300 22 }
+						maximumsize = { 300 22 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet]"
+						text = "bag_wtp_plan_provs_head"
+						tooltip = "bag_wtp_plan_fold_tt"
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 22 } }
+
+					checkbutton_round_alt = {
+						size = { 24 24 }
+						down = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet]"
+						tooltip = "bag_wtp_plan_fold_tt"
+						onclick = "[GetScriptedGui('bag_wtp_plan_fold_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					text_single = {
+						size = { 140 22 }
+						maximumsize = { 140 22 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "bag_wtp_plan_fold"
+						tooltip = "bag_wtp_plan_fold_tt"
+					}
 				}
 
 				text_multi = {
@@ -808,7 +963,7 @@ window = {
 					autoresize = yes
 					maximumsize = { 1590 60 }
 					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
+					visible = "[And(Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results'))), Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_provs'))))]"
 					text = "bag_wtp_plan_window_empty"
 				}
 
@@ -831,7 +986,7 @@ window = {
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					spacing = 8
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_paged').IsSet]"
+					visible = "[And(GetPlayer.MakeScope.GetVariable('bag_wtp_plan_paged').IsSet, Not(GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet))]"
 
 					button_regular = {
 						size = { 96 28 }
@@ -978,10 +1133,35 @@ window = {
 							margin_right = 20
 							spacing = 3
 							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
-							item = {
-								bag_wtp_plan_entry = {
-									datacontext = "[Scope.GetLocation]"
+
+							# **Two lists, one drawn.** A datamodel item sees one
+							# scope, so a province row and a location row cannot be
+							# the same row. The flat list is untouched — it is what
+							# he has read since the plan existed — and the fold is a
+							# switch beside it.
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = preferred
+								spacing = 3
+								visible = "[Not(GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet)]"
+								datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
+								item = {
+									bag_wtp_plan_entry = {
+										datacontext = "[Scope.GetLocation]"
+									}
+								}
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = preferred
+								spacing = 3
+								visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet]"
+								datamodel = "[GetGlobalList('bag_wtp_plan_provs')]"
+								item = {
+									bag_wtp_plan_prov_entry = {
+										datacontext = "[Scope.GetLocation]"
+									}
 								}
 							}
 						}

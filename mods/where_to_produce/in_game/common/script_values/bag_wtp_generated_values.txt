@@ -11003,6 +11003,12 @@ bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
 # The window draws one page of 150 at a time; these four are what the page
 # bar above the table prints, so «показано 150» is never read as the size of the
 # plan again.
+bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }
+bag_wtp_show_plan_provshown = { value = global_var:bag_wtp_plan_provshown }
+# Scope: location
+bag_wtp_show_prov_locn = { value = var:bag_wtp_plan_prov_locn }
+bag_wtp_show_prov_load = { value = var:bag_wtp_plan_prov_load }
+bag_wtp_show_prov_rank = { value = var:bag_wtp_plan_prank }
 bag_wtp_show_plan_page = { value = global_var:bag_wtp_plan_page }
 bag_wtp_show_plan_pages = { value = global_var:bag_wtp_plan_pages }
 bag_wtp_show_plan_from = { value = global_var:bag_wtp_plan_from }

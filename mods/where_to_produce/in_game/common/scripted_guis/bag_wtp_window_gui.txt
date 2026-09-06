@@ -125,6 +125,66 @@ bag_wtp_result_collapse = {
 }
 
 
+# **Провинции в окне плана: свернуть и развернуть.** Шаг 4 плана — «провинции
+# сворачиваются в двух окнах плана», образец взят из поиска по одному товару,
+# который так умеет с постройки.
+#
+# **Плоский список остаётся тем, чем был.** Строка датамодели видит один скоуп,
+# так что строка провинции и строка локации — это две разные строки и два разных
+# списка; свёрнутый вид — второй список рядом с первым, а не другая форма
+# первого. Переключатель выбирает, какой из двух рисуется.
+bag_wtp_plan_fold_toggle = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { has_variable = bag_wtp_plan_folded }
+			remove_variable = bag_wtp_plan_folded
+		}
+		else = {
+			set_variable = { name = bag_wtp_plan_folded value = 1 }
+		}
+	}
+}
+
+# Раскрыть и свернуть одну провинцию. Пометка лежит на её представителе — той
+# самой локации, что стоит в `bag_wtp_plan_provs`, — потому что у строки
+# датамодели своего состояния нет.
+bag_wtp_plan_prov_expand = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			set_variable = { name = bag_wtp_plan_pexp value = 1 }
+		}
+	}
+}
+
+bag_wtp_plan_prov_collapse = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			remove_variable = bag_wtp_plan_pexp
+		}
+	}
+}
+
+
 bag_wtp_open_plan_window = {
 	scope = country
 

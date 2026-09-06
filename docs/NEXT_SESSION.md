@@ -48,11 +48,13 @@ rules each step implements are
    furthest above its share, cheapest building only breaking ties.
 3а. **The press journal** — **confirmed 2026-09-06.** A diff cannot hold
    chronology, so the mod writes `WTP PRESS …` into `debug.log` at press time and
-   `tools/diag.py` renders «Журнал нажатий». **The changes window is a diff and it
-   is correct**: after «+1» then «−1» on one good neither column holds that good,
-   because the two presses displaced two others.
-4. **Provinces fold in the two plan windows.** Pure interface, cheap run. **This
-   is the next step.**
+   `tools/diag.py` renders «Журнал нажатий».
+4. **Provinces fold in the two plan windows** — **built 2026-09-06, never run.**
+   A switch, not a replacement: the flat list is untouched and the folded view is
+   a second list beside it, because a datamodel item sees one scope. One province
+   a row, its own locations under it from `GetProvinceDefinition.GetLocations`
+   gated on `_plan_rank`, and `bag_wtp_plan_folded` is one variable for both
+   windows.
 5. **Charters in the editor** — **closed 2026-09-06.** A charter is not
    a building: every town of a finished plan holds exactly one, so a press is a
    *move*. «+1» K takes the town where K earns most from a charter that has more

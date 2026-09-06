@@ -44,6 +44,8 @@ bag_wtp_plan_prepare = {
 		remove_variable = bag_wtp_plan_right
 		remove_variable = bag_wtp_plan_town_row
 		remove_variable = bag_wtp_plan_prov_load
+		remove_variable = bag_wtp_plan_prov_locn
+		remove_variable = bag_wtp_plan_pexp
 		remove_variable = bag_wtp_plan_seen
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds
@@ -51,6 +53,7 @@ bag_wtp_plan_prepare = {
 	clear_global_variable_list = bag_wtp_plan_touched
 	clear_global_variable_list = bag_wtp_plan_prov_locs
 	clear_global_variable_list = bag_wtp_plan_ranked
+	clear_global_variable_list = bag_wtp_plan_provs
 	clear_global_variable_list = bag_wtp_plan_results
 	set_global_variable = { name = bag_wtp_plan_placed value = 0 }
 	set_global_variable = { name = bag_wtp_plan_fed value = 0 }
@@ -26850,6 +26853,17 @@ bag_wtp_plan_rank = {
 			}
 		}
 		set_variable = { name = bag_wtp_plan_prov_load value = global_var:bag_wtp_plan_count }
+		# **And how many of its locations the plan uses**, for the province row
+		# of the folded list. Counted in the walk that is already standing in
+		# the province rather than in a second one.
+		set_global_variable = { name = bag_wtp_plan_count value = 0 }
+		province_definition = {
+			every_location_in_province_definition = {
+				limit = { has_variable = bag_wtp_load var:bag_wtp_load > 0 }
+				change_global_variable = { name = bag_wtp_plan_count add = 1 }
+			}
+		}
+		set_variable = { name = bag_wtp_plan_prov_locn value = global_var:bag_wtp_plan_count }
 	}
 	set_global_variable = { name = bag_wtp_plan_prov_n value = 0 }
 	ordered_in_global_list = {
@@ -26968,6 +26982,33 @@ bag_wtp_plan_show = {
 	else = {
 		remove_variable = bag_wtp_plan_paged
 	}
+	# **The folded list, and it is a second list rather than a second shape for
+	# the first.** A datamodel item sees one scope, so a province row and a
+	# location row cannot be the same row -- and the flat list is what he has
+	# been reading since the plan existed, so it stays untouched and the fold is
+	# a switch beside it.
+	#
+	# One representative location a province (`_plan_prov_locs` already holds
+	# exactly that), ordered by the province's own place, and the province's
+	# locations are drawn under it from `GetProvinceDefinition.GetLocations` --
+	# the same nesting the search window has used since it was built.
+	set_global_variable = { name = bag_wtp_plan_provn value = 0 }
+	set_global_variable = { name = bag_wtp_plan_provshown value = 0 }
+	clear_global_variable_list = bag_wtp_plan_provs
+	every_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		limit = { has_variable = bag_wtp_plan_prov_locn var:bag_wtp_plan_prov_locn > 0 }
+		change_global_variable = { name = bag_wtp_plan_provn add = 1 }
+	}
+	ordered_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		limit = { has_variable = bag_wtp_plan_prov_locn var:bag_wtp_plan_prov_locn > 0 }
+		order_by = bag_wtp_plan_prov_order
+		max = 150
+		check_range_bounds = no
+		change_global_variable = { name = bag_wtp_plan_provshown add = 1 }
+		add_to_global_variable_list = { name = bag_wtp_plan_provs target = this }
+	}
 	clear_global_variable_list = bag_wtp_plan_results
 	ordered_in_global_list = {
 		variable = bag_wtp_plan_ranked
@@ -27003,6 +27044,7 @@ bag_wtp_plan_page_prev_effect = {
 # Scope: country
 bag_wtp_plan_hide = {
 	clear_global_variable_list = bag_wtp_plan_results
+	clear_global_variable_list = bag_wtp_plan_provs
 }
 
 # The same thing the window's own scripted GUI does, reachable from an effect,

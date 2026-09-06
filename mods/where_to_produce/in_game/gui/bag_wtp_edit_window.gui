@@ -442,12 +442,51 @@ window = {
 					tooltip = "bag_wtp_plan_pass_tt"
 				}
 
+				# The same fold switch as the plan window, on the same variable, so
+				# the two windows are never in different states.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					checkbutton_round_alt = {
+						size = { 24 24 }
+						down = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet]"
+						tooltip = "bag_wtp_plan_fold_tt"
+						onclick = "[GetScriptedGui('bag_wtp_plan_fold_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					text_single = {
+						size = { 140 24 }
+						maximumsize = { 140 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "bag_wtp_plan_fold"
+						tooltip = "bag_wtp_plan_fold_tt"
+					}
+
+					text_single = {
+						size = { 300 24 }
+						maximumsize = { 300 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet]"
+						text = "bag_wtp_plan_provs_head"
+						tooltip = "bag_wtp_plan_fold_tt"
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 24 } }
+				}
+
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
 					maximumsize = { 1450 40 }
 					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
+					visible = "[And(Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results'))), Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_provs'))))]"
 					text = "bag_wtp_edit_no_plan"
 				}
 
@@ -462,10 +501,34 @@ window = {
 							margin_right = 20
 							spacing = 3
 							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
-							item = {
-								bag_wtp_plan_entry = {
-									datacontext = "[Scope.GetLocation]"
+
+							# **The same switch as the plan window, and the same two
+							# lists.** Step 4 asked for the fold «в двух окнах
+							# плана», and the row types are shared, so the editor
+							# gets it by drawing the same pair.
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = preferred
+								spacing = 3
+								visible = "[Not(GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet)]"
+								datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
+								item = {
+									bag_wtp_plan_entry = {
+										datacontext = "[Scope.GetLocation]"
+									}
+								}
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = preferred
+								spacing = 3
+								visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet]"
+								datamodel = "[GetGlobalList('bag_wtp_plan_provs')]"
+								item = {
+									bag_wtp_plan_prov_entry = {
+										datacontext = "[Scope.GetLocation]"
+									}
 								}
 							}
 						}
