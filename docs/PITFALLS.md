@@ -36,6 +36,14 @@ carried into a second pass is read line by line before it is called**, and where
 the question differs it gets its own (`_edit_right_fits_<k>`: a method exists
 here, and never mind what already stands).
 
+**And the same file's other half of that lesson.** `_edit_place_town_<n>` ends on
+`var:_load < cap` — a deliberate invariant, and the right one — so **a placement
+can say no**. The charter swap planted the arriving bundle and squared the load up
+afterwards, which loses a building whenever the new bundle is bigger than the one
+it replaced, and loses it in silence. **Count the rooms and free them first**, then
+count again afterwards: the second reading is what did not get in, and it is worth
+a line on screen.
+
 **A `province_definition` does not keep a variable.** It is static map data, not
 a runtime entity — the runtime one is `province` — and a `set_variable` inside
 `province_definition = { … }` writes nothing, silently. `where_to_produce`'s plan
@@ -47,10 +55,8 @@ perfectly good *scope* to read through, and to iterate from.
 
 **A `trigger_if` chain must end in a `trigger_else`.** Ending on a
 `trigger_else_if` logs `PostValidate of trigger 'trigger_else_if' returned false`
-against the last link and voids the whole trigger — `where_to_produce`'s
-«only where the building can stand» filtered nothing for two loads, and the line
-sat in `error.log` unread because it names a generated file and a line number
-rather than the setting it broke. `trigger_else = { always = no }` closes it.
+and voids the whole trigger — `where_to_produce`'s «only where the building can
+stand» filtered nothing for two loads. `trigger_else = { always = no }` closes it.
 
 **A CMM macro called *without* an argument CMF declares fails exactly like one
 called with an argument it does not.** `cmm_register_settings_list` declares
@@ -59,22 +65,17 @@ every list registration died where it stood — taking everything after it in th
 same effect, with no error anywhere. `check_cmm.py` now reports both directions.
 
 **A condition copied out of a game file carries the game's comments with it.**
-`copperworking`'s `potential` has a commented-out religion clause under the live
-one; folded onto a single line for a generated trigger, the `#` swallowed
-everything after it — the closing braces included — and the file was unbalanced.
-Nothing says so but `error.log`, and only after the parser has already abandoned
-the file. **Strip `#` to end of line, per line, before collapsing anything the
-game wrote.** Found 2026-09-03 by the brace count in a session's own check, not
-by the game.
+`copperworking`'s `potential` has a commented-out clause under the live one;
+folded onto one line for a generated trigger, the `#` swallowed everything after
+it — closing braces included — and the file was unbalanced. **Strip `#` to end of
+line, per line, before collapsing anything the game wrote.**
 
 **`cmf_on_mod_registration` fires every time the mod page is opened.** Not on a
 new game, a save load and a country transfer only, whatever it reads like:
 `where_to_produce`'s registration ended with a `clear_rows`, and the result the
-player had just computed was gone by the time he reached the button that
-reopens it — the counters beside it zeroed, the rank taken off every row, and
-the rows themselves left on screen because the newer of the two windows' lists
-had been forgotten in that same `clear_rows`. Registration is for making things
-exist. Anything it destroys, it destroys on a schedule nobody chose.
+player had just computed was gone by the time he reached the button that reopens
+it. Registration is for making things exist. Anything it destroys, it destroys on
+a schedule nobody chose.
 
 **A call to a name nothing defines is not reported where you would look.** The
 patch that was to write `bag_wtp_right_row_is_worth_it` died half way; the

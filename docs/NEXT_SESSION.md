@@ -63,33 +63,33 @@ rules each step implements are
    without one**. The bundle moves whole and the load is squared up after: over
    the cap the worst ordinary building goes, under it the good furthest below its
    share takes the room. Cells, counts and press line are in the editor window;
-   `op=3/4`, `right=`, `rfrom=`, `rto=` in the journal. **The first build did
-   nothing at all**: both sides asked the plan's `_plan_right_fits_<k>`, which
-   wants a free room and is therefore false in every town of a finished plan
-   ([`PITFALLS.md`](PITFALLS.md)). The editor has its own question now.
+   `op=3/4`, `right=`, `rfrom=`, `rto=`, `short=` in the journal. **Two faults
+   found and fixed by his runs, both from reusing the plan's own machinery**: the
+   candidate test wanted a free room, so nothing moved at all; and
+   `_edit_place_town_<n>` refuses on a full town, so a bundle bigger than the one
+   it replaced lost a building silently. Room is made *before* the bundle is
+   planted now, and what still did not fit is `_edit_rshort`
+   ([`PITFALLS.md`](PITFALLS.md)).
 6. **New ground fitted to a finished plan.**
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
 
 ### Waiting on him, cheap
 
-**Two mods for `reference/`, which he offered**: `cheatmenu` (a catalogue of
-effects *in use*, and a large interface with live `fixedgridbox` datamodels) and
-Advanced Auto Build's interface. Why, in [`CONVENTIONS.md`](CONVENTIONS.md).
+**Two mods for `reference/`, which he offered**: `cheatmenu` and Advanced Auto
+Build's interface. Why, in [`CONVENTIONS.md`](CONVENTIONS.md).
 
 ### Two lessons that outlive the faults
 
 **Instrument before the third theory**, and **state the player cannot see or
-clear is the mod's fault** — both in [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
-The five silent GUI faults are named in
-[`pitfalls/interface.md`](pitfalls/interface.md).
+clear is the mod's fault** — [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
+The silent GUI faults: [`pitfalls/interface.md`](pitfalls/interface.md).
 
 ### Answered elsewhere, not here
 
-**Why «выгода от места» fell from 80–95% to 64%** is a row in
-[`SETTLED.md`](SETTLED.md) — a bigger ground raising it is a prediction, and one
-northern-Germany run settles it. **Why a preference is an edit and never a term
-in the objective** is [`investigations/plan_formula.md`](investigations/plan_formula.md).
+**Why «выгода от места» fell to 64%** is a row in [`SETTLED.md`](SETTLED.md).
+**Why a preference is an edit and never a term in the objective** is
+[`investigations/plan_formula.md`](investigations/plan_formula.md).
 
 **Do not spend his run on a guess.** Every fault above was found by counting in
 his log or his report, and the four-theories rule (`pitfalls/diagnosis.md`) is

@@ -273,44 +273,6 @@ window = {
 					}
 
 					widget = { layoutpolicy_horizontal = expanding size = { -1 40 } }
-				}
-
-				# The picker, and the whole of the editing: every good this ground
-				# can make, one row each, «−1» and «+1» in place. A scrolling `vbox`
-				# over a datamodel is the shape this mod has drawn since its first
-				# window, and 47 rows of it need no wrapping widget.
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 8
-
-					# **The head carries the count.** A picker that was never filled and
-					# one that was filled and does not draw look identical, and the goods
-					# vanished once already. A number here says which without a log.
-					text_single = {
-						size = { 420 24 }
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						elide = right
-						text = "bag_wtp_edit_pool_head"
-						tooltip = "bag_wtp_edit_pool_tt"
-					}
-
-					# **What the last press did, and whether it arrived at all.** An
-					# effect that merely does nothing logs nothing, and a button that
-					# never reaches its effect looks exactly like a rule refusing.
-					text_single = {
-						size = { 470 24 }
-						autoresize = no
-						maximumsize = { 470 24 }
-						align = left|vcenter
-						fontsize = 13
-						elide = right
-						text = "[GetPlayer.Custom('bag_wtp_edit_last_label')]"
-						tooltip = "bag_wtp_edit_last_tt"
-					}
-
-					widget = { layoutpolicy_horizontal = expanding size = { -1 24 } }
 
 					# **The way out of the pins.** Every «+1» and «−1» pins the
 					# good it was pressed on, and without this the only release
@@ -352,6 +314,47 @@ window = {
 							text = "bag_wtp_edit_changes"
 						}
 						onclick = "[GetScriptedGui('bag_wtp_open_changes_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
+				# The picker, and the whole of the editing: every good this ground
+				# can make, one row each, «−1» and «+1» in place. A scrolling `vbox`
+				# over a datamodel is the shape this mod has drawn since its first
+				# window, and 47 rows of it need no wrapping widget.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					# **The head carries the count.** A picker that was never filled and
+					# one that was filled and does not draw look identical, and the goods
+					# vanished once already. A number here says which without a log.
+					text_single = {
+						size = { 420 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "bag_wtp_edit_pool_head"
+						tooltip = "bag_wtp_edit_pool_tt"
+					}
+
+					# **What the last press did, and whether it arrived at all.** An
+					# effect that merely does nothing logs nothing, and a button that
+					# never reaches its effect looks exactly like a rule refusing.
+					# **It takes the whole rest of the row, and that is why the two
+					# buttons moved up beside the slots.** The line names two goods, a
+					# location and sometimes two charters, and at 470 it was cut off
+					# mid-sentence — «текст не показывается полностью», 2026-09-06.
+					# The slots row had that width standing empty.
+					text_single = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "[GetPlayer.Custom('bag_wtp_edit_last_label')]"
+						tooltip = "bag_wtp_edit_last_tt"
 					}
 				}
 

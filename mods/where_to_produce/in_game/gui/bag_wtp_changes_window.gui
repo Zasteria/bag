@@ -80,6 +80,28 @@ types BagWtpChangesTypes {
 			text = "[Location.GetProvinceDefinition.GetName]"
 		}
 
+		# **The charter belongs in the row, on both sides.** A charter moving
+		# between towns showed only as its buildings until 2026-09-06: «тогда уж
+		# там должна показываться вся связка — право, товары ушли — право, товары
+		# встали». Two labels, the saved one and the current one, and a town whose
+		# charter did not change simply shows the same on both sides.
+		widget = {
+			size = { 150 34 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_chg_right_tt"
+			text_single = {
+				size = { 150 34 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 150 34 }
+				align = left|vcenter
+				fontsize = 13
+				elide = right
+				text = "[Location.Custom('bag_wtp_save_right_label')]"
+			}
+		}
+
 		text_single = {
 			size = { 70 34 }
 			autoresize = no
@@ -103,6 +125,23 @@ types BagWtpChangesTypes {
 						datacontext = "[Scope.GetGoods]"
 					}
 				}
+			}
+		}
+
+		widget = {
+			size = { 150 34 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_chg_right_tt"
+			text_single = {
+				size = { 150 34 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 150 34 }
+				align = left|vcenter
+				fontsize = 13
+				elide = right
+				text = "[Location.Custom('bag_wtp_plan_right_label')]"
 			}
 		}
 
@@ -145,13 +184,13 @@ window = {
 	widgetanchor = center
 	position = { 60 60 }
 	movable = yes
-	size = { 1180 560 }
+	size = { 1492 560 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
 
 	widget = {
-		size = { 1180 560 }
+		size = { 1492 560 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -187,7 +226,7 @@ window = {
 				# re-plan moved 42 locations of 48 on one press, and this line is where
 				# that would have been obvious without a log.
 				text_single = {
-					size = { 1130 24 }
+					size = { 1442 24 }
 					autoresize = no
 					align = left|vcenter
 					fontsize = 14
@@ -201,7 +240,7 @@ window = {
 				# «traded, and it was worth nothing» and «never ran at all» are three
 				# answers that look the same on the map. Two numbers separate them.
 				text_single = {
-					size = { 1130 22 }
+					size = { 1442 22 }
 					autoresize = no
 					align = left|vcenter
 					fontsize = 13
@@ -213,7 +252,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1130 60 }
+					maximumsize = { 1442 60 }
 					align = center
 					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_chg_locs')))]"
 					text = "bag_wtp_chg_window_empty"

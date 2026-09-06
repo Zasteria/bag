@@ -64,6 +64,74 @@ bag_wtp_plan_right_label = {
 	}
 }
 
+# **The charter this town held in the *saved* plan.** «Показать изменения» lists
+# what left and what arrived, and until 2026-09-06 a charter moving between towns
+# showed only as its buildings: «тогда уж там должна показываться вся связка —
+# право, товары ушли — право, товары встали». `_save_right` is written by the
+# same effect that writes `_save_goods`, so the two halves of a row are read the
+# same way.
+#
+# Scope: location
+bag_wtp_save_right_label = {
+	type = location
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { has_variable = bag_wtp_save_right var:bag_wtp_save_right = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_plan_no_right
+	}
+}
+
 # Slot 1: what it holds, or that it holds nothing.
 # Scope: country
 bag_wtp_edit_slot1_label = {
@@ -289,6 +357,13 @@ bag_wtp_edit_last_label = {
 	# number has no name -- `_edit_rfrom_name` and `_edit_rto_name` are
 	# the thirteen-branch dispatches that turn them into the game's own
 	# wording.
+	# **Before both «сделано» branches**: the charter did move, and the
+	# town could not give up enough rooms for its bundle. Half a bundle is
+	# a state the player has to be told about, not one to read off a map.
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_rshort > 0 }
+		localization_key = bag_wtp_edit_last_right_short
+	}
 	text = {
 		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_op = 3 }
 		localization_key = bag_wtp_edit_last_right_add

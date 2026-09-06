@@ -2075,6 +2075,29 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t\tlocalization_key = {MOD_ID}_plan_no_right
 \t}}
 }}
+
+# **The charter this town held in the *saved* plan.** «Показать изменения» lists
+# what left and what arrived, and until 2026-09-06 a charter moving between towns
+# showed only as its buildings: «тогда уж там должна показываться вся связка —
+# право, товары ушли — право, товары встали». `_save_right` is written by the
+# same effect that writes `_save_goods`, so the two halves of a row are read the
+# same way.
+#
+# Scope: location
+{MOD_ID}_save_right_label = {{
+\ttype = location
+""")
+    for k, right in enumerate(rights, start=1):
+        out.append(f"""\ttext = {{
+\t\ttrigger = {{ has_variable = {MOD_ID}_save_right var:{MOD_ID}_save_right = {k} }}
+\t\tlocalization_key = {MOD_ID}_right_{right.key}
+\t}}
+""")
+    out.append(f"""\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_plan_no_right
+\t}}
+}}
 """)
     # **The editor's own two branching labels.** A plain localization key reads a
     # number through a script value -- `{MOD_ID}_plan_pass_summary` is nothing but
@@ -2189,6 +2212,13 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t# number has no name -- `_edit_rfrom_name` and `_edit_rto_name` are
 \t# the thirteen-branch dispatches that turn them into the game's own
 \t# wording.
+\t# **Before both «сделано» branches**: the charter did move, and the
+\t# town could not give up enough rooms for its bundle. Half a bundle is
+\t# a state the player has to be told about, not one to read off a map.
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_rshort > 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_right_short
+\t}}
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_op = 3 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_right_add
@@ -4519,7 +4549,8 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                     f"{MOD_ID}_edit_done", f"{MOD_ID}_edit_fail",
                     f"{MOD_ID}_edit_norefill", f"{MOD_ID}_ev_esg",
                     f"{MOD_ID}_edit_evicted", f"{MOD_ID}_edit_rfrom",
-                    f"{MOD_ID}_edit_rto", f"{MOD_ID}_edit_right")
+                    f"{MOD_ID}_edit_rto", f"{MOD_ID}_edit_right",
+                    f"{MOD_ID}_edit_rshort")
     assert len(press_fields) <= DIAG_SCRATCH, (
         f"the press line parks {len(press_fields)} numbers and there are only "
         f"{DIAG_SCRATCH} scratch globals: raise `DIAG_SCRATCH`")
@@ -4529,7 +4560,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"set_global_variable = {{ name = {MOD_ID}_dv{slot} "
         f"value = global_var:{source} }} }}\n"
         for slot, source in enumerate(press_fields, start=1))
-    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12 = (
+    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13 = (
         f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_dg{slot}')|0]"
         for slot in range(1, len(press_fields) + 1))
 
@@ -4559,6 +4590,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_mark value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_rshort value = 0 }}
 }}
 
 
@@ -4597,7 +4629,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tdebug_log = "WTP PRESSAT"
 \t\t}}
 \t}}
-\tdebug_log = "WTP PRESS n={r1} op={r2} good={r3} right={r12} hit={r4} | done={r5} fail={r6} norefill={r7} | esg={r8} evicted={r9} | rfrom={r10} rto={r11}"
+\tdebug_log = "WTP PRESS n={r1} op={r2} good={r3} right={r12} hit={r4} | done={r5} fail={r6} norefill={r7} | esg={r8} evicted={r9} | rfrom={r10} rto={r11} short={r13}"
 }}
 
 # One scan of every candidate: who could hold this good, what it would cost
@@ -5332,8 +5364,48 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 lines.append(f"{tab}{MOD_ID}_{prefix}_town_{index} = yes\n")
         return "".join(lines)
 
+    def charter_need(k: int, right: eu5data.TownRight) -> str:
+        """How many rooms this charter's bundle actually wants in this town.
+
+        **Counted before anything is planted, because the placement can say no.**
+        `_edit_place_town_<n>` carries `var:_load < cap` as its last line -- the
+        invariant that stopped 27 buildings going in over the cap on 2026-09-04 --
+        so a bundle bigger than the one it replaces loses its extra building
+        silently. He caught it in the window: «ювелирный домик уходит, а
+        стекольному праву надо два, и для кладки места не нашлось».
+
+        A good already standing here needs no room, which is what
+        `_edit_fits_town_<n>` answers; the same effect run *after* the plant
+        therefore counts what did not get in.
+        """
+        lines = []
+        for good in sorted(right.output):
+            if not groups.get((good, "t")):
+                continue
+            index = order.index(good) + 1
+            feeder = substitute.get(good)
+            other = order.index(feeder) + 1 if feeder in order else 0
+            count = (lambda i, tab: f"{tab}if = {{ limit = {{ {MOD_ID}_edit_fits_town_{i} = yes }} "
+                     f"change_variable = {{ name = {MOD_ID}_esrn add = 1 }} }}\n")
+            if other and groups.get((feeder, "t")):
+                lines.append(f"\tif = {{\n"
+                             f"\t\tlimit = {{ var:{MOD_ID}_pm{index} > 0 }}\n"
+                             f"{count(index, chr(9) * 2)}"
+                             f"\t}}\n"
+                             f"\telse = {{\n{count(other, chr(9) * 2)}\t}}\n")
+            else:
+                lines.append(count(index, chr(9)))
+        return "".join(lines)
+
     for k, right in enumerate(rights, start=1):
         out.append(f"""
+# {right.key}: how many rooms its bundle wants here, and afterwards how many it
+# did not get. Read `charter_need` for why both readings are the same effect.
+# Scope: location
+{MOD_ID}_edit_right_need_{k} = {{
+\tset_variable = {{ name = {MOD_ID}_esrn value = 0 }}
+{charter_need(k, right)}}}
+
 # {right.key}: {", ".join(sorted(right.output))} -- off this town, bundle and all.
 # Scope: location
 {MOD_ID}_edit_right_out_{k} = {{
@@ -5366,6 +5438,23 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_edit_worst = yes
 {worst_one}}}
 
+# **One room made for the arriving bundle, if it still needs one.** Called three
+# times: three is the largest bundle in the game, so a swap can be short by no
+# more than that.
+#
+# `_esrn` is how many rooms the bundle wants and `_load` how many are taken, so
+# their sum against the cap is the whole question. It is recomputed each time
+# because `_edit_take_worst` moves `_load`.
+# Scope: location
+{MOD_ID}_edit_right_make_room = {{
+\tset_variable = {{ name = {MOD_ID}_esrneed value = var:{MOD_ID}_load }}
+\tchange_variable = {{ name = {MOD_ID}_esrneed add = var:{MOD_ID}_esrn }}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_esrneed > global_var:{MOD_ID}_plan_cap_urban }}
+\t\t{MOD_ID}_edit_take_worst = yes
+\t}}
+}}
+
 # The load, squared up after a swap. Three each way: three is the largest bundle
 # in the game, so the two sides of a swap can differ by no more than that.
 # Scope: location
@@ -5381,6 +5470,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     swap_out = "".join(
         f"\tif = {{ limit = {{ global_var:{MOD_ID}_edit_rfrom = {k} }} "
         f"{MOD_ID}_edit_right_out_{k} = yes }}\n" for k in range(1, len(rights) + 1))
+    swap_need = "".join(
+        f"\tif = {{ limit = {{ global_var:{MOD_ID}_edit_rto = {k} }} "
+        f"{MOD_ID}_edit_right_need_{k} = yes }}\n" for k in range(1, len(rights) + 1))
     swap_in = "".join(
         f"\tif = {{ limit = {{ global_var:{MOD_ID}_edit_rto = {k} }} "
         f"{MOD_ID}_edit_right_in_{k} = yes }}\n" for k in range(1, len(rights) + 1))
@@ -5390,7 +5482,21 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # only once both have moved.
 # Scope: location
 {MOD_ID}_edit_right_swap = {{
-{swap_out}{swap_in}\t{MOD_ID}_edit_right_fix_load = yes
+{swap_out}\t# **Room first, then the bundle.** `_edit_place_town_<n>` refuses on a
+\t# full town -- the invariant that stopped 27 buildings going over the cap
+\t# on 2026-09-04 -- so a bundle bigger than the one it replaces used to
+\t# lose its extra building without a word. He caught it: «ювелирный домик
+\t# уходит, а стекольному праву надо два, и для кладки места не нашлось».
+{swap_need}\t{MOD_ID}_edit_right_make_room = yes
+\t{MOD_ID}_edit_right_make_room = yes
+\t{MOD_ID}_edit_right_make_room = yes
+{swap_in}\t# **And the same count again, which is now what did not get in.** Zero is
+\t# the answer the press line wants; anything else means the town had
+\t# nothing left it was allowed to give up, and that is worth saying out
+\t# loud rather than leaving a charter standing with half a bundle.
+\tset_variable = {{ name = {MOD_ID}_esrn value = 0 }}
+{swap_need}\tset_global_variable = {{ name = {MOD_ID}_edit_rshort value = var:{MOD_ID}_esrn }}
+\t{MOD_ID}_edit_right_fix_load = yes
 \tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
 }}
 
@@ -6081,6 +6187,24 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tclear_variable_list = {MOD_ID}_chg_in
 \t\tset_variable = {{ name = {MOD_ID}_chg_n value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_chg_rank value = 0 }}
+\t\t# **A moved charter is a change even when no building moved.** Two
+\t\t# charters can share a whole bundle -- royal_naval_rights and
+\t\t# scandinavian_tar_privileges are both naval_supplies and tar -- and
+\t\t# without this the town would be missing from the list it belongs in.
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tOR = {{
+\t\t\t\t\tAND = {{ has_variable = {MOD_ID}_plan_right NOT = {{ has_variable = {MOD_ID}_save_right }} }}
+\t\t\t\t\tAND = {{ has_variable = {MOD_ID}_save_right NOT = {{ has_variable = {MOD_ID}_plan_right }} }}
+\t\t\t\t\tAND = {{
+\t\t\t\t\t\thas_variable = {MOD_ID}_plan_right
+\t\t\t\t\t\thas_variable = {MOD_ID}_save_right
+\t\t\t\t\t\tNOT = {{ var:{MOD_ID}_plan_right = var:{MOD_ID}_save_right }}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tchange_variable = {{ name = {MOD_ID}_chg_n add = 1 }}
+\t\t}}
 {rows}\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_chg_n > 0 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_moved add = 1 }}
