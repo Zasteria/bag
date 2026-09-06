@@ -39,34 +39,32 @@ rules each step implements are
    2026-09-06**, with one change reverted: **pins, flags, the share and the star
    belong to the editor window alone, and a fresh plan reads none of them.**
 2а. **Reshuffle the buildings a fill placed** — **confirmed 2026-09-06**:
-   `shuffle rounds=68 swaps=19 gain=1971`. The buildings a fill placed trade
-   locations between themselves while a trade is worth anything; no count
-   changes. One fix fell out of it: a removal did not ask town or village and
-   charged the wrong side's gain.
-2в. **Rebuild the mod's menu** — **closed 2026-09-06**, three rounds of fixes
-   and all three confirmed on screen: «столбцы встали как надо, права встали как
-   надо, пикер стал более читаемым». Three tabs, four buttons, every setting
-   inside its function's window. **What it taught, and it is worth more than the
-   menu**: a box given more room than its children need divides the difference
-   between them, an `hbox` will not hold a written width, and two different
-   things must not share one column. All three in
-   [`pitfalls/interface.md`](pitfalls/interface.md); the whole move in
-   [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
-
-2г. **He asked for urban rights in the editor** — that is step 5 below, not a
-   layout change, so **the order of what is left is his to pick**: 2а, 3 or 5.
+   `shuffle rounds=68 swaps=19 gain=1971`, then `rounds=18 swaps=0 gain=0` on the
+   next run. The pass is alive and traded nothing, and **no cause is named** —
+   four counters were added instead (`pairs`, `same`, `nofit`, `worse`) so one
+   run says which. One fix fell out of it: a removal did not ask town or village
+   and charged the wrong side's gain.
+2в. **Rebuild the mod's menu** — **closed 2026-09-06**, three rounds and all
+   three confirmed on screen. **What it taught outlives the menu**: a box given
+   more room than its children need divides the difference between them, an
+   `hbox` will not hold a written width, and two different things must not share
+   one column — [`pitfalls/interface.md`](pitfalls/interface.md); the move
+   itself, [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
 2д. **The editor's share counts the RGOs now** — his catch, 2026-09-06, and the
-   code agreed at once: the plan subtracts `_nrgo<n>` from every good's share
-   and the editor's fill compared them all against one flat number, so a good
-   the ground already yields three times was filled as high as one it never
-   yields. `_eq<n> = max(1, _edit_quota − _nrgo<n>)`, read by the fill and by
-   step 3 alike; `eq=` beside `q=` in the diagnosis.
-3. **Even eviction on «+1»** — **built 2026-09-06 and never run.** The victim
-   must be a good over its share: the test sits in `_edit_worst`'s own `limit`
-   under `_edit_strict`, the scan is one effect run twice — strict, then open if
-   strict found nobody — and a free room passes both. `EDIT scan strict=` says
-   which pass answered. **Ask for five «+1» in a row on one good**: different
-   goods should give way, each time the most bloated.
+   code agreed at once: the plan subtracts `_nrgo<n>` from every good's share and
+   the editor's fill compared them all against one flat number. `_eq<n> = max(1,
+   _edit_quota − _nrgo<n>)`, read by the fill and by step 3 alike; **confirmed in
+   the diagnosis**, `G2 coal … rgo=3 eq=2` against `quota=5`.
+3. **Even eviction on «+1»** — **confirmed 2026-09-06**: `EDIT scan fitn=23
+   cands=9 strict=1`, so the share chose the victim. **One change on top, never
+   run:** the victim is now the good furthest *above* its share, with the
+   cheapest building only breaking ties — «cheapest» does not change as a good
+   shrinks, so the same good was evicted press after press.
+3а. **The press journal, because a diff cannot hold chronology.** His blocker,
+   2026-09-06: the changes window merges two presses on one location and loses
+   the order. The mod writes `WTP PRESS …` into `debug.log` at press time and
+   `tools/diag.py` renders «Журнал нажатий»; why that shape, in
+   [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
 4. **Provinces fold in the two plan windows.**
 5. **Charters: «+1»/«−1» and whole-bundle eviction.**
 6. **New ground fitted to a finished plan.**

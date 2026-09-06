@@ -3965,28 +3965,41 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t# past its minimum», which makes its buildings *better* candidates to
 \t\t\t\t# give up, not protected ones.
 \t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{index} }}
-\t\t\t\t# **On the strict pass, only a good over its share may give way.**
-\t\t\t\t# Step 3, and it is the eviction side of the rule the fill already
-\t\t\t\t# obeys: «−1» hands a freed room to the good furthest below its
-\t\t\t\t# share, so «+1» must take one from the good furthest above it.
-\t\t\t\t# Without this the same cheap good is evicted press after press,
-\t\t\t\t# which is «по очереди −1» never happening. `{MOD_ID}_edit_add`
-\t\t\t\t# runs the whole scan strict first and repeats it open only if
-\t\t\t\t# nothing qualified, so this narrows the choice and never blocks it.
+\t\t\t\t# **The good that gave way is the one furthest above its share, and
+\t\t\t\t# its cheapest building is the one that goes.** Step 3, and it is
+\t\t\t\t# the eviction side of the rule the fill already obeys: «−1» hands
+\t\t\t\t# a freed room to the good furthest *below* its share.
+\t\t\t\t#
+\t\t\t\t# **Two keys and one pass, exactly as the fill does it** -- `_esx`
+\t\t\t\t# carries the best excess so far and `_esw` the gain that goes with
+\t\t\t\t# it, so «more bloated» and «as bloated but cheaper to lose» are two
+\t\t\t\t# arms of one `OR`. Not a packed `превышение × K + выгода`: the
+\t\t\t\t# engine's fixed-point limit is not known from here, and the same
+\t\t\t\t# warning already stands over `_plan_order`.
+\t\t\t\t#
+\t\t\t\t# On the strict pass a good at or below its share is not a victim
+\t\t\t\t# at all. `{MOD_ID}_edit_add` runs the scan strict first and repeats
+\t\t\t\t# it open only if nothing qualified, so this narrows and never blocks.
 \t\t\t\tOR = {{
 \t\t\t\t\tglobal_var:{MOD_ID}_edit_strict = 0
-\t\t\t\t\tglobal_var:{MOD_ID}_pn{index} > global_var:{MOD_ID}_eq{index}
+\t\t\t\t\tglobal_var:{MOD_ID}_exs{index} > 0
 \t\t\t\t}}
 \t\t\t\tOR = {{
-\t\t\t\t\tvar:{MOD_ID}_esw = -1
-\t\t\t\t\tvar:{MOD_ID}_p{index} < var:{MOD_ID}_esw
+\t\t\t\t\tvar:{MOD_ID}_esx < global_var:{MOD_ID}_exs{index}
+\t\t\t\t\tAND = {{
+\t\t\t\t\t\tvar:{MOD_ID}_esx = global_var:{MOD_ID}_exs{index}
+\t\t\t\t\t\tOR = {{
+\t\t\t\t\t\t\tvar:{MOD_ID}_esw = -1
+\t\t\t\t\t\t\tvar:{MOD_ID}_{gain_var}{index} < var:{MOD_ID}_esw
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
 \t\t\t\t}}
 \t\t\t}}
+\t\t\tset_variable = {{ name = {MOD_ID}_esx value = global_var:{MOD_ID}_exs{index} }}
 \t\t\tset_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_{gain_var}{index} }}
 \t\t\tset_variable = {{ name = {MOD_ID}_esg value = {index} }}
 \t\t}}
-""".replace(f"var:{MOD_ID}_p{index} < var:{MOD_ID}_esw",
-            f"var:{MOD_ID}_{gain_var}{index} < var:{MOD_ID}_esw")
+"""
         for index, good in enumerate(order, start=1))
     out.append(f"""
 # The building this location would give up most cheaply, and which good it is.
@@ -4000,6 +4013,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_edit_worst = {{
 \tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
 \tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
+\t# Below every excess, which is floored at zero, so the first good that
+\t# may go wins outright and the rest is a comparison between goods.
+\tset_variable = {{ name = {MOD_ID}_esx value = -1 }}
 \tif = {{
 \t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 {worst["t"]}\t}}
@@ -4199,6 +4215,18 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tchange_global_variable = {{ name = {MOD_ID}_eq{i} max = 1 }}
 """
         for i in range(1, len(order) + 1))
+    # **The other side of the same number.** `_esh<n>` is how far a good is below
+    # its share and the fill reads it; `_exs<n>` is how far it is above, and the
+    # eviction reads it. Both floored at zero, both computed once a press.
+    excesses = "".join(
+        f"""\tset_global_variable = {{ name = {MOD_ID}_exs{i} value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_pn{i} > global_var:{MOD_ID}_eq{i} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_exs{i} value = global_var:{MOD_ID}_pn{i} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_exs{i} subtract = global_var:{MOD_ID}_eq{i} }}
+\t}}
+"""
+        for i in range(1, len(order) + 1))
     shortfalls = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_esh{i} value = 0 }}
 \tif = {{
@@ -4261,7 +4289,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# The same floor `_plan_set_quota` carries and for the same reason: a ground
 \t# too small to give every free good one building still owes each of them one.
 \tchange_global_variable = {{ name = {MOD_ID}_edit_quota max = 1 }}
-{shares}{shortfalls}}}
+{shares}{shortfalls}{excesses}}}
 
 """)
 
@@ -4294,6 +4322,29 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 """)
 
+    # **The press journal reads through the report's own scratch globals.**
+    # `_dv<n>` is filled by an effect and `_dg<n>` is the script value that reads
+    # it back, because the guard has to live in an effect: a script value that
+    # guards itself with `value = 0` plus `if = { ... add = ... }` reads zero in
+    # silence, and that is what emptied the first report of 2026-09-02.
+    press_fields = (f"{MOD_ID}_edit_presses", f"{MOD_ID}_edit_op",
+                    f"{MOD_ID}_edit_good", f"{MOD_ID}_ev_hit",
+                    f"{MOD_ID}_edit_done", f"{MOD_ID}_edit_fail",
+                    f"{MOD_ID}_edit_norefill", f"{MOD_ID}_ev_esg",
+                    f"{MOD_ID}_edit_evicted")
+    assert len(press_fields) <= DIAG_SCRATCH, (
+        f"the press line parks {len(press_fields)} numbers and there are only "
+        f"{DIAG_SCRATCH} scratch globals: raise `DIAG_SCRATCH`")
+    park = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_dv{slot} value = 0 }}\n"
+        f"\tif = {{ limit = {{ has_global_variable = {source} }} "
+        f"set_global_variable = {{ name = {MOD_ID}_dv{slot} "
+        f"value = global_var:{source} }} }}\n"
+        for slot, source in enumerate(press_fields, start=1))
+    r1, r2, r3, r4, r5, r6, r7, r8, r9 = (
+        f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_dg{slot}')|0]"
+        for slot in range(1, len(press_fields) + 1))
+
     out.append(f"""
 # The walk's trace, cleared before every press.
 #
@@ -4322,6 +4373,35 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_mark value = 0 }}
 }}
 
+
+# **The press journal, one line a press, straight into `debug.log`.**
+#
+# The changes window is a diff against the saved plan and not a log: two presses
+# on the same location merge into one row and the order of them is gone. The
+# owner, 2026-09-05: «В окне изменений -- всё смешивается. Там нет хронологии
+# изменений… Так что сам проверяй всё в диагностике.» A diff cannot hold
+# chronology, and the log already is chronology -- it is written in press order
+# by construction and nothing has to remember anything.
+#
+# **The location is named by `debug_log_scopes`, from inside its own scope.** A
+# `debug_log` string cannot reach a scope, and `_ev_loc` is a global holding one,
+# so the effect steps into it and lets the engine write the name on the line
+# above. That is the same trick every `L` block of the report uses.
+#
+# Numbers go through the report's own scratch globals, because
+# `[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue(...)]` is the one form that
+# reads from a `debug_log` anywhere -- measured 2026-09-02. Goods are numbers
+# here and names in the report's `G<n>` lines: `tools/diag.py` puts the two
+# together, and baking 47 branches into every press to save it the trouble would
+# cost a dispatch on the hot path for nothing.
+# Scope: country
+{MOD_ID}_edit_journal = {{
+{park}\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_ev_loc }}
+\t\tglobal_var:{MOD_ID}_ev_loc = {{ debug_log_scopes = no }}
+\t}}
+\tdebug_log = "WTP PRESS n={r1} op={r2} good={r3} hit={r4} | done={r5} fail={r6} norefill={r7} | esg={r8} evicted={r9}"
+}}
 
 # One scan of every candidate: who could hold this good, what it would cost
 # there, and how many qualified. Called twice by `{MOD_ID}_edit_add` — once
@@ -4479,6 +4559,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = var:{MOD_ID}_load }}
 \t\t}}
 \t}}
+\t{MOD_ID}_edit_journal = yes
 \t{MOD_ID}_plan_rank = yes
 \t# **And the window's rows again.** A location the edit gave its first building
 \t# is not in `_plan_results` and would not appear until something else refilled
@@ -4646,6 +4727,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 \t{MOD_ID}_edit_reshuffle = yes
+\t{MOD_ID}_edit_journal = yes
 \t{MOD_ID}_plan_rank = yes
 \t# **And the window's rows again.** A location the edit gave its first building
 \t# is not in `_plan_results` and would not appear until something else refilled
@@ -4758,6 +4840,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tclear_global_variable_list = {MOD_ID}_edit_fillset2
 \tset_global_variable = {{ name = {MOD_ID}_rs_swaps value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rs_rounds value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_pairs value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_same value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_nofit value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_worse value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rs_gain value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rs_did value = 0 }}
 }}
@@ -4828,6 +4914,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\thas_variable = {MOD_ID}_fillg
 \t\t\t\t\tNOT = {{ this = scope:{MOD_ID}_rs_a }}
 \t\t\t\t}}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_pairs add = 1 }}
 \t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bg value = 0 }}
 \t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_afit value = 0 }}
 \t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bfit value = 0 }}
@@ -4836,9 +4923,34 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_now add = global_var:{MOD_ID}_rs_bb }}
 \t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_new value = global_var:{MOD_ID}_rs_ab }}
 \t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_new add = global_var:{MOD_ID}_rs_ba }}
+
+\t\t\t\t# **Why a pair was not traded, counted.** «Traded nothing» has three
+\t\t\t\t# causes that look identical on the map: both rooms hold the same
+\t\t\t\t# good (a trade is a no-op), one of the two locations may not hold
+\t\t\t\t# the other's good, or the trade is simply not worth anything.
+\t\t\t\t# Every location of one province scores the same for a good, so the
+\t\t\t\t# third is the common one and the numbers have to show it.
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ global_var:{MOD_ID}_rs_bg = global_var:{MOD_ID}_rs_ag }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_same add = 1 }}
+\t\t\t\t}}
+\t\t\t\telse_if = {{
+\t\t\t\t\tlimit = {{
+\t\t\t\t\t\tOR = {{
+\t\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_afit = 0
+\t\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bfit = 0
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_nofit add = 1 }}
+\t\t\t\t}}
+\t\t\t\telse_if = {{
+\t\t\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_rs_new > global_var:{MOD_ID}_rs_now }} }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_worse add = 1 }}
+\t\t\t\t}}
 \t\t\t\tif = {{
 \t\t\t\t\tlimit = {{
 \t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bg > 0
+\t\t\t\t\t\tNOT = {{ global_var:{MOD_ID}_rs_bg = global_var:{MOD_ID}_rs_ag }}
 \t\t\t\t\t\tglobal_var:{MOD_ID}_rs_afit = 1
 \t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bfit = 1
 \t\t\t\t\t\tglobal_var:{MOD_ID}_rs_new > global_var:{MOD_ID}_rs_now
@@ -6442,10 +6554,13 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # zero says the pass never ran at all — the one failure that looks exactly
     # like «there was nothing to trade» on the map and in the window.
     for slot, source in enumerate((f"{MOD_ID}_rs_rounds", f"{MOD_ID}_rs_swaps",
-                                   f"{MOD_ID}_rs_gain"), start=1):
+                                   f"{MOD_ID}_rs_gain", f"{MOD_ID}_rs_pairs",
+                                   f"{MOD_ID}_rs_same", f"{MOD_ID}_rs_nofit",
+                                   f"{MOD_ID}_rs_worse"), start=1):
         out.append(park(slot, source))
-    out.append(say("EDIT shuffle rounds=%s swaps=%s gain=%s"
-                   % tuple(read(i) for i in range(1, 4))))
+    out.append(say("EDIT shuffle rounds=%s swaps=%s gain=%s | pairs=%s same=%s "
+                   "nofit=%s worse=%s"
+                   % tuple(read(i) for i in range(1, 8))))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan

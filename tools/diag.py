@@ -35,6 +35,7 @@ OUT = REPO / "diagnostics.txt"
 BEGIN = "WTP ==== BEGIN"
 END = "WTP ==== END"
 TAG = "WTP "
+PRESS = "WTP PRESS "
 
 
 def strip_prefix(line: str) -> str:
@@ -116,18 +117,48 @@ def blocks(text: str) -> list[list[str]]:
 
     Игра могла закрыться посреди записи, и половина отчёта лучше, чем ничего:
     неполный кусок помечается там, где его печатают.
+
+    **Нажатия редактора идут в отчёт вперёд него самого.** Мод пишет строку
+    `WTP PRESS` в момент нажатия, то есть до того, как нажата «Диагностика», --
+    и это единственная хронология, которая вообще есть: окно изменений
+    сравнивает план с сохранённым и по устройству своему сливает два нажатия по
+    одной локации в одну строку. Владелец, 2026-09-05: «В окне изменений -- всё
+    смешивается. Там нет хронологии изменений… Так что сам проверяй всё в
+    диагностике.» Отчёту достаются нажатия, сделанные после прошлого отчёта, --
+    ровно то, что он и описывает.
+
+    **Имя локации берётся только при `hit=1`.** Его пишет `debug_log_scopes`
+    строкой выше, и она есть лишь тогда, когда обход куда-то встал; без этого
+    условия к отказавшему нажатию прилипла бы чужая строка из лога.
+
+    **Список нажатий отдаёт «Диагностика», а «Показать изменения» -- нет.** Обе
+    кнопки пишут свой кусок между `BEGIN` и `END`, и первая версия отдавала
+    нажатия тому куску, который случился раньше: нажал «Показать изменения»,
+    потом «Диагностика» -- и хронология оставалась в окне изменений, а в отчёте
+    её не было. Кусок узнаётся по строке `EDIT asked`, которую пишет только
+    диагностика.
     """
     found: list[list[str]] = []
     current: list[str] | None = None
+    waiting: list[str] = []          # нажатия, у которых отчёта ещё не было
+    previous = ""
     for line in text.splitlines():
         if BEGIN in line:
-            current = []
+            current = list(waiting)
         if current is None:
+            if PRESS in line:
+                if field(strip_prefix(line), "hit") and TAG not in previous:
+                    waiting.append(strip_prefix(previous))
+                waiting.append(strip_prefix(line))
+            previous = line
             continue
         current.append(strip_prefix(line))
         if END in line:
             found.append(current)
+            if any(l.startswith("WTP EDIT asked") for l in current):
+                waiting = []
             current = None
+        previous = line
     if current:
         current.append("WTP ==== ОТЧЁТ ОБОРВАН: в логе нет строки END ====")
         found.append(current)
@@ -297,6 +328,17 @@ def fold(lines: list[str]) -> list[str]:
         if re.match(r"WTP RQ \d", line):
             rq = line
             continue
+        # **Нажатие редактора несёт своё имя так же, как локация.** Строка
+        # `debug_log_scopes` стоит над ним ровно затем, и без этой ветки она
+        # уехала бы в «~ …» отдельной строкой, а нажатие осталось бы без места.
+        if line.startswith(PRESS):
+            flush()
+            named = [part for part in (p.strip() for p in pending) if part]
+            name = named[-1] if named else ""
+            out.extend("~ " + stray for stray in named[:-1])
+            pending = []
+            out.append(PRESS + (name + " " if name else "") + line[len(PRESS):])
+            continue
         if line.startswith("WTP L "):
             flush()
             # **Имя -- последняя подпись перед строкой, а не все они склеенные.**
@@ -348,6 +390,71 @@ def field(line: str, name: str) -> int | None:
     """Число из `name=<число>` в строке отчёта."""
     found = re.search(r"\b%s=(-?\d+)" % re.escape(name), line)
     return int(found.group(1)) if found else None
+
+
+def good_names(lines: list[str]) -> dict[int, str]:
+    """Номер товара -> его имя, из строк `G<n>` самого отчёта.
+
+    **Из отчёта, а не из таблицы здесь** -- по той же причине, что и права:
+    порядок товаров задаёт мод и меняется вместе с ним, а подпись под чужим
+    номером хуже голого номера. Строка нажатия печатает номер, потому что
+    47 веток на каждое нажатие -- это диспетчер на горячем пути ради того, что
+    читалка делает даром.
+    """
+    out: dict[int, str] = {}
+    for line in lines:
+        found = re.match(r"WTP G(\d+) (\S+) ", line)
+        if found:
+            out[int(found.group(1))] = found.group(2)
+    return out
+
+
+def journal(lines: list[str]) -> list[str]:
+    """Нажатия редактора по порядку, по-русски.
+
+    Владелец, 2026-09-05: «В окне изменений -- всё смешивается. Там нет
+    хронологии изменений… Так что сам проверяй всё в диагностике.» Окно
+    изменений -- разница с сохранённым планом, а не журнал: два нажатия по одной
+    локации в нём одна строка, и какое было первым, из неё не достать. Лог --
+    хронология по устройству, и вот она.
+    """
+    names = good_names(lines)
+    name = lambda number: names.get(number or 0, "№%s" % number)
+    out: list[str] = []
+    for line in lines:
+        if not line.startswith(PRESS):
+            continue
+        tail = re.search(r"\bn=\d", line)
+        where = line[len(PRESS):tail.start()].strip() if tail else ""
+        n, op = field(line, "n"), field(line, "op")
+        done, fail = field(line, "done"), field(line, "fail")
+        esg, evicted = field(line, "esg"), field(line, "evicted")
+        if op == 1:
+            what = "«+1» " + name(field(line, "good"))
+            if done and evicted:
+                got = "поставлено, вытеснен " + name(esg)
+            elif done:
+                got = "поставлено на свободное место"
+            elif fail:
+                got = "отказано, всё возвращено"
+            else:
+                got = "ничего не сделано: не нашлось где"
+        elif op == 2:
+            what = "«−1» " + name(field(line, "good"))
+            if done and field(line, "norefill"):
+                got = "убрано, место осталось пустым"
+            elif done:
+                got = "убрано, место занял " + name(esg)
+            else:
+                got = "ничего не сделано: убирать нечего"
+        else:
+            continue
+        out.append("  %s. %s%s: %s"
+                   % (n, what, " → " + where if where else "", got))
+    if not out:
+        return []
+    return ["Журнал нажатий (по порядку, из лога -- в окне изменений хронологии "
+            "нет):"] + out
 
 
 def digest(lines: list[str]) -> list[str]:
@@ -528,6 +635,8 @@ def digest(lines: list[str]) -> list[str]:
             out.append("  обход не нашёл ни одной локации: подходящих %s, из них "
                        "с местом или жертвой %s"
                        % (field(scan, "fitn"), field(scan, "cands")))
+
+    out.extend(journal(lines))
 
     cut = [line.split()[1] for line in lines
            if line.startswith("WTP P") and re.search(r"sweeps=(\d+)/\1\b", line)]
