@@ -38,6 +38,32 @@ What the dumps do *not* say is how something behaves, what a sensible argument
 is, or whether an effect does anything useful in a given scope. That still comes
 from vanilla and from the reference mods — and, in the end, from a run.
 
+## Спрос и предложение рынка читаются, и это меняет постановку задачи плана
+
+**Найдено 2026-09-07.** Игра отдаёт оба числа своими триггерами, скоуп — рынок,
+и оба работают как script value:
+
+```
+goods_demand_in_market(goods:X)     сколько товара рынок спрашивает
+goods_supply_in_market(goods:X)     сколько рынок даёт
+```
+
+**Проверено по дампам самой игры** (`api.py goods_demand_in_market`), а не по
+догадке; Construction Manager уже строит на них свой расчёт дефицита
+(`cm_market_shortage_script_values.txt`, `cm_market_<good>_build_overage`) и
+берёт порог из define `NMarket|MARKET_CONSTRUCTION_NEEDS_BLOCK_FACTOR`.
+
+**Почему это важно для `where_to_produce`.** Весь спор о равномерности вёлся из
+посылки «сколько товара достаточно — бог его знает», и от неё пошли доли,
+стороны, веса и всё прочее. **Посылка неверна: „достаточно“ считает сама игра.**
+Разбор того, что из этого следует для формулы, —
+[`../investigations/plan_self_sufficiency.md`](../investigations/plan_self_sufficiency.md).
+
+**Чего это не решает и что надо проверить:** спрос принадлежит рынку, а не
+державе, и рынок делится с соседями; спрос растёт с населением, так что план «на
+всю игру» против сегодняшнего спроса к середине партии недостаточен. Ни то ни
+другое в игре не мерялось.
+
 ## What a modifier says about its own scaling
 
 Two kinds of modifier push a societal value and they differ in what a mod can

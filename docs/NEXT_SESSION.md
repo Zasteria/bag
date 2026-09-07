@@ -12,62 +12,48 @@ for the order and what each step cost, and
 the rules it implements. `_plan_*` itself is
 [`investigations/plan_gaps.md`](investigations/plan_gaps.md). Nothing else.**
 
-### Steps 0–5 are closed, and every one of them was seen in the game
+### Steps 0–5 and step 6 are closed and were seen in the game
 
-The window, the share, the reshuffle, the menu, the RGOs, even eviction on «+1»,
-the press journal, provinces folded inside their areas, and charters that move
-rather than multiply — all confirmed by his runs of 2026-09-05 and 2026-09-06.
-**Three things outlive them:**
+The window, the share, the reshuffle, the menu, the RGOs, eviction, the press
+journal, folded provinces, charters that move, and «Расширить» — all confirmed by
+his runs of 2026-09-05…07 and written up in the practice plan. **Three rules
+outlive them:** the editor's state is the editor's and a fresh plan reads none of
+it; `.gui` work starts at [`pitfalls/windows.md`](pitfalls/windows.md); the
+changes window is shelved at his word.
 
-- **The editor's state is the editor's.** A pin, a «не нужен», the share and the
-  star are read by `_edit_*` alone, and a fresh plan reads none of them.
-- **Windows have their own checklist** —
-  [`pitfalls/windows.md`](pitfalls/windows.md), read **before** touching any
-  `.gui`. Six builds went into one frame; `check_script.py` now enforces three
-  of its rules.
-- **The changes window is shelved at his own word** — «правок требует много,
-  функциональности несёт мало». Do not touch it until he asks.
+### The premise the whole share argument stood on is false
 
-### Step 6 — «Расширить» — is closed, confirmed twice in the game
+**2026-09-07.** «Сколько товара достаточно — бог его знает» is why every version
+of the share was invented. **The game computes it**: `goods_demand_in_market` and
+`goods_supply_in_market` are its own triggers, market-scoped, readable as script
+values, and Construction Manager already builds on them
+([`../docs/research/engine.md`](research/engine.md)).
 
-Two runs, `сдвинулось на старой земле = 0` both times and corroborated by a
-second counter; a pin lifted when the share outgrew it. Written up in
-[`TESTLOG.md`](TESTLOG.md); how it is wired is one table in the practice plan.
+**What that would make the formula**: the target per good is its unmet market
+demand, not a slice of the ground; the room goes to the good with the largest
+*fraction* of demand unmet; the RGO gain still decides where. Every problem this
+week — town vs village, both-sided goods doubling, insatiable weights, scarce
+tiers — dissolves, because demand is finite and independent of the ground. His
+own weights idea becomes *correct* against this denominator. Written out with the
+costs and the two unmeasured risks in
+[`investigations/plan_self_sufficiency.md`](investigations/plan_self_sufficiency.md).
 
-**Still never run:** the fold-by-default (only a **new game** shows it) and any
-large ground since the ladders were rebuilt — northern Germany's 233 locations;
-Westphalia's 48 does not test it, and the extension re-scores and re-ranks, so it
-carries the same open question.
+**Nothing is built for it, and the first step is not to build.** Print demand,
+supply and hunger per good in the diagnosis; one run says whether the numbers are
+sane on his ground before the formula is touched. **He has not asked for it — put
+it to him.**
 
-### The share: one quota per good, two side caps — settled 2026-09-07
+### The share as it stands: one quota per good, two side caps
 
-**Three versions in one day, and the third is his.** A good may build while it is
-under its **total quota** (all rooms ÷ all goods — the evenness) *and* under the
-**cap of the side it is building on** (that side's rooms ÷ the goods that can use
-that side — which stops one good draining the scarce side). Caps add no
-buildings.
-
-**Two versions were rejected on numbers, both his own tests:**
-
-- **two independent side quotas** — a both-sided good held two and ended twice as
-  fat as a one-sided one. His catch;
-- **weighting a village building by the output ratio** — glass weighs 0.05, so a
-  share of 5 needs 80 village buildings where the ground has 42 villages; a quota
-  that cannot be reached never stops the good, and five such goods would take the
-  whole village ground.
-
-**And output cannot classify a building as town or village**: 59 town methods
-give under 1.0 (the cannon maker 0.187), 13 village methods give 1.0 or more.
-
-**What no formula fixes, and he should know it:** on a town-poor ground a
-town-only good cannot catch a village-capable one. 24 town rooms among 24 goods
-is one each. That is the ground; the levers are the town/village ticks and which
-ground he picks.
-
-Derivations and numbers:
+A good builds while under its **total quota** (all rooms ÷ all goods) *and*
+under the **cap of the side it builds on**. Two earlier versions were rejected on
+numbers — independent side quotas (a both-sided good ended twice as fat) and
+output weights (glass needs 80 village buildings where the ground has 42) — and
+output cannot classify a building as town or village either. **What no share
+fixes:** on a town-poor ground a town-only good cannot catch a village-capable
+one; 24 town rooms among 24 goods is one each.
 [`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
-**Never run.** `WTP SHARE` prints the quota and both caps; `nt=`/`nr=` per good
-print what each side got.
+**Never run.**
 
 ### Closed 2026-09-06: the scarce tiers are a share of the ground
 
