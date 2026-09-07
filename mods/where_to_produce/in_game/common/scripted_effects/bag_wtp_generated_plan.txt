@@ -16,7 +16,6 @@ bag_wtp_plan_run = {
 		bag_wtp_plan_place_rights = yes
 	}
 	bag_wtp_plan_set_quota = yes
-	bag_wtp_plan_place_villages = yes
 	bag_wtp_plan_allocate = yes
 	bag_wtp_plan_rank = yes
 	# **A fresh plan is its own baseline.** «Показать изменения» right after one is
@@ -49,8 +48,6 @@ bag_wtp_plan_prepare = {
 		remove_variable = bag_wtp_plan_area_load
 		remove_variable = bag_wtp_plan_pexp
 		remove_variable = bag_wtp_plan_seen
-		remove_variable = bag_wtp_vbest
-		remove_variable = bag_wtp_vg
 		# **Снимок загрузки, который «Расширить» кладёт перед доливкой.** Он
 		# существует ровно затем, чтобы после доливки посчитать, сколько
 		# домиков на старой земле сдвинулось (ответ обязан быть нулём).
@@ -78,6 +75,11 @@ bag_wtp_plan_prepare = {
 	clear_global_variable_list = bag_wtp_plan_ranked
 	clear_global_variable_list = bag_wtp_plan_provs
 	clear_global_variable_list = bag_wtp_plan_results
+	set_global_variable = { name = bag_wtp_bn1 value = 0 }
+	set_global_variable = { name = bag_wtp_bn2 value = 0 }
+	set_global_variable = { name = bag_wtp_bn3 value = 0 }
+	set_global_variable = { name = bag_wtp_bn4 value = 0 }
+	set_global_variable = { name = bag_wtp_bn5 value = 0 }
 	set_global_variable = { name = bag_wtp_plan_placed value = 0 }
 	set_global_variable = { name = bag_wtp_plan_fed value = 0 }
 	set_global_variable = { name = bag_wtp_plan_gain value = 0 }
@@ -7895,6 +7897,7 @@ bag_wtp_plan_try_town_1 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn1 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p1` is the
@@ -7950,6 +7953,7 @@ bag_wtp_edit_place_town_1 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn1 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p1` is the
@@ -7982,6 +7986,7 @@ bag_wtp_plan_try_town_2 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p2` is the
@@ -8037,6 +8042,7 @@ bag_wtp_edit_place_town_2 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p2` is the
@@ -8069,6 +8075,7 @@ bag_wtp_plan_try_town_3 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn3 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p3` is the
@@ -8124,6 +8131,7 @@ bag_wtp_edit_place_town_3 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn3 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p3` is the
@@ -8158,6 +8166,7 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8183,6 +8192,7 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8208,6 +8218,7 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8233,6 +8244,7 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8290,6 +8302,7 @@ bag_wtp_edit_place_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8315,6 +8328,7 @@ bag_wtp_edit_place_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8340,6 +8354,7 @@ bag_wtp_edit_place_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8365,6 +8380,7 @@ bag_wtp_edit_place_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p4` is the
@@ -8397,6 +8413,7 @@ bag_wtp_plan_try_town_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p5` is the
@@ -8422,6 +8439,8 @@ bag_wtp_plan_try_town_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt5 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p5` is the
@@ -8477,6 +8496,7 @@ bag_wtp_edit_place_town_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p5` is the
@@ -8502,6 +8522,8 @@ bag_wtp_edit_place_town_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt5 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p5` is the
@@ -8534,6 +8556,7 @@ bag_wtp_plan_try_town_7 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn7 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt7 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p7` is the
@@ -8589,6 +8612,7 @@ bag_wtp_edit_place_town_7 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn7 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt7 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p7` is the
@@ -8621,6 +8645,7 @@ bag_wtp_plan_try_town_8 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn8 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt8 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p8` is the
@@ -8676,6 +8701,7 @@ bag_wtp_edit_place_town_8 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn8 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt8 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p8` is the
@@ -8708,6 +8734,7 @@ bag_wtp_plan_try_town_9 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn9 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt9 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p9` is the
@@ -8763,6 +8790,7 @@ bag_wtp_edit_place_town_9 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn9 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt9 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p9` is the
@@ -8795,6 +8823,7 @@ bag_wtp_plan_try_town_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt10 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p10` is the
@@ -8820,6 +8849,8 @@ bag_wtp_plan_try_town_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt10 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p10` is the
@@ -8875,6 +8906,7 @@ bag_wtp_edit_place_town_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt10 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p10` is the
@@ -8900,6 +8932,8 @@ bag_wtp_edit_place_town_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt10 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p10` is the
@@ -8932,6 +8966,8 @@ bag_wtp_plan_try_town_13 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn13 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt13 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p13` is the
@@ -8987,6 +9023,8 @@ bag_wtp_edit_place_town_13 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn13 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt13 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p13` is the
@@ -9021,6 +9059,7 @@ bag_wtp_plan_try_town_14 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn14 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt14 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p14` is the
@@ -9078,6 +9117,7 @@ bag_wtp_edit_place_town_14 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn14 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt14 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p14` is the
@@ -9110,6 +9150,7 @@ bag_wtp_plan_try_town_15 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn15 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt15 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p15` is the
@@ -9165,6 +9206,7 @@ bag_wtp_edit_place_town_15 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn15 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt15 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p15` is the
@@ -9197,6 +9239,7 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9222,6 +9265,7 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9247,6 +9291,7 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9272,6 +9317,7 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9327,6 +9373,7 @@ bag_wtp_edit_place_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9352,6 +9399,7 @@ bag_wtp_edit_place_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9377,6 +9425,7 @@ bag_wtp_edit_place_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9402,6 +9451,7 @@ bag_wtp_edit_place_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt16 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p16` is the
@@ -9434,6 +9484,7 @@ bag_wtp_plan_try_town_17 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn17 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt17 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p17` is the
@@ -9489,6 +9540,7 @@ bag_wtp_edit_place_town_17 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn17 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt17 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p17` is the
@@ -9521,6 +9573,7 @@ bag_wtp_plan_try_town_18 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn18 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt18 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p18` is the
@@ -9546,6 +9599,7 @@ bag_wtp_plan_try_town_18 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn18 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt18 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p18` is the
@@ -9601,6 +9655,7 @@ bag_wtp_edit_place_town_18 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn18 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt18 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p18` is the
@@ -9626,6 +9681,7 @@ bag_wtp_edit_place_town_18 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn18 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt18 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p18` is the
@@ -9658,6 +9714,7 @@ bag_wtp_plan_try_town_19 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn19 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt19 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p19` is the
@@ -9713,6 +9770,7 @@ bag_wtp_edit_place_town_19 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn19 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt19 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p19` is the
@@ -9747,6 +9805,7 @@ bag_wtp_plan_try_town_20 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn20 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt20 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p20` is the
@@ -9804,6 +9863,7 @@ bag_wtp_edit_place_town_20 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn20 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt20 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p20` is the
@@ -9836,6 +9896,7 @@ bag_wtp_plan_try_town_21 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn21 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt21 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p21` is the
@@ -9891,6 +9952,7 @@ bag_wtp_edit_place_town_21 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn21 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt21 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p21` is the
@@ -9923,6 +9985,7 @@ bag_wtp_plan_try_town_22 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn22 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt22 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p22` is the
@@ -9978,6 +10041,7 @@ bag_wtp_edit_place_town_22 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn22 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt22 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p22` is the
@@ -10014,6 +10078,7 @@ bag_wtp_plan_try_town_24 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn24 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt24 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p24` is the
@@ -10043,6 +10108,7 @@ bag_wtp_plan_try_town_24 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn24 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt24 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p24` is the
@@ -10102,6 +10168,7 @@ bag_wtp_edit_place_town_24 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn24 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt24 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p24` is the
@@ -10131,6 +10198,7 @@ bag_wtp_edit_place_town_24 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn24 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt24 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p24` is the
@@ -10175,6 +10243,7 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10212,6 +10281,7 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10237,6 +10307,7 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10262,6 +10333,7 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10329,6 +10401,7 @@ bag_wtp_edit_place_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10366,6 +10439,7 @@ bag_wtp_edit_place_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10391,6 +10465,7 @@ bag_wtp_edit_place_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10416,6 +10491,7 @@ bag_wtp_edit_place_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt26 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p26` is the
@@ -10448,6 +10524,7 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10473,6 +10550,7 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10498,6 +10576,7 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10523,6 +10602,7 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10578,6 +10658,7 @@ bag_wtp_edit_place_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10603,6 +10684,7 @@ bag_wtp_edit_place_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10628,6 +10710,7 @@ bag_wtp_edit_place_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10653,6 +10736,7 @@ bag_wtp_edit_place_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt27 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p27` is the
@@ -10685,6 +10769,7 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10726,6 +10811,7 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10761,6 +10847,7 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10786,6 +10873,7 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10841,6 +10929,7 @@ bag_wtp_edit_place_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10882,6 +10971,7 @@ bag_wtp_edit_place_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10917,6 +11007,7 @@ bag_wtp_edit_place_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10942,6 +11033,7 @@ bag_wtp_edit_place_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt28 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p28` is the
@@ -10978,6 +11070,7 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11007,6 +11100,7 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11036,6 +11130,7 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11065,6 +11160,7 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11124,6 +11220,7 @@ bag_wtp_edit_place_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11153,6 +11250,7 @@ bag_wtp_edit_place_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11182,6 +11280,7 @@ bag_wtp_edit_place_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11211,6 +11310,7 @@ bag_wtp_edit_place_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p29` is the
@@ -11265,6 +11365,7 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11296,6 +11397,7 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11323,6 +11425,7 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11370,6 +11473,7 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11447,6 +11551,7 @@ bag_wtp_edit_place_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11478,6 +11583,7 @@ bag_wtp_edit_place_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11505,6 +11611,7 @@ bag_wtp_edit_place_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11552,6 +11659,7 @@ bag_wtp_edit_place_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt30 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p30` is the
@@ -11584,6 +11692,7 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11609,6 +11718,7 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11644,6 +11754,7 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11675,6 +11786,7 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11700,6 +11812,7 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11755,6 +11868,7 @@ bag_wtp_edit_place_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11780,6 +11894,7 @@ bag_wtp_edit_place_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11815,6 +11930,7 @@ bag_wtp_edit_place_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11846,6 +11962,7 @@ bag_wtp_edit_place_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11871,6 +11988,7 @@ bag_wtp_edit_place_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt31 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p31` is the
@@ -11903,6 +12021,7 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -11928,6 +12047,7 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -11953,6 +12073,7 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -11978,6 +12099,7 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -12033,6 +12155,7 @@ bag_wtp_edit_place_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -12058,6 +12181,7 @@ bag_wtp_edit_place_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -12083,6 +12207,7 @@ bag_wtp_edit_place_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -12108,6 +12233,7 @@ bag_wtp_edit_place_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt32 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p32` is the
@@ -12142,6 +12268,7 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12167,6 +12294,7 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12192,6 +12320,7 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12217,6 +12346,7 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12274,6 +12404,7 @@ bag_wtp_edit_place_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12299,6 +12430,7 @@ bag_wtp_edit_place_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12324,6 +12456,7 @@ bag_wtp_edit_place_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12349,6 +12482,7 @@ bag_wtp_edit_place_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p33` is the
@@ -12403,6 +12537,7 @@ bag_wtp_plan_try_town_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt34 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p34` is the
@@ -12428,6 +12563,7 @@ bag_wtp_plan_try_town_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt34 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p34` is the
@@ -12505,6 +12641,7 @@ bag_wtp_edit_place_town_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt34 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p34` is the
@@ -12530,6 +12667,7 @@ bag_wtp_edit_place_town_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt34 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p34` is the
@@ -12562,6 +12700,7 @@ bag_wtp_plan_try_town_35 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn35 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt35 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p35` is the
@@ -12587,6 +12726,7 @@ bag_wtp_plan_try_town_35 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn35 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt35 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p35` is the
@@ -12642,6 +12782,7 @@ bag_wtp_edit_place_town_35 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn35 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt35 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p35` is the
@@ -12667,6 +12808,7 @@ bag_wtp_edit_place_town_35 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn35 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt35 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p35` is the
@@ -12701,6 +12843,7 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12728,6 +12871,7 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12755,6 +12899,7 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12782,6 +12927,7 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12839,6 +12985,7 @@ bag_wtp_edit_place_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12866,6 +13013,7 @@ bag_wtp_edit_place_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12893,6 +13041,7 @@ bag_wtp_edit_place_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12920,6 +13069,7 @@ bag_wtp_edit_place_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt36 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p36` is the
@@ -12960,6 +13110,7 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -12993,6 +13144,7 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -13026,6 +13178,7 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -13059,6 +13212,7 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -13122,6 +13276,7 @@ bag_wtp_edit_place_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -13155,6 +13310,7 @@ bag_wtp_edit_place_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -13188,6 +13344,7 @@ bag_wtp_edit_place_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -13221,6 +13378,7 @@ bag_wtp_edit_place_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt37 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p37` is the
@@ -13255,6 +13413,7 @@ bag_wtp_plan_try_town_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt38 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p38` is the
@@ -13280,6 +13439,8 @@ bag_wtp_plan_try_town_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt38 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p38` is the
@@ -13337,6 +13498,7 @@ bag_wtp_edit_place_town_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt38 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p38` is the
@@ -13362,6 +13524,8 @@ bag_wtp_edit_place_town_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt38 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p38` is the
@@ -13394,6 +13558,7 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13419,6 +13584,7 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13444,6 +13610,7 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13469,6 +13636,7 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13524,6 +13692,7 @@ bag_wtp_edit_place_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13549,6 +13718,7 @@ bag_wtp_edit_place_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13574,6 +13744,7 @@ bag_wtp_edit_place_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13599,6 +13770,7 @@ bag_wtp_edit_place_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt39 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p39` is the
@@ -13635,6 +13807,7 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13660,6 +13833,7 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13687,6 +13861,7 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13714,6 +13889,7 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13773,6 +13949,7 @@ bag_wtp_edit_place_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13798,6 +13975,7 @@ bag_wtp_edit_place_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13825,6 +14003,7 @@ bag_wtp_edit_place_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13852,6 +14031,7 @@ bag_wtp_edit_place_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt40 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p40` is the
@@ -13884,6 +14064,7 @@ bag_wtp_plan_try_town_41 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn41 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt41 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p41` is the
@@ -13909,6 +14090,7 @@ bag_wtp_plan_try_town_41 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn41 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt41 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p41` is the
@@ -13964,6 +14146,7 @@ bag_wtp_edit_place_town_41 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn41 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt41 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p41` is the
@@ -13989,6 +14172,7 @@ bag_wtp_edit_place_town_41 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn41 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt41 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p41` is the
@@ -14021,6 +14205,7 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14046,6 +14231,7 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14071,6 +14257,7 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14096,6 +14283,7 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14151,6 +14339,7 @@ bag_wtp_edit_place_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14176,6 +14365,7 @@ bag_wtp_edit_place_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14201,6 +14391,7 @@ bag_wtp_edit_place_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14226,6 +14417,7 @@ bag_wtp_edit_place_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt42 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p42` is the
@@ -14258,6 +14450,7 @@ bag_wtp_plan_try_town_43 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn43 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt43 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p43` is the
@@ -14313,6 +14506,7 @@ bag_wtp_edit_place_town_43 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn43 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt43 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p43` is the
@@ -14345,6 +14539,7 @@ bag_wtp_plan_try_town_44 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn44 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt44 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p44` is the
@@ -14400,6 +14595,7 @@ bag_wtp_edit_place_town_44 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn44 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt44 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p44` is the
@@ -14432,6 +14628,7 @@ bag_wtp_plan_try_town_45 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt45 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p45` is the
@@ -14487,6 +14684,7 @@ bag_wtp_edit_place_town_45 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt45 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p45` is the
@@ -14519,6 +14717,7 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14544,6 +14743,7 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14569,6 +14769,8 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14600,6 +14802,7 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14625,6 +14828,7 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14680,6 +14884,7 @@ bag_wtp_edit_place_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14705,6 +14910,7 @@ bag_wtp_edit_place_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14730,6 +14936,8 @@ bag_wtp_edit_place_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14761,6 +14969,7 @@ bag_wtp_edit_place_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14786,6 +14995,7 @@ bag_wtp_edit_place_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt46 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p46` is the
@@ -14818,6 +15028,8 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -14843,6 +15055,7 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -14872,6 +15085,7 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -14897,6 +15111,7 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -14922,6 +15137,7 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -14977,6 +15193,8 @@ bag_wtp_edit_place_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -15002,6 +15220,7 @@ bag_wtp_edit_place_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -15031,6 +15250,7 @@ bag_wtp_edit_place_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -15056,6 +15276,7 @@ bag_wtp_edit_place_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -15081,6 +15302,7 @@ bag_wtp_edit_place_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnt47 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_p47` is the
@@ -15113,6 +15335,7 @@ bag_wtp_plan_try_rural_1 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn1 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr1` is the
@@ -15168,6 +15391,7 @@ bag_wtp_edit_place_rural_1 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn1 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr1` is the
@@ -15200,6 +15424,7 @@ bag_wtp_plan_try_rural_2 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr2` is the
@@ -15225,6 +15450,7 @@ bag_wtp_plan_try_rural_2 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr2` is the
@@ -15280,6 +15506,7 @@ bag_wtp_edit_place_rural_2 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr2` is the
@@ -15305,6 +15532,7 @@ bag_wtp_edit_place_rural_2 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr2` is the
@@ -15337,6 +15565,7 @@ bag_wtp_plan_try_rural_3 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn3 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr3` is the
@@ -15392,6 +15621,7 @@ bag_wtp_edit_place_rural_3 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn3 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr3` is the
@@ -15424,6 +15654,7 @@ bag_wtp_plan_try_rural_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr5` is the
@@ -15449,6 +15680,8 @@ bag_wtp_plan_try_rural_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr5 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr5` is the
@@ -15504,6 +15737,7 @@ bag_wtp_edit_place_rural_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr5` is the
@@ -15529,6 +15763,8 @@ bag_wtp_edit_place_rural_5 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr5 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr5` is the
@@ -15563,6 +15799,8 @@ bag_wtp_plan_try_rural_6 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn6 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr6 add = 1 }
+			change_global_variable = { name = bag_wtp_bn1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr6` is the
@@ -15620,6 +15858,8 @@ bag_wtp_edit_place_rural_6 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn6 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr6 add = 1 }
+			change_global_variable = { name = bag_wtp_bn1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr6` is the
@@ -15652,6 +15892,7 @@ bag_wtp_plan_try_rural_7 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn7 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr7 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr7` is the
@@ -15707,6 +15948,7 @@ bag_wtp_edit_place_rural_7 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn7 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr7 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr7` is the
@@ -15739,6 +15981,7 @@ bag_wtp_plan_try_rural_8 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn8 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr8 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr8` is the
@@ -15794,6 +16037,7 @@ bag_wtp_edit_place_rural_8 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn8 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr8 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr8` is the
@@ -15826,6 +16070,7 @@ bag_wtp_plan_try_rural_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr10 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr10` is the
@@ -15851,6 +16096,8 @@ bag_wtp_plan_try_rural_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr10 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr10` is the
@@ -15906,6 +16153,7 @@ bag_wtp_edit_place_rural_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr10 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr10` is the
@@ -15931,6 +16179,8 @@ bag_wtp_edit_place_rural_10 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr10 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr10` is the
@@ -15963,6 +16213,7 @@ bag_wtp_plan_try_rural_11 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn11 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr11 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr11` is the
@@ -16018,6 +16269,7 @@ bag_wtp_edit_place_rural_11 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn11 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr11 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr11` is the
@@ -16050,6 +16302,7 @@ bag_wtp_plan_try_rural_12 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn12 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr12 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr12` is the
@@ -16105,6 +16358,7 @@ bag_wtp_edit_place_rural_12 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn12 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr12 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr12` is the
@@ -16137,6 +16391,8 @@ bag_wtp_plan_try_rural_13 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn13 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr13 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr13` is the
@@ -16192,6 +16448,8 @@ bag_wtp_edit_place_rural_13 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn13 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr13 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr13` is the
@@ -16224,6 +16482,7 @@ bag_wtp_plan_try_rural_15 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn15 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr15 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr15` is the
@@ -16279,6 +16538,7 @@ bag_wtp_edit_place_rural_15 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn15 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr15 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr15` is the
@@ -16311,6 +16571,7 @@ bag_wtp_plan_try_rural_17 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn17 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr17 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr17` is the
@@ -16366,6 +16627,7 @@ bag_wtp_edit_place_rural_17 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn17 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr17 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr17` is the
@@ -16398,6 +16660,7 @@ bag_wtp_plan_try_rural_19 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn19 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr19 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr19` is the
@@ -16453,6 +16716,7 @@ bag_wtp_edit_place_rural_19 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn19 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr19 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr19` is the
@@ -16487,6 +16751,7 @@ bag_wtp_plan_try_rural_20 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn20 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr20 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr20` is the
@@ -16544,6 +16809,7 @@ bag_wtp_edit_place_rural_20 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn20 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr20 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr20` is the
@@ -16576,6 +16842,7 @@ bag_wtp_plan_try_rural_21 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn21 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr21 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr21` is the
@@ -16631,6 +16898,7 @@ bag_wtp_edit_place_rural_21 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn21 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr21 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr21` is the
@@ -16663,6 +16931,7 @@ bag_wtp_plan_try_rural_22 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn22 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr22 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr22` is the
@@ -16718,6 +16987,7 @@ bag_wtp_edit_place_rural_22 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn22 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr22 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr22` is the
@@ -16750,6 +17020,7 @@ bag_wtp_plan_try_rural_23 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn23 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr23 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr23` is the
@@ -16805,6 +17076,7 @@ bag_wtp_edit_place_rural_23 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn23 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr23 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr23` is the
@@ -16837,6 +17109,7 @@ bag_wtp_plan_try_rural_25 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn25 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr25 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr25` is the
@@ -16892,6 +17165,7 @@ bag_wtp_edit_place_rural_25 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn25 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr25 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr25` is the
@@ -16924,6 +17198,8 @@ bag_wtp_plan_try_rural_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr26 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr26` is the
@@ -16979,6 +17255,8 @@ bag_wtp_edit_place_rural_26 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr26 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr26` is the
@@ -17015,6 +17293,7 @@ bag_wtp_plan_try_rural_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr29` is the
@@ -17074,6 +17353,7 @@ bag_wtp_edit_place_rural_29 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr29 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr29` is the
@@ -17106,6 +17386,7 @@ bag_wtp_plan_try_rural_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr33` is the
@@ -17161,6 +17442,7 @@ bag_wtp_edit_place_rural_33 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr33 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr33` is the
@@ -17193,6 +17475,8 @@ bag_wtp_plan_try_rural_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr34 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr34` is the
@@ -17218,6 +17502,7 @@ bag_wtp_plan_try_rural_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr34 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr34` is the
@@ -17273,6 +17558,8 @@ bag_wtp_edit_place_rural_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr34 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr34` is the
@@ -17298,6 +17585,7 @@ bag_wtp_edit_place_rural_34 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr34 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr34` is the
@@ -17330,6 +17618,8 @@ bag_wtp_plan_try_rural_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr36 add = 1 }
+			change_global_variable = { name = bag_wtp_bn2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr36` is the
@@ -17385,6 +17675,8 @@ bag_wtp_edit_place_rural_36 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr36 add = 1 }
+			change_global_variable = { name = bag_wtp_bn2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr36` is the
@@ -17419,6 +17711,7 @@ bag_wtp_plan_try_rural_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr38 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr38` is the
@@ -17444,6 +17737,8 @@ bag_wtp_plan_try_rural_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr38 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr38` is the
@@ -17501,6 +17796,7 @@ bag_wtp_edit_place_rural_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr38 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr38` is the
@@ -17526,6 +17822,8 @@ bag_wtp_edit_place_rural_38 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr38 add = 1 }
+			change_global_variable = { name = bag_wtp_bn4 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr38` is the
@@ -17558,6 +17856,8 @@ bag_wtp_plan_try_rural_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr39 add = 1 }
+			change_global_variable = { name = bag_wtp_bn1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr39` is the
@@ -17613,6 +17913,8 @@ bag_wtp_edit_place_rural_39 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr39 add = 1 }
+			change_global_variable = { name = bag_wtp_bn1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr39` is the
@@ -17645,6 +17947,8 @@ bag_wtp_plan_try_rural_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr42 add = 1 }
+			change_global_variable = { name = bag_wtp_bn1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr42` is the
@@ -17670,6 +17974,8 @@ bag_wtp_plan_try_rural_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr42 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr42` is the
@@ -17725,6 +18031,8 @@ bag_wtp_edit_place_rural_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr42 add = 1 }
+			change_global_variable = { name = bag_wtp_bn1 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr42` is the
@@ -17750,6 +18058,8 @@ bag_wtp_edit_place_rural_42 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr42 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr42` is the
@@ -17782,6 +18092,7 @@ bag_wtp_plan_try_rural_43 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn43 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr43 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr43` is the
@@ -17837,6 +18148,7 @@ bag_wtp_edit_place_rural_43 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn43 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr43 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr43` is the
@@ -17869,6 +18181,7 @@ bag_wtp_plan_try_rural_45 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr45 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr45` is the
@@ -17924,6 +18237,7 @@ bag_wtp_edit_place_rural_45 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr45 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr45` is the
@@ -17956,6 +18270,8 @@ bag_wtp_plan_try_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr46` is the
@@ -17981,6 +18297,8 @@ bag_wtp_plan_try_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr46` is the
@@ -18006,6 +18324,8 @@ bag_wtp_plan_try_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr46` is the
@@ -18061,6 +18381,8 @@ bag_wtp_edit_place_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr46` is the
@@ -18086,6 +18408,8 @@ bag_wtp_edit_place_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr46` is the
@@ -18111,6 +18435,8 @@ bag_wtp_edit_place_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr46` is the
@@ -18143,6 +18469,8 @@ bag_wtp_plan_try_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr47` is the
@@ -18168,6 +18496,8 @@ bag_wtp_plan_try_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr47` is the
@@ -18193,6 +18523,8 @@ bag_wtp_plan_try_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr47` is the
@@ -18248,6 +18580,8 @@ bag_wtp_edit_place_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn2 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr47` is the
@@ -18273,6 +18607,8 @@ bag_wtp_edit_place_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn3 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr47` is the
@@ -18298,6 +18634,8 @@ bag_wtp_edit_place_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 			change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+			change_global_variable = { name = bag_wtp_bn5 add = 1 }
+
 			# **What this building gets out of standing here**, which is the question
 			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
 			# получит выгоду от своего положения на карте». `_pr47` is the
@@ -22351,6 +22689,12 @@ bag_wtp_plan_grant_pass = {
 # **`max = 1` — пол, и он намеренный.** Земля, которой мало на всех, всё равно
 # даёт каждому по домику; уступает лимит, а не разброс. Скидка за РГО
 # вычитается из квоты той стороны, где эти РГО лежат.
+# **И потолок каждого здания, за которое спорят несколько товаров.** Он равен
+# общей доле и растёт вместе с ней: сухой круг поднимает и квоты товаров, и эти.
+# Без него торговая деревня -- один слот на пять товаров -- встаёт впятеро чаще
+# любого однотоварного домика, и на северной Германии встала 225 раз против 61 у
+# всех остальных. Его слова, 2026-09-07: «я хочу, чтобы лесных деревень тоже было
+# 60, как и каких-нибудь сельских суконщиков».
 # Scope: country
 bag_wtp_plan_set_quota = {
 	set_global_variable = { name = bag_wtp_qgt value = 0 }
@@ -22460,6 +22804,12 @@ bag_wtp_plan_set_quota = {
 		change_global_variable = { name = bag_wtp_plan_quota divide = bag_wtp_plan_scored_value }
 	}
 	change_global_variable = { name = bag_wtp_plan_quota max = 1 }
+	set_global_variable = { name = bag_wtp_bq1 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_bq2 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_bq3 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_bq4 value = global_var:bag_wtp_plan_quota }
+	set_global_variable = { name = bag_wtp_bq5 value = global_var:bag_wtp_plan_quota }
+
 
 	# **Два потолка: сколько из общей квоты можно взять на каждой стороне.**
 	# Они не добавляют товару домиков — они мешают одному выгрести дефицитную
@@ -25079,6 +25429,11 @@ bag_wtp_plan_allocate = {
 			change_global_variable = { name = bag_wtp_pq47 add = 1 }
 			change_global_variable = { name = bag_wtp_pqt47 add = 1 }
 			change_global_variable = { name = bag_wtp_pqr47 add = 1 }
+			change_global_variable = { name = bag_wtp_bq1 add = 1 }
+			change_global_variable = { name = bag_wtp_bq2 add = 1 }
+			change_global_variable = { name = bag_wtp_bq3 add = 1 }
+			change_global_variable = { name = bag_wtp_bq4 add = 1 }
+			change_global_variable = { name = bag_wtp_bq5 add = 1 }
 		}
 		else = { set_global_variable = { name = bag_wtp_plan_dry value = 0 } }
 		if = {
@@ -31321,432 +31676,6 @@ bag_wtp_plan_pick_47 = {
 			check_range_bounds = no
 			remove_global_variable = bag_wtp_pxr47
 			bag_wtp_plan_try_rural_47 = yes
-		}
-	}
-}
-
-# Деревня в первый слот каждой сельской локации: первая из цепочки, которую игра
-# здесь пускает и у чьего лучшего товара ещё есть доля.
-# Scope: country
-bag_wtp_plan_place_villages = {
-	set_global_variable = { name = bag_wtp_vn1 value = 0 }
-	set_global_variable = { name = bag_wtp_vn2 value = 0 }
-	set_global_variable = { name = bag_wtp_vn3 value = 0 }
-	set_global_variable = { name = bag_wtp_vn4 value = 0 }
-	set_global_variable = { name = bag_wtp_vn5 value = 0 }
-	set_global_variable = { name = bag_wtp_vn6 value = 0 }
-	set_global_variable = { name = bag_wtp_vn7 value = 0 }
-	set_global_variable = { name = bag_wtp_vn8 value = 0 }
-	set_global_variable = { name = bag_wtp_vn9 value = 0 }
-	set_global_variable = { name = bag_wtp_vn10 value = 0 }
-	set_global_variable = { name = bag_wtp_vn11 value = 0 }
-	set_global_variable = { name = bag_wtp_vn12 value = 0 }
-	set_global_variable = { name = bag_wtp_vn13 value = 0 }
-	set_global_variable = { name = bag_wtp_vn14 value = 0 }
-	set_global_variable = { name = bag_wtp_vn15 value = 0 }
-	set_global_variable = { name = bag_wtp_vn16 value = 0 }
-	set_global_variable = { name = bag_wtp_vn17 value = 0 }
-	set_global_variable = { name = bag_wtp_vn18 value = 0 }
-	set_global_variable = { name = bag_wtp_vn19 value = 0 }
-	set_global_variable = { name = bag_wtp_vn20 value = 0 }
-	set_global_variable = { name = bag_wtp_vn21 value = 0 }
-	set_global_variable = { name = bag_wtp_vn22 value = 0 }
-	set_global_variable = { name = bag_wtp_vn23 value = 0 }
-	set_global_variable = { name = bag_wtp_vn24 value = 0 }
-	set_global_variable = { name = bag_wtp_vn25 value = 0 }
-	set_global_variable = { name = bag_wtp_vn26 value = 0 }
-	set_global_variable = { name = bag_wtp_vn27 value = 0 }
-	set_global_variable = { name = bag_wtp_vn28 value = 0 }
-	set_global_variable = { name = bag_wtp_vn29 value = 0 }
-	set_global_variable = { name = bag_wtp_vn30 value = 0 }
-	set_global_variable = { name = bag_wtp_vn31 value = 0 }
-	set_global_variable = { name = bag_wtp_vn32 value = 0 }
-	set_global_variable = { name = bag_wtp_vn33 value = 0 }
-	set_global_variable = { name = bag_wtp_vn34 value = 0 }
-	set_global_variable = { name = bag_wtp_vn35 value = 0 }
-	set_global_variable = { name = bag_wtp_vn36 value = 0 }
-	set_global_variable = { name = bag_wtp_vn37 value = 0 }
-	set_global_variable = { name = bag_wtp_vn38 value = 0 }
-	set_global_variable = { name = bag_wtp_vn39 value = 0 }
-	set_global_variable = { name = bag_wtp_vn40 value = 0 }
-	set_global_variable = { name = bag_wtp_vn41 value = 0 }
-	set_global_variable = { name = bag_wtp_vn42 value = 0 }
-	set_global_variable = { name = bag_wtp_vn43 value = 0 }
-	set_global_variable = { name = bag_wtp_vn44 value = 0 }
-	set_global_variable = { name = bag_wtp_vn45 value = 0 }
-	set_global_variable = { name = bag_wtp_vn46 value = 0 }
-	set_global_variable = { name = bag_wtp_vn47 value = 0 }
-	set_global_variable = { name = bag_wtp_vt0 value = 0 }
-	set_global_variable = { name = bag_wtp_vt1 value = 0 }
-	set_global_variable = { name = bag_wtp_vt2 value = 0 }
-	set_global_variable = { name = bag_wtp_vt3 value = 0 }
-	set_global_variable = { name = bag_wtp_vt4 value = 0 }
-	every_in_global_list = {
-		variable = bag_wtp_candidates
-		limit = {
-			bag_wtp_plan_is_town = no
-			var:bag_wtp_load = 0
-		}
-		# fishing_village: fish, naval_supplies, pottery
-		if = {
-			limit = {
-				var:bag_wtp_load = 0
-				bag_wtp_stands_fishing_village = yes
-			}
-			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
-			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
-			set_variable = { name = bag_wtp_vbest value = -1 }
-			set_variable = { name = bag_wtp_vg value = 0 }
-			if = {
-				limit = {
-					var:bag_wtp_prm6 > 0
-					global_var:bag_wtp_vn6 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr6 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr6 }
-				set_variable = { name = bag_wtp_vg value = 6 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm39 > 0
-					global_var:bag_wtp_vn39 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr39 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr39 }
-				set_variable = { name = bag_wtp_vg value = 39 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm42 > 0
-					global_var:bag_wtp_vn42 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr42 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr42 }
-				set_variable = { name = bag_wtp_vg value = 42 }
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 6 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn6 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr6 add = 1 }
-				change_global_variable = { name = bag_wtp_vn6 add = 1 }
-				change_global_variable = { name = bag_wtp_vt1 add = 1 }
-				change_global_variable = { name = bag_wtp_pout6 add = 50 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr6 }
-				if = {
-					limit = { var:bag_wtp_pr6 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 39 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn39 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr39 add = 1 }
-				change_global_variable = { name = bag_wtp_vn39 add = 1 }
-				change_global_variable = { name = bag_wtp_vt1 add = 1 }
-				change_global_variable = { name = bag_wtp_pout39 add = 50 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr39 }
-				if = {
-					limit = { var:bag_wtp_pr39 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 42 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn42 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr42 add = 1 }
-				change_global_variable = { name = bag_wtp_vn42 add = 1 }
-				change_global_variable = { name = bag_wtp_vt1 add = 1 }
-				change_global_variable = { name = bag_wtp_pout42 add = 20 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr42 }
-				if = {
-					limit = { var:bag_wtp_pr42 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-		}
-		# forest_village: leather, tools, weaponry
-		if = {
-			limit = {
-				var:bag_wtp_load = 0
-				bag_wtp_stands_forest_village = yes
-			}
-			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
-			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
-			set_variable = { name = bag_wtp_vbest value = -1 }
-			set_variable = { name = bag_wtp_vg value = 0 }
-			if = {
-				limit = {
-					var:bag_wtp_prm36 > 0
-					global_var:bag_wtp_vn36 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr36 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr36 }
-				set_variable = { name = bag_wtp_vg value = 36 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm46 > 0
-					global_var:bag_wtp_vn46 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr46 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr46 }
-				set_variable = { name = bag_wtp_vg value = 46 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm47 > 0
-					global_var:bag_wtp_vn47 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr47 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr47 }
-				set_variable = { name = bag_wtp_vg value = 47 }
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 36 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn36 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr36 add = 1 }
-				change_global_variable = { name = bag_wtp_vn36 add = 1 }
-				change_global_variable = { name = bag_wtp_vt2 add = 1 }
-				change_global_variable = { name = bag_wtp_pout36 add = 20 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr36 }
-				if = {
-					limit = { var:bag_wtp_pr36 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 46 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn46 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr46 add = 1 }
-				change_global_variable = { name = bag_wtp_vn46 add = 1 }
-				change_global_variable = { name = bag_wtp_vt2 add = 1 }
-				change_global_variable = { name = bag_wtp_pout46 add = 50 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr46 }
-				if = {
-					limit = { var:bag_wtp_pr46 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 47 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn47 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr47 add = 1 }
-				change_global_variable = { name = bag_wtp_vn47 add = 1 }
-				change_global_variable = { name = bag_wtp_vt2 add = 1 }
-				change_global_variable = { name = bag_wtp_pout47 add = 20 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr47 }
-				if = {
-					limit = { var:bag_wtp_pr47 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-		}
-		# farming_village: livestock
-		if = {
-			limit = {
-				var:bag_wtp_load = 0
-				bag_wtp_stands_farming_village = yes
-			}
-			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
-			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
-			set_variable = { name = bag_wtp_vbest value = -1 }
-			set_variable = { name = bag_wtp_vg value = 0 }
-			if = {
-				limit = {
-					var:bag_wtp_prm12 > 0
-					global_var:bag_wtp_vn12 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr12 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr12 }
-				set_variable = { name = bag_wtp_vg value = 12 }
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 12 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn12 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr12 add = 1 }
-				change_global_variable = { name = bag_wtp_vn12 add = 1 }
-				change_global_variable = { name = bag_wtp_vt3 add = 1 }
-				change_global_variable = { name = bag_wtp_pout12 add = 50 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr12 }
-				if = {
-					limit = { var:bag_wtp_pr12 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-		}
-		# market_village: beer, jewelry, pottery, tools, weaponry
-		if = {
-			limit = {
-				var:bag_wtp_load = 0
-				bag_wtp_stands_market_village = yes
-			}
-			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
-			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
-			set_variable = { name = bag_wtp_vbest value = -1 }
-			set_variable = { name = bag_wtp_vg value = 0 }
-			if = {
-				limit = {
-					var:bag_wtp_prm26 > 0
-					global_var:bag_wtp_vn26 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr26 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr26 }
-				set_variable = { name = bag_wtp_vg value = 26 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm34 > 0
-					global_var:bag_wtp_vn34 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr34 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr34 }
-				set_variable = { name = bag_wtp_vg value = 34 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm42 > 0
-					global_var:bag_wtp_vn42 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr42 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr42 }
-				set_variable = { name = bag_wtp_vg value = 42 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm46 > 0
-					global_var:bag_wtp_vn46 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr46 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr46 }
-				set_variable = { name = bag_wtp_vg value = 46 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm47 > 0
-					global_var:bag_wtp_vn47 < global_var:bag_wtp_plan_quota
-					var:bag_wtp_pr47 > var:bag_wtp_vbest
-				}
-				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr47 }
-				set_variable = { name = bag_wtp_vg value = 47 }
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 26 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn26 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr26 add = 1 }
-				change_global_variable = { name = bag_wtp_vn26 add = 1 }
-				change_global_variable = { name = bag_wtp_vt4 add = 1 }
-				change_global_variable = { name = bag_wtp_pout26 add = 50 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr26 }
-				if = {
-					limit = { var:bag_wtp_pr26 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 34 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn34 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr34 add = 1 }
-				change_global_variable = { name = bag_wtp_vn34 add = 1 }
-				change_global_variable = { name = bag_wtp_vt4 add = 1 }
-				change_global_variable = { name = bag_wtp_pout34 add = 10 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr34 }
-				if = {
-					limit = { var:bag_wtp_pr34 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 42 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn42 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr42 add = 1 }
-				change_global_variable = { name = bag_wtp_vn42 add = 1 }
-				change_global_variable = { name = bag_wtp_vt4 add = 1 }
-				change_global_variable = { name = bag_wtp_pout42 add = 20 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr42 }
-				if = {
-					limit = { var:bag_wtp_pr42 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 46 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn46 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr46 add = 1 }
-				change_global_variable = { name = bag_wtp_vn46 add = 1 }
-				change_global_variable = { name = bag_wtp_vt4 add = 1 }
-				change_global_variable = { name = bag_wtp_pout46 add = 50 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr46 }
-				if = {
-					limit = { var:bag_wtp_pr46 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-			if = {
-				limit = { var:bag_wtp_vg = 47 }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
-				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
-				change_variable = { name = bag_wtp_load add = 1 }
-				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
-				change_global_variable = { name = bag_wtp_pn47 add = 1 }
-				change_global_variable = { name = bag_wtp_pnr47 add = 1 }
-				change_global_variable = { name = bag_wtp_vn47 add = 1 }
-				change_global_variable = { name = bag_wtp_vt4 add = 1 }
-				change_global_variable = { name = bag_wtp_pout47 add = 20 }
-				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr47 }
-				if = {
-					limit = { var:bag_wtp_pr47 > 0 }
-					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
-				}
-			}
-		}
-		# Сельская локация, оставшаяся без деревни: цепочка не сработала ни разу.
-		if = {
-			limit = { var:bag_wtp_load = 0 }
-			change_global_variable = { name = bag_wtp_vt0 add = 1 }
 		}
 	}
 }

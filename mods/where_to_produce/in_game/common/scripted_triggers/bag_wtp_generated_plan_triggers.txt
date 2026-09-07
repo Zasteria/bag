@@ -125,6 +125,7 @@ bag_wtp_plan_can_town_5 = {
 				var:bag_wtp_pm5 = 64
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
@@ -215,6 +216,7 @@ bag_wtp_plan_can_town_10 = {
 				var:bag_wtp_pm10 = 124
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
@@ -243,6 +245,7 @@ bag_wtp_plan_can_town_13 = {
 				var:bag_wtp_pm13 = 172
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
@@ -1051,6 +1054,7 @@ bag_wtp_plan_can_town_38 = {
 				var:bag_wtp_pm38 = 175
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
@@ -1287,6 +1291,7 @@ bag_wtp_plan_can_town_46 = {
 				var:bag_wtp_pm46 = 219
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 		AND = {
 			OR = {
@@ -1322,6 +1327,7 @@ bag_wtp_plan_can_town_47 = {
 				var:bag_wtp_pm47 = 227
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 		AND = {
 			OR = {
@@ -1444,13 +1450,32 @@ bag_wtp_plan_can_rural_5 = {
 				var:bag_wtp_prm5 = 64
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
 
-# fish: no building that makes it may stand in a rural settlement.
+# fish, village side: 1 building(s) could win it.
 # Scope: location
-bag_wtp_plan_can_rural_6 = { always = no }
+bag_wtp_plan_can_rural_6 = {
+	# **A method won here, not "the ground pays for it".** A good the RGOs feed
+	# nothing still has a gain of zero and must still be placed: «не важно есть
+	# для них сырьё на этой земле или нет».
+	var:bag_wtp_prm6 > 0
+	bag_wtp_plan_is_town = no
+	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm6 = 108
+				var:bag_wtp_prm6 = 109
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+			global_var:bag_wtp_bn1 < global_var:bag_wtp_bq1
+		}
+	}
+}
 
 # fruit, village side: 1 building(s) could win it.
 # Scope: location
@@ -1518,6 +1543,7 @@ bag_wtp_plan_can_rural_10 = {
 				var:bag_wtp_prm10 = 124
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
@@ -1542,9 +1568,25 @@ bag_wtp_plan_can_rural_11 = {
 	}
 }
 
-# livestock: no building that makes it may stand in a rural settlement.
+# livestock, village side: 1 building(s) could win it.
 # Scope: location
-bag_wtp_plan_can_rural_12 = { always = no }
+bag_wtp_plan_can_rural_12 = {
+	# **A method won here, not "the ground pays for it".** A good the RGOs feed
+	# nothing still has a gain of zero and must still be placed: «не важно есть
+	# для них сырьё на этой земле или нет».
+	var:bag_wtp_prm12 > 0
+	bag_wtp_plan_is_town = no
+	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm12 = 171
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
+		}
+	}
+}
 
 # lumber, village side: 1 building(s) could win it.
 # Scope: location
@@ -1562,6 +1604,7 @@ bag_wtp_plan_can_rural_13 = {
 				var:bag_wtp_prm13 = 172
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
@@ -1759,6 +1802,7 @@ bag_wtp_plan_can_rural_26 = {
 				var:bag_wtp_prm26 = 17
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 	}
 }
@@ -1841,6 +1885,7 @@ bag_wtp_plan_can_rural_34 = {
 				var:bag_wtp_prm34 = 138
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 		AND = {
 			OR = {
@@ -1855,9 +1900,26 @@ bag_wtp_plan_can_rural_34 = {
 # Scope: location
 bag_wtp_plan_can_rural_35 = { always = no }
 
-# leather: no building that makes it may stand in a rural settlement.
+# leather, village side: 1 building(s) could win it.
 # Scope: location
-bag_wtp_plan_can_rural_36 = { always = no }
+bag_wtp_plan_can_rural_36 = {
+	# **A method won here, not "the ground pays for it".** A good the RGOs feed
+	# nothing still has a gain of zero and must still be placed: «не важно есть
+	# для них сырьё на этой земле или нет».
+	var:bag_wtp_prm36 > 0
+	bag_wtp_plan_is_town = no
+	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm36 = 142
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+			global_var:bag_wtp_bn2 < global_var:bag_wtp_bq2
+		}
+	}
+}
 
 # liquor: no building that makes it may stand in a rural settlement.
 # Scope: location
@@ -1886,13 +1948,31 @@ bag_wtp_plan_can_rural_38 = {
 				var:bag_wtp_prm38 = 175
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
 }
 
-# naval_supplies: no building that makes it may stand in a rural settlement.
+# naval_supplies, village side: 1 building(s) could win it.
 # Scope: location
-bag_wtp_plan_can_rural_39 = { always = no }
+bag_wtp_plan_can_rural_39 = {
+	# **A method won here, not "the ground pays for it".** A good the RGOs feed
+	# nothing still has a gain of zero and must still be placed: «не важно есть
+	# для них сырьё на этой земле или нет».
+	var:bag_wtp_prm39 > 0
+	bag_wtp_plan_is_town = no
+	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm39 = 178
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+			global_var:bag_wtp_bn1 < global_var:bag_wtp_bq1
+		}
+	}
+}
 
 # paper: no building that makes it may stand in a rural settlement.
 # Scope: location
@@ -1902,7 +1982,7 @@ bag_wtp_plan_can_rural_40 = { always = no }
 # Scope: location
 bag_wtp_plan_can_rural_41 = { always = no }
 
-# pottery, village side: 1 building(s) could win it.
+# pottery, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_42 = {
 	# **A method won here, not "the ground pays for it".** A good the RGOs feed
@@ -1915,9 +1995,17 @@ bag_wtp_plan_can_rural_42 = {
 	OR = {
 		AND = {
 			OR = {
+				var:bag_wtp_prm42 = 193
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+			global_var:bag_wtp_bn1 < global_var:bag_wtp_bq1
+		}
+		AND = {
+			OR = {
 				var:bag_wtp_prm42 = 194
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 	}
 }
@@ -1966,7 +2054,7 @@ bag_wtp_plan_can_rural_45 = {
 	}
 }
 
-# tools, village side: 2 building(s) could win it.
+# tools, village side: 3 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_46 = {
 	# **A method won here, not "the ground pays for it".** A good the RGOs feed
@@ -1979,20 +2067,29 @@ bag_wtp_plan_can_rural_46 = {
 	OR = {
 		AND = {
 			OR = {
+				var:bag_wtp_prm46 = 215
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+			global_var:bag_wtp_bn2 < global_var:bag_wtp_bq2
+		}
+		AND = {
+			OR = {
 				var:bag_wtp_prm46 = 218
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm46 = 219
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 	}
 }
 
-# weaponry, village side: 2 building(s) could win it.
+# weaponry, village side: 3 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_47 = {
 	# **A method won here, not "the ground pays for it".** A good the RGOs feed
@@ -2005,15 +2102,24 @@ bag_wtp_plan_can_rural_47 = {
 	OR = {
 		AND = {
 			OR = {
+				var:bag_wtp_prm47 = 225
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+			global_var:bag_wtp_bn2 < global_var:bag_wtp_bq2
+		}
+		AND = {
+			OR = {
 				var:bag_wtp_prm47 = 226
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm47 = 227
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 	}
 }
