@@ -11336,6 +11336,7 @@ bag_wtp_show_rgiven13 = { value = global_var:bag_wtp_rgiven13 }
 bag_wtp_show_pnt1 = { value = global_var:bag_wtp_pnt1 }
 bag_wtp_show_pnr1 = { value = global_var:bag_wtp_pnr1 }
 bag_wtp_show_ng1 = { value = global_var:bag_wtp_ng1 }
+bag_wtp_show_nrgo1 = { value = global_var:bag_wtp_nrgo1 }
 bag_wtp_show_pq1 = { value = global_var:bag_wtp_pq1 }
 bag_wtp_show_gain1 = { value = global_var:bag_wtp_pbest1 divide = 10 }
 # coal в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11343,6 +11344,7 @@ bag_wtp_show_gain1 = { value = global_var:bag_wtp_pbest1 divide = 10 }
 bag_wtp_show_pnt2 = { value = global_var:bag_wtp_pnt2 }
 bag_wtp_show_pnr2 = { value = global_var:bag_wtp_pnr2 }
 bag_wtp_show_ng2 = { value = global_var:bag_wtp_ng2 }
+bag_wtp_show_nrgo2 = { value = global_var:bag_wtp_nrgo2 }
 bag_wtp_show_pq2 = { value = global_var:bag_wtp_pq2 }
 bag_wtp_show_gain2 = { value = global_var:bag_wtp_pbest2 divide = 10 }
 # cotton в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11350,6 +11352,7 @@ bag_wtp_show_gain2 = { value = global_var:bag_wtp_pbest2 divide = 10 }
 bag_wtp_show_pnt3 = { value = global_var:bag_wtp_pnt3 }
 bag_wtp_show_pnr3 = { value = global_var:bag_wtp_pnr3 }
 bag_wtp_show_ng3 = { value = global_var:bag_wtp_ng3 }
+bag_wtp_show_nrgo3 = { value = global_var:bag_wtp_nrgo3 }
 bag_wtp_show_pq3 = { value = global_var:bag_wtp_pq3 }
 bag_wtp_show_gain3 = { value = global_var:bag_wtp_pbest3 divide = 10 }
 # dyes в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11357,6 +11360,7 @@ bag_wtp_show_gain3 = { value = global_var:bag_wtp_pbest3 divide = 10 }
 bag_wtp_show_pnt4 = { value = global_var:bag_wtp_pnt4 }
 bag_wtp_show_pnr4 = { value = global_var:bag_wtp_pnr4 }
 bag_wtp_show_ng4 = { value = global_var:bag_wtp_ng4 }
+bag_wtp_show_nrgo4 = { value = global_var:bag_wtp_nrgo4 }
 bag_wtp_show_pq4 = { value = global_var:bag_wtp_pq4 }
 bag_wtp_show_gain4 = { value = global_var:bag_wtp_pbest4 divide = 10 }
 # fiber_crops в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11364,6 +11368,7 @@ bag_wtp_show_gain4 = { value = global_var:bag_wtp_pbest4 divide = 10 }
 bag_wtp_show_pnt5 = { value = global_var:bag_wtp_pnt5 }
 bag_wtp_show_pnr5 = { value = global_var:bag_wtp_pnr5 }
 bag_wtp_show_ng5 = { value = global_var:bag_wtp_ng5 }
+bag_wtp_show_nrgo5 = { value = global_var:bag_wtp_nrgo5 }
 bag_wtp_show_pq5 = { value = global_var:bag_wtp_pq5 }
 bag_wtp_show_gain5 = { value = global_var:bag_wtp_pbest5 divide = 10 }
 # fish в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11371,6 +11376,7 @@ bag_wtp_show_gain5 = { value = global_var:bag_wtp_pbest5 divide = 10 }
 bag_wtp_show_pnt6 = { value = global_var:bag_wtp_pnt6 }
 bag_wtp_show_pnr6 = { value = global_var:bag_wtp_pnr6 }
 bag_wtp_show_ng6 = { value = global_var:bag_wtp_ng6 }
+bag_wtp_show_nrgo6 = { value = global_var:bag_wtp_nrgo6 }
 bag_wtp_show_pq6 = { value = global_var:bag_wtp_pq6 }
 bag_wtp_show_gain6 = { value = global_var:bag_wtp_pbest6 divide = 10 }
 # fruit в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11378,6 +11384,7 @@ bag_wtp_show_gain6 = { value = global_var:bag_wtp_pbest6 divide = 10 }
 bag_wtp_show_pnt7 = { value = global_var:bag_wtp_pnt7 }
 bag_wtp_show_pnr7 = { value = global_var:bag_wtp_pnr7 }
 bag_wtp_show_ng7 = { value = global_var:bag_wtp_ng7 }
+bag_wtp_show_nrgo7 = { value = global_var:bag_wtp_nrgo7 }
 bag_wtp_show_pq7 = { value = global_var:bag_wtp_pq7 }
 bag_wtp_show_gain7 = { value = global_var:bag_wtp_pbest7 divide = 10 }
 # horses в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11385,6 +11392,7 @@ bag_wtp_show_gain7 = { value = global_var:bag_wtp_pbest7 divide = 10 }
 bag_wtp_show_pnt8 = { value = global_var:bag_wtp_pnt8 }
 bag_wtp_show_pnr8 = { value = global_var:bag_wtp_pnr8 }
 bag_wtp_show_ng8 = { value = global_var:bag_wtp_ng8 }
+bag_wtp_show_nrgo8 = { value = global_var:bag_wtp_nrgo8 }
 bag_wtp_show_pq8 = { value = global_var:bag_wtp_pq8 }
 bag_wtp_show_gain8 = { value = global_var:bag_wtp_pbest8 divide = 10 }
 # incense в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11392,6 +11400,7 @@ bag_wtp_show_gain8 = { value = global_var:bag_wtp_pbest8 divide = 10 }
 bag_wtp_show_pnt9 = { value = global_var:bag_wtp_pnt9 }
 bag_wtp_show_pnr9 = { value = global_var:bag_wtp_pnr9 }
 bag_wtp_show_ng9 = { value = global_var:bag_wtp_ng9 }
+bag_wtp_show_nrgo9 = { value = global_var:bag_wtp_nrgo9 }
 bag_wtp_show_pq9 = { value = global_var:bag_wtp_pq9 }
 bag_wtp_show_gain9 = { value = global_var:bag_wtp_pbest9 divide = 10 }
 # iron в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11399,6 +11408,7 @@ bag_wtp_show_gain9 = { value = global_var:bag_wtp_pbest9 divide = 10 }
 bag_wtp_show_pnt10 = { value = global_var:bag_wtp_pnt10 }
 bag_wtp_show_pnr10 = { value = global_var:bag_wtp_pnr10 }
 bag_wtp_show_ng10 = { value = global_var:bag_wtp_ng10 }
+bag_wtp_show_nrgo10 = { value = global_var:bag_wtp_nrgo10 }
 bag_wtp_show_pq10 = { value = global_var:bag_wtp_pq10 }
 bag_wtp_show_gain10 = { value = global_var:bag_wtp_pbest10 divide = 10 }
 # ivory в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11406,6 +11416,7 @@ bag_wtp_show_gain10 = { value = global_var:bag_wtp_pbest10 divide = 10 }
 bag_wtp_show_pnt11 = { value = global_var:bag_wtp_pnt11 }
 bag_wtp_show_pnr11 = { value = global_var:bag_wtp_pnr11 }
 bag_wtp_show_ng11 = { value = global_var:bag_wtp_ng11 }
+bag_wtp_show_nrgo11 = { value = global_var:bag_wtp_nrgo11 }
 bag_wtp_show_pq11 = { value = global_var:bag_wtp_pq11 }
 bag_wtp_show_gain11 = { value = global_var:bag_wtp_pbest11 divide = 10 }
 # livestock в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11413,6 +11424,7 @@ bag_wtp_show_gain11 = { value = global_var:bag_wtp_pbest11 divide = 10 }
 bag_wtp_show_pnt12 = { value = global_var:bag_wtp_pnt12 }
 bag_wtp_show_pnr12 = { value = global_var:bag_wtp_pnr12 }
 bag_wtp_show_ng12 = { value = global_var:bag_wtp_ng12 }
+bag_wtp_show_nrgo12 = { value = global_var:bag_wtp_nrgo12 }
 bag_wtp_show_pq12 = { value = global_var:bag_wtp_pq12 }
 bag_wtp_show_gain12 = { value = global_var:bag_wtp_pbest12 divide = 10 }
 # lumber в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11420,6 +11432,7 @@ bag_wtp_show_gain12 = { value = global_var:bag_wtp_pbest12 divide = 10 }
 bag_wtp_show_pnt13 = { value = global_var:bag_wtp_pnt13 }
 bag_wtp_show_pnr13 = { value = global_var:bag_wtp_pnr13 }
 bag_wtp_show_ng13 = { value = global_var:bag_wtp_ng13 }
+bag_wtp_show_nrgo13 = { value = global_var:bag_wtp_nrgo13 }
 bag_wtp_show_pq13 = { value = global_var:bag_wtp_pq13 }
 bag_wtp_show_gain13 = { value = global_var:bag_wtp_pbest13 divide = 10 }
 # medicaments в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11427,6 +11440,7 @@ bag_wtp_show_gain13 = { value = global_var:bag_wtp_pbest13 divide = 10 }
 bag_wtp_show_pnt14 = { value = global_var:bag_wtp_pnt14 }
 bag_wtp_show_pnr14 = { value = global_var:bag_wtp_pnr14 }
 bag_wtp_show_ng14 = { value = global_var:bag_wtp_ng14 }
+bag_wtp_show_nrgo14 = { value = global_var:bag_wtp_nrgo14 }
 bag_wtp_show_pq14 = { value = global_var:bag_wtp_pq14 }
 bag_wtp_show_gain14 = { value = global_var:bag_wtp_pbest14 divide = 10 }
 # salt в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11434,6 +11448,7 @@ bag_wtp_show_gain14 = { value = global_var:bag_wtp_pbest14 divide = 10 }
 bag_wtp_show_pnt15 = { value = global_var:bag_wtp_pnt15 }
 bag_wtp_show_pnr15 = { value = global_var:bag_wtp_pnr15 }
 bag_wtp_show_ng15 = { value = global_var:bag_wtp_ng15 }
+bag_wtp_show_nrgo15 = { value = global_var:bag_wtp_nrgo15 }
 bag_wtp_show_pq15 = { value = global_var:bag_wtp_pq15 }
 bag_wtp_show_gain15 = { value = global_var:bag_wtp_pbest15 divide = 10 }
 # saltpeter в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11441,6 +11456,7 @@ bag_wtp_show_gain15 = { value = global_var:bag_wtp_pbest15 divide = 10 }
 bag_wtp_show_pnt16 = { value = global_var:bag_wtp_pnt16 }
 bag_wtp_show_pnr16 = { value = global_var:bag_wtp_pnr16 }
 bag_wtp_show_ng16 = { value = global_var:bag_wtp_ng16 }
+bag_wtp_show_nrgo16 = { value = global_var:bag_wtp_nrgo16 }
 bag_wtp_show_pq16 = { value = global_var:bag_wtp_pq16 }
 bag_wtp_show_gain16 = { value = global_var:bag_wtp_pbest16 divide = 10 }
 # sand в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11448,6 +11464,7 @@ bag_wtp_show_gain16 = { value = global_var:bag_wtp_pbest16 divide = 10 }
 bag_wtp_show_pnt17 = { value = global_var:bag_wtp_pnt17 }
 bag_wtp_show_pnr17 = { value = global_var:bag_wtp_pnr17 }
 bag_wtp_show_ng17 = { value = global_var:bag_wtp_ng17 }
+bag_wtp_show_nrgo17 = { value = global_var:bag_wtp_nrgo17 }
 bag_wtp_show_pq17 = { value = global_var:bag_wtp_pq17 }
 bag_wtp_show_gain17 = { value = global_var:bag_wtp_pbest17 divide = 10 }
 # silk в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11455,6 +11472,7 @@ bag_wtp_show_gain17 = { value = global_var:bag_wtp_pbest17 divide = 10 }
 bag_wtp_show_pnt18 = { value = global_var:bag_wtp_pnt18 }
 bag_wtp_show_pnr18 = { value = global_var:bag_wtp_pnr18 }
 bag_wtp_show_ng18 = { value = global_var:bag_wtp_ng18 }
+bag_wtp_show_nrgo18 = { value = global_var:bag_wtp_nrgo18 }
 bag_wtp_show_pq18 = { value = global_var:bag_wtp_pq18 }
 bag_wtp_show_gain18 = { value = global_var:bag_wtp_pbest18 divide = 10 }
 # silver в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11462,6 +11480,7 @@ bag_wtp_show_gain18 = { value = global_var:bag_wtp_pbest18 divide = 10 }
 bag_wtp_show_pnt19 = { value = global_var:bag_wtp_pnt19 }
 bag_wtp_show_pnr19 = { value = global_var:bag_wtp_pnr19 }
 bag_wtp_show_ng19 = { value = global_var:bag_wtp_ng19 }
+bag_wtp_show_nrgo19 = { value = global_var:bag_wtp_nrgo19 }
 bag_wtp_show_pq19 = { value = global_var:bag_wtp_pq19 }
 bag_wtp_show_gain19 = { value = global_var:bag_wtp_pbest19 divide = 10 }
 # stone в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11469,6 +11488,7 @@ bag_wtp_show_gain19 = { value = global_var:bag_wtp_pbest19 divide = 10 }
 bag_wtp_show_pnt20 = { value = global_var:bag_wtp_pnt20 }
 bag_wtp_show_pnr20 = { value = global_var:bag_wtp_pnr20 }
 bag_wtp_show_ng20 = { value = global_var:bag_wtp_ng20 }
+bag_wtp_show_nrgo20 = { value = global_var:bag_wtp_nrgo20 }
 bag_wtp_show_pq20 = { value = global_var:bag_wtp_pq20 }
 bag_wtp_show_gain20 = { value = global_var:bag_wtp_pbest20 divide = 10 }
 # sugar в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11476,6 +11496,7 @@ bag_wtp_show_gain20 = { value = global_var:bag_wtp_pbest20 divide = 10 }
 bag_wtp_show_pnt21 = { value = global_var:bag_wtp_pnt21 }
 bag_wtp_show_pnr21 = { value = global_var:bag_wtp_pnr21 }
 bag_wtp_show_ng21 = { value = global_var:bag_wtp_ng21 }
+bag_wtp_show_nrgo21 = { value = global_var:bag_wtp_nrgo21 }
 bag_wtp_show_pq21 = { value = global_var:bag_wtp_pq21 }
 bag_wtp_show_gain21 = { value = global_var:bag_wtp_pbest21 divide = 10 }
 # tobacco в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11483,6 +11504,7 @@ bag_wtp_show_gain21 = { value = global_var:bag_wtp_pbest21 divide = 10 }
 bag_wtp_show_pnt22 = { value = global_var:bag_wtp_pnt22 }
 bag_wtp_show_pnr22 = { value = global_var:bag_wtp_pnr22 }
 bag_wtp_show_ng22 = { value = global_var:bag_wtp_ng22 }
+bag_wtp_show_nrgo22 = { value = global_var:bag_wtp_nrgo22 }
 bag_wtp_show_pq22 = { value = global_var:bag_wtp_pq22 }
 bag_wtp_show_gain22 = { value = global_var:bag_wtp_pbest22 divide = 10 }
 # wild_game в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11490,6 +11512,7 @@ bag_wtp_show_gain22 = { value = global_var:bag_wtp_pbest22 divide = 10 }
 bag_wtp_show_pnt23 = { value = global_var:bag_wtp_pnt23 }
 bag_wtp_show_pnr23 = { value = global_var:bag_wtp_pnr23 }
 bag_wtp_show_ng23 = { value = global_var:bag_wtp_ng23 }
+bag_wtp_show_nrgo23 = { value = global_var:bag_wtp_nrgo23 }
 bag_wtp_show_pq23 = { value = global_var:bag_wtp_pq23 }
 bag_wtp_show_gain23 = { value = global_var:bag_wtp_pbest23 divide = 10 }
 # wine в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11497,6 +11520,7 @@ bag_wtp_show_gain23 = { value = global_var:bag_wtp_pbest23 divide = 10 }
 bag_wtp_show_pnt24 = { value = global_var:bag_wtp_pnt24 }
 bag_wtp_show_pnr24 = { value = global_var:bag_wtp_pnr24 }
 bag_wtp_show_ng24 = { value = global_var:bag_wtp_ng24 }
+bag_wtp_show_nrgo24 = { value = global_var:bag_wtp_nrgo24 }
 bag_wtp_show_pq24 = { value = global_var:bag_wtp_pq24 }
 bag_wtp_show_gain24 = { value = global_var:bag_wtp_pbest24 divide = 10 }
 # wool в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11504,6 +11528,7 @@ bag_wtp_show_gain24 = { value = global_var:bag_wtp_pbest24 divide = 10 }
 bag_wtp_show_pnt25 = { value = global_var:bag_wtp_pnt25 }
 bag_wtp_show_pnr25 = { value = global_var:bag_wtp_pnr25 }
 bag_wtp_show_ng25 = { value = global_var:bag_wtp_ng25 }
+bag_wtp_show_nrgo25 = { value = global_var:bag_wtp_nrgo25 }
 bag_wtp_show_pq25 = { value = global_var:bag_wtp_pq25 }
 bag_wtp_show_gain25 = { value = global_var:bag_wtp_pbest25 divide = 10 }
 # beer в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11511,6 +11536,7 @@ bag_wtp_show_gain25 = { value = global_var:bag_wtp_pbest25 divide = 10 }
 bag_wtp_show_pnt26 = { value = global_var:bag_wtp_pnt26 }
 bag_wtp_show_pnr26 = { value = global_var:bag_wtp_pnr26 }
 bag_wtp_show_ng26 = { value = global_var:bag_wtp_ng26 }
+bag_wtp_show_nrgo26 = { value = global_var:bag_wtp_nrgo26 }
 bag_wtp_show_pq26 = { value = global_var:bag_wtp_pq26 }
 bag_wtp_show_gain26 = { value = global_var:bag_wtp_pbest26 divide = 10 }
 # books в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11518,6 +11544,7 @@ bag_wtp_show_gain26 = { value = global_var:bag_wtp_pbest26 divide = 10 }
 bag_wtp_show_pnt27 = { value = global_var:bag_wtp_pnt27 }
 bag_wtp_show_pnr27 = { value = global_var:bag_wtp_pnr27 }
 bag_wtp_show_ng27 = { value = global_var:bag_wtp_ng27 }
+bag_wtp_show_nrgo27 = { value = global_var:bag_wtp_nrgo27 }
 bag_wtp_show_pq27 = { value = global_var:bag_wtp_pq27 }
 bag_wtp_show_gain27 = { value = global_var:bag_wtp_pbest27 divide = 10 }
 # cannons в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11525,6 +11552,7 @@ bag_wtp_show_gain27 = { value = global_var:bag_wtp_pbest27 divide = 10 }
 bag_wtp_show_pnt28 = { value = global_var:bag_wtp_pnt28 }
 bag_wtp_show_pnr28 = { value = global_var:bag_wtp_pnr28 }
 bag_wtp_show_ng28 = { value = global_var:bag_wtp_ng28 }
+bag_wtp_show_nrgo28 = { value = global_var:bag_wtp_nrgo28 }
 bag_wtp_show_pq28 = { value = global_var:bag_wtp_pq28 }
 bag_wtp_show_gain28 = { value = global_var:bag_wtp_pbest28 divide = 10 }
 # cloth в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11532,6 +11560,7 @@ bag_wtp_show_gain28 = { value = global_var:bag_wtp_pbest28 divide = 10 }
 bag_wtp_show_pnt29 = { value = global_var:bag_wtp_pnt29 }
 bag_wtp_show_pnr29 = { value = global_var:bag_wtp_pnr29 }
 bag_wtp_show_ng29 = { value = global_var:bag_wtp_ng29 }
+bag_wtp_show_nrgo29 = { value = global_var:bag_wtp_nrgo29 }
 bag_wtp_show_pq29 = { value = global_var:bag_wtp_pq29 }
 bag_wtp_show_gain29 = { value = global_var:bag_wtp_pbest29 divide = 10 }
 # fine_cloth в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11539,6 +11568,7 @@ bag_wtp_show_gain29 = { value = global_var:bag_wtp_pbest29 divide = 10 }
 bag_wtp_show_pnt30 = { value = global_var:bag_wtp_pnt30 }
 bag_wtp_show_pnr30 = { value = global_var:bag_wtp_pnr30 }
 bag_wtp_show_ng30 = { value = global_var:bag_wtp_ng30 }
+bag_wtp_show_nrgo30 = { value = global_var:bag_wtp_nrgo30 }
 bag_wtp_show_pq30 = { value = global_var:bag_wtp_pq30 }
 bag_wtp_show_gain30 = { value = global_var:bag_wtp_pbest30 divide = 10 }
 # firearms в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11546,6 +11576,7 @@ bag_wtp_show_gain30 = { value = global_var:bag_wtp_pbest30 divide = 10 }
 bag_wtp_show_pnt31 = { value = global_var:bag_wtp_pnt31 }
 bag_wtp_show_pnr31 = { value = global_var:bag_wtp_pnr31 }
 bag_wtp_show_ng31 = { value = global_var:bag_wtp_ng31 }
+bag_wtp_show_nrgo31 = { value = global_var:bag_wtp_nrgo31 }
 bag_wtp_show_pq31 = { value = global_var:bag_wtp_pq31 }
 bag_wtp_show_gain31 = { value = global_var:bag_wtp_pbest31 divide = 10 }
 # furniture в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11553,6 +11584,7 @@ bag_wtp_show_gain31 = { value = global_var:bag_wtp_pbest31 divide = 10 }
 bag_wtp_show_pnt32 = { value = global_var:bag_wtp_pnt32 }
 bag_wtp_show_pnr32 = { value = global_var:bag_wtp_pnr32 }
 bag_wtp_show_ng32 = { value = global_var:bag_wtp_ng32 }
+bag_wtp_show_nrgo32 = { value = global_var:bag_wtp_nrgo32 }
 bag_wtp_show_pq32 = { value = global_var:bag_wtp_pq32 }
 bag_wtp_show_gain32 = { value = global_var:bag_wtp_pbest32 divide = 10 }
 # glass в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11560,6 +11592,7 @@ bag_wtp_show_gain32 = { value = global_var:bag_wtp_pbest32 divide = 10 }
 bag_wtp_show_pnt33 = { value = global_var:bag_wtp_pnt33 }
 bag_wtp_show_pnr33 = { value = global_var:bag_wtp_pnr33 }
 bag_wtp_show_ng33 = { value = global_var:bag_wtp_ng33 }
+bag_wtp_show_nrgo33 = { value = global_var:bag_wtp_nrgo33 }
 bag_wtp_show_pq33 = { value = global_var:bag_wtp_pq33 }
 bag_wtp_show_gain33 = { value = global_var:bag_wtp_pbest33 divide = 10 }
 # jewelry в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11567,6 +11600,7 @@ bag_wtp_show_gain33 = { value = global_var:bag_wtp_pbest33 divide = 10 }
 bag_wtp_show_pnt34 = { value = global_var:bag_wtp_pnt34 }
 bag_wtp_show_pnr34 = { value = global_var:bag_wtp_pnr34 }
 bag_wtp_show_ng34 = { value = global_var:bag_wtp_ng34 }
+bag_wtp_show_nrgo34 = { value = global_var:bag_wtp_nrgo34 }
 bag_wtp_show_pq34 = { value = global_var:bag_wtp_pq34 }
 bag_wtp_show_gain34 = { value = global_var:bag_wtp_pbest34 divide = 10 }
 # lacquerware в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11574,6 +11608,7 @@ bag_wtp_show_gain34 = { value = global_var:bag_wtp_pbest34 divide = 10 }
 bag_wtp_show_pnt35 = { value = global_var:bag_wtp_pnt35 }
 bag_wtp_show_pnr35 = { value = global_var:bag_wtp_pnr35 }
 bag_wtp_show_ng35 = { value = global_var:bag_wtp_ng35 }
+bag_wtp_show_nrgo35 = { value = global_var:bag_wtp_nrgo35 }
 bag_wtp_show_pq35 = { value = global_var:bag_wtp_pq35 }
 bag_wtp_show_gain35 = { value = global_var:bag_wtp_pbest35 divide = 10 }
 # leather в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11581,6 +11616,7 @@ bag_wtp_show_gain35 = { value = global_var:bag_wtp_pbest35 divide = 10 }
 bag_wtp_show_pnt36 = { value = global_var:bag_wtp_pnt36 }
 bag_wtp_show_pnr36 = { value = global_var:bag_wtp_pnr36 }
 bag_wtp_show_ng36 = { value = global_var:bag_wtp_ng36 }
+bag_wtp_show_nrgo36 = { value = global_var:bag_wtp_nrgo36 }
 bag_wtp_show_pq36 = { value = global_var:bag_wtp_pq36 }
 bag_wtp_show_gain36 = { value = global_var:bag_wtp_pbest36 divide = 10 }
 # liquor в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11588,6 +11624,7 @@ bag_wtp_show_gain36 = { value = global_var:bag_wtp_pbest36 divide = 10 }
 bag_wtp_show_pnt37 = { value = global_var:bag_wtp_pnt37 }
 bag_wtp_show_pnr37 = { value = global_var:bag_wtp_pnr37 }
 bag_wtp_show_ng37 = { value = global_var:bag_wtp_ng37 }
+bag_wtp_show_nrgo37 = { value = global_var:bag_wtp_nrgo37 }
 bag_wtp_show_pq37 = { value = global_var:bag_wtp_pq37 }
 bag_wtp_show_gain37 = { value = global_var:bag_wtp_pbest37 divide = 10 }
 # masonry в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11595,6 +11632,7 @@ bag_wtp_show_gain37 = { value = global_var:bag_wtp_pbest37 divide = 10 }
 bag_wtp_show_pnt38 = { value = global_var:bag_wtp_pnt38 }
 bag_wtp_show_pnr38 = { value = global_var:bag_wtp_pnr38 }
 bag_wtp_show_ng38 = { value = global_var:bag_wtp_ng38 }
+bag_wtp_show_nrgo38 = { value = global_var:bag_wtp_nrgo38 }
 bag_wtp_show_pq38 = { value = global_var:bag_wtp_pq38 }
 bag_wtp_show_gain38 = { value = global_var:bag_wtp_pbest38 divide = 10 }
 # naval_supplies в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11602,6 +11640,7 @@ bag_wtp_show_gain38 = { value = global_var:bag_wtp_pbest38 divide = 10 }
 bag_wtp_show_pnt39 = { value = global_var:bag_wtp_pnt39 }
 bag_wtp_show_pnr39 = { value = global_var:bag_wtp_pnr39 }
 bag_wtp_show_ng39 = { value = global_var:bag_wtp_ng39 }
+bag_wtp_show_nrgo39 = { value = global_var:bag_wtp_nrgo39 }
 bag_wtp_show_pq39 = { value = global_var:bag_wtp_pq39 }
 bag_wtp_show_gain39 = { value = global_var:bag_wtp_pbest39 divide = 10 }
 # paper в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11609,6 +11648,7 @@ bag_wtp_show_gain39 = { value = global_var:bag_wtp_pbest39 divide = 10 }
 bag_wtp_show_pnt40 = { value = global_var:bag_wtp_pnt40 }
 bag_wtp_show_pnr40 = { value = global_var:bag_wtp_pnr40 }
 bag_wtp_show_ng40 = { value = global_var:bag_wtp_ng40 }
+bag_wtp_show_nrgo40 = { value = global_var:bag_wtp_nrgo40 }
 bag_wtp_show_pq40 = { value = global_var:bag_wtp_pq40 }
 bag_wtp_show_gain40 = { value = global_var:bag_wtp_pbest40 divide = 10 }
 # porcelain в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11616,6 +11656,7 @@ bag_wtp_show_gain40 = { value = global_var:bag_wtp_pbest40 divide = 10 }
 bag_wtp_show_pnt41 = { value = global_var:bag_wtp_pnt41 }
 bag_wtp_show_pnr41 = { value = global_var:bag_wtp_pnr41 }
 bag_wtp_show_ng41 = { value = global_var:bag_wtp_ng41 }
+bag_wtp_show_nrgo41 = { value = global_var:bag_wtp_nrgo41 }
 bag_wtp_show_pq41 = { value = global_var:bag_wtp_pq41 }
 bag_wtp_show_gain41 = { value = global_var:bag_wtp_pbest41 divide = 10 }
 # pottery в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11623,6 +11664,7 @@ bag_wtp_show_gain41 = { value = global_var:bag_wtp_pbest41 divide = 10 }
 bag_wtp_show_pnt42 = { value = global_var:bag_wtp_pnt42 }
 bag_wtp_show_pnr42 = { value = global_var:bag_wtp_pnr42 }
 bag_wtp_show_ng42 = { value = global_var:bag_wtp_ng42 }
+bag_wtp_show_nrgo42 = { value = global_var:bag_wtp_nrgo42 }
 bag_wtp_show_pq42 = { value = global_var:bag_wtp_pq42 }
 bag_wtp_show_gain42 = { value = global_var:bag_wtp_pbest42 divide = 10 }
 # slaves_goods в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11630,6 +11672,7 @@ bag_wtp_show_gain42 = { value = global_var:bag_wtp_pbest42 divide = 10 }
 bag_wtp_show_pnt43 = { value = global_var:bag_wtp_pnt43 }
 bag_wtp_show_pnr43 = { value = global_var:bag_wtp_pnr43 }
 bag_wtp_show_ng43 = { value = global_var:bag_wtp_ng43 }
+bag_wtp_show_nrgo43 = { value = global_var:bag_wtp_nrgo43 }
 bag_wtp_show_pq43 = { value = global_var:bag_wtp_pq43 }
 bag_wtp_show_gain43 = { value = global_var:bag_wtp_pbest43 divide = 10 }
 # steel в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11637,6 +11680,7 @@ bag_wtp_show_gain43 = { value = global_var:bag_wtp_pbest43 divide = 10 }
 bag_wtp_show_pnt44 = { value = global_var:bag_wtp_pnt44 }
 bag_wtp_show_pnr44 = { value = global_var:bag_wtp_pnr44 }
 bag_wtp_show_ng44 = { value = global_var:bag_wtp_ng44 }
+bag_wtp_show_nrgo44 = { value = global_var:bag_wtp_nrgo44 }
 bag_wtp_show_pq44 = { value = global_var:bag_wtp_pq44 }
 bag_wtp_show_gain44 = { value = global_var:bag_wtp_pbest44 divide = 10 }
 # tar в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11644,6 +11688,7 @@ bag_wtp_show_gain44 = { value = global_var:bag_wtp_pbest44 divide = 10 }
 bag_wtp_show_pnt45 = { value = global_var:bag_wtp_pnt45 }
 bag_wtp_show_pnr45 = { value = global_var:bag_wtp_pnr45 }
 bag_wtp_show_ng45 = { value = global_var:bag_wtp_ng45 }
+bag_wtp_show_nrgo45 = { value = global_var:bag_wtp_nrgo45 }
 bag_wtp_show_pq45 = { value = global_var:bag_wtp_pq45 }
 bag_wtp_show_gain45 = { value = global_var:bag_wtp_pbest45 divide = 10 }
 # tools в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11651,6 +11696,7 @@ bag_wtp_show_gain45 = { value = global_var:bag_wtp_pbest45 divide = 10 }
 bag_wtp_show_pnt46 = { value = global_var:bag_wtp_pnt46 }
 bag_wtp_show_pnr46 = { value = global_var:bag_wtp_pnr46 }
 bag_wtp_show_ng46 = { value = global_var:bag_wtp_ng46 }
+bag_wtp_show_nrgo46 = { value = global_var:bag_wtp_nrgo46 }
 bag_wtp_show_pq46 = { value = global_var:bag_wtp_pq46 }
 bag_wtp_show_gain46 = { value = global_var:bag_wtp_pbest46 divide = 10 }
 # weaponry в сводке: город, село, мест на земле, доля, лучшая выгода.
@@ -11658,6 +11704,7 @@ bag_wtp_show_gain46 = { value = global_var:bag_wtp_pbest46 divide = 10 }
 bag_wtp_show_pnt47 = { value = global_var:bag_wtp_pnt47 }
 bag_wtp_show_pnr47 = { value = global_var:bag_wtp_pnr47 }
 bag_wtp_show_ng47 = { value = global_var:bag_wtp_ng47 }
+bag_wtp_show_nrgo47 = { value = global_var:bag_wtp_nrgo47 }
 bag_wtp_show_pq47 = { value = global_var:bag_wtp_pq47 }
 bag_wtp_show_gain47 = { value = global_var:bag_wtp_pbest47 divide = 10 }
 # Scope: country
@@ -11670,3 +11717,15 @@ bag_wtp_show_sum_zero = { value = global_var:bag_wtp_sum_zero }
 bag_wtp_show_sum_full = { value = global_var:bag_wtp_sum_full }
 # Scope: country
 bag_wtp_show_sum_goods = { value = global_var:bag_wtp_sum_goods }
+# Scope: country
+bag_wtp_show_sum_tmin = { value = global_var:bag_wtp_sum_tmin }
+# Scope: country
+bag_wtp_show_sum_tmax = { value = global_var:bag_wtp_sum_tmax }
+# Scope: country
+bag_wtp_show_sum_tg = { value = global_var:bag_wtp_sum_tg }
+# Scope: country
+bag_wtp_show_sum_rmin = { value = global_var:bag_wtp_sum_rmin }
+# Scope: country
+bag_wtp_show_sum_rmax = { value = global_var:bag_wtp_sum_rmax }
+# Scope: country
+bag_wtp_show_sum_rg = { value = global_var:bag_wtp_sum_rg }

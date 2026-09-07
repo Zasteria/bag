@@ -11,15 +11,15 @@
 types BagWtpSumCells {
 	# clay
 	type bag_wtp_sum_row1 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum1').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -41,9 +41,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -53,9 +53,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -65,9 +65,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_1"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -77,9 +89,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -89,9 +101,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -104,15 +116,15 @@ types BagWtpSumCells {
 
 	# coal
 	type bag_wtp_sum_row2 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum2').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -134,9 +146,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -146,9 +158,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -158,9 +170,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_2"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -170,9 +194,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -182,9 +206,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -197,15 +221,15 @@ types BagWtpSumCells {
 
 	# cotton
 	type bag_wtp_sum_row3 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum3').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -227,9 +251,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -239,9 +263,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -251,9 +275,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_3"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -263,9 +299,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -275,9 +311,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -290,15 +326,15 @@ types BagWtpSumCells {
 
 	# dyes
 	type bag_wtp_sum_row4 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum4').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -320,9 +356,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -332,9 +368,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -344,9 +380,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_4"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -356,9 +404,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -368,9 +416,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -383,15 +431,15 @@ types BagWtpSumCells {
 
 	# fiber_crops
 	type bag_wtp_sum_row5 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum5').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -413,9 +461,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -425,9 +473,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -437,9 +485,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_5"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -449,9 +509,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -461,9 +521,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -476,15 +536,15 @@ types BagWtpSumCells {
 
 	# fish
 	type bag_wtp_sum_row6 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum6').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -506,9 +566,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -518,9 +578,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -530,9 +590,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_6"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -542,9 +614,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -554,9 +626,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -569,15 +641,15 @@ types BagWtpSumCells {
 
 	# fruit
 	type bag_wtp_sum_row7 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum7').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -599,9 +671,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -611,9 +683,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -623,9 +695,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_7"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -635,9 +719,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -647,9 +731,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -662,15 +746,15 @@ types BagWtpSumCells {
 
 	# horses
 	type bag_wtp_sum_row8 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum8').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -692,9 +776,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -704,9 +788,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -716,9 +800,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_8"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -728,9 +824,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -740,9 +836,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -755,15 +851,15 @@ types BagWtpSumCells {
 
 	# incense
 	type bag_wtp_sum_row9 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum9').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -785,9 +881,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -797,9 +893,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -809,9 +905,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_9"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -821,9 +929,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -833,9 +941,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -848,15 +956,15 @@ types BagWtpSumCells {
 
 	# iron
 	type bag_wtp_sum_row10 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum10').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -878,9 +986,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -890,9 +998,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -902,9 +1010,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_10"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -914,9 +1034,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -926,9 +1046,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -941,15 +1061,15 @@ types BagWtpSumCells {
 
 	# ivory
 	type bag_wtp_sum_row11 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum11').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -971,9 +1091,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -983,9 +1103,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -995,9 +1115,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_11"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1007,9 +1139,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1019,9 +1151,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1034,15 +1166,15 @@ types BagWtpSumCells {
 
 	# livestock
 	type bag_wtp_sum_row12 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum12').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1064,9 +1196,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1076,9 +1208,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1088,9 +1220,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_12"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1100,9 +1244,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1112,9 +1256,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1127,15 +1271,15 @@ types BagWtpSumCells {
 
 	# lumber
 	type bag_wtp_sum_row13 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum13').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1157,9 +1301,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1169,9 +1313,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1181,9 +1325,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_13"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1193,9 +1349,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1205,9 +1361,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1220,15 +1376,15 @@ types BagWtpSumCells {
 
 	# medicaments
 	type bag_wtp_sum_row14 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum14').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1250,9 +1406,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1262,9 +1418,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1274,9 +1430,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_14"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1286,9 +1454,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1298,9 +1466,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1313,15 +1481,15 @@ types BagWtpSumCells {
 
 	# salt
 	type bag_wtp_sum_row15 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum15').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1343,9 +1511,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1355,9 +1523,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1367,9 +1535,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_15"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1379,9 +1559,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1391,9 +1571,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1406,15 +1586,15 @@ types BagWtpSumCells {
 
 	# saltpeter
 	type bag_wtp_sum_row16 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum16').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1436,9 +1616,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1448,9 +1628,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1460,9 +1640,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_16"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1472,9 +1664,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1484,9 +1676,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1499,15 +1691,15 @@ types BagWtpSumCells {
 
 	# sand
 	type bag_wtp_sum_row17 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum17').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1529,9 +1721,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1541,9 +1733,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1553,9 +1745,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_17"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1565,9 +1769,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1577,9 +1781,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1592,15 +1796,15 @@ types BagWtpSumCells {
 
 	# silk
 	type bag_wtp_sum_row18 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum18').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1622,9 +1826,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1634,9 +1838,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1646,9 +1850,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_18"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1658,9 +1874,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1670,9 +1886,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1685,15 +1901,15 @@ types BagWtpSumCells {
 
 	# silver
 	type bag_wtp_sum_row19 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum19').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1715,9 +1931,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1727,9 +1943,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1739,9 +1955,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_19"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1751,9 +1979,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1763,9 +1991,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1778,15 +2006,15 @@ types BagWtpSumCells {
 
 	# stone
 	type bag_wtp_sum_row20 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum20').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1808,9 +2036,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1820,9 +2048,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1832,9 +2060,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_20"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1844,9 +2084,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1856,9 +2096,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1871,15 +2111,15 @@ types BagWtpSumCells {
 
 	# sugar
 	type bag_wtp_sum_row21 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum21').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1901,9 +2141,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1913,9 +2153,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1925,9 +2165,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_21"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1937,9 +2189,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1949,9 +2201,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1964,15 +2216,15 @@ types BagWtpSumCells {
 
 	# tobacco
 	type bag_wtp_sum_row22 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum22').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1994,9 +2246,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2006,9 +2258,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2018,9 +2270,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_22"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2030,9 +2294,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2042,9 +2306,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2057,15 +2321,15 @@ types BagWtpSumCells {
 
 	# wild_game
 	type bag_wtp_sum_row23 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum23').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2087,9 +2351,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2099,9 +2363,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2111,9 +2375,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_23"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2123,9 +2399,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2135,9 +2411,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2150,15 +2426,15 @@ types BagWtpSumCells {
 
 	# wine
 	type bag_wtp_sum_row24 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum24').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2180,9 +2456,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2192,9 +2468,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2204,9 +2480,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_24"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2216,9 +2504,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2228,9 +2516,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2243,15 +2531,15 @@ types BagWtpSumCells {
 
 	# wool
 	type bag_wtp_sum_row25 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum25').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2273,9 +2561,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2285,9 +2573,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2297,9 +2585,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_25"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2309,9 +2609,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2321,9 +2621,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2336,15 +2636,15 @@ types BagWtpSumCells {
 
 	# beer
 	type bag_wtp_sum_row26 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum26').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2366,9 +2666,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2378,9 +2678,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2390,9 +2690,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_26"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2402,9 +2714,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2414,9 +2726,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2429,15 +2741,15 @@ types BagWtpSumCells {
 
 	# books
 	type bag_wtp_sum_row27 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum27').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2459,9 +2771,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2471,9 +2783,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2483,9 +2795,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_27"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2495,9 +2819,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2507,9 +2831,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2522,15 +2846,15 @@ types BagWtpSumCells {
 
 	# cannons
 	type bag_wtp_sum_row28 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum28').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2552,9 +2876,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2564,9 +2888,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2576,9 +2900,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_28"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2588,9 +2924,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2600,9 +2936,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2615,15 +2951,15 @@ types BagWtpSumCells {
 
 	# cloth
 	type bag_wtp_sum_row29 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum29').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2645,9 +2981,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2657,9 +2993,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2669,9 +3005,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_29"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2681,9 +3029,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2693,9 +3041,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2708,15 +3056,15 @@ types BagWtpSumCells {
 
 	# fine_cloth
 	type bag_wtp_sum_row30 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum30').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2738,9 +3086,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2750,9 +3098,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2762,9 +3110,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_30"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2774,9 +3134,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2786,9 +3146,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2801,15 +3161,15 @@ types BagWtpSumCells {
 
 	# firearms
 	type bag_wtp_sum_row31 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum31').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2831,9 +3191,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2843,9 +3203,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2855,9 +3215,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_31"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2867,9 +3239,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2879,9 +3251,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2894,15 +3266,15 @@ types BagWtpSumCells {
 
 	# furniture
 	type bag_wtp_sum_row32 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum32').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2924,9 +3296,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2936,9 +3308,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2948,9 +3320,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_32"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2960,9 +3344,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2972,9 +3356,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2987,15 +3371,15 @@ types BagWtpSumCells {
 
 	# glass
 	type bag_wtp_sum_row33 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum33').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3017,9 +3401,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3029,9 +3413,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3041,9 +3425,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_33"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3053,9 +3449,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3065,9 +3461,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3080,15 +3476,15 @@ types BagWtpSumCells {
 
 	# jewelry
 	type bag_wtp_sum_row34 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum34').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3110,9 +3506,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3122,9 +3518,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3134,9 +3530,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_34"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3146,9 +3554,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3158,9 +3566,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3173,15 +3581,15 @@ types BagWtpSumCells {
 
 	# lacquerware
 	type bag_wtp_sum_row35 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum35').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3203,9 +3611,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3215,9 +3623,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3227,9 +3635,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_35"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3239,9 +3659,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3251,9 +3671,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3266,15 +3686,15 @@ types BagWtpSumCells {
 
 	# leather
 	type bag_wtp_sum_row36 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum36').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3296,9 +3716,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3308,9 +3728,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3320,9 +3740,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_36"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3332,9 +3764,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3344,9 +3776,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3359,15 +3791,15 @@ types BagWtpSumCells {
 
 	# liquor
 	type bag_wtp_sum_row37 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum37').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3389,9 +3821,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3401,9 +3833,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3413,9 +3845,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_37"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3425,9 +3869,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3437,9 +3881,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3452,15 +3896,15 @@ types BagWtpSumCells {
 
 	# masonry
 	type bag_wtp_sum_row38 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum38').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3482,9 +3926,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3494,9 +3938,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3506,9 +3950,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_38"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3518,9 +3974,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3530,9 +3986,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3545,15 +4001,15 @@ types BagWtpSumCells {
 
 	# naval_supplies
 	type bag_wtp_sum_row39 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum39').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3575,9 +4031,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3587,9 +4043,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3599,9 +4055,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_39"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3611,9 +4079,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3623,9 +4091,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3638,15 +4106,15 @@ types BagWtpSumCells {
 
 	# paper
 	type bag_wtp_sum_row40 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum40').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3668,9 +4136,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3680,9 +4148,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3692,9 +4160,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_40"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3704,9 +4184,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3716,9 +4196,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3731,15 +4211,15 @@ types BagWtpSumCells {
 
 	# porcelain
 	type bag_wtp_sum_row41 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum41').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3761,9 +4241,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3773,9 +4253,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3785,9 +4265,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_41"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3797,9 +4289,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3809,9 +4301,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3824,15 +4316,15 @@ types BagWtpSumCells {
 
 	# pottery
 	type bag_wtp_sum_row42 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum42').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3854,9 +4346,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3866,9 +4358,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3878,9 +4370,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_42"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3890,9 +4394,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3902,9 +4406,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3917,15 +4421,15 @@ types BagWtpSumCells {
 
 	# slaves_goods
 	type bag_wtp_sum_row43 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum43').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3947,9 +4451,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3959,9 +4463,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3971,9 +4475,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_43"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3983,9 +4499,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3995,9 +4511,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4010,15 +4526,15 @@ types BagWtpSumCells {
 
 	# steel
 	type bag_wtp_sum_row44 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum44').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4040,9 +4556,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4052,9 +4568,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4064,9 +4580,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_44"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4076,9 +4604,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4088,9 +4616,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4103,15 +4631,15 @@ types BagWtpSumCells {
 
 	# tar
 	type bag_wtp_sum_row45 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum45').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4133,9 +4661,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4145,9 +4673,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4157,9 +4685,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_45"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4169,9 +4709,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4181,9 +4721,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4196,15 +4736,15 @@ types BagWtpSumCells {
 
 	# tools
 	type bag_wtp_sum_row46 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum46').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4226,9 +4766,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4238,9 +4778,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4250,9 +4790,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_46"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4262,9 +4814,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4274,9 +4826,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4289,15 +4841,15 @@ types BagWtpSumCells {
 
 	# weaponry
 	type bag_wtp_sum_row47 = hbox {
-		size = { 1320 26 }
+		size = { 1298 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum47').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 240 26 }
+			size = { 216 26 }
 			autoresize = no
-			maximumsize = { 240 26 }
+			maximumsize = { 216 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4319,9 +4871,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 120 26 }
+			size = { 110 26 }
 			autoresize = no
-			maximumsize = { 120 26 }
+			maximumsize = { 110 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4331,9 +4883,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 90 26 }
+			size = { 74 26 }
 			autoresize = no
-			maximumsize = { 90 26 }
+			maximumsize = { 74 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4343,9 +4895,21 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 54 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_rgo_47"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4355,9 +4919,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 70 26 }
+			size = { 64 26 }
 			autoresize = no
-			maximumsize = { 70 26 }
+			maximumsize = { 64 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4367,9 +4931,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 640 26 }
+			size = { 620 26 }
 			autoresize = no
-			maximumsize = { 640 26 }
+			maximumsize = { 620 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10

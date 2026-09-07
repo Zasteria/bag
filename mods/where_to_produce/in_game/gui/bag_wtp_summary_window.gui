@@ -60,9 +60,9 @@ window = {
 
 			# Числа плана целиком, чтобы строку товара было с чем сравнивать.
 			text_single = {
-				size = { 1320 24 }
+				size = { 1298 24 }
 				autoresize = no
-				maximumsize = { 1320 24 }
+				maximumsize = { 1298 24 }
 				align = left|vcenter
 				fontsize = 14
 				elide = right
@@ -74,9 +74,9 @@ window = {
 			# сравнивать» — разрыв между «меньше всех» и «больше всех» и есть то,
 			# что сравнивают, а «без единого домика» больше нуля — отказ покрытия.
 			text_single = {
-				size = { 1320 22 }
+				size = { 1298 22 }
 				autoresize = no
-				maximumsize = { 1320 22 }
+				maximumsize = { 1298 22 }
 				align = left|vcenter
 				fontsize = 13
 				elide = right
@@ -88,9 +88,9 @@ window = {
 			# и столбец «доля» рядом с числами — это то, что дал бы обычный
 			# план, а не то, что ограничивало этот.
 			text_single = {
-				size = { 1320 22 }
+				size = { 1298 22 }
 				autoresize = no
-				maximumsize = { 1320 22 }
+				maximumsize = { 1298 22 }
 				align = left|vcenter
 				fontsize = 13
 				elide = right
@@ -101,13 +101,13 @@ window = {
 			# Заголовки столбцов. Ширины те же, что у строки товара, и обе
 			# считает `generate.SUM_COLS` — разъехаться им не на чем.
 			hbox = {
-				size = { 1320 22 }
+				size = { 1298 22 }
 				spacing = 6
 
 				text_single = {
-					size = { 240 22 }
+					size = { 216 22 }
 					autoresize = no
-					maximumsize = { 240 22 }
+					maximumsize = { 216 22 }
 					align = left|vcenter
 					fontsize = 13
 					fontsize_min = 10
@@ -129,9 +129,9 @@ window = {
 				}
 
 				text_single = {
-					size = { 120 22 }
+					size = { 110 22 }
 					autoresize = no
-					maximumsize = { 120 22 }
+					maximumsize = { 110 22 }
 					align = center|vcenter
 					fontsize = 13
 					fontsize_min = 10
@@ -141,9 +141,9 @@ window = {
 				}
 
 				text_single = {
-					size = { 90 22 }
+					size = { 74 22 }
 					autoresize = no
-					maximumsize = { 90 22 }
+					maximumsize = { 74 22 }
 					align = center|vcenter
 					fontsize = 13
 					fontsize_min = 10
@@ -153,9 +153,21 @@ window = {
 				}
 
 				text_single = {
-					size = { 70 22 }
+					size = { 54 22 }
 					autoresize = no
-					maximumsize = { 70 22 }
+					maximumsize = { 54 22 }
+					align = center|vcenter
+					fontsize = 13
+					fontsize_min = 10
+					elide = right
+					tooltip = "bag_wtp_sum_rgo_tt"
+					text = "bag_wtp_sum_col_rgo"
+				}
+
+				text_single = {
+					size = { 64 22 }
+					autoresize = no
+					maximumsize = { 64 22 }
 					align = center|vcenter
 					fontsize = 13
 					fontsize_min = 10
@@ -165,9 +177,9 @@ window = {
 				}
 
 				text_single = {
-					size = { 70 22 }
+					size = { 64 22 }
 					autoresize = no
-					maximumsize = { 70 22 }
+					maximumsize = { 64 22 }
 					align = center|vcenter
 					fontsize = 13
 					fontsize_min = 10
@@ -177,9 +189,9 @@ window = {
 				}
 
 				text_single = {
-					size = { 640 22 }
+					size = { 620 22 }
 					autoresize = no
-					maximumsize = { 640 22 }
+					maximumsize = { 620 22 }
 					align = left|vcenter
 					fontsize = 13
 					fontsize_min = 10
@@ -193,7 +205,7 @@ window = {
 			text_multi = {
 				layoutpolicy_horizontal = expanding
 				autoresize = yes
-				maximumsize = { 1320 60 }
+				maximumsize = { 1298 60 }
 				align = center
 				visible = "[Not(GetGlobalVariable('bag_wtp_sum_any').IsSet)]"
 				text = "bag_wtp_sum_window_empty"

@@ -2358,7 +2358,8 @@ def plan_loc_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \ttype = country
 """)
         for code, key in ((1, "none"), (2, "room"), (3, "quota"), (4, "capt"),
-                          (5, "capr"), (6, "lock"), (7, "skip"), (9, "lost")):
+                          (5, "capr"), (6, "lock"), (7, "skip"), (9, "lost"),
+                          (10, "taken")):
             out.append(f"""\ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_wr{i} = {code} }}
 \t\tlocalization_key = {MOD_ID}_why_{key}
@@ -7865,6 +7866,10 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         out.append(f' {MOD_ID}_sum_n_{i}: "#Y {sv % "pn"}#!"\n')
         out.append(f' {MOD_ID}_sum_sides_{i}: "{sv % "pnt"} / {sv % "pnr"}"\n')
         out.append(f' {MOD_ID}_sum_places_{i}: "{sv % "ng"}"\n')
+        # **РГО отдельным столбцом, потому что он объясняет почти каждое
+        # «почему у него меньше».** Доля товара -- это доля земли минус одно за
+        # каждое своё РГО, и без этого числа строка выглядит просто урезанной.
+        out.append(f' {MOD_ID}_sum_rgo_{i}: "{sv % "nrgo"}"\n')
         out.append(f' {MOD_ID}_sum_quota_{i}: "{sv % "pq"}"\n')
         out.append(f' {MOD_ID}_sum_gain_{i}: "{sv % "gain"}%"\n')
 
@@ -8717,8 +8722,8 @@ SUM_CELLS_OUT = MOD / "in_game/gui/bag_wtp_sum_cells.gui"
 
 # Ширины столбцов сводки. Сумма плюс промежутки не должна превышать ширину окна
 # минус рамку -- `docs/pitfalls/windows.md`, правило 3.
-SUM_COLS = ((240, "name"), (54, "n"), (120, "sides"), (90, "places"),
-            (70, "quota"), (70, "gain"), (640, "why"))
+SUM_COLS = ((216, "name"), (54, "n"), (110, "sides"), (74, "places"),
+            (54, "rgo"), (64, "quota"), (64, "gain"), (620, "why"))
 SUM_SPACING = 6
 SUM_ROW_W = sum(w for w, _ in SUM_COLS) + SUM_SPACING * (len(SUM_COLS) - 1)
 SUM_WINDOW_W = 1460
@@ -8740,7 +8745,8 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # товар. Флаг на каждую причину стоил бы шести глобалок на товар вместо одной, а
 # `visible` всё равно умеет только `.IsSet`.
 #
-# 1 -- земля этого не производит вовсе; 2 -- свободных мест не осталось;
+# 1 -- земля этого не производит вовсе; 2 -- стоит во всех своих местах;
+# 10 -- мест не осталось, но его места разобрали другие;
 # 3 -- выбрана своя доля; 4 -- выбран городской потолок; 5 -- сельский;
 # 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 9 -- специализация
 # перебила его в каждой свободной ячейке; 8 -- ничего из этого, то есть
@@ -8752,6 +8758,17 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_sum_zero value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_sum_full value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_sum_goods value = 0 }}
+\t# **Разрыв считается по сторонам отдельно, и это его правка 2026-09-07.**
+\t# «Меньше всех 12, больше всех 63» на одной шкале -- это не разброс, а
+\t# разница между «только городским» и «умеющим в село»: у первых потолок в
+\t# городских комнатах, у вторых в сельских, и сравнивать их между собой
+\t# нечего. Два числа на сторону отвечают на «ровно ли вышло» по-настоящему.
+\tset_global_variable = {{ name = {MOD_ID}_sum_tmin value = 9999 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_tmax value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_tg value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_rmin value = 9999 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_rmax value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_rg value = 0 }}
 \tremove_global_variable = {MOD_ID}_sum_any
 """)
     for index, good in enumerate(order, start=1):
@@ -8796,6 +8813,32 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{ global_var:{MOD_ID}_pn{index} = 0 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_sum_zero add = 1 }}
 \t\t}}
+\t\t# Сторона учитывается, только если земля даёт товару хоть одно место на
+\t\t# ней: иначе «минимум по городу» ловил бы нули чисто сельских товаров.
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_ngt{index} > 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_sum_tg add = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_pnt{index} < global_var:{MOD_ID}_sum_tmin }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sum_tmin value = global_var:{MOD_ID}_pnt{index} }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_pnt{index} > global_var:{MOD_ID}_sum_tmax }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sum_tmax value = global_var:{MOD_ID}_pnt{index} }}
+\t\t\t}}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_ngr{index} > 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_sum_rg add = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_pnr{index} < global_var:{MOD_ID}_sum_rmin }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sum_rmin value = global_var:{MOD_ID}_pnr{index} }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_pnr{index} > global_var:{MOD_ID}_sum_rmax }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sum_rmax value = global_var:{MOD_ID}_pnr{index} }}
+\t\t\t}}
+\t\t}}
 \t\t# **Осталось ли товару хоть одно свободное место.** Тот же вопрос, что
 \t\t# задаёт себе раздача, но заданный сейчас: `_px<s><n>` живёт внутри
 \t\t# `{MOD_ID}_plan_allocate` и о правках редактора не знает.
@@ -8809,10 +8852,22 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{ OR = {{ {can} }} }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_wsp{index} value = 1 }}
 \t\t}}
+\t\t# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
+\t\t# слитыми 2026-09-07: «у всех одна причина остановки, которая по сути
+\t\t# говорит что кончилось место».** Товар, стоящий во всех своих местах,
+\t\t# и товар, чьи места разобрали другие, остановились по разным причинам,
+\t\t# и вопрос «почему рыбы 18, а железа 39» отвечается только вторым.
 \t\tif = {{
-\t\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_wsp{index} }} }}
+\t\t\tlimit = {{
+\t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_wsp{index} }}
+\t\t\t\tNOT = {{ global_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_ng{index} }}
+\t\t\t}}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 2 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_sum_full add = 1 }}
+\t\t}}
+\t\telse_if = {{
+\t\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_wsp{index} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 10 }}
 \t\t}}
 \t\t# **В специализации доли и потолков не было, поэтому и причины такой
 \t\t# быть не может.** Товар, у которого места есть, а домиков нет, там
@@ -8841,6 +8896,14 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_sum_any }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_sum_min value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_sum_tg = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sum_tmin value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_sum_rg = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sum_rmin value = 0 }}
 \t}}
 }}
 
@@ -9227,6 +9290,7 @@ def main() -> int:
         f"{MOD_ID}_show_pnt{i} = {{ value = global_var:{MOD_ID}_pnt{i} }}\n"
         f"{MOD_ID}_show_pnr{i} = {{ value = global_var:{MOD_ID}_pnr{i} }}\n"
         f"{MOD_ID}_show_ng{i} = {{ value = global_var:{MOD_ID}_ng{i} }}\n"
+        f"{MOD_ID}_show_nrgo{i} = {{ value = global_var:{MOD_ID}_nrgo{i} }}\n"
         f"{MOD_ID}_show_pq{i} = {{ value = global_var:{MOD_ID}_pq{i} }}\n"
         # `_pbest` -- доля от `RANK_SCALE`; на экране это проценты.
         f"{MOD_ID}_show_gain{i} = {{ value = global_var:{MOD_ID}_pbest{i} "
@@ -9235,7 +9299,9 @@ def main() -> int:
         # И шапка сводки: ровность одной строкой.
         + "".join(
         f"# Scope: country\n{MOD_ID}_show_{name} = {{ value = global_var:{MOD_ID}_{name} }}\n"
-        for name in ("sum_min", "sum_max", "sum_zero", "sum_full", "sum_goods")))
+        for name in ("sum_min", "sum_max", "sum_zero", "sum_full", "sum_goods",
+                     "sum_tmin", "sum_tmax", "sum_tg",
+                     "sum_rmin", "sum_rmax", "sum_rg")))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent) + "".join(
