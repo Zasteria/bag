@@ -2036,3 +2036,1742 @@ bag_wtp_edit_last_label = {
 		localization_key = bag_wtp_edit_last_refused
 	}
 }
+
+# Scope: country
+bag_wtp_why_1 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr1 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr1 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr1 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr1 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr1 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr1 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr1 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_2 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_3 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr3 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr3 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr3 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr3 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr3 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr3 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr3 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_4 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_5 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr5 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr5 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr5 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr5 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr5 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr5 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr5 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_6 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_7 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr7 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr7 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr7 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr7 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr7 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr7 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr7 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_8 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_9 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr9 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr9 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr9 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr9 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr9 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr9 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr9 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_10 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_11 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr11 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr11 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr11 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr11 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr11 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr11 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr11 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_12 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_13 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr13 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr13 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr13 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr13 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr13 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr13 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr13 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_14 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_15 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr15 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr15 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr15 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr15 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr15 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr15 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr15 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_16 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_17 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr17 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr17 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr17 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr17 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr17 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr17 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr17 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_18 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_19 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr19 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr19 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr19 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr19 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr19 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr19 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr19 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_20 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_21 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr21 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr21 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr21 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr21 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr21 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr21 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr21 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_22 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_23 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr23 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr23 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr23 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr23 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr23 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr23 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr23 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_24 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_25 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr25 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr25 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr25 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr25 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr25 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr25 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr25 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_26 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_27 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr27 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr27 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr27 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr27 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr27 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr27 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr27 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_28 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_29 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr29 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr29 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr29 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr29 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr29 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr29 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr29 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_30 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_31 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr31 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr31 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr31 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr31 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr31 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr31 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr31 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_32 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_33 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr33 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr33 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr33 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr33 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr33 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr33 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr33 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_34 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_35 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr35 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr35 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr35 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr35 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr35 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr35 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr35 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_36 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_37 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr37 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr37 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr37 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr37 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr37 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr37 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr37 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_38 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_39 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr39 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr39 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr39 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr39 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr39 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr39 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr39 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_40 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_41 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr41 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr41 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr41 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr41 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr41 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr41 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr41 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_42 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_43 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr43 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr43 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr43 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr43 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr43 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr43 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr43 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_44 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_45 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr45 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr45 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr45 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr45 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr45 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr45 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr45 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_46 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr46 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr46 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr46 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr46 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr46 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr46 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr46 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}
+
+# Scope: country
+bag_wtp_why_47 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 1 }
+		localization_key = bag_wtp_why_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 2 }
+		localization_key = bag_wtp_why_room
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 3 }
+		localization_key = bag_wtp_why_quota
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 4 }
+		localization_key = bag_wtp_why_capt
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 5 }
+		localization_key = bag_wtp_why_capr
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 6 }
+		localization_key = bag_wtp_why_lock
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 7 }
+		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_why_open
+	}
+}

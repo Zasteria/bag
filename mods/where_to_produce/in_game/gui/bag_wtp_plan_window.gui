@@ -976,6 +976,30 @@ window = {
 
 				widget = { layoutpolicy_horizontal = expanding size = { -1 22 } }
 
+				# **Сводка по товарам — иконкой, рядом с числами прохода.** Его
+				# просьба 2026-09-07: «добавь мне в окно плана какую-нить
+				# небольшую иконку, которая будет мне открывать окно с подробной
+				# информацией». Она стоит здесь, а не среди кнопок выше, потому
+				# что читает ровно то, о чём говорит эта строка, — что прошлый
+				# расчёт положил.
+				#
+				# **`@production_panel!` — texticon самой игры**, а не выдуманный
+				# глиф: он стоит в её собственной локализации 24 раза. Глиф,
+				# которого нет в шрифте, рисуется квадратом, и это уже стоило
+				# этому моду ста ключей (`docs/pitfalls/localization.md`).
+				button_regular = {
+					size = { 34 26 }
+					tooltip = "bag_wtp_sum_open_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 16
+						text = "bag_wtp_sum_open"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_open_summary_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					down = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_folded').IsSet]"

@@ -2058,7 +2058,8 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 
-def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
+def plan_loc_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+                  game: eu5data.Game) -> str:
     """Which urban right a town was given, as text a row can print.
 
     A number on the location is all script can park there, and a row has to name
@@ -2337,6 +2338,31 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \ttext = {{
 \t\tfallback = yes
 \t\tlocalization_key = {MOD_ID}_edit_last_refused
+\t}}
+}}
+""")
+
+    # **Почему товар остановился именно на этом числе, словами.** Диспетчер на
+    # товар, восемь веток, читает одну глобалку `_wr<n>`, которую пишет
+    # `bag_wtp_plan_summary`. Восемь флагов на товар вместо неё стоили бы семью
+    # глобалками больше на каждый, а `visible` в `.gui` всё равно умеет только
+    # `.IsSet` -- диспетчер дешевле и читается.
+    for i in range(1, len(goods_order(split)) + 1):
+        out.append(f"""
+# Scope: country
+{MOD_ID}_why_{i} = {{
+\ttype = country
+""")
+        for code, key in ((1, "none"), (2, "room"), (3, "quota"), (4, "capt"),
+                          (5, "capr"), (6, "lock"), (7, "skip")):
+            out.append(f"""\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_wr{i} = {code} }}
+\t\tlocalization_key = {MOD_ID}_why_{key}
+\t}}
+""")
+        out.append(f"""\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_why_open
 \t}}
 }}
 """)
@@ -3770,6 +3796,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_plan_hide = {{
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tclear_global_variable_list = {MOD_ID}_plan_provs
+\t# **Сводка уходит вместе с планом, который её породил.** Она открывается
+\t# иконкой из окна плана и отвечает про этот план; оставшись висеть после
+\t# того, как окно закрыли, она отвечала бы про него же, но выглядела бы как
+\t# ответ про то, что на экране сейчас.
+\tremove_variable = {MOD_ID}_sum_open
 }}
 
 # The same thing the window's own scripted GUI does, reachable from an effect,
@@ -7800,6 +7831,18 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
                    f'"@{good}! [GuiScope.SetRoot(GetPlayer.MakeScope)'
                    f".ScriptValue('{MOD_ID}_show_pn{i}')|0]*\"\n")
 
+    # **Строка сводки: пять чисел и ни одного слова.** Слова стоят в заголовках
+    # столбцов, поэтому сами клетки одинаковы на всех языках и живут здесь.
+    for i, good in enumerate(goods_order(split), start=1):
+        sv = f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_%s{i}')|0]"
+        # **`#Y ` со своим пробелом, а не `#Y[`.** Разметка игры отделяет тег
+        # от текста пробелом -- 652 её собственных ключа, и ни одного без него.
+        out.append(f' {MOD_ID}_sum_n_{i}: "#Y {sv % "pn"}#!"\n')
+        out.append(f' {MOD_ID}_sum_sides_{i}: "{sv % "pnt"} / {sv % "pnr"}"\n')
+        out.append(f' {MOD_ID}_sum_places_{i}: "{sv % "ng"}"\n')
+        out.append(f' {MOD_ID}_sum_quota_{i}: "{sv % "pq"}"\n')
+        out.append(f' {MOD_ID}_sum_gain_{i}: "{sv % "gain"}%"\n')
+
     # **The search picker's cell: the good's icon and nothing else.** Forty-seven
     # names side by side would be four windows wide, so the name is the tooltip
     # and `{MOD_ID}_good_<good>` above is what it draws.
@@ -8628,6 +8671,222 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 
+# ------------------------------------------------------------------ the summary
+#
+# **Одно окно, в котором план видно целиком, а не по локациям.** Его слова
+# 2026-09-07: «сам план как таковой довольно жирный, подробный — но вот какой-то
+# сводки я не вижу по товарам… мне важно сравнивать. И тогда я смогу более
+# наглядно делать тесты на разной земле».
+#
+# **Строка на товар, выписанная, а не из датамодели** — по той же причине, что
+# ячейки редактора: строка датамодели несёт скоуп товара, а скоуп не достаёт до
+# нумерованной глобалки `_pn<n>`.
+#
+# **И причина остановки у каждой.** Это половина просьбы и та, ради которой
+# окно вообще стоит строить: число без причины не говорит, землю ли не хватило,
+# долю ли выбрали или товар закреплён рукой.
+
+SUMMARY_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_summary.txt"
+SUM_CELLS_OUT = MOD / "in_game/gui/bag_wtp_sum_cells.gui"
+
+# Ширины столбцов сводки. Сумма плюс промежутки не должна превышать ширину окна
+# минус рамку -- `docs/pitfalls/windows.md`, правило 3.
+SUM_COLS = ((240, "name"), (54, "n"), (120, "sides"), (90, "places"),
+            (70, "quota"), (70, "gain"), (640, "why"))
+SUM_SPACING = 6
+SUM_ROW_W = sum(w for w, _ in SUM_COLS) + SUM_SPACING * (len(SUM_COLS) - 1)
+SUM_WINDOW_W = 1460
+assert SUM_ROW_W <= SUM_WINDOW_W - 40, (SUM_ROW_W, SUM_WINDOW_W)
+
+
+def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+                 game: eu5data.Game) -> str:
+    """Что сводка считает: причину остановки на товар и четыре числа в шапку."""
+    order = goods_order(split)
+    groups = plan_groups(rows, split, game)
+    out = [HEADER, "#\n# The plan's summary: one row a good, and why each stopped\n# where it did.\n"]
+    out.append(f"""
+# **Считается на открытие окна и больше нигде.** Один обход по кандидатам на
+# товар -- это единственное дорогое, что здесь есть, и платить за него на каждом
+# «+1» незачем: сводка отвечает на вопрос, который задают глазами.
+#
+# **Причина -- число, а рисует её `{MOD_ID}_why_<n>`**, диспетчер локализации на
+# товар. Флаг на каждую причину стоил бы шести глобалок на товар вместо одной, а
+# `visible` всё равно умеет только `.IsSet`.
+#
+# 1 -- земля этого не производит вовсе; 2 -- свободных мест не осталось;
+# 3 -- выбрана своя доля; 4 -- выбран городской потолок; 5 -- сельский;
+# 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 8 -- ничего из этого,
+# то есть раздача встала раньше, чем товар упёрся хоть во что-то.
+# Scope: country
+{MOD_ID}_plan_summary = {{
+\tset_global_variable = {{ name = {MOD_ID}_sum_min value = 9999 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_max value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_zero value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_full value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_sum_goods value = 0 }}
+\tremove_global_variable = {MOD_ID}_sum_any
+""")
+    for index, good in enumerate(order, start=1):
+        town = groups.get((good, "t"))
+        rural = groups.get((good, "r"))
+        can = " ".join(f"{MOD_ID}_plan_can_{side}_{index} = yes"
+                       for side, has in (("town", town), ("rural", rural)) if has)
+        caps = ""
+        if town:
+            caps += f"""\t\telse_if = {{
+\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_pnt{index} < global_var:{MOD_ID}_pqt{index} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 4 }}
+\t\t}}
+"""
+        if rural:
+            caps += f"""\t\telse_if = {{
+\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_pnr{index} < global_var:{MOD_ID}_pqr{index} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 5 }}
+\t\t}}
+"""
+        out.append(f"""\t# {good}
+\tremove_global_variable = {MOD_ID}_sum{index}
+\tremove_global_variable = {MOD_ID}_wsp{index}
+\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 8 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ng{index} = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 1 }}
+\t}}
+\telse = {{
+\t\tset_global_variable = {{ name = {MOD_ID}_sum{index} value = 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sum_any value = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_sum_goods add = 1 }}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_sum_min }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_sum_min value = global_var:{MOD_ID}_pn{index} }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pn{index} > global_var:{MOD_ID}_sum_max }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_sum_max value = global_var:{MOD_ID}_pn{index} }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pn{index} = 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_sum_zero add = 1 }}
+\t\t}}
+\t\t# **Осталось ли товару хоть одно свободное место.** Тот же вопрос, что
+\t\t# задаёт себе раздача, но заданный сейчас: `_px<s><n>` живёт внутри
+\t\t# `{MOD_ID}_plan_allocate` и о правках редактора не знает.
+\t\t#
+\t\t# **По `_plan_touched`, а не по `_candidates`.** Земля плана -- это то, на
+\t\t# чём план стоит, а список кандидатов идёт за текущим выбором на карте:
+\t\t# клик по соседней провинции после расчёта переписал бы его, и сводка
+\t\t# начала бы отвечать про землю, которой в плане нет.
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_plan_touched
+\t\t\tlimit = {{ OR = {{ {can} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_wsp{index} value = 1 }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_wsp{index} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 2 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_sum_full add = 1 }}
+\t\t}}
+\t\telse_if = {{
+\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 3 }}
+\t\t}}
+{caps}\t}}
+\t# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_lock{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 6 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_skip{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 7 }}
+\t}}
+""")
+    out.append(f"""\t# Пустая земля оставила бы 9999 на экране.
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_sum_any }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sum_min value = 0 }}
+\t}}
+}}
+
+# Scope: country
+{MOD_ID}_open_summary_window_effect = {{
+\t{MOD_ID}_plan_summary = yes
+\tset_variable = {{ name = {MOD_ID}_sum_open value = 1 }}
+}}
+
+# Scope: country
+{MOD_ID}_close_summary_window_effect = {{
+\tremove_variable = {MOD_ID}_sum_open
+}}
+""")
+    return "".join(out)
+
+
+def sum_cells_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+                   game: eu5data.Game) -> str:
+    """Строки сводки, по одной на товар, и одна коробка, которая держит их все."""
+    order = goods_order(split)
+    out = ["""# Generated by mods/where_to_produce/tools/generate.py. Do not edit by hand.
+#
+# Одна строка на товар для окна сводки. `bag_wtp_summary_window.gui` рисует
+# рамку, шапку и заголовки столбцов; здесь только строки, поэтому `window` тут
+# нет и в `gui/scripted_widgets/` этот файл не нужен.
+#
+# **Строка выписана, а не взята из датамодели.** Строка датамодели несёт скоуп
+# товара, а скоуп не достаёт до нумерованной глобалки: `_pn<n>`, `_pq<n>` и
+# причина остановки рисуются только отсюда.
+
+types BagWtpSumCells {
+"""]
+    for index, good in enumerate(order, start=1):
+        cells = ""
+        for width, kind in SUM_COLS:
+            if kind == "why":
+                text = f'"[GetPlayer.Custom(\'{MOD_ID}_why_{index}\')]"'
+                align, size = "left|vcenter", 13
+            elif kind == "name":
+                text = f'"{MOD_ID}_good_{good}"'
+                align, size = "left|vcenter", 14
+            else:
+                text = f'"{MOD_ID}_sum_{kind}_{index}"'
+                align, size = ("center|vcenter", 15) if kind == "n" else ("center|vcenter", 13)
+            cells += f"""\t\ttext_single = {{
+\t\t\tsize = {{ {width} 26 }}
+\t\t\tautoresize = no
+\t\t\tmaximumsize = {{ {width} 26 }}
+\t\t\talign = {align}
+\t\t\tfontsize = {size}
+\t\t\tfontsize_min = 10
+\t\t\telide = right
+\t\t\ttooltip = "{MOD_ID}_sum_{kind}_tt"
+\t\t\ttext = {text}
+\t\t}}
+
+"""
+        out.append(f"""\t# {good}
+\ttype {MOD_ID}_sum_row{index} = hbox {{
+\t\tsize = {{ {SUM_ROW_W} 26 }}
+\t\tspacing = {SUM_SPACING}
+\t\tvisible = "[GetGlobalVariable('{MOD_ID}_sum{index}').IsSet]"
+\t\tusing = bg_number_container_bckg
+
+{cells}\t}}
+
+""")
+    rowlist = "".join(f"\t\t{MOD_ID}_sum_row{i} = {{}}\n"
+                      for i in range(1, len(order) + 1))
+    out.append(f"""\t# **Все строки одной коробкой, потому что окно написано руками.**
+\t# `ignoreinvisible = yes` -- строка товара, которого эта земля не умеет,
+\t# должна пропадать вместе со своим местом, иначе список весь в дырах.
+\ttype {MOD_ID}_sum_all = vbox {{
+\t\tspacing = 2
+\t\tignoreinvisible = yes
+{rowlist}\t}}
+}}
+""")
+    return "".join(out)
+
 def main() -> int:
     game = eu5data.load_game()
     rows = methods(game)
@@ -8676,7 +8935,25 @@ def main() -> int:
         f"# How many towns hold {right.key} right now, printed in its own cell.\n"
         f"# Scope: country\n"
         f"{MOD_ID}_show_rgiven{k} = {{ value = global_var:{MOD_ID}_rgiven{k} }}\n"
-        for k, right in enumerate(output_rights(rows, game), start=1)))
+        for k, right in enumerate(output_rights(rows, game), start=1))
+        # **Пять чисел строки сводки.** Всё, что нужно, чтобы сравнить товар с
+        # товаром: сколько стоит, где стоит, сколько мест есть, сколько
+        # положено и что земля за него платит.
+        + "".join(
+        f"# {good} в сводке: город, село, мест на земле, доля, лучшая выгода.\n"
+        f"# Scope: country\n"
+        f"{MOD_ID}_show_pnt{i} = {{ value = global_var:{MOD_ID}_pnt{i} }}\n"
+        f"{MOD_ID}_show_pnr{i} = {{ value = global_var:{MOD_ID}_pnr{i} }}\n"
+        f"{MOD_ID}_show_ng{i} = {{ value = global_var:{MOD_ID}_ng{i} }}\n"
+        f"{MOD_ID}_show_pq{i} = {{ value = global_var:{MOD_ID}_pq{i} }}\n"
+        # `_pbest` -- доля от `RANK_SCALE`; на экране это проценты.
+        f"{MOD_ID}_show_gain{i} = {{ value = global_var:{MOD_ID}_pbest{i} "
+        f"divide = {RANK_SCALE // 100} }}\n"
+        for i, good in enumerate(goods_order(split), start=1))
+        # И шапка сводки: ровность одной строкой.
+        + "".join(
+        f"# Scope: country\n{MOD_ID}_show_{name} = {{ value = global_var:{MOD_ID}_{name} }}\n"
+        for name in ("sum_min", "sum_max", "sum_zero", "sum_full", "sum_goods")))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent) + "".join(
@@ -8778,13 +9055,15 @@ def main() -> int:
     write(RIGHTS_OUT, rights_file(rows, split, game))
     write(PLAN_OUT, plan_file(rows, split, game))
     write(PLAN_TRIGGERS_OUT, plan_triggers_file(rows, split, game))
-    write(PLAN_LOC_OUT, plan_loc_file(rows, game))
+    write(PLAN_LOC_OUT, plan_loc_file(rows, split, game))
     write(DIAG_OUT, diag_file(rows, split, game))
     effects, triggers = editor_file(rows, split, game)
     write(EDITOR_OUT, effects)
     write(EDITOR_TRIGGERS_OUT, triggers)
     write(EDIT_CELLS_OUT, edit_cells_file(goods_order(split), output_rights(rows, game)))
     write(PICK_CELLS_OUT, pick_cells_file(goods_order(split), rights))
+    write(SUMMARY_OUT, summary_file(rows, split, game))
+    write(SUM_CELLS_OUT, sum_cells_file(rows, split, game))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))

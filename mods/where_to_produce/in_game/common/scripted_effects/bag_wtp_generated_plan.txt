@@ -30781,6 +30781,11 @@ bag_wtp_plan_page_prev_effect = {
 bag_wtp_plan_hide = {
 	clear_global_variable_list = bag_wtp_plan_results
 	clear_global_variable_list = bag_wtp_plan_provs
+	# **Сводка уходит вместе с планом, который её породил.** Она открывается
+	# иконкой из окна плана и отвечает про этот план; оставшись висеть после
+	# того, как окно закрыли, она отвечала бы про него же, но выглядела бы как
+	# ответ про то, что на экране сейчас.
+	remove_variable = bag_wtp_sum_open
 }
 
 # The same thing the window's own scripted GUI does, reachable from an effect,

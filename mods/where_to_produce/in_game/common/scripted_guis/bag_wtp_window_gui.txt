@@ -706,3 +706,31 @@ bag_wtp_plan_clear_ticks = {
 		bag_wtp_clear_ticks = yes
 	}
 }
+
+# Сводка по товарам, из окна плана. **Считает на открытие и ничего не меняет:**
+# один обход по кандидатам на товар — чтобы спросить, осталось ли ему хоть одно
+# свободное место, — и восемь чисел в шапку. План на карте она не трогает, и
+# нажать её можно сколько угодно раз подряд.
+bag_wtp_open_summary_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_open_summary_window_effect = yes
+	}
+}
+
+bag_wtp_close_summary_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_close_summary_window_effect = yes
+	}
+}
