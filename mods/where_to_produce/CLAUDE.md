@@ -37,21 +37,20 @@ maximises the bonus, subject to every good the ground can make being made**
 building and a location holds one of each**
 ([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
-**A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
-one building a press, **the round trip is no undo**, and **a pin is a star**
-(`_lock<n>`). **A charter is not a building**: every town holds exactly one, so
-«+1»/«−1» *moves* it, bundle and all. **The changes window is a diff, not a
-chronology**, shelved at his word; the journal is `WTP PRESS`. **«Расширить» доливает новую землю**: новое = выбранное минус
-`_plan_touched`, старое заморожено, **оно сужает `_candidates`**. **Земля
-редактора своя** (`_sel_keep_plan`). **Ряд плана рисует товар над домиком двумя
-датамоделями**, `WTP ROWPAIR` ловит расхождение.
-**Одна квота на товар — это равномерность — и два потолка по сторонам** (`_pq`
-против `_pqt`/`_pqr`): потолок домиков не добавляет, он мешает одному выгрести
-дефицитную сторону. **Весов город/село нет и не будет**, и **выхлоп сторону не
-различает** — обе версии отвергнуты числами.
-**`_edit_set_quota` этого ещё не знает.** **Ступень дефицита — доля земли**
-(2…32 %), а старые 1/2/4/8/16 — пол. **Выхлоп отвергнут владельцем**; `_pout<n>` остался зондом
+**Равномерность держит уровень, а не квота**: круг поднимает `_plan_lvl` на
+единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
+«где», а не «сколько»**; покрытие — это круг 1, открытая лестница — сухой круг
+([`plan_as_reservation.md`](../../docs/investigations/plan_as_reservation.md)).
+**Второй режим — «Специализация»**, кнопка на странице мода: провинция отдаёт
+лучшую грамоту всем городам, ячейка — тому, кто платит в ней больше всех
+([`plan_specialisation.md`](../../docs/investigations/plan_specialisation.md)).
+**Сводка по товарам** — иконка в окне плана: строка на товар и причина, на чём он
+остановился. **Весов город/село нет и не будет**, и **выхлоп сторону не
+различает** — обе версии отвергнуты числами
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
+
+**Правила редактора, доливки и рядов — выписаны**:
+[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство —
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before

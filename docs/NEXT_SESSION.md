@@ -4,7 +4,7 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `where_to_produce`, step 6 is built and owes one run
+## The job: `where_to_produce`, three new things owe one run
 
 **Read [`investigations/wtp_practice_plan.md`](investigations/wtp_practice_plan.md)
 for the order and what each step cost, and
@@ -14,59 +14,63 @@ the rules it implements. `_plan_*` itself is
 
 ### Steps 0–5 and step 6 are closed and were seen in the game
 
-The window, the share, the reshuffle, the menu, the RGOs, eviction, the press
-journal, folded provinces, charters that move, and «Расширить» — all confirmed by
-his runs of 2026-09-05…07 and written up in the practice plan. **Three rules
-outlive them:** the editor's state is the editor's and a fresh plan reads none of
-it; `.gui` work starts at [`pitfalls/windows.md`](pitfalls/windows.md); the
-changes window is shelved at his word.
+All confirmed by his runs of 2026-09-05…07 and written up in the practice plan.
+**Three rules outlive them:** the editor's state is the editor's and a fresh plan
+reads none of it; `.gui` work starts at
+[`pitfalls/windows.md`](pitfalls/windows.md); the changes window is shelved.
 
-### The plan is a reservation map, and the objective in the code is the wrong one
+### Three things built 2026-09-07, none of them ever loaded
 
-**His correction, 2026-09-07:** «план того, чтобы нашлось выгодное место каждому
-товару и оно было зарезервировано. Спрос решает только КОГДА.» Market demand is
-out of the formula, and maximising Σ gain is the wrong objective for a
-reservation map. **Measured:** goods the ground pays nothing for average **1.5**
-buildings against **5.0** for the well-paid — structural, since a good worth 0
-adds 0 to a sum.
-
-**Proposed instead — a draft, and ownership.** Round by round every good takes one
-location, its own best remaining; and **each location belongs to the most
-constrained good that can use it** until that good is done. Ordering alone is not
-enough — he caught that, and the same hole is already open in what is built:
-dyes has six admissible locations and got **one**, while cloth with forty-eight
-got **fifteen**, because the tier ladder admits a good only when its gain clears
-a band and dyes gains nothing. Scarcity and zero gain compound.
-
-Evenness becomes structural — no quota, share, sides, classes, weights or tiers.
-The rule never mentions town or village, so urbanisation inverts it by itself and
-his ticks are load-bearing for it.
+**1. Раздача уровнями.** The band no longer decides *how many*. A lap raises
+`_plan_lvl` by one and every good may add at most one building in it; inside the
+lap the ladder is what it was — scarce tiers, five bands in each, then everything
+— so gain still says **which** location and scarcity **who picks first**.
+Coverage is lap 1 (at level 1 the gate *is* `_pn = 0`) and the open ladder is a
+dry lap (a lap that places nothing raises every quota); both phases are gone as
+code. Two new counters make it work: `_px<side><n>` drops a good with no free
+place from the walk, `_plan_top` stops a dry lap killing «Расширить».
 [`investigations/plan_as_reservation.md`](investigations/plan_as_reservation.md).
 
-**Measured on his ground, and it reorders the work:** the level it supports is
-**3** buildings a good, and **no good has a ceiling below it** — iron and fish
-have four places, salt five. So scarcity protection guards nothing there, while
-eight goods sit at **one** building with six places each, and cloth at fifteen.
-**The distortion is the gain bands, not scarcity.** Take the bands out of «how
-many» (leaving them in «where») first; scarcity protection is for a different
-ground, where the level is 20 and iron still has 4.
+**What it must fix:** eight goods with six places each finished with **one**
+while cloth with forty-eight finished with **fifteen**. **What it may cost:**
+total gain — `GAIN fed=` and the average percent of ceiling, against 2026-09-06.
 
-**Nothing built. He asked for theory and said so twice.**
+**2. Окно сводки**, on a `@production_panel!` icon in the plan window: a row a
+good — count, town/village split, places this ground offers it, its share, what
+the ground pays its best building — and **why it stopped**, one of nine reasons.
+Header: least, most, goods with nothing, goods that took every place they could.
+Computed on opening, over `_plan_touched`.
 
-### The share as it stands: one quota per good, two side caps
+**3. «Специализация»**, a button on the mod page: the same pipeline with two
+different middles — a province gives its best charter to all its towns, and every
+free room goes to whoever pays most in it. No shares, caps or tiers.
+[`investigations/plan_specialisation.md`](investigations/plan_specialisation.md).
 
-A good builds while under its **total quota** *and* under the **cap of the side
-it builds on**. Side quotas alone and output weights were both rejected on
-numbers, and output cannot classify a building as town or village.
-[`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
-**Never run.**
+**What a run has to answer, in this order:**
 
-### Closed 2026-09-06: the scarce tiers are a share of the ground
+1. `WTP L1 placed=` should be very nearly «every good this ground can make». If
+   it is not, coverage broke when it became lap 1.
+2. The lap profile should fall off gently. A cliff after L2–L3 means the level
+   gate is not binding.
+3. The summary's «меньше всех / больше всех» against the same numbers of
+   2026-09-06 — that gap is the whole point of change 1.
+4. `laps=150` in `PASS` is the guard cutting the draft off with work still to do.
+5. «Специализация» on the same ground: does every town of one province hold the
+   same charter? **The one form with no precedent in this mod** is
+   `change_global_variable = { add = bag_wtp_rq<k> }` reading a *location* script
+   value inside a walk over locations; if it silently yields 0, every province
+   picks charter 1 and that is what the screen will show.
 
-They were absolute counts, so 16 meant a third of a 48-location ground and 1.5 %
-of a 1000-location one. Now 2/4/8/16/32 % with the old numbers as floors: 48
-candidates give 1/2/4/8/16 exactly as before, 1000 give 20/40/80/160/320, and
-iron with forty places lands in the second tier.
+### The share, and the tiers, as they stand
+
+A good builds while under its **total quota** *and* under the **cap of the side it
+builds on** — and, since 2026-09-07, while under the level. Side quotas alone and
+output weights were both rejected on numbers, and output cannot classify a
+building as town or village
+([`investigations/plan_share_sides.md`](investigations/plan_share_sides.md)).
+The scarce tiers are a **share of the ground** (2…32 %) with the old 1/2/4/8/16 as
+floors, so 48 candidates behave exactly as before and 1000 give 20…320.
+**Neither has been run since.**
 
 ### Then 7 and 8, in that order, and not before
 
@@ -86,15 +90,10 @@ Build's interface. Why, in [`CONVENTIONS.md`](CONVENTIONS.md).
 
 ### Two lessons that outlive the faults
 
-**Instrument before the third theory**, and **state the player cannot see or
-clear is the mod's fault** — [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
-**Why «выгода от места» fell to 64%** is a row in [`SETTLED.md`](SETTLED.md);
-**why a preference is an edit and never a term in the objective** is
+**Instrument before the third theory** and **do not spend his run on a guess** —
+[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md). **Why a preference is an edit
+and never a term in the objective** is
 [`investigations/plan_formula.md`](investigations/plan_formula.md).
-
-**Do not spend his run on a guess.** Every fault above was found by counting in
-his log or his report, and the four-theories rule (`pitfalls/diagnosis.md`) is
-what this mod has already cost him.
 
 ## The job: `mods.bat`, and one run to confirm it
 
