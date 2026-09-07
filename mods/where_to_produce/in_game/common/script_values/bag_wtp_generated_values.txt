@@ -10788,11 +10788,6 @@ bag_wtp_plan_scored_value = { value = global_var:bag_wtp_plan_scored }
 # And the editor's own divisor: how many goods are still free of a lock and of
 # the «не нужен» flag. Same shape and the same caller-side guard.
 bag_wtp_edit_free_value = { value = global_var:bag_wtp_edit_free }
-# The band as a fraction of `RANK_SCALE`, for the open ladder's relative
-# threshold. A `multiply` takes a script value, not a variable, which is why this
-# has a name of its own -- the same shape `_plan_scored_value` has.
-# Scope: country
-bag_wtp_plan_bandf_value = { value = global_var:bag_wtp_plan_bandf }
 # What the editor's ordered walks sort on: what this location charges for the
 # building being added, or `RANK_SCALE` minus the gain of the one being taken
 # out. `order_by` reads a script value and never a variable, which is the whole

@@ -601,7 +601,7 @@ def digest(lines: list[str]) -> list[str]:
     # всего 3 домика»), и единственное место, где его видно в работе. Общее
     # «упёрлись в квоту» сюда не идёт: на заполненной земле в квоту упирается
     # всё подряд, и строка из двадцати товаров ничего не отвечает.
-    opensw = field(pas, "open_sweeps")
+    opensw = field(pas, "dry_laps")
     if opensw is not None:
         capped = []
         for line in lines:
@@ -632,16 +632,22 @@ def digest(lines: list[str]) -> list[str]:
             # уровень, у остальных свой. Строка, называвшая только `quota`,
             # объявляла бы «доля земли 1» там, где двадцати трём товарам из
             # тридцати восьми положено пять.
+            # **Долей одна, а потолков два, и печатать надо все три.** С
+            # 2026-09-07 равномерность держит уровень, а не квота: «доля земли»
+            # -- это сколько домиков товару положено всего, `cap` -- сколько из
+            # них он вправе взять на городской и на сельской стороне. Строка,
+            # называвшая одно число, не давала отличить «доля кончилась» от
+            # «сторона кончилась».
             share = first("WTP SHARE")
-            base, rest = field(pas, "quota"), field(share, "rest")
-            bind = field(share, "bind")
-            side = {1: "городской стороне", 2: "сельской стороне"}.get(bind)
-            if side and rest is not None and rest != base:
-                head = ("доли две: %s %s, всем остальным %s — сторона упёрлась "
-                        "в свои комнаты раньше, чем земля кончилась"
-                        % (side, base, rest))
-            else:
-                head = "доля земли %s на товар" % (base if base is not None else "?")
+            base = field(pas, "quota")
+            capt, capr = field(share, "cap"), None
+            if share:
+                caps = re.findall(r"cap=(-?\d+)", share)
+                if len(caps) == 2:
+                    capt, capr = int(caps[0]), int(caps[1])
+            head = "доля земли %s на товар" % (base if base is not None else "?")
+            if capt is not None and capr is not None:
+                head += ", из них в городе не больше %d, в селе не больше %d" % (capt, capr)
             out.append("Упёрлись в свою долю (%s, минус одно "
                        "за каждое своё РГО, но не ниже 1): %s"
                        % (head, "; ".join(capped)))
@@ -685,9 +691,27 @@ def digest(lines: list[str]) -> list[str]:
 
     out.extend(journal(lines))
 
-    cut = [line.split()[1] for line in lines
-           if line.startswith("WTP P") and re.search(r"sweeps=(\d+)/\1\b", line)]
-    out.append("Проходы, упёршиеся в лимит кругов: " + (", ".join(cut) if cut else "нет"))
+    # **Форма раздачи, одной строкой.** С 2026-09-07 план раздаётся уровнями:
+    # круг поднимает уровень на единицу и каждый товар берёт не больше одного
+    # домика. Значит профиль кругов -- это и есть ответ на «ровно ли вышло»:
+    # длинный пологий спуск -- ровно, обрыв после первого-второго -- нет. Ноль в
+    # середине -- сухой круг, поднявший всем квоту.
+    laps = []
+    for line in lines:
+        m = re.match(r"WTP L(\d+) placed=(-?\d+)", line)
+        if m:
+            laps.append((int(m.group(1)), int(m.group(2))))
+    ran = field(pas, "laps")
+    if laps:
+        shown = [n for _, n in laps][:ran or len(laps)]
+        while shown and shown[-1] == 0:
+            shown.pop()
+        out.append("Раздача по уровням (сколько домиков лёг каждый круг): "
+                   + " ".join(str(n) for n in shown)
+                   + ("" if ran is None else "; кругов всего %d, уровень %s"
+                      % (ran, field(pas, "level"))))
+    if ran is not None and ran >= 150:
+        out.append("ВНИМАНИЕ: раздача упёрлась в лимит кругов — работа осталась.")
     out.append("=== дальше подробности, они для сессии ===")
     return out
 

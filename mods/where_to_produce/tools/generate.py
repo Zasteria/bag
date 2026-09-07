@@ -97,18 +97,18 @@ RIGHT_SCALE = RANK_SCALE // 10
 # sweep places at most one building per good per side, so 970 buildings over 32
 # goods needs thirty sweeps at the very least; at 12 the thirty-eighth run was
 # cut off with 342 of 1312 rooms still empty -- «мод не справился досчитать всё
-# как надо». It costs nothing where a pass has no work, because the `while`
-# leaves the moment a sweep adds nothing, so it is only ever paid where there is
-# something left to place.
+# как надо». It costs nothing where a lap has no work, because the `while` leaves
+# the moment two laps running add nothing.
 #
-# **Raised from 50 to 150 on 2026-09-03, and the report is what asked for it.**
-# On 416 locations `open800` and `open600` both came back `sweeps=50/50` -- the
-# guard cutting a pass off with work still to do, which is the one fault in the
-# allocator that leaves no other trace. What they could not place at a high band
-# fell through to a lower one, which is precisely the thing the banded open
-# ladder exists to prevent. A pass with no work still costs exactly one sweep, so
-# nothing else in the plan pays for this.
-PLAN_ROUNDS = 150
+# **A lap, not a sweep, since 2026-09-07.** The allocator used to be twenty
+# passes with a `while` inside each; it is one `while` now, and a turn of it
+# raises the level by one. So this is the highest count any good can reach, plus
+# the dry laps that open the quota after the share is spent. Northern Germany --
+# 416 locations, some 1300 rooms, 38 goods -- gives a share near 34, and the
+# leftovers are dealt a layer a lap after that, so 150 leaves room. `laps=150` in
+# the dump is the guard cutting the draft off with work still to do, which is the
+# one fault in here that leaves no other trace.
+PLAN_LAPS = 150
 # **One page of the plan window, and not the size of the answer.** Only the
 # datamodel decides what a scripted widget costs, so this is the number of rows
 # drawn at once; `PLAN_RANKED` below is how many the plan keeps, and the page
@@ -174,78 +174,34 @@ PLAN_BANDS = (800, 600, 400, 200, 0)
 # times over. Westphalia -- 48 towns, 9 charters -- climbs to 6.
 RIGHT_LEVELS = 12
 
-# The passes after all of them, with the quota raised a layer a round rather
-# than with a candidate count of their own. `is` on a sentinel and not a sixth
-# number, because the tier value they write is 0 like the `tierall` rung's.
-OPEN_TIER = object()
-
-# The pass that keeps the covering constraint: only goods with nothing anywhere,
-# at any gain, into any free slot. It is not a tier and not a band.
-COVER_TIER = object()
-
-# **The allocator's passes in order, and the one list both it and the dump read.**
-# Written out here rather than built twice, because the dump numbers a pass by its
-# place in this list and a diagnosis that names the wrong pass is worse than none.
+# **The rungs inside one lap of the draft, and the whole of the ordering.**
 #
-# **Four ladders, each of them five descending bands, and the order between them
-# is the whole design.**
+# **A lap is a level**: `_plan_lvl` rises by one and every good may add at most
+# one building before the next lap starts. So this list no longer decides *how
+# many* buildings anything gets -- only who picks first inside the lap, and out
+# of which locations.
 #
-# 1. **coverage** -- every good the ground can produce takes one location, at the
-#    highest band it can reach. **It runs FIRST, and the run of 2026-09-03 is
-#    why.** It used to be pass 31 of 32, and by then the ground was 192 of 192
-#    full: it placed **nothing**, `stone` finished the plan with **zero**
-#    buildings on ground where nine locations could have made it, and no bog iron
-#    smelter stood anywhere although only four locations in the whole selection
-#    can host one. The owner, in capitals: «Где блядь хоть одна печка болотного
-#    железа?.. Я бы никогда подобного не допустил во время игры!» A guarantee
-#    that runs last is not a guarantee -- it is whatever the ground has left
-#    over. It costs the ladders below one building per good, and those are the
-#    cheapest buildings in the plan to give away, because each is the only one
-#    its good will ever get if the ladder does not place it.
-# 2. **the scarce**, tier by tier, five bands inside each -- a good only a
-#    handful of locations can hold finishes its quota before a good with forty
-#    starts on its own. «Дайте сначала сложным домикам их 2 провинции по
-#    возможности, найдите минимум 20 локаций с болотами и зарезервируйте их под
-#    железо», 2026-09-03.
-# 3. **everything**, five bands -- the `tierall` rung, which is where the bulk of
-#    a plan is placed and where gain alone decides.
-# 4. **the open ladder**, five bands with the quota raised a layer a round --
-#    what is left after every good has had its share.
+# 1. **The scarce first**, tier by tier, five bands inside each -- a good only a
+#    handful of locations can hold picks before a good with forty. «Дайте
+#    сначала сложным домикам их 2 провинции по возможности, найдите минимум 20
+#    локаций с болотами и зарезервируйте их под железо», 2026-09-03.
+# 2. **Then everything**, five bands, where gain alone decides.
 #
-# **The scarce ladder is a phase of its own and no longer a rung inside every
-# band, and that is the correction of 2026-09-03.** Written `for band: for
-# tier:`, a scarce good could only enter a rung whose band its gain cleared --
-# and a scarce good's gain is usually low, because scarcity and a poor recipe
-# have the same cause. Over that run the tier rungs of all five bands placed
-# **three buildings of sixty-nine** and `band800/tierall` placed the rest; iron
-# reached no rung above band 0, and by band 0 its four wetland locations had
-# belonged to clay and cloth for twenty-five passes. Reserving before the common
-# goods start is what the owner asked for and what «зарезервировать» means.
+# **Coverage is not a rung any more and does not need to be.** It was five
+# passes of its own, testing `_pn<n> = 0`; at `_plan_lvl = 1` the level gate
+# *is* that test, and lap one runs every band down to 0 -- so a good the ground
+# feeds nothing still takes a place before anything takes a second. One rule
+# fewer for the same guarantee.
 #
-# **The open ladder is banded for the same reason the others are.** It was one
-# pass at band 0, where gain does not enter at all, and on the thirty-eighth run
-# that one pass placed **271 buildings of 770** -- more than a third of a large
-# plan decided without the objective. Five bands cost four more passes and a pass
-# with no work is very nearly free: the `while` leaves the moment a sweep adds
-# nothing.
-PLAN_PASSES = ([(band, COVER_TIER) for band in PLAN_BANDS]
-               + [(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
-               + [(band, 0) for band in PLAN_BANDS]
-               + [(band, OPEN_TIER) for band in PLAN_BANDS])
+# **The open ladder is not a rung either.** It was five more passes raising every
+# quota a round; a dry lap does that now, so the leftovers spread in level layers
+# like everything else.
+PLAN_RUNGS = ([(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
+              + [(band, 0) for band in PLAN_BANDS])
 
 
-def pass_name(band: int, tier: object) -> str:
-    """How a pass is written in the dump: the band it admits and the tier it is.
-
-    **Every pass has a name of its own.** The open ladder is five passes now, so
-    a bare `open` would put the same word on five lines of the dump and the one
-    thing the pass list exists for -- reading a number back against the pass that
-    made it -- would be gone.
-    """
-    if tier is COVER_TIER:
-        return f"cover{band}"
-    if tier is OPEN_TIER:
-        return f"open{band}"
+def rung_name(band: int, tier: object) -> str:
+    """How a rung is written in the dump: the band it admits and the tier it is."""
     return f"band{band}/tier{tier if tier else 'all'}"
 
 # The diagnostic dump: what one press writes into the log, and the caps on it.
@@ -255,6 +211,12 @@ def pass_name(band: int, tier: object) -> str:
 DIAG_VERSION = 5
 DIAG_LOCS = 200
 DIAG_ROWS = 25
+# How many laps of the draft the dump prints one line each for. A lap line is
+# «how many buildings level L placed», which is the shape of the whole
+# allocation in one column: a plan that is even reads as a long flat run, and a
+# plan that is not falls off a cliff. Forty covers his ground several times
+# over and a realm-sized one once; past it the count is still in `laps=`.
+DIAG_LAPS = 40
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
 # reach the item a walk is standing on** -- measured 2026-09-02, `THIS.MakeScope`
 # fails and the bracket is echoed literally -- so every number is parked in one of
@@ -1349,11 +1311,6 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # And the editor's own divisor: how many goods are still free of a lock and of
 # the «не нужен» flag. Same shape and the same caller-side guard.
 {MOD_ID}_edit_free_value = {{ value = global_var:{MOD_ID}_edit_free }}
-# The band as a fraction of `RANK_SCALE`, for the open ladder's relative
-# threshold. A `multiply` takes a script value, not a variable, which is why this
-# has a name of its own -- the same shape `_plan_scored_value` has.
-# Scope: country
-{MOD_ID}_plan_bandf_value = {{ value = global_var:{MOD_ID}_plan_bandf }}
 # What the editor's ordered walks sort on: what this location charges for the
 # building being added, or `RANK_SCALE` minus the gain of the one being taken
 # out. `order_by` reads a script value and never a variable, which is the whole
@@ -2522,8 +2479,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_sweeps value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_opensw value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_band value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_plan_bandf value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_plan_cover value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_lvl value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_laps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_dry value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_top value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = 1 }}
 """]
     for index, good in enumerate(order, start=1):
@@ -2551,7 +2510,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}\n"
-                   f"\tset_global_variable = {{ name = {MOD_ID}_pth{index} value = 0 }}\n"
                    f"\tremove_global_variable = {MOD_ID}_lock{index}\n"
                    # **И заморозка на время доливки, которая не должна пережить
                    # ничего.** `_frz<n>` держит товар вне раздачи ровно на один
@@ -2577,13 +2535,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                f"\tset_global_variable = {{ name = {MOD_ID}_rlevel value = 0 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_rquota value = 1 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_rgrant value = 0 }}\n")
-    # **What each pass of the allocator did, kept so the dump can print it.** Two
-    # writes a pass and none per good or per location, so it costs nothing a
-    # player can feel -- and it is the only part of the diagnosis that cannot be
-    # read back afterwards: a pass that ran out of sweeps leaves no other trace.
-    for i in range(1, len(PLAN_PASSES) + 1):
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_passsw{i} value = 0 }}\n"
-                   f"\tset_global_variable = {{ name = {MOD_ID}_passpl{i} value = 0 }}\n")
+    # **What each lap of the draft placed, kept so the dump can print it.** One
+    # write a lap and none per good or per location, so it costs nothing a player
+    # can feel -- and it is the only part of the diagnosis that cannot be read
+    # back afterwards: the shape of the allocation leaves no other trace.
+    for i in range(1, DIAG_LAPS + 1):
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_lapn{i} value = 0 }}\n")
     out.append(f"""
 \t# Every candidate made ready. **Every counter a `limit` reads has to exist
 \t# before the first round**: a comparison against a variable that is not there
@@ -3331,172 +3288,128 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {quota_lines}}}
 """)
 
-    # ---- the threshold a pass admits a good at ------------------------------
+    # ---- the draft ---------------------------------------------------------
     #
-    # **One global per good, written per pass, and the pick reads only that.**
-    # The band used to be one number for every good, which is right while the
-    # quota is binding and wrong the moment it stops -- and on a realm-sized
-    # ground it stops completely. Measured 2026-09-03 on 416 locations: the quota
-    # came to 29 a good and no good reached it, so the band was the whole
-    # allocator, and the 30 goods that touch 1000 somewhere averaged **42**
-    # buildings against **12** for the eight that never do. `cannons` could stand
-    # in 103 locations, had a quota of 160, and got **two**.
+    # **The band decides where, never how many, and that is the change of
+    # 2026-09-07.** The ladder was five bands on the outside with the sweeps
+    # running to exhaustion inside each pass, so a good whose best location paid
+    # 800 took its whole share -- and then, in the open ladder, layer after layer
+    # -- before a good whose best paid 300 was admitted at all. Measured on his
+    # own ground, 48 locations: `dyes`, `incense`, `wine`, `books`, `cannons`,
+    # `saltpeter`, `medicaments` and `fine_cloth` had **six places each and
+    # finished with one**, while `cloth` finished with **fifteen**. Eight goods
+    # of thirty-eight, and it was not the ground that stopped them.
     #
-    # So the absolute band deals the fair share and **the open ladder deals the
-    # leftovers by each good's own best**: a good whose ceiling on this ground is
-    # 362 enters `open800` at 290, which is its own top fifth, exactly as cloth
-    # enters at 800. That is the second ladder
-    # `docs/investigations/plan_gaps.md` D asked for, and the run above is the
-    # measurement it was waiting for.
-    absolute = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_pth{i} value = global_var:{MOD_ID}_plan_band }}\n"
-        for i in range(1, len(order) + 1))
-    # `_pbest` plus the player's weight, floored at nought, times the band as a
-    # fraction. Four writes a good and only in the open ladder.
-    relative = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_pth{i} value = global_var:{MOD_ID}_pbest{i} }}\n"
-        f"\tchange_global_variable = {{ name = {MOD_ID}_pth{i} multiply = {MOD_ID}_plan_bandf_value }}\n"
-        for i in range(1, len(order) + 1))
+    # So the level moved outside everything: one lap raises `_plan_lvl` by one,
+    # and `_pn<n> < _plan_lvl` lets a good add at most one building in that lap.
+    # Inside the lap the ladder is what it always was -- the scarce tiers first,
+    # five bands inside each, then everything -- so gain still says **which**
+    # location and scarcity still says **who picks first**. Neither says how many.
+    #
+    # **This is what the owner meant by «план — это в первую очередь план»**,
+    # 2026-09-07: a reservation map, where every good the ground can make has a
+    # profitable place held for it, and demand decides only *when* it is built.
+    # `docs/investigations/plan_as_reservation.md`.
     out.append(f"""
-# What a good has to reach to be placed in this pass, one global per good.
+# The draft: a level a lap, and no good takes its second before every good that
+# can has taken its first.
 #
-# **The absolute band, for every ladder but the last.** While the quota binds,
-# the ground is contested and the biggest gain should win the room.
-# Scope: country
-{MOD_ID}_plan_th_absolute = {{
-{absolute}}}
-
-# **And each good's own best, scaled by the band, for the open ladder.** Once
-# every good has had its share, the rooms left over are not contested in the same
-# way: handing them to whoever has the largest ceiling is what put 108 cloth
-# buildings and 2 cannon on the same ground. `_plan_bandf` is the band as a
-# fraction, set by the pass.
-# Scope: country
-{MOD_ID}_plan_th_relative = {{
-{relative}}}
-""")
-
-    # ---- the sweeps --------------------------------------------------------
-    out.append(f"""
-# The rounds: coverage, then the scarce goods, then everything, then what is left.
+# **Coverage is lap one.** At `_plan_lvl = 1` the level gate is `_pn<n> = 0`,
+# which is exactly what the covering pass used to test, and lap one runs every
+# band down to 0 -- so a good the ground feeds nothing still takes a place.
 #
-# **A good with one place in the whole ground that can hold it takes that place
-# before a good with forty gets its second.** That is the owner's «жёстко
-# зарезервировать слоты», and iron is the case he named: without an RGO it comes
-# from one building, `bog_iron_smelter`, which wants wetlands or a lake, so where
-# it can go at all it must. A tier admits only goods `_ng<n>` says few locations
-# can host, and **the tiers are a phase before the common goods start rather than
-# a rung inside every band** -- which is the one thing that makes the reservation
-# real. `generate.PLAN_PASSES` has the measurement that settled it.
+# **The open ladder is a dry lap.** When a whole lap places nothing, every quota
+# rises by one and the next lap tries again: the rooms left over after the share
+# is spent are dealt in level layers like everything else. Two dry laps running
+# mean the ground is full rather than the quota, and the draft stops.
 #
-# Within a pass the sweeps run until one adds nothing anywhere, so **a location
-# the plan can feed is never left empty**. The sweep counter is a guard against a
-# condition that cannot be left, not a design.
+# **`_plan_top` is why a dry lap does not stop the extension dead.** «Расширить»
+# runs this over a plan that already stands, where every good holds several
+# buildings, so the first laps cannot place anything at all -- the level has to
+# climb past what is already there first. A lap only counts as dry once the level
+# is above every count the draft started with.
 # Scope: country
 {MOD_ID}_plan_allocate = {{
+\tset_global_variable = {{ name = {MOD_ID}_plan_lvl value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_laps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_dry value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_top value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
 """)
-    # **Dealt in bands, highest gain first, across every good at once.**
-    # That is the optimum and the whole of it: by the time a good that would
-    # gain a tenth of its ceiling reaches a location, the good that would have
-    # gained nine tenths has already taken it. The opportunity cost is paid by
-    # the ordering rather than by asking every other good what it would have
-    # made of the place. `docs/investigations/plan_formula.md` derives it.
-    #
-    # A band costs a sweep, so there are five rather than ten. The last is 0,
-    # which admits a good the RGOs feed nothing -- and it must, because every
-    # good the ground can produce has to be produced.
-    #
-    # **All four ladders are banded, the open one included.** Coverage keeps the
-    # owner's hard constraint, the scarce ladder reserves, the `tierall` ladder
-    # places the bulk, and the open ladder fills what is left -- and each of them
-    # deals its own share of the ground highest gain first.
-    for number, (band, tier) in enumerate(PLAN_PASSES, start=1):
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_band value = {band} }}\n")
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_cover "
-                   f"value = {1 if tier is COVER_TIER else 0} }}\n")
-        # The threshold each good is admitted at in this pass: the band itself
-        # everywhere but the open ladder, each good's own best there.
-        if tier is OPEN_TIER:
-            out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_bandf "
-                       f"value = {band / RANK_SCALE:g} }}\n"
-                       f"\t{MOD_ID}_plan_th_relative = yes\n")
-        else:
-            out.append(f"\t{MOD_ID}_plan_th_absolute = yes\n")
-        if tier is COVER_TIER:
-            out.append("""\t# **Every good the ground can produce is produced.** The owner's first
-\t# requirement and the one the bands cannot keep on their own: a good that
-\t# lost every band -- because the rights took the towns, or because it gains
-\t# nothing and the ground filled -- takes a free slot here, anywhere, at any
-\t# gain. «Все товары которые можно произвести на выбранной земле должны
-\t# производиться, все.»
+    # **Каждый товар снова считается небезнадёжным, и оба флага снимаются
+    # здесь.** `_px<side><n>` — «этому товару на этой стороне места кончились»;
+    # он ставится, когда обход на полосе 0 не нашёл ничего, и его снятие обязано
+    # жить в том же эффекте, что и раздача: `_plan_allocate` зовут оба пути --
+    # план и доливка, -- а `_plan_prepare` зовёт только первый.
+    for index, good in enumerate(order, start=1):
+        for sfx in ("t", "r"):
+            if not groups.get((good, sfx)):
+                continue
+            out.append(f"\tremove_global_variable = {MOD_ID}_px{sfx}{index}\n")
+    # Самый крупный счёт, с которым раздача начинает. Свежий план приходит сюда
+    # с тем, что раздали хартии; доливка -- со всем прошлым планом.
+    for index in range(1, len(order) + 1):
+        out.append(f"""\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_pn{index} > global_var:{MOD_ID}_plan_top }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_top value = global_var:{MOD_ID}_pn{index} }}
+\t}}
 """)
-            tier = 0
-        # **An open pass raises every quota by one a round; it does not lift
-        # them.** Lifting was the thirty-sixth run: five towns of Münsterland,
-        # ten buildings in fifteen rooms and the same good standing in three of
-        # them, because the first good down the list took every free room at
-        # once. Raising fills the leftover ground a layer at a time instead, so
-        # what is spare is spread the same way the quota itself is -- and with
-        # the band still on, the layer goes where the ground pays for it.
-        raise_all = ""
-        if tier is OPEN_TIER:
-            # **And the count of those raises, because without it `q` in the
-            # report cannot be read.** `_pq<n>` is dumped after the plan, so it
-            # carries every layer this ladder added; the quota the allocator
-            # actually enforced is `q` minus this number. Two reports of
-            # 2026-09-03 were mis-read for want of it -- `clay q=2 rgo=2` beside
-            # `PASS quota=2` looks like the RGO discount doing nothing, and is
-            # the discount working and the open ladder adding one back.
-            raise_all = "".join(
-                f"\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
-                f"\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{i} add = 1 }}\n"
-                f"\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{i} add = 1 }}\n"
-                for i in range(1, len(order) + 1))
-            raise_all += f"\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}\n"
-            tier = 0
-        if tier in PLAN_TIERS:
-            # Ступень как доля выбранной земли, с абсолютным полом.
-            k = PLAN_TIERS.index(tier) + 1
-            tier_line = (
-                f"\tset_global_variable = {{ name = {MOD_ID}_plan_tier "
-                f"value = global_var:{MOD_ID}_candidate_count }}\n"
-                f"\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
-                f"divide = {MOD_ID}_tdiv{k} }}\n"
-                f"\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
-                f"max = {tier} }}\n")
-        else:
-            tier_line = (f"\tset_global_variable = {{ name = {MOD_ID}_plan_tier "
-                         f"value = {tier} }}\n")
-        out.append(tier_line + f"""\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
-\t# **The guard is per pass and not across them.** It was one counter for all
-\t# of them for one load, and the thirty-third run spent it on the scarce
-\t# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
-\t# and forty-four places, most locations holding one thing. The pass that
-\t# fills the ground never ran at all.
-\tset_global_variable = {{ name = {MOD_ID}_plan_tsweeps value = 0 }}
-\twhile = {{
+    out.append(f"""\twhile = {{
 \t\tlimit = {{
 \t\t\tglobal_var:{MOD_ID}_plan_go = 1
-\t\t\tglobal_var:{MOD_ID}_plan_tsweeps < {PLAN_ROUNDS}
+\t\t\tglobal_var:{MOD_ID}_plan_laps < {PLAN_LAPS}
 \t\t}}
-\t\tchange_global_variable = {{ name = {MOD_ID}_plan_tsweeps add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_laps add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_lvl add = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_sweeps add = 1 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_plan_added value = 0 }}
-{raise_all}""")
-        for index, good in enumerate(order, start=1):
+""")
+    for band, tier in PLAN_RUNGS:
+        out.append(f"\t\t# {rung_name(band, tier)}\n"
+                   f"\t\tset_global_variable = {{ name = {MOD_ID}_plan_band value = {band} }}\n")
+        if tier:
+            # Ступень как доля выбранной земли, с абсолютным полом.
+            k = PLAN_TIERS.index(tier) + 1
+            out.append(f"\t\tset_global_variable = {{ name = {MOD_ID}_plan_tier "
+                       f"value = global_var:{MOD_ID}_candidate_count }}\n"
+                       f"\t\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
+                       f"divide = {MOD_ID}_tdiv{k} }}\n"
+                       f"\t\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
+                       f"max = {tier} }}\n")
+        else:
+            out.append(f"\t\tset_global_variable = {{ name = {MOD_ID}_plan_tier value = 0 }}\n")
+        for index in range(1, len(order) + 1):
             out.append(f"\t\t{MOD_ID}_plan_pick_{index} = yes\n")
-        out.append(f"""\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_plan_added = 0 }}
+    # Сколько положил каждый круг -- вся форма раздачи одним столбцом.
+    lap_marks = "".join(
+        f"\t\tif = {{ limit = {{ global_var:{MOD_ID}_plan_laps = {lap} }} "
+        f"set_global_variable = {{ name = {MOD_ID}_lapn{lap} "
+        f"value = global_var:{MOD_ID}_plan_added }} }}\n"
+        for lap in range(1, DIAG_LAPS + 1))
+    raise_all = "".join(
+        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
+        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{i} add = 1 }}\n"
+        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{i} add = 1 }}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""{lap_marks}\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_added = 0
+\t\t\t\tglobal_var:{MOD_ID}_plan_lvl > global_var:{MOD_ID}_plan_top
+\t\t\t}}
+\t\t\t# **Сухой круг открывает квоту, и это вся бывшая открытая лестница.**
+\t\t\t# Поднимаются все квоты разом, поэтому остаток земли расходится теми же
+\t\t\t# ровными слоями, что и доля. `_plan_opensw` -- сколько раз подняли.
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_dry add = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}
+{raise_all}\t\t}}
+\t\telse = {{ set_global_variable = {{ name = {MOD_ID}_plan_dry value = 0 }} }}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_plan_dry > 1 }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 0 }}
 \t\t}}
 \t}}
-\t# What this pass cost and what it had by the end of it. `_passsw` at
-\t# {PLAN_ROUNDS} is a pass the guard cut off with work still to do, which is the
-\t# one fault in here that leaves no other trace.
-\tset_global_variable = {{ name = {MOD_ID}_passsw{number} value = global_var:{MOD_ID}_plan_tsweeps }}
-\tset_global_variable = {{ name = {MOD_ID}_passpl{number} value = global_var:{MOD_ID}_plan_placed }}
+}}
 """)
-    out.append("}\n")
 
     for index, good in enumerate(order, start=1):
         town_side = "town" if groups.get((good, "t")) else ""
@@ -3505,8 +3418,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # {good} takes the one location each side of it suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over {len(order)} goods twice is affordable. The tier gate above the
-# walk is what holds a common good back while a scarce one is still placing.
+# only reason a lap over {len(order)} goods twice is affordable. The tier gate above the
+# walk holds a common good back while a scarce one is still picking; the level
+# gate holds every good to one building a lap.
 # Scope: country
 {MOD_ID}_plan_pick_{index} = {{
 """)
@@ -3520,37 +3434,40 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
 \t\t\t\tglobal_var:{MOD_ID}_ng{index} <= global_var:{MOD_ID}_plan_tier
 \t\t\t}}
-\t\t\t# **Квота своей стороны, и это главное правило равномерности.**
+\t\t\t# **Уровень: один домик за круг, и это вся равномерность.**
+\t\t\t# Никакой товар не берёт второй, пока каждый, кто может, не взял
+\t\t\t# первый. Полоса выгоды решает, в какую локацию и кто раньше внутри
+\t\t\t# круга, -- но «сколько» она больше не решает, и восемь товаров с
+\t\t\t# шестью местами каждый, кончивших план с одним домиком, -- это она.
+\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_lvl
+\t\t\t# **Квота своей стороны, и она про сторону, а не про равномерность.**
 \t\t\t# Городская комната и сельская не взаимозаменяемы, поэтому у товара
-\t\t\t# две квоты и два счётчика: городские домики сравниваются с
-\t\t\t# городскими остальных, сельские — с сельскими. Один общий счётчик
-\t\t\t# прятал ровно то, что владелец увидел: «15 стекла» из 13 сельских и
-\t\t\t# 2 городских выглядели равными «15 текстиля» из 15 городских, а это
-\t\t\t# разные планы.
-\t\t\t#
-\t\t\t# **Никогда не поднимается насовсем** — открытая лестница добавляет
-\t\t\t# по единице за круг, чтобы остаток заполнялся ровными слоями.
+\t\t\t# два счётчика: городские домики сравниваются с городскими остальных,
+\t\t\t# сельские — с сельскими. Один общий счётчик прятал ровно то, что
+\t\t\t# владелец увидел: «15 стекла» из 13 сельских и 2 городских выглядели
+\t\t\t# равными «15 текстиля» из 15 городских, а это разные планы.
 \t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index}
-\t\t\t# **И потолок своей стороны.** Общая квота говорит, сколько домиков
-\t\t\t# товару положено всего; потолок стороны — сколько из них он может
-\t\t\t# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
-\t\t\t# дефицитные городские комнаты; без общей квоты он получал бы две
-\t\t\t# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
-\t\t\t# поймал ровно это, 2026-09-07.
 \t\t\tglobal_var:{MOD_ID}_pn{sfx}{index} < global_var:{MOD_ID}_pq{sfx}{index}
 \t\t\t# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 \t\t\t# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
-\t\t\t# квота приравнена к тому, что у них есть, но открытая лестница
-\t\t\t# поднимает всякую квоту на единицу за круг, и одного равенства
-\t\t\t# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
-\t\t\t# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
-\t\t\t# снимает ещё раз -- функция 3 не читает состояние редактора.
+\t\t\t# квота приравнена к тому, что у них есть, но сухой круг поднимает
+\t\t\t# всякую квоту на единицу, и одного равенства хватило бы ровно на
+\t\t\t# один круг. **Свежий план сюда не попадает**: `_frz<n>` ставит
+\t\t\t# только доливка и снимает сама, а `_plan_prepare` снимает ещё раз --
+\t\t\t# функция 3 не читает состояние редактора.
 \t\t\tNOT = {{ has_global_variable = {MOD_ID}_frz{index} }}
-\t\t\t# The covering pass admits only a good that has nothing at all.
-\t\t\tOR = {{
-\t\t\t\tglobal_var:{MOD_ID}_plan_cover = 0
-\t\t\t\tglobal_var:{MOD_ID}_pn{index} = 0
-\t\t\t}}
+\t\t\t# **Товар, которому места кончились, больше не ходит по земле.**
+\t\t\t# Обход по кандидатам -- единственное, что в раздаче стоит дорого, и
+\t\t\t# круг за кругом его повторял товар, у которого свободной подходящей
+\t\t\t# локации нет вовсе. Флаг ставится ниже, перед обходом на полосе 0,
+\t\t\t# и снимается самим обходом, если тот что-то нашёл: на полосе 0 порог
+\t\t\t# не отсекает ничего, поэтому «не нашёл» там значит именно «мест
+\t\t\t# нет», а комнаты по ходу плана только убывают.
+\t\t\tNOT = {{ has_global_variable = {MOD_ID}_px{sfx}{index} }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_plan_band = 0 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_px{sfx}{index} value = 1 }}
 \t\t}}
 \t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
@@ -3561,17 +3478,21 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# the opportunity cost, paid for by one comparison rather than by
 \t\t\t# asking every other good what it would have made of the place.
 \t\t\t#
-\t\t\t# `_pth<n>` and not `_plan_band`: the pass writes one threshold per
-\t\t\t# good, the same band for all of them while the quota is binding and
-\t\t\t# each good's own best once it is not. `_plan_th_absolute` and
-\t\t\t# `_plan_th_relative` above.
+\t\t\t# **`_plan_band` itself, and no longer a threshold per good.** There
+\t\t\t# were two: the band for the fair share and each good's own best for
+\t\t\t# the open ladder, because on a realm-sized ground the quota never
+\t\t\t# bound and the band became the whole allocator. The level binds
+\t\t\t# instead now, on every ground and from the first lap, so the second
+\t\t\t# threshold has nothing left to fix -- and a good whose best pays 300
+\t\t\t# simply places at band 200 of the same lap.
 \t\t\tlimit = {{
 \t\t\t\t{MOD_ID}_plan_can_{side}_{index} = yes
-\t\t\t\t{order_value} >= global_var:{MOD_ID}_pth{index}
+\t\t\t\t{order_value} >= global_var:{MOD_ID}_plan_band
 \t\t\t}}
 \t\t\torder_by = {order_value}
 \t\t\tmax = 1
 \t\t\tcheck_range_bounds = no
+\t\t\tremove_global_variable = {MOD_ID}_px{sfx}{index}
 \t\t\t{MOD_ID}_plan_try_{side}_{index} = yes
 \t\t}}
 \t}}
@@ -8019,7 +7940,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_diag_state = yes
 \t{MOD_ID}_diag_scan = yes
 \t{MOD_ID}_diag_goods = yes
-\t{MOD_ID}_diag_passes = yes
+\t{MOD_ID}_diag_laps = yes
 \t{MOD_ID}_diag_rights = yes
 \t{MOD_ID}_diag_locations = yes
 \t{MOD_ID}_diag_ranking = yes
@@ -8046,13 +7967,13 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say(f"BUILD methods={len(rows)} rural={rural} goods={len(order)} "
                    f"raw={len(split['raw'])} made={len(split['made'])} "
                    f"rights={len(rights)} gated={len(UNLOCKS)}"))
-    out.append(say(f"BUILD rounds={PLAN_ROUNDS} passes={len(PLAN_PASSES)} bands={bands} "
+    out.append(say(f"BUILD laps={PLAN_LAPS} rungs={len(PLAN_RUNGS)} bands={bands} "
                    f"tiers={tiers} rows={PLAN_ROWS} ranked={PLAN_RANKED} "
                    f"result_rows={RESULT_ROWS} "
                    f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}"))
-    out.append(say("BUILD passes in order: "
-                   + ", ".join(f"{i}={pass_name(band, tier)}"
-                               for i, (band, tier) in enumerate(PLAN_PASSES, start=1))))
+    out.append(say("BUILD rungs in order: "
+                   + ", ".join(f"{i}={rung_name(band, tier)}"
+                               for i, (band, tier) in enumerate(PLAN_RUNGS, start=1))))
     # **Two self-tests, and there were four.** The other two asked what else a
     # `debug_log` string resolves, and the 2026-09-02 run answered both: a
     # localization key comes out as the key, and `ROOT.GetName` / `SCOPE.GetName`
@@ -8113,16 +8034,17 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_rooms", f"{MOD_ID}_plan_found",
             f"{MOD_ID}_plan_shown", f"{MOD_ID}_plan_towns", f"{MOD_ID}_plan_provn",
             f"{MOD_ID}_plan_scored", f"{MOD_ID}_plan_quota", f"{MOD_ID}_plan_rightn",
-            f"{MOD_ID}_plan_sweeps", f"{MOD_ID}_plan_prov_n",
-            f"{MOD_ID}_plan_opensw", f"{MOD_ID}_rquota", f"{MOD_ID}_rlevel"), start=1):
+            f"{MOD_ID}_plan_laps", f"{MOD_ID}_plan_prov_n",
+            f"{MOD_ID}_plan_opensw", f"{MOD_ID}_rquota", f"{MOD_ID}_rlevel",
+            f"{MOD_ID}_plan_lvl"), start=1):
         out.append(park(slot, source))
     # `rquota` is the towns each charter may end with, `rlevels` how many heights
     # the ladder actually climbed to. The two apart is the guard having cut it
     # short -- the one thing about the charter round that leaves no other trace.
     out.append(say("PASS placed=%s rooms=%s used_locs=%s drawn=%s towns=%s provs=%s "
-                   "goods_scored=%s quota=%s rights_given=%s sweeps=%s "
-                   "ordered_provs=%s open_sweeps=%s rquota=%s rlevels=%s"
-                   % tuple(read(i) for i in range(1, 15))))
+                   "goods_scored=%s quota=%s rights_given=%s laps=%s "
+                   "ordered_provs=%s dry_laps=%s rquota=%s rlevels=%s level=%s"
+                   % tuple(read(i) for i in range(1, 16))))
     # **What the ground actually pays**, and it is the owner's own question:
     # «какой процент из них получит выгоду от своего положения на карте».
     # `fed` is how many placed buildings earn any bonus at all; `gain` is the
@@ -8512,25 +8434,27 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"nt={read(19)} nr={read(20)}"))
         out.append("}\n")
 
-    # --------------------------------------------------------------- the passes
+    # ----------------------------------------------------------------- the laps
     #
-    # **The one thing the dump cannot read back afterwards.** A pass that ran out
-    # of sweeps with work still to do leaves nothing behind on the map; the two
-    # counters per pass in `_plan_allocate` are what make it visible, and they
-    # cost two writes each.
+    # **The one thing the dump cannot read back afterwards.** How the allocation
+    # was shaped -- level by level -- leaves nothing behind on the map; one
+    # counter per lap in `_plan_allocate` is what makes it visible, and it costs
+    # one write a lap.
+    #
+    # **A flat run is an even plan and a cliff is not.** Lap one is the covering
+    # level and should be very nearly «every good the ground can make»; each lap
+    # after it is one more building for everyone who still has a place. A lap of
+    # 0 is a dry lap -- the share was spent and every quota rose by one.
     out.append(f"""
-# What each pass of the allocator did. `sweeps={PLAN_ROUNDS}` is a pass the guard
-# cut off -- it wanted more rounds and was not given them -- and `placed` is the
-# running total at the end of that pass, so the difference between two lines is
-# what the second one put down.
+# What each level of the draft placed. `L1` is coverage; a 0 is a dry lap, which
+# opened every quota by one. `laps=` on the PASS line is how many ran in all, and
+# `laps={PLAN_LAPS}` there is the guard cutting the draft off with work still to do.
 # Scope: country
-{MOD_ID}_diag_passes = {{
+{MOD_ID}_diag_laps = {{
 """)
-    for number, (band, tier) in enumerate(PLAN_PASSES, start=1):
-        out.append(park(1, f"{MOD_ID}_passsw{number}"))
-        out.append(park(2, f"{MOD_ID}_passpl{number}"))
-        out.append(say(f"P{number} {pass_name(band, tier)} sweeps={read(1)}"
-                       f"/{PLAN_ROUNDS} placed={read(2)}"))
+    for lap in range(1, DIAG_LAPS + 1):
+        out.append(park(1, f"{MOD_ID}_lapn{lap}"))
+        out.append(say(f"L{lap} placed={read(1)}"))
     out.append("}\n")
 
     # --------------------------------------------------------------- the rights
