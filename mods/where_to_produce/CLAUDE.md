@@ -4,12 +4,10 @@
 
 «Ты постоянно смешиваешь функции плана и редактирования» — его слова.
 
-**The mod page is three tabs — Земля, Расчёты, Техническая — and four buttons
-that only open windows**, every setting inside the window of its function. A
-circle writes `bag_wtp_good_index` itself; `_right_ok<n>` gates a right's cell,
-because a `visible` cannot ask a trigger. **Two rules of his, above any layout
-idea**: **no descriptions in a window header** — that is the control's tooltip —
-and **anything technical belongs on «Техническая»**
+**The mod page is three tabs and four buttons that only open windows**, every
+setting inside the window of its function. **Two rules of his**: **no
+descriptions in a window header** — that is the control's tooltip — and
+**anything technical belongs on «Техническая»**
 ([`wtp_menu_rebuild.md`](../../docs/investigations/wtp_menu_rebuild.md)).
 
 | # | what | where | files |
@@ -19,50 +17,51 @@ and **anything technical belongs on «Техническая»**
 | 3 | **A whole plan for that ground** — every production where it pays | the plan window: the caps and both switches there, «Пересчитать» runs it | `_plan_*` |
 | 4 | **Editing that plan afterwards**, one building at a time | the editor window, and only there | `_edit_*` |
 
-**3 and 4 are separate, and the traffic runs one way.** The editor reads the plan
-and changes it; **nothing it holds — a pin, a «не нужен» flag, the star in a cell
-— is ever read by 3**. Crossed once and reverted. **The test: «не нужен», then a
+**3 and 4 are separate and the traffic runs one way**: nothing the editor holds
+is ever read by 3. Crossed once and reverted. **The test: «не нужен», then a
 fresh plan — it must be ordinary.**
 
 **Before touching any `_plan_*`:
-[`plan_gaps.md`](../../docs/investigations/plan_gaps.md).** **The tick is the rank
-and outlives a save.**
+[`plan_gaps.md`](../../docs/investigations/plan_gaps.md).** **The tick is the
+rank and outlives a save.**
 
 ## Where it stands
 
 **Never gate the plan on `generate.fed_floor`**; **the bonus counts RGOs only**;
 **one method per slot**
 ([`production_ladder.md`](../../docs/investigations/production_ladder.md)).
-**A right's gate is its own
-`potential`, never `has_advance`**
-([`town_rights.md`](../../docs/investigations/town_rights.md)). **The plan is an
-optimisation with a covering constraint** — maximise the bonus captured, subject
-to every good the ground can produce being produced
-([`plan_formula.md`](../../docs/investigations/plan_formula.md)). **An entry is a
+**A right's gate is its own `potential`, never `has_advance`**
+([`town_rights.md`](../../docs/investigations/town_rights.md)). **An entry is a
 building and a location holds one of each**
 ([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
-**A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
-one building a press, where it costs least, and **the round trip is no undo**.
-**After a fill, what it placed trades locations between itself** (`_fillg`,
-`_edit_reshuffle`). **The editor's share subtracts the RGOs** — `_eq<n>`. **A
-press pins its good** (`_lock<n>`), a freed room goes to the good furthest below
-its share and **«+1» takes its building from the good furthest above one**; **a
-pin is a star, not a colour**. **The changes window is a diff and holds no
-chronology**, sorted by press number (`_chg_seq`); the journal itself is
-`WTP PRESS` in `debug.log`. **A charter is not a building**: every town holds exactly one, so
-«+1»/«−1» on one *moves* it, bundle and all, and a town never ends without one
-(`_edit_right_swap`, share `_rquota`). `_lock<n>` and `_skip<n>` are existence
-flags a slot stores and restores; **`_edit_locked_<n>` is the charter's bundle,
-not the player's pin.**
+**Равномерность держит уровень, а не квота**: круг поднимает `_plan_lvl` на
+единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
+«где», а не «сколько»**; покрытие — это круг 1, открытая лестница — сухой круг
+([`plan_as_reservation.md`](../../docs/investigations/plan_as_reservation.md)).
+**Второй режим — «Специализация»**: провинция отдаёт лучшую грамоту всем
+городам, ячейка — тому, кто платит больше всех
+([`plan_specialisation.md`](../../docs/investigations/plan_specialisation.md)).
+**Локация держит по одной деревне каждого вида** — четыре `is_village = yes`
+рядом законны, а две одинаковых нет, и это тот же запрет на повтор здания, что
+был всегда ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
+**Сводка по товарам** — иконка в окне плана: строка на товар и причина
+остановки. **Весов город/село нет и не будет**, и **выхлоп сторону не различает**
+([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
+
+**Правила редактора, доливки и рядов — выписаны**:
+[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство —
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
+
+**Дальше, порядок его**: резервация по стеснённости
+([`plan_reservation.md`](../../docs/investigations/plan_reservation.md) —
+правило, три места в коде, предсказание), перетасовка внутри провинции, шаги 7–8.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is
-[`pitfalls/windows.md`](../../docs/pitfalls/windows.md)** — the window's own
-shape, the frame line, the row's usable width, what `check_script.py` resolves
-and what it cannot. Every rule in it this mod paid for, most of them twice.
+[`pitfalls/windows.md`](../../docs/pitfalls/windows.md)** — every rule in it this
+mod paid for, most of them twice.
 
 **Not to be attempted again**: eight, rejected
 ([`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md)). **The answer
-lives on the location**. **Built by** `generate.py` from `tools/refresh.py`.
+lives on the location.** **Built by** `generate.py`.

@@ -16,14 +16,35 @@
 
 types BagWtpPlanTypes {
 
+	# **Домик и товар — две ячейки одной ширины, одна над другой.**
+	# Ширина здесь и ширина у `bag_wtp_plan_good_entry` обязаны совпадать: обе
+	# строки — датамодели двух списков, которые пишутся одним шагом и потому
+	# идут индекс в индекс, а в столбик их ставит только равная ячейка. Разойдись
+	# ширины — и товар встанет над чужим домиком, молча.
+	#
+	# **Размер держит `widget`, а не текст.** Значок-текст берёт размер шрифта, и
+	# в прошлый раз именно он вылез из своих 20 и наехал на соседнюю строку:
+	# «иконка домика и иконка товара встали друг на друга», 2026-09-06. Теперь
+	# коробка фиксирована, а текст висит по центру внутри неё.
 	type bag_wtp_plan_building_entry = widget {
-		size = { 32 20 }
+		size = { 34 20 }
 		text_single = {
 			parentanchor = center
 			autoresize = yes
-			fontsize = 15
+			fontsize = 14
 			raw_text = "[BuildingType.GetIcon]"
 			tooltip = "[BuildingType.GetName]"
+		}
+	}
+
+	type bag_wtp_plan_good_entry = widget {
+		size = { 34 20 }
+		text_single = {
+			parentanchor = center
+			autoresize = yes
+			fontsize = 14
+			raw_text = "[Goods.GetIcon]"
+			tooltip = "[Goods.GetName]"
 		}
 	}
 
@@ -326,18 +347,53 @@ types BagWtpPlanTypes {
 		# простом `widget` с якорем: `vbox` брал все 260 и центрировал строку
 		# внутри себя — «иконки товаров немного не в столбике», 2026-09-06.
 		widget = {
-			size = { 260 42 }
+			size = { 300 42 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_plan_goods_tt"
 
-			hbox = {
+			# **Товар над своим домиком, столбик в столбик.** Его слова
+			# 2026-09-06: «я не понял, что именно производят в плане эти
+			# деревни… иконки производимого товара к домикам нужно вернуть».
+			# Причина настоящая: торговая деревня делает пиво, посуду и
+			# инструменты, так что по домику товар больше не читается —
+			# `market_village` и есть тот домик, из-за которого 25 пивоварен
+			# выглядели как ошибка.
+			#
+			# **Два списка, а не один, потому что строка датамодели видит один
+			# скоуп** — правило из `SETTLED.md`, и обойти его нечем. `_row_goods`
+			# и `_row_builds` пишутся одним шагом в `row_entry`, по одному
+			# домику на товар, поэтому идут индекс в индекс; равная ширина
+			# ячеек — всё, что превращает это в пары на экране.
+			#
+			# **Что расходится молча, то посчитано:** `WTP ROWPAIR` в
+			# диагностике считает локации, где длины двух списков разошлись.
+			# Не ноль — значит столбики врут, и это видно числом, а не глазом.
+			vbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 6
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_row_builds')]"
-				item = {
-					bag_wtp_plan_building_entry = {
-						datacontext = "[Scope.GetBuildingType]"
+				spacing = 2
+
+				hbox = {
+					parentanchor = left
+					widgetanchor = left
+					spacing = 2
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_row_goods')]"
+					item = {
+						bag_wtp_plan_good_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+
+				hbox = {
+					parentanchor = left
+					widgetanchor = left
+					spacing = 2
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_row_builds')]"
+					item = {
+						bag_wtp_plan_building_entry = {
+							datacontext = "[Scope.GetBuildingType]"
+						}
 					}
 				}
 			}
@@ -903,6 +959,22 @@ window = {
 					tooltip = "bag_wtp_plan_pass_tt"
 				}
 
+				# **Каким режимом посчитано то, что на экране.** Два режима
+				# плана рисуют одни и те же строки, и без этой пометки
+				# «специализация» и «Пересчитать» на одной земле различались бы
+				# только числами, которые надо помнить.
+				text_single = {
+					size = { 210 22 }
+					maximumsize = { 210 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					visible = "[GetGlobalVariable('bag_wtp_spec_ran').IsSet]"
+					text = "bag_wtp_plan_mode_spec"
+					tooltip = "bag_wtp_plan_mode_spec_tt"
+				}
+
 				# **How many provinces the plan touched, beside the switch that
 				# folds them.** Drawn only while folded, because a count of
 				# provinces above a list of locations answers nothing.
@@ -919,6 +991,30 @@ window = {
 				}
 
 				widget = { layoutpolicy_horizontal = expanding size = { -1 22 } }
+
+				# **Сводка по товарам — иконкой, рядом с числами прохода.** Его
+				# просьба 2026-09-07: «добавь мне в окно плана какую-нить
+				# небольшую иконку, которая будет мне открывать окно с подробной
+				# информацией». Она стоит здесь, а не среди кнопок выше, потому
+				# что читает ровно то, о чём говорит эта строка, — что прошлый
+				# расчёт положил.
+				#
+				# **`@production_panel!` — texticon самой игры**, а не выдуманный
+				# глиф: он стоит в её собственной локализации 24 раза. Глиф,
+				# которого нет в шрифте, рисуется квадратом, и это уже стоило
+				# этому моду ста ключей (`docs/pitfalls/localization.md`).
+				button_regular = {
+					size = { 34 26 }
+					tooltip = "bag_wtp_sum_open_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 16
+						text = "bag_wtp_sum_open"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_open_summary_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
 
 				checkbutton_round_alt = {
 					size = { 24 24 }

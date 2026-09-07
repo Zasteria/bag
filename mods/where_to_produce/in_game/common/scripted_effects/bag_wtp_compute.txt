@@ -106,6 +106,14 @@ bag_wtp_on_button = {
 		bag_wtp_open_edit_window_effect = yes
 	}
 
+	# «Специализация»: тот же конвейер плана с двумя другими серединами, и окно
+	# плана следом — иначе нажатие ничего не показывает.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__spec }
+		bag_wtp_spec_run = yes
+		bag_wtp_open_plan_window_effect = yes
+	}
+
 	# The diagnosis. Nothing of the mod's own state is touched by it -- it reads
 	# what the last pass left and writes only its own scratch globals -- so the
 	# window is deliberately not opened and not refreshed: pressing this must
@@ -195,6 +203,8 @@ bag_wtp_hide_results = {
 # row draws: one method for a good, or one per good of a right's bundle.
 # Scope: country
 bag_wtp_open_result_window_effect = {
+	# Окно поиска — тоже выход из редактора: выбор плана возвращается.
+	bag_wtp_sel_restore_plan = yes
 	bag_wtp_show_results = yes
 	# The plan is a third answer to a third question and its window is a third
 	# datamodel; leaving it open behind this one would keep every one of its rows

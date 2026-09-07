@@ -38,6 +38,31 @@ What the dumps do *not* say is how something behaves, what a sensible argument
 is, or whether an effect does anything useful in a given scope. That still comes
 from vanilla and from the reference mods — and, in the end, from a run.
 
+## Спрос и предложение рынка читаются, и это меняет постановку задачи плана
+
+**Найдено 2026-09-07.** Игра отдаёт оба числа своими триггерами, скоуп — рынок,
+и оба работают как script value:
+
+```
+goods_demand_in_market(goods:X)     сколько товара рынок спрашивает
+goods_supply_in_market(goods:X)     сколько рынок даёт
+```
+
+**Проверено по дампам самой игры** (`api.py goods_demand_in_market`), а не по
+догадке; Construction Manager уже строит на них свой расчёт дефицита
+(`cm_market_shortage_script_values.txt`, `cm_market_<good>_build_overage`) и
+берёт порог из define `NMarket|MARKET_CONSTRUCTION_NEEDS_BLOCK_FACTOR`.
+
+**Для `where_to_produce` это оказалось не нужно, и владелец объяснил почему**
+(2026-09-07): план — карта резерваций, а не очередь стройки. «Спрос и предложение
+решают не то, что и где будет построено — только то, КОГДА.» Так что в формулу
+плана эти числа не входят;
+[`../investigations/plan_as_reservation.md`](../investigations/plan_as_reservation.md).
+
+**Где они всё-таки пригодятся:** шаг 8 — стыковка с Construction Manager, который
+на них и стоит, и любой будущий ответ на вопрос «что строить прямо сейчас».
+**В игре мы их не мерили ни разу.**
+
 ## What a modifier says about its own scaling
 
 Two kinds of modifier push a societal value and they differ in what a mod can

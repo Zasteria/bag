@@ -18,6 +18,76 @@
 # so "is this inside the ticked continents" is asked where it matters instead of
 # being written onto every location of a continent in advance.
 
+# Две земли, одна карта: план держит свою, редактор берёт землю плана.
+#
+# **Его слова, 2026-09-06: «я хочу, чтобы эти две карты были независимыми друг от
+# друга».** Расширение в редакторе увеличивало выбор и в окне плана, а новый
+# выбор в окне плана менял то, что доливалось в редакторе, — один список на два
+# вопроса.
+#
+# **Карта при этом остаётся одна, и второй режим карты не нужен**: окна плана и
+# редактора взаимно исключают друг друга (открытие одного гасит другое), так что
+# живой выбор всегда принадлежит ровно одному из них. Здесь он и перекладывается.
+#
+# **Земля редактора сбрасывается на землю плана при каждом открытии** — его
+# выбор из двух: «Сбрасываться на землю плана». Поэтому редактор всегда начинает
+# с того, на чём план стоит сейчас, а недожатые добавления при закрытии
+# теряются: забыть вчерашний выбор и долить не то — дороже.
+#
+# `_sel_kept` — флаг «выбор плана отложен». Без него возврат из редактора,
+# случившийся дважды, затёр бы отложенный выбор пустым.
+
+# Scope: country
+bag_wtp_sel_keep_plan = {
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_sel_kept } }
+		clear_global_variable_list = bag_wtp_sel_plan
+		every_in_global_list = {
+			variable = bag_wtp_picked_locations
+			add_to_global_variable_list = { name = bag_wtp_sel_plan target = this }
+		}
+		set_global_variable = { name = bag_wtp_sel_kept value = 1 }
+	}
+}
+
+# Земля редактора: та, на которой план стоит сейчас.
+# Scope: country
+bag_wtp_sel_load_plan_ground = {
+	every_in_global_list = {
+		variable = bag_wtp_picked_locations
+		remove_variable = bag_wtp_picked
+	}
+	clear_global_variable_list = bag_wtp_picked_locations
+	set_global_variable = { name = bag_wtp_picked_count value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { bag_wtp_is_candidate = yes }
+		bag_wtp_pick = yes
+	}
+	bag_wtp_rebuild_browse = yes
+}
+
+# Выбор плана — обратно, целиком и без следов редактора.
+# Scope: country
+bag_wtp_sel_restore_plan = {
+	if = {
+		limit = { has_global_variable = bag_wtp_sel_kept }
+		every_in_global_list = {
+			variable = bag_wtp_picked_locations
+			remove_variable = bag_wtp_picked
+		}
+		clear_global_variable_list = bag_wtp_picked_locations
+		set_global_variable = { name = bag_wtp_picked_count value = 0 }
+		every_in_global_list = {
+			variable = bag_wtp_sel_plan
+			bag_wtp_pick = yes
+		}
+		clear_global_variable_list = bag_wtp_sel_plan
+		remove_global_variable = bag_wtp_sel_kept
+		bag_wtp_rebuild_browse = yes
+	}
+}
+
 # Scope: location
 bag_wtp_pick = {
 	set_variable = { name = bag_wtp_picked value = 1 }
