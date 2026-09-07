@@ -21,27 +21,30 @@ outlive them:** the editor's state is the editor's and a fresh plan reads none o
 it; `.gui` work starts at [`pitfalls/windows.md`](pitfalls/windows.md); the
 changes window is shelved at his word.
 
-### The premise the whole share argument stood on is false
+### The plan is a reservation map, and the objective in the code is the wrong one
 
-**2026-09-07.** «Сколько товара достаточно — бог его знает» is why every version
-of the share was invented. **The game computes it**: `goods_demand_in_market` and
-`goods_supply_in_market` are its own triggers, market-scoped, readable as script
-values, and Construction Manager already builds on them
-([`../docs/research/engine.md`](research/engine.md)).
+**His correction, 2026-09-07, and it reframes everything:** «Это план того, чтобы
+при необходимости нашлось выгодное место каждому товару и оно было
+зарезервировано для него. Спрос решает не что и где, а только КОГДА.» So market
+demand is out of the formula (the earlier demand proposal is withdrawn), and the
+objective — maximise Σ gain — is wrong for a reservation map.
 
-**What that would make the formula**: the target per good is its unmet market
-demand, not a slice of the ground; the room goes to the good with the largest
-*fraction* of demand unmet; the RGO gain still decides where. Every problem this
-week — town vs village, both-sided goods doubling, insatiable weights, scarce
-tiers — dissolves, because demand is finite and independent of the ground. His
-own weights idea becomes *correct* against this denominator. Written out with the
-costs and the two unmeasured risks in
-[`investigations/plan_self_sufficiency.md`](investigations/plan_self_sufficiency.md).
+**Measured on his own run:** goods the ground pays nothing for average **1.5**
+buildings; goods it pays well for average **5.0**. Eight of the ten zero-gain
+goods got exactly one, each having six admissible locations. That is structural:
+a good worth 0 adds 0 to a sum, so the optimum never gives it more than the
+guaranteed one.
 
-**Nothing is built for it, and the first step is not to build.** Print demand,
-supply and hunger per good in the diagnosis; one run says whether the numbers are
-sane on his ground before the formula is touched. **He has not asked for it — put
-it to him.**
+**Proposed instead — a draft.** Round by round every good takes one location, its
+own best remaining; order within a round is fewest admissible locations first.
+Evenness becomes structural — no quota, no share, no sides, no classes, no
+weights, no tiers — the RGO-less goods get their turn, scarce goods are protected
+by pick order, and it is *cheaper* to run than what is there now. The price is
+total captured gain, and it is measurable. One open question is his: who wins a
+town room inside a round.
+[`investigations/plan_as_reservation.md`](investigations/plan_as_reservation.md).
+
+**Nothing built. He asked for theory and said so twice.**
 
 ### The share as it stands: one quota per good, two side caps
 
