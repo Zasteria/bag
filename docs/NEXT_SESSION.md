@@ -23,17 +23,12 @@ changes window is shelved at his word.
 
 ### The plan is a reservation map, and the objective in the code is the wrong one
 
-**His correction, 2026-09-07, and it reframes everything:** «Это план того, чтобы
-при необходимости нашлось выгодное место каждому товару и оно было
-зарезервировано для него. Спрос решает не что и где, а только КОГДА.» So market
-demand is out of the formula (the earlier demand proposal is withdrawn), and the
-objective — maximise Σ gain — is wrong for a reservation map.
-
-**Measured on his own run:** goods the ground pays nothing for average **1.5**
-buildings; goods it pays well for average **5.0**. Eight of the ten zero-gain
-goods got exactly one, each having six admissible locations. That is structural:
-a good worth 0 adds 0 to a sum, so the optimum never gives it more than the
-guaranteed one.
+**His correction, 2026-09-07:** «план того, чтобы нашлось выгодное место каждому
+товару и оно было зарезервировано. Спрос решает только КОГДА.» Market demand is
+out of the formula, and maximising Σ gain is the wrong objective for a
+reservation map. **Measured:** goods the ground pays nothing for average **1.5**
+buildings against **5.0** for the well-paid — structural, since a good worth 0
+adds 0 to a sum.
 
 **Proposed instead — a draft, and ownership.** Round by round every good takes one
 location, its own best remaining; and **each location belongs to the most
