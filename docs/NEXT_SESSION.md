@@ -50,6 +50,14 @@ load-bearing for it. Cheaper to run than what is there now. The price is total
 captured gain, measurable in one line.
 [`investigations/plan_as_reservation.md`](investigations/plan_as_reservation.md).
 
+**Measured on his ground, and it reorders the work:** the level it supports is
+**3** buildings a good, and **no good has a ceiling below it** — iron and fish
+have four places, salt five. So scarcity protection guards nothing there, while
+eight goods sit at **one** building with six places each, and cloth at fifteen.
+**The distortion is the gain bands, not scarcity.** Take the bands out of «how
+many» (leaving them in «where») first; scarcity protection is for a different
+ground, where the level is 20 and iron still has 4.
+
 **Nothing built. He asked for theory and said so twice.**
 
 ### The share as it stands: one quota per good, two side caps
