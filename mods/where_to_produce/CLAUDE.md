@@ -31,22 +31,23 @@ rank and outlives a save.**
 **one method per slot**
 ([`production_ladder.md`](../../docs/investigations/production_ladder.md)).
 **A right's gate is its own `potential`, never `has_advance`**
-([`town_rights.md`](../../docs/investigations/town_rights.md)). **The plan
-maximises the bonus, subject to every good the ground can make being made**
-([`plan_formula.md`](../../docs/investigations/plan_formula.md)). **An entry is a
-building and a location holds one of each**
-([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
+([`town_rights.md`](../../docs/investigations/town_rights.md)). **An entry is a building and a location holds one of each**
+([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md),
+[`plan_formula.md`](../../docs/investigations/plan_formula.md)).
 
 **Равномерность держит уровень, а не квота**: круг поднимает `_plan_lvl` на
 единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
 «где», а не «сколько»**; покрытие — это круг 1, открытая лестница — сухой круг
 ([`plan_as_reservation.md`](../../docs/investigations/plan_as_reservation.md)).
-**Второй режим — «Специализация»**, кнопка на странице мода: провинция отдаёт
-лучшую грамоту всем городам, ячейка — тому, кто платит в ней больше всех
+**Второй режим — «Специализация»**: провинция отдаёт лучшую грамоту всем
+городам, ячейка — тому, кто платит больше всех
 ([`plan_specialisation.md`](../../docs/investigations/plan_specialisation.md)).
-**Сводка по товарам** — иконка в окне плана: строка на товар и причина, на чём он
-остановился. **Весов город/село нет и не будет**, и **выхлоп сторону не
-различает** — обе версии отвергнуты числами
+**Деревня в локации одна** (`_plan_village_free`, выключатель
+`bag_wtp_one_village`, включён): сколько зданий с `is_village = yes` влезает в
+локацию, **не написано нигде** — 48 зданий разницы
+([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
+**Сводка по товарам** — иконка в окне плана: строка на товар и причина
+остановки. **Весов город/село нет и не будет**, и **выхлоп сторону не различает**
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
 
 **Правила редактора, доливки и рядов — выписаны**:

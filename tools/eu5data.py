@@ -185,6 +185,15 @@ class Method:
     # rather than parsed, because it is re-emitted as script and a round trip
     # through the parser would lose the comparison operators.
     potential: str = ""
+    # **`is_village = yes` on the building type, and it is not the same as
+    # `rural_settlement`.** Thirty production buildings stand in a rural
+    # settlement; exactly four of them are villages -- `market_village`,
+    # `farming_village`, `forest_village`, `fishing_village` -- and the game puts
+    # all four in `category = village_category`. Whether a location may hold more
+    # than one of them at a time is not written anywhere in this tree, so the
+    # mod asks the player and carries the answer as a setting; this flag is what
+    # the setting is applied to.
+    is_village: bool = False
     # **Something besides the rank and the potential gates this building.** Eight
     # of the game's production buildings carry an `allow` and eight a
     # `country_potential` -- a Japanese reform, an English tag, a climate. Where
@@ -567,6 +576,7 @@ def load_game(common: Path | None = None) -> Game:
         ranks = frozenset(
             rank for rank in LOCATION_RANKS
             if str(scalar(entries, rank) or "").lower() == "yes")
+        village = str(scalar(entries, "is_village") or "").lower() == "yes"
         for combination in itertools.product(*slots):
             parts = []
             for name, body in combination:
@@ -588,6 +598,7 @@ def load_game(common: Path | None = None) -> Game:
                 inputs=merged,
                 parts=parts,
                 ranks=ranks,
+                is_village=village,
                 potential=potentials.get(building, ("", False))[0],
                 extra_gates=potentials.get(building, ("", False))[1],
             ))

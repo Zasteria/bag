@@ -278,6 +278,8 @@ bag_wtp_diag_scan = {
 	set_global_variable = { name = bag_wtp_diag_locs value = 0 }
 	set_global_variable = { name = bag_wtp_diag_towns value = 0 }
 	set_global_variable = { name = bag_wtp_diag_freet value = 0 }
+	set_global_variable = { name = bag_wtp_diag_vill value = 0 }
+	set_global_variable = { name = bag_wtp_diag_rural value = 0 }
 	set_global_variable = { name = bag_wtp_diag_freer value = 0 }
 	set_global_variable = { name = bag_wtp_diag_realt value = 0 }
 	set_global_variable = { name = bag_wtp_diag_forced value = 0 }
@@ -1310,6 +1312,11 @@ bag_wtp_diag_scan = {
 			}
 		}
 		else = {
+			change_global_variable = { name = bag_wtp_diag_rural add = 1 }
+			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } } change_global_variable = { name = bag_wtp_diag_vill add = 1 } }
+			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } } change_global_variable = { name = bag_wtp_diag_vill add = 1 } }
+			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } } change_global_variable = { name = bag_wtp_diag_vill add = 1 } }
+			if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } } change_global_variable = { name = bag_wtp_diag_vill add = 1 } }
 			if = {
 				limit = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural }
 				change_global_variable = { name = bag_wtp_diag_freer add = 1 }
@@ -1819,7 +1826,11 @@ bag_wtp_diag_free = {
 	if = { limit = { has_global_variable = bag_wtp_diag_forcedr } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_diag_forcedr } }
 	set_global_variable = { name = bag_wtp_dv8 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_diag_moved } set_global_variable = { name = bag_wtp_dv8 value = global_var:bag_wtp_diag_moved } }
-	debug_log = "WTP ROOM walked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] towns_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] villages_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | town rank or above=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | ticks now set: town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] -- read live, so this says what the ticks are at this moment and not what the last plan saw | moved=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] locations differ from the plan before this one"
+	set_global_variable = { name = bag_wtp_dv9 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_diag_vill } set_global_variable = { name = bag_wtp_dv9 value = global_var:bag_wtp_diag_vill } }
+	set_global_variable = { name = bag_wtp_dv10 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_diag_rural } set_global_variable = { name = bag_wtp_dv10 value = global_var:bag_wtp_diag_rural } }
+	debug_log = "WTP ROOM walked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] towns_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] villages_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | town rank or above=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | ticks now set: town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] -- read live, so this says what the ticks are at this moment and not what the last plan saw | moved=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] locations differ from the plan before this one | villages=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] rural_locs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] -- more villages than rural locations means two are sharing one, which the game may not allow"
 }
 
 # Scope: country

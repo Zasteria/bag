@@ -530,6 +530,36 @@ window = {
 				}
 
 
+				# **«В локации одна деревня» — вопрос к игре, а не настройка
+				# вкуса.** Игра помечает четыре здания `is_village = yes`
+				# (рыночная, земледельческая, лесная, рыбацкая) и кладёт их в
+				# одну `village_category`; стоят ли две из них рядом, в
+				# `reference/` не написано. Разница огромна: на северной
+				# Германии план просит 328 деревень на 280 сельских локаций.
+				widget = {
+					size = { 28 34 }
+					checkbutton_round_alt = {
+						size = { 24 24 }
+						parentanchor = center
+						widgetanchor = center
+						down = "[GetGlobalVariable('bag_wtp_one_village').IsSet]"
+						tooltip = "bag_wtp_one_village_tt"
+						onclick = "[GetScriptedGui('bag_wtp_toggle_one_village').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
+				text_single = {
+					size = { 190 34 }
+					autoresize = no
+					maximumsize = { 190 34 }
+					align = left|vcenter
+					fontsize = 13
+					fontsize_min = 10
+					elide = right
+					text = "bag_wtp_one_village"
+					tooltip = "bag_wtp_one_village_tt"
+				}
+
 				text_single = {
 					size = { 150 34 }
 					autoresize = no

@@ -401,6 +401,14 @@ bag_wtp_init_counters = {
 		# three goods, which is the shape of a town's list, so it takes the list
 		# before any good is placed rather than competing for slots.
 		set_global_variable = { name = bag_wtp_plan_rights value = 1 }
+		# **«В локации одна деревня», включено по умолчанию.** Игра помечает
+		# четыре здания `is_village = yes` и кладёт их в одну
+		# `village_category`; стоят ли две из них рядом, в `reference/` не
+		# написано нигде. Владелец, 2026-09-07: «в одну локацию три отдельных
+		# торговых деревни не встанет никогда». По умолчанию верим ему —
+		# план, который перестраховался, дешевле плана, который просит
+		# построить невозможное.
+		set_global_variable = { name = bag_wtp_one_village value = 1 }
 	}
 	# And the caps, for the frame before the window has been opened: they are
 	# read by a trigger asked once per candidate per round.

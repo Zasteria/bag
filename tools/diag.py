@@ -717,6 +717,21 @@ def digest(lines: list[str]) -> list[str]:
                    + " ".join(str(n) for n in shown)
                    + ("" if ran is None else "; кругов всего %d, уровень %s"
                       % (ran, field(pas, "level"))))
+    # **Деревень больше, чем сельских локаций, — это невозможный план.** Игра
+    # помечает четыре здания `is_village = yes`; влезают ли две в одну локацию,
+    # мод не знает и спрашивает выключателем «В локации одна деревня». Строка
+    # ниже — единственная проверка этого числом.
+    room = first("WTP ROOM")
+    vill, rural = field(room, "villages"), field(room, "rural_locs")
+    if vill is not None and rural:
+        if vill > rural:
+            out.append("ВНИМАНИЕ: деревень в плане %d на %d сельских локаций — "
+                       "две деревни делят локацию. Если игра так не умеет, "
+                       "включи «В локации одна деревня»." % (vill, rural))
+        else:
+            out.append("Деревень %d на %d сельских локаций (%d%% занято) — "
+                       "по одной на локацию, план физически влезает."
+                       % (vill, rural, round(100 * vill / rural)))
     if ran is not None and ran >= 150:
         out.append("ВНИМАНИЕ: раздача упёрлась в лимит кругов — работа осталась.")
     out.append("=== дальше подробности, они для сессии ===")
