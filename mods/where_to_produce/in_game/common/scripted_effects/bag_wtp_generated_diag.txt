@@ -1756,6 +1756,13 @@ bag_wtp_diag_goods = {
 	debug_log = "WTP GOODS legend: T=town R=village | m=methods(of them last-age) a=country has the advance w=a method won here r=of those, still has room g=the gate would still open p=placed o=best ordering it ever had (a band admits >= its own number) | ng=candidates that can make it q=quota n=placed both sides rgo=locations already yielding it as an RGO"
 	debug_log = "WTP GOODS reading q: it is `PASS quota` + what the charters placed for this good - `rgo`, floored at 1, and then + 1 for each sweep of the open ladder -- which is `PASS open_sweeps`. So the quota the allocator enforced is q - open_sweeps, and a good with n at that number was stopped by its quota and not by the ground."
 	debug_log = "WTP GOODS reading it: the first zero left to right is the stage. w>0 r=0 -- the ground filled up. w>0 r>0 g=0 -- the good or its building is already in every place that has room. g>0 p=0 -- the allocator never gave it a turn, so look at q, ng against the tiers, and o against the bands."
+	debug_log = "WTP SHARED T shoen slots=lumber only=lumber also=fiber_crops,iron,masonry"
+	debug_log = "WTP SHARED T tatara slots=- only=- also=tools,weaponry"
+	debug_log = "WTP SHARED R fishing_village slots=fish only=fish,naval_supplies also=pottery"
+	debug_log = "WTP SHARED R forest_village slots=leather only=leather also=tools,weaponry"
+	debug_log = "WTP SHARED R market_village slots=beer only=beer also=jewelry,pottery,tools,weaponry"
+	debug_log = "WTP SHARED R shoen slots=lumber only=lumber also=fiber_crops,iron,masonry"
+	debug_log = "WTP SHARED R tatara slots=- only=- also=tools,weaponry"
 	bag_wtp_diag_good_1 = yes
 	bag_wtp_diag_good_2 = yes
 	bag_wtp_diag_good_3 = yes

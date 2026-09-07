@@ -591,6 +591,43 @@ def digest(lines: list[str]) -> list[str]:
                    + ", ".join("%s %d" % kv for kv in low[:6])
                    + " — мест под них больше нет, квота их не держала")
 
+    # **Одно здание, за которое спорят несколько товаров.** Локация держит одно
+    # здание каждого вида, поэтому рыбацкая деревня -- это один слот на рыбу,
+    # судовые припасы и гончарку разом. Товар с виду «недобрал», а на деле его
+    # место занял сосед по зданию, и никакая раздача мест не создаст. Строки
+    # `SHARED` статические, числа берутся из строк `G<n>` того же отчёта.
+    per_good: dict[str, dict[str, str]] = {}
+    for line in lines:
+        found = re.match(r"WTP G\d+ (\S+) \w+ \| T ([^|]*)\| R ([^|]*)\|", line)
+        if found:
+            per_good[found.group(1)] = {"T": found.group(2), "R": found.group(3)}
+    shared = []
+    for line in lines:
+        found = re.match(r"WTP SHARED ([TR]) (\S+) slots=(\S+) only=(\S+) also=(\S+)",
+                         line)
+        if not found:
+            continue
+        side, building, witness, only, also = found.groups()
+        if witness not in per_good:
+            continue
+        slots = field(per_good[witness][side], "w")
+        mine = [g for g in only.split(",") if g in per_good]
+        used = sum(field(per_good[g][side], "p") or 0 for g in mine)
+        if slots:
+            shared.append((building, slots, used, mine,
+                           [] if also == "-" else also.split(",")))
+    if shared:
+        out.append("Одно здание на несколько товаров — тут товар «недобирает» "
+                   "из-за соседа по зданию, а не из-за формулы:")
+        for building, slots, used, mine, also in sorted(
+                shared, key=lambda row: -row[2] / row[1]):
+            tail = (", и туда же метят " + ", ".join(also)) if also else ""
+            out.append("  %s: %s, %s %s %d (%d%%)%s"
+                       % (building, plural(slots, "место", "места", "мест"),
+                          "/".join(mine),
+                          "занял" if len(mine) == 1 else "заняли", used,
+                          round(100 * used / slots), tail))
+
     rights = [(line.split()[3], field(line, "given")) for line in lines
               if line.startswith("WTP RIGHT")]
     taken = [(k, v) for k, v in rights if v]

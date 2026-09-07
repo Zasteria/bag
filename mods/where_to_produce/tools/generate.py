@@ -8460,6 +8460,31 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    "its building is already in every place that has room. "
                    "g>0 p=0 -- the allocator never gave it a turn, so look at "
                    "q, ng against the tiers, and o against the bands."))
+    # **Одно здание, за которое спорят несколько товаров — и это то, чего в
+    # отчёте не было.** Локация держит одно здание каждого вида, поэтому
+    # рыбацкая деревня на побережье -- это один слот на три товара: рыбу,
+    # судовые припасы и гончарку. Товар с виду «недобрал», а на деле его место
+    # занял сосед по зданию, и никакая раздача этого не создаст.
+    #
+    # **Строки статические**: список товаров на здание генератор знает и так, а
+    # числа читаются из строк `G<n>` того же отчёта. `slots=` называет товар,
+    # которому это здание -- единственная дорога на своей стороне: его `w` и
+    # есть, скольким локациям здание вообще годится. `only=` -- те, кому оно
+    # единственное (их `p` складываются без двойного счёта), `also=` -- те, кто
+    # может уйти и в другое здание.
+    for side, name in (("t", "T"), ("r", "R")):
+        share: dict[str, list[str]] = {}
+        for good in order:
+            for building in (groups.get((good, side)) or {}):
+                share.setdefault(building, []).append(good)
+        for building, goods in sorted(share.items()):
+            if len(goods) < 2:
+                continue
+            only = [g for g in goods if len(groups[(g, side)]) == 1]
+            also = [g for g in goods if g not in only]
+            out.append(say("SHARED %s %s slots=%s only=%s also=%s"
+                           % (name, building, only[0] if only else "-",
+                              ",".join(only) or "-", ",".join(also) or "-")))
     for index in range(1, len(order) + 1):
         out.append(f"\t{MOD_ID}_diag_good_{index} = yes\n")
     out.append(f"""\t{MOD_ID}_diag_free = yes

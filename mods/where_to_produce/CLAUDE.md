@@ -39,9 +39,6 @@ building and a location holds one of each**
 единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
 «где», а не «сколько»**; покрытие — это круг 1, открытая лестница — сухой круг
 ([`plan_as_reservation.md`](../../docs/investigations/plan_as_reservation.md)).
-**Локация держит по одной деревне каждого вида** — четыре `is_village = yes`
-рядом законны, а две одинаковых нет, и это тот же запрет на повтор здания, что
-был всегда ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
 **Весов город/село нет и не будет**, и **выхлоп сторону не различает**
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
 **Правила редактора, доливки и рядов, «Специализация» и сводка по товарам —
@@ -51,9 +48,12 @@ building and a location holds one of each**
 
 **План ровен, измерено 2026-09-07 — раздачу не переделывать.** Товар
 останавливает **своя квота**, и мера равномерности — `n + rgo` против неё, а не
-занятые комнаты; разбор печатает `tools/diag.py`. Резервация по стеснённости
-построена и снята тем же днём
-([`archive/plan_reservation.md`](../../docs/archive/plan_reservation.md)).
+занятые комнаты. **А деревня — одно здание на несколько товаров** (рыбацкая: 42
+прибрежных места на `fish`, `naval_supplies` и `pottery`), и локация держит по
+одному каждого вида — отсюда весь ответ про рыбу. Разбор печатает
+`tools/diag.py`; подробности —
+[`plan_gaps.md`](../../docs/investigations/plan_gaps.md), снятая резервация —
+[`archive/plan_reservation.md`](../../docs/archive/plan_reservation.md).
 **Дальше**: перетасовка внутри провинции, потом шаги 7–8.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
