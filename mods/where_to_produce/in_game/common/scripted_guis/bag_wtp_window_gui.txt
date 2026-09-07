@@ -622,27 +622,6 @@ bag_wtp_toggle_plan_rights = {
 	}
 }
 
-# «В локации одна деревня». Рыночная, земледельческая, лесная и рыбацкая деревня
-# -- четыре здания, которые игра помечает `is_village = yes`. Включено: в локации
-# стоит одна из них. Выключено: мешает только повтор одного и того же здания.
-bag_wtp_toggle_one_village = {
-	scope = country
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		if = {
-			limit = { has_global_variable = bag_wtp_one_village }
-			remove_global_variable = bag_wtp_one_village
-		}
-		else = {
-			set_global_variable = { name = bag_wtp_one_village value = 1 }
-		}
-	}
-}
-
 # The two caps, a press a step.
 #
 # **Three and four are the owner's own figures and cannot be derived.** The game

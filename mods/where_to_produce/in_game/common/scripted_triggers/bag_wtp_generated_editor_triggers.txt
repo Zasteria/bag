@@ -1270,7 +1270,6 @@ bag_wtp_edit_fits_rural_6 = {
 				var:bag_wtp_prm6 = 109
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-			bag_wtp_plan_village_free = yes
 		}
 	}
 }
@@ -1360,7 +1359,6 @@ bag_wtp_edit_fits_rural_12 = {
 				var:bag_wtp_prm12 = 171
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
-			bag_wtp_plan_village_free = yes
 		}
 	}
 }
@@ -1534,7 +1532,6 @@ bag_wtp_edit_fits_rural_26 = {
 				var:bag_wtp_prm26 = 17
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-			bag_wtp_plan_village_free = yes
 		}
 	}
 }
@@ -1600,7 +1597,6 @@ bag_wtp_edit_fits_rural_34 = {
 				var:bag_wtp_prm34 = 138
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-			bag_wtp_plan_village_free = yes
 		}
 		AND = {
 			OR = {
@@ -1626,7 +1622,6 @@ bag_wtp_edit_fits_rural_36 = {
 				var:bag_wtp_prm36 = 142
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-			bag_wtp_plan_village_free = yes
 		}
 	}
 }
@@ -1669,7 +1664,6 @@ bag_wtp_edit_fits_rural_39 = {
 				var:bag_wtp_prm39 = 178
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-			bag_wtp_plan_village_free = yes
 		}
 	}
 }
@@ -1692,14 +1686,12 @@ bag_wtp_edit_fits_rural_42 = {
 				var:bag_wtp_prm42 = 193
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-			bag_wtp_plan_village_free = yes
 		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm42 = 194
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-			bag_wtp_plan_village_free = yes
 		}
 	}
 }
@@ -1751,14 +1743,12 @@ bag_wtp_edit_fits_rural_46 = {
 				var:bag_wtp_prm46 = 215
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-			bag_wtp_plan_village_free = yes
 		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm46 = 218
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-			bag_wtp_plan_village_free = yes
 		}
 		AND = {
 			OR = {
@@ -1781,14 +1771,12 @@ bag_wtp_edit_fits_rural_47 = {
 				var:bag_wtp_prm47 = 225
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-			bag_wtp_plan_village_free = yes
 		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm47 = 226
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-			bag_wtp_plan_village_free = yes
 		}
 		AND = {
 			OR = {

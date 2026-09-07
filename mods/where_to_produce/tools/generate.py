@@ -1961,7 +1961,6 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     groups = plan_groups(rows, split, game)
-    village_buildings = {m.building for m in rows if m.is_village}
     out = [HEADER, f"""#
 # **Written with OR and AND and never an `if`.** A scripted trigger takes an
 # effect's `if` without complaining and answers true everywhere afterwards, which
@@ -1984,12 +1983,7 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 tests = "".join(
                     "\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
                     for mi in sorted(mis))
-                # **Деревня занимает локацию целиком, если игрок так сказал.**
-                # `_plan_village_free` — его выключатель; на не-деревенском
-                # здании строки нет вовсе, так что каменоломня и глиняный карьер
-                # по-прежнему встают рядом с чем угодно.
-                one = (f"\t\t\t{MOD_ID}_plan_village_free = yes\n"
-                       if building in village_buildings else "")
+                one = ""
                 branches += f"""\t\tAND = {{
 \t\t\tOR = {{
 {tests}\t\t\t}}
@@ -2027,38 +2021,6 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # right a town gets is still decided by `{MOD_ID}_rq<k>`, the bundle's own
     # scores added up, and a bundle whose goods mostly cannot stand here loses
     # that comparison on its own without needing a gate.
-    # **Одна деревня на локацию, и это вопрос к игре, а не к формуле.** Четыре
-    # здания игра помечает `is_village = yes` и кладёт в одну `village_category`:
-    # рыночная, земледельческая, лесная и рыбацкая деревня. Стоят ли две из них
-    # в одной локации одновременно, в `reference/` не написано нигде, а разница
-    # огромна: на его северной Германии план просит **328** деревень на **280**
-    # сельских локаций. Владелец, 2026-09-07: «в одну локацию три отдельных
-    # торговых деревни не встанет никогда».
-    #
-    # **Поэтому это выключатель, а не константа.** Включённый — план считает, что
-    # деревня в локации одна; выключенный — что мешает только повтор одного и
-    # того же здания, как было. Одна загрузка отвечает на вопрос навсегда.
-    villages = sorted({m.building for m in rows if m.is_village})
-    tests = "".join(f"\t\t\tNOT = {{ is_target_in_variable_list = "
-                    f"{{ name = {MOD_ID}_plan_builds target = building_type:{b} }} }}\n"
-                    for b in villages)
-    out.append(f"""
-# Свободна ли в этой локации сама деревня.
-#
-# **Четыре здания игры с `is_village = yes`** -- {", ".join(villages)} -- и
-# вопрос в том, стоят ли две из них рядом. `_one_village` -- ответ игрока;
-# выключенный, он делает этот тест всегда истинным, и остаётся только запрет на
-# два одинаковых здания, который был всегда.
-# Scope: location
-{MOD_ID}_plan_village_free = {{
-\tOR = {{
-\t\tNOT = {{ has_global_variable = {MOD_ID}_one_village }}
-\t\tAND = {{
-{tests}\t\t}}
-\t}}
-}}
-""")
-
     for k, right in enumerate(output_rights(rows, game), start=1):
         bundle = sorted(right.output)
         wanted = [g for g in bundle if g in order and groups.get((g, "t"))]
@@ -4463,7 +4425,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     groups = plan_groups(rows, split, game)
-    village_buildings = {m.building for m in rows if m.is_village}
     rights = output_rights(rows, game)
 
     def call(prefix: str, index: int, tab: str) -> str:
@@ -4528,11 +4489,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             for building, mis in sorted(by_building.items()):
                 tests = "".join("\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
                                 for mi in sorted(mis))
-                # Та же строка, что в `_plan_can_*`: редактор и план обязаны
-                # спрашивать одно и то же, иначе «+1» ставит то, чего план бы
-                # не поставил.
-                one = (f"\t\t\t{MOD_ID}_plan_village_free = yes\n"
-                       if building in village_buildings else "")
+                one = ""
                 branches += (f"\t\tAND = {{\n\t\t\tOR = {{\n{tests}\t\t\t}}\n"
                              f"\t\t\tNOT = {{ is_target_in_variable_list = "
                              f"{{ name = {MOD_ID}_plan_builds target = building_type:{building} }} }}\n"
@@ -8435,12 +8392,14 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tchange_global_variable = {{ name = {MOD_ID}_fot{index} add = {MOD_ID}_ord{index} }}
 \t\t\t}}
 """)
-    # **Сколько деревень стоит и сколько сельских локаций есть.** Единственная
-    # пара чисел, которая отвечает на вопрос «влезает ли план в землю физически»:
-    # игра помечает четыре здания `is_village = yes`, и если их в плане больше,
-    # чем сельских локаций, то либо две деревни стоят в одной локации, либо план
-    # просит невозможного. Считается обходом, а не счётчиком: счётчик разошёлся
-    # бы с правками редактора, а `_plan_builds` -- это то, что стоит сейчас.
+    # **Сколько деревень стоит и сколько сельских локаций есть.** Игра помечает
+    # четыре здания `is_village = yes` -- рыночная, земледельческая, лесная,
+    # рыбацкая, -- и **локация держит по одной каждого вида**: владелец,
+    # 2026-09-07, «в сельской локации при большом желании может стоять
+    # одновременно все 4 деревни». Значит деревень законно больше, чем локаций,
+    # и число здесь -- не проверка, а мера того, насколько плотно они стоят.
+    # Считается обходом, а не счётчиком: счётчик разошёлся бы с правками
+    # редактора, а `_plan_builds` -- это то, что стоит сейчас.
     village_tests = "".join(
         f"\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
         f"target = building_type:{b} }} }} change_global_variable = "
@@ -8522,8 +8481,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    "-- read live, so this says what the ticks are at this moment "
                    "and not what the last plan saw | moved=%s locations differ from "
                    "the plan before this one | villages=%s rural_locs=%s "
-                   "-- more villages than rural locations means two are sharing "
-                   "one, which the game may not allow"
+                   "-- four buildings are `is_village`, and a location takes one "
+                   "of each kind, so this may exceed the locations by design"
                    % tuple(read(i) for i in range(1, 11))))
     out.append("}\n")
 

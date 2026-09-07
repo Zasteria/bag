@@ -42,10 +42,9 @@ rank and outlives a save.**
 **Второй режим — «Специализация»**: провинция отдаёт лучшую грамоту всем
 городам, ячейка — тому, кто платит больше всех
 ([`plan_specialisation.md`](../../docs/investigations/plan_specialisation.md)).
-**Деревня в локации одна** (`_plan_village_free`, выключатель
-`bag_wtp_one_village`, включён): сколько зданий с `is_village = yes` влезает в
-локацию, **не написано нигде** — 48 зданий разницы
-([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
+**Локация держит по одной деревне каждого вида** — четыре `is_village = yes`
+рядом законны, а две одинаковых нет, и это тот же запрет на повтор здания, что
+был всегда ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
 **Сводка по товарам** — иконка в окне плана: строка на товар и причина
 остановки. **Весов город/село нет и не будет**, и **выхлоп сторону не различает**
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
