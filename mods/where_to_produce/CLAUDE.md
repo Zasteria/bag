@@ -31,9 +31,9 @@ rank and outlives a save.**
 **one method per slot**
 ([`production_ladder.md`](../../docs/investigations/production_ladder.md)).
 **A right's gate is its own `potential`, never `has_advance`**
-([`town_rights.md`](../../docs/investigations/town_rights.md)). **An entry is a building and a location holds one of each**
-([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md),
-[`plan_formula.md`](../../docs/investigations/plan_formula.md)).
+([`town_rights.md`](../../docs/investigations/town_rights.md)). **An entry is a
+building and a location holds one of each**
+([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
 **Равномерность держит уровень, а не квота**: круг поднимает `_plan_lvl` на
 единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
@@ -53,11 +53,14 @@ rank and outlives a save.**
 [`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство —
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
+**Дальше, порядок его**: резервация по стеснённости
+([`plan_reservation.md`](../../docs/investigations/plan_reservation.md) —
+правило, три места в коде, предсказание), перетасовка внутри провинции, шаги 7–8.
+
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is
-[`pitfalls/windows.md`](../../docs/pitfalls/windows.md)** — the window's own
-shape, the frame line, the row's usable width, what `check_script.py` resolves
-and what it cannot. Every rule in it this mod paid for, most of them twice.
+[`pitfalls/windows.md`](../../docs/pitfalls/windows.md)** — every rule in it this
+mod paid for, most of them twice.
 
 **Not to be attempted again**: eight, rejected
 ([`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md)). **The answer
