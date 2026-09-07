@@ -1308,6 +1308,10 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 {MOD_ID}_plan_scored_value = {{ value = global_var:{MOD_ID}_plan_scored }}
+# Сколько городов провинции посчитали грамоту: делитель средней в
+# `{MOD_ID}_plan_spec_rights`. `divide` берёт script value, не переменную.
+# Scope: country
+{MOD_ID}_sprn_value = {{ value = global_var:{MOD_ID}_sprn }}
 # And the editor's own divisor: how many goods are still free of a lock and of
 # the «не нужен» flag. Same shape and the same caller-side guard.
 {MOD_ID}_edit_free_value = {{ value = global_var:{MOD_ID}_edit_free }}
@@ -2354,7 +2358,7 @@ def plan_loc_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \ttype = country
 """)
         for code, key in ((1, "none"), (2, "room"), (3, "quota"), (4, "capt"),
-                          (5, "capr"), (6, "lock"), (7, "skip")):
+                          (5, "capr"), (6, "lock"), (7, "skip"), (9, "lost")):
             out.append(f"""\ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_wr{i} = {code} }}
 \t\tlocalization_key = {MOD_ID}_why_{key}
@@ -2365,6 +2369,51 @@ def plan_loc_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tlocalization_key = {MOD_ID}_why_open
 \t}}
 }}
+""")
+    return "".join(out)
+
+
+def grant_bundle_blocks(rights, order, groups, substitute, tab: str) -> str:
+    """The charter's own buildings, put down on a town that has just taken it.
+
+    **Written once and emitted twice.** The even plan's grant pass and the
+    specialisation's province-wide one place the identical bundle, keyed on the
+    identical `_rbest_k` -- two copies would be two places for the substitute
+    rule and the three counters to drift apart.
+    """
+    out = []
+    for k, right in enumerate(rights, start=1):
+        bundle = sorted(right.output)
+        lines = []
+        for g in bundle:
+            if not groups.get((g, "t")):
+                continue
+            i = order.index(g) + 1
+            feeder = substitute.get(g)
+            j = order.index(feeder) + 1 if feeder in order else 0
+            if j and groups.get((feeder, "t")):
+                lines.append(
+                    f"{tab}\tif = {{\n"
+                    f"{tab}\t\tlimit = {{ {MOD_ID}_plan_can_town_{i} = yes }}\n"
+                    f"{tab}\t\t{MOD_ID}_plan_try_town_{i} = yes\n"
+                    f"{tab}\t}}\n"
+                    f"{tab}\telse = {{\n"
+                    f"{tab}\t\t# {g} cannot stand here; plant the {feeder} that would let it.\n"
+                    f"{tab}\t\t{MOD_ID}_plan_try_town_{j} = yes\n"
+                    f"{tab}\t}}\n")
+            else:
+                lines.append(f"{tab}\t{MOD_ID}_plan_try_town_{i} = yes\n")
+        adds = "".join(lines)
+        out.append(f"""{tab}if = {{
+{tab}\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
+{adds}{tab}\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
+{tab}\t# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+{tab}\t# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+{tab}\t# what the plan counts never quietly changes what the report prints.
+{tab}\tchange_global_variable = {{ name = {MOD_ID}_rn{k} add = 1 }}
+{tab}\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
+{tab}\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
+{tab}}}
 """)
     return "".join(out)
 
@@ -2510,6 +2559,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_dry value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_top value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = 1 }}
+\t# **Пометка режима снимается здесь, а ставится в конце `_spec_run`.** Так
+\t# любой обычный «Пересчитать» гасит её сам, и ни одно окно не может назвать
+\t# специализацией то, что ею не является.
+\tremove_global_variable = {MOD_ID}_spec_ran
+\t# **И то же самое числом, для отчёта.** `.IsSet` в окне не отличает
+\t# отсутствующую глобалку от нулевой, поэтому пометка режима -- флаг; а
+\t# `debug_log` печатает только числа, поэтому рядом с ней живёт `_plan_mode`.
+\tset_global_variable = {{ name = {MOD_ID}_plan_mode value = 0 }}
 """]
     for index, good in enumerate(order, start=1):
         # `_pw<n>` is the player's own weight on this good and is **not** zeroed
@@ -3158,39 +3215,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # rather than back to the ordinary goods -- the owner, 2026-09-01. Derived
     # rather than named: `market_inputs` finds one pair in the whole game.
     substitute = market_inputs(game)
-    for k, right in enumerate(rights, start=1):
-        bundle = sorted(right.output)
-        lines = []
-        for g in bundle:
-            if not groups.get((g, "t")):
-                continue
-            i = order.index(g) + 1
-            feeder = substitute.get(g)
-            j = order.index(feeder) + 1 if feeder in order else 0
-            if j and groups.get((feeder, "t")):
-                lines.append(
-                    f"\t\t\tif = {{\n"
-                    f"\t\t\t\tlimit = {{ {MOD_ID}_plan_can_town_{i} = yes }}\n"
-                    f"\t\t\t\t{MOD_ID}_plan_try_town_{i} = yes\n"
-                    f"\t\t\t}}\n"
-                    f"\t\t\telse = {{\n"
-                    f"\t\t\t\t# {g} cannot stand here; plant the {feeder} that would let it.\n"
-                    f"\t\t\t\t{MOD_ID}_plan_try_town_{j} = yes\n"
-                    f"\t\t\t}}\n")
-            else:
-                lines.append(f"\t\t\t{MOD_ID}_plan_try_town_{i} = yes\n")
-        adds = "".join(lines)
-        out.append(f"""\t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
-{adds}\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
-\t\t\t# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
-\t\t\t# `_rgiven<k>` is the same number for the dump, kept apart so that changing
-\t\t\t# what the plan counts never quietly changes what the report prints.
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_rn{k} add = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
-\t\t}}
-""")
+    out.append(grant_bundle_blocks(rights, order, groups, substitute, "\t\t"))
     out.append("\t}\n}\n")
 
     # ---- the quota ---------------------------------------------------------
@@ -8079,15 +8104,16 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             f"{MOD_ID}_plan_scored", f"{MOD_ID}_plan_quota", f"{MOD_ID}_plan_rightn",
             f"{MOD_ID}_plan_laps", f"{MOD_ID}_plan_prov_n",
             f"{MOD_ID}_plan_opensw", f"{MOD_ID}_rquota", f"{MOD_ID}_rlevel",
-            f"{MOD_ID}_plan_lvl"), start=1):
+            f"{MOD_ID}_plan_lvl", f"{MOD_ID}_plan_mode"), start=1):
         out.append(park(slot, source))
     # `rquota` is the towns each charter may end with, `rlevels` how many heights
     # the ladder actually climbed to. The two apart is the guard having cut it
     # short -- the one thing about the charter round that leaves no other trace.
     out.append(say("PASS placed=%s rooms=%s used_locs=%s drawn=%s towns=%s provs=%s "
                    "goods_scored=%s quota=%s rights_given=%s laps=%s "
-                   "ordered_provs=%s dry_laps=%s rquota=%s rlevels=%s level=%s"
-                   % tuple(read(i) for i in range(1, 16))))
+                   "ordered_provs=%s dry_laps=%s rquota=%s rlevels=%s level=%s "
+                   "mode=%s"
+                   % tuple(read(i) for i in range(1, 17))))
     # **What the ground actually pays**, and it is the owner's own question:
     # «какой процент из них получит выгоду от своего положения на карте».
     # `fed` is how many placed buildings earn any bonus at all; `gain` is the
@@ -8716,8 +8742,9 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 #
 # 1 -- земля этого не производит вовсе; 2 -- свободных мест не осталось;
 # 3 -- выбрана своя доля; 4 -- выбран городской потолок; 5 -- сельский;
-# 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 8 -- ничего из этого,
-# то есть раздача встала раньше, чем товар упёрся хоть во что-то.
+# 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 9 -- специализация
+# перебила его в каждой свободной ячейке; 8 -- ничего из этого, то есть
+# раздача встала раньше, чем товар упёрся хоть во что-то.
 # Scope: country
 {MOD_ID}_plan_summary = {{
 \tset_global_variable = {{ name = {MOD_ID}_sum_min value = 9999 }}
@@ -8786,6 +8813,14 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_wsp{index} }} }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 2 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_sum_full add = 1 }}
+\t\t}}
+\t\t# **В специализации доли и потолков не было, поэтому и причины такой
+\t\t# быть не может.** Товар, у которого места есть, а домиков нет, там
+\t\t# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+\t\t# ответ, а не «ни во что не упёрся».
+\t\telse_if = {{
+\t\t\tlimit = {{ has_global_variable = {MOD_ID}_spec_ran }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 9 }}
 \t\t}}
 \t\telse_if = {{
 \t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index} }} }}
@@ -8883,6 +8918,253 @@ types BagWtpSumCells {
 \t\tspacing = 2
 \t\tignoreinvisible = yes
 {rowlist}\t}}
+}}
+""")
+    return "".join(out)
+
+# ----------------------------------------------------------- the specialisation
+#
+# **Второй режим плана, и в нём нет ни одного правила равномерности.** Его слова
+# 2026-09-07: «Это будет максимально специализированный режим заполнения. Тут
+# равномерность и лимиты не значат ничего. Только максимально эффективная
+# выжимка из провинции всех её бонусов. Если провинция идеально подходит для
+# ремесленных прав — все города в ней будут ремесленных прав + лучший по бонусу
+# РГО домики в свободные ячейки. Никаких правил, только выгода.»
+#
+# **Что он всё-таки сохраняет — «правила технического характера»**, его же
+# оговорка: выбор земли, сохранение в слот, домиков на город и на село, пометка
+# «не нужен», редактор поверх. Ровно они и остались.
+#
+# **Разница с обычным планом ровно в двух местах:**
+#
+# 1. **Грамоты выдаются по провинции, а не по городу.** Обычный проход обходит
+#    города и держит лестницу уровней, чтобы счёта вышли ровными. Здесь провинция
+#    считает среднюю оценку каждой грамоты по своим городам, берёт лучшую и даёт
+#    её всем городам сразу -- это и есть «все города в ней будут ремесленных
+#    прав».
+# 2. **Комнаты заполняются от локации, а не от товара.** Обычная раздача ходит по
+#    товарам и спрашивает «где моё лучшее место»; здесь ходит по локациям и
+#    спрашивает «кто здесь платит больше всех». Ни квоты, ни ступеней, ни полос:
+#    в каждую свободную ячейку встаёт лучший из тех, кто в неё влезает.
+#
+# **Ноль тоже ставится.** Товар, которому эта земля не платит ничего, всё равно
+# занимает комнату, если лучше него никого нет: пустая комната -- это не
+# специализация, а неиспользованная земля, и «эффективное использование земли»
+# он назвал главным ещё 2026-09-07.
+
+SPEC_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_spec.txt"
+
+# Сколько раз проход обходит землю. Больше комнат в одной локации, чем позволяет
+# больший из двух лимитов, не бывает, а лимит сверху -- 8; круг, который ничего
+# не положил, выходит сам.
+SPEC_ROUNDS = 12
+
+
+def spec_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+              game: eu5data.Game) -> str:
+    order = goods_order(split)
+    groups = plan_groups(rows, split, game)
+    rights = output_rights(rows, game)
+    substitute = market_inputs(game)
+    out = [HEADER, """#
+# The specialisation plan: the ground squeezed for everything it pays, with no
+# evenness of any kind. `docs/investigations/plan_specialisation.md`.
+"""]
+
+    # ---- грамоты по провинции ----------------------------------------------
+    picks = ""
+    for k, right in enumerate(rights, start=1):
+        picks += f"""\t\t# {right.key}
+\t\tset_global_variable = {{ name = {MOD_ID}_sprt value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sprn value = 0 }}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tis_target_in_global_variable_list = {{ name = {MOD_ID}_candidates target = this }}
+\t\t\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\t\t\t{MOD_ID}_plan_right_fits_{k} = yes
+\t\t\t\t}}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_sprt add = {MOD_ID}_rq{k} }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_sprn add = 1 }}
+\t\t\t}}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tglobal_var:{MOD_ID}_sprn > 0
+\t\t\t\tscope:{MOD_ID}_country = {{ {MOD_ID}_plan_right_gate_{k} = yes }}
+\t\t\t}}
+\t\t\t# Средняя по городам провинции, а не сумма: иначе крупная провинция
+\t\t\t# выбирала бы грамоту числом городов, а не тем, что под ними лежит.
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_sprt divide = {MOD_ID}_sprn_value }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_sprt > global_var:{MOD_ID}_sprv }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sprv value = global_var:{MOD_ID}_sprt }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sprk value = {k} }}
+\t\t\t}}
+\t\t}}
+"""
+    out.append(f"""
+# Грамоты, выданные провинцией целиком.
+#
+# **Провинция выбирает одну грамоту и отдаёт её каждому своему городу.** Обычный
+# проход (`{MOD_ID}_plan_grant_pass`) обходит города поодиночке и держит
+# лестницу уровней, чтобы у каждой грамоты вышло примерно поровну городов; здесь
+# лестницы нет вовсе -- есть только «что этой земле подходит лучше всего».
+#
+# **Оценка -- средняя по городам провинции**, а не сумма: сумма выбирала бы
+# грамоту по числу городов, а не по тому, что под ними лежит.
+#
+# **`-1`, а не ноль, как начальное лучшее.** Земля, на которой ни одна грамота не
+# стоит ничего, всё равно получает ту, что ей хоть как-то подходит: `_rq<k>`
+# честно равен нулю на всей Вестфалии для ювелирки, и сравнение с нулём не дало
+# бы ей ни одного города (это уже стоило прогона 2026-09-03).
+# Scope: country
+{MOD_ID}_plan_spec_rights = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_prov_locs
+\t\tset_global_variable = {{ name = {MOD_ID}_sprv value = -1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sprk value = 0 }}
+{picks}\t\t# И раздать выбранную всем городам провинции разом.
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_sprk > 0 }}
+\t\t\tprovince_definition = {{
+\t\t\t\tevery_location_in_province_definition = {{
+\t\t\t\t\tlimit = {{
+\t\t\t\t\t\tis_target_in_global_variable_list = {{ name = {MOD_ID}_candidates target = this }}
+\t\t\t\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\t\t\t\tvar:{MOD_ID}_load = 0
+\t\t\t\t\t}}
+\t\t\t\t\t# Тот же ключ, что читает выкладка связки, -- и та же выкладка.
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = global_var:{MOD_ID}_sprk }}
+{grant_bundle_blocks(rights, order, groups, substitute, chr(9) * 5)}\t\t\t\t\tremove_variable = {MOD_ID}_rbest_k
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t}}
+}}
+""")
+
+    # ---- лучший товар для этой локации --------------------------------------
+    tries = ""
+    for index, good in enumerate(order, start=1):
+        for side, listname, score in (("t", "town", "p"), ("r", "rural", "pr")):
+            if not groups.get((good, side)):
+                continue
+            tries += f"""\tif = {{
+\t\tlimit = {{
+\t\t\t{MOD_ID}_plan_can_{listname}_{index} = yes
+\t\t\tvar:{MOD_ID}_{score}{index} > var:{MOD_ID}_specv
+\t\t\tNOT = {{ has_global_variable = {MOD_ID}_skip{index} }}
+\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_specv value = var:{MOD_ID}_{score}{index} }}
+\t\tset_variable = {{ name = {MOD_ID}_speck value = {index} }}
+\t}}
+"""
+    places = ""
+    for index, good in enumerate(order, start=1):
+        inner = ""
+        for side, listname in (("t", "town"), ("r", "rural")):
+            if not groups.get((good, side)):
+                continue
+            inner += (f"\t\tif = {{\n"
+                      f"\t\t\tlimit = {{ {MOD_ID}_plan_can_{listname}_{index} = yes }}\n"
+                      f"\t\t\t{MOD_ID}_plan_try_{listname}_{index} = yes\n"
+                      f"\t\t}}\n")
+        if not inner:
+            continue
+        places += f"""\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_speck = {index} }}
+{inner}\t}}
+"""
+    out.append(f"""
+# Одна свободная ячейка этой локации -- лучшему из тех, кто в неё влезает.
+#
+# **Вопрос повёрнут наоборот, и в этом весь режим.** Обычная раздача ходит по
+# товарам («где моё лучшее место?»); эта ходит по локациям («кто здесь платит
+# больше всех?»). Поэтому здесь нет ни квот, ни ступеней, ни полос -- их незачем
+# сравнивать: сравниваются сами выгоды, прямо в этой локации.
+#
+# **`-1` как начальное лучшее, а не ноль.** Товар с нулевой выгодой всё равно
+# занимает комнату, если лучше него тут никого нет. Пустая комната -- это не
+# специализация, а неиспользованная земля.
+#
+# **`_skip<n>` соблюдается.** «Не нужен» -- это стоячее указание игрока, а не
+# правило равномерности, и режим «никаких правил» его не отменяет.
+#
+# **Сторона не спрашивается отдельно:** `_plan_can_town_<n>` уже несёт
+# `{MOD_ID}_plan_is_town = yes`, а `_plan_can_rural_<n>` -- `= no`, так что
+# городская и сельская ветки одного товара исключают друг друга сами.
+# Scope: location
+{MOD_ID}_plan_spec_best = {{
+\tset_variable = {{ name = {MOD_ID}_specv value = -1 }}
+\tset_variable = {{ name = {MOD_ID}_speck value = 0 }}
+{tries}{places}\tremove_variable = {MOD_ID}_specv
+\tremove_variable = {MOD_ID}_speck
+}}
+
+# Заполнение: круг за кругом, пока хоть одна ячейка берёт хоть что-то.
+#
+# **Круг кладёт не больше одного домика в локацию**, поэтому число кругов -- это
+# самая заполненная локация, а не число домиков. Верхний предел -- больший из
+# двух лимитов, то есть 8; {SPEC_ROUNDS} с запасом, и круг, ничего не положивший,
+# выходит сам.
+# Scope: country
+{MOD_ID}_plan_spec_fill = {{
+\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_laps value = 0 }}
+\twhile = {{
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_plan_go = 1
+\t\t\tglobal_var:{MOD_ID}_plan_laps < {SPEC_ROUNDS}
+\t\t}}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_laps add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_sweeps add = 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_added value = 0 }}
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\t{MOD_ID}_plan_spec_best = yes
+\t\t}}
+{"".join(f"		if = {{ limit = {{ global_var:{MOD_ID}_plan_laps = {lap} }} set_global_variable = {{ name = {MOD_ID}_lapn{lap} value = global_var:{MOD_ID}_plan_added }} }}" + chr(10) for lap in range(1, min(DIAG_LAPS, SPEC_ROUNDS) + 1))}\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_plan_added = 0 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 0 }}
+\t\t}}
+\t}}
+\tset_global_variable = {{ name = {MOD_ID}_plan_lvl value = global_var:{MOD_ID}_plan_laps }}
+}}
+
+# «Специализация» с страницы мода: тот же конвейер, две другие середины.
+#
+# **Всё остальное -- то же самое, и это его оговорка**: выбор земли, пометки
+# город/село, лимиты домиков, сохранение в слот, редактор поверх и «Показать
+# изменения» работают ровно как с обычным планом, потому что это тот же план,
+# просто заполненный другим правилом.
+#
+# **`_plan_set_quota` вызывается, хотя раздача её не читает.** Числа доли нужны
+# всему, что идёт после плана -- редактору, доливке и сводке, -- а сводка ещё и
+# показывает их рядом с пометкой «режим специализации», чтобы было с чем
+# сравнить обычный план на той же земле.
+# Scope: country
+{MOD_ID}_spec_run = {{
+\tsave_scope_as = {MOD_ID}_country
+\t{MOD_ID}_collect_candidates = yes
+\t{MOD_ID}_rebuild_browse = yes
+\t{MOD_ID}_plan_prepare = yes
+\t{MOD_ID}_plan_score = yes
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_plan_rights }}
+\t\t{MOD_ID}_plan_spec_rights = yes
+\t}}
+\t{MOD_ID}_plan_set_quota = yes
+\t{MOD_ID}_plan_spec_fill = yes
+\t{MOD_ID}_plan_rank = yes
+\t# Свежий план -- своя же точка отсчёта для «Показать изменения».
+\t{MOD_ID}_edit_save = yes
+\t# **Ставится после `_plan_prepare`, который его снимает.** Так любой обычный
+\t# «Пересчитать» гасит пометку сам, и окно не может назвать специализацией то,
+\t# что ею не является.
+\tset_global_variable = {{ name = {MOD_ID}_spec_ran value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_mode value = 1 }}
+\tcmf_log = {{ action = {MOD_ID}_log_plan }}
 }}
 """)
     return "".join(out)
@@ -9064,6 +9346,7 @@ def main() -> int:
     write(PICK_CELLS_OUT, pick_cells_file(goods_order(split), rights))
     write(SUMMARY_OUT, summary_file(rows, split, game))
     write(SUM_CELLS_OUT, sum_cells_file(rows, split, game))
+    write(SPEC_OUT, spec_file(rows, split, game))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))

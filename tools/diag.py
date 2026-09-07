@@ -702,6 +702,13 @@ def digest(lines: list[str]) -> list[str]:
         if m:
             laps.append((int(m.group(1)), int(m.group(2))))
     ran = field(pas, "laps")
+    # **Каким режимом это посчитано.** Два режима плана пишут одни и те же
+    # строки; `mode=1` — «Специализация» со страницы мода, где ни долей, ни
+    # потолков, ни ступеней не было вовсе, и читать `quota=` как ограничение
+    # там нельзя.
+    if field(pas, "mode"):
+        out.insert(0, "РЕЖИМ СПЕЦИАЛИЗАЦИИ: равномерности не было. Доли и "
+                      "потолки в отчёте — это то, что дал бы обычный план.")
     if laps:
         shown = [n for _, n in laps][:ran or len(laps)]
         while shown and shown[-1] == 0:

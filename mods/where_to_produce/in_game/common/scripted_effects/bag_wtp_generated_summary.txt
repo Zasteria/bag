@@ -13,8 +13,9 @@
 #
 # 1 -- земля этого не производит вовсе; 2 -- свободных мест не осталось;
 # 3 -- выбрана своя доля; 4 -- выбран городской потолок; 5 -- сельский;
-# 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 8 -- ничего из этого,
-# то есть раздача встала раньше, чем товар упёрся хоть во что-то.
+# 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 9 -- специализация
+# перебила его в каждой свободной ячейке; 8 -- ничего из этого, то есть
+# раздача встала раньше, чем товар упёрся хоть во что-то.
 # Scope: country
 bag_wtp_plan_summary = {
 	set_global_variable = { name = bag_wtp_sum_min value = 9999 }
@@ -64,6 +65,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp1 } }
 			set_global_variable = { name = bag_wtp_wr1 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr1 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1 } }
@@ -129,6 +138,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr2 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr2 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2 } }
 			set_global_variable = { name = bag_wtp_wr2 value = 3 }
@@ -192,6 +209,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp3 } }
 			set_global_variable = { name = bag_wtp_wr3 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr3 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3 } }
@@ -257,6 +282,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr4 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr4 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn4 < global_var:bag_wtp_pq4 } }
 			set_global_variable = { name = bag_wtp_wr4 value = 3 }
@@ -316,6 +349,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp5 } }
 			set_global_variable = { name = bag_wtp_wr5 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr5 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5 } }
@@ -381,6 +422,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr6 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr6 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn6 < global_var:bag_wtp_pq6 } }
 			set_global_variable = { name = bag_wtp_wr6 value = 3 }
@@ -440,6 +489,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp7 } }
 			set_global_variable = { name = bag_wtp_wr7 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr7 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7 } }
@@ -505,6 +562,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr8 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr8 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8 } }
 			set_global_variable = { name = bag_wtp_wr8 value = 3 }
@@ -569,6 +634,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr9 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr9 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn9 < global_var:bag_wtp_pq9 } }
 			set_global_variable = { name = bag_wtp_wr9 value = 3 }
@@ -628,6 +701,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp10 } }
 			set_global_variable = { name = bag_wtp_wr10 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr10 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10 } }
@@ -693,6 +774,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr11 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr11 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn11 < global_var:bag_wtp_pq11 } }
 			set_global_variable = { name = bag_wtp_wr11 value = 3 }
@@ -753,6 +842,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr12 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr12 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn12 < global_var:bag_wtp_pq12 } }
 			set_global_variable = { name = bag_wtp_wr12 value = 3 }
@@ -812,6 +909,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp13 } }
 			set_global_variable = { name = bag_wtp_wr13 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr13 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13 } }
@@ -877,6 +982,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr14 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr14 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn14 < global_var:bag_wtp_pq14 } }
 			set_global_variable = { name = bag_wtp_wr14 value = 3 }
@@ -936,6 +1049,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp15 } }
 			set_global_variable = { name = bag_wtp_wr15 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr15 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15 } }
@@ -1001,6 +1122,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr16 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr16 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn16 < global_var:bag_wtp_pq16 } }
 			set_global_variable = { name = bag_wtp_wr16 value = 3 }
@@ -1060,6 +1189,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp17 } }
 			set_global_variable = { name = bag_wtp_wr17 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr17 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17 } }
@@ -1125,6 +1262,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr18 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr18 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn18 < global_var:bag_wtp_pq18 } }
 			set_global_variable = { name = bag_wtp_wr18 value = 3 }
@@ -1184,6 +1329,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp19 } }
 			set_global_variable = { name = bag_wtp_wr19 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr19 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19 } }
@@ -1249,6 +1402,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr20 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr20 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20 } }
 			set_global_variable = { name = bag_wtp_wr20 value = 3 }
@@ -1312,6 +1473,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp21 } }
 			set_global_variable = { name = bag_wtp_wr21 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr21 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21 } }
@@ -1377,6 +1546,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr22 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr22 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22 } }
 			set_global_variable = { name = bag_wtp_wr22 value = 3 }
@@ -1441,6 +1618,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr23 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr23 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn23 < global_var:bag_wtp_pq23 } }
 			set_global_variable = { name = bag_wtp_wr23 value = 3 }
@@ -1500,6 +1685,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp24 } }
 			set_global_variable = { name = bag_wtp_wr24 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr24 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn24 < global_var:bag_wtp_pq24 } }
@@ -1561,6 +1754,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr25 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr25 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn25 < global_var:bag_wtp_pq25 } }
 			set_global_variable = { name = bag_wtp_wr25 value = 3 }
@@ -1620,6 +1821,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp26 } }
 			set_global_variable = { name = bag_wtp_wr26 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr26 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26 } }
@@ -1685,6 +1894,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr27 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr27 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn27 < global_var:bag_wtp_pq27 } }
 			set_global_variable = { name = bag_wtp_wr27 value = 3 }
@@ -1745,6 +1962,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr28 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr28 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn28 < global_var:bag_wtp_pq28 } }
 			set_global_variable = { name = bag_wtp_wr28 value = 3 }
@@ -1804,6 +2029,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp29 } }
 			set_global_variable = { name = bag_wtp_wr29 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr29 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29 } }
@@ -1869,6 +2102,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr30 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr30 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn30 < global_var:bag_wtp_pq30 } }
 			set_global_variable = { name = bag_wtp_wr30 value = 3 }
@@ -1928,6 +2169,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp31 } }
 			set_global_variable = { name = bag_wtp_wr31 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr31 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn31 < global_var:bag_wtp_pq31 } }
@@ -1989,6 +2238,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr32 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr32 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn32 < global_var:bag_wtp_pq32 } }
 			set_global_variable = { name = bag_wtp_wr32 value = 3 }
@@ -2048,6 +2305,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp33 } }
 			set_global_variable = { name = bag_wtp_wr33 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr33 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33 } }
@@ -2113,6 +2378,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr34 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr34 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34 } }
 			set_global_variable = { name = bag_wtp_wr34 value = 3 }
@@ -2177,6 +2450,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr35 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr35 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn35 < global_var:bag_wtp_pq35 } }
 			set_global_variable = { name = bag_wtp_wr35 value = 3 }
@@ -2236,6 +2517,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp36 } }
 			set_global_variable = { name = bag_wtp_wr36 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr36 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36 } }
@@ -2301,6 +2590,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr37 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr37 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn37 < global_var:bag_wtp_pq37 } }
 			set_global_variable = { name = bag_wtp_wr37 value = 3 }
@@ -2360,6 +2657,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp38 } }
 			set_global_variable = { name = bag_wtp_wr38 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr38 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38 } }
@@ -2425,6 +2730,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr39 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr39 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39 } }
 			set_global_variable = { name = bag_wtp_wr39 value = 3 }
@@ -2489,6 +2802,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr40 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr40 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn40 < global_var:bag_wtp_pq40 } }
 			set_global_variable = { name = bag_wtp_wr40 value = 3 }
@@ -2549,6 +2870,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr41 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr41 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn41 < global_var:bag_wtp_pq41 } }
 			set_global_variable = { name = bag_wtp_wr41 value = 3 }
@@ -2608,6 +2937,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp42 } }
 			set_global_variable = { name = bag_wtp_wr42 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr42 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42 } }
@@ -2673,6 +3010,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr43 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr43 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43 } }
 			set_global_variable = { name = bag_wtp_wr43 value = 3 }
@@ -2737,6 +3082,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr44 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr44 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn44 < global_var:bag_wtp_pq44 } }
 			set_global_variable = { name = bag_wtp_wr44 value = 3 }
@@ -2796,6 +3149,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp45 } }
 			set_global_variable = { name = bag_wtp_wr45 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr45 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45 } }
@@ -2861,6 +3222,14 @@ bag_wtp_plan_summary = {
 			set_global_variable = { name = bag_wtp_wr46 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
 		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr46 value = 9 }
+		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46 } }
 			set_global_variable = { name = bag_wtp_wr46 value = 3 }
@@ -2924,6 +3293,14 @@ bag_wtp_plan_summary = {
 			limit = { NOT = { has_global_variable = bag_wtp_wsp47 } }
 			set_global_variable = { name = bag_wtp_wr47 value = 2 }
 			change_global_variable = { name = bag_wtp_sum_full add = 1 }
+		}
+		# **В специализации доли и потолков не было, поэтому и причины такой
+		# быть не может.** Товар, у которого места есть, а домиков нет, там
+		# проиграл соревнование за каждую свободную ячейку -- и это отдельный
+		# ответ, а не «ни во что не упёрся».
+		else_if = {
+			limit = { has_global_variable = bag_wtp_spec_ran }
+			set_global_variable = { name = bag_wtp_wr47 value = 9 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47 } }

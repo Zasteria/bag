@@ -100,6 +100,14 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_plan_dry value = 0 }
 	set_global_variable = { name = bag_wtp_plan_top value = 0 }
 	set_global_variable = { name = bag_wtp_plan_quota value = 1 }
+	# **Пометка режима снимается здесь, а ставится в конце `_spec_run`.** Так
+	# любой обычный «Пересчитать» гасит её сам, и ни одно окно не может назвать
+	# специализацией то, что ею не является.
+	remove_global_variable = bag_wtp_spec_ran
+	# **И то же самое числом, для отчёта.** `.IsSet` в окне не отличает
+	# отсутствующую глобалку от нулевой, поэтому пометка режима -- флаг; а
+	# `debug_log` печатает только числа, поэтому рядом с ней живёт `_plan_mode`.
+	set_global_variable = { name = bag_wtp_plan_mode value = 0 }
 	set_global_variable = { name = bag_wtp_pn1 value = 0 }
 	set_global_variable = { name = bag_wtp_pnt1 value = 0 }
 	set_global_variable = { name = bag_wtp_pnr1 value = 0 }

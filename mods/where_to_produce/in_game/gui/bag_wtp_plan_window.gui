@@ -959,6 +959,22 @@ window = {
 					tooltip = "bag_wtp_plan_pass_tt"
 				}
 
+				# **Каким режимом посчитано то, что на экране.** Два режима
+				# плана рисуют одни и те же строки, и без этой пометки
+				# «специализация» и «Пересчитать» на одной земле различались бы
+				# только числами, которые надо помнить.
+				text_single = {
+					size = { 210 22 }
+					maximumsize = { 210 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					visible = "[GetGlobalVariable('bag_wtp_spec_ran').IsSet]"
+					text = "bag_wtp_plan_mode_spec"
+					tooltip = "bag_wtp_plan_mode_spec_tt"
+				}
+
 				# **How many provinces the plan touched, beside the switch that
 				# folds them.** Drawn only while folded, because a count of
 				# provinces above a list of locations answers nothing.

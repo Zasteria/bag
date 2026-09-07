@@ -2069,6 +2069,10 @@ bag_wtp_why_1 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr1 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2104,6 +2108,10 @@ bag_wtp_why_2 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr2 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr2 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2143,6 +2151,10 @@ bag_wtp_why_3 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr3 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2178,6 +2190,10 @@ bag_wtp_why_4 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr4 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr4 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2217,6 +2233,10 @@ bag_wtp_why_5 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr5 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2252,6 +2272,10 @@ bag_wtp_why_6 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr6 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr6 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2291,6 +2315,10 @@ bag_wtp_why_7 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr7 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2326,6 +2354,10 @@ bag_wtp_why_8 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr8 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr8 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2365,6 +2397,10 @@ bag_wtp_why_9 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr9 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2400,6 +2436,10 @@ bag_wtp_why_10 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr10 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr10 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2439,6 +2479,10 @@ bag_wtp_why_11 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr11 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2474,6 +2518,10 @@ bag_wtp_why_12 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr12 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr12 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2513,6 +2561,10 @@ bag_wtp_why_13 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr13 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2548,6 +2600,10 @@ bag_wtp_why_14 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr14 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr14 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2587,6 +2643,10 @@ bag_wtp_why_15 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr15 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2622,6 +2682,10 @@ bag_wtp_why_16 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr16 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr16 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2661,6 +2725,10 @@ bag_wtp_why_17 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr17 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2696,6 +2764,10 @@ bag_wtp_why_18 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr18 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr18 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2735,6 +2807,10 @@ bag_wtp_why_19 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr19 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2770,6 +2846,10 @@ bag_wtp_why_20 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr20 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr20 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2809,6 +2889,10 @@ bag_wtp_why_21 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr21 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2844,6 +2928,10 @@ bag_wtp_why_22 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr22 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr22 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2883,6 +2971,10 @@ bag_wtp_why_23 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr23 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2918,6 +3010,10 @@ bag_wtp_why_24 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr24 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr24 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -2957,6 +3053,10 @@ bag_wtp_why_25 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr25 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -2992,6 +3092,10 @@ bag_wtp_why_26 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr26 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr26 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3031,6 +3135,10 @@ bag_wtp_why_27 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr27 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3066,6 +3174,10 @@ bag_wtp_why_28 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr28 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr28 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3105,6 +3217,10 @@ bag_wtp_why_29 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr29 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3140,6 +3256,10 @@ bag_wtp_why_30 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr30 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr30 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3179,6 +3299,10 @@ bag_wtp_why_31 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr31 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3214,6 +3338,10 @@ bag_wtp_why_32 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr32 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr32 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3253,6 +3381,10 @@ bag_wtp_why_33 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr33 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3288,6 +3420,10 @@ bag_wtp_why_34 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr34 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr34 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3327,6 +3463,10 @@ bag_wtp_why_35 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr35 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3362,6 +3502,10 @@ bag_wtp_why_36 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr36 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr36 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3401,6 +3545,10 @@ bag_wtp_why_37 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr37 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3436,6 +3584,10 @@ bag_wtp_why_38 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr38 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr38 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3475,6 +3627,10 @@ bag_wtp_why_39 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr39 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3510,6 +3666,10 @@ bag_wtp_why_40 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr40 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr40 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3549,6 +3709,10 @@ bag_wtp_why_41 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr41 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3584,6 +3748,10 @@ bag_wtp_why_42 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr42 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr42 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3623,6 +3791,10 @@ bag_wtp_why_43 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr43 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3658,6 +3830,10 @@ bag_wtp_why_44 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr44 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr44 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes
@@ -3697,6 +3873,10 @@ bag_wtp_why_45 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr45 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3734,6 +3914,10 @@ bag_wtp_why_46 = {
 		localization_key = bag_wtp_why_skip
 	}
 	text = {
+		trigger = { global_var:bag_wtp_wr46 = 9 }
+		localization_key = bag_wtp_why_lost
+	}
+	text = {
 		fallback = yes
 		localization_key = bag_wtp_why_open
 	}
@@ -3769,6 +3953,10 @@ bag_wtp_why_47 = {
 	text = {
 		trigger = { global_var:bag_wtp_wr47 = 7 }
 		localization_key = bag_wtp_why_skip
+	}
+	text = {
+		trigger = { global_var:bag_wtp_wr47 = 9 }
+		localization_key = bag_wtp_why_lost
 	}
 	text = {
 		fallback = yes

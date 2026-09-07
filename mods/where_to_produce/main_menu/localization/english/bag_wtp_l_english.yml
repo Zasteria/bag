@@ -378,3 +378,11 @@
  bag_wtp_why_lock: "#Y pinned in the editor#! — the plan leaves it alone"
  bag_wtp_why_skip: "#Y marked «not needed»#! — the bare minimum only"
  bag_wtp_why_open: "nothing stopped it — the draft ran out first"
+
+ bag_wtp__spec_name: "Specialisation"
+ bag_wtp__spec_text: "Compute"
+ bag_wtp__spec_desc: "The plan's second mode: everything the ground pays, squeezed out, with no evenness of any kind.\n\nA province takes the charter that suits it best — by the average score of its towns — and every town in it gets that charter. Every free room goes to the good that pays most in it. No shares, no caps, no scarcity tiers: some goods will not be produced at all, and that is the price of the mode.\n\nEverything technical is shared with the ordinary plan: the same chosen ground, the same town/village marks, the same caps per town and per village, the same three save slots and the same editor on top. The «not needed» mark is obeyed.\n\nThe plan window opens by itself and says which mode drew what is in it. «Recompute» there goes back to the even plan on the same ground."
+ bag_wtp_plan_mode_spec: "#Y mode: specialisation#!"
+ bag_wtp_plan_mode_spec_tt: "What is on screen was drawn by «Specialisation» on the mod page: no shares, caps or tiers — every room went to whoever pays most in it.\n\n«Recompute» in this window brings back the ordinary even plan on the same ground."
+ bag_wtp_sum_mode_spec: "#Y Specialisation mode: shares and caps were not applied#! — their numbers are shown so the ordinary plan on the same ground has something to compare against."
+ bag_wtp_why_lost: "outbid everywhere — every free room had a good that pays more"

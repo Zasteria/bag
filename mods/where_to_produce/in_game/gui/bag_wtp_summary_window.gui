@@ -84,6 +84,20 @@ window = {
 				tooltip = "bag_wtp_sum_even_tt"
 			}
 
+			# Пометка режима: в специализации доли и потолки не применялись,
+			# и столбец «доля» рядом с числами — это то, что дал бы обычный
+			# план, а не то, что ограничивало этот.
+			text_single = {
+				size = { 1320 22 }
+				autoresize = no
+				maximumsize = { 1320 22 }
+				align = left|vcenter
+				fontsize = 13
+				elide = right
+				visible = "[GetGlobalVariable('bag_wtp_spec_ran').IsSet]"
+				text = "bag_wtp_sum_mode_spec"
+			}
+
 			# Заголовки столбцов. Ширины те же, что у строки товара, и обе
 			# считает `generate.SUM_COLS` — разъехаться им не на чем.
 			hbox = {

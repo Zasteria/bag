@@ -10785,6 +10785,10 @@ bag_wtp_rq13 = {
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 bag_wtp_plan_scored_value = { value = global_var:bag_wtp_plan_scored }
+# Сколько городов провинции посчитали грамоту: делитель средней в
+# `bag_wtp_plan_spec_rights`. `divide` берёт script value, не переменную.
+# Scope: country
+bag_wtp_sprn_value = { value = global_var:bag_wtp_sprn }
 # And the editor's own divisor: how many goods are still free of a lock and of
 # the «не нужен» flag. Same shape and the same caller-side guard.
 bag_wtp_edit_free_value = { value = global_var:bag_wtp_edit_free }
