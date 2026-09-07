@@ -22,8 +22,8 @@ is ever read by 3. Crossed once and reverted. **The test: «не нужен», t
 fresh plan — it must be ordinary.**
 
 **Before touching any `_plan_*`:
-[`plan_gaps.md`](../../docs/investigations/plan_gaps.md).** **The tick is the rank
-and outlives a save.**
+[`plan_gaps.md`](../../docs/investigations/plan_gaps.md).** **The tick is the
+rank and outlives a save.**
 
 ## Where it stands
 
@@ -32,25 +32,25 @@ and outlives a save.**
 ([`production_ladder.md`](../../docs/investigations/production_ladder.md)).
 **A right's gate is its own `potential`, never `has_advance`**
 ([`town_rights.md`](../../docs/investigations/town_rights.md)). **The plan
-maximises the bonus captured, subject to every good the ground can produce being
-produced** ([`plan_formula.md`](../../docs/investigations/plan_formula.md)).
-**An entry is a building and a location holds one of each**
+maximises the bonus, subject to every good the ground can make being made**
+([`plan_formula.md`](../../docs/investigations/plan_formula.md)). **An entry is a
+building and a location holds one of each**
 ([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
 **A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
-one building a press, and **the round trip is no undo**. **The editor's share
-subtracts the RGOs** — `_eq<n>`. **A press pins its good** (`_lock<n>`); **a pin
-is a star, not a colour**. **A charter is not a building**: every town holds
-exactly one, so «+1»/«−1» *moves* it, bundle and all. **The changes window is a
-diff, not a chronology**, shelved at his word; the journal is `WTP PRESS`. **«Расширить» доливает новую
-землю**: новое = выбранное минус `_plan_touched`, старое заморожено — **оно
-сужает `_candidates`, а не пишет второй план**; подтверждено дважды. **Земля
-редактора своя** (`_sel_keep_plan`). **Ряд плана рисует товар над своим домиком
-двумя датамоделями**, `WTP ROWPAIR` ловит расхождение списков.
-**Доля знает три класса товара** — только город, только село, где угодно — и два
-вида комнат: насытившаяся сторона замирает, остальным считается второй уровень
-(`_qbind`, `_qrest`, проба `WTP SHARE`). **`_edit_set_quota` этого ещё не
-знает.** **Выхлоп отвергнут владельцем**; `_pout<n>` остался зондом
+one building a press, **the round trip is no undo**, and **a pin is a star**
+(`_lock<n>`). **A charter is not a building**: every town holds exactly one, so
+«+1»/«−1» *moves* it, bundle and all. **The changes window is a diff, not a
+chronology**, shelved at his word; the journal is `WTP PRESS`. **«Расширить» доливает новую землю**: новое = выбранное минус
+`_plan_touched`, старое заморожено, **оно сужает `_candidates`**. **Земля
+редактора своя** (`_sel_keep_plan`). **Ряд плана рисует товар над домиком двумя
+датамоделями**, `WTP ROWPAIR` ловит расхождение.
+**У товара две квоты и два счётчика, по стороне на каждую** (`_pqt`/`_pqr`,
+`_pnt`/`_pnr`): городские комнаты делятся между умеющими в город, сельские —
+между умеющими в село, скидка за РГО снимается со своей стороны. **Весов между
+городом и селом нет и не будет** — версия с ними разобрана и отвергнута.
+**`_edit_set_quota` этого ещё не знает.** **Ступень дефицита — доля земли**
+(2…32 %), а старые 1/2/4/8/16 — пол. **Выхлоп отвергнут владельцем**; `_pout<n>` остался зондом
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
@@ -62,4 +62,4 @@ and what it cannot. Every rule in it this mod paid for, most of them twice.
 
 **Not to be attempted again**: eight, rejected
 ([`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md)). **The answer
-lives on the location**. **Built by** `generate.py` from `tools/refresh.py`.
+lives on the location.** **Built by** `generate.py`.

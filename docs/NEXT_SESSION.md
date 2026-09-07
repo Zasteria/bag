@@ -39,34 +39,30 @@ large ground since the ladders were rebuilt — northern Germany's 233 locations
 Westphalia's 48 does not test it, and the extension re-scores and re-ranks, so it
 carries the same open question.
 
-### The share is three classes now, and his run confirmed it
+### The share is two sides now — one division each, and no weights
 
-**Confirmed 2026-09-06, number for number.** 24 town rooms against 15 town-only
-goods binds at 1; the other 23 goods get 5. All fifteen came out at exactly 1,
-where the old one-pool formula promised 3 the towns could never pay. Ground full,
-coverage complete, 80 % of buildings earning something — his best numbers yet.
+**2026-09-07, and it replaced the three-class share, which was a crutch.** A good
+has two counters and two quotas (`_pnt`/`_pnr`, `_pqt`/`_pqr`) and spends them
+apart: town rooms divided among goods that can stand in a town, village rooms
+among goods that can stand in a village. Classes stopped meaning anything.
 
-**Also open, same shape:** the surplus ladder deals 22 % of the plan after every
-quota is met, by gain alone — cloth 15 against a share of 5. Tightening it means
-«the room goes to whoever has fewest», the rule the editor already uses for a
-freed room. Costs bonus; put the trade to him before building.
+**He proposed weights instead** — a village building worth `its output ÷ the town
+output of the same good` — and the idea is sound but breaks on his own numbers:
+glass, leather and weaponry weigh 0.05, so reaching a share of 5 needs **80
+village buildings** where the ground has 42 villages. A quota that cannot be
+reached never stops the good, so those five would take the whole village ground
+and the goods with a *good* village version would get nothing. Worked out in full
+in [`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
 
-### Two questions of his, 2026-09-06 — one closed, one open and his to answer
+**Nothing about it has been run.** `WTP SHARE` prints the two divisions;
+`nt=`/`nr=` per good print what each side actually got.
 
-**Closed: the scarce tiers are a share of the ground now.** They were absolute
-counts, so 16 meant a third of a 48-location ground and 1.5 % of a 1000-location
-one. Now 2/4/8/16/32 % with the old numbers as floors: on 48 candidates they come
-out 1/2/4/8/16 exactly as before, on 1000 they are 20/40/80/160/320, and **iron
-with forty places lands in the second tier** instead of being called common.
+### Closed 2026-09-06: the scarce tiers are a share of the ground
 
-**Open, and it needs his word: the two sides inside one good are not counted
-apart.** «15 стекла» may be 13 village + 2 town while «15 текстиля» is 15 town,
-and those are not the same plan. `_pn<n>` is one counter and `_pq<n>` one number
-for both sides. The fix is `_pnt`/`_pnr` and `_pqt`/`_pqr` — a town share and a
-village share, each good held to both. **It doubles the counters through every
-pass, the charters and the RGO discount, and it changes what «равномерно» means
-for the second time in two days**, so it was written up rather than built:
-[`investigations/plan_gaps.md`](investigations/plan_gaps.md).
+They were absolute counts, so 16 meant a third of a 48-location ground and 1.5 %
+of a 1000-location one. Now 2/4/8/16/32 % with the old numbers as floors: 48
+candidates give 1/2/4/8/16 exactly as before, 1000 give 20/40/80/160/320, and
+iron with forty places lands in the second tier.
 
 ### Then 7 and 8, in that order, and not before
 

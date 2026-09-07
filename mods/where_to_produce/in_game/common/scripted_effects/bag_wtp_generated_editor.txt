@@ -27473,425 +27473,613 @@ bag_wtp_ext_quotas = {
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock1 has_global_variable = bag_wtp_skip1 } }
 		set_global_variable = { name = bag_wtp_frz1 value = 1 }
-		set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_pn1 }
+		set_global_variable = { name = bag_wtp_pqt1 value = global_var:bag_wtp_pnt1 }
+		set_global_variable = { name = bag_wtp_pqr1 value = global_var:bag_wtp_pnr1 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz1
-		set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_eq1 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt1 value = global_var:bag_wtp_eq1 }
+		set_global_variable = { name = bag_wtp_pqr1 value = global_var:bag_wtp_eq1 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock2 has_global_variable = bag_wtp_skip2 } }
 		set_global_variable = { name = bag_wtp_frz2 value = 1 }
-		set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_pn2 }
+		set_global_variable = { name = bag_wtp_pqt2 value = global_var:bag_wtp_pnt2 }
+		set_global_variable = { name = bag_wtp_pqr2 value = global_var:bag_wtp_pnr2 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz2
-		set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_eq2 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt2 value = global_var:bag_wtp_eq2 }
+		set_global_variable = { name = bag_wtp_pqr2 value = global_var:bag_wtp_eq2 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock3 has_global_variable = bag_wtp_skip3 } }
 		set_global_variable = { name = bag_wtp_frz3 value = 1 }
-		set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_pn3 }
+		set_global_variable = { name = bag_wtp_pqt3 value = global_var:bag_wtp_pnt3 }
+		set_global_variable = { name = bag_wtp_pqr3 value = global_var:bag_wtp_pnr3 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz3
-		set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_eq3 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt3 value = global_var:bag_wtp_eq3 }
+		set_global_variable = { name = bag_wtp_pqr3 value = global_var:bag_wtp_eq3 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock4 has_global_variable = bag_wtp_skip4 } }
 		set_global_variable = { name = bag_wtp_frz4 value = 1 }
-		set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_pn4 }
+		set_global_variable = { name = bag_wtp_pqt4 value = global_var:bag_wtp_pnt4 }
+		set_global_variable = { name = bag_wtp_pqr4 value = global_var:bag_wtp_pnr4 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz4
-		set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_eq4 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt4 value = global_var:bag_wtp_eq4 }
+		set_global_variable = { name = bag_wtp_pqr4 value = global_var:bag_wtp_eq4 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock5 has_global_variable = bag_wtp_skip5 } }
 		set_global_variable = { name = bag_wtp_frz5 value = 1 }
-		set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_pn5 }
+		set_global_variable = { name = bag_wtp_pqt5 value = global_var:bag_wtp_pnt5 }
+		set_global_variable = { name = bag_wtp_pqr5 value = global_var:bag_wtp_pnr5 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz5
-		set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_eq5 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt5 value = global_var:bag_wtp_eq5 }
+		set_global_variable = { name = bag_wtp_pqr5 value = global_var:bag_wtp_eq5 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock6 has_global_variable = bag_wtp_skip6 } }
 		set_global_variable = { name = bag_wtp_frz6 value = 1 }
-		set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_pn6 }
+		set_global_variable = { name = bag_wtp_pqt6 value = global_var:bag_wtp_pnt6 }
+		set_global_variable = { name = bag_wtp_pqr6 value = global_var:bag_wtp_pnr6 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz6
-		set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_eq6 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt6 value = global_var:bag_wtp_eq6 }
+		set_global_variable = { name = bag_wtp_pqr6 value = global_var:bag_wtp_eq6 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock7 has_global_variable = bag_wtp_skip7 } }
 		set_global_variable = { name = bag_wtp_frz7 value = 1 }
-		set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_pn7 }
+		set_global_variable = { name = bag_wtp_pqt7 value = global_var:bag_wtp_pnt7 }
+		set_global_variable = { name = bag_wtp_pqr7 value = global_var:bag_wtp_pnr7 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz7
-		set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_eq7 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt7 value = global_var:bag_wtp_eq7 }
+		set_global_variable = { name = bag_wtp_pqr7 value = global_var:bag_wtp_eq7 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock8 has_global_variable = bag_wtp_skip8 } }
 		set_global_variable = { name = bag_wtp_frz8 value = 1 }
-		set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_pn8 }
+		set_global_variable = { name = bag_wtp_pqt8 value = global_var:bag_wtp_pnt8 }
+		set_global_variable = { name = bag_wtp_pqr8 value = global_var:bag_wtp_pnr8 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz8
-		set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_eq8 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt8 value = global_var:bag_wtp_eq8 }
+		set_global_variable = { name = bag_wtp_pqr8 value = global_var:bag_wtp_eq8 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock9 has_global_variable = bag_wtp_skip9 } }
 		set_global_variable = { name = bag_wtp_frz9 value = 1 }
-		set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_pn9 }
+		set_global_variable = { name = bag_wtp_pqt9 value = global_var:bag_wtp_pnt9 }
+		set_global_variable = { name = bag_wtp_pqr9 value = global_var:bag_wtp_pnr9 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz9
-		set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_eq9 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt9 value = global_var:bag_wtp_eq9 }
+		set_global_variable = { name = bag_wtp_pqr9 value = global_var:bag_wtp_eq9 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock10 has_global_variable = bag_wtp_skip10 } }
 		set_global_variable = { name = bag_wtp_frz10 value = 1 }
-		set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_pn10 }
+		set_global_variable = { name = bag_wtp_pqt10 value = global_var:bag_wtp_pnt10 }
+		set_global_variable = { name = bag_wtp_pqr10 value = global_var:bag_wtp_pnr10 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz10
-		set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_eq10 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt10 value = global_var:bag_wtp_eq10 }
+		set_global_variable = { name = bag_wtp_pqr10 value = global_var:bag_wtp_eq10 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock11 has_global_variable = bag_wtp_skip11 } }
 		set_global_variable = { name = bag_wtp_frz11 value = 1 }
-		set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_pn11 }
+		set_global_variable = { name = bag_wtp_pqt11 value = global_var:bag_wtp_pnt11 }
+		set_global_variable = { name = bag_wtp_pqr11 value = global_var:bag_wtp_pnr11 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz11
-		set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_eq11 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt11 value = global_var:bag_wtp_eq11 }
+		set_global_variable = { name = bag_wtp_pqr11 value = global_var:bag_wtp_eq11 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock12 has_global_variable = bag_wtp_skip12 } }
 		set_global_variable = { name = bag_wtp_frz12 value = 1 }
-		set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_pn12 }
+		set_global_variable = { name = bag_wtp_pqt12 value = global_var:bag_wtp_pnt12 }
+		set_global_variable = { name = bag_wtp_pqr12 value = global_var:bag_wtp_pnr12 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz12
-		set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_eq12 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt12 value = global_var:bag_wtp_eq12 }
+		set_global_variable = { name = bag_wtp_pqr12 value = global_var:bag_wtp_eq12 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock13 has_global_variable = bag_wtp_skip13 } }
 		set_global_variable = { name = bag_wtp_frz13 value = 1 }
-		set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_pn13 }
+		set_global_variable = { name = bag_wtp_pqt13 value = global_var:bag_wtp_pnt13 }
+		set_global_variable = { name = bag_wtp_pqr13 value = global_var:bag_wtp_pnr13 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz13
-		set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_eq13 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt13 value = global_var:bag_wtp_eq13 }
+		set_global_variable = { name = bag_wtp_pqr13 value = global_var:bag_wtp_eq13 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock14 has_global_variable = bag_wtp_skip14 } }
 		set_global_variable = { name = bag_wtp_frz14 value = 1 }
-		set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_pn14 }
+		set_global_variable = { name = bag_wtp_pqt14 value = global_var:bag_wtp_pnt14 }
+		set_global_variable = { name = bag_wtp_pqr14 value = global_var:bag_wtp_pnr14 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz14
-		set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_eq14 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt14 value = global_var:bag_wtp_eq14 }
+		set_global_variable = { name = bag_wtp_pqr14 value = global_var:bag_wtp_eq14 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock15 has_global_variable = bag_wtp_skip15 } }
 		set_global_variable = { name = bag_wtp_frz15 value = 1 }
-		set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_pn15 }
+		set_global_variable = { name = bag_wtp_pqt15 value = global_var:bag_wtp_pnt15 }
+		set_global_variable = { name = bag_wtp_pqr15 value = global_var:bag_wtp_pnr15 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz15
-		set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_eq15 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt15 value = global_var:bag_wtp_eq15 }
+		set_global_variable = { name = bag_wtp_pqr15 value = global_var:bag_wtp_eq15 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock16 has_global_variable = bag_wtp_skip16 } }
 		set_global_variable = { name = bag_wtp_frz16 value = 1 }
-		set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_pn16 }
+		set_global_variable = { name = bag_wtp_pqt16 value = global_var:bag_wtp_pnt16 }
+		set_global_variable = { name = bag_wtp_pqr16 value = global_var:bag_wtp_pnr16 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz16
-		set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_eq16 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt16 value = global_var:bag_wtp_eq16 }
+		set_global_variable = { name = bag_wtp_pqr16 value = global_var:bag_wtp_eq16 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock17 has_global_variable = bag_wtp_skip17 } }
 		set_global_variable = { name = bag_wtp_frz17 value = 1 }
-		set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_pn17 }
+		set_global_variable = { name = bag_wtp_pqt17 value = global_var:bag_wtp_pnt17 }
+		set_global_variable = { name = bag_wtp_pqr17 value = global_var:bag_wtp_pnr17 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz17
-		set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_eq17 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt17 value = global_var:bag_wtp_eq17 }
+		set_global_variable = { name = bag_wtp_pqr17 value = global_var:bag_wtp_eq17 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock18 has_global_variable = bag_wtp_skip18 } }
 		set_global_variable = { name = bag_wtp_frz18 value = 1 }
-		set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_pn18 }
+		set_global_variable = { name = bag_wtp_pqt18 value = global_var:bag_wtp_pnt18 }
+		set_global_variable = { name = bag_wtp_pqr18 value = global_var:bag_wtp_pnr18 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz18
-		set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_eq18 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt18 value = global_var:bag_wtp_eq18 }
+		set_global_variable = { name = bag_wtp_pqr18 value = global_var:bag_wtp_eq18 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock19 has_global_variable = bag_wtp_skip19 } }
 		set_global_variable = { name = bag_wtp_frz19 value = 1 }
-		set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_pn19 }
+		set_global_variable = { name = bag_wtp_pqt19 value = global_var:bag_wtp_pnt19 }
+		set_global_variable = { name = bag_wtp_pqr19 value = global_var:bag_wtp_pnr19 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz19
-		set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_eq19 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt19 value = global_var:bag_wtp_eq19 }
+		set_global_variable = { name = bag_wtp_pqr19 value = global_var:bag_wtp_eq19 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock20 has_global_variable = bag_wtp_skip20 } }
 		set_global_variable = { name = bag_wtp_frz20 value = 1 }
-		set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_pn20 }
+		set_global_variable = { name = bag_wtp_pqt20 value = global_var:bag_wtp_pnt20 }
+		set_global_variable = { name = bag_wtp_pqr20 value = global_var:bag_wtp_pnr20 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz20
-		set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_eq20 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt20 value = global_var:bag_wtp_eq20 }
+		set_global_variable = { name = bag_wtp_pqr20 value = global_var:bag_wtp_eq20 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock21 has_global_variable = bag_wtp_skip21 } }
 		set_global_variable = { name = bag_wtp_frz21 value = 1 }
-		set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_pn21 }
+		set_global_variable = { name = bag_wtp_pqt21 value = global_var:bag_wtp_pnt21 }
+		set_global_variable = { name = bag_wtp_pqr21 value = global_var:bag_wtp_pnr21 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz21
-		set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_eq21 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt21 value = global_var:bag_wtp_eq21 }
+		set_global_variable = { name = bag_wtp_pqr21 value = global_var:bag_wtp_eq21 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock22 has_global_variable = bag_wtp_skip22 } }
 		set_global_variable = { name = bag_wtp_frz22 value = 1 }
-		set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_pn22 }
+		set_global_variable = { name = bag_wtp_pqt22 value = global_var:bag_wtp_pnt22 }
+		set_global_variable = { name = bag_wtp_pqr22 value = global_var:bag_wtp_pnr22 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz22
-		set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_eq22 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt22 value = global_var:bag_wtp_eq22 }
+		set_global_variable = { name = bag_wtp_pqr22 value = global_var:bag_wtp_eq22 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock23 has_global_variable = bag_wtp_skip23 } }
 		set_global_variable = { name = bag_wtp_frz23 value = 1 }
-		set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_pn23 }
+		set_global_variable = { name = bag_wtp_pqt23 value = global_var:bag_wtp_pnt23 }
+		set_global_variable = { name = bag_wtp_pqr23 value = global_var:bag_wtp_pnr23 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz23
-		set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_eq23 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt23 value = global_var:bag_wtp_eq23 }
+		set_global_variable = { name = bag_wtp_pqr23 value = global_var:bag_wtp_eq23 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock24 has_global_variable = bag_wtp_skip24 } }
 		set_global_variable = { name = bag_wtp_frz24 value = 1 }
-		set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_pn24 }
+		set_global_variable = { name = bag_wtp_pqt24 value = global_var:bag_wtp_pnt24 }
+		set_global_variable = { name = bag_wtp_pqr24 value = global_var:bag_wtp_pnr24 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz24
-		set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_eq24 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt24 value = global_var:bag_wtp_eq24 }
+		set_global_variable = { name = bag_wtp_pqr24 value = global_var:bag_wtp_eq24 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock25 has_global_variable = bag_wtp_skip25 } }
 		set_global_variable = { name = bag_wtp_frz25 value = 1 }
-		set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_pn25 }
+		set_global_variable = { name = bag_wtp_pqt25 value = global_var:bag_wtp_pnt25 }
+		set_global_variable = { name = bag_wtp_pqr25 value = global_var:bag_wtp_pnr25 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz25
-		set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_eq25 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt25 value = global_var:bag_wtp_eq25 }
+		set_global_variable = { name = bag_wtp_pqr25 value = global_var:bag_wtp_eq25 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock26 has_global_variable = bag_wtp_skip26 } }
 		set_global_variable = { name = bag_wtp_frz26 value = 1 }
-		set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_pn26 }
+		set_global_variable = { name = bag_wtp_pqt26 value = global_var:bag_wtp_pnt26 }
+		set_global_variable = { name = bag_wtp_pqr26 value = global_var:bag_wtp_pnr26 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz26
-		set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_eq26 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt26 value = global_var:bag_wtp_eq26 }
+		set_global_variable = { name = bag_wtp_pqr26 value = global_var:bag_wtp_eq26 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock27 has_global_variable = bag_wtp_skip27 } }
 		set_global_variable = { name = bag_wtp_frz27 value = 1 }
-		set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_pn27 }
+		set_global_variable = { name = bag_wtp_pqt27 value = global_var:bag_wtp_pnt27 }
+		set_global_variable = { name = bag_wtp_pqr27 value = global_var:bag_wtp_pnr27 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz27
-		set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_eq27 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt27 value = global_var:bag_wtp_eq27 }
+		set_global_variable = { name = bag_wtp_pqr27 value = global_var:bag_wtp_eq27 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock28 has_global_variable = bag_wtp_skip28 } }
 		set_global_variable = { name = bag_wtp_frz28 value = 1 }
-		set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_pn28 }
+		set_global_variable = { name = bag_wtp_pqt28 value = global_var:bag_wtp_pnt28 }
+		set_global_variable = { name = bag_wtp_pqr28 value = global_var:bag_wtp_pnr28 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz28
-		set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_eq28 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt28 value = global_var:bag_wtp_eq28 }
+		set_global_variable = { name = bag_wtp_pqr28 value = global_var:bag_wtp_eq28 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock29 has_global_variable = bag_wtp_skip29 } }
 		set_global_variable = { name = bag_wtp_frz29 value = 1 }
-		set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_pn29 }
+		set_global_variable = { name = bag_wtp_pqt29 value = global_var:bag_wtp_pnt29 }
+		set_global_variable = { name = bag_wtp_pqr29 value = global_var:bag_wtp_pnr29 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz29
-		set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_eq29 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt29 value = global_var:bag_wtp_eq29 }
+		set_global_variable = { name = bag_wtp_pqr29 value = global_var:bag_wtp_eq29 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock30 has_global_variable = bag_wtp_skip30 } }
 		set_global_variable = { name = bag_wtp_frz30 value = 1 }
-		set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_pn30 }
+		set_global_variable = { name = bag_wtp_pqt30 value = global_var:bag_wtp_pnt30 }
+		set_global_variable = { name = bag_wtp_pqr30 value = global_var:bag_wtp_pnr30 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz30
-		set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_eq30 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt30 value = global_var:bag_wtp_eq30 }
+		set_global_variable = { name = bag_wtp_pqr30 value = global_var:bag_wtp_eq30 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock31 has_global_variable = bag_wtp_skip31 } }
 		set_global_variable = { name = bag_wtp_frz31 value = 1 }
-		set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_pn31 }
+		set_global_variable = { name = bag_wtp_pqt31 value = global_var:bag_wtp_pnt31 }
+		set_global_variable = { name = bag_wtp_pqr31 value = global_var:bag_wtp_pnr31 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz31
-		set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_eq31 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt31 value = global_var:bag_wtp_eq31 }
+		set_global_variable = { name = bag_wtp_pqr31 value = global_var:bag_wtp_eq31 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock32 has_global_variable = bag_wtp_skip32 } }
 		set_global_variable = { name = bag_wtp_frz32 value = 1 }
-		set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_pn32 }
+		set_global_variable = { name = bag_wtp_pqt32 value = global_var:bag_wtp_pnt32 }
+		set_global_variable = { name = bag_wtp_pqr32 value = global_var:bag_wtp_pnr32 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz32
-		set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_eq32 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt32 value = global_var:bag_wtp_eq32 }
+		set_global_variable = { name = bag_wtp_pqr32 value = global_var:bag_wtp_eq32 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock33 has_global_variable = bag_wtp_skip33 } }
 		set_global_variable = { name = bag_wtp_frz33 value = 1 }
-		set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_pn33 }
+		set_global_variable = { name = bag_wtp_pqt33 value = global_var:bag_wtp_pnt33 }
+		set_global_variable = { name = bag_wtp_pqr33 value = global_var:bag_wtp_pnr33 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz33
-		set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_eq33 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt33 value = global_var:bag_wtp_eq33 }
+		set_global_variable = { name = bag_wtp_pqr33 value = global_var:bag_wtp_eq33 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock34 has_global_variable = bag_wtp_skip34 } }
 		set_global_variable = { name = bag_wtp_frz34 value = 1 }
-		set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_pn34 }
+		set_global_variable = { name = bag_wtp_pqt34 value = global_var:bag_wtp_pnt34 }
+		set_global_variable = { name = bag_wtp_pqr34 value = global_var:bag_wtp_pnr34 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz34
-		set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_eq34 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt34 value = global_var:bag_wtp_eq34 }
+		set_global_variable = { name = bag_wtp_pqr34 value = global_var:bag_wtp_eq34 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock35 has_global_variable = bag_wtp_skip35 } }
 		set_global_variable = { name = bag_wtp_frz35 value = 1 }
-		set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_pn35 }
+		set_global_variable = { name = bag_wtp_pqt35 value = global_var:bag_wtp_pnt35 }
+		set_global_variable = { name = bag_wtp_pqr35 value = global_var:bag_wtp_pnr35 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz35
-		set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_eq35 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt35 value = global_var:bag_wtp_eq35 }
+		set_global_variable = { name = bag_wtp_pqr35 value = global_var:bag_wtp_eq35 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock36 has_global_variable = bag_wtp_skip36 } }
 		set_global_variable = { name = bag_wtp_frz36 value = 1 }
-		set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_pn36 }
+		set_global_variable = { name = bag_wtp_pqt36 value = global_var:bag_wtp_pnt36 }
+		set_global_variable = { name = bag_wtp_pqr36 value = global_var:bag_wtp_pnr36 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz36
-		set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_eq36 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt36 value = global_var:bag_wtp_eq36 }
+		set_global_variable = { name = bag_wtp_pqr36 value = global_var:bag_wtp_eq36 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock37 has_global_variable = bag_wtp_skip37 } }
 		set_global_variable = { name = bag_wtp_frz37 value = 1 }
-		set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_pn37 }
+		set_global_variable = { name = bag_wtp_pqt37 value = global_var:bag_wtp_pnt37 }
+		set_global_variable = { name = bag_wtp_pqr37 value = global_var:bag_wtp_pnr37 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz37
-		set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_eq37 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt37 value = global_var:bag_wtp_eq37 }
+		set_global_variable = { name = bag_wtp_pqr37 value = global_var:bag_wtp_eq37 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock38 has_global_variable = bag_wtp_skip38 } }
 		set_global_variable = { name = bag_wtp_frz38 value = 1 }
-		set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_pn38 }
+		set_global_variable = { name = bag_wtp_pqt38 value = global_var:bag_wtp_pnt38 }
+		set_global_variable = { name = bag_wtp_pqr38 value = global_var:bag_wtp_pnr38 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz38
-		set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_eq38 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt38 value = global_var:bag_wtp_eq38 }
+		set_global_variable = { name = bag_wtp_pqr38 value = global_var:bag_wtp_eq38 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock39 has_global_variable = bag_wtp_skip39 } }
 		set_global_variable = { name = bag_wtp_frz39 value = 1 }
-		set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_pn39 }
+		set_global_variable = { name = bag_wtp_pqt39 value = global_var:bag_wtp_pnt39 }
+		set_global_variable = { name = bag_wtp_pqr39 value = global_var:bag_wtp_pnr39 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz39
-		set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_eq39 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt39 value = global_var:bag_wtp_eq39 }
+		set_global_variable = { name = bag_wtp_pqr39 value = global_var:bag_wtp_eq39 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock40 has_global_variable = bag_wtp_skip40 } }
 		set_global_variable = { name = bag_wtp_frz40 value = 1 }
-		set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_pn40 }
+		set_global_variable = { name = bag_wtp_pqt40 value = global_var:bag_wtp_pnt40 }
+		set_global_variable = { name = bag_wtp_pqr40 value = global_var:bag_wtp_pnr40 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz40
-		set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_eq40 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt40 value = global_var:bag_wtp_eq40 }
+		set_global_variable = { name = bag_wtp_pqr40 value = global_var:bag_wtp_eq40 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock41 has_global_variable = bag_wtp_skip41 } }
 		set_global_variable = { name = bag_wtp_frz41 value = 1 }
-		set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_pn41 }
+		set_global_variable = { name = bag_wtp_pqt41 value = global_var:bag_wtp_pnt41 }
+		set_global_variable = { name = bag_wtp_pqr41 value = global_var:bag_wtp_pnr41 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz41
-		set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_eq41 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt41 value = global_var:bag_wtp_eq41 }
+		set_global_variable = { name = bag_wtp_pqr41 value = global_var:bag_wtp_eq41 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock42 has_global_variable = bag_wtp_skip42 } }
 		set_global_variable = { name = bag_wtp_frz42 value = 1 }
-		set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_pn42 }
+		set_global_variable = { name = bag_wtp_pqt42 value = global_var:bag_wtp_pnt42 }
+		set_global_variable = { name = bag_wtp_pqr42 value = global_var:bag_wtp_pnr42 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz42
-		set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_eq42 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt42 value = global_var:bag_wtp_eq42 }
+		set_global_variable = { name = bag_wtp_pqr42 value = global_var:bag_wtp_eq42 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock43 has_global_variable = bag_wtp_skip43 } }
 		set_global_variable = { name = bag_wtp_frz43 value = 1 }
-		set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_pn43 }
+		set_global_variable = { name = bag_wtp_pqt43 value = global_var:bag_wtp_pnt43 }
+		set_global_variable = { name = bag_wtp_pqr43 value = global_var:bag_wtp_pnr43 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz43
-		set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_eq43 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt43 value = global_var:bag_wtp_eq43 }
+		set_global_variable = { name = bag_wtp_pqr43 value = global_var:bag_wtp_eq43 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock44 has_global_variable = bag_wtp_skip44 } }
 		set_global_variable = { name = bag_wtp_frz44 value = 1 }
-		set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_pn44 }
+		set_global_variable = { name = bag_wtp_pqt44 value = global_var:bag_wtp_pnt44 }
+		set_global_variable = { name = bag_wtp_pqr44 value = global_var:bag_wtp_pnr44 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz44
-		set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_eq44 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt44 value = global_var:bag_wtp_eq44 }
+		set_global_variable = { name = bag_wtp_pqr44 value = global_var:bag_wtp_eq44 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock45 has_global_variable = bag_wtp_skip45 } }
 		set_global_variable = { name = bag_wtp_frz45 value = 1 }
-		set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_pn45 }
+		set_global_variable = { name = bag_wtp_pqt45 value = global_var:bag_wtp_pnt45 }
+		set_global_variable = { name = bag_wtp_pqr45 value = global_var:bag_wtp_pnr45 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz45
-		set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_eq45 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt45 value = global_var:bag_wtp_eq45 }
+		set_global_variable = { name = bag_wtp_pqr45 value = global_var:bag_wtp_eq45 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock46 has_global_variable = bag_wtp_skip46 } }
 		set_global_variable = { name = bag_wtp_frz46 value = 1 }
-		set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_pn46 }
+		set_global_variable = { name = bag_wtp_pqt46 value = global_var:bag_wtp_pnt46 }
+		set_global_variable = { name = bag_wtp_pqr46 value = global_var:bag_wtp_pnr46 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz46
-		set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_eq46 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt46 value = global_var:bag_wtp_eq46 }
+		set_global_variable = { name = bag_wtp_pqr46 value = global_var:bag_wtp_eq46 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock47 has_global_variable = bag_wtp_skip47 } }
 		set_global_variable = { name = bag_wtp_frz47 value = 1 }
-		set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_pn47 }
+		set_global_variable = { name = bag_wtp_pqt47 value = global_var:bag_wtp_pnt47 }
+		set_global_variable = { name = bag_wtp_pqr47 value = global_var:bag_wtp_pnr47 }
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz47
-		set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_eq47 }
+		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
+		# а не про то, где. Доливка кладёт её в обе квоты.
+		set_global_variable = { name = bag_wtp_pqt47 value = global_var:bag_wtp_eq47 }
+		set_global_variable = { name = bag_wtp_pqr47 value = global_var:bag_wtp_eq47 }
 	}
 }
 

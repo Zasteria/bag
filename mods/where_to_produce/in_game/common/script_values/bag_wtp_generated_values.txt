@@ -10992,6 +10992,8 @@ bag_wtp_dg15 = { value = global_var:bag_wtp_dv15 }
 bag_wtp_dg16 = { value = global_var:bag_wtp_dv16 }
 bag_wtp_dg17 = { value = global_var:bag_wtp_dv17 }
 bag_wtp_dg18 = { value = global_var:bag_wtp_dv18 }
+bag_wtp_dg19 = { value = global_var:bag_wtp_dv19 }
+bag_wtp_dg20 = { value = global_var:bag_wtp_dv20 }
 
 
 # What the plan pass counted, each of them printed on the button that ran it.
@@ -11015,11 +11017,8 @@ bag_wtp_show_ext_lifted = { value = global_var:bag_wtp_ext_lifted }
 # на глобалку напрямую — отсюда эти четыре.
 bag_wtp_qgt_value = { value = global_var:bag_wtp_qgt }
 bag_wtp_qgr_value = { value = global_var:bag_wtp_qgr }
-bag_wtp_qgn_value = { value = global_var:bag_wtp_qgn }
-bag_wtp_qleft_value = { value = global_var:bag_wtp_qleft }
 bag_wtp_show_prooms_t = { value = global_var:bag_wtp_prooms_t }
 bag_wtp_show_prooms_r = { value = global_var:bag_wtp_prooms_r }
-bag_wtp_show_qrest = { value = global_var:bag_wtp_qrest }
 # Постоянные делители ступеней: 2 %, 4 %, 8 %, 16 %, 32 % земли.
 bag_wtp_tdiv1 = { value = 50 }
 bag_wtp_tdiv2 = { value = 25 }
@@ -11053,6 +11052,7 @@ bag_wtp_show_plan_to = { value = global_var:bag_wtp_plan_to }
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
 bag_wtp_show_plan_quota = { value = global_var:bag_wtp_plan_quota }
+bag_wtp_show_plan_quotar = { value = global_var:bag_wtp_plan_quotar }
 bag_wtp_show_plan_sweeps = { value = global_var:bag_wtp_plan_sweeps }
 bag_wtp_show_plan_towns = { value = global_var:bag_wtp_plan_towns }
 bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }
