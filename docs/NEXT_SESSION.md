@@ -54,13 +54,9 @@ captured gain, measurable in one line.
 
 ### The share as it stands: one quota per good, two side caps
 
-A good builds while under its **total quota** (all rooms ÷ all goods) *and*
-under the **cap of the side it builds on**. Two earlier versions were rejected on
-numbers — independent side quotas (a both-sided good ended twice as fat) and
-output weights (glass needs 80 village buildings where the ground has 42) — and
-output cannot classify a building as town or village either. **What no share
-fixes:** on a town-poor ground a town-only good cannot catch a village-capable
-one; 24 town rooms among 24 goods is one each.
+A good builds while under its **total quota** *and* under the **cap of the side
+it builds on**. Side quotas alone and output weights were both rejected on
+numbers, and output cannot classify a building as town or village.
 [`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
 **Never run.**
 
