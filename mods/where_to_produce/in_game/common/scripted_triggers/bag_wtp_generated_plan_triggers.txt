@@ -125,6 +125,7 @@ bag_wtp_plan_can_town_5 = {
 				var:bag_wtp_pm5 = 64
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -216,6 +217,7 @@ bag_wtp_plan_can_town_10 = {
 				var:bag_wtp_pm10 = 124
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -245,6 +247,7 @@ bag_wtp_plan_can_town_13 = {
 				var:bag_wtp_pm13 = 172
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -1054,6 +1057,7 @@ bag_wtp_plan_can_town_38 = {
 				var:bag_wtp_pm38 = 175
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -1291,6 +1295,7 @@ bag_wtp_plan_can_town_46 = {
 				var:bag_wtp_pm46 = 219
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 		AND = {
@@ -1327,6 +1332,7 @@ bag_wtp_plan_can_town_47 = {
 				var:bag_wtp_pm47 = 227
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 		AND = {
@@ -1450,6 +1456,7 @@ bag_wtp_plan_can_rural_5 = {
 				var:bag_wtp_prm5 = 64
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -1472,6 +1479,7 @@ bag_wtp_plan_can_rural_6 = {
 				var:bag_wtp_prm6 = 109
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+			global_var:bag_wtp_bn1 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn1 < global_var:bag_wtp_bq1
 		}
 	}
@@ -1543,6 +1551,7 @@ bag_wtp_plan_can_rural_10 = {
 				var:bag_wtp_prm10 = 124
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -1604,6 +1613,7 @@ bag_wtp_plan_can_rural_13 = {
 				var:bag_wtp_prm13 = 172
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -1802,6 +1812,7 @@ bag_wtp_plan_can_rural_26 = {
 				var:bag_wtp_prm26 = 17
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 	}
@@ -1885,6 +1896,7 @@ bag_wtp_plan_can_rural_34 = {
 				var:bag_wtp_prm34 = 138
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 		AND = {
@@ -1916,6 +1928,7 @@ bag_wtp_plan_can_rural_36 = {
 				var:bag_wtp_prm36 = 142
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+			global_var:bag_wtp_bn2 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn2 < global_var:bag_wtp_bq2
 		}
 	}
@@ -1948,6 +1961,7 @@ bag_wtp_plan_can_rural_38 = {
 				var:bag_wtp_prm38 = 175
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			global_var:bag_wtp_bn4 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn4 < global_var:bag_wtp_bq4
 		}
 	}
@@ -1969,6 +1983,7 @@ bag_wtp_plan_can_rural_39 = {
 				var:bag_wtp_prm39 = 178
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+			global_var:bag_wtp_bn1 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn1 < global_var:bag_wtp_bq1
 		}
 	}
@@ -1998,6 +2013,7 @@ bag_wtp_plan_can_rural_42 = {
 				var:bag_wtp_prm42 = 193
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+			global_var:bag_wtp_bn1 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn1 < global_var:bag_wtp_bq1
 		}
 		AND = {
@@ -2005,6 +2021,7 @@ bag_wtp_plan_can_rural_42 = {
 				var:bag_wtp_prm42 = 194
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 	}
@@ -2070,6 +2087,7 @@ bag_wtp_plan_can_rural_46 = {
 				var:bag_wtp_prm46 = 215
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+			global_var:bag_wtp_bn2 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn2 < global_var:bag_wtp_bq2
 		}
 		AND = {
@@ -2077,6 +2095,7 @@ bag_wtp_plan_can_rural_46 = {
 				var:bag_wtp_prm46 = 218
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 		AND = {
@@ -2084,6 +2103,7 @@ bag_wtp_plan_can_rural_46 = {
 				var:bag_wtp_prm46 = 219
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 	}
@@ -2105,6 +2125,7 @@ bag_wtp_plan_can_rural_47 = {
 				var:bag_wtp_prm47 = 225
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+			global_var:bag_wtp_bn2 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn2 < global_var:bag_wtp_bq2
 		}
 		AND = {
@@ -2112,6 +2133,7 @@ bag_wtp_plan_can_rural_47 = {
 				var:bag_wtp_prm47 = 226
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+			global_var:bag_wtp_bn3 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn3 < global_var:bag_wtp_bq3
 		}
 		AND = {
@@ -2119,6 +2141,7 @@ bag_wtp_plan_can_rural_47 = {
 				var:bag_wtp_prm47 = 227
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			global_var:bag_wtp_bn5 < global_var:bag_wtp_plan_lvl
 			global_var:bag_wtp_bn5 < global_var:bag_wtp_bq5
 		}
 	}
