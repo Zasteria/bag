@@ -3647,6 +3647,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
         out.append("}\n")
 
+    # **Итог на товар: домики плюс уже стоящие РГО.** Ровно то число, по
+    # которому владелец судит о равномерности, и оно должно быть готовым, а не
+    # складываться в голове.
+    totals = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_tot{i} "
+        f"value = global_var:{MOD_ID}_pn{i} }}\n"
+        f"\tchange_global_variable = {{ name = {MOD_ID}_tot{i} "
+        f"add = global_var:{MOD_ID}_nrgo{i} }}\n"
+        for i in range(1, len(order) + 1))
     out.append(f"""
 # The rows: one per location that got anything, its province's locations together.
 #
@@ -3665,6 +3674,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 	# that changes the plan ranks it afterwards -- the plan itself, a slot load,
 	# «+1», «−1» -- so one call here is the whole of it, and no path can forget.
 	{MOD_ID}_plan_rows = yes
+	# **И итог «домиков плюс РГО» на каждый товар, потому что смотреть на него
+	# приходится в каждом разборе.** Владелец, 2026-09-07: «почему я должен
+	# смотреть на цифры аля 13 и думать, а сколько там РГО к этому. Показывай
+	# сразу со счётчиком РГО, чтобы оно складывалось в адекватные цифры».
+	# Считается здесь по той же причине, что и строки: сюда приходит всё, что
+	# меняет план, и забыть этот путь нельзя.
+	#
+	# **Отдельным глобалом, а не суммой в `script_value`.** Многочленный
+	# `script_value` в этом моде нигде не доказан, а `change_global_variable`
+	# доказан везде; число, которое молча читается нулём, хуже отсутствующего.
+{totals}
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_prov_locs
 \t\tset_global_variable = {{ name = {MOD_ID}_plan_count value = 0 }}
@@ -7960,7 +7980,11 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         sv = f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_%s{i}')|0]"
         # **`#Y ` со своим пробелом, а не `#Y[`.** Разметка игры отделяет тег
         # от текста пробелом -- 652 её собственных ключа, и ни одного без него.
-        out.append(f' {MOD_ID}_sum_n_{i}: "#Y {sv % "pn"}#!"\n')
+        # **Столбец «Всего» -- это домики плюс РГО, и он такой с 2026-09-07.**
+        # Владелец: «показывай сразу со счётчиком РГО, чтобы оно складывалось в
+        # итоге в адекватные цифры»; сами домики видны в столбце «город / село»,
+        # а РГО -- в своём.
+        out.append(f' {MOD_ID}_sum_n_{i}: "#Y {sv % "tot"}#!"\n')
         out.append(f' {MOD_ID}_sum_sides_{i}: "{sv % "pnt"} / {sv % "pnr"}"\n')
         out.append(f' {MOD_ID}_sum_places_{i}: "{sv % "ng"}"\n')
         # **РГО отдельным столбцом, потому что он объясняет почти каждое
@@ -9427,6 +9451,9 @@ def main() -> int:
         f"# carries a goods scope and a scope reaches no numbered counter.\n"
         f"# Scope: country\n"
         f"{MOD_ID}_show_pn{i} = {{ value = global_var:{MOD_ID}_pn{i} }}\n"
+        f"# Домики плюс уже стоящие РГО -- то число, по которому судят о\n"
+        f"# равномерности. Складывает его `{MOD_ID}_plan_rank`, здесь только чтение.\n"
+        f"{MOD_ID}_show_tot{i} = {{ value = global_var:{MOD_ID}_tot{i} }}\n"
         for i, good in enumerate(goods_order(split), start=1))
         + "".join(
         f"# How many towns hold {right.key} right now, printed in its own cell.\n"

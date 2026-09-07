@@ -11062,236 +11062,377 @@ bag_wtp_show_plan_rightn = { value = global_var:bag_wtp_plan_rightn }
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn1 = { value = global_var:bag_wtp_pn1 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot1 = { value = global_var:bag_wtp_tot1 }
 # How many buildings of coal the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn2 = { value = global_var:bag_wtp_pn2 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot2 = { value = global_var:bag_wtp_tot2 }
 # How many buildings of cotton the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn3 = { value = global_var:bag_wtp_pn3 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot3 = { value = global_var:bag_wtp_tot3 }
 # How many buildings of dyes the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn4 = { value = global_var:bag_wtp_pn4 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot4 = { value = global_var:bag_wtp_tot4 }
 # How many buildings of fiber_crops the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn5 = { value = global_var:bag_wtp_pn5 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot5 = { value = global_var:bag_wtp_tot5 }
 # How many buildings of fish the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn6 = { value = global_var:bag_wtp_pn6 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot6 = { value = global_var:bag_wtp_tot6 }
 # How many buildings of fruit the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn7 = { value = global_var:bag_wtp_pn7 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot7 = { value = global_var:bag_wtp_tot7 }
 # How many buildings of horses the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn8 = { value = global_var:bag_wtp_pn8 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot8 = { value = global_var:bag_wtp_tot8 }
 # How many buildings of incense the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn9 = { value = global_var:bag_wtp_pn9 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot9 = { value = global_var:bag_wtp_tot9 }
 # How many buildings of iron the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn10 = { value = global_var:bag_wtp_pn10 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot10 = { value = global_var:bag_wtp_tot10 }
 # How many buildings of ivory the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn11 = { value = global_var:bag_wtp_pn11 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot11 = { value = global_var:bag_wtp_tot11 }
 # How many buildings of livestock the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn12 = { value = global_var:bag_wtp_pn12 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot12 = { value = global_var:bag_wtp_tot12 }
 # How many buildings of lumber the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn13 = { value = global_var:bag_wtp_pn13 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot13 = { value = global_var:bag_wtp_tot13 }
 # How many buildings of medicaments the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn14 = { value = global_var:bag_wtp_pn14 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot14 = { value = global_var:bag_wtp_tot14 }
 # How many buildings of salt the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn15 = { value = global_var:bag_wtp_pn15 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot15 = { value = global_var:bag_wtp_tot15 }
 # How many buildings of saltpeter the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn16 = { value = global_var:bag_wtp_pn16 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot16 = { value = global_var:bag_wtp_tot16 }
 # How many buildings of sand the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn17 = { value = global_var:bag_wtp_pn17 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot17 = { value = global_var:bag_wtp_tot17 }
 # How many buildings of silk the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn18 = { value = global_var:bag_wtp_pn18 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot18 = { value = global_var:bag_wtp_tot18 }
 # How many buildings of silver the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn19 = { value = global_var:bag_wtp_pn19 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot19 = { value = global_var:bag_wtp_tot19 }
 # How many buildings of stone the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn20 = { value = global_var:bag_wtp_pn20 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot20 = { value = global_var:bag_wtp_tot20 }
 # How many buildings of sugar the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn21 = { value = global_var:bag_wtp_pn21 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot21 = { value = global_var:bag_wtp_tot21 }
 # How many buildings of tobacco the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn22 = { value = global_var:bag_wtp_pn22 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot22 = { value = global_var:bag_wtp_tot22 }
 # How many buildings of wild_game the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn23 = { value = global_var:bag_wtp_pn23 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot23 = { value = global_var:bag_wtp_tot23 }
 # How many buildings of wine the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn24 = { value = global_var:bag_wtp_pn24 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot24 = { value = global_var:bag_wtp_tot24 }
 # How many buildings of wool the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn25 = { value = global_var:bag_wtp_pn25 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot25 = { value = global_var:bag_wtp_tot25 }
 # How many buildings of beer the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn26 = { value = global_var:bag_wtp_pn26 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot26 = { value = global_var:bag_wtp_tot26 }
 # How many buildings of books the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn27 = { value = global_var:bag_wtp_pn27 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot27 = { value = global_var:bag_wtp_tot27 }
 # How many buildings of cannons the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn28 = { value = global_var:bag_wtp_pn28 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot28 = { value = global_var:bag_wtp_tot28 }
 # How many buildings of cloth the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn29 = { value = global_var:bag_wtp_pn29 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot29 = { value = global_var:bag_wtp_tot29 }
 # How many buildings of fine_cloth the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn30 = { value = global_var:bag_wtp_pn30 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot30 = { value = global_var:bag_wtp_tot30 }
 # How many buildings of firearms the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn31 = { value = global_var:bag_wtp_pn31 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot31 = { value = global_var:bag_wtp_tot31 }
 # How many buildings of furniture the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn32 = { value = global_var:bag_wtp_pn32 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot32 = { value = global_var:bag_wtp_tot32 }
 # How many buildings of glass the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn33 = { value = global_var:bag_wtp_pn33 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot33 = { value = global_var:bag_wtp_tot33 }
 # How many buildings of jewelry the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn34 = { value = global_var:bag_wtp_pn34 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot34 = { value = global_var:bag_wtp_tot34 }
 # How many buildings of lacquerware the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn35 = { value = global_var:bag_wtp_pn35 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot35 = { value = global_var:bag_wtp_tot35 }
 # How many buildings of leather the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn36 = { value = global_var:bag_wtp_pn36 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot36 = { value = global_var:bag_wtp_tot36 }
 # How many buildings of liquor the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn37 = { value = global_var:bag_wtp_pn37 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot37 = { value = global_var:bag_wtp_tot37 }
 # How many buildings of masonry the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn38 = { value = global_var:bag_wtp_pn38 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot38 = { value = global_var:bag_wtp_tot38 }
 # How many buildings of naval_supplies the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn39 = { value = global_var:bag_wtp_pn39 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot39 = { value = global_var:bag_wtp_tot39 }
 # How many buildings of paper the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn40 = { value = global_var:bag_wtp_pn40 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot40 = { value = global_var:bag_wtp_tot40 }
 # How many buildings of porcelain the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn41 = { value = global_var:bag_wtp_pn41 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot41 = { value = global_var:bag_wtp_tot41 }
 # How many buildings of pottery the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn42 = { value = global_var:bag_wtp_pn42 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot42 = { value = global_var:bag_wtp_tot42 }
 # How many buildings of slaves_goods the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn43 = { value = global_var:bag_wtp_pn43 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot43 = { value = global_var:bag_wtp_tot43 }
 # How many buildings of steel the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn44 = { value = global_var:bag_wtp_pn44 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot44 = { value = global_var:bag_wtp_tot44 }
 # How many buildings of tar the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn45 = { value = global_var:bag_wtp_pn45 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot45 = { value = global_var:bag_wtp_tot45 }
 # How many buildings of tools the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn46 = { value = global_var:bag_wtp_pn46 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot46 = { value = global_var:bag_wtp_tot46 }
 # How many buildings of weaponry the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn47 = { value = global_var:bag_wtp_pn47 }
+# Домики плюс уже стоящие РГО -- то число, по которому судят о
+# равномерности. Складывает его `bag_wtp_plan_rank`, здесь только чтение.
+bag_wtp_show_tot47 = { value = global_var:bag_wtp_tot47 }
 # How many towns hold constantinopolitan_silk_monopoly_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven1 = { value = global_var:bag_wtp_rgiven1 }

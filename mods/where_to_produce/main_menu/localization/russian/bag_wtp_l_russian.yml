@@ -358,7 +358,7 @@
  bag_wtp_sum_even: "Ровность в городах: от [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_tmin')|0] до [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_tmax')|0] на товар (товаров с городскими местами [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_tg')|0]) · в сёлах: от [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_rmin')|0] до [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_rmax')|0] (товаров с сельскими местами [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_rg')|0]) · без единого домика [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_zero')|0] · заняли все свои места [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_sum_full')|0]"
  bag_wtp_sum_even_tt: "Одна строка, по которой видно, ровно ли вышло — и по сторонам отдельно, потому что городская комната и сельская не взаимозаменяемы. Разрыв «от и до» внутри одной стороны и есть неравномерность; между сторонами сравнивать нечего.\n\nРазрыв никогда не будет нулём: земля даёт разным товарам разное число мест, и каждое своё РГО снимает у товара один домик.\n\n«Без единого домика» больше нуля — это отказ покрытия: такой товар земля умеет, а план его не поставил.\n\n«Заняли все свои места» — товары, которым больше некуда: их остановила земля, а не правило."
  bag_wtp_sum_col_name: "Товар"
- bag_wtp_sum_col_n: "Домиков"
+ bag_wtp_sum_col_n: "Всего (с РГО)"
  bag_wtp_sum_col_sides: "Город / село"
  bag_wtp_sum_col_places: "Мест"
  bag_wtp_sum_col_quota: "Доля"
