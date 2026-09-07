@@ -549,30 +549,47 @@ def digest(lines: list[str]) -> list[str]:
         out.append("  больше всех: " + ", ".join("%s %d" % kv for kv in order[:6]))
         out.append("  меньше всех: " + ", ".join("%s %d" % kv for kv in order[-6:]))
 
-    # **Держит ли резервация хоть что-нибудь.** `owt`/`owr` -- сколько локаций
-    # товар держит как самый стеснённый из тех, кто вообще может встать на этой
-    # их стороне; на ступенчатых кругах локация предлагается только хозяину.
-    # Без этой строки «сводка не сдвинулась» неотличимо от «правило не
-    # сработало ни разу», а это два разных вывода: первый снимает правило,
-    # второй ищет, что связало товар вместо него.
-    if any("owt=" in line for line in lines if line.startswith("WTP G")):
-        owned = {}
-        for line in lines:
-            if line.startswith("WTP G") and " | ng=" in line:
-                held = (field(line, "owt") or 0) + (field(line, "owr") or 0)
-                if held:
-                    owned[line.split()[2]] = held
-        if owned:
-            top = sorted(owned.items(), key=lambda kv: -kv[1])
-            out.append("Резервация: %s держат локации как самые стеснённые, "
-                       "всего %s; больше всех "
-                       % (plural(len(owned), "товар", "товара", "товаров"),
-                          plural(sum(owned.values()), "локация", "локации",
-                                 "локаций"))
-                       + ", ".join("%s %d" % kv for kv in top[:6]))
-        else:
-            out.append("Резервация: ни один товар не держит ни одной локации — "
-                       "на этой земле правило не решает ничего")
+    # **Что остановило каждый товар — и это тот разбор, ради которого весь
+    # дамп.** `q` — квота товара к концу раздачи, `n` — сколько он поставил,
+    # `rgo` — сколько РГО уже стоит и считается домиком по правилу владельца.
+    # Товар с `n` вплотную к `q` дошёл до **своего потолка** и остановлен
+    # квотой: это равномерность, а не поломка. Городской товар упирается в
+    # потолок городской стороны. Всё остальное — **земля кончилась**, и только
+    # эти товары стоит смотреть, когда план выглядит неровным.
+    stops: dict[str, list[tuple[str, int]]] = {"квота": [], "город": [], "земля": []}
+    for line in lines:
+        if not (line.startswith("WTP G") and " | ng=" in line):
+            continue
+        tail = line.split("| ng=")[1]
+        n, q, rgo = field(tail, "n"), field(tail, "q"), field("ng=" + tail, "ng")
+        rgo = field(tail, "rgo")
+        if n is None or q is None or rgo is None or not field("ng=" + tail, "ng"):
+            continue
+        rural = re.search(r"\| R m=(\d+)", line)
+        where = ("квота" if q - n <= 2
+                 else "город" if rural and rural.group(1) == "0"
+                 else "земля")
+        stops[where].append((line.split()[2], n + rgo))
+
+    def span(pairs: list[tuple[str, int]]) -> str:
+        levels = sorted(v for _, v in pairs)
+        return "%d" % levels[0] if levels[0] == levels[-1] else "%d–%d" % (
+            levels[0], levels[-1])
+
+    if stops["квота"]:
+        out.append("Уровень (домики + РГО): %s дошли до своей квоты и стоят на "
+                   "%s — это и есть равномерность"
+                   % (plural(len(stops["квота"]), "товар", "товара", "товаров"),
+                      span(stops["квота"])))
+    if stops["город"]:
+        out.append("  городских товаров %d, они на %s: их держит потолок "
+                   "городской стороны, а не формула"
+                   % (len(stops["город"]), span(stops["город"])))
+    if stops["земля"]:
+        low = sorted(stops["земля"], key=lambda kv: kv[1])
+        out.append("  ниже уровня, и земля тому виной: "
+                   + ", ".join("%s %d" % kv for kv in low[:6])
+                   + " — мест под них больше нет, квота их не держала")
 
     rights = [(line.split()[3], field(line, "given")) for line in lines
               if line.startswith("WTP RIGHT")]

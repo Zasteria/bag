@@ -49,11 +49,12 @@ building and a location holds one of each**
 [`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство
 редактора — [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**Резервация по стеснённости построена 2026-09-07, в игре не была**: локация
-принадлежит самому стеснённому товару своей стороны и на ступенчатых кругах
-предлагается только ему, `owt`/`owr` в «Диагностике» — скольким она хозяин
-([`plan_reservation.md`](../../docs/investigations/plan_reservation.md)).
-**Дальше, порядок его**: её прогон, перетасовка внутри провинции, шаги 7–8.
+**План ровен, измерено 2026-09-07 — раздачу не переделывать.** Товар
+останавливает **своя квота**, и мера равномерности — `n + rgo` против неё, а не
+занятые комнаты; разбор печатает `tools/diag.py`. Резервация по стеснённости
+построена и снята тем же днём
+([`archive/plan_reservation.md`](../../docs/archive/plan_reservation.md)).
+**Дальше**: перетасовка внутри провинции, потом шаги 7–8.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is

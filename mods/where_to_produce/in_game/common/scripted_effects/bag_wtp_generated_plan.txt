@@ -48,12 +48,6 @@ bag_wtp_plan_prepare = {
 		remove_variable = bag_wtp_plan_area_load
 		remove_variable = bag_wtp_plan_pexp
 		remove_variable = bag_wtp_plan_seen
-		# **Хозяин снимается вместе с планом.** `bag_wtp_plan_owners` ставит его
-		# заново на каждом кандидате, так что это про локацию, которая выпала из
-		# земли: оставленное число ничего не сломает -- её никто не обойдёт, -- но
-		# и держать его незачем.
-		remove_variable = bag_wtp_ownt
-		remove_variable = bag_wtp_ownr
 		# **Снимок загрузки, который «Расширить» кладёт перед доливкой.** Он
 		# существует ровно затем, чтобы после доливки посчитать, сколько
 		# домиков на старой земле сдвинулось (ответ обязан быть нулём).
@@ -892,1167 +886,6 @@ bag_wtp_plan_score = {
 	bag_wtp_plan_harvest_46 = yes
 	bag_wtp_score_47 = yes
 	bag_wtp_plan_harvest_47 = yes
-	bag_wtp_plan_owners = yes
-}
-
-# Хозяин локации: самый стеснённый из товаров, которые вообще могут встать на
-# этой её стороне. На ступенчатых кругах локация предлагается только ему и тем,
-# кто с ним вровень; на общих кругах она открыта всем.
-#
-# **Что это чинит.** Товар, у которого мест мало, но не настолько мало, чтобы
-# ступень пропускала его первым, терял их тем, у кого альтернатив сотни: на
-# северной Германии `stone` умеет 53 села и взял 34, `salt` -- 42 и взял 31.
-# Ступень их не защищала (53 и 42 против 133 в самой широкой ступени -- они
-# проходят её вместе с товарами, которым годится вся земля), а полоса выгоды
-# защищать и не должна: она решает «где», а не «сколько».
-#
-# **Считается по `_pm<n>`/`_prm<n>`, а не по `_plan_can_*`.** Хозяин -- свойство
-# земли, а не того, что на ней уже стоит: `_plan_can_*` спрашивает ещё и
-# свободную комнату, и хозяин менялся бы по ходу раздачи, то есть локация
-# переходила бы из рук в руки между кругами.
-#
-# **Только своя сторона у каждой локации.** `_plan_can_town_<n>` требует
-# `_plan_is_town = yes`, а `_plan_can_rural_<n>` -- `no`, так что городскую
-# локацию никто никогда не спросит про `_ownr`. Считать обе стороны везде было
-# бы вдвое дороже и ровно так же верно.
-#
-# **`_owt<n>`/`_owr<n>` -- сколько локаций товар держит.** Это то единственное
-# число, по которому прогон отличит «правило не сработало» от «сработало и
-# ничего не изменило»: без него оба случая выглядят как несдвинувшаяся сводка.
-# Печатается на строке товара в «Диагностике» как `owt=`/`owr=`.
-# Scope: country
-bag_wtp_plan_owners = {
-	set_global_variable = { name = bag_wtp_owt1 value = 0 }
-	set_global_variable = { name = bag_wtp_owr1 value = 0 }
-	set_global_variable = { name = bag_wtp_owt2 value = 0 }
-	set_global_variable = { name = bag_wtp_owr2 value = 0 }
-	set_global_variable = { name = bag_wtp_owt3 value = 0 }
-	set_global_variable = { name = bag_wtp_owr3 value = 0 }
-	set_global_variable = { name = bag_wtp_owt4 value = 0 }
-	set_global_variable = { name = bag_wtp_owr4 value = 0 }
-	set_global_variable = { name = bag_wtp_owt5 value = 0 }
-	set_global_variable = { name = bag_wtp_owr5 value = 0 }
-	set_global_variable = { name = bag_wtp_owt6 value = 0 }
-	set_global_variable = { name = bag_wtp_owr6 value = 0 }
-	set_global_variable = { name = bag_wtp_owt7 value = 0 }
-	set_global_variable = { name = bag_wtp_owr7 value = 0 }
-	set_global_variable = { name = bag_wtp_owt8 value = 0 }
-	set_global_variable = { name = bag_wtp_owr8 value = 0 }
-	set_global_variable = { name = bag_wtp_owt9 value = 0 }
-	set_global_variable = { name = bag_wtp_owr9 value = 0 }
-	set_global_variable = { name = bag_wtp_owt10 value = 0 }
-	set_global_variable = { name = bag_wtp_owr10 value = 0 }
-	set_global_variable = { name = bag_wtp_owt11 value = 0 }
-	set_global_variable = { name = bag_wtp_owr11 value = 0 }
-	set_global_variable = { name = bag_wtp_owt12 value = 0 }
-	set_global_variable = { name = bag_wtp_owr12 value = 0 }
-	set_global_variable = { name = bag_wtp_owt13 value = 0 }
-	set_global_variable = { name = bag_wtp_owr13 value = 0 }
-	set_global_variable = { name = bag_wtp_owt14 value = 0 }
-	set_global_variable = { name = bag_wtp_owr14 value = 0 }
-	set_global_variable = { name = bag_wtp_owt15 value = 0 }
-	set_global_variable = { name = bag_wtp_owr15 value = 0 }
-	set_global_variable = { name = bag_wtp_owt16 value = 0 }
-	set_global_variable = { name = bag_wtp_owr16 value = 0 }
-	set_global_variable = { name = bag_wtp_owt17 value = 0 }
-	set_global_variable = { name = bag_wtp_owr17 value = 0 }
-	set_global_variable = { name = bag_wtp_owt18 value = 0 }
-	set_global_variable = { name = bag_wtp_owr18 value = 0 }
-	set_global_variable = { name = bag_wtp_owt19 value = 0 }
-	set_global_variable = { name = bag_wtp_owr19 value = 0 }
-	set_global_variable = { name = bag_wtp_owt20 value = 0 }
-	set_global_variable = { name = bag_wtp_owr20 value = 0 }
-	set_global_variable = { name = bag_wtp_owt21 value = 0 }
-	set_global_variable = { name = bag_wtp_owr21 value = 0 }
-	set_global_variable = { name = bag_wtp_owt22 value = 0 }
-	set_global_variable = { name = bag_wtp_owr22 value = 0 }
-	set_global_variable = { name = bag_wtp_owt23 value = 0 }
-	set_global_variable = { name = bag_wtp_owr23 value = 0 }
-	set_global_variable = { name = bag_wtp_owt24 value = 0 }
-	set_global_variable = { name = bag_wtp_owr24 value = 0 }
-	set_global_variable = { name = bag_wtp_owt25 value = 0 }
-	set_global_variable = { name = bag_wtp_owr25 value = 0 }
-	set_global_variable = { name = bag_wtp_owt26 value = 0 }
-	set_global_variable = { name = bag_wtp_owr26 value = 0 }
-	set_global_variable = { name = bag_wtp_owt27 value = 0 }
-	set_global_variable = { name = bag_wtp_owr27 value = 0 }
-	set_global_variable = { name = bag_wtp_owt28 value = 0 }
-	set_global_variable = { name = bag_wtp_owr28 value = 0 }
-	set_global_variable = { name = bag_wtp_owt29 value = 0 }
-	set_global_variable = { name = bag_wtp_owr29 value = 0 }
-	set_global_variable = { name = bag_wtp_owt30 value = 0 }
-	set_global_variable = { name = bag_wtp_owr30 value = 0 }
-	set_global_variable = { name = bag_wtp_owt31 value = 0 }
-	set_global_variable = { name = bag_wtp_owr31 value = 0 }
-	set_global_variable = { name = bag_wtp_owt32 value = 0 }
-	set_global_variable = { name = bag_wtp_owr32 value = 0 }
-	set_global_variable = { name = bag_wtp_owt33 value = 0 }
-	set_global_variable = { name = bag_wtp_owr33 value = 0 }
-	set_global_variable = { name = bag_wtp_owt34 value = 0 }
-	set_global_variable = { name = bag_wtp_owr34 value = 0 }
-	set_global_variable = { name = bag_wtp_owt35 value = 0 }
-	set_global_variable = { name = bag_wtp_owr35 value = 0 }
-	set_global_variable = { name = bag_wtp_owt36 value = 0 }
-	set_global_variable = { name = bag_wtp_owr36 value = 0 }
-	set_global_variable = { name = bag_wtp_owt37 value = 0 }
-	set_global_variable = { name = bag_wtp_owr37 value = 0 }
-	set_global_variable = { name = bag_wtp_owt38 value = 0 }
-	set_global_variable = { name = bag_wtp_owr38 value = 0 }
-	set_global_variable = { name = bag_wtp_owt39 value = 0 }
-	set_global_variable = { name = bag_wtp_owr39 value = 0 }
-	set_global_variable = { name = bag_wtp_owt40 value = 0 }
-	set_global_variable = { name = bag_wtp_owr40 value = 0 }
-	set_global_variable = { name = bag_wtp_owt41 value = 0 }
-	set_global_variable = { name = bag_wtp_owr41 value = 0 }
-	set_global_variable = { name = bag_wtp_owt42 value = 0 }
-	set_global_variable = { name = bag_wtp_owr42 value = 0 }
-	set_global_variable = { name = bag_wtp_owt43 value = 0 }
-	set_global_variable = { name = bag_wtp_owr43 value = 0 }
-	set_global_variable = { name = bag_wtp_owt44 value = 0 }
-	set_global_variable = { name = bag_wtp_owr44 value = 0 }
-	set_global_variable = { name = bag_wtp_owt45 value = 0 }
-	set_global_variable = { name = bag_wtp_owr45 value = 0 }
-	set_global_variable = { name = bag_wtp_owt46 value = 0 }
-	set_global_variable = { name = bag_wtp_owr46 value = 0 }
-	set_global_variable = { name = bag_wtp_owt47 value = 0 }
-	set_global_variable = { name = bag_wtp_owr47 value = 0 }
-	every_in_global_list = {
-		variable = bag_wtp_candidates
-		if = {
-			limit = { bag_wtp_plan_is_town = yes }
-			# **99999, а не «нет переменной».** `limit`, читающий переменную,
-			# которой нет, проваливается молча, а ворота ниже читают её на каждой
-			# локации каждого круга. Локация, где не может встать никто, так и
-			# остаётся с 99999: равенства не будет ни у кого, но и предлагать её
-			# некому.
-			set_variable = { name = bag_wtp_ownt value = 99999 }
-			if = {
-				limit = {
-					var:bag_wtp_pm1 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt1
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm2 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt2
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt2 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm3 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt3
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt3 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm4 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt4
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt4 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm5 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt5
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt5 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm7 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt7
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt7 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm8 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt8
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt8 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm9 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt9
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt9 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm10 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt10
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt10 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm13 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt13
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt13 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm14 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt14
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt14 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm15 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt15
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt15 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm16 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt16
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt16 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm17 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt17
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt17 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm18 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt18
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt18 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm19 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt19
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt19 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm20 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt20
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt20 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm21 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt21
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt21 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm22 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt22
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt22 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm24 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt24
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt24 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm26 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt26
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt26 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm27 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt27
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt27 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm28 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt28
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt28 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm29 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt29
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt29 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm30 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt30
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt30 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm31 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt31
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt31 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm32 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt32
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt32 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm33 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt33
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt33 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm34 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt34
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt34 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm35 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt35
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt35 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm36 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt36
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt36 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm37 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt37
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt37 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm38 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt38
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt38 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm39 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt39
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt39 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm40 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt40
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt40 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm41 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt41
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt41 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm42 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt42
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt42 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm43 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt43
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt43 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm44 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt44
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt44 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm45 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt45
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt45 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm46 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt46
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt46 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm47 > 0
-					var:bag_wtp_ownt > global_var:bag_wtp_ngt47
-				}
-				set_variable = { name = bag_wtp_ownt value = global_var:bag_wtp_ngt47 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm1 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt1
-				}
-				change_global_variable = { name = bag_wtp_owt1 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm2 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt2
-				}
-				change_global_variable = { name = bag_wtp_owt2 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm3 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt3
-				}
-				change_global_variable = { name = bag_wtp_owt3 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm4 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt4
-				}
-				change_global_variable = { name = bag_wtp_owt4 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm5 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt5
-				}
-				change_global_variable = { name = bag_wtp_owt5 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm7 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt7
-				}
-				change_global_variable = { name = bag_wtp_owt7 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm8 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt8
-				}
-				change_global_variable = { name = bag_wtp_owt8 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm9 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt9
-				}
-				change_global_variable = { name = bag_wtp_owt9 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm10 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt10
-				}
-				change_global_variable = { name = bag_wtp_owt10 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm13 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt13
-				}
-				change_global_variable = { name = bag_wtp_owt13 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm14 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt14
-				}
-				change_global_variable = { name = bag_wtp_owt14 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm15 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt15
-				}
-				change_global_variable = { name = bag_wtp_owt15 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm16 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt16
-				}
-				change_global_variable = { name = bag_wtp_owt16 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm17 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt17
-				}
-				change_global_variable = { name = bag_wtp_owt17 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm18 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt18
-				}
-				change_global_variable = { name = bag_wtp_owt18 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm19 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt19
-				}
-				change_global_variable = { name = bag_wtp_owt19 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm20 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt20
-				}
-				change_global_variable = { name = bag_wtp_owt20 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm21 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt21
-				}
-				change_global_variable = { name = bag_wtp_owt21 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm22 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt22
-				}
-				change_global_variable = { name = bag_wtp_owt22 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm24 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt24
-				}
-				change_global_variable = { name = bag_wtp_owt24 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm26 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt26
-				}
-				change_global_variable = { name = bag_wtp_owt26 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm27 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt27
-				}
-				change_global_variable = { name = bag_wtp_owt27 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm28 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt28
-				}
-				change_global_variable = { name = bag_wtp_owt28 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm29 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt29
-				}
-				change_global_variable = { name = bag_wtp_owt29 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm30 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt30
-				}
-				change_global_variable = { name = bag_wtp_owt30 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm31 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt31
-				}
-				change_global_variable = { name = bag_wtp_owt31 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm32 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt32
-				}
-				change_global_variable = { name = bag_wtp_owt32 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm33 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt33
-				}
-				change_global_variable = { name = bag_wtp_owt33 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm34 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt34
-				}
-				change_global_variable = { name = bag_wtp_owt34 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm35 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt35
-				}
-				change_global_variable = { name = bag_wtp_owt35 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm36 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt36
-				}
-				change_global_variable = { name = bag_wtp_owt36 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm37 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt37
-				}
-				change_global_variable = { name = bag_wtp_owt37 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm38 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt38
-				}
-				change_global_variable = { name = bag_wtp_owt38 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm39 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt39
-				}
-				change_global_variable = { name = bag_wtp_owt39 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm40 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt40
-				}
-				change_global_variable = { name = bag_wtp_owt40 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm41 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt41
-				}
-				change_global_variable = { name = bag_wtp_owt41 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm42 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt42
-				}
-				change_global_variable = { name = bag_wtp_owt42 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm43 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt43
-				}
-				change_global_variable = { name = bag_wtp_owt43 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm44 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt44
-				}
-				change_global_variable = { name = bag_wtp_owt44 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm45 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt45
-				}
-				change_global_variable = { name = bag_wtp_owt45 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm46 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt46
-				}
-				change_global_variable = { name = bag_wtp_owt46 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_pm47 > 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt47
-				}
-				change_global_variable = { name = bag_wtp_owt47 add = 1 }
-			}
-		}
-		else = {
-			set_variable = { name = bag_wtp_ownr value = 99999 }
-			if = {
-				limit = {
-					var:bag_wtp_prm1 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr1
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm2 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr2
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr2 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm3 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr3
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr3 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm5 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr5
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr5 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm6 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr6
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr6 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm7 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr7
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr7 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm8 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr8
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr8 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm10 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr10
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr10 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm11 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr11
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr11 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm12 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr12
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr12 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm13 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr13
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr13 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm15 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr15
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr15 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm17 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr17
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr17 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm19 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr19
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr19 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm20 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr20
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr20 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm21 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr21
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr21 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm22 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr22
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr22 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm23 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr23
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr23 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm25 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr25
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr25 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm26 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr26
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr26 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm29 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr29
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr29 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm33 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr33
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr33 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm34 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr34
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr34 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm36 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr36
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr36 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm38 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr38
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr38 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm39 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr39
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr39 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm42 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr42
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr42 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm43 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr43
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr43 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm45 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr45
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr45 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm46 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr46
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr46 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm47 > 0
-					var:bag_wtp_ownr > global_var:bag_wtp_ngr47
-				}
-				set_variable = { name = bag_wtp_ownr value = global_var:bag_wtp_ngr47 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm1 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr1
-				}
-				change_global_variable = { name = bag_wtp_owr1 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm2 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr2
-				}
-				change_global_variable = { name = bag_wtp_owr2 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm3 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr3
-				}
-				change_global_variable = { name = bag_wtp_owr3 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm5 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr5
-				}
-				change_global_variable = { name = bag_wtp_owr5 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm6 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr6
-				}
-				change_global_variable = { name = bag_wtp_owr6 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm7 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr7
-				}
-				change_global_variable = { name = bag_wtp_owr7 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm8 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr8
-				}
-				change_global_variable = { name = bag_wtp_owr8 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm10 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr10
-				}
-				change_global_variable = { name = bag_wtp_owr10 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm11 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr11
-				}
-				change_global_variable = { name = bag_wtp_owr11 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm12 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr12
-				}
-				change_global_variable = { name = bag_wtp_owr12 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm13 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr13
-				}
-				change_global_variable = { name = bag_wtp_owr13 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm15 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr15
-				}
-				change_global_variable = { name = bag_wtp_owr15 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm17 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr17
-				}
-				change_global_variable = { name = bag_wtp_owr17 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm19 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr19
-				}
-				change_global_variable = { name = bag_wtp_owr19 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm20 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr20
-				}
-				change_global_variable = { name = bag_wtp_owr20 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm21 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr21
-				}
-				change_global_variable = { name = bag_wtp_owr21 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm22 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr22
-				}
-				change_global_variable = { name = bag_wtp_owr22 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm23 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr23
-				}
-				change_global_variable = { name = bag_wtp_owr23 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm25 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr25
-				}
-				change_global_variable = { name = bag_wtp_owr25 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm26 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr26
-				}
-				change_global_variable = { name = bag_wtp_owr26 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm29 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr29
-				}
-				change_global_variable = { name = bag_wtp_owr29 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm33 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr33
-				}
-				change_global_variable = { name = bag_wtp_owr33 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm34 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr34
-				}
-				change_global_variable = { name = bag_wtp_owr34 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm36 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr36
-				}
-				change_global_variable = { name = bag_wtp_owr36 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm38 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr38
-				}
-				change_global_variable = { name = bag_wtp_owr38 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm39 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr39
-				}
-				change_global_variable = { name = bag_wtp_owr39 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm42 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr42
-				}
-				change_global_variable = { name = bag_wtp_owr42 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm43 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr43
-				}
-				change_global_variable = { name = bag_wtp_owr43 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm45 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr45
-				}
-				change_global_variable = { name = bag_wtp_owr45 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm46 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr46
-				}
-				change_global_variable = { name = bag_wtp_owr46 add = 1 }
-			}
-			if = {
-				limit = {
-					var:bag_wtp_prm47 > 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr47
-				}
-				change_global_variable = { name = bag_wtp_owr47 add = 1 }
-			}
-		}
-	}
 }
 
 # clay: keep both sides and the method that won each, then divide the ground by
@@ -26308,17 +25141,8 @@ bag_wtp_plan_pick_1 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt1 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt1 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -26337,22 +25161,9 @@ bag_wtp_plan_pick_1 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_1 = yes
 				bag_wtp_ord1 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt1
-				}
 			}
 			order_by = bag_wtp_ord1
 			max = 1
@@ -26409,17 +25220,8 @@ bag_wtp_plan_pick_1 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr1 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr1 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -26438,22 +25240,9 @@ bag_wtp_plan_pick_1 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_1 = yes
 				bag_wtp_ordr1 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr1
-				}
 			}
 			order_by = bag_wtp_ordr1
 			max = 1
@@ -26520,17 +25309,8 @@ bag_wtp_plan_pick_2 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt2 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt2 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -26549,22 +25329,9 @@ bag_wtp_plan_pick_2 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_2 = yes
 				bag_wtp_ord2 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt2
-				}
 			}
 			order_by = bag_wtp_ord2
 			max = 1
@@ -26621,17 +25388,8 @@ bag_wtp_plan_pick_2 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr2 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr2 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -26650,22 +25408,9 @@ bag_wtp_plan_pick_2 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_2 = yes
 				bag_wtp_ordr2 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr2
-				}
 			}
 			order_by = bag_wtp_ordr2
 			max = 1
@@ -26732,17 +25477,8 @@ bag_wtp_plan_pick_3 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt3 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt3 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -26761,22 +25497,9 @@ bag_wtp_plan_pick_3 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_3 = yes
 				bag_wtp_ord3 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt3
-				}
 			}
 			order_by = bag_wtp_ord3
 			max = 1
@@ -26833,17 +25556,8 @@ bag_wtp_plan_pick_3 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr3 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr3 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -26862,22 +25576,9 @@ bag_wtp_plan_pick_3 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_3 = yes
 				bag_wtp_ordr3 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr3
-				}
 			}
 			order_by = bag_wtp_ordr3
 			max = 1
@@ -26944,17 +25645,8 @@ bag_wtp_plan_pick_4 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt4 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt4 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -26973,22 +25665,9 @@ bag_wtp_plan_pick_4 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_4 = yes
 				bag_wtp_ord4 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt4
-				}
 			}
 			order_by = bag_wtp_ord4
 			max = 1
@@ -27055,17 +25734,8 @@ bag_wtp_plan_pick_5 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt5 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt5 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27084,22 +25754,9 @@ bag_wtp_plan_pick_5 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_5 = yes
 				bag_wtp_ord5 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt5
-				}
 			}
 			order_by = bag_wtp_ord5
 			max = 1
@@ -27156,17 +25813,8 @@ bag_wtp_plan_pick_5 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr5 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr5 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27185,22 +25833,9 @@ bag_wtp_plan_pick_5 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_5 = yes
 				bag_wtp_ordr5 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr5
-				}
 			}
 			order_by = bag_wtp_ordr5
 			max = 1
@@ -27267,17 +25902,8 @@ bag_wtp_plan_pick_6 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr6 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr6 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27296,22 +25922,9 @@ bag_wtp_plan_pick_6 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_6 = yes
 				bag_wtp_ordr6 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr6
-				}
 			}
 			order_by = bag_wtp_ordr6
 			max = 1
@@ -27378,17 +25991,8 @@ bag_wtp_plan_pick_7 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt7 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt7 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27407,22 +26011,9 @@ bag_wtp_plan_pick_7 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_7 = yes
 				bag_wtp_ord7 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt7
-				}
 			}
 			order_by = bag_wtp_ord7
 			max = 1
@@ -27479,17 +26070,8 @@ bag_wtp_plan_pick_7 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr7 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr7 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27508,22 +26090,9 @@ bag_wtp_plan_pick_7 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_7 = yes
 				bag_wtp_ordr7 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr7
-				}
 			}
 			order_by = bag_wtp_ordr7
 			max = 1
@@ -27590,17 +26159,8 @@ bag_wtp_plan_pick_8 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt8 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt8 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27619,22 +26179,9 @@ bag_wtp_plan_pick_8 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_8 = yes
 				bag_wtp_ord8 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt8
-				}
 			}
 			order_by = bag_wtp_ord8
 			max = 1
@@ -27691,17 +26238,8 @@ bag_wtp_plan_pick_8 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr8 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr8 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27720,22 +26258,9 @@ bag_wtp_plan_pick_8 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_8 = yes
 				bag_wtp_ordr8 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr8
-				}
 			}
 			order_by = bag_wtp_ordr8
 			max = 1
@@ -27802,17 +26327,8 @@ bag_wtp_plan_pick_9 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt9 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt9 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27831,22 +26347,9 @@ bag_wtp_plan_pick_9 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_9 = yes
 				bag_wtp_ord9 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt9
-				}
 			}
 			order_by = bag_wtp_ord9
 			max = 1
@@ -27913,17 +26416,8 @@ bag_wtp_plan_pick_10 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt10 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt10 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -27942,22 +26436,9 @@ bag_wtp_plan_pick_10 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_10 = yes
 				bag_wtp_ord10 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt10
-				}
 			}
 			order_by = bag_wtp_ord10
 			max = 1
@@ -28014,17 +26495,8 @@ bag_wtp_plan_pick_10 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr10 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr10 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28043,22 +26515,9 @@ bag_wtp_plan_pick_10 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_10 = yes
 				bag_wtp_ordr10 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr10
-				}
 			}
 			order_by = bag_wtp_ordr10
 			max = 1
@@ -28125,17 +26584,8 @@ bag_wtp_plan_pick_11 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr11 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr11 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28154,22 +26604,9 @@ bag_wtp_plan_pick_11 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_11 = yes
 				bag_wtp_ordr11 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr11
-				}
 			}
 			order_by = bag_wtp_ordr11
 			max = 1
@@ -28236,17 +26673,8 @@ bag_wtp_plan_pick_12 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr12 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr12 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28265,22 +26693,9 @@ bag_wtp_plan_pick_12 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_12 = yes
 				bag_wtp_ordr12 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr12
-				}
 			}
 			order_by = bag_wtp_ordr12
 			max = 1
@@ -28347,17 +26762,8 @@ bag_wtp_plan_pick_13 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt13 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt13 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28376,22 +26782,9 @@ bag_wtp_plan_pick_13 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_13 = yes
 				bag_wtp_ord13 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt13
-				}
 			}
 			order_by = bag_wtp_ord13
 			max = 1
@@ -28448,17 +26841,8 @@ bag_wtp_plan_pick_13 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr13 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr13 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28477,22 +26861,9 @@ bag_wtp_plan_pick_13 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_13 = yes
 				bag_wtp_ordr13 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr13
-				}
 			}
 			order_by = bag_wtp_ordr13
 			max = 1
@@ -28559,17 +26930,8 @@ bag_wtp_plan_pick_14 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt14 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt14 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28588,22 +26950,9 @@ bag_wtp_plan_pick_14 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_14 = yes
 				bag_wtp_ord14 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt14
-				}
 			}
 			order_by = bag_wtp_ord14
 			max = 1
@@ -28670,17 +27019,8 @@ bag_wtp_plan_pick_15 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt15 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt15 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28699,22 +27039,9 @@ bag_wtp_plan_pick_15 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_15 = yes
 				bag_wtp_ord15 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt15
-				}
 			}
 			order_by = bag_wtp_ord15
 			max = 1
@@ -28771,17 +27098,8 @@ bag_wtp_plan_pick_15 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr15 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr15 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28800,22 +27118,9 @@ bag_wtp_plan_pick_15 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_15 = yes
 				bag_wtp_ordr15 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr15
-				}
 			}
 			order_by = bag_wtp_ordr15
 			max = 1
@@ -28882,17 +27187,8 @@ bag_wtp_plan_pick_16 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt16 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt16 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -28911,22 +27207,9 @@ bag_wtp_plan_pick_16 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_16 = yes
 				bag_wtp_ord16 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt16
-				}
 			}
 			order_by = bag_wtp_ord16
 			max = 1
@@ -28993,17 +27276,8 @@ bag_wtp_plan_pick_17 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt17 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt17 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29022,22 +27296,9 @@ bag_wtp_plan_pick_17 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_17 = yes
 				bag_wtp_ord17 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt17
-				}
 			}
 			order_by = bag_wtp_ord17
 			max = 1
@@ -29094,17 +27355,8 @@ bag_wtp_plan_pick_17 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr17 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr17 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29123,22 +27375,9 @@ bag_wtp_plan_pick_17 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_17 = yes
 				bag_wtp_ordr17 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr17
-				}
 			}
 			order_by = bag_wtp_ordr17
 			max = 1
@@ -29205,17 +27444,8 @@ bag_wtp_plan_pick_18 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt18 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt18 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29234,22 +27464,9 @@ bag_wtp_plan_pick_18 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_18 = yes
 				bag_wtp_ord18 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt18
-				}
 			}
 			order_by = bag_wtp_ord18
 			max = 1
@@ -29316,17 +27533,8 @@ bag_wtp_plan_pick_19 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt19 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt19 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29345,22 +27553,9 @@ bag_wtp_plan_pick_19 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_19 = yes
 				bag_wtp_ord19 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt19
-				}
 			}
 			order_by = bag_wtp_ord19
 			max = 1
@@ -29417,17 +27612,8 @@ bag_wtp_plan_pick_19 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr19 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr19 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29446,22 +27632,9 @@ bag_wtp_plan_pick_19 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_19 = yes
 				bag_wtp_ordr19 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr19
-				}
 			}
 			order_by = bag_wtp_ordr19
 			max = 1
@@ -29528,17 +27701,8 @@ bag_wtp_plan_pick_20 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt20 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt20 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29557,22 +27721,9 @@ bag_wtp_plan_pick_20 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_20 = yes
 				bag_wtp_ord20 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt20
-				}
 			}
 			order_by = bag_wtp_ord20
 			max = 1
@@ -29629,17 +27780,8 @@ bag_wtp_plan_pick_20 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr20 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr20 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29658,22 +27800,9 @@ bag_wtp_plan_pick_20 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_20 = yes
 				bag_wtp_ordr20 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr20
-				}
 			}
 			order_by = bag_wtp_ordr20
 			max = 1
@@ -29740,17 +27869,8 @@ bag_wtp_plan_pick_21 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt21 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt21 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29769,22 +27889,9 @@ bag_wtp_plan_pick_21 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_21 = yes
 				bag_wtp_ord21 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt21
-				}
 			}
 			order_by = bag_wtp_ord21
 			max = 1
@@ -29841,17 +27948,8 @@ bag_wtp_plan_pick_21 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr21 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr21 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29870,22 +27968,9 @@ bag_wtp_plan_pick_21 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_21 = yes
 				bag_wtp_ordr21 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr21
-				}
 			}
 			order_by = bag_wtp_ordr21
 			max = 1
@@ -29952,17 +28037,8 @@ bag_wtp_plan_pick_22 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt22 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt22 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -29981,22 +28057,9 @@ bag_wtp_plan_pick_22 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_22 = yes
 				bag_wtp_ord22 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt22
-				}
 			}
 			order_by = bag_wtp_ord22
 			max = 1
@@ -30053,17 +28116,8 @@ bag_wtp_plan_pick_22 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr22 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr22 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30082,22 +28136,9 @@ bag_wtp_plan_pick_22 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_22 = yes
 				bag_wtp_ordr22 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr22
-				}
 			}
 			order_by = bag_wtp_ordr22
 			max = 1
@@ -30164,17 +28205,8 @@ bag_wtp_plan_pick_23 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr23 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr23 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30193,22 +28225,9 @@ bag_wtp_plan_pick_23 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_23 = yes
 				bag_wtp_ordr23 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr23
-				}
 			}
 			order_by = bag_wtp_ordr23
 			max = 1
@@ -30275,17 +28294,8 @@ bag_wtp_plan_pick_24 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt24 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt24 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30304,22 +28314,9 @@ bag_wtp_plan_pick_24 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_24 = yes
 				bag_wtp_ord24 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt24
-				}
 			}
 			order_by = bag_wtp_ord24
 			max = 1
@@ -30386,17 +28383,8 @@ bag_wtp_plan_pick_25 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr25 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr25 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30415,22 +28403,9 @@ bag_wtp_plan_pick_25 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_25 = yes
 				bag_wtp_ordr25 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr25
-				}
 			}
 			order_by = bag_wtp_ordr25
 			max = 1
@@ -30497,17 +28472,8 @@ bag_wtp_plan_pick_26 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt26 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt26 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30526,22 +28492,9 @@ bag_wtp_plan_pick_26 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_26 = yes
 				bag_wtp_ord26 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt26
-				}
 			}
 			order_by = bag_wtp_ord26
 			max = 1
@@ -30598,17 +28551,8 @@ bag_wtp_plan_pick_26 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr26 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr26 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30627,22 +28571,9 @@ bag_wtp_plan_pick_26 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_26 = yes
 				bag_wtp_ordr26 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr26
-				}
 			}
 			order_by = bag_wtp_ordr26
 			max = 1
@@ -30709,17 +28640,8 @@ bag_wtp_plan_pick_27 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt27 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt27 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30738,22 +28660,9 @@ bag_wtp_plan_pick_27 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_27 = yes
 				bag_wtp_ord27 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt27
-				}
 			}
 			order_by = bag_wtp_ord27
 			max = 1
@@ -30820,17 +28729,8 @@ bag_wtp_plan_pick_28 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt28 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt28 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30849,22 +28749,9 @@ bag_wtp_plan_pick_28 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_28 = yes
 				bag_wtp_ord28 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt28
-				}
 			}
 			order_by = bag_wtp_ord28
 			max = 1
@@ -30931,17 +28818,8 @@ bag_wtp_plan_pick_29 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt29 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt29 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -30960,22 +28838,9 @@ bag_wtp_plan_pick_29 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_29 = yes
 				bag_wtp_ord29 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt29
-				}
 			}
 			order_by = bag_wtp_ord29
 			max = 1
@@ -31032,17 +28897,8 @@ bag_wtp_plan_pick_29 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr29 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr29 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31061,22 +28917,9 @@ bag_wtp_plan_pick_29 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_29 = yes
 				bag_wtp_ordr29 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr29
-				}
 			}
 			order_by = bag_wtp_ordr29
 			max = 1
@@ -31143,17 +28986,8 @@ bag_wtp_plan_pick_30 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt30 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt30 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31172,22 +29006,9 @@ bag_wtp_plan_pick_30 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_30 = yes
 				bag_wtp_ord30 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt30
-				}
 			}
 			order_by = bag_wtp_ord30
 			max = 1
@@ -31254,17 +29075,8 @@ bag_wtp_plan_pick_31 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt31 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt31 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31283,22 +29095,9 @@ bag_wtp_plan_pick_31 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_31 = yes
 				bag_wtp_ord31 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt31
-				}
 			}
 			order_by = bag_wtp_ord31
 			max = 1
@@ -31365,17 +29164,8 @@ bag_wtp_plan_pick_32 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt32 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt32 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31394,22 +29184,9 @@ bag_wtp_plan_pick_32 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_32 = yes
 				bag_wtp_ord32 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt32
-				}
 			}
 			order_by = bag_wtp_ord32
 			max = 1
@@ -31476,17 +29253,8 @@ bag_wtp_plan_pick_33 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt33 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt33 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31505,22 +29273,9 @@ bag_wtp_plan_pick_33 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_33 = yes
 				bag_wtp_ord33 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt33
-				}
 			}
 			order_by = bag_wtp_ord33
 			max = 1
@@ -31577,17 +29332,8 @@ bag_wtp_plan_pick_33 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr33 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr33 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31606,22 +29352,9 @@ bag_wtp_plan_pick_33 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_33 = yes
 				bag_wtp_ordr33 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr33
-				}
 			}
 			order_by = bag_wtp_ordr33
 			max = 1
@@ -31688,17 +29421,8 @@ bag_wtp_plan_pick_34 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt34 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt34 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31717,22 +29441,9 @@ bag_wtp_plan_pick_34 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_34 = yes
 				bag_wtp_ord34 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt34
-				}
 			}
 			order_by = bag_wtp_ord34
 			max = 1
@@ -31789,17 +29500,8 @@ bag_wtp_plan_pick_34 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr34 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr34 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31818,22 +29520,9 @@ bag_wtp_plan_pick_34 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_34 = yes
 				bag_wtp_ordr34 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr34
-				}
 			}
 			order_by = bag_wtp_ordr34
 			max = 1
@@ -31900,17 +29589,8 @@ bag_wtp_plan_pick_35 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt35 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt35 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -31929,22 +29609,9 @@ bag_wtp_plan_pick_35 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_35 = yes
 				bag_wtp_ord35 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt35
-				}
 			}
 			order_by = bag_wtp_ord35
 			max = 1
@@ -32011,17 +29678,8 @@ bag_wtp_plan_pick_36 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt36 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt36 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32040,22 +29698,9 @@ bag_wtp_plan_pick_36 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_36 = yes
 				bag_wtp_ord36 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt36
-				}
 			}
 			order_by = bag_wtp_ord36
 			max = 1
@@ -32112,17 +29757,8 @@ bag_wtp_plan_pick_36 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr36 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr36 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32141,22 +29777,9 @@ bag_wtp_plan_pick_36 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_36 = yes
 				bag_wtp_ordr36 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr36
-				}
 			}
 			order_by = bag_wtp_ordr36
 			max = 1
@@ -32223,17 +29846,8 @@ bag_wtp_plan_pick_37 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt37 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt37 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32252,22 +29866,9 @@ bag_wtp_plan_pick_37 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_37 = yes
 				bag_wtp_ord37 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt37
-				}
 			}
 			order_by = bag_wtp_ord37
 			max = 1
@@ -32334,17 +29935,8 @@ bag_wtp_plan_pick_38 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt38 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt38 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32363,22 +29955,9 @@ bag_wtp_plan_pick_38 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_38 = yes
 				bag_wtp_ord38 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt38
-				}
 			}
 			order_by = bag_wtp_ord38
 			max = 1
@@ -32435,17 +30014,8 @@ bag_wtp_plan_pick_38 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr38 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr38 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32464,22 +30034,9 @@ bag_wtp_plan_pick_38 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_38 = yes
 				bag_wtp_ordr38 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr38
-				}
 			}
 			order_by = bag_wtp_ordr38
 			max = 1
@@ -32546,17 +30103,8 @@ bag_wtp_plan_pick_39 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt39 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt39 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32575,22 +30123,9 @@ bag_wtp_plan_pick_39 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_39 = yes
 				bag_wtp_ord39 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt39
-				}
 			}
 			order_by = bag_wtp_ord39
 			max = 1
@@ -32647,17 +30182,8 @@ bag_wtp_plan_pick_39 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr39 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr39 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32676,22 +30202,9 @@ bag_wtp_plan_pick_39 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_39 = yes
 				bag_wtp_ordr39 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr39
-				}
 			}
 			order_by = bag_wtp_ordr39
 			max = 1
@@ -32758,17 +30271,8 @@ bag_wtp_plan_pick_40 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt40 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt40 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32787,22 +30291,9 @@ bag_wtp_plan_pick_40 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_40 = yes
 				bag_wtp_ord40 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt40
-				}
 			}
 			order_by = bag_wtp_ord40
 			max = 1
@@ -32869,17 +30360,8 @@ bag_wtp_plan_pick_41 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt41 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt41 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -32898,22 +30380,9 @@ bag_wtp_plan_pick_41 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_41 = yes
 				bag_wtp_ord41 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt41
-				}
 			}
 			order_by = bag_wtp_ord41
 			max = 1
@@ -32980,17 +30449,8 @@ bag_wtp_plan_pick_42 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt42 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt42 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33009,22 +30469,9 @@ bag_wtp_plan_pick_42 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_42 = yes
 				bag_wtp_ord42 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt42
-				}
 			}
 			order_by = bag_wtp_ord42
 			max = 1
@@ -33081,17 +30528,8 @@ bag_wtp_plan_pick_42 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr42 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr42 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33110,22 +30548,9 @@ bag_wtp_plan_pick_42 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_42 = yes
 				bag_wtp_ordr42 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr42
-				}
 			}
 			order_by = bag_wtp_ordr42
 			max = 1
@@ -33192,17 +30617,8 @@ bag_wtp_plan_pick_43 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt43 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt43 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33221,22 +30637,9 @@ bag_wtp_plan_pick_43 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_43 = yes
 				bag_wtp_ord43 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt43
-				}
 			}
 			order_by = bag_wtp_ord43
 			max = 1
@@ -33293,17 +30696,8 @@ bag_wtp_plan_pick_43 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr43 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr43 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33322,22 +30716,9 @@ bag_wtp_plan_pick_43 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_43 = yes
 				bag_wtp_ordr43 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr43
-				}
 			}
 			order_by = bag_wtp_ordr43
 			max = 1
@@ -33404,17 +30785,8 @@ bag_wtp_plan_pick_44 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt44 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt44 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33433,22 +30805,9 @@ bag_wtp_plan_pick_44 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_44 = yes
 				bag_wtp_ord44 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt44
-				}
 			}
 			order_by = bag_wtp_ord44
 			max = 1
@@ -33515,17 +30874,8 @@ bag_wtp_plan_pick_45 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt45 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt45 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33544,22 +30894,9 @@ bag_wtp_plan_pick_45 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_45 = yes
 				bag_wtp_ord45 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt45
-				}
 			}
 			order_by = bag_wtp_ord45
 			max = 1
@@ -33616,17 +30953,8 @@ bag_wtp_plan_pick_45 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr45 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr45 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33645,22 +30973,9 @@ bag_wtp_plan_pick_45 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_45 = yes
 				bag_wtp_ordr45 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr45
-				}
 			}
 			order_by = bag_wtp_ordr45
 			max = 1
@@ -33727,17 +31042,8 @@ bag_wtp_plan_pick_46 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt46 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt46 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33756,22 +31062,9 @@ bag_wtp_plan_pick_46 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_46 = yes
 				bag_wtp_ord46 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt46
-				}
 			}
 			order_by = bag_wtp_ord46
 			max = 1
@@ -33828,17 +31121,8 @@ bag_wtp_plan_pick_46 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr46 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr46 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33857,22 +31141,9 @@ bag_wtp_plan_pick_46 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_46 = yes
 				bag_wtp_ordr46 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr46
-				}
 			}
 			order_by = bag_wtp_ordr46
 			max = 1
@@ -33939,17 +31210,8 @@ bag_wtp_plan_pick_47 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxt47 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxt47 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -33968,22 +31230,9 @@ bag_wtp_plan_pick_47 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_town_47 = yes
 				bag_wtp_ord47 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownt = global_var:bag_wtp_ngt47
-				}
 			}
 			order_by = bag_wtp_ord47
 			max = 1
@@ -34040,17 +31289,8 @@ bag_wtp_plan_pick_47 = {
 			# нет», а комнаты по ходу плана только убывают.
 			NOT = { has_global_variable = bag_wtp_pxr47 }
 		}
-		# **И только на общем круге, а не на всяком круге полосы 0.**
-		# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
-		# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
-		# одной свободной локацией, не найдёт там ничего, хотя места у него
-		# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
-		# некому, и товар выпал бы из плана до конца -- молча.
 		if = {
-			limit = {
-				global_var:bag_wtp_plan_band = 0
-				global_var:bag_wtp_plan_tier = 0
-			}
+			limit = { global_var:bag_wtp_plan_band = 0 }
 			set_global_variable = { name = bag_wtp_pxr47 value = 1 }
 		}
 		ordered_in_global_list = {
@@ -34069,22 +31309,9 @@ bag_wtp_plan_pick_47 = {
 			# instead now, on every ground and from the first lap, so the second
 			# threshold has nothing left to fix -- and a good whose best pays 300
 			# simply places at band 200 of the same lap.
-			# **Резервация по стеснённости, и она вся тут.** На ступенчатом
-			# круге локация принадлежит самому стеснённому из товаров, которые
-			# вообще могут встать на этой её стороне (`bag_wtp_plan_owners`);
-			# `_own` -- минимум, поэтому равенство означает ровно «я один из
-			# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
-			# открыта всем, и это и есть освобождение: хозяин выбирает первым в
-			# каждом круге, остальные разбирают остаток в том же круге. Флага
-			# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
-			# локации на каждом круге и дал бы то же самое.
 			limit = {
 				bag_wtp_plan_can_rural_47 = yes
 				bag_wtp_ordr47 >= global_var:bag_wtp_plan_band
-				OR = {
-					global_var:bag_wtp_plan_tier = 0
-					var:bag_wtp_ownr = global_var:bag_wtp_ngr47
-				}
 			}
 			order_by = bag_wtp_ordr47
 			max = 1

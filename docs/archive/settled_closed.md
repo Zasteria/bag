@@ -1,4 +1,4 @@
-﻿# Settled: five rows closed and moved out
+﻿# Settled: eight rows closed and moved out
 
 Out of [`SETTLED.md`](../SETTLED.md) when it outgrew its budget again. Every one
 of them is answered, shipped and no longer shapes a decision — the two market
@@ -14,3 +14,6 @@ upgrade-in-place row is why `where_to_produce` never asks about demolition.
 | Does the game already show a market's balance without trade? | **Yes.** `Market.GetBalanceWithoutTrades(goods)` is production minus local demand, trades excluded — vanilla's market panel prints it as a sortable «Local balance» column, and the four halves are readable too. | `panels/market/market_goods.gui:93` |
 | Can a mod get that balance for one country's share of a market? | **No, not as a number.** Every per-country breakdown returns `CString`, a formatted tooltip, and script's `goods_supply_in_market` is a comparison rather than a value. A country-only figure would have to be built from buildings and pops. | `data_types_uncategorized.txt` |
 | Does the age filter work? | Yes. Methods and buildings change to the better ones as ages pass and the ranking follows. Seventeen loads to get it reported. | TESTLOG 2026-08-31 |
+| Is a market a map region the target picker can outline and click? | **Yes**, like an area — but only markets named in `interaction_source_list`. | TESTLOG 2026-08-31, twenty-seventh load |
+| Should the owner's flag stay under an expanded `where_to_produce` row? | Yes — a row is the whole province and its locations can belong to two or three countries, which is the split the ranking deliberately ignores. | TESTLOG 2026-08-30, seventh load |
+| Why did «выгода от места» fall from 80–95% to 64%? | **Different questions, and it is the ground, not the algorithm.** The old number ranked locations for *one* good; the plan places 35, and Westphalia has RGOs for eleven. **A bigger ground raising it is a prediction, not a measurement.** | TESTLOG 2026-09-04 |

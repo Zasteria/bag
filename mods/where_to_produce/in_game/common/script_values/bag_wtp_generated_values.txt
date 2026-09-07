@@ -10968,7 +10968,7 @@ bag_wtp_show_diag_towns = { value = global_var:bag_wtp_diag_towns }
 bag_wtp_show_diag_freet = { value = global_var:bag_wtp_diag_freet }
 bag_wtp_show_diag_freer = { value = global_var:bag_wtp_diag_freer }
 
-# The diagnosis reads through these scratch globals and nothing else. **`value =
+# The diagnosis reads through these sixteen and nothing else. **`value =
 # global_var:x` and no guard inside the value**: the self-guarding form, `value =
 # 0` with an `if` adding the global, returned zero for every reader on a plan
 # that had just placed 417 buildings, and said nothing in any log. The guard is
@@ -10993,8 +10993,6 @@ bag_wtp_dg17 = { value = global_var:bag_wtp_dv17 }
 bag_wtp_dg18 = { value = global_var:bag_wtp_dv18 }
 bag_wtp_dg19 = { value = global_var:bag_wtp_dv19 }
 bag_wtp_dg20 = { value = global_var:bag_wtp_dv20 }
-bag_wtp_dg21 = { value = global_var:bag_wtp_dv21 }
-bag_wtp_dg22 = { value = global_var:bag_wtp_dv22 }
 
 
 # What the plan pass counted, each of them printed on the button that ran it.

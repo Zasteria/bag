@@ -27006,8 +27006,6 @@ bag_wtp_ext_prepare = {
 		variable = bag_wtp_ext_locs
 		set_variable = { name = bag_wtp_load value = 0 }
 		set_variable = { name = bag_wtp_plan_prank value = 9999 }
-		remove_variable = bag_wtp_ownt
-		remove_variable = bag_wtp_ownr
 		remove_variable = bag_wtp_plan_right
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds
