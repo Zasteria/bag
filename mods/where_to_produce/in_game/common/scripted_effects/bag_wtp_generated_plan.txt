@@ -16,6 +16,7 @@ bag_wtp_plan_run = {
 		bag_wtp_plan_place_rights = yes
 	}
 	bag_wtp_plan_set_quota = yes
+	bag_wtp_plan_place_villages = yes
 	bag_wtp_plan_allocate = yes
 	bag_wtp_plan_rank = yes
 	# **A fresh plan is its own baseline.** «Показать изменения» right after one is
@@ -48,6 +49,8 @@ bag_wtp_plan_prepare = {
 		remove_variable = bag_wtp_plan_area_load
 		remove_variable = bag_wtp_plan_pexp
 		remove_variable = bag_wtp_plan_seen
+		remove_variable = bag_wtp_vbest
+		remove_variable = bag_wtp_vg
 		# **Снимок загрузки, который «Расширить» кладёт перед доливкой.** Он
 		# существует ровно затем, чтобы после доливки посчитать, сколько
 		# домиков на старой земле сдвинулось (ответ обязан быть нулём).
@@ -31318,6 +31321,432 @@ bag_wtp_plan_pick_47 = {
 			check_range_bounds = no
 			remove_global_variable = bag_wtp_pxr47
 			bag_wtp_plan_try_rural_47 = yes
+		}
+	}
+}
+
+# Деревня в первый слот каждой сельской локации: первая из цепочки, которую игра
+# здесь пускает и у чьего лучшего товара ещё есть доля.
+# Scope: country
+bag_wtp_plan_place_villages = {
+	set_global_variable = { name = bag_wtp_vn1 value = 0 }
+	set_global_variable = { name = bag_wtp_vn2 value = 0 }
+	set_global_variable = { name = bag_wtp_vn3 value = 0 }
+	set_global_variable = { name = bag_wtp_vn4 value = 0 }
+	set_global_variable = { name = bag_wtp_vn5 value = 0 }
+	set_global_variable = { name = bag_wtp_vn6 value = 0 }
+	set_global_variable = { name = bag_wtp_vn7 value = 0 }
+	set_global_variable = { name = bag_wtp_vn8 value = 0 }
+	set_global_variable = { name = bag_wtp_vn9 value = 0 }
+	set_global_variable = { name = bag_wtp_vn10 value = 0 }
+	set_global_variable = { name = bag_wtp_vn11 value = 0 }
+	set_global_variable = { name = bag_wtp_vn12 value = 0 }
+	set_global_variable = { name = bag_wtp_vn13 value = 0 }
+	set_global_variable = { name = bag_wtp_vn14 value = 0 }
+	set_global_variable = { name = bag_wtp_vn15 value = 0 }
+	set_global_variable = { name = bag_wtp_vn16 value = 0 }
+	set_global_variable = { name = bag_wtp_vn17 value = 0 }
+	set_global_variable = { name = bag_wtp_vn18 value = 0 }
+	set_global_variable = { name = bag_wtp_vn19 value = 0 }
+	set_global_variable = { name = bag_wtp_vn20 value = 0 }
+	set_global_variable = { name = bag_wtp_vn21 value = 0 }
+	set_global_variable = { name = bag_wtp_vn22 value = 0 }
+	set_global_variable = { name = bag_wtp_vn23 value = 0 }
+	set_global_variable = { name = bag_wtp_vn24 value = 0 }
+	set_global_variable = { name = bag_wtp_vn25 value = 0 }
+	set_global_variable = { name = bag_wtp_vn26 value = 0 }
+	set_global_variable = { name = bag_wtp_vn27 value = 0 }
+	set_global_variable = { name = bag_wtp_vn28 value = 0 }
+	set_global_variable = { name = bag_wtp_vn29 value = 0 }
+	set_global_variable = { name = bag_wtp_vn30 value = 0 }
+	set_global_variable = { name = bag_wtp_vn31 value = 0 }
+	set_global_variable = { name = bag_wtp_vn32 value = 0 }
+	set_global_variable = { name = bag_wtp_vn33 value = 0 }
+	set_global_variable = { name = bag_wtp_vn34 value = 0 }
+	set_global_variable = { name = bag_wtp_vn35 value = 0 }
+	set_global_variable = { name = bag_wtp_vn36 value = 0 }
+	set_global_variable = { name = bag_wtp_vn37 value = 0 }
+	set_global_variable = { name = bag_wtp_vn38 value = 0 }
+	set_global_variable = { name = bag_wtp_vn39 value = 0 }
+	set_global_variable = { name = bag_wtp_vn40 value = 0 }
+	set_global_variable = { name = bag_wtp_vn41 value = 0 }
+	set_global_variable = { name = bag_wtp_vn42 value = 0 }
+	set_global_variable = { name = bag_wtp_vn43 value = 0 }
+	set_global_variable = { name = bag_wtp_vn44 value = 0 }
+	set_global_variable = { name = bag_wtp_vn45 value = 0 }
+	set_global_variable = { name = bag_wtp_vn46 value = 0 }
+	set_global_variable = { name = bag_wtp_vn47 value = 0 }
+	set_global_variable = { name = bag_wtp_vt0 value = 0 }
+	set_global_variable = { name = bag_wtp_vt1 value = 0 }
+	set_global_variable = { name = bag_wtp_vt2 value = 0 }
+	set_global_variable = { name = bag_wtp_vt3 value = 0 }
+	set_global_variable = { name = bag_wtp_vt4 value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		limit = {
+			bag_wtp_plan_is_town = no
+			var:bag_wtp_load = 0
+		}
+		# fishing_village: fish, naval_supplies, pottery
+		if = {
+			limit = {
+				var:bag_wtp_load = 0
+				bag_wtp_stands_fishing_village = yes
+			}
+			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
+			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
+			set_variable = { name = bag_wtp_vbest value = -1 }
+			set_variable = { name = bag_wtp_vg value = 0 }
+			if = {
+				limit = {
+					var:bag_wtp_prm6 > 0
+					global_var:bag_wtp_vn6 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr6 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr6 }
+				set_variable = { name = bag_wtp_vg value = 6 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm39 > 0
+					global_var:bag_wtp_vn39 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr39 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr39 }
+				set_variable = { name = bag_wtp_vg value = 39 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm42 > 0
+					global_var:bag_wtp_vn42 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr42 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr42 }
+				set_variable = { name = bag_wtp_vg value = 42 }
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 6 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn6 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr6 add = 1 }
+				change_global_variable = { name = bag_wtp_vn6 add = 1 }
+				change_global_variable = { name = bag_wtp_vt1 add = 1 }
+				change_global_variable = { name = bag_wtp_pout6 add = 50 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr6 }
+				if = {
+					limit = { var:bag_wtp_pr6 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 39 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn39 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr39 add = 1 }
+				change_global_variable = { name = bag_wtp_vn39 add = 1 }
+				change_global_variable = { name = bag_wtp_vt1 add = 1 }
+				change_global_variable = { name = bag_wtp_pout39 add = 50 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr39 }
+				if = {
+					limit = { var:bag_wtp_pr39 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 42 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn42 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr42 add = 1 }
+				change_global_variable = { name = bag_wtp_vn42 add = 1 }
+				change_global_variable = { name = bag_wtp_vt1 add = 1 }
+				change_global_variable = { name = bag_wtp_pout42 add = 20 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr42 }
+				if = {
+					limit = { var:bag_wtp_pr42 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+		}
+		# forest_village: leather, tools, weaponry
+		if = {
+			limit = {
+				var:bag_wtp_load = 0
+				bag_wtp_stands_forest_village = yes
+			}
+			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
+			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
+			set_variable = { name = bag_wtp_vbest value = -1 }
+			set_variable = { name = bag_wtp_vg value = 0 }
+			if = {
+				limit = {
+					var:bag_wtp_prm36 > 0
+					global_var:bag_wtp_vn36 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr36 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr36 }
+				set_variable = { name = bag_wtp_vg value = 36 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm46 > 0
+					global_var:bag_wtp_vn46 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr46 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr46 }
+				set_variable = { name = bag_wtp_vg value = 46 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm47 > 0
+					global_var:bag_wtp_vn47 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr47 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr47 }
+				set_variable = { name = bag_wtp_vg value = 47 }
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 36 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn36 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr36 add = 1 }
+				change_global_variable = { name = bag_wtp_vn36 add = 1 }
+				change_global_variable = { name = bag_wtp_vt2 add = 1 }
+				change_global_variable = { name = bag_wtp_pout36 add = 20 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr36 }
+				if = {
+					limit = { var:bag_wtp_pr36 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 46 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn46 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+				change_global_variable = { name = bag_wtp_vn46 add = 1 }
+				change_global_variable = { name = bag_wtp_vt2 add = 1 }
+				change_global_variable = { name = bag_wtp_pout46 add = 50 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr46 }
+				if = {
+					limit = { var:bag_wtp_pr46 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 47 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn47 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+				change_global_variable = { name = bag_wtp_vn47 add = 1 }
+				change_global_variable = { name = bag_wtp_vt2 add = 1 }
+				change_global_variable = { name = bag_wtp_pout47 add = 20 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr47 }
+				if = {
+					limit = { var:bag_wtp_pr47 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+		}
+		# farming_village: livestock
+		if = {
+			limit = {
+				var:bag_wtp_load = 0
+				bag_wtp_stands_farming_village = yes
+			}
+			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
+			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
+			set_variable = { name = bag_wtp_vbest value = -1 }
+			set_variable = { name = bag_wtp_vg value = 0 }
+			if = {
+				limit = {
+					var:bag_wtp_prm12 > 0
+					global_var:bag_wtp_vn12 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr12 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr12 }
+				set_variable = { name = bag_wtp_vg value = 12 }
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 12 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn12 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr12 add = 1 }
+				change_global_variable = { name = bag_wtp_vn12 add = 1 }
+				change_global_variable = { name = bag_wtp_vt3 add = 1 }
+				change_global_variable = { name = bag_wtp_pout12 add = 50 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr12 }
+				if = {
+					limit = { var:bag_wtp_pr12 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+		}
+		# market_village: beer, jewelry, pottery, tools, weaponry
+		if = {
+			limit = {
+				var:bag_wtp_load = 0
+				bag_wtp_stands_market_village = yes
+			}
+			# **−1, а не ноль.** Локация, где деревня не платит ничего, всё равно
+			# её получает: `_pr<n> > _vbest` при нуле и нуле не сработал бы.
+			set_variable = { name = bag_wtp_vbest value = -1 }
+			set_variable = { name = bag_wtp_vg value = 0 }
+			if = {
+				limit = {
+					var:bag_wtp_prm26 > 0
+					global_var:bag_wtp_vn26 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr26 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr26 }
+				set_variable = { name = bag_wtp_vg value = 26 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm34 > 0
+					global_var:bag_wtp_vn34 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr34 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr34 }
+				set_variable = { name = bag_wtp_vg value = 34 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm42 > 0
+					global_var:bag_wtp_vn42 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr42 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr42 }
+				set_variable = { name = bag_wtp_vg value = 42 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm46 > 0
+					global_var:bag_wtp_vn46 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr46 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr46 }
+				set_variable = { name = bag_wtp_vg value = 46 }
+			}
+			if = {
+				limit = {
+					var:bag_wtp_prm47 > 0
+					global_var:bag_wtp_vn47 < global_var:bag_wtp_plan_quota
+					var:bag_wtp_pr47 > var:bag_wtp_vbest
+				}
+				set_variable = { name = bag_wtp_vbest value = var:bag_wtp_pr47 }
+				set_variable = { name = bag_wtp_vg value = 47 }
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 26 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn26 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr26 add = 1 }
+				change_global_variable = { name = bag_wtp_vn26 add = 1 }
+				change_global_variable = { name = bag_wtp_vt4 add = 1 }
+				change_global_variable = { name = bag_wtp_pout26 add = 50 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr26 }
+				if = {
+					limit = { var:bag_wtp_pr26 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 34 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn34 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr34 add = 1 }
+				change_global_variable = { name = bag_wtp_vn34 add = 1 }
+				change_global_variable = { name = bag_wtp_vt4 add = 1 }
+				change_global_variable = { name = bag_wtp_pout34 add = 10 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr34 }
+				if = {
+					limit = { var:bag_wtp_pr34 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 42 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn42 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr42 add = 1 }
+				change_global_variable = { name = bag_wtp_vn42 add = 1 }
+				change_global_variable = { name = bag_wtp_vt4 add = 1 }
+				change_global_variable = { name = bag_wtp_pout42 add = 20 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr42 }
+				if = {
+					limit = { var:bag_wtp_pr42 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 46 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn46 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr46 add = 1 }
+				change_global_variable = { name = bag_wtp_vn46 add = 1 }
+				change_global_variable = { name = bag_wtp_vt4 add = 1 }
+				change_global_variable = { name = bag_wtp_pout46 add = 50 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr46 }
+				if = {
+					limit = { var:bag_wtp_pr46 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+			if = {
+				limit = { var:bag_wtp_vg = 47 }
+				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
+				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
+				change_variable = { name = bag_wtp_load add = 1 }
+				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
+				change_global_variable = { name = bag_wtp_pn47 add = 1 }
+				change_global_variable = { name = bag_wtp_pnr47 add = 1 }
+				change_global_variable = { name = bag_wtp_vn47 add = 1 }
+				change_global_variable = { name = bag_wtp_vt4 add = 1 }
+				change_global_variable = { name = bag_wtp_pout47 add = 20 }
+				change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr47 }
+				if = {
+					limit = { var:bag_wtp_pr47 > 0 }
+					change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+				}
+			}
+		}
+		# Сельская локация, оставшаяся без деревни: цепочка не сработала ни разу.
+		if = {
+			limit = { var:bag_wtp_load = 0 }
+			change_global_variable = { name = bag_wtp_vt0 add = 1 }
 		}
 	}
 }

@@ -27,13 +27,6 @@ rank and outlives a save.**
 
 ## Where it stands
 
-**Never gate the plan on `generate.fed_floor`**; **the bonus counts RGOs only**;
-**one method per slot**
-([`production_ladder.md`](../../docs/investigations/production_ladder.md)).
-**A right's gate is its own `potential`, never `has_advance`**
-([`town_rights.md`](../../docs/investigations/town_rights.md)). **An entry is a
-building and a location holds one of each**
-([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
 **Равномерность держит уровень, а не квота**: круг поднимает `_plan_lvl` на
 единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
@@ -46,15 +39,20 @@ building and a location holds one of each**
 [`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство
 редактора — [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**План ровен, измерено 2026-09-07 — раздачу не переделывать.** Товар
+**План ровен, измерено 2026-09-07 — общую раздачу не переделывать**: товар
 останавливает **своя квота**, и мера равномерности — `n + rgo` против неё, а не
-занятые комнаты. **А деревня — одно здание на несколько товаров** (рыбацкая: 42
-прибрежных места на `fish`, `naval_supplies` и `pottery`), и локация держит по
-одному каждого вида — отсюда весь ответ про рыбу. Разбор печатает
-`tools/diag.py`; подробности —
-[`plan_gaps.md`](../../docs/investigations/plan_gaps.md), снятая резервация —
-[`archive/plan_reservation.md`](../../docs/archive/plan_reservation.md).
-**Дальше**: перетасовка внутри провинции, потом шаги 7–8.
+занятые комнаты; разбор печатает `tools/diag.py`. Снятая по этой мерке
+резервация — [`archive/plan_reservation.md`](../../docs/archive/plan_reservation.md).
+
+**Деревня — одно здание на несколько товаров**, и локация держит по одному
+каждого вида: отсюда весь ответ про рыбу
+([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)). **Первый слот сельской
+локации теперь деревня** — цепочка рыбацкая → лесная → фермерская → торговая, до
+лестницы и зеркалом прохода грамот; три из четырёх вышли из равного круга,
+торговая осталась. **Построено 2026-09-07, в игре не было**
+([`plan_villages.md`](../../docs/investigations/plan_villages.md)).
+
+**Дальше**: прогон деревень, потом перетасовка внутри провинции и шаги 7–8.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is

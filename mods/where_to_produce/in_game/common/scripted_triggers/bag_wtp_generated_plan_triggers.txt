@@ -1448,26 +1448,9 @@ bag_wtp_plan_can_rural_5 = {
 	}
 }
 
-# fish, village side: 1 building(s) could win it.
+# fish: no building that makes it may stand in a rural settlement.
 # Scope: location
-bag_wtp_plan_can_rural_6 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm6 > 0
-	bag_wtp_plan_is_town = no
-	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
-	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
-	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm6 = 108
-				var:bag_wtp_prm6 = 109
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-		}
-	}
-}
+bag_wtp_plan_can_rural_6 = { always = no }
 
 # fruit, village side: 1 building(s) could win it.
 # Scope: location
@@ -1559,25 +1542,9 @@ bag_wtp_plan_can_rural_11 = {
 	}
 }
 
-# livestock, village side: 1 building(s) could win it.
+# livestock: no building that makes it may stand in a rural settlement.
 # Scope: location
-bag_wtp_plan_can_rural_12 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm12 > 0
-	bag_wtp_plan_is_town = no
-	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
-	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
-	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm12 = 171
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
-		}
-	}
-}
+bag_wtp_plan_can_rural_12 = { always = no }
 
 # lumber, village side: 1 building(s) could win it.
 # Scope: location
@@ -1888,25 +1855,9 @@ bag_wtp_plan_can_rural_34 = {
 # Scope: location
 bag_wtp_plan_can_rural_35 = { always = no }
 
-# leather, village side: 1 building(s) could win it.
+# leather: no building that makes it may stand in a rural settlement.
 # Scope: location
-bag_wtp_plan_can_rural_36 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm36 > 0
-	bag_wtp_plan_is_town = no
-	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
-	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
-	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm36 = 142
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-		}
-	}
-}
+bag_wtp_plan_can_rural_36 = { always = no }
 
 # liquor: no building that makes it may stand in a rural settlement.
 # Scope: location
@@ -1939,25 +1890,9 @@ bag_wtp_plan_can_rural_38 = {
 	}
 }
 
-# naval_supplies, village side: 1 building(s) could win it.
+# naval_supplies: no building that makes it may stand in a rural settlement.
 # Scope: location
-bag_wtp_plan_can_rural_39 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm39 > 0
-	bag_wtp_plan_is_town = no
-	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
-	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
-	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm39 = 178
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-		}
-	}
-}
+bag_wtp_plan_can_rural_39 = { always = no }
 
 # paper: no building that makes it may stand in a rural settlement.
 # Scope: location
@@ -1967,7 +1902,7 @@ bag_wtp_plan_can_rural_40 = { always = no }
 # Scope: location
 bag_wtp_plan_can_rural_41 = { always = no }
 
-# pottery, village side: 2 building(s) could win it.
+# pottery, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_42 = {
 	# **A method won here, not "the ground pays for it".** A good the RGOs feed
@@ -1978,12 +1913,6 @@ bag_wtp_plan_can_rural_42 = {
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
 	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm42 = 193
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm42 = 194
@@ -2037,7 +1966,7 @@ bag_wtp_plan_can_rural_45 = {
 	}
 }
 
-# tools, village side: 3 building(s) could win it.
+# tools, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_46 = {
 	# **A method won here, not "the ground pays for it".** A good the RGOs feed
@@ -2048,12 +1977,6 @@ bag_wtp_plan_can_rural_46 = {
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
 	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm46 = 215
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm46 = 218
@@ -2069,7 +1992,7 @@ bag_wtp_plan_can_rural_46 = {
 	}
 }
 
-# weaponry, village side: 3 building(s) could win it.
+# weaponry, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_47 = {
 	# **A method won here, not "the ground pays for it".** A good the RGOs feed
@@ -2080,12 +2003,6 @@ bag_wtp_plan_can_rural_47 = {
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
 	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm47 = 225
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm47 = 226

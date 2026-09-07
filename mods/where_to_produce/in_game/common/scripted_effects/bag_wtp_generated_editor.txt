@@ -28207,6 +28207,7 @@ bag_wtp_edit_extend = {
 			bag_wtp_edit_set_quota = yes
 			bag_wtp_ext_quotas = yes
 			bag_wtp_ext_only = yes
+			bag_wtp_plan_place_villages = yes
 			bag_wtp_plan_allocate = yes
 			bag_wtp_collect_candidates = yes
 			remove_global_variable = bag_wtp_ext
