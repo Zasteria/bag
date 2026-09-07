@@ -227,7 +227,7 @@ DIAG_LAPS = 40
 # shipping on 2026-09-06, and `read(18)` against seventeen slots came within one
 # build again the same day, when the good's line gained `out=`. **Raise this
 # whenever a line gains a number, in the same edit.**
-DIAG_SCRATCH = 20
+DIAG_SCRATCH = 22
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
@@ -8661,7 +8661,18 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              # городских и «15 текстиля» из пятнадцати городских
                              # — разные планы, а одно число `n` их не различало.
                              (19, f"{MOD_ID}_pnt{index}"),
-                             (20, f"{MOD_ID}_pnr{index}")):
+                             (20, f"{MOD_ID}_pnr{index}"),
+                             # **РГО по сторонам, потому что вычитаются они по
+                             # сторонам.** Городской потолок вычитает `_nrgot`,
+                             # сельский `_nrgor`, и деление идёт по тому, **где
+                             # РГО стоит**, а не по тому, **где товар умеет
+                             # строить**. У односторонней краски РГО на сельской
+                             # локации срезает сельский потолок, которым она
+                             # никогда не пользуется, и скидка пропадает: без
+                             # этих двух чисел такое не отличить от формулы,
+                             # которая просто не работает.
+                             (21, f"{MOD_ID}_nrgot{index}"),
+                             (22, f"{MOD_ID}_nrgor{index}")):
             out.append(park(slot, source))
         # Availability is the country's advance and not the location's ground:
         # `can_build_building` asked here answers the advance, asked in a
@@ -8681,7 +8692,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"r={read(16)} g={read(6)} p={read(7)} o={read(8)} "
                        f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)} "
                        f"eq={read(17)} out={read(18)} "
-                       f"nt={read(19)} nr={read(20)}"))
+                       f"nt={read(19)} nr={read(20)} "
+                       f"rgot={read(21)} rgor={read(22)}"))
         out.append("}\n")
 
     # ----------------------------------------------------------------- the laps
