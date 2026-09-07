@@ -39,23 +39,21 @@ building and a location holds one of each**
 единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
 «где», а не «сколько»**; покрытие — это круг 1, открытая лестница — сухой круг
 ([`plan_as_reservation.md`](../../docs/investigations/plan_as_reservation.md)).
-**Второй режим — «Специализация»**: провинция отдаёт лучшую грамоту всем
-городам, ячейка — тому, кто платит больше всех
-([`plan_specialisation.md`](../../docs/investigations/plan_specialisation.md)).
 **Локация держит по одной деревне каждого вида** — четыре `is_village = yes`
 рядом законны, а две одинаковых нет, и это тот же запрет на повтор здания, что
 был всегда ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
-**Сводка по товарам** — иконка в окне плана: строка на товар и причина
-остановки. **Весов город/село нет и не будет**, и **выхлоп сторону не различает**
+**Весов город/село нет и не будет**, и **выхлоп сторону не различает**
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
+**Правила редактора, доливки и рядов, «Специализация» и сводка по товарам —
+все выписаны**:
+[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство
+редактора — [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**Правила редактора, доливки и рядов — выписаны**:
-[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство —
-[`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
-
-**Дальше, порядок его**: резервация по стеснённости
-([`plan_reservation.md`](../../docs/investigations/plan_reservation.md) —
-правило, три места в коде, предсказание), перетасовка внутри провинции, шаги 7–8.
+**Резервация по стеснённости построена 2026-09-07, в игре не была**: локация
+принадлежит самому стеснённому товару своей стороны и на ступенчатых кругах
+предлагается только ему, `owt`/`owr` в «Диагностике» — скольким она хозяин
+([`plan_reservation.md`](../../docs/investigations/plan_reservation.md)).
+**Дальше, порядок его**: её прогон, перетасовка внутри провинции, шаги 7–8.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is

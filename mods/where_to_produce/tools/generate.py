@@ -227,7 +227,7 @@ DIAG_LAPS = 40
 # shipping on 2026-09-06, and `read(18)` against seventeen slots came within one
 # build again the same day, when the good's line gained `out=`. **Raise this
 # whenever a line gains a number, in the same edit.**
-DIAG_SCRATCH = 20
+DIAG_SCRATCH = 22
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
@@ -1491,7 +1491,7 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_diag_freet = {{ value = global_var:{MOD_ID}_diag_freet }}
 {MOD_ID}_show_diag_freer = {{ value = global_var:{MOD_ID}_diag_freer }}
 
-# The diagnosis reads through these sixteen and nothing else. **`value =
+# The diagnosis reads through these scratch globals and nothing else. **`value =
 # global_var:x` and no guard inside the value**: the self-guarding form, `value =
 # 0` with an `if` adding the global, returned zero for every reader on a plan
 # that had just placed 417 buildings, and said nothing in any log. The guard is
@@ -2509,6 +2509,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_variable = {MOD_ID}_plan_area_load
 \t\tremove_variable = {MOD_ID}_plan_pexp
 \t\tremove_variable = {MOD_ID}_plan_seen
+\t\t# **Хозяин снимается вместе с планом.** `{MOD_ID}_plan_owners` ставит его
+\t\t# заново на каждом кандидате, так что это про локацию, которая выпала из
+\t\t# земли: оставленное число ничего не сломает -- её никто не обойдёт, -- но
+\t\t# и держать его незачем.
+\t\tremove_variable = {MOD_ID}_ownt
+\t\tremove_variable = {MOD_ID}_ownr
 \t\t# **Снимок загрузки, который «Расширить» кладёт перед доливкой.** Он
 \t\t# существует ровно затем, чтобы после доливки посчитать, сколько
 \t\t# домиков на старой земле сдвинулось (ответ обязан быть нулём).
@@ -2679,7 +2685,96 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for index, good in enumerate(order, start=1):
         out.append(f"\t{MOD_ID}_score_{index} = yes\n"
                    f"\t{MOD_ID}_plan_harvest_{index} = yes\n")
+    # **Хозяева считаются здесь и нигде больше, потому что здесь `_ng` уже
+    # окончательны.** Доливка зовёт `_plan_score` вторым проходом, и к его концу
+    # `_ngt`/`_ngr` уже про всю землю, старую и новую разом, -- значит хозяева
+    # новой земли считаются по тем же числам, что и раздача, которая пойдёт по
+    # ней. Отдельный вызов из `_plan_run` и из «Расширить» был бы двумя местами,
+    # которые можно рассинхронизировать молча.
+    out.append(f"\t{MOD_ID}_plan_owners = yes\n")
     out.append("}\n")
+
+    # ---- у локации есть хозяин ---------------------------------------------
+    out.append(f"""
+# Хозяин локации: самый стеснённый из товаров, которые вообще могут встать на
+# этой её стороне. На ступенчатых кругах локация предлагается только ему и тем,
+# кто с ним вровень; на общих кругах она открыта всем.
+#
+# **Что это чинит.** Товар, у которого мест мало, но не настолько мало, чтобы
+# ступень пропускала его первым, терял их тем, у кого альтернатив сотни: на
+# северной Германии `stone` умеет 53 села и взял 34, `salt` -- 42 и взял 31.
+# Ступень их не защищала (53 и 42 против 133 в самой широкой ступени -- они
+# проходят её вместе с товарами, которым годится вся земля), а полоса выгоды
+# защищать и не должна: она решает «где», а не «сколько».
+#
+# **Считается по `_pm<n>`/`_prm<n>`, а не по `_plan_can_*`.** Хозяин -- свойство
+# земли, а не того, что на ней уже стоит: `_plan_can_*` спрашивает ещё и
+# свободную комнату, и хозяин менялся бы по ходу раздачи, то есть локация
+# переходила бы из рук в руки между кругами.
+#
+# **Только своя сторона у каждой локации.** `_plan_can_town_<n>` требует
+# `_plan_is_town = yes`, а `_plan_can_rural_<n>` -- `no`, так что городскую
+# локацию никто никогда не спросит про `_ownr`. Считать обе стороны везде было
+# бы вдвое дороже и ровно так же верно.
+#
+# **`_owt<n>`/`_owr<n>` -- сколько локаций товар держит.** Это то единственное
+# число, по которому прогон отличит «правило не сработало» от «сработало и
+# ничего не изменило»: без него оба случая выглядят как несдвинувшаяся сводка.
+# Печатается на строке товара в «Диагностике» как `owt=`/`owr=`.
+# Scope: country
+{MOD_ID}_plan_owners = {{
+""")
+    # **Обнуляются все, включая товары, которым эта сторона не годится вовсе.**
+    # Счётчик, который никто не ставит, «Диагностика» всё равно читает, и
+    # `tools/check_script.py` считает это ошибкой -- справедливо: переменная,
+    # которой нет, читается молчаливым нулём и в `limit` тоже.
+    for index in range(1, len(order) + 1):
+        for sfx in ("t", "r"):
+            out.append(f"\tset_global_variable = {{ name = {MOD_ID}_ow{sfx}{index} "
+                       f"value = 0 }}\n")
+    sides = {}
+    for sfx, method_var, ng in (("t", "pm", "ngt"), ("r", "prm", "ngr")):
+        makes = [i for i, good in enumerate(order, start=1) if groups.get((good, sfx))]
+        # Первый проход -- минимум. **`var:` слева, `global_var:` справа**: эта
+        # форма в моде доказана (`var:_rtry >= global_var:_rband`), обратная --
+        # нет, а сравнение, которое молча читается ложью, здесь отдало бы землю
+        # не тому.
+        sides[sfx] = ("".join(
+            f"\t\t\tif = {{\n"
+            f"\t\t\t\tlimit = {{\n"
+            f"\t\t\t\t\tvar:{MOD_ID}_{method_var}{i} > 0\n"
+            f"\t\t\t\t\tvar:{MOD_ID}_own{sfx} > global_var:{MOD_ID}_{ng}{i}\n"
+            f"\t\t\t\t}}\n"
+            f"\t\t\t\tset_variable = {{ name = {MOD_ID}_own{sfx} "
+            f"value = global_var:{MOD_ID}_{ng}{i} }}\n"
+            f"\t\t\t}}\n" for i in makes),
+            # Второй проход -- счёт, и он только для отчёта. Равенство с
+            # минимумом и есть «я один из самых стеснённых здесь».
+            "".join(
+            f"\t\t\tif = {{\n"
+            f"\t\t\t\tlimit = {{\n"
+            f"\t\t\t\t\tvar:{MOD_ID}_{method_var}{i} > 0\n"
+            f"\t\t\t\t\tvar:{MOD_ID}_own{sfx} = global_var:{MOD_ID}_{ng}{i}\n"
+            f"\t\t\t\t}}\n"
+            f"\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_ow{sfx}{i} add = 1 }}\n"
+            f"\t\t\t}}\n" for i in makes))
+    out.append(f"""\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\t# **99999, а не «нет переменной».** `limit`, читающий переменную,
+\t\t\t# которой нет, проваливается молча, а ворота ниже читают её на каждой
+\t\t\t# локации каждого круга. Локация, где не может встать никто, так и
+\t\t\t# остаётся с 99999: равенства не будет ни у кого, но и предлагать её
+\t\t\t# некому.
+\t\t\tset_variable = {{ name = {MOD_ID}_ownt value = 99999 }}
+{sides['t'][0]}{sides['t'][1]}\t\t}}
+\t\telse = {{
+\t\t\tset_variable = {{ name = {MOD_ID}_ownr value = 99999 }}
+{sides['r'][0]}{sides['r'][1]}\t\t}}
+\t}}
+}}
+""")
 
     for index, good in enumerate(order, start=1):
         # **One RGO already standing counts as one building of that good**, the
@@ -3529,8 +3624,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# нет», а комнаты по ходу плана только убывают.
 \t\t\tNOT = {{ has_global_variable = {MOD_ID}_px{sfx}{index} }}
 \t\t}}
+\t\t# **И только на общем круге, а не на всяком круге полосы 0.**
+\t\t# «Не нашёл» значит «мест нет» лишь там, где обход ничего не отсекает,
+\t\t# -- а с резервацией ступенчатый круг отсекает: товар, не владеющий ни
+\t\t# одной свободной локацией, не найдёт там ничего, хотя места у него
+\t\t# есть. Флаг, поставленный на круге `band0/tier1`, снять было бы уже
+\t\t# некому, и товар выпал бы из плана до конца -- молча.
 \t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_plan_band = 0 }}
+\t\t\tlimit = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_band = 0
+\t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
+\t\t\t}}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_px{sfx}{index} value = 1 }}
 \t\t}}
 \t\tordered_in_global_list = {{
@@ -3549,9 +3653,22 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# instead now, on every ground and from the first lap, so the second
 \t\t\t# threshold has nothing left to fix -- and a good whose best pays 300
 \t\t\t# simply places at band 200 of the same lap.
+\t\t\t# **Резервация по стеснённости, и она вся тут.** На ступенчатом
+\t\t\t# круге локация принадлежит самому стеснённому из товаров, которые
+\t\t\t# вообще могут встать на этой её стороне (`{MOD_ID}_plan_owners`);
+\t\t\t# `_own` -- минимум, поэтому равенство означает ровно «я один из
+\t\t\t# самых стеснённых здесь». На общем круге (`_plan_tier = 0`) земля
+\t\t\t# открыта всем, и это и есть освобождение: хозяин выбирает первым в
+\t\t\t# каждом круге, остальные разбирают остаток в том же круге. Флага
+\t\t\t# «хозяин закончил» не заводится -- он стоил бы вопроса к каждой
+\t\t\t# локации на каждом круге и дал бы то же самое.
 \t\t\tlimit = {{
 \t\t\t\t{MOD_ID}_plan_can_{side}_{index} = yes
 \t\t\t\t{order_value} >= global_var:{MOD_ID}_plan_band
+\t\t\t\tOR = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
+\t\t\t\t\tvar:{MOD_ID}_own{sfx} = global_var:{MOD_ID}_ng{sfx}{index}
+\t\t\t\t}}
 \t\t\t}}
 \t\t\torder_by = {order_value}
 \t\t\tmax = 1
@@ -6729,6 +6846,8 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_ext_locs
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
+\t\tremove_variable = {MOD_ID}_ownt
+\t\tremove_variable = {MOD_ID}_ownr
 \t\tremove_variable = {MOD_ID}_plan_right
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
@@ -8001,8 +8120,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 #
 # Generated. What it prints and why each block is here:
 # `docs/pitfalls/diagnosis.md`. **No `[THIS...]` anywhere below**: a `debug_log`
-# string cannot reach the item a walk stands on. Numbers come from the sixteen
-# `_dv` scratch globals through the `_dg` readers; names are baked in here.
+# string cannot reach the item a walk stands on. Numbers come from the `_dv`
+# scratch globals through the `_dg` readers; names are baked in here.
 #
 # Scope: country
 {MOD_ID}_diag = {{
@@ -8518,7 +8637,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              # городских и «15 текстиля» из пятнадцати городских
                              # — разные планы, а одно число `n` их не различало.
                              (19, f"{MOD_ID}_pnt{index}"),
-                             (20, f"{MOD_ID}_pnr{index}")):
+                             (20, f"{MOD_ID}_pnr{index}"),
+                             # **Сколько локаций товар держит как самый
+                             # стеснённый.** Резервация видна только здесь:
+                             # сводка покажет, что товар не сдвинулся, а
+                             # `owt`/`owr` скажут, почему -- потому что правило
+                             # его не защитило (0) или потому что защитило и
+                             # связало его что-то другое.
+                             (21, f"{MOD_ID}_owt{index}"),
+                             (22, f"{MOD_ID}_owr{index}")):
             out.append(park(slot, source))
         # Availability is the country's advance and not the location's ground:
         # `can_build_building` asked here answers the advance, asked in a
@@ -8538,7 +8665,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"r={read(16)} g={read(6)} p={read(7)} o={read(8)} "
                        f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)} "
                        f"eq={read(17)} out={read(18)} "
-                       f"nt={read(19)} nr={read(20)}"))
+                       f"nt={read(19)} nr={read(20)} "
+                       f"owt={read(21)} owr={read(22)}"))
         out.append("}\n")
 
     # ----------------------------------------------------------------- the laps

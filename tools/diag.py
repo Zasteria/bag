@@ -549,6 +549,31 @@ def digest(lines: list[str]) -> list[str]:
         out.append("  больше всех: " + ", ".join("%s %d" % kv for kv in order[:6]))
         out.append("  меньше всех: " + ", ".join("%s %d" % kv for kv in order[-6:]))
 
+    # **Держит ли резервация хоть что-нибудь.** `owt`/`owr` -- сколько локаций
+    # товар держит как самый стеснённый из тех, кто вообще может встать на этой
+    # их стороне; на ступенчатых кругах локация предлагается только хозяину.
+    # Без этой строки «сводка не сдвинулась» неотличимо от «правило не
+    # сработало ни разу», а это два разных вывода: первый снимает правило,
+    # второй ищет, что связало товар вместо него.
+    if any("owt=" in line for line in lines if line.startswith("WTP G")):
+        owned = {}
+        for line in lines:
+            if line.startswith("WTP G") and " | ng=" in line:
+                held = (field(line, "owt") or 0) + (field(line, "owr") or 0)
+                if held:
+                    owned[line.split()[2]] = held
+        if owned:
+            top = sorted(owned.items(), key=lambda kv: -kv[1])
+            out.append("Резервация: %s держат локации как самые стеснённые, "
+                       "всего %s; больше всех "
+                       % (plural(len(owned), "товар", "товара", "товаров"),
+                          plural(sum(owned.values()), "локация", "локации",
+                                 "локаций"))
+                       + ", ".join("%s %d" % kv for kv in top[:6]))
+        else:
+            out.append("Резервация: ни один товар не держит ни одной локации — "
+                       "на этой земле правило не решает ничего")
+
     rights = [(line.split()[3], field(line, "given")) for line in lines
               if line.startswith("WTP RIGHT")]
     taken = [(k, v) for k, v in rights if v]
