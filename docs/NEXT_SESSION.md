@@ -43,11 +43,9 @@ dyes has six admissible locations and got **one**, while cloth with forty-eight
 got **fifteen**, because the tier ladder admits a good only when its gain clears
 a band and dyes gains nothing. Scarcity and zero gain compound.
 
-Evenness becomes structural — no quota, share, sides, classes, weights or tiers —
-and the rule never mentions town or village: it counts each good's admissible
-locations, so urbanisation inverts it by itself and his town/village ticks are
-load-bearing for it. Cheaper to run than what is there now. The price is total
-captured gain, measurable in one line.
+Evenness becomes structural — no quota, share, sides, classes, weights or tiers.
+The rule never mentions town or village, so urbanisation inverts it by itself and
+his ticks are load-bearing for it.
 [`investigations/plan_as_reservation.md`](investigations/plan_as_reservation.md).
 
 **Measured on his ground, and it reorders the work:** the level it supports is
