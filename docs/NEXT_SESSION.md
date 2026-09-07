@@ -35,13 +35,19 @@ goods got exactly one, each having six admissible locations. That is structural:
 a good worth 0 adds 0 to a sum, so the optimum never gives it more than the
 guaranteed one.
 
-**Proposed instead — a draft.** Round by round every good takes one location, its
-own best remaining; order within a round is fewest admissible locations first.
-Evenness becomes structural — no quota, no share, no sides, no classes, no
-weights, no tiers — the RGO-less goods get their turn, scarce goods are protected
-by pick order, and it is *cheaper* to run than what is there now. The price is
-total captured gain, and it is measurable. One open question is his: who wins a
-town room inside a round.
+**Proposed instead — a draft, and ownership.** Round by round every good takes one
+location, its own best remaining; and **each location belongs to the most
+constrained good that can use it** until that good is done. Ordering alone is not
+enough — he caught that, and the same hole is already open in what is built:
+dyes has six admissible locations and got **one**, while cloth with forty-eight
+got **fifteen**, because the tier ladder admits a good only when its gain clears
+a band and dyes gains nothing. Scarcity and zero gain compound.
+
+Evenness becomes structural — no quota, share, sides, classes, weights or tiers —
+and the rule never mentions town or village: it counts each good's admissible
+locations, so urbanisation inverts it by itself and his town/village ticks are
+load-bearing for it. Cheaper to run than what is there now. The price is total
+captured gain, measurable in one line.
 [`investigations/plan_as_reservation.md`](investigations/plan_as_reservation.md).
 
 **Nothing built. He asked for theory and said so twice.**
