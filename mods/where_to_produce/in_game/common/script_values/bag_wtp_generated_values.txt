@@ -11052,7 +11052,8 @@ bag_wtp_show_plan_to = { value = global_var:bag_wtp_plan_to }
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
 bag_wtp_show_plan_quota = { value = global_var:bag_wtp_plan_quota }
-bag_wtp_show_plan_quotar = { value = global_var:bag_wtp_plan_quotar }
+bag_wtp_show_qcapt = { value = global_var:bag_wtp_qcapt }
+bag_wtp_show_qcapr = { value = global_var:bag_wtp_qcapr }
 bag_wtp_show_plan_sweeps = { value = global_var:bag_wtp_plan_sweeps }
 bag_wtp_show_plan_towns = { value = global_var:bag_wtp_plan_towns }
 bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }

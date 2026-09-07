@@ -198,10 +198,12 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv4 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_qgr } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_qgr } }
 	set_global_variable = { name = bag_wtp_dv5 value = 0 }
-	if = { limit = { has_global_variable = bag_wtp_plan_quota } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_quota } }
+	if = { limit = { has_global_variable = bag_wtp_qcapt } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_qcapt } }
 	set_global_variable = { name = bag_wtp_dv6 value = 0 }
-	if = { limit = { has_global_variable = bag_wtp_plan_quotar } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_plan_quotar } }
-	debug_log = "WTP SHARE town: rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] goods=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] -> quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | village: rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] goods=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] -> quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] -- two sides, two divisions; a good that does both holds both quotas and spends them apart"
+	if = { limit = { has_global_variable = bag_wtp_qcapr } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_qcapr } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_quota } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_plan_quota } }
+	debug_log = "WTP SHARE quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] is what a good is owed in all | town: rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] goods=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] -> cap=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | village: rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] goods=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] -> cap=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] -- a cap adds no buildings, it stops one good draining the scarce side"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_ext_ran } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_ext_ran } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }

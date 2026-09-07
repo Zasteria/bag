@@ -39,23 +39,35 @@ large ground since the ladders were rebuilt — northern Germany's 233 locations
 Westphalia's 48 does not test it, and the extension re-scores and re-ranks, so it
 carries the same open question.
 
-### The share is two sides now — one division each, and no weights
+### The share: one quota per good, two side caps — settled 2026-09-07
 
-**2026-09-07, and it replaced the three-class share, which was a crutch.** A good
-has two counters and two quotas (`_pnt`/`_pnr`, `_pqt`/`_pqr`) and spends them
-apart: town rooms divided among goods that can stand in a town, village rooms
-among goods that can stand in a village. Classes stopped meaning anything.
+**Three versions in one day, and the third is his.** A good may build while it is
+under its **total quota** (all rooms ÷ all goods — the evenness) *and* under the
+**cap of the side it is building on** (that side's rooms ÷ the goods that can use
+that side — which stops one good draining the scarce side). Caps add no
+buildings.
 
-**He proposed weights instead** — a village building worth `its output ÷ the town
-output of the same good` — and the idea is sound but breaks on his own numbers:
-glass, leather and weaponry weigh 0.05, so reaching a share of 5 needs **80
-village buildings** where the ground has 42 villages. A quota that cannot be
-reached never stops the good, so those five would take the whole village ground
-and the goods with a *good* village version would get nothing. Worked out in full
-in [`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
+**Two versions were rejected on numbers, both his own tests:**
 
-**Nothing about it has been run.** `WTP SHARE` prints the two divisions;
-`nt=`/`nr=` per good print what each side actually got.
+- **two independent side quotas** — a both-sided good held two and ended twice as
+  fat as a one-sided one. His catch;
+- **weighting a village building by the output ratio** — glass weighs 0.05, so a
+  share of 5 needs 80 village buildings where the ground has 42 villages; a quota
+  that cannot be reached never stops the good, and five such goods would take the
+  whole village ground.
+
+**And output cannot classify a building as town or village**: 59 town methods
+give under 1.0 (the cannon maker 0.187), 13 village methods give 1.0 or more.
+
+**What no formula fixes, and he should know it:** on a town-poor ground a
+town-only good cannot catch a village-capable one. 24 town rooms among 24 goods
+is one each. That is the ground; the levers are the town/village ticks and which
+ground he picks.
+
+Derivations and numbers:
+[`investigations/plan_share_sides.md`](investigations/plan_share_sides.md).
+**Never run.** `WTP SHARE` prints the quota and both caps; `nt=`/`nr=` per good
+print what each side got.
 
 ### Closed 2026-09-06: the scarce tiers are a share of the ground
 

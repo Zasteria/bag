@@ -1594,7 +1594,8 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
 {MOD_ID}_show_plan_quota = {{ value = global_var:{MOD_ID}_plan_quota }}
-{MOD_ID}_show_plan_quotar = {{ value = global_var:{MOD_ID}_plan_quotar }}
+{MOD_ID}_show_qcapt = {{ value = global_var:{MOD_ID}_qcapt }}
+{MOD_ID}_show_qcapr = {{ value = global_var:{MOD_ID}_qcapr }}
 {MOD_ID}_show_plan_sweeps = {{ value = global_var:{MOD_ID}_plan_sweeps }}
 {MOD_ID}_show_plan_towns = {{ value = global_var:{MOD_ID}_plan_towns }}
 {MOD_ID}_show_plan_provn = {{ value = global_var:{MOD_ID}_plan_provn }}
@@ -3265,16 +3266,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"""change_global_variable = {{ name = {MOD_ID}_qgr add = 1 }} }}\n"""
         for index in range(1, len(order) + 1))
     quota_lines = "".join(
-        f"""\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_plan_quota }}
+        f"""\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
 \tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgot{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 1 }}
-\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_plan_quotar }}
+\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
 \tchange_global_variable = {{ name = {MOD_ID}_pqr{index} subtract = global_var:{MOD_ID}_nrgor{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
-\t# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-\t# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_pqt{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pqr{index} }}
+\t# **Общая квота — она и есть равномерность.** Столько домиков товару
+\t# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+\t# сколько из них можно взять на каждой.
+\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+\tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 """
         for index in range(1, len(order) + 1))
     out.append(f"""
@@ -3297,19 +3300,34 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 	set_global_variable = {{ name = {MOD_ID}_qgt value = 0 }}
 	set_global_variable = {{ name = {MOD_ID}_qgr value = 0 }}
 {counts}
-	set_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_prooms_t }}
+	# **Общая квота: сколько домиков товару положено всего.** Это и есть
+	# равномерность, и она вернулась к простому делению всей земли на все
+	# товары — к той самой, что была до 2026-09-06. Владелец, 2026-09-07:
+	# «товары с дублем будут иметь повышенные лимиты относительно остальных».
+	set_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_plan_rooms }}
 	if = {{
-		limit = {{ global_var:{MOD_ID}_qgt > 0 }}
-		change_global_variable = {{ name = {MOD_ID}_plan_quota divide = {MOD_ID}_qgt_value }}
+		limit = {{ global_var:{MOD_ID}_plan_scored > 0 }}
+		change_global_variable = {{ name = {MOD_ID}_plan_quota divide = {MOD_ID}_plan_scored_value }}
 	}}
 	change_global_variable = {{ name = {MOD_ID}_plan_quota max = 1 }}
 
-	set_global_variable = {{ name = {MOD_ID}_plan_quotar value = global_var:{MOD_ID}_prooms_r }}
+	# **Два потолка: сколько из общей квоты можно взять на каждой стороне.**
+	# Они не добавляют товару домиков — они мешают одному выгрести дефицитную
+	# сторону, из-за чего «15 стекла» и «15 текстиля» оказывались разными
+	# планами под одним числом.
+	set_global_variable = {{ name = {MOD_ID}_qcapt value = global_var:{MOD_ID}_prooms_t }}
+	if = {{
+		limit = {{ global_var:{MOD_ID}_qgt > 0 }}
+		change_global_variable = {{ name = {MOD_ID}_qcapt divide = {MOD_ID}_qgt_value }}
+	}}
+	change_global_variable = {{ name = {MOD_ID}_qcapt max = 1 }}
+
+	set_global_variable = {{ name = {MOD_ID}_qcapr value = global_var:{MOD_ID}_prooms_r }}
 	if = {{
 		limit = {{ global_var:{MOD_ID}_qgr > 0 }}
-		change_global_variable = {{ name = {MOD_ID}_plan_quotar divide = {MOD_ID}_qgr_value }}
+		change_global_variable = {{ name = {MOD_ID}_qcapr divide = {MOD_ID}_qgr_value }}
 	}}
-	change_global_variable = {{ name = {MOD_ID}_plan_quotar max = 1 }}
+	change_global_variable = {{ name = {MOD_ID}_qcapr max = 1 }}
 {quota_lines}}}
 """)
 
@@ -3430,6 +3448,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # `PASS quota=2` looks like the RGO discount doing nothing, and is
             # the discount working and the open ladder adding one back.
             raise_all = "".join(
+                f"\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
                 f"\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{i} add = 1 }}\n"
                 f"\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{i} add = 1 }}\n"
                 for i in range(1, len(order) + 1))
@@ -3511,6 +3530,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t#
 \t\t\t# **Никогда не поднимается насовсем** — открытая лестница добавляет
 \t\t\t# по единице за круг, чтобы остаток заполнялся ровными слоями.
+\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index}
+\t\t\t# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+\t\t\t# товару положено всего; потолок стороны — сколько из них он может
+\t\t\t# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+\t\t\t# дефицитные городские комнаты; без общей квоты он получал бы две
+\t\t\t# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+\t\t\t# поймал ровно это, 2026-09-07.
 \t\t\tglobal_var:{MOD_ID}_pn{sfx}{index} < global_var:{MOD_ID}_pq{sfx}{index}
 \t\t\t# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 \t\t\t# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -8184,13 +8210,14 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # 2 = сельская. `rest` -- уровень для всех остальных после насыщения.
     for slot, source in enumerate((f"{MOD_ID}_prooms_t", f"{MOD_ID}_prooms_r",
                                    f"{MOD_ID}_qgt", f"{MOD_ID}_qgr",
-                                   f"{MOD_ID}_plan_quota",
-                                   f"{MOD_ID}_plan_quotar"), start=1):
+                                   f"{MOD_ID}_qcapt", f"{MOD_ID}_qcapr",
+                                   f"{MOD_ID}_plan_quota"), start=1):
         out.append(park(slot, source))
-    out.append(say("SHARE town: rooms=%s goods=%s -> quota=%s | village: rooms=%s "
-                   "goods=%s -> quota=%s -- two sides, two divisions; a good that "
-                   "does both holds both quotas and spends them apart"
-                   % (read(1), read(3), read(5), read(2), read(4), read(6))))
+    out.append(say("SHARE quota=%s is what a good is owed in all | town: rooms=%s "
+                   "goods=%s -> cap=%s | village: rooms=%s goods=%s -> cap=%s "
+                   "-- a cap adds no buildings, it stops one good draining the "
+                   "scarce side"
+                   % (read(7), read(1), read(3), read(5), read(2), read(4), read(6))))
     # **Доливка новой земли, и `moved` -- единственное число здесь, у которого
     # есть неправильное значение.** Ноль значит, что на старой земле не сдвинулся
     # ни один домик, то есть замок сработал; всё остальное -- что доливка полезла

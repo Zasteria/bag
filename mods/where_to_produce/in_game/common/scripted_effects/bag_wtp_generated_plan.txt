@@ -22524,489 +22524,598 @@ bag_wtp_plan_set_quota = {
 	if = { limit = { global_var:bag_wtp_ngt47 > 0 } change_global_variable = { name = bag_wtp_qgt add = 1 } }
 	if = { limit = { global_var:bag_wtp_ngr47 > 0 } change_global_variable = { name = bag_wtp_qgr add = 1 } }
 
-	set_global_variable = { name = bag_wtp_plan_quota value = global_var:bag_wtp_prooms_t }
+	# **Общая квота: сколько домиков товару положено всего.** Это и есть
+	# равномерность, и она вернулась к простому делению всей земли на все
+	# товары — к той самой, что была до 2026-09-06. Владелец, 2026-09-07:
+	# «товары с дублем будут иметь повышенные лимиты относительно остальных».
+	set_global_variable = { name = bag_wtp_plan_quota value = global_var:bag_wtp_plan_rooms }
 	if = {
-		limit = { global_var:bag_wtp_qgt > 0 }
-		change_global_variable = { name = bag_wtp_plan_quota divide = bag_wtp_qgt_value }
+		limit = { global_var:bag_wtp_plan_scored > 0 }
+		change_global_variable = { name = bag_wtp_plan_quota divide = bag_wtp_plan_scored_value }
 	}
 	change_global_variable = { name = bag_wtp_plan_quota max = 1 }
 
-	set_global_variable = { name = bag_wtp_plan_quotar value = global_var:bag_wtp_prooms_r }
+	# **Два потолка: сколько из общей квоты можно взять на каждой стороне.**
+	# Они не добавляют товару домиков — они мешают одному выгрести дефицитную
+	# сторону, из-за чего «15 стекла» и «15 текстиля» оказывались разными
+	# планами под одним числом.
+	set_global_variable = { name = bag_wtp_qcapt value = global_var:bag_wtp_prooms_t }
+	if = {
+		limit = { global_var:bag_wtp_qgt > 0 }
+		change_global_variable = { name = bag_wtp_qcapt divide = bag_wtp_qgt_value }
+	}
+	change_global_variable = { name = bag_wtp_qcapt max = 1 }
+
+	set_global_variable = { name = bag_wtp_qcapr value = global_var:bag_wtp_prooms_r }
 	if = {
 		limit = { global_var:bag_wtp_qgr > 0 }
-		change_global_variable = { name = bag_wtp_plan_quotar divide = bag_wtp_qgr_value }
+		change_global_variable = { name = bag_wtp_qcapr divide = bag_wtp_qgr_value }
 	}
-	change_global_variable = { name = bag_wtp_plan_quotar max = 1 }
-	set_global_variable = { name = bag_wtp_pqt1 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_qcapr max = 1 }
+	set_global_variable = { name = bag_wtp_pqt1 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt1 subtract = global_var:bag_wtp_nrgot1 }
 	change_global_variable = { name = bag_wtp_pqt1 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr1 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr1 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr1 subtract = global_var:bag_wtp_nrgor1 }
 	change_global_variable = { name = bag_wtp_pqr1 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_pqt1 }
-	change_global_variable = { name = bag_wtp_pq1 add = global_var:bag_wtp_pqr1 }
-	set_global_variable = { name = bag_wtp_pqt2 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq1 subtract = global_var:bag_wtp_nrgo1 }
+	change_global_variable = { name = bag_wtp_pq1 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt2 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt2 subtract = global_var:bag_wtp_nrgot2 }
 	change_global_variable = { name = bag_wtp_pqt2 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr2 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr2 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr2 subtract = global_var:bag_wtp_nrgor2 }
 	change_global_variable = { name = bag_wtp_pqr2 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_pqt2 }
-	change_global_variable = { name = bag_wtp_pq2 add = global_var:bag_wtp_pqr2 }
-	set_global_variable = { name = bag_wtp_pqt3 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq2 subtract = global_var:bag_wtp_nrgo2 }
+	change_global_variable = { name = bag_wtp_pq2 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt3 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt3 subtract = global_var:bag_wtp_nrgot3 }
 	change_global_variable = { name = bag_wtp_pqt3 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr3 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr3 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr3 subtract = global_var:bag_wtp_nrgor3 }
 	change_global_variable = { name = bag_wtp_pqr3 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_pqt3 }
-	change_global_variable = { name = bag_wtp_pq3 add = global_var:bag_wtp_pqr3 }
-	set_global_variable = { name = bag_wtp_pqt4 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq3 subtract = global_var:bag_wtp_nrgo3 }
+	change_global_variable = { name = bag_wtp_pq3 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt4 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt4 subtract = global_var:bag_wtp_nrgot4 }
 	change_global_variable = { name = bag_wtp_pqt4 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr4 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr4 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr4 subtract = global_var:bag_wtp_nrgor4 }
 	change_global_variable = { name = bag_wtp_pqr4 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_pqt4 }
-	change_global_variable = { name = bag_wtp_pq4 add = global_var:bag_wtp_pqr4 }
-	set_global_variable = { name = bag_wtp_pqt5 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq4 subtract = global_var:bag_wtp_nrgo4 }
+	change_global_variable = { name = bag_wtp_pq4 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt5 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt5 subtract = global_var:bag_wtp_nrgot5 }
 	change_global_variable = { name = bag_wtp_pqt5 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr5 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr5 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr5 subtract = global_var:bag_wtp_nrgor5 }
 	change_global_variable = { name = bag_wtp_pqr5 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_pqt5 }
-	change_global_variable = { name = bag_wtp_pq5 add = global_var:bag_wtp_pqr5 }
-	set_global_variable = { name = bag_wtp_pqt6 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq5 subtract = global_var:bag_wtp_nrgo5 }
+	change_global_variable = { name = bag_wtp_pq5 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt6 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt6 subtract = global_var:bag_wtp_nrgot6 }
 	change_global_variable = { name = bag_wtp_pqt6 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr6 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr6 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr6 subtract = global_var:bag_wtp_nrgor6 }
 	change_global_variable = { name = bag_wtp_pqr6 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_pqt6 }
-	change_global_variable = { name = bag_wtp_pq6 add = global_var:bag_wtp_pqr6 }
-	set_global_variable = { name = bag_wtp_pqt7 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq6 subtract = global_var:bag_wtp_nrgo6 }
+	change_global_variable = { name = bag_wtp_pq6 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt7 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt7 subtract = global_var:bag_wtp_nrgot7 }
 	change_global_variable = { name = bag_wtp_pqt7 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr7 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr7 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr7 subtract = global_var:bag_wtp_nrgor7 }
 	change_global_variable = { name = bag_wtp_pqr7 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_pqt7 }
-	change_global_variable = { name = bag_wtp_pq7 add = global_var:bag_wtp_pqr7 }
-	set_global_variable = { name = bag_wtp_pqt8 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq7 subtract = global_var:bag_wtp_nrgo7 }
+	change_global_variable = { name = bag_wtp_pq7 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt8 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt8 subtract = global_var:bag_wtp_nrgot8 }
 	change_global_variable = { name = bag_wtp_pqt8 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr8 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr8 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr8 subtract = global_var:bag_wtp_nrgor8 }
 	change_global_variable = { name = bag_wtp_pqr8 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_pqt8 }
-	change_global_variable = { name = bag_wtp_pq8 add = global_var:bag_wtp_pqr8 }
-	set_global_variable = { name = bag_wtp_pqt9 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq8 subtract = global_var:bag_wtp_nrgo8 }
+	change_global_variable = { name = bag_wtp_pq8 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt9 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt9 subtract = global_var:bag_wtp_nrgot9 }
 	change_global_variable = { name = bag_wtp_pqt9 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr9 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr9 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr9 subtract = global_var:bag_wtp_nrgor9 }
 	change_global_variable = { name = bag_wtp_pqr9 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_pqt9 }
-	change_global_variable = { name = bag_wtp_pq9 add = global_var:bag_wtp_pqr9 }
-	set_global_variable = { name = bag_wtp_pqt10 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq9 subtract = global_var:bag_wtp_nrgo9 }
+	change_global_variable = { name = bag_wtp_pq9 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt10 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt10 subtract = global_var:bag_wtp_nrgot10 }
 	change_global_variable = { name = bag_wtp_pqt10 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr10 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr10 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr10 subtract = global_var:bag_wtp_nrgor10 }
 	change_global_variable = { name = bag_wtp_pqr10 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_pqt10 }
-	change_global_variable = { name = bag_wtp_pq10 add = global_var:bag_wtp_pqr10 }
-	set_global_variable = { name = bag_wtp_pqt11 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq10 subtract = global_var:bag_wtp_nrgo10 }
+	change_global_variable = { name = bag_wtp_pq10 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt11 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt11 subtract = global_var:bag_wtp_nrgot11 }
 	change_global_variable = { name = bag_wtp_pqt11 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr11 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr11 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr11 subtract = global_var:bag_wtp_nrgor11 }
 	change_global_variable = { name = bag_wtp_pqr11 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_pqt11 }
-	change_global_variable = { name = bag_wtp_pq11 add = global_var:bag_wtp_pqr11 }
-	set_global_variable = { name = bag_wtp_pqt12 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq11 subtract = global_var:bag_wtp_nrgo11 }
+	change_global_variable = { name = bag_wtp_pq11 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt12 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt12 subtract = global_var:bag_wtp_nrgot12 }
 	change_global_variable = { name = bag_wtp_pqt12 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr12 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr12 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr12 subtract = global_var:bag_wtp_nrgor12 }
 	change_global_variable = { name = bag_wtp_pqr12 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_pqt12 }
-	change_global_variable = { name = bag_wtp_pq12 add = global_var:bag_wtp_pqr12 }
-	set_global_variable = { name = bag_wtp_pqt13 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq12 subtract = global_var:bag_wtp_nrgo12 }
+	change_global_variable = { name = bag_wtp_pq12 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt13 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt13 subtract = global_var:bag_wtp_nrgot13 }
 	change_global_variable = { name = bag_wtp_pqt13 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr13 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr13 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr13 subtract = global_var:bag_wtp_nrgor13 }
 	change_global_variable = { name = bag_wtp_pqr13 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_pqt13 }
-	change_global_variable = { name = bag_wtp_pq13 add = global_var:bag_wtp_pqr13 }
-	set_global_variable = { name = bag_wtp_pqt14 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq13 subtract = global_var:bag_wtp_nrgo13 }
+	change_global_variable = { name = bag_wtp_pq13 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt14 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt14 subtract = global_var:bag_wtp_nrgot14 }
 	change_global_variable = { name = bag_wtp_pqt14 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr14 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr14 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr14 subtract = global_var:bag_wtp_nrgor14 }
 	change_global_variable = { name = bag_wtp_pqr14 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_pqt14 }
-	change_global_variable = { name = bag_wtp_pq14 add = global_var:bag_wtp_pqr14 }
-	set_global_variable = { name = bag_wtp_pqt15 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq14 subtract = global_var:bag_wtp_nrgo14 }
+	change_global_variable = { name = bag_wtp_pq14 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt15 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt15 subtract = global_var:bag_wtp_nrgot15 }
 	change_global_variable = { name = bag_wtp_pqt15 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr15 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr15 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr15 subtract = global_var:bag_wtp_nrgor15 }
 	change_global_variable = { name = bag_wtp_pqr15 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_pqt15 }
-	change_global_variable = { name = bag_wtp_pq15 add = global_var:bag_wtp_pqr15 }
-	set_global_variable = { name = bag_wtp_pqt16 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq15 subtract = global_var:bag_wtp_nrgo15 }
+	change_global_variable = { name = bag_wtp_pq15 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt16 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt16 subtract = global_var:bag_wtp_nrgot16 }
 	change_global_variable = { name = bag_wtp_pqt16 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr16 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr16 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr16 subtract = global_var:bag_wtp_nrgor16 }
 	change_global_variable = { name = bag_wtp_pqr16 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_pqt16 }
-	change_global_variable = { name = bag_wtp_pq16 add = global_var:bag_wtp_pqr16 }
-	set_global_variable = { name = bag_wtp_pqt17 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq16 subtract = global_var:bag_wtp_nrgo16 }
+	change_global_variable = { name = bag_wtp_pq16 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt17 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt17 subtract = global_var:bag_wtp_nrgot17 }
 	change_global_variable = { name = bag_wtp_pqt17 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr17 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr17 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr17 subtract = global_var:bag_wtp_nrgor17 }
 	change_global_variable = { name = bag_wtp_pqr17 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_pqt17 }
-	change_global_variable = { name = bag_wtp_pq17 add = global_var:bag_wtp_pqr17 }
-	set_global_variable = { name = bag_wtp_pqt18 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq17 subtract = global_var:bag_wtp_nrgo17 }
+	change_global_variable = { name = bag_wtp_pq17 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt18 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt18 subtract = global_var:bag_wtp_nrgot18 }
 	change_global_variable = { name = bag_wtp_pqt18 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr18 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr18 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr18 subtract = global_var:bag_wtp_nrgor18 }
 	change_global_variable = { name = bag_wtp_pqr18 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_pqt18 }
-	change_global_variable = { name = bag_wtp_pq18 add = global_var:bag_wtp_pqr18 }
-	set_global_variable = { name = bag_wtp_pqt19 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq18 subtract = global_var:bag_wtp_nrgo18 }
+	change_global_variable = { name = bag_wtp_pq18 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt19 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt19 subtract = global_var:bag_wtp_nrgot19 }
 	change_global_variable = { name = bag_wtp_pqt19 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr19 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr19 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr19 subtract = global_var:bag_wtp_nrgor19 }
 	change_global_variable = { name = bag_wtp_pqr19 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_pqt19 }
-	change_global_variable = { name = bag_wtp_pq19 add = global_var:bag_wtp_pqr19 }
-	set_global_variable = { name = bag_wtp_pqt20 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq19 subtract = global_var:bag_wtp_nrgo19 }
+	change_global_variable = { name = bag_wtp_pq19 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt20 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt20 subtract = global_var:bag_wtp_nrgot20 }
 	change_global_variable = { name = bag_wtp_pqt20 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr20 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr20 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr20 subtract = global_var:bag_wtp_nrgor20 }
 	change_global_variable = { name = bag_wtp_pqr20 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_pqt20 }
-	change_global_variable = { name = bag_wtp_pq20 add = global_var:bag_wtp_pqr20 }
-	set_global_variable = { name = bag_wtp_pqt21 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq20 subtract = global_var:bag_wtp_nrgo20 }
+	change_global_variable = { name = bag_wtp_pq20 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt21 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt21 subtract = global_var:bag_wtp_nrgot21 }
 	change_global_variable = { name = bag_wtp_pqt21 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr21 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr21 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr21 subtract = global_var:bag_wtp_nrgor21 }
 	change_global_variable = { name = bag_wtp_pqr21 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_pqt21 }
-	change_global_variable = { name = bag_wtp_pq21 add = global_var:bag_wtp_pqr21 }
-	set_global_variable = { name = bag_wtp_pqt22 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq21 subtract = global_var:bag_wtp_nrgo21 }
+	change_global_variable = { name = bag_wtp_pq21 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt22 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt22 subtract = global_var:bag_wtp_nrgot22 }
 	change_global_variable = { name = bag_wtp_pqt22 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr22 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr22 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr22 subtract = global_var:bag_wtp_nrgor22 }
 	change_global_variable = { name = bag_wtp_pqr22 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_pqt22 }
-	change_global_variable = { name = bag_wtp_pq22 add = global_var:bag_wtp_pqr22 }
-	set_global_variable = { name = bag_wtp_pqt23 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq22 subtract = global_var:bag_wtp_nrgo22 }
+	change_global_variable = { name = bag_wtp_pq22 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt23 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt23 subtract = global_var:bag_wtp_nrgot23 }
 	change_global_variable = { name = bag_wtp_pqt23 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr23 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr23 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr23 subtract = global_var:bag_wtp_nrgor23 }
 	change_global_variable = { name = bag_wtp_pqr23 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_pqt23 }
-	change_global_variable = { name = bag_wtp_pq23 add = global_var:bag_wtp_pqr23 }
-	set_global_variable = { name = bag_wtp_pqt24 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq23 subtract = global_var:bag_wtp_nrgo23 }
+	change_global_variable = { name = bag_wtp_pq23 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt24 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt24 subtract = global_var:bag_wtp_nrgot24 }
 	change_global_variable = { name = bag_wtp_pqt24 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr24 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr24 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr24 subtract = global_var:bag_wtp_nrgor24 }
 	change_global_variable = { name = bag_wtp_pqr24 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_pqt24 }
-	change_global_variable = { name = bag_wtp_pq24 add = global_var:bag_wtp_pqr24 }
-	set_global_variable = { name = bag_wtp_pqt25 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq24 subtract = global_var:bag_wtp_nrgo24 }
+	change_global_variable = { name = bag_wtp_pq24 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt25 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt25 subtract = global_var:bag_wtp_nrgot25 }
 	change_global_variable = { name = bag_wtp_pqt25 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr25 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr25 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr25 subtract = global_var:bag_wtp_nrgor25 }
 	change_global_variable = { name = bag_wtp_pqr25 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_pqt25 }
-	change_global_variable = { name = bag_wtp_pq25 add = global_var:bag_wtp_pqr25 }
-	set_global_variable = { name = bag_wtp_pqt26 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq25 subtract = global_var:bag_wtp_nrgo25 }
+	change_global_variable = { name = bag_wtp_pq25 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt26 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt26 subtract = global_var:bag_wtp_nrgot26 }
 	change_global_variable = { name = bag_wtp_pqt26 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr26 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr26 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr26 subtract = global_var:bag_wtp_nrgor26 }
 	change_global_variable = { name = bag_wtp_pqr26 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_pqt26 }
-	change_global_variable = { name = bag_wtp_pq26 add = global_var:bag_wtp_pqr26 }
-	set_global_variable = { name = bag_wtp_pqt27 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq26 subtract = global_var:bag_wtp_nrgo26 }
+	change_global_variable = { name = bag_wtp_pq26 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt27 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt27 subtract = global_var:bag_wtp_nrgot27 }
 	change_global_variable = { name = bag_wtp_pqt27 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr27 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr27 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr27 subtract = global_var:bag_wtp_nrgor27 }
 	change_global_variable = { name = bag_wtp_pqr27 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_pqt27 }
-	change_global_variable = { name = bag_wtp_pq27 add = global_var:bag_wtp_pqr27 }
-	set_global_variable = { name = bag_wtp_pqt28 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq27 subtract = global_var:bag_wtp_nrgo27 }
+	change_global_variable = { name = bag_wtp_pq27 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt28 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt28 subtract = global_var:bag_wtp_nrgot28 }
 	change_global_variable = { name = bag_wtp_pqt28 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr28 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr28 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr28 subtract = global_var:bag_wtp_nrgor28 }
 	change_global_variable = { name = bag_wtp_pqr28 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_pqt28 }
-	change_global_variable = { name = bag_wtp_pq28 add = global_var:bag_wtp_pqr28 }
-	set_global_variable = { name = bag_wtp_pqt29 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq28 subtract = global_var:bag_wtp_nrgo28 }
+	change_global_variable = { name = bag_wtp_pq28 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt29 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt29 subtract = global_var:bag_wtp_nrgot29 }
 	change_global_variable = { name = bag_wtp_pqt29 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr29 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr29 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr29 subtract = global_var:bag_wtp_nrgor29 }
 	change_global_variable = { name = bag_wtp_pqr29 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_pqt29 }
-	change_global_variable = { name = bag_wtp_pq29 add = global_var:bag_wtp_pqr29 }
-	set_global_variable = { name = bag_wtp_pqt30 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq29 subtract = global_var:bag_wtp_nrgo29 }
+	change_global_variable = { name = bag_wtp_pq29 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt30 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt30 subtract = global_var:bag_wtp_nrgot30 }
 	change_global_variable = { name = bag_wtp_pqt30 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr30 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr30 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr30 subtract = global_var:bag_wtp_nrgor30 }
 	change_global_variable = { name = bag_wtp_pqr30 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_pqt30 }
-	change_global_variable = { name = bag_wtp_pq30 add = global_var:bag_wtp_pqr30 }
-	set_global_variable = { name = bag_wtp_pqt31 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq30 subtract = global_var:bag_wtp_nrgo30 }
+	change_global_variable = { name = bag_wtp_pq30 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt31 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt31 subtract = global_var:bag_wtp_nrgot31 }
 	change_global_variable = { name = bag_wtp_pqt31 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr31 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr31 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr31 subtract = global_var:bag_wtp_nrgor31 }
 	change_global_variable = { name = bag_wtp_pqr31 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_pqt31 }
-	change_global_variable = { name = bag_wtp_pq31 add = global_var:bag_wtp_pqr31 }
-	set_global_variable = { name = bag_wtp_pqt32 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq31 subtract = global_var:bag_wtp_nrgo31 }
+	change_global_variable = { name = bag_wtp_pq31 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt32 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt32 subtract = global_var:bag_wtp_nrgot32 }
 	change_global_variable = { name = bag_wtp_pqt32 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr32 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr32 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr32 subtract = global_var:bag_wtp_nrgor32 }
 	change_global_variable = { name = bag_wtp_pqr32 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_pqt32 }
-	change_global_variable = { name = bag_wtp_pq32 add = global_var:bag_wtp_pqr32 }
-	set_global_variable = { name = bag_wtp_pqt33 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq32 subtract = global_var:bag_wtp_nrgo32 }
+	change_global_variable = { name = bag_wtp_pq32 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt33 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt33 subtract = global_var:bag_wtp_nrgot33 }
 	change_global_variable = { name = bag_wtp_pqt33 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr33 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr33 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr33 subtract = global_var:bag_wtp_nrgor33 }
 	change_global_variable = { name = bag_wtp_pqr33 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_pqt33 }
-	change_global_variable = { name = bag_wtp_pq33 add = global_var:bag_wtp_pqr33 }
-	set_global_variable = { name = bag_wtp_pqt34 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq33 subtract = global_var:bag_wtp_nrgo33 }
+	change_global_variable = { name = bag_wtp_pq33 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt34 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt34 subtract = global_var:bag_wtp_nrgot34 }
 	change_global_variable = { name = bag_wtp_pqt34 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr34 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr34 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr34 subtract = global_var:bag_wtp_nrgor34 }
 	change_global_variable = { name = bag_wtp_pqr34 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_pqt34 }
-	change_global_variable = { name = bag_wtp_pq34 add = global_var:bag_wtp_pqr34 }
-	set_global_variable = { name = bag_wtp_pqt35 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq34 subtract = global_var:bag_wtp_nrgo34 }
+	change_global_variable = { name = bag_wtp_pq34 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt35 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt35 subtract = global_var:bag_wtp_nrgot35 }
 	change_global_variable = { name = bag_wtp_pqt35 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr35 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr35 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr35 subtract = global_var:bag_wtp_nrgor35 }
 	change_global_variable = { name = bag_wtp_pqr35 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_pqt35 }
-	change_global_variable = { name = bag_wtp_pq35 add = global_var:bag_wtp_pqr35 }
-	set_global_variable = { name = bag_wtp_pqt36 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq35 subtract = global_var:bag_wtp_nrgo35 }
+	change_global_variable = { name = bag_wtp_pq35 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt36 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt36 subtract = global_var:bag_wtp_nrgot36 }
 	change_global_variable = { name = bag_wtp_pqt36 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr36 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr36 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr36 subtract = global_var:bag_wtp_nrgor36 }
 	change_global_variable = { name = bag_wtp_pqr36 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_pqt36 }
-	change_global_variable = { name = bag_wtp_pq36 add = global_var:bag_wtp_pqr36 }
-	set_global_variable = { name = bag_wtp_pqt37 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq36 subtract = global_var:bag_wtp_nrgo36 }
+	change_global_variable = { name = bag_wtp_pq36 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt37 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt37 subtract = global_var:bag_wtp_nrgot37 }
 	change_global_variable = { name = bag_wtp_pqt37 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr37 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr37 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr37 subtract = global_var:bag_wtp_nrgor37 }
 	change_global_variable = { name = bag_wtp_pqr37 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_pqt37 }
-	change_global_variable = { name = bag_wtp_pq37 add = global_var:bag_wtp_pqr37 }
-	set_global_variable = { name = bag_wtp_pqt38 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq37 subtract = global_var:bag_wtp_nrgo37 }
+	change_global_variable = { name = bag_wtp_pq37 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt38 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt38 subtract = global_var:bag_wtp_nrgot38 }
 	change_global_variable = { name = bag_wtp_pqt38 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr38 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr38 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr38 subtract = global_var:bag_wtp_nrgor38 }
 	change_global_variable = { name = bag_wtp_pqr38 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_pqt38 }
-	change_global_variable = { name = bag_wtp_pq38 add = global_var:bag_wtp_pqr38 }
-	set_global_variable = { name = bag_wtp_pqt39 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq38 subtract = global_var:bag_wtp_nrgo38 }
+	change_global_variable = { name = bag_wtp_pq38 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt39 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt39 subtract = global_var:bag_wtp_nrgot39 }
 	change_global_variable = { name = bag_wtp_pqt39 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr39 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr39 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr39 subtract = global_var:bag_wtp_nrgor39 }
 	change_global_variable = { name = bag_wtp_pqr39 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_pqt39 }
-	change_global_variable = { name = bag_wtp_pq39 add = global_var:bag_wtp_pqr39 }
-	set_global_variable = { name = bag_wtp_pqt40 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq39 subtract = global_var:bag_wtp_nrgo39 }
+	change_global_variable = { name = bag_wtp_pq39 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt40 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt40 subtract = global_var:bag_wtp_nrgot40 }
 	change_global_variable = { name = bag_wtp_pqt40 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr40 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr40 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr40 subtract = global_var:bag_wtp_nrgor40 }
 	change_global_variable = { name = bag_wtp_pqr40 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_pqt40 }
-	change_global_variable = { name = bag_wtp_pq40 add = global_var:bag_wtp_pqr40 }
-	set_global_variable = { name = bag_wtp_pqt41 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq40 subtract = global_var:bag_wtp_nrgo40 }
+	change_global_variable = { name = bag_wtp_pq40 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt41 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt41 subtract = global_var:bag_wtp_nrgot41 }
 	change_global_variable = { name = bag_wtp_pqt41 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr41 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr41 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr41 subtract = global_var:bag_wtp_nrgor41 }
 	change_global_variable = { name = bag_wtp_pqr41 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_pqt41 }
-	change_global_variable = { name = bag_wtp_pq41 add = global_var:bag_wtp_pqr41 }
-	set_global_variable = { name = bag_wtp_pqt42 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq41 subtract = global_var:bag_wtp_nrgo41 }
+	change_global_variable = { name = bag_wtp_pq41 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt42 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt42 subtract = global_var:bag_wtp_nrgot42 }
 	change_global_variable = { name = bag_wtp_pqt42 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr42 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr42 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr42 subtract = global_var:bag_wtp_nrgor42 }
 	change_global_variable = { name = bag_wtp_pqr42 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_pqt42 }
-	change_global_variable = { name = bag_wtp_pq42 add = global_var:bag_wtp_pqr42 }
-	set_global_variable = { name = bag_wtp_pqt43 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq42 subtract = global_var:bag_wtp_nrgo42 }
+	change_global_variable = { name = bag_wtp_pq42 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt43 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt43 subtract = global_var:bag_wtp_nrgot43 }
 	change_global_variable = { name = bag_wtp_pqt43 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr43 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr43 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr43 subtract = global_var:bag_wtp_nrgor43 }
 	change_global_variable = { name = bag_wtp_pqr43 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_pqt43 }
-	change_global_variable = { name = bag_wtp_pq43 add = global_var:bag_wtp_pqr43 }
-	set_global_variable = { name = bag_wtp_pqt44 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq43 subtract = global_var:bag_wtp_nrgo43 }
+	change_global_variable = { name = bag_wtp_pq43 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt44 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt44 subtract = global_var:bag_wtp_nrgot44 }
 	change_global_variable = { name = bag_wtp_pqt44 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr44 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr44 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr44 subtract = global_var:bag_wtp_nrgor44 }
 	change_global_variable = { name = bag_wtp_pqr44 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_pqt44 }
-	change_global_variable = { name = bag_wtp_pq44 add = global_var:bag_wtp_pqr44 }
-	set_global_variable = { name = bag_wtp_pqt45 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq44 subtract = global_var:bag_wtp_nrgo44 }
+	change_global_variable = { name = bag_wtp_pq44 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt45 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt45 subtract = global_var:bag_wtp_nrgot45 }
 	change_global_variable = { name = bag_wtp_pqt45 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr45 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr45 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr45 subtract = global_var:bag_wtp_nrgor45 }
 	change_global_variable = { name = bag_wtp_pqr45 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_pqt45 }
-	change_global_variable = { name = bag_wtp_pq45 add = global_var:bag_wtp_pqr45 }
-	set_global_variable = { name = bag_wtp_pqt46 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq45 subtract = global_var:bag_wtp_nrgo45 }
+	change_global_variable = { name = bag_wtp_pq45 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt46 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt46 subtract = global_var:bag_wtp_nrgot46 }
 	change_global_variable = { name = bag_wtp_pqt46 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr46 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr46 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr46 subtract = global_var:bag_wtp_nrgor46 }
 	change_global_variable = { name = bag_wtp_pqr46 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_pqt46 }
-	change_global_variable = { name = bag_wtp_pq46 add = global_var:bag_wtp_pqr46 }
-	set_global_variable = { name = bag_wtp_pqt47 value = global_var:bag_wtp_plan_quota }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq46 subtract = global_var:bag_wtp_nrgo46 }
+	change_global_variable = { name = bag_wtp_pq46 max = 1 }
+	set_global_variable = { name = bag_wtp_pqt47 value = global_var:bag_wtp_qcapt }
 	change_global_variable = { name = bag_wtp_pqt47 subtract = global_var:bag_wtp_nrgot47 }
 	change_global_variable = { name = bag_wtp_pqt47 max = 1 }
-	set_global_variable = { name = bag_wtp_pqr47 value = global_var:bag_wtp_plan_quotar }
+	set_global_variable = { name = bag_wtp_pqr47 value = global_var:bag_wtp_qcapr }
 	change_global_variable = { name = bag_wtp_pqr47 subtract = global_var:bag_wtp_nrgor47 }
 	change_global_variable = { name = bag_wtp_pqr47 max = 1 }
-	# Сумма двух — то, что печатает отчёт как `q` и что читает снятие замка
-	# при доливке. Раздатчик её не спрашивает: он спрашивает свою сторону.
-	set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_pqt47 }
-	change_global_variable = { name = bag_wtp_pq47 add = global_var:bag_wtp_pqr47 }
+	# **Общая квота — она и есть равномерность.** Столько домиков товару
+	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
+	# сколько из них можно взять на каждой.
+	set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
+	change_global_variable = { name = bag_wtp_pq47 subtract = global_var:bag_wtp_nrgo47 }
+	change_global_variable = { name = bag_wtp_pq47 max = 1 }
 }
 
 # What a good has to reach to be placed in this pass, one global per good.
@@ -25943,98 +26052,145 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
@@ -26115,98 +26271,145 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
@@ -26287,98 +26490,145 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
@@ -26459,98 +26709,145 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
@@ -26631,98 +26928,145 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt1 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt2 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt3 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt4 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt5 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt6 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt7 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt8 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt9 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt10 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt11 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt12 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt13 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt14 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt15 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt16 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt17 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt18 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt19 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt20 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt21 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt22 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt23 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt24 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt25 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt26 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt27 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt28 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt29 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt30 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt31 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt32 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt33 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt34 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt35 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt36 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt37 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt38 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt39 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt40 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt41 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt42 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt43 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt44 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt45 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt46 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqt47 add = 1 }
 		change_global_variable = { name = bag_wtp_pqr47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
@@ -26808,6 +27152,13 @@ bag_wtp_plan_pick_1 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt1 < global_var:bag_wtp_pqt1
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -26862,6 +27213,13 @@ bag_wtp_plan_pick_1 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr1 < global_var:bag_wtp_pqr1
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -26925,6 +27283,13 @@ bag_wtp_plan_pick_2 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt2 < global_var:bag_wtp_pqt2
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -26979,6 +27344,13 @@ bag_wtp_plan_pick_2 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr2 < global_var:bag_wtp_pqr2
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27042,6 +27414,13 @@ bag_wtp_plan_pick_3 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt3 < global_var:bag_wtp_pqt3
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27096,6 +27475,13 @@ bag_wtp_plan_pick_3 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr3 < global_var:bag_wtp_pqr3
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27159,6 +27545,13 @@ bag_wtp_plan_pick_4 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn4 < global_var:bag_wtp_pq4
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt4 < global_var:bag_wtp_pqt4
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27222,6 +27615,13 @@ bag_wtp_plan_pick_5 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt5 < global_var:bag_wtp_pqt5
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27276,6 +27676,13 @@ bag_wtp_plan_pick_5 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr5 < global_var:bag_wtp_pqr5
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27339,6 +27746,13 @@ bag_wtp_plan_pick_6 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn6 < global_var:bag_wtp_pq6
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr6 < global_var:bag_wtp_pqr6
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27402,6 +27816,13 @@ bag_wtp_plan_pick_7 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt7 < global_var:bag_wtp_pqt7
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27456,6 +27877,13 @@ bag_wtp_plan_pick_7 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr7 < global_var:bag_wtp_pqr7
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27519,6 +27947,13 @@ bag_wtp_plan_pick_8 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt8 < global_var:bag_wtp_pqt8
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27573,6 +28008,13 @@ bag_wtp_plan_pick_8 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr8 < global_var:bag_wtp_pqr8
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27636,6 +28078,13 @@ bag_wtp_plan_pick_9 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn9 < global_var:bag_wtp_pq9
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt9 < global_var:bag_wtp_pqt9
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27699,6 +28148,13 @@ bag_wtp_plan_pick_10 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt10 < global_var:bag_wtp_pqt10
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27753,6 +28209,13 @@ bag_wtp_plan_pick_10 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr10 < global_var:bag_wtp_pqr10
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27816,6 +28279,13 @@ bag_wtp_plan_pick_11 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn11 < global_var:bag_wtp_pq11
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr11 < global_var:bag_wtp_pqr11
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27879,6 +28349,13 @@ bag_wtp_plan_pick_12 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn12 < global_var:bag_wtp_pq12
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr12 < global_var:bag_wtp_pqr12
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27942,6 +28419,13 @@ bag_wtp_plan_pick_13 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt13 < global_var:bag_wtp_pqt13
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -27996,6 +28480,13 @@ bag_wtp_plan_pick_13 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr13 < global_var:bag_wtp_pqr13
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28059,6 +28550,13 @@ bag_wtp_plan_pick_14 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn14 < global_var:bag_wtp_pq14
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt14 < global_var:bag_wtp_pqt14
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28122,6 +28620,13 @@ bag_wtp_plan_pick_15 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt15 < global_var:bag_wtp_pqt15
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28176,6 +28681,13 @@ bag_wtp_plan_pick_15 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr15 < global_var:bag_wtp_pqr15
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28239,6 +28751,13 @@ bag_wtp_plan_pick_16 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn16 < global_var:bag_wtp_pq16
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt16 < global_var:bag_wtp_pqt16
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28302,6 +28821,13 @@ bag_wtp_plan_pick_17 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt17 < global_var:bag_wtp_pqt17
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28356,6 +28882,13 @@ bag_wtp_plan_pick_17 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr17 < global_var:bag_wtp_pqr17
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28419,6 +28952,13 @@ bag_wtp_plan_pick_18 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn18 < global_var:bag_wtp_pq18
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt18 < global_var:bag_wtp_pqt18
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28482,6 +29022,13 @@ bag_wtp_plan_pick_19 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt19 < global_var:bag_wtp_pqt19
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28536,6 +29083,13 @@ bag_wtp_plan_pick_19 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr19 < global_var:bag_wtp_pqr19
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28599,6 +29153,13 @@ bag_wtp_plan_pick_20 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt20 < global_var:bag_wtp_pqt20
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28653,6 +29214,13 @@ bag_wtp_plan_pick_20 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr20 < global_var:bag_wtp_pqr20
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28716,6 +29284,13 @@ bag_wtp_plan_pick_21 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt21 < global_var:bag_wtp_pqt21
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28770,6 +29345,13 @@ bag_wtp_plan_pick_21 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr21 < global_var:bag_wtp_pqr21
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28833,6 +29415,13 @@ bag_wtp_plan_pick_22 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt22 < global_var:bag_wtp_pqt22
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28887,6 +29476,13 @@ bag_wtp_plan_pick_22 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr22 < global_var:bag_wtp_pqr22
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -28950,6 +29546,13 @@ bag_wtp_plan_pick_23 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn23 < global_var:bag_wtp_pq23
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr23 < global_var:bag_wtp_pqr23
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29013,6 +29616,13 @@ bag_wtp_plan_pick_24 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn24 < global_var:bag_wtp_pq24
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt24 < global_var:bag_wtp_pqt24
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29076,6 +29686,13 @@ bag_wtp_plan_pick_25 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn25 < global_var:bag_wtp_pq25
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr25 < global_var:bag_wtp_pqr25
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29139,6 +29756,13 @@ bag_wtp_plan_pick_26 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt26 < global_var:bag_wtp_pqt26
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29193,6 +29817,13 @@ bag_wtp_plan_pick_26 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr26 < global_var:bag_wtp_pqr26
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29256,6 +29887,13 @@ bag_wtp_plan_pick_27 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn27 < global_var:bag_wtp_pq27
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt27 < global_var:bag_wtp_pqt27
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29319,6 +29957,13 @@ bag_wtp_plan_pick_28 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn28 < global_var:bag_wtp_pq28
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt28 < global_var:bag_wtp_pqt28
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29382,6 +30027,13 @@ bag_wtp_plan_pick_29 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt29 < global_var:bag_wtp_pqt29
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29436,6 +30088,13 @@ bag_wtp_plan_pick_29 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr29 < global_var:bag_wtp_pqr29
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29499,6 +30158,13 @@ bag_wtp_plan_pick_30 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn30 < global_var:bag_wtp_pq30
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt30 < global_var:bag_wtp_pqt30
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29562,6 +30228,13 @@ bag_wtp_plan_pick_31 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn31 < global_var:bag_wtp_pq31
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt31 < global_var:bag_wtp_pqt31
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29625,6 +30298,13 @@ bag_wtp_plan_pick_32 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn32 < global_var:bag_wtp_pq32
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt32 < global_var:bag_wtp_pqt32
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29688,6 +30368,13 @@ bag_wtp_plan_pick_33 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt33 < global_var:bag_wtp_pqt33
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29742,6 +30429,13 @@ bag_wtp_plan_pick_33 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr33 < global_var:bag_wtp_pqr33
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29805,6 +30499,13 @@ bag_wtp_plan_pick_34 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt34 < global_var:bag_wtp_pqt34
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29859,6 +30560,13 @@ bag_wtp_plan_pick_34 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr34 < global_var:bag_wtp_pqr34
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29922,6 +30630,13 @@ bag_wtp_plan_pick_35 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn35 < global_var:bag_wtp_pq35
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt35 < global_var:bag_wtp_pqt35
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -29985,6 +30700,13 @@ bag_wtp_plan_pick_36 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt36 < global_var:bag_wtp_pqt36
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30039,6 +30761,13 @@ bag_wtp_plan_pick_36 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr36 < global_var:bag_wtp_pqr36
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30102,6 +30831,13 @@ bag_wtp_plan_pick_37 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn37 < global_var:bag_wtp_pq37
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt37 < global_var:bag_wtp_pqt37
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30165,6 +30901,13 @@ bag_wtp_plan_pick_38 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt38 < global_var:bag_wtp_pqt38
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30219,6 +30962,13 @@ bag_wtp_plan_pick_38 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr38 < global_var:bag_wtp_pqr38
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30282,6 +31032,13 @@ bag_wtp_plan_pick_39 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt39 < global_var:bag_wtp_pqt39
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30336,6 +31093,13 @@ bag_wtp_plan_pick_39 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr39 < global_var:bag_wtp_pqr39
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30399,6 +31163,13 @@ bag_wtp_plan_pick_40 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn40 < global_var:bag_wtp_pq40
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt40 < global_var:bag_wtp_pqt40
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30462,6 +31233,13 @@ bag_wtp_plan_pick_41 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn41 < global_var:bag_wtp_pq41
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt41 < global_var:bag_wtp_pqt41
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30525,6 +31303,13 @@ bag_wtp_plan_pick_42 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt42 < global_var:bag_wtp_pqt42
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30579,6 +31364,13 @@ bag_wtp_plan_pick_42 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr42 < global_var:bag_wtp_pqr42
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30642,6 +31434,13 @@ bag_wtp_plan_pick_43 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt43 < global_var:bag_wtp_pqt43
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30696,6 +31495,13 @@ bag_wtp_plan_pick_43 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr43 < global_var:bag_wtp_pqr43
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30759,6 +31565,13 @@ bag_wtp_plan_pick_44 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn44 < global_var:bag_wtp_pq44
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt44 < global_var:bag_wtp_pqt44
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30822,6 +31635,13 @@ bag_wtp_plan_pick_45 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt45 < global_var:bag_wtp_pqt45
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30876,6 +31696,13 @@ bag_wtp_plan_pick_45 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr45 < global_var:bag_wtp_pqr45
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30939,6 +31766,13 @@ bag_wtp_plan_pick_46 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt46 < global_var:bag_wtp_pqt46
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -30993,6 +31827,13 @@ bag_wtp_plan_pick_46 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr46 < global_var:bag_wtp_pqr46
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -31056,6 +31897,13 @@ bag_wtp_plan_pick_47 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnt47 < global_var:bag_wtp_pqt47
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
@@ -31110,6 +31958,13 @@ bag_wtp_plan_pick_47 = {
 			#
 			# **Никогда не поднимается насовсем** — открытая лестница добавляет
 			# по единице за круг, чтобы остаток заполнялся ровными слоями.
+			global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
+			# **И потолок своей стороны.** Общая квота говорит, сколько домиков
+			# товару положено всего; потолок стороны — сколько из них он может
+			# взять здесь. Без потолка товар, умеющий обе стороны, выгребал бы
+			# дефицитные городские комнаты; без общей квоты он получал бы две
+			# квоты вместо одной и кончал вдвое жирнее односторонних — владелец
+			# поймал ровно это, 2026-09-07.
 			global_var:bag_wtp_pnr47 < global_var:bag_wtp_pqr47
 			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
 			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
