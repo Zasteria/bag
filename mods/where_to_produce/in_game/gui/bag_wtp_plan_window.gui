@@ -802,28 +802,6 @@ window = {
 					onclick = "[GetScriptedGui('bag_wtp_plan_refresh').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 
-				# **«Перетасовать» — отдельным нажатием и после плана.** Он
-				# меняет места, а не количества: у каждого товара как был домик,
-				# так и остаётся. Не часть «Пересчитать», потому что обход всех
-				# провинций стоит своего времени, а прибавка невелика.
-				button_regular = {
-					size = { 116 42 }
-					tooltip = "bag_wtp_plan_reshuffle_tt"
-					text_single = {
-						size = { 96 26 }
-						parentanchor = center
-						widgetanchor = center
-						autoresize = no
-						maximumsize = { 96 26 }
-						fontsize = 13
-						fontsize_min = 10
-						align = center|nobaseline
-						elide = right
-						text = "bag_wtp_plan_reshuffle"
-					}
-					onclick = "[GetScriptedGui('bag_wtp_plan_reshuffle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}
-
 				# **«Сохранить план», here and not only in the editor**, because
 				# this is the window a finished plan is looked at in and he
 				# asked for it here by name: «Сделай кнопку "сохранить план" в

@@ -12233,3 +12233,5 @@ bag_wtp_show_sum_rmax = { value = global_var:bag_wtp_sum_rmax }
 bag_wtp_show_sum_rg = { value = global_var:bag_wtp_sum_rg }
 # Scope: country
 bag_wtp_show_ps_gain = { value = global_var:bag_wtp_ps_gain }
+# Scope: country
+bag_wtp_show_ps_swaps = { value = global_var:bag_wtp_ps_swaps }

@@ -6820,6 +6820,10 @@ bag_wtp_edit_remove_town_1 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn1 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p1 }
 		if = {
@@ -6856,6 +6860,10 @@ bag_wtp_edit_remove_town_2 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn2 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p2 }
 		if = {
@@ -6892,6 +6900,10 @@ bag_wtp_edit_remove_town_3 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn3 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p3 }
 		if = {
@@ -6947,6 +6959,10 @@ bag_wtp_edit_remove_town_4 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn4 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p4 }
 		if = {
@@ -6989,6 +7005,10 @@ bag_wtp_edit_remove_town_5 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn5 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p5 }
 		if = {
@@ -7025,6 +7045,10 @@ bag_wtp_edit_remove_town_7 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn7 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p7 }
 		if = {
@@ -7061,6 +7085,10 @@ bag_wtp_edit_remove_town_8 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn8 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p8 }
 		if = {
@@ -7097,6 +7125,10 @@ bag_wtp_edit_remove_town_9 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn9 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p9 }
 		if = {
@@ -7139,6 +7171,10 @@ bag_wtp_edit_remove_town_10 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn10 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p10 }
 		if = {
@@ -7175,6 +7211,10 @@ bag_wtp_edit_remove_town_13 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn13 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p13 }
 		if = {
@@ -7212,6 +7252,10 @@ bag_wtp_edit_remove_town_14 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn14 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p14 }
 		if = {
@@ -7248,6 +7292,10 @@ bag_wtp_edit_remove_town_15 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn15 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p15 }
 		if = {
@@ -7302,6 +7350,10 @@ bag_wtp_edit_remove_town_16 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn16 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p16 }
 		if = {
@@ -7338,6 +7390,10 @@ bag_wtp_edit_remove_town_17 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn17 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p17 }
 		if = {
@@ -7380,6 +7436,10 @@ bag_wtp_edit_remove_town_18 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn18 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p18 }
 		if = {
@@ -7416,6 +7476,10 @@ bag_wtp_edit_remove_town_19 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn19 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p19 }
 		if = {
@@ -7453,6 +7517,10 @@ bag_wtp_edit_remove_town_20 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn20 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p20 }
 		if = {
@@ -7489,6 +7557,10 @@ bag_wtp_edit_remove_town_21 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn21 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p21 }
 		if = {
@@ -7525,6 +7597,10 @@ bag_wtp_edit_remove_town_22 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn22 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p22 }
 		if = {
@@ -7571,6 +7647,10 @@ bag_wtp_edit_remove_town_24 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn24 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p24 }
 		if = {
@@ -7637,6 +7717,10 @@ bag_wtp_edit_remove_town_26 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn26 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p26 }
 		if = {
@@ -7691,6 +7775,10 @@ bag_wtp_edit_remove_town_27 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn27 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p27 }
 		if = {
@@ -7758,6 +7846,10 @@ bag_wtp_edit_remove_town_28 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn28 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p28 }
 		if = {
@@ -7820,6 +7912,10 @@ bag_wtp_edit_remove_town_29 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn29 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p29 }
 		if = {
@@ -7900,6 +7996,10 @@ bag_wtp_edit_remove_town_30 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn30 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p30 }
 		if = {
@@ -7968,6 +8068,10 @@ bag_wtp_edit_remove_town_31 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn31 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p31 }
 		if = {
@@ -8022,6 +8126,10 @@ bag_wtp_edit_remove_town_32 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn32 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p32 }
 		if = {
@@ -8077,6 +8185,10 @@ bag_wtp_edit_remove_town_33 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn33 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p33 }
 		if = {
@@ -8130,6 +8242,10 @@ bag_wtp_edit_remove_town_34 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn34 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p34 }
 		if = {
@@ -8172,6 +8288,10 @@ bag_wtp_edit_remove_town_35 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn35 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p35 }
 		if = {
@@ -8230,6 +8350,10 @@ bag_wtp_edit_remove_town_36 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn36 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p36 }
 		if = {
@@ -8300,6 +8424,10 @@ bag_wtp_edit_remove_town_37 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn37 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p37 }
 		if = {
@@ -8343,6 +8471,10 @@ bag_wtp_edit_remove_town_38 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn38 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p38 }
 		if = {
@@ -8397,6 +8529,10 @@ bag_wtp_edit_remove_town_39 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn39 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p39 }
 		if = {
@@ -8455,6 +8591,10 @@ bag_wtp_edit_remove_town_40 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn40 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p40 }
 		if = {
@@ -8497,6 +8637,10 @@ bag_wtp_edit_remove_town_41 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn41 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p41 }
 		if = {
@@ -8551,6 +8695,10 @@ bag_wtp_edit_remove_town_42 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn42 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p42 }
 		if = {
@@ -8587,6 +8735,10 @@ bag_wtp_edit_remove_town_43 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn43 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p43 }
 		if = {
@@ -8623,6 +8775,10 @@ bag_wtp_edit_remove_town_44 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn44 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p44 }
 		if = {
@@ -8659,6 +8815,10 @@ bag_wtp_edit_remove_town_45 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn45 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p45 }
 		if = {
@@ -8722,6 +8882,10 @@ bag_wtp_edit_remove_town_46 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn46 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p46 }
 		if = {
@@ -8784,6 +8948,10 @@ bag_wtp_edit_remove_town_47 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pt subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn47 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_p47 }
 		if = {
@@ -8820,6 +8988,10 @@ bag_wtp_edit_remove_rural_1 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn1 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr1 }
 		if = {
@@ -8862,6 +9034,10 @@ bag_wtp_edit_remove_rural_2 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn2 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr2 }
 		if = {
@@ -8898,6 +9074,10 @@ bag_wtp_edit_remove_rural_3 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn3 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr3 }
 		if = {
@@ -8940,6 +9120,10 @@ bag_wtp_edit_remove_rural_5 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn5 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr5 }
 		if = {
@@ -8977,6 +9161,10 @@ bag_wtp_edit_remove_rural_6 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn6 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr6 }
 		if = {
@@ -9013,6 +9201,10 @@ bag_wtp_edit_remove_rural_7 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn7 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr7 }
 		if = {
@@ -9049,6 +9241,10 @@ bag_wtp_edit_remove_rural_8 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn8 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr8 }
 		if = {
@@ -9091,6 +9287,10 @@ bag_wtp_edit_remove_rural_10 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn10 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr10 }
 		if = {
@@ -9127,6 +9327,10 @@ bag_wtp_edit_remove_rural_11 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn11 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr11 }
 		if = {
@@ -9163,6 +9367,10 @@ bag_wtp_edit_remove_rural_12 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn12 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr12 }
 		if = {
@@ -9199,6 +9407,10 @@ bag_wtp_edit_remove_rural_13 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn13 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr13 }
 		if = {
@@ -9235,6 +9447,10 @@ bag_wtp_edit_remove_rural_15 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn15 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr15 }
 		if = {
@@ -9271,6 +9487,10 @@ bag_wtp_edit_remove_rural_17 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn17 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr17 }
 		if = {
@@ -9307,6 +9527,10 @@ bag_wtp_edit_remove_rural_19 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn19 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr19 }
 		if = {
@@ -9344,6 +9568,10 @@ bag_wtp_edit_remove_rural_20 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn20 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr20 }
 		if = {
@@ -9380,6 +9608,10 @@ bag_wtp_edit_remove_rural_21 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn21 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr21 }
 		if = {
@@ -9416,6 +9648,10 @@ bag_wtp_edit_remove_rural_22 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn22 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr22 }
 		if = {
@@ -9452,6 +9688,10 @@ bag_wtp_edit_remove_rural_23 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn23 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr23 }
 		if = {
@@ -9488,6 +9728,10 @@ bag_wtp_edit_remove_rural_25 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn25 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr25 }
 		if = {
@@ -9524,6 +9768,10 @@ bag_wtp_edit_remove_rural_26 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn26 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr26 }
 		if = {
@@ -9562,6 +9810,10 @@ bag_wtp_edit_remove_rural_29 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn29 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr29 }
 		if = {
@@ -9598,6 +9850,10 @@ bag_wtp_edit_remove_rural_33 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn33 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr33 }
 		if = {
@@ -9640,6 +9896,10 @@ bag_wtp_edit_remove_rural_34 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn34 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr34 }
 		if = {
@@ -9676,6 +9936,10 @@ bag_wtp_edit_remove_rural_36 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn36 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr36 }
 		if = {
@@ -9719,6 +9983,10 @@ bag_wtp_edit_remove_rural_38 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn38 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr38 }
 		if = {
@@ -9755,6 +10023,10 @@ bag_wtp_edit_remove_rural_39 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn39 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr39 }
 		if = {
@@ -9797,6 +10069,10 @@ bag_wtp_edit_remove_rural_42 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn42 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr42 }
 		if = {
@@ -9833,6 +10109,10 @@ bag_wtp_edit_remove_rural_43 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn43 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr43 }
 		if = {
@@ -9869,6 +10149,10 @@ bag_wtp_edit_remove_rural_45 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn45 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr45 }
 		if = {
@@ -9917,6 +10201,10 @@ bag_wtp_edit_remove_rural_46 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn46 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr46 }
 		if = {
@@ -9965,6 +10253,10 @@ bag_wtp_edit_remove_rural_47 = {
 		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+		# вышло 578 из 528 (прогон 2026-09-09).
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
 		change_global_variable = { name = bag_wtp_pn47 subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr47 }
 		if = {
@@ -17459,7 +17751,7 @@ bag_wtp_edit_reshuffle_round = {
 					scope:bag_wtp_rs_a = { set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses } }
 					set_global_variable = { name = bag_wtp_rs_stop value = 1 }
 					set_global_variable = { name = bag_wtp_rs_did value = 1 }
-					change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+					change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 				}
 			}
 		}
@@ -17538,6 +17830,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks } }
+			NOT = { OR = { var:bag_wtp_plan_right = 4 var:bag_wtp_plan_right = 9 } }
 			var:bag_wtp_p4 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 4 }
@@ -17738,6 +18031,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild } }
+			NOT = { OR = { var:bag_wtp_plan_right = 1 } }
 			var:bag_wtp_p18 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 18 }
@@ -17838,6 +18132,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory } }
+			NOT = { OR = { var:bag_wtp_plan_right = 5 } }
 			var:bag_wtp_p24 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 24 }
@@ -17858,6 +18153,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill } }
+			NOT = { OR = { var:bag_wtp_plan_right = 5 } }
 			var:bag_wtp_p26 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 26 }
@@ -17868,6 +18164,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium } }
+			NOT = { OR = { var:bag_wtp_plan_right = 4 } }
 			var:bag_wtp_p27 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 27 }
@@ -17878,6 +18175,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory } }
+			NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 			var:bag_wtp_p28 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 28 }
@@ -17888,6 +18186,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill } }
+			NOT = { OR = { var:bag_wtp_plan_right = 1 var:bag_wtp_plan_right = 2 var:bag_wtp_plan_right = 9 } }
 			var:bag_wtp_p29 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 29 }
@@ -17898,6 +18197,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = no
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker } }
+			NOT = { OR = { var:bag_wtp_plan_right = 1 var:bag_wtp_plan_right = 2 var:bag_wtp_plan_right = 9 } }
 			var:bag_wtp_pr29 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 29 }
@@ -17908,6 +18208,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 1 var:bag_wtp_plan_right = 2 var:bag_wtp_plan_right = 9 } }
 			var:bag_wtp_p30 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 30 }
@@ -17918,6 +18219,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild } }
+			NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 			var:bag_wtp_p31 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 31 }
@@ -17928,6 +18230,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 3 } }
 			var:bag_wtp_p32 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 32 }
@@ -17938,6 +18241,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks } }
+			NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 			var:bag_wtp_p33 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 33 }
@@ -17948,6 +18252,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = no
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker } }
+			NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 			var:bag_wtp_pr33 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 33 }
@@ -17958,6 +18263,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
+			NOT = { OR = { var:bag_wtp_plan_right = 6 } }
 			var:bag_wtp_p34 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 34 }
@@ -17968,6 +18274,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = no
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
+			NOT = { OR = { var:bag_wtp_plan_right = 6 } }
 			var:bag_wtp_pr34 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 34 }
@@ -17988,6 +18295,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 3 } }
 			var:bag_wtp_p36 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 36 }
@@ -17998,6 +18306,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 5 } }
 			var:bag_wtp_p37 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 37 }
@@ -18008,6 +18317,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 			var:bag_wtp_p38 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 38 }
@@ -18018,6 +18328,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = no
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 			var:bag_wtp_pr38 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 38 }
@@ -18028,6 +18339,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 8 var:bag_wtp_plan_right = 13 } }
 			var:bag_wtp_p39 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 39 }
@@ -18038,6 +18350,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 4 } }
 			var:bag_wtp_p40 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 40 }
@@ -18058,6 +18371,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 3 } }
 			var:bag_wtp_p42 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 42 }
@@ -18098,6 +18412,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
+			NOT = { OR = { var:bag_wtp_plan_right = 8 var:bag_wtp_plan_right = 13 } }
 			var:bag_wtp_p45 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 45 }
@@ -18108,6 +18423,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = no
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
+			NOT = { OR = { var:bag_wtp_plan_right = 8 var:bag_wtp_plan_right = 13 } }
 			var:bag_wtp_pr45 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 45 }
@@ -18118,6 +18434,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 10 var:bag_wtp_plan_right = 12 } }
 			var:bag_wtp_p46 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 46 }
@@ -18128,6 +18445,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = no
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			NOT = { OR = { var:bag_wtp_plan_right = 10 var:bag_wtp_plan_right = 12 } }
 			var:bag_wtp_pr46 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 46 }
@@ -18138,6 +18456,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = yes
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop } }
+			NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 			var:bag_wtp_p47 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 47 }
@@ -18148,6 +18467,7 @@ bag_wtp_plan_pick_worst = {
 			bag_wtp_plan_is_town = no
 			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 			var:bag_wtp_pr47 < global_var:bag_wtp_fillv
 		}
 		set_variable = { name = bag_wtp_fillg value = 47 }
@@ -19062,7 +19382,11 @@ bag_wtp_mv_read_b = {
 # **Домиков не меняет ни у кого**: у обоих товаров как было, так и осталось.
 # Scope: country
 bag_wtp_plan_shuffle = {
-	bag_wtp_edit_clear_fillset = yes
+	# **Свои счётчики, а не `_rs_*`.** Те стирает открытие окна редактора
+	# (`_edit_clear_fillset`), и прогон 2026-09-09 напечатал `rounds=0 swaps=0`
+	# после перетасовки, которая переставила 36 локаций.
+	set_global_variable = { name = bag_wtp_ps_swaps value = 0 }
+	set_global_variable = { name = bag_wtp_ps_rounds value = 0 }
 	set_global_variable = { name = bag_wtp_ps_gain0 value = global_var:bag_wtp_plan_gain }
 	change_global_variable = { name = bag_wtp_edit_presses add = 1 }
 	bag_wtp_plan_shuffle_round = yes
@@ -19081,8 +19405,6 @@ bag_wtp_plan_shuffle = {
 	set_global_variable = { name = bag_wtp_ps_gain value = global_var:bag_wtp_plan_gain }
 	change_global_variable = { name = bag_wtp_ps_gain subtract = global_var:bag_wtp_ps_gain0 }
 	set_global_variable = { name = bag_wtp_ps_ran value = 1 }
-	# Отчёт `EDIT shuffle` печатает `_rs_gain`; пусть он и здесь значит то же.
-	set_global_variable = { name = bag_wtp_rs_gain value = global_var:bag_wtp_ps_gain }
 	bag_wtp_plan_rank = yes
 }
 
@@ -19090,7 +19412,7 @@ bag_wtp_plan_shuffle = {
 # Scope: country
 bag_wtp_plan_shuffle_round = {
 	set_global_variable = { name = bag_wtp_ps_did value = 0 }
-	change_global_variable = { name = bag_wtp_rs_rounds add = 1 }
+	change_global_variable = { name = bag_wtp_ps_rounds add = 1 }
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
 		limit = { has_variable = bag_wtp_load }
@@ -19216,6 +19538,7 @@ bag_wtp_plan_move_t1 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -19919,7 +20242,8 @@ bag_wtp_plan_move_t1 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -19974,6 +20298,7 @@ bag_wtp_plan_move_r1 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -20677,10 +21002,11 @@ bag_wtp_plan_move_r1 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -20699,7 +21025,7 @@ bag_wtp_plan_move_r1 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -20755,6 +21081,7 @@ bag_wtp_plan_move_t2 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -21458,7 +21785,8 @@ bag_wtp_plan_move_t2 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -21513,6 +21841,7 @@ bag_wtp_plan_move_r2 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -22216,10 +22545,11 @@ bag_wtp_plan_move_r2 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -22238,7 +22568,7 @@ bag_wtp_plan_move_r2 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -22294,6 +22624,7 @@ bag_wtp_plan_move_t3 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -22997,7 +23328,8 @@ bag_wtp_plan_move_t3 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -23052,6 +23384,7 @@ bag_wtp_plan_move_r3 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -23755,10 +24088,11 @@ bag_wtp_plan_move_r3 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -23777,7 +24111,7 @@ bag_wtp_plan_move_r3 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -23818,6 +24152,7 @@ bag_wtp_plan_move_t4 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks } }
+				NOT = { OR = { var:bag_wtp_plan_right = 4 var:bag_wtp_plan_right = 9 } }
 				var:bag_wtp_p4 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p4 }
@@ -23833,6 +24168,7 @@ bag_wtp_plan_move_t4 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -24536,7 +24872,8 @@ bag_wtp_plan_move_t4 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -24591,6 +24928,7 @@ bag_wtp_plan_move_t5 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -25294,7 +25632,8 @@ bag_wtp_plan_move_t5 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -25349,6 +25688,7 @@ bag_wtp_plan_move_r5 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -26052,10 +26392,11 @@ bag_wtp_plan_move_r5 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -26074,7 +26415,7 @@ bag_wtp_plan_move_r5 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -26130,6 +26471,7 @@ bag_wtp_plan_move_t7 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -26833,7 +27175,8 @@ bag_wtp_plan_move_t7 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -26888,6 +27231,7 @@ bag_wtp_plan_move_r7 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -27591,10 +27935,11 @@ bag_wtp_plan_move_r7 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -27613,7 +27958,7 @@ bag_wtp_plan_move_r7 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -27669,6 +28014,7 @@ bag_wtp_plan_move_t8 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -28372,7 +28718,8 @@ bag_wtp_plan_move_t8 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -28427,6 +28774,7 @@ bag_wtp_plan_move_r8 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -29130,10 +29478,11 @@ bag_wtp_plan_move_r8 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -29152,7 +29501,7 @@ bag_wtp_plan_move_r8 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -29208,6 +29557,7 @@ bag_wtp_plan_move_t9 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -29911,7 +30261,8 @@ bag_wtp_plan_move_t9 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -29966,6 +30317,7 @@ bag_wtp_plan_move_t10 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -30669,7 +31021,8 @@ bag_wtp_plan_move_t10 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -30724,6 +31077,7 @@ bag_wtp_plan_move_r10 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -31427,10 +31781,11 @@ bag_wtp_plan_move_r10 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -31449,7 +31804,7 @@ bag_wtp_plan_move_r10 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -31505,6 +31860,7 @@ bag_wtp_plan_move_r11 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -32208,10 +32564,11 @@ bag_wtp_plan_move_r11 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -32230,7 +32587,7 @@ bag_wtp_plan_move_r11 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -32286,6 +32643,7 @@ bag_wtp_plan_move_r12 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -32989,10 +33347,11 @@ bag_wtp_plan_move_r12 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -33011,7 +33370,7 @@ bag_wtp_plan_move_r12 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -33067,6 +33426,7 @@ bag_wtp_plan_move_t13 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -33770,7 +34130,8 @@ bag_wtp_plan_move_t13 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -33825,6 +34186,7 @@ bag_wtp_plan_move_r13 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -34528,10 +34890,11 @@ bag_wtp_plan_move_r13 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -34550,7 +34913,7 @@ bag_wtp_plan_move_r13 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -34606,6 +34969,7 @@ bag_wtp_plan_move_t14 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -35309,7 +35673,8 @@ bag_wtp_plan_move_t14 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -35364,6 +35729,7 @@ bag_wtp_plan_move_t15 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -36067,7 +36433,8 @@ bag_wtp_plan_move_t15 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -36122,6 +36489,7 @@ bag_wtp_plan_move_r15 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -36825,10 +37193,11 @@ bag_wtp_plan_move_r15 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -36847,7 +37216,7 @@ bag_wtp_plan_move_r15 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -36903,6 +37272,7 @@ bag_wtp_plan_move_t16 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -37606,7 +37976,8 @@ bag_wtp_plan_move_t16 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -37661,6 +38032,7 @@ bag_wtp_plan_move_t17 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -38364,7 +38736,8 @@ bag_wtp_plan_move_t17 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -38419,6 +38792,7 @@ bag_wtp_plan_move_r17 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -39122,10 +39496,11 @@ bag_wtp_plan_move_r17 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -39144,7 +39519,7 @@ bag_wtp_plan_move_r17 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -39185,6 +39560,7 @@ bag_wtp_plan_move_t18 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild } }
+				NOT = { OR = { var:bag_wtp_plan_right = 1 } }
 				var:bag_wtp_p18 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p18 }
@@ -39200,6 +39576,7 @@ bag_wtp_plan_move_t18 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -39903,7 +40280,8 @@ bag_wtp_plan_move_t18 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -39958,6 +40336,7 @@ bag_wtp_plan_move_t19 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -40661,7 +41040,8 @@ bag_wtp_plan_move_t19 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -40716,6 +41096,7 @@ bag_wtp_plan_move_r19 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -41419,10 +41800,11 @@ bag_wtp_plan_move_r19 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -41441,7 +41823,7 @@ bag_wtp_plan_move_r19 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -41497,6 +41879,7 @@ bag_wtp_plan_move_t20 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -42200,7 +42583,8 @@ bag_wtp_plan_move_t20 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -42255,6 +42639,7 @@ bag_wtp_plan_move_r20 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -42958,10 +43343,11 @@ bag_wtp_plan_move_r20 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -42980,7 +43366,7 @@ bag_wtp_plan_move_r20 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -43036,6 +43422,7 @@ bag_wtp_plan_move_t21 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -43739,7 +44126,8 @@ bag_wtp_plan_move_t21 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -43794,6 +44182,7 @@ bag_wtp_plan_move_r21 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -44497,10 +44886,11 @@ bag_wtp_plan_move_r21 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -44519,7 +44909,7 @@ bag_wtp_plan_move_r21 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -44575,6 +44965,7 @@ bag_wtp_plan_move_t22 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -45278,7 +45669,8 @@ bag_wtp_plan_move_t22 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -45333,6 +45725,7 @@ bag_wtp_plan_move_r22 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -46036,10 +46429,11 @@ bag_wtp_plan_move_r22 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -46058,7 +46452,7 @@ bag_wtp_plan_move_r22 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -46114,6 +46508,7 @@ bag_wtp_plan_move_r23 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -46817,10 +47212,11 @@ bag_wtp_plan_move_r23 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -46839,7 +47235,7 @@ bag_wtp_plan_move_r23 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -46880,6 +47276,7 @@ bag_wtp_plan_move_t24 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory } }
+				NOT = { OR = { var:bag_wtp_plan_right = 5 } }
 				var:bag_wtp_p24 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p24 }
@@ -46895,6 +47292,7 @@ bag_wtp_plan_move_t24 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -47598,7 +47996,8 @@ bag_wtp_plan_move_t24 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -47653,6 +48052,7 @@ bag_wtp_plan_move_r25 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -48356,10 +48756,11 @@ bag_wtp_plan_move_r25 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -48378,7 +48779,7 @@ bag_wtp_plan_move_r25 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -48419,6 +48820,7 @@ bag_wtp_plan_move_t26 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill } }
+				NOT = { OR = { var:bag_wtp_plan_right = 5 } }
 				var:bag_wtp_p26 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p26 }
@@ -48434,6 +48836,7 @@ bag_wtp_plan_move_t26 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -49137,7 +49540,8 @@ bag_wtp_plan_move_t26 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -49177,6 +49581,7 @@ bag_wtp_plan_move_t27 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium } }
+				NOT = { OR = { var:bag_wtp_plan_right = 4 } }
 				var:bag_wtp_p27 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p27 }
@@ -49192,6 +49597,7 @@ bag_wtp_plan_move_t27 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -49895,7 +50301,8 @@ bag_wtp_plan_move_t27 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -49935,6 +50342,7 @@ bag_wtp_plan_move_t28 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory } }
+				NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 				var:bag_wtp_p28 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p28 }
@@ -49950,6 +50358,7 @@ bag_wtp_plan_move_t28 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -50653,7 +51062,8 @@ bag_wtp_plan_move_t28 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -50693,6 +51103,7 @@ bag_wtp_plan_move_t29 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill } }
+				NOT = { OR = { var:bag_wtp_plan_right = 1 var:bag_wtp_plan_right = 2 var:bag_wtp_plan_right = 9 } }
 				var:bag_wtp_p29 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p29 }
@@ -50708,6 +51119,7 @@ bag_wtp_plan_move_t29 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -51411,7 +51823,8 @@ bag_wtp_plan_move_t29 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -51451,6 +51864,7 @@ bag_wtp_plan_move_r29 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker } }
+				NOT = { OR = { var:bag_wtp_plan_right = 1 var:bag_wtp_plan_right = 2 var:bag_wtp_plan_right = 9 } }
 				var:bag_wtp_pr29 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_pr29 }
@@ -51466,6 +51880,7 @@ bag_wtp_plan_move_r29 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -52169,10 +52584,11 @@ bag_wtp_plan_move_r29 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -52191,7 +52607,7 @@ bag_wtp_plan_move_r29 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -52232,6 +52648,7 @@ bag_wtp_plan_move_t30 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 1 var:bag_wtp_plan_right = 2 var:bag_wtp_plan_right = 9 } }
 				var:bag_wtp_p30 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p30 }
@@ -52247,6 +52664,7 @@ bag_wtp_plan_move_t30 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -52950,7 +53368,8 @@ bag_wtp_plan_move_t30 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -52990,6 +53409,7 @@ bag_wtp_plan_move_t31 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild } }
+				NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 				var:bag_wtp_p31 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p31 }
@@ -53005,6 +53425,7 @@ bag_wtp_plan_move_t31 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -53708,7 +54129,8 @@ bag_wtp_plan_move_t31 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -53748,6 +54170,7 @@ bag_wtp_plan_move_t32 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 3 } }
 				var:bag_wtp_p32 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p32 }
@@ -53763,6 +54186,7 @@ bag_wtp_plan_move_t32 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -54466,7 +54890,8 @@ bag_wtp_plan_move_t32 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -54506,6 +54931,7 @@ bag_wtp_plan_move_t33 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks } }
+				NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 				var:bag_wtp_p33 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p33 }
@@ -54521,6 +54947,7 @@ bag_wtp_plan_move_t33 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -55224,7 +55651,8 @@ bag_wtp_plan_move_t33 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -55264,6 +55692,7 @@ bag_wtp_plan_move_r33 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker } }
+				NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 				var:bag_wtp_pr33 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_pr33 }
@@ -55279,6 +55708,7 @@ bag_wtp_plan_move_r33 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -55982,10 +56412,11 @@ bag_wtp_plan_move_r33 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -56004,7 +56435,7 @@ bag_wtp_plan_move_r33 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -56045,6 +56476,7 @@ bag_wtp_plan_move_t34 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
+				NOT = { OR = { var:bag_wtp_plan_right = 6 } }
 				var:bag_wtp_p34 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p34 }
@@ -56060,6 +56492,7 @@ bag_wtp_plan_move_t34 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -56763,7 +57196,8 @@ bag_wtp_plan_move_t34 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -56803,6 +57237,7 @@ bag_wtp_plan_move_r34 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
+				NOT = { OR = { var:bag_wtp_plan_right = 6 } }
 				var:bag_wtp_pr34 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_pr34 }
@@ -56818,6 +57253,7 @@ bag_wtp_plan_move_r34 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -57521,10 +57957,11 @@ bag_wtp_plan_move_r34 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -57543,7 +57980,7 @@ bag_wtp_plan_move_r34 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -57599,6 +58036,7 @@ bag_wtp_plan_move_t35 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -58302,7 +58740,8 @@ bag_wtp_plan_move_t35 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -58342,6 +58781,7 @@ bag_wtp_plan_move_t36 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 3 } }
 				var:bag_wtp_p36 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p36 }
@@ -58357,6 +58797,7 @@ bag_wtp_plan_move_t36 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -59060,7 +59501,8 @@ bag_wtp_plan_move_t36 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -59100,6 +59542,7 @@ bag_wtp_plan_move_t37 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 5 } }
 				var:bag_wtp_p37 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p37 }
@@ -59115,6 +59558,7 @@ bag_wtp_plan_move_t37 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -59818,7 +60262,8 @@ bag_wtp_plan_move_t37 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -59858,6 +60303,7 @@ bag_wtp_plan_move_t38 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+				NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 				var:bag_wtp_p38 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p38 }
@@ -59873,6 +60319,7 @@ bag_wtp_plan_move_t38 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -60576,7 +61023,8 @@ bag_wtp_plan_move_t38 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -60616,6 +61064,7 @@ bag_wtp_plan_move_r38 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+				NOT = { OR = { var:bag_wtp_plan_right = 7 } }
 				var:bag_wtp_pr38 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_pr38 }
@@ -60631,6 +61080,7 @@ bag_wtp_plan_move_r38 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -61334,10 +61784,11 @@ bag_wtp_plan_move_r38 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -61356,7 +61807,7 @@ bag_wtp_plan_move_r38 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -61397,6 +61848,7 @@ bag_wtp_plan_move_t39 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 8 var:bag_wtp_plan_right = 13 } }
 				var:bag_wtp_p39 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p39 }
@@ -61412,6 +61864,7 @@ bag_wtp_plan_move_t39 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -62115,7 +62568,8 @@ bag_wtp_plan_move_t39 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -62155,6 +62609,7 @@ bag_wtp_plan_move_t40 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 4 } }
 				var:bag_wtp_p40 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p40 }
@@ -62170,6 +62625,7 @@ bag_wtp_plan_move_t40 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -62873,7 +63329,8 @@ bag_wtp_plan_move_t40 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -62928,6 +63385,7 @@ bag_wtp_plan_move_t41 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -63631,7 +64089,8 @@ bag_wtp_plan_move_t41 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -63671,6 +64130,7 @@ bag_wtp_plan_move_t42 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 3 } }
 				var:bag_wtp_p42 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p42 }
@@ -63686,6 +64146,7 @@ bag_wtp_plan_move_t42 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -64389,7 +64850,8 @@ bag_wtp_plan_move_t42 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -64444,6 +64906,7 @@ bag_wtp_plan_move_t43 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -65147,7 +65610,8 @@ bag_wtp_plan_move_t43 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -65202,6 +65666,7 @@ bag_wtp_plan_move_r43 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -65905,10 +66370,11 @@ bag_wtp_plan_move_r43 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -65927,7 +66393,7 @@ bag_wtp_plan_move_r43 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -65983,6 +66449,7 @@ bag_wtp_plan_move_t44 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -66686,7 +67153,8 @@ bag_wtp_plan_move_t44 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -66726,6 +67194,7 @@ bag_wtp_plan_move_t45 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
+				NOT = { OR = { var:bag_wtp_plan_right = 8 var:bag_wtp_plan_right = 13 } }
 				var:bag_wtp_p45 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p45 }
@@ -66741,6 +67210,7 @@ bag_wtp_plan_move_t45 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -67444,7 +67914,8 @@ bag_wtp_plan_move_t45 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -67484,6 +67955,7 @@ bag_wtp_plan_move_r45 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
+				NOT = { OR = { var:bag_wtp_plan_right = 8 var:bag_wtp_plan_right = 13 } }
 				var:bag_wtp_pr45 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_pr45 }
@@ -67499,6 +67971,7 @@ bag_wtp_plan_move_r45 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -68202,10 +68675,11 @@ bag_wtp_plan_move_r45 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -68224,7 +68698,7 @@ bag_wtp_plan_move_r45 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -68265,6 +68739,7 @@ bag_wtp_plan_move_t46 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 10 var:bag_wtp_plan_right = 12 } }
 				var:bag_wtp_p46 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p46 }
@@ -68280,6 +68755,7 @@ bag_wtp_plan_move_t46 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -68983,7 +69459,8 @@ bag_wtp_plan_move_t46 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -69023,6 +69500,7 @@ bag_wtp_plan_move_r46 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+				NOT = { OR = { var:bag_wtp_plan_right = 10 var:bag_wtp_plan_right = 12 } }
 				var:bag_wtp_pr46 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_pr46 }
@@ -69038,6 +69516,7 @@ bag_wtp_plan_move_r46 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -69741,10 +70220,11 @@ bag_wtp_plan_move_r46 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -69763,7 +70243,7 @@ bag_wtp_plan_move_r46 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}
@@ -69804,6 +70284,7 @@ bag_wtp_plan_move_t47 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop } }
+				NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 				var:bag_wtp_p47 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_p47 }
@@ -69819,6 +70300,7 @@ bag_wtp_plan_move_t47 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -70522,7 +71004,8 @@ bag_wtp_plan_move_t47 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 	}
 }
@@ -70562,6 +71045,7 @@ bag_wtp_plan_move_r47 = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+				NOT = { OR = { var:bag_wtp_plan_right = 11 } }
 				var:bag_wtp_pr47 < global_var:bag_wtp_mv_wv
 			}
 			set_global_variable = { name = bag_wtp_mv_wv value = var:bag_wtp_pr47 }
@@ -70577,6 +71061,7 @@ bag_wtp_plan_move_r47 = {
 		}
 		# Кто стоит в цели и что он там получает.
 		set_global_variable = { name = bag_wtp_mv_bg value = 0 }
+		set_global_variable = { name = bag_wtp_ps_traded value = 0 }
 		scope:bag_wtp_mv_to = {
 			if = {
 				limit = { has_variable = bag_wtp_fillg }
@@ -71280,10 +71765,11 @@ bag_wtp_plan_move_r47 = {
 				set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
-			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			set_global_variable = { name = bag_wtp_ps_traded value = 1 }
+			change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			limit = { NOT = { global_var:bag_wtp_ps_traded = 1 } }
 			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
 			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
 			if = {
@@ -71302,7 +71788,7 @@ bag_wtp_plan_move_r47 = {
 					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
 				}
 				set_global_variable = { name = bag_wtp_ps_did value = 1 }
-				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+				change_global_variable = { name = bag_wtp_ps_swaps add = 1 }
 			}
 		}
 	}

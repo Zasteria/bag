@@ -5485,6 +5485,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_list_variable = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 {branches}\t\tchange_variable = {{ name = {MOD_ID}_load subtract = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed subtract = 1 }}
+\t\t# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
+\t\t# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
+\t\t# вышло 578 из 528 (прогон 2026-09-09).
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_p{side} subtract = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_pn{index} subtract = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_gain subtract = var:{MOD_ID}_{gain_var}{index} }}
 \t\tif = {{
@@ -6437,7 +6441,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\tscope:{MOD_ID}_rs_a = {{ set_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }} }}
 \t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_stop value = 1 }}
 \t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 1 }}
-\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_ps_swaps add = 1 }}
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}
@@ -6464,6 +6468,27 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # незачем, а нажать, когда захотелось, — можно.
     own = own_sides(rows, split, game)
     villages_ = village_entities(rows, split, game)
+    # **Домик, поставленный грамотой, обмен не трогает.** Владелец, 2026-09-09:
+    # «у городских прав отбираются их домики и меняются с ними местами... не
+    # трогать домики городских прав». Грамота ставится пачкой и переезжает
+    # пачкой; вынуть из неё один домик значит сломать её же инвариант.
+    #
+    # **Признак -- грамота этого города и её набор.** Локация с грамотой k
+    # держит `_plan_right = k`; если k выдаёт этот товар, домик тут её, и он
+    # неприкосновенен. Товар, которого не выдаёт ни одна грамота, оговорки не
+    # получает вовсе.
+    charter_of = {}
+    for k, right in enumerate(output_rights(rows, game), start=1):
+        for g in right.output:
+            charter_of.setdefault(g, []).append(k)
+
+    def not_charter(good: str, tab: str) -> str:
+        ks = charter_of.get(good) or []
+        if not ks:
+            return ""
+        tests = " ".join(f"var:{MOD_ID}_plan_right = {k}" for k in ks)
+        return f"{tab}NOT = {{ OR = {{ {tests} }} }}\n"
+
     worst = ""
     for index, good in enumerate(order, start=1):
         has_town, has_rural = own[good]
@@ -6485,7 +6510,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t{MOD_ID}_plan_is_town = {'yes' if kind == 't' else 'no'}
 \t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 \t\t\tOR = {{ {builds} }}
-\t\t\tvar:{MOD_ID}_{gvar}{index} < global_var:{MOD_ID}_fillv
+{not_charter(good, chr(9) * 3)}\t\t\tvar:{MOD_ID}_{gvar}{index} < global_var:{MOD_ID}_fillv
 \t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_fillg value = {index} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_fillv value = var:{MOD_ID}_{gvar}{index} }}
@@ -6664,7 +6689,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # **Домиков не меняет ни у кого**: у обоих товаров как было, так и осталось.
 # Scope: country
 {MOD_ID}_plan_shuffle = {{
-\t{MOD_ID}_edit_clear_fillset = yes
+\t# **Свои счётчики, а не `_rs_*`.** Те стирает открытие окна редактора
+\t# (`_edit_clear_fillset`), и прогон 2026-09-09 напечатал `rounds=0 swaps=0`
+\t# после перетасовки, которая переставила 36 локаций.
+\tset_global_variable = {{ name = {MOD_ID}_ps_swaps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ps_rounds value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_ps_gain0 value = global_var:{MOD_ID}_plan_gain }}
 \tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
 \t{MOD_ID}_plan_shuffle_round = yes
@@ -6683,8 +6712,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_ps_gain value = global_var:{MOD_ID}_plan_gain }}
 \tchange_global_variable = {{ name = {MOD_ID}_ps_gain subtract = global_var:{MOD_ID}_ps_gain0 }}
 \tset_global_variable = {{ name = {MOD_ID}_ps_ran value = 1 }}
-\t# Отчёт `EDIT shuffle` печатает `_rs_gain`; пусть он и здесь значит то же.
-\tset_global_variable = {{ name = {MOD_ID}_rs_gain value = global_var:{MOD_ID}_ps_gain }}
 \t{MOD_ID}_plan_rank = yes
 }}
 
@@ -6692,7 +6719,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_plan_shuffle_round = {{
 \tset_global_variable = {{ name = {MOD_ID}_ps_did value = 0 }}
-\tchange_global_variable = {{ name = {MOD_ID}_rs_rounds add = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_ps_rounds add = 1 }}
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tlimit = {{ has_variable = {MOD_ID}_load }}
@@ -6725,7 +6752,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             village = ""
             if kind == "r":
                 village = f"""\t\tif = {{
-\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_mv_bg > 0 }} }}
+\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_ps_traded = 1 }} }}
 \t\t\tscope:{MOD_ID}_mv_to = {{ {MOD_ID}_mv_find_village = yes }}
 \t\t\tscope:{MOD_ID}_mv_from = {{ {MOD_ID}_mv_village_fits = yes }}
 \t\t\tif = {{
@@ -6744,7 +6771,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
 \t\t\t\t}}
 \t\t\t\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 1 }}
-\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_ps_swaps add = 1 }}
 \t\t\t}}
 \t\t}}
 """
@@ -6788,7 +6815,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{
 \t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 \t\t\t\tOR = {{ {builds} }}
-\t\t\t\tvar:{MOD_ID}_{gvar}{index} < global_var:{MOD_ID}_mv_wv
+{not_charter(good, chr(9) * 4)}\t\t\t\tvar:{MOD_ID}_{gvar}{index} < global_var:{MOD_ID}_mv_wv
 \t\t\t}}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_mv_wv value = var:{MOD_ID}_{gvar}{index} }}
 \t\t\tsave_scope_as = {MOD_ID}_mv_from
@@ -6803,6 +6830,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t\t# Кто стоит в цели и что он там получает.
 \t\tset_global_variable = {{ name = {MOD_ID}_mv_bg value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ps_traded value = 0 }}
 \t\tscope:{MOD_ID}_mv_to = {{
 \t\t\tif = {{
 \t\t\t\tlimit = {{ has_variable = {MOD_ID}_fillg }}
@@ -6838,7 +6866,8 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {out_a}{in_b}\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
 \t\t\t}}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ps_traded value = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ps_swaps add = 1 }}
 \t\t}}
 {village}\t}}
 }}
@@ -9512,11 +9541,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for slot, source in enumerate((f"{MOD_ID}_rs_rounds", f"{MOD_ID}_rs_swaps",
                                    f"{MOD_ID}_rs_gain", f"{MOD_ID}_rs_pairs",
                                    f"{MOD_ID}_rs_same", f"{MOD_ID}_rs_nofit",
-                                   f"{MOD_ID}_rs_worse"), start=1):
+                                   f"{MOD_ID}_rs_worse", f"{MOD_ID}_ps_rounds",
+                                   f"{MOD_ID}_ps_swaps", f"{MOD_ID}_ps_gain"), start=1):
         out.append(park(slot, source))
+    # **У «Перетасовать» счётчики свои.** `_rs_*` принадлежат доливке и их
+    # стирает открытие окна редактора: прогон 2026-09-09 напечатал `rounds=0
+    # swaps=0` после перетасовки, переставившей 36 локаций.
     out.append(say("EDIT shuffle rounds=%s swaps=%s gain=%s | pairs=%s same=%s "
-                   "nofit=%s worse=%s"
-                   % tuple(read(i) for i in range(1, 8))))
+                   "nofit=%s worse=%s || button rounds=%s swaps=%s gain=%s"
+                   % tuple(read(i) for i in range(1, 11))))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan
@@ -10949,7 +10982,7 @@ def main() -> int:
                      "sum_tmin", "sum_tmax", "sum_tg",
                      "sum_rmin", "sum_rmax", "sum_rg",
                      # Что дала последняя «Перетасовка».
-                     "ps_gain")))
+                     "ps_gain", "ps_swaps")))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent) + "".join(
