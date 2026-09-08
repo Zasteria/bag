@@ -1,4 +1,6 @@
 ﻿l_english:
+ search_filter_bag_wtp_sees_location_name: "Probe: is the location visible"
+ search_filter_bag_wtp_sees_location_desc: "#Y A temporary chip, not a convenience.#!\n\nIt passes #Y everything#! — ticking it should leave the list exactly as it was.\n\nIf the list empties under it, the mod cannot ask a filter which location the panel is showing at all, and «In the plan, here» has to be built some other way.\n\nIt goes away after the run that answers this."
  search_filter_bag_wtp_planned_name: "Plannable"
  search_filter_bag_wtp_planned_desc: "Only the buildings «Where To Produce» plans with at all: production, not garrisons or ports. Reads nothing off the map — it just shortens the list."
  search_filter_bag_wtp_plan_here_name: "In the plan, here"

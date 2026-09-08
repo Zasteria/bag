@@ -2226,6 +2226,14 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                           if method.building not in village_entities(rows, split, game)}
                          & {b for key in groups for b in groups[key]})
     listed = "".join(f"\t\tthis = building_type:{b}\n" for b in plan_builds)
+    here = "".join(
+        f"\t\tAND = {{\n"
+        f"\t\t\tthis = building_type:{b}\n"
+        f"\t\t\tglobal_var:bag_view_location = {{\n"
+        f"\t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+        f"target = building_type:{b} }}\n"
+        f"\t\t\t}}\n"
+        f"\t\t}}\n" for b in plan_builds)
     out.append(f"""
 # **Здания, которыми план вообще умеет строить** -- {len(plan_builds)} из тех, что
 # есть в игре. Список известен на сборке, так что фишка стоит одно сравнение и
@@ -2241,14 +2249,32 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # самой локации, его ведут и раздача, и редактор, так что фишка показывает то,
 # что на карте сейчас: загрузили слот -- показывает слот.
 #
-# `target = root` -- та же форма, что у игры в `remove_list_global_variable`;
-# `root` в фильтре типа зданий и есть тип.
+# **`root` в фильтре -- не отфильтровываемый объект, что бы ни говорил
+# `58_building_type.txt`.** Прогон 2026-09-09: фишка на `target = root` не
+# оставила ни одного здания при `view_location=1` и `_plan_builds`, заполненном
+# на 454 локациях; единственная другая фишка в репозитории, читавшая `root`
+# (`bag_rgo_has_local_bonus`), -- ровно та, что никогда не работала, а все
+# работающие спрашивают неявный `this`. Комментарий игры врёт про `root` так же,
+# как он уже соврал про `scope:target`; в `06_country.txt` она сама пишет «root
+# is player».
+#
+# Отсюда форма: **`this = building_type:X` до смены скоупа**, а внутрь идёт
+# литерал. Ни одного `root`.
 # Scope: building_type
 {MOD_ID}_type_in_plan_here = {{
 \thas_global_variable = bag_view_location
-\tglobal_var:bag_view_location = {{
-\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = root }}
-\t}}
+\tOR = {{
+{here}\t}}
+}}
+
+# **Проба, а не удобство.** Она пропускает всё, если мод вообще может прочитать с
+# фильтра ту локацию, которую показывает панель. Пустой список под ней и полный
+# под «Планируемые» -- это «смена скоупа на `global_var:` из фильтра типа зданий
+# не работает», и тогда ответ надо класть на само здание, а не на локацию.
+# Scope: building_type
+{MOD_ID}_view_location_seen = {{
+\thas_global_variable = bag_view_location
+\tglobal_var:bag_view_location = {{ has_variable = {MOD_ID}_load }}
 }}
 """)
     return "".join(out)

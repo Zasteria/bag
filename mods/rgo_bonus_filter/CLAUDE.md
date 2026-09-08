@@ -13,8 +13,14 @@ patch that adds a building is picked up by a rebuild and nothing is listed by
 hand.
 
 **The one thing to know before touching it.** A `building_type` filter receives
-`root` and nothing else — not `scope:target`, whatever vanilla's comment says.
-Reading `scope:target` logs an error every pass.
+the object as **`this`** — not `scope:target`, and **not `root` either**,
+whatever vanilla's comment says. Reading `scope:target` logs an error every pass;
+reading `root` logs nothing and matches nothing, which is why the location-panel
+chip never worked. Measured 2026-09-09 by `where_to_produce`'s chip; both pairs
+now ask `this` before any scope change, and `bag_rgo_has_local_bonus`/`_here`
+moved into the generator because that shape needs one branch per raw material.
+**Побочно это дешевле**: обход провинции идёт только по тем видам сырья, которые
+здание правда потребляет.
 
 **Проба локации теперь общая с `where_to_produce`.** Оба мода перекрывают
 `gui/location_production_lateralview.gui` — иначе фильтру не узнать, какую

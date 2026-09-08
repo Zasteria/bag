@@ -2409,12 +2409,672 @@ bag_wtp_type_is_planned = {
 # самой локации, его ведут и раздача, и редактор, так что фишка показывает то,
 # что на карте сейчас: загрузили слот -- показывает слот.
 #
-# `target = root` -- та же форма, что у игры в `remove_list_global_variable`;
-# `root` в фильтре типа зданий и есть тип.
+# **`root` в фильтре -- не отфильтровываемый объект, что бы ни говорил
+# `58_building_type.txt`.** Прогон 2026-09-09: фишка на `target = root` не
+# оставила ни одного здания при `view_location=1` и `_plan_builds`, заполненном
+# на 454 локациях; единственная другая фишка в репозитории, читавшая `root`
+# (`bag_rgo_has_local_bonus`), -- ровно та, что никогда не работала, а все
+# работающие спрашивают неявный `this`. Комментарий игры врёт про `root` так же,
+# как он уже соврал про `scope:target`; в `06_country.txt` она сама пишет «root
+# is player».
+#
+# Отсюда форма: **`this = building_type:X` до смены скоупа**, а внутрь идёт
+# литерал. Ни одного `root`.
 # Scope: building_type
 bag_wtp_type_in_plan_here = {
 	has_global_variable = bag_view_location
-	global_var:bag_view_location = {
-		is_target_in_variable_list = { name = bag_wtp_plan_builds target = root }
+	OR = {
+		AND = {
+			this = building_type:ablaq_palace
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace }
+			}
+		}
+		AND = {
+			this = building_type:apothecary
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary }
+			}
+		}
+		AND = {
+			this = building_type:beer_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop }
+			}
+		}
+		AND = {
+			this = building_type:bog_iron_smelter
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter }
+			}
+		}
+		AND = {
+			this = building_type:brewery
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery }
+			}
+		}
+		AND = {
+			this = building_type:brewery_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:brewery_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill }
+			}
+		}
+		AND = {
+			this = building_type:cannon_foundry
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry }
+			}
+		}
+		AND = {
+			this = building_type:cannon_maker
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker }
+			}
+		}
+		AND = {
+			this = building_type:cannon_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop }
+			}
+		}
+		AND = {
+			this = building_type:cannons_factory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory }
+			}
+		}
+		AND = {
+			this = building_type:charcoal_maker
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker }
+			}
+		}
+		AND = {
+			this = building_type:clay_pit
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit }
+			}
+		}
+		AND = {
+			this = building_type:cloth_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild }
+			}
+		}
+		AND = {
+			this = building_type:cloth_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:cloth_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop }
+			}
+		}
+		AND = {
+			this = building_type:cotton_plantation
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation }
+			}
+		}
+		AND = {
+			this = building_type:distiller_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:distiller_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill }
+			}
+		}
+		AND = {
+			this = building_type:distillers_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild }
+			}
+		}
+		AND = {
+			this = building_type:distillers_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop }
+			}
+		}
+		AND = {
+			this = building_type:dyes_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild }
+			}
+		}
+		AND = {
+			this = building_type:dyes_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill }
+			}
+		}
+		AND = {
+			this = building_type:dyes_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop }
+			}
+		}
+		AND = {
+			this = building_type:dyesworks
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks }
+			}
+		}
+		AND = {
+			this = building_type:elephant_hunting_grounds
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds }
+			}
+		}
+		AND = {
+			this = building_type:eng_royal_forest
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest }
+			}
+		}
+		AND = {
+			this = building_type:farming_village
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village }
+			}
+		}
+		AND = {
+			this = building_type:fiber_crops_farm
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm }
+			}
+		}
+		AND = {
+			this = building_type:fine_cloth_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild }
+			}
+		}
+		AND = {
+			this = building_type:fine_cloth_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:fine_cloth_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill }
+			}
+		}
+		AND = {
+			this = building_type:fine_cloth_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop }
+			}
+		}
+		AND = {
+			this = building_type:firearms_factory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory }
+			}
+		}
+		AND = {
+			this = building_type:firearms_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:fruit_orchard
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard }
+			}
+		}
+		AND = {
+			this = building_type:furniture_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild }
+			}
+		}
+		AND = {
+			this = building_type:furniture_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:furniture_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill }
+			}
+		}
+		AND = {
+			this = building_type:furniture_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop }
+			}
+		}
+		AND = {
+			this = building_type:glass_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild }
+			}
+		}
+		AND = {
+			this = building_type:glass_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill }
+			}
+		}
+		AND = {
+			this = building_type:glass_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop }
+			}
+		}
+		AND = {
+			this = building_type:glassworks
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks }
+			}
+		}
+		AND = {
+			this = building_type:gun_smith
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith }
+			}
+		}
+		AND = {
+			this = building_type:guns_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop }
+			}
+		}
+		AND = {
+			this = building_type:hand_cannon_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild }
+			}
+		}
+		AND = {
+			this = building_type:horse_breeders
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders }
+			}
+		}
+		AND = {
+			this = building_type:improved_charcoal_maker
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker }
+			}
+		}
+		AND = {
+			this = building_type:iron_foundry
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry }
+			}
+		}
+		AND = {
+			this = building_type:iron_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill }
+			}
+		}
+		AND = {
+			this = building_type:jewelry_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild }
+			}
+		}
+		AND = {
+			this = building_type:lacquerware_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild }
+			}
+		}
+		AND = {
+			this = building_type:lacquerware_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:lucca_silk_production_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild }
+			}
+		}
+		AND = {
+			this = building_type:mason
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason }
+			}
+		}
+		AND = {
+			this = building_type:naval_supplies_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild }
+			}
+		}
+		AND = {
+			this = building_type:naval_supplies_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:naval_supplies_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill }
+			}
+		}
+		AND = {
+			this = building_type:naval_supplies_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop }
+			}
+		}
+		AND = {
+			this = building_type:paper_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild }
+			}
+		}
+		AND = {
+			this = building_type:paper_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:paper_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill }
+			}
+		}
+		AND = {
+			this = building_type:paper_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop }
+			}
+		}
+		AND = {
+			this = building_type:perfumery
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery }
+			}
+		}
+		AND = {
+			this = building_type:porcelain_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild }
+			}
+		}
+		AND = {
+			this = building_type:porcelain_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:pottery_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild }
+			}
+		}
+		AND = {
+			this = building_type:pottery_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:pottery_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill }
+			}
+		}
+		AND = {
+			this = building_type:pottery_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop }
+			}
+		}
+		AND = {
+			this = building_type:pounamou_carver
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver }
+			}
+		}
+		AND = {
+			this = building_type:printing_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:printing_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill }
+			}
+		}
+		AND = {
+			this = building_type:printing_press_shop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop }
+			}
+		}
+		AND = {
+			this = building_type:putrefaction_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill }
+			}
+		}
+		AND = {
+			this = building_type:putrefaction_works
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works }
+			}
+		}
+		AND = {
+			this = building_type:rural_clothmaker
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker }
+			}
+		}
+		AND = {
+			this = building_type:rural_glassmaker
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker }
+			}
+		}
+		AND = {
+			this = building_type:salt_collector
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector }
+			}
+		}
+		AND = {
+			this = building_type:saltpeter_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild }
+			}
+		}
+		AND = {
+			this = building_type:saltpeter_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop }
+			}
+		}
+		AND = {
+			this = building_type:sand_pit
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit }
+			}
+		}
+		AND = {
+			this = building_type:schwaz_mine
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine }
+			}
+		}
+		AND = {
+			this = building_type:scriptorium
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium }
+			}
+		}
+		AND = {
+			this = building_type:sheep_farms
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms }
+			}
+		}
+		AND = {
+			this = building_type:shoen
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen }
+			}
+		}
+		AND = {
+			this = building_type:slave_center
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center }
+			}
+		}
+		AND = {
+			this = building_type:steel_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill }
+			}
+		}
+		AND = {
+			this = building_type:stone_quarry
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry }
+			}
+		}
+		AND = {
+			this = building_type:sugar_plantation
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation }
+			}
+		}
+		AND = {
+			this = building_type:tannery
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery }
+			}
+		}
+		AND = {
+			this = building_type:tannery_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:tannery_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill }
+			}
+		}
+		AND = {
+			this = building_type:tanning_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop }
+			}
+		}
+		AND = {
+			this = building_type:tar_kiln
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln }
+			}
+		}
+		AND = {
+			this = building_type:tatara
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara }
+			}
+		}
+		AND = {
+			this = building_type:textile_mill
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill }
+			}
+		}
+		AND = {
+			this = building_type:tobacco_plantation
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation }
+			}
+		}
+		AND = {
+			this = building_type:tools_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild }
+			}
+		}
+		AND = {
+			this = building_type:tools_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop }
+			}
+		}
+		AND = {
+			this = building_type:weapon_factory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory }
+			}
+		}
+		AND = {
+			this = building_type:weapon_guild
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild }
+			}
+		}
+		AND = {
+			this = building_type:weapon_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory }
+			}
+		}
+		AND = {
+			this = building_type:weapon_workshop
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop }
+			}
+		}
+		AND = {
+			this = building_type:winery
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery }
+			}
+		}
+		AND = {
+			this = building_type:winery_manufactory
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory }
+			}
+		}
 	}
+}
+
+# **Проба, а не удобство.** Она пропускает всё, если мод вообще может прочитать с
+# фильтра ту локацию, которую показывает панель. Пустой список под ней и полный
+# под «Планируемые» -- это «смена скоупа на `global_var:` из фильтра типа зданий
+# не работает», и тогда ответ надо класть на само здание, а не на локацию.
+# Scope: building_type
+bag_wtp_view_location_seen = {
+	has_global_variable = bag_view_location
+	global_var:bag_view_location = { has_variable = bag_wtp_load }
 }

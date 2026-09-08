@@ -8,27 +8,13 @@
 # raw materials anywhere in the province; the location variant asks the stricter
 # question of whether this very location works the material itself.
 
-# Buildings panel of one location: which building types gain here.
-# Scope: building_type
-bag_rgo_has_local_bonus = {
-	has_global_variable = bag_view_location
-	global_var:bag_view_location = {
-		province = {
-			any_location_in_province = {
-				bag_rgo_location_feeds_root = yes
-			}
-		}
-	}
-}
-
-# Same, but only the location on screen counts.
-# Scope: building_type
-bag_rgo_has_local_bonus_here = {
-	has_global_variable = bag_view_location
-	global_var:bag_view_location = {
-		bag_rgo_location_feeds_root = yes
-	}
-}
+# **Пара для панели зданий локации уехала в генератор** --
+# `bag_rgo_generated_triggers.txt`, `bag_rgo_has_local_bonus` и `_here`. Она
+# спрашивала тип здания через `root`, как обещает комментарий игры, и никогда
+# не работала; `root` в фильтре -- не отфильтровываемый объект (прогон
+# 2026-09-09, `docs/research/interface.md`). Теперь «потребляет ли этот тип
+# сырьё G» спрашивается неявным `this` до смены скоупа, а это значит один
+# `OR` на все виды сырья -- выписать его может только генератор.
 
 # Build panel of one building type: which locations it would gain in.
 # Scope: location

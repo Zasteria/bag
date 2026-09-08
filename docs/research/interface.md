@@ -226,7 +226,33 @@ nothing and logs an error on every pass of the list. Only the `building` and
 `location` scoped files use it (`building_can_be_upgraded_by = scope:target`,
 `owner = scope:target`), so treat it as available there and absent here.
 
-A `building_type` filter therefore sees `root` and global variables, nothing
+**The first half does not hold either, measured 2026-09-09.** `root` in a filter
+trigger is *not* the object being filtered. A `where_to_produce` chip built on
+`is_target_in_variable_list = { name = ... target = root }` left the list empty
+while its probe had the location (`view_location=1`) and the list it reads was
+populated on 454 locations; the only other `root`-reading chip in this
+repository, `rgo_bonus_filter`'s location-panel pair, is precisely the one that
+had never worked, while every chip asking the implicit `this` works.
+`06_country.txt` says "root is player" in its own header, so root is likely the
+player throughout. **Ask the filtered object as `this`, before any scope
+change**, and put a literal on the far side of one:
+
+```
+bag_wtp_type_in_plan_here = {
+	has_global_variable = bag_view_location
+	OR = {
+		AND = {
+			this = building_type:clay_pit
+			global_var:bag_view_location = {
+				is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit }
+			}
+		}
+		… one branch per type
+	}
+}
+```
+
+A `building_type` filter therefore sees `this` and global variables, nothing
 else. Anything else a filter needs — the location on screen, a user setting —
 has to be parked in a global variable first. CMM settings registered with
 `cmm_register_global_bool_setting` land in the global half of the `cmm` map, and
