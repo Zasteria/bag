@@ -6500,53 +6500,197 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tremove_variable = {MOD_ID}_fillg
 \tset_global_variable = {{ name = {MOD_ID}_fillv value = {RANK_SCALE * 10} }}
 {worst}}}
+""")
 
-# «Перетасовать»: обмен местами по всему плану, провинция за провинцией.
+    # ---- переезд между провинциями: общий переключатель и по одному на товар
+    read_b = "".join(
+        f"""\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_mv_bg = {i} }}
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bgain value = var:{MOD_ID}_p{i} }}
+\t\t}}
+\t\telse = {{
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bgain value = var:{MOD_ID}_pr{i} }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes {MOD_ID}_edit_fits_rural_{i} = yes }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bfit value = 1 }}
+\t\t}}
+\t}}
+"""
+        for i in range(1, len(order) + 1))
+    moves = ""
+    for index, good in enumerate(order, start=1):
+        has_town, has_rural = own[good]
+        for kind, ok in (("t", has_town), ("r", has_rural)):
+            if ok:
+                moves += f"\t{MOD_ID}_plan_move_{kind}{index} = yes\n"
+    out.append(f"""
+# Общее для обмена: всё про **чужой** товар, у которого мы отбираем место. Его
+# номер лежит в `_mv_bg`, а по номеру-переменной ни выгоду, ни «влезет ли» не
+# прочитать -- отсюда один переключатель на всех, а не по одному на пару.
+# Scope: location
+{MOD_ID}_mv_read_b = {{
+\tset_global_variable = {{ name = {MOD_ID}_mv_bgain value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_mv_bfit value = 0 }}
+{read_b}}}
+
+# «Перетасовать»: обмен местами **между провинциями**.
 #
-# **Домиков не меняет вовсе** -- обмен это две пары «убрать/поставить», у
-# каждого товара как был домик, так и остаётся. Меняются только места, и только
-# когда паре от этого лучше обоим вместе.
+# **Внутри провинции обменивать нечего, и это факт из файлов игры.** Выгода
+# считается `province_definition = {{ any_location_in_province_definition = {{
+# raw_material = goods:X }} }}`: одно РГО где угодно в провинции кормит каждую её
+# локацию одинаково. Первая версия торговала внутри провинции и не могла дать
+# ничего; владелец поймал это с одного взгляда, 2026-09-09: «у них везде будет
+# один и тот же бонус от земли».
+#
+# **Пар не перебираем.** Обмен всех со всеми -- это 416² за круг. Вместо этого
+# на каждый товар и сторону один обход земли: где ему платят больше всего и где
+# стоит его худший домик. Партнёром берётся тот, кем помечена цель --
+# `_plan_pick_worst` метит локацию худшим стоящим там своим домиком. Это
+# `товары × локации`, а не `локации²`.
+#
+# **Домиков не меняет ни у кого**: у обоих товаров как было, так и осталось.
 # Scope: country
 {MOD_ID}_plan_shuffle = {{
 \t{MOD_ID}_edit_clear_fillset = yes
 \tset_global_variable = {{ name = {MOD_ID}_ps_gain0 value = global_var:{MOD_ID}_plan_gain }}
 \tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
-\tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_plan_prov_locs
-\t\tclear_global_variable_list = {MOD_ID}_edit_fillset
-\t\tclear_global_variable_list = {MOD_ID}_edit_fillset2
-\t\tprovince_definition = {{
-\t\t\tevery_location_in_province_definition = {{
-\t\t\t\tlimit = {{ has_variable = {MOD_ID}_load }}
-\t\t\t\t{MOD_ID}_plan_pick_worst = yes
-\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_fillset target = this }}
-\t\t\t}}
-\t\t}}
-\t\t# Три круга, и он кончается, как только круг ничего не выменял.
-\t\t{MOD_ID}_edit_reshuffle_round = yes
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
-\t\t\t{MOD_ID}_edit_reshuffle_round = yes
-\t\t}}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
-\t\t\t{MOD_ID}_edit_reshuffle_round = yes
-\t\t}}
+\t{MOD_ID}_plan_shuffle_round = yes
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ps_did = 1 }}
+\t\t{MOD_ID}_plan_shuffle_round = yes
 \t}}
-\t# **Метки снимаются, а номера правок остаются.** `_edit_clear_fillset` стёр бы
-\t# и `_chg_seq`, то есть ровно то, что «Показать изменения» и рисует.
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ps_did = 1 }}
+\t\t{MOD_ID}_plan_shuffle_round = yes
+\t}}
 \tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_edit_fillset
+\t\tvariable = {MOD_ID}_plan_touched
 \t\tremove_variable = {MOD_ID}_fillg
 \t}}
-\tclear_global_variable_list = {MOD_ID}_edit_fillset
-\tclear_global_variable_list = {MOD_ID}_edit_fillset2
 \tset_global_variable = {{ name = {MOD_ID}_ps_gain value = global_var:{MOD_ID}_plan_gain }}
 \tchange_global_variable = {{ name = {MOD_ID}_ps_gain subtract = global_var:{MOD_ID}_ps_gain0 }}
 \tset_global_variable = {{ name = {MOD_ID}_ps_ran value = 1 }}
 \t# Отчёт `EDIT shuffle` печатает `_rs_gain`; пусть он и здесь значит то же.
 \tset_global_variable = {{ name = {MOD_ID}_rs_gain value = global_var:{MOD_ID}_ps_gain }}
 \t{MOD_ID}_plan_rank = yes
+}}
+
+# Один круг: пометить землю и дать каждому товару по одному переезду на сторону.
+# Scope: country
+{MOD_ID}_plan_shuffle_round = {{
+\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 0 }}
+\tchange_global_variable = {{ name = {MOD_ID}_rs_rounds add = 1 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{ has_variable = {MOD_ID}_load }}
+\t\t{MOD_ID}_plan_pick_worst = yes
+\t}}
+{moves}}}
+""")
+    for index, good in enumerate(order, start=1):
+        has_town, has_rural = own[good]
+        for kind, ok, gvar in (("t", has_town, "p"), ("r", has_rural, "pr")):
+            if not ok:
+                continue
+            sidename = "town" if kind == "t" else "rural"
+            istown = "yes" if kind == "t" else "no"
+            sfx, big = kind, RANK_SCALE * 10
+            mine = sorted(b for b in (groups.get((good, kind)) or {})
+                          if b not in villages_)
+            builds = " ".join(
+                f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+                f"target = building_type:{b} }}" for b in mine)
+            out_b = dispatch("edit_remove", f"global_var:{MOD_ID}_mv_bg", "\t" * 4)
+            in_a = dispatch("edit_place", f"global_var:{MOD_ID}_mv_ag", "\t" * 4)
+            out_a = dispatch("edit_remove", f"global_var:{MOD_ID}_mv_ag", "\t" * 4)
+            in_b = dispatch("edit_place", f"global_var:{MOD_ID}_mv_bg", "\t" * 4)
+            out.append(f"""
+# {good}, {sidename}: один переезд за круг -- из худшей своей провинции в
+# лучшую чужую, обменом с тем, кто там стоит.
+# Scope: country
+{MOD_ID}_plan_move_{sfx}{index} = {{
+\tset_global_variable = {{ name = {MOD_ID}_mv_bv value = -1 }}
+\tset_global_variable = {{ name = {MOD_ID}_mv_wv value = {big} }}
+\tset_global_variable = {{ name = {MOD_ID}_mv_ag value = {index} }}
+\tremove_global_variable = {MOD_ID}_mv_hasto
+\tremove_global_variable = {MOD_ID}_mv_hasfrom
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{
+\t\t\thas_variable = {MOD_ID}_load
+\t\t\t{MOD_ID}_plan_is_town = {istown}
+\t\t}}
+\t\t# Куда: лучшее место, где его домик мог бы стоять и ещё не стоит.
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_edit_fits_{sidename}_{index} = yes
+\t\t\t\tvar:{MOD_ID}_{gvar}{index} > global_var:{MOD_ID}_mv_bv
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bv value = var:{MOD_ID}_{gvar}{index} }}
+\t\t\tsave_scope_as = {MOD_ID}_mv_to
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_hasto value = 1 }}
+\t\t}}
+\t\t# Откуда: худшее место, где стоит его **своё** здание.
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+\t\t\t\tOR = {{ {builds} }}
+\t\t\t\tvar:{MOD_ID}_{gvar}{index} < global_var:{MOD_ID}_mv_wv
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_wv value = var:{MOD_ID}_{gvar}{index} }}
+\t\t\tsave_scope_as = {MOD_ID}_mv_from
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_hasfrom value = 1 }}
+\t\t}}
+\t}}
+\tif = {{
+\t\tlimit = {{
+\t\t\thas_global_variable = {MOD_ID}_mv_hasto
+\t\t\thas_global_variable = {MOD_ID}_mv_hasfrom
+\t\t\tglobal_var:{MOD_ID}_mv_bv > global_var:{MOD_ID}_mv_wv
+\t\t}}
+\t\t# Кто стоит в цели и что он там получает.
+\t\tset_global_variable = {{ name = {MOD_ID}_mv_bg value = 0 }}
+\t\tscope:{MOD_ID}_mv_to = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_fillg }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bg value = var:{MOD_ID}_fillg }}
+\t\t\t}}
+\t\t\t{MOD_ID}_mv_read_b = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bto value = global_var:{MOD_ID}_mv_bgain }}
+\t\t}}
+\t\t# Что он получит там, куда поедет, и влезет ли он туда вообще.
+\t\tscope:{MOD_ID}_mv_from = {{
+\t\t\t{MOD_ID}_mv_read_b = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bfrom value = global_var:{MOD_ID}_mv_bgain }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bfitf value = global_var:{MOD_ID}_mv_bfit }}
+\t\t}}
+\t\t# Паре вместе должно стать лучше, а не одному из двоих.
+\t\tset_global_variable = {{ name = {MOD_ID}_mv_new value = global_var:{MOD_ID}_mv_bv }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_mv_new add = global_var:{MOD_ID}_mv_bfrom }}
+\t\tset_global_variable = {{ name = {MOD_ID}_mv_now value = global_var:{MOD_ID}_mv_wv }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_mv_now add = global_var:{MOD_ID}_mv_bto }}
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tglobal_var:{MOD_ID}_mv_bg > 0
+\t\t\t\tglobal_var:{MOD_ID}_mv_bfitf = 1
+\t\t\t\tglobal_var:{MOD_ID}_mv_new > global_var:{MOD_ID}_mv_now
+\t\t\t}}
+\t\t\t# **Сначала в цель, потом из источника.** Товар на миг стоит дважды и
+\t\t\t# возвращается к своему числу; постановка квоты не спрашивает, только
+\t\t\t# «влезет ли» и «есть ли комната», а комнату освобождает строка выше.
+\t\t\tscope:{MOD_ID}_mv_to = {{
+{out_b}{in_a}\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
+\t\t\t}}
+\t\t\tscope:{MOD_ID}_mv_from = {{
+{out_a}{in_b}\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
+\t\t}}
+\t}}
 }}
 """)
 
@@ -9724,164 +9868,126 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     # ---------------------------------------------------- the reshuffle's probe
     #
-    # **Зонд идёт впереди механизма, и это его же правило.** Перетасовка внутри
-    # провинции -- следующая работа по плану, но строить её вслепую значит
-    # тратить три сессии на то, что может не стоить ничего. Владелец, 2026-09-09:
-    # «пусть мне в диагностике по результату этого зонда покажет короткий
-    # результат, на сколько может быть увеличена выгода».
+    # **Выгода от земли — свойство ПРОВИНЦИИ, а не локации.** `_g<n>` спрашивает
+    # `province_definition = {{ any_location_in_province_definition = {{
+    # raw_material = goods:X }} }}`: одно РГО где угодно в провинции кормит
+    # каждую её локацию одинаково. Значит **обмен внутри провинции не может
+    # изменить ничего**, и первый зонд, считавший именно его, мерил пустоту.
+    # Владелец, 2026-09-09: «какой смысл мусолить домики внутри своих же
+    # провинций? У них везде будет один и тот же бонус от земли». Он прав.
     #
-    # **Это верхняя граница, а не обещание.** На каждый товар и каждую провинцию
-    # берётся лучшая выгода, какую этот товар вообще мог бы там получить, и
-    # складывается разница с тем, что он получает сейчас. Настоящий обмен
-    # столько не даст никогда: два домика не встанут в одну локацию, а обмен
-    # выгоден обоим только если второму новое место не хуже. Но **граница
-    # решает вопрос**: если она мала, механизм не нужен и мы это знаем ценой
-    # одного нажатия.
+    # **Откуда тогда взялись 18 244.** Тот зонд брал лучшее по провинции, не
+    # различая сторон: городской домик сравнивался с сельским лучшим. Это разные
+    # рецепты с разными потолками, и разница между ними — не запас, а ошибка.
+    # Здесь стороны считаются раздельно, и число «внутри провинции» осталось
+    # **проверкой**: оно обязано быть нулём, иначе врёт и этот зонд тоже.
     #
-    # **Внутри провинции**, потому что бонус от РГО соседский: по всей земле это
-    # 957 тысяч пар, внутри провинции -- двенадцать тысяч.
-    #
-    # Считается только по «Диагностике» и больше нигде: два обхода провинции на
-    # товар -- сорок тысяч заходов в локацию, и платить за это на каждом плане
-    # незачем.
+    # **Настоящий вопрос — между провинциями.** Товар переезжает из провинции,
+    # где ему платят мало, в ту, где платят много; кто там стоял, едет обратно.
+    # Граница считается так: лучшая провинция для товара на его стороне минус то,
+    # что каждый его домик получает там, где стоит. Верхняя, и очень щедрая:
+    # все домики товара в одну провинцию не влезут.
     out.append(f"""
-# What a within-province reshuffle could add, as an upper bound. Дорого и
-# считается только здесь.
+# What a reshuffle could add, as an upper bound. Дорого и считается только здесь.
 # Scope: country
 {MOD_ID}_diag_shuffle = {{
 \tset_global_variable = {{ name = {MOD_ID}_rp_bound value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rp_moves value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rp_right value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_rp_lbound value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_rp_lmoves value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rp_pbound value = 0 }}
 """)
     for index, good in enumerate(order, start=1):
         town, rural = bool(groups.get((good, "t"))), bool(groups.get((good, "r")))
         if not town and not rural:
             continue
 
-        def side_block(kind: str, tab: str) -> str:
-            """Ветка стороны: город читает `_p<n>`, село `_pr<n>`."""
+        def best(kind: str, tab: str) -> str:
+            """Лучшее, что земля платит этому товару на этой стороне."""
+            g, m = ("p", "pm") if kind == "t" else ("pr", "prm")
+            acc = "rp_bt" if kind == "t" else "rp_br"
+            return (f"{tab}if = {{\n"
+                    f"{tab}\t{MOD_ID}_plan_is_town = {'yes' if kind == 't' else 'no'}\n"
+                    .replace(f"{tab}\t{MOD_ID}", f"{tab}\tlimit = {{ {MOD_ID}")
+                    .replace(f"= {'yes' if kind == 't' else 'no'}\n",
+                             f"= {'yes' if kind == 't' else 'no'} }}\n")
+                    + f"{tab}\tif = {{\n"
+                      f"{tab}\t\tlimit = {{\n"
+                      f"{tab}\t\t\tvar:{MOD_ID}_{m}{index} > 0\n"
+                      f"{tab}\t\t\tvar:{MOD_ID}_{g}{index} > global_var:{MOD_ID}_{acc}\n"
+                      f"{tab}\t\t}}\n"
+                      f"{tab}\t\tset_global_variable = {{ name = {MOD_ID}_{acc} "
+                      f"value = var:{MOD_ID}_{g}{index} }}\n"
+                      f"{tab}\t}}\n"
+                      f"{tab}}}\n")
+
+        def gap(kind: str, tab: str, acc: str) -> str:
+            """Насколько ниже лучшего стоит домик этого товара здесь."""
             g = "p" if kind == "t" else "pr"
-            m = "pm" if kind == "t" else "prm"
+            b = "rp_bt" if kind == "t" else "rp_br"
             return (f"{tab}if = {{\n"
                     f"{tab}\tlimit = {{\n"
-                    f"{tab}\t\tvar:{MOD_ID}_{m}{index} > 0\n"
-                    f"{tab}\t\tvar:{MOD_ID}_{g}{index} > global_var:{MOD_ID}_rp_best\n"
+                    f"{tab}\t\t{MOD_ID}_plan_is_town = {'yes' if kind == 't' else 'no'}\n"
+                    f"{tab}\t\tvar:{MOD_ID}_{g}{index} < global_var:{MOD_ID}_{b}\n"
                     f"{tab}\t}}\n"
-                    f"{tab}\tset_global_variable = {{ name = {MOD_ID}_rp_best "
-                    f"value = var:{MOD_ID}_{g}{index} }}\n"
-                    f"{tab}}}\n")
-
-        def deficit_block(kind: str, tab: str, acc: str = "") -> str:
-            g = "p" if kind == "t" else "pr"
-            return (f"{tab}if = {{\n"
-                    f"{tab}\tlimit = {{ var:{MOD_ID}_{g}{index} < global_var:{MOD_ID}_rp_best }}\n"
                     f"{tab}\tset_global_variable = {{ name = {MOD_ID}_rp_d "
-                    f"value = global_var:{MOD_ID}_rp_best }}\n"
+                    f"value = global_var:{MOD_ID}_{b} }}\n"
                     f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_d "
                     f"subtract = var:{MOD_ID}_{g}{index} }}\n"
-                    f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_{acc}bound "
+                    f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_{acc} "
                     f"add = global_var:{MOD_ID}_rp_d }}\n"
-                    f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_{acc}moves add = 1 }}\n"
-                    f"{tab}\tif = {{\n"
-                    f"{tab}\t\tlimit = {{ has_variable = {MOD_ID}_plan_right }}\n"
-                    f"{tab}\t\tchange_global_variable = {{ name = {MOD_ID}_rp_right "
-                    f"add = global_var:{MOD_ID}_rp_d }}\n"
-                    f"{tab}\t}}\n"
-                    f"{tab}}}\n")
+                    + (f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_moves add = 1 }}\n"
+                       f"{tab}\tif = {{\n"
+                       f"{tab}\t\tlimit = {{ has_variable = {MOD_ID}_plan_right }}\n"
+                       f"{tab}\t\tchange_global_variable = {{ name = {MOD_ID}_rp_right "
+                       f"add = global_var:{MOD_ID}_rp_d }}\n"
+                       f"{tab}\t}}\n" if acc == "rp_bound" else "")
+                    + f"{tab}}}\n")
 
-        def best_at(depth: int) -> str:
-            pad = chr(9) * depth
-            piece = ""
-            if town:
-                piece += (f"{pad}if = {{\n{pad}\tlimit = {{ {MOD_ID}_plan_is_town = yes }}\n"
-                          f"{side_block('t', pad + chr(9))}{pad}}}\n")
-            if rural:
-                head = (f"{pad}else = {{\n" if town else
-                        f"{pad}if = {{\n{pad}\tlimit = {{ {MOD_ID}_plan_is_town = no }}\n")
-                piece += f"{head}{side_block('r', pad + chr(9))}{pad}}}\n"
-            return piece
-
-        best_prov = best_at(4)
-        best = best_at(3)
-        # Та же арифметика, но накопители другие: земля целиком.
-        lgap = ""
-        if town:
-            lgap += f"""\t\t\tif = {{
-\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
-{deficit_block("t", chr(9) * 5, "l")}\t\t\t}}
-"""
-        if rural:
-            head = ("else = {" if town else
-                    "if = {\n\t\t\t\tlimit = { %s_plan_is_town = no }" % MOD_ID)
-            lgap += f"""\t\t\t{head}
-{deficit_block("r", chr(9) * 5, "l")}\t\t\t}}
-"""
-        gap = ""
-        if town:
-            gap += f"""\t\t\t\t\tif = {{
-\t\t\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
-{deficit_block("t", chr(9) * 7)}\t\t\t\t\t}}
-"""
-        if rural:
-            head = "else = {" if town else "if = {\n\t\t\t\t\t\tlimit = { %s_plan_is_town = no }" % MOD_ID
-            gap += f"""\t\t\t\t\t{head}
-{deficit_block("r", chr(9) * 7)}\t\t\t\t\t}}
-"""
-        out.append(f"""\t# {good}
-\tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_plan_prov_locs
-\t\tset_global_variable = {{ name = {MOD_ID}_rp_best value = 0 }}
-\t\t# Первый обход: лучшее, что этот товар мог бы получить в этой провинции.
-\t\tprovince_definition = {{
-\t\t\tevery_location_in_province_definition = {{
-\t\t\t\tlimit = {{ has_variable = {MOD_ID}_load }}
-{best_prov}\t\t\t}}
-\t\t}}
-\t\t# Второй: насколько ниже стоят его домики, которые здесь уже есть.
-\t\tprovince_definition = {{
-\t\t\tevery_location_in_province_definition = {{
-\t\t\t\tlimit = {{
-\t\t\t\t\thas_variable = {MOD_ID}_load
-\t\t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
-\t\t\t\t}}
-{gap}\t\t\t}}
-\t\t}}
-\t}}
-\t# **И то же самое по всей выбранной земле, а не только внутри провинции.**
-\t# Провинция была выбрана из соображения «бонус от РГО соседский», и это
-\t# соображение надо проверить, а не принять: если по всей земле граница
-\t# сильно больше, значит обмен нужен другой -- между провинциями, -- и
-\t# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
-\t# какой-то другой ситуации прирост будет значительно больше».
-\tset_global_variable = {{ name = {MOD_ID}_rp_best value = 0 }}
-\tevery_in_global_list = {{
+        sides = [k for k, ok in (("t", town), ("r", rural)) if ok]
+        zero = (f"\tset_global_variable = {{ name = {MOD_ID}_rp_bt value = 0 }}\n"
+                f"\tset_global_variable = {{ name = {MOD_ID}_rp_br value = 0 }}\n")
+        stands = (f"\t\t\thas_variable = {MOD_ID}_load\n"
+                  f"\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods "
+                  f"target = goods:{good} }}\n")
+        out.append(f"""\t# {good}: по всей земле — что и есть «между провинциями».
+{zero}\tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tlimit = {{ has_variable = {MOD_ID}_load }}
-{best}\t}}
+{"".join(best(k, chr(9) * 2) for k in sides)}\t}}
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tlimit = {{
-\t\t\thas_variable = {MOD_ID}_load
-\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+{stands}\t\t}}
+{"".join(gap(k, chr(9) * 2, "rp_bound") for k in sides)}\t}}
+\t# Он же внутри провинции — проверка, и она обязана дать ноль.
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_prov_locs
+{zero}\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_load }}
+{"".join(best(k, chr(9) * 4) for k in sides)}\t\t\t}}
 \t\t}}
-{lgap}\t}}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tlimit = {{
+\t{stands}\t\t\t\t}}
+{"".join(gap(k, chr(9) * 4, "rp_pbound") for k in sides)}\t\t\t}}
+\t\t}}
+\t}}
 """)
     out.append(park(1, f"{MOD_ID}_rp_bound"))
     out.append(park(2, f"{MOD_ID}_rp_moves"))
     out.append(park(3, f"{MOD_ID}_rp_right"))
     out.append(park(4, f"{MOD_ID}_plan_gain"))
     out.append(park(5, f"{MOD_ID}_plan_placed"))
-    out.append(park(6, f"{MOD_ID}_rp_lbound"))
-    out.append(park(7, f"{MOD_ID}_rp_lmoves"))
+    out.append(park(6, f"{MOD_ID}_rp_pbound"))
     out.append(say(f"SHUFFLE bound={read(1)} moves={read(2)} in_charter_towns={read(3)}"
-                   f" | land_bound={read(6)} land_moves={read(7)}"
-                   f" | gain_now={read(4)} placed={read(5)} -- bound is the ceiling "
-                   f"a within-province reshuffle could add, out of {RANK_SCALE} a "
-                   f"building; land_bound is the same with no province limit at all. "
-                   f"Both ignore that two buildings cannot share a room, so a real "
-                   f"trade is always less"))
+                   f" | same_province={read(6)} (must be 0 -- the gain is a province's,"
+                   f" not a location's)"
+                   f" | gain_now={read(4)} placed={read(5)} -- bound is the ceiling a"
+                   f" reshuffle across provinces could add, out of {RANK_SCALE} a"
+                   f" building, counted per side; it ignores that a good's buildings"
+                   f" cannot all crowd into one province, so a real trade is far less"))
     out.append("}\n")
     return "".join(out)
 
