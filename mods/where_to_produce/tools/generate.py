@@ -231,7 +231,7 @@ DIAG_LAPS = 40
 # shipping on 2026-09-06, and `read(18)` against seventeen slots came within one
 # build again the same day, when the good's line gained `out=`. **Raise this
 # whenever a line gains a number, in the same edit.**
-DIAG_SCRATCH = 24
+DIAG_SCRATCH = 25
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
@@ -1903,6 +1903,26 @@ def village_entities(rows, split, game) -> list[str]:
     return [b for b in shared_buildings(rows, split, game) if b in VILLAGES]
 
 
+def own_sides(rows, split, game) -> dict[str, tuple[bool, bool]]:
+    """Есть ли у товара **своё** здание в городе и в селе, по товару.
+
+    **Село считается только по своим зданиям, деревни не в счёт.** «Деревня =
+    товар»: бумага в селе не встанет никогда, пиво в селе не встанет тоже --
+    его там делает торговая деревня, и это её домик, а не пива. Сводка ставит
+    в такой клетке прочерк, а не ноль: «куча нулей меня напрягает»,
+    2026-09-08.
+
+    Это статический факт мода, а не выбранной земли: `pounamou_carver` --
+    настоящее сельское здание украшений, даже если в Вестфалии его нет.
+    """
+    groups = plan_groups(rows, split, game)
+    villages = village_entities(rows, split, game)
+    order = [g for kind in ("raw", "made") for g in split[kind]]
+    return {good: (bool(groups.get((good, "t"))),
+                   any(b not in villages for b in (groups.get((good, "r")) or {})))
+            for good in order}
+
+
 def shared_buildings(rows, split, game) -> list[str]:
     """Здания, за которые спорят несколько товаров, в устойчивом порядке.
 
@@ -2480,7 +2500,7 @@ def plan_loc_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
         for code, key in ((1, "none"), (2, "room"), (3, "quota"), (4, "capt"),
                           (5, "capr"), (6, "lock"), (7, "skip"), (9, "lost"),
-                          (10, "taken")):
+                          (10, "taken"), (11, "village_only")):
             out.append(f"""\ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_wr{i} = {code} }}
 \t\tlocalization_key = {MOD_ID}_why_{key}
@@ -2722,6 +2742,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = 1 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pout{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}\n"
+                   f"\tset_global_variable = {{ name = {MOD_ID}_pqraw{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}\n"
                    f"\tremove_global_variable = {MOD_ID}_lock{index}\n"
@@ -2883,6 +2904,33 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_nrgor{index} add = 1 }}
 \t\t}}
 \t}}"""
+        # **Сельское место считается только под своё здание, а не под деревню.**
+        # Его правило, повторённое полсотни раз: «деревня = товар». Товар, у
+        # которого в селе только деревня, своей сельской доли не имеет вовсе, и
+        # места деревни ему не принадлежат — иначе он входит третьим лишним в
+        # сельский делитель и уменьшает долю тем, у кого своё здание есть.
+        # Украшения, 2026-09-08: 284 места торговой деревни давали им долю 54
+        # при вечном нуле в столбце «село».
+        #
+        # **Проверка — та же, что в воротах `_plan_can_rural_<n>`:** какой
+        # рецепт выиграл здесь. Победил рецепт деревни — ворота всё равно не
+        # откроются, и место товару не принадлежит.
+        own_r = sorted({m for building, ms
+                        in (groups.get((good, "r")) or {}).items()
+                        if building not in villages for m in ms})
+        side_count = f"""\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ngt{index} add = 1 }}
+\t\t}}"""
+        if own_r:
+            tests = " ".join(f"var:{MOD_ID}_prm{index} = {m}" for m in own_r)
+            side_count += f"""
+\t\telse = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ OR = {{ {tests} }} }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_ngr{index} add = 1 }}
+\t\t\t}}
+\t\t}}"""
         out.append(f"""
 # {good}: keep both sides and the method that won each, then divide the ground by
 # the better of them, so that {RANK_SCALE} means "the location this good wants most" for
@@ -2986,13 +3034,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t# смешиваются: товар, который умеет только в городе, не может взять
 \t\t# сельскую комнату, сколько бы их ни было. Доля, посчитанная одним
 \t\t# котлом, обещает ему то, чего земля не имеет.
-\t\tif = {{
-\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_ngt{index} add = 1 }}
-\t\t}}
-\t\telse = {{
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_ngr{index} add = 1 }}
-\t\t}}
+{side_count}
 \t\t# **And the best this ground ever pays this good**, which is what the open
 \t\t# ladder deals the leftovers by. Taken on the side the location actually is,
 \t\t# inside the walk that was happening anyway: one comparison a candidate and
@@ -3466,7 +3508,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     bquotas += "".join(
         f"""\tif = {{
 \t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_ngv{k} > global_var:{MOD_ID}_qcapr }} }}
-\t\tset_global_variable = {{ name = {MOD_ID}_bq{shared.index(b) + 1} value = {SHARE_CAP} }}
+\t\t# **«Потолка нет» пишется её собственной землёй, а не {SHARE_CAP}.**
+\t\t# Столько она всё равно взять не может, а в сводке это читаемое число
+\t\t# вместо 2000.
+\t\tset_global_variable = {{ name = {MOD_ID}_bq{shared.index(b) + 1} value = global_var:{MOD_ID}_ngv{k} }}
 \t}}
 """ for k, b in enumerate(village_entities(rows, split, game), start=1))
 
@@ -3592,18 +3637,23 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # стороне не больше её доли, делить ему нечего и любой потолок только
     # отнимает — железо с 15 городами и 28 сёлами при долях 23 и 48 берёт всё.
     quota_lines = "".join(
-        f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 0 }}
+        f"""\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = 0 }}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ngt{index} > 0 }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_qcapt }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
 \t}}
+\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = 0 }}
 """ + (f"""\tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ngr{index} > 0 }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_qcapr }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
 \t}}
-""" if index in own_rural else "") + f"""\tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
+""" if index in own_rural else "") + f"""\t# Доля до скидки: сумма долей тех сторон, где товар вообще умеет.
+\tset_global_variable = {{ name = {MOD_ID}_pqraw{index} value = global_var:{MOD_ID}_pqt{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqraw{index} add = global_var:{MOD_ID}_pqr{index} }}
+\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_pqraw{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
-\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
+\t# Скидка срезает сначала городскую сторону, остаток уходит в сельскую.
 \tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tset_global_variable = {{ name = {MOD_ID}_rgleft value = 0 }}
 \tif = {{
@@ -3611,16 +3661,27 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = global_var:{MOD_ID}_pqt{index} }}
 \t}}
 \tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
 \tchange_global_variable = {{ name = {MOD_ID}_pqr{index} add = global_var:{MOD_ID}_rgleft }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
-\t# стеснённая сторона: потолка нет
 \tif = {{
-\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_ngt{index} > global_var:{MOD_ID}_qcapt }} }}
+\t\tlimit = {{ global_var:{MOD_ID}_ngr{index} > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 0 }}
+\t# стеснённая сторона: потолка нет. Стороны, которой у товара нет, это не
+\t# касается -- её потолок остаётся нулём, иначе шерсть получала бы городской
+\t# потолок 10 при нуле городских мест.
+\tif = {{
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_ngt{index} > 0
+\t\t\tNOT = {{ global_var:{MOD_ID}_ngt{index} > global_var:{MOD_ID}_qcapt }}
+\t\t}}
 \t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_pq{index} }}
 \t}}
 \tif = {{
-\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_ngr{index} > global_var:{MOD_ID}_qcapr }} }}
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_ngr{index} > 0
+\t\t\tNOT = {{ global_var:{MOD_ID}_ngr{index} > global_var:{MOD_ID}_qcapr }}
+\t\t}}
 \t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_pq{index} }}
 \t}}
 """
@@ -8442,6 +8503,11 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         # «почему у него меньше».** Доля товара -- это доля земли минус одно за
         # каждое своё РГО, и без этого числа строка выглядит просто урезанной.
         out.append(f' {MOD_ID}_sum_rgo_{i}: "{sv % "nrgo"}"\n')
+        # **Доля до скидки и после.** Его вопрос 2026-09-08: «что это блядь за
+        # доля? С рго, без рго?». Теперь обе стоят рядом, и «без РГО» -- это
+        # ровно три числа на всю таблицу: доля города, доля села и их сумма
+        # для тех, кто умеет обе стороны.
+        out.append(f' {MOD_ID}_sum_qraw_{i}: "{sv % "pqraw"}"\n')
         out.append(f' {MOD_ID}_sum_quota_{i}: "{sv % "pq"}"\n')
         out.append(f' {MOD_ID}_sum_gain_{i}: "{sv % "gain"}%"\n')
 
@@ -9131,7 +9197,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              # своё у каждого товара, и без него не отличить
                              # «связал потолок» от «кончились комнаты».
                              (23, f"{MOD_ID}_pqt{index}"),
-                             (24, f"{MOD_ID}_pqr{index}")):
+                             (24, f"{MOD_ID}_pqr{index}"),
+                             (25, f"{MOD_ID}_pqraw{index}")):
             out.append(park(slot, source))
         # Availability is the country's advance and not the location's ground:
         # `can_build_building` asked here answers the advance, asked in a
@@ -9153,7 +9220,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"eq={read(17)} out={read(18)} "
                        f"nt={read(19)} nr={read(20)} "
                        f"rgot={read(21)} rgor={read(22)} "
-                       f"qt={read(23)} qr={read(24)}"))
+                       f"qt={read(23)} qr={read(24)} qraw={read(25)}"))
         out.append("}\n")
 
     # ----------------------------------------------------------------- the laps
@@ -9374,9 +9441,9 @@ SUM_CELLS_OUT = MOD / "in_game/gui/bag_wtp_sum_cells.gui"
 # домиков.** Его просьба 2026-09-08: «стоит разделить в таблице на отдельные
 # город и село вместо одной город/село и так же столбик с общим реальным
 # количеством без РГО».
-SUM_COLS = ((200, "name"), (54, "n"), (60, "nb"), (54, "town"), (54, "rural"),
-            (60, "places"), (48, "rgo"), (54, "quota"), (58, "qt"), (58, "qr"),
-            (54, "gain"), (440, "why"))
+SUM_COLS = ((180, "name"), (52, "n"), (56, "nb"), (50, "town"), (50, "rural"),
+            (52, "places"), (44, "rgo"), (58, "qraw"), (66, "quota"),
+            (66, "qt"), (66, "qr"), (52, "gain"), (420, "why"))
 SUM_SPACING = 6
 SUM_ROW_W = sum(w for w, _ in SUM_COLS) + SUM_SPACING * (len(SUM_COLS) - 1)
 SUM_WINDOW_W = 1460
@@ -9388,6 +9455,7 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     """Что сводка считает: причину остановки на товар и четыре числа в шапку."""
     order = goods_order(split)
     groups = plan_groups(rows, split, game)
+    sides = own_sides(rows, split, game)
     out = [HEADER, "#\n# The plan's summary: one row a good, and why each stopped\n# where it did.\n"]
     out.append(f"""
 # **Считается на открытие окна и больше нигде.** Один обход по кандидатам на
@@ -9401,7 +9469,8 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # 1 -- земля этого не производит вовсе; 2 -- стоит во всех своих местах;
 # 10 -- мест не осталось, но его места разобрали другие;
 # 3 -- выбрана своя доля; 4 -- выбран городской потолок; 5 -- сельский;
-# 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 9 -- специализация
+# 6 -- закреплён в редакторе; 7 -- помечен «не нужен»; 11 -- своих зданий
+# у товара нет, его делает только деревня; 9 -- специализация
 # перебила его в каждой свободной ячейке; 8 -- ничего из этого, то есть
 # раздача встала раньше, чем товар упёрся хоть во что-то.
 # Scope: country
@@ -9425,10 +9494,19 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tremove_global_variable = {MOD_ID}_sum_any
 """)
     for index, good in enumerate(order, start=1):
-        town = groups.get((good, "t"))
-        rural = groups.get((good, "r"))
+        town, rural = sides[good]
         can = " ".join(f"{MOD_ID}_plan_can_{side}_{index} = yes"
                        for side, has in (("town", town), ("rural", rural)) if has)
+        # **Товар, у которого нет ни одного своего здания.** Рыба: её делает
+        # только рыбацкая деревня, а деревня -- сущность, а не рецепт рыбы.
+        # Пустой `OR` спрашивать нельзя, и ответ «его места заняли другие» тут
+        # неверен -- мест у него и не было.
+        noside = ""
+        if not town and not rural:
+            can = "always = no"
+            noside = (f"\t# Своих зданий у товара нет вовсе: его делает только деревня,\n"
+                      f"\t# и своей доли у него в раздаче не появляется.\n"
+                      f"\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 11 }}\n")
         caps = ""
         if town:
             caps += f"""\t\telse_if = {{
@@ -9535,7 +9613,7 @@ def summary_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 3 }}
 \t\t}}
 {caps}\t}}
-\t# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
+{noside}\t# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
 \tif = {{
 \t\tlimit = {{ has_global_variable = {MOD_ID}_lock{index} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_wr{index} value = 6 }}
@@ -9592,10 +9670,26 @@ types BagWtpSumCells {
 """]
     villages = village_entities(rows, split, game)
     shared_all = shared_buildings(rows, split, game)
+    sides = own_sides(rows, split, game)
     for index, good in enumerate(order, start=1):
+        # **Прочерк там, где товар не может стоять вовсе.** Его слова
+        # 2026-09-08: «куча нулей меня напрягает... очевидно бумага не может
+        # производится в сёлах». Ноль значит «может, но не встал»; прочерк --
+        # «такой стороны у него нет». Село считается по своим зданиям: пиво в
+        # селе делает торговая деревня, и это её домик.
+        has_town, has_rural = sides[good]
+        dashes = set()
+        if not has_town:
+            dashes |= {"town", "qt"}
+        if not has_rural:
+            dashes |= {"rural", "qr"}
+        if not has_town and not has_rural:
+            dashes |= {"qraw", "quota"}
         cells = ""
         for width, kind in SUM_COLS:
-            if kind == "why":
+            if kind in dashes:
+                text, align, size = '"—"', "center|vcenter", 13
+            elif kind == "why":
                 text = f'"[GetPlayer.Custom(\'{MOD_ID}_why_{index}\')]"'
                 align, size = "left|vcenter", 13
             elif kind == "name":
@@ -9638,8 +9732,8 @@ types BagWtpSumCells {
                 text, align, size = f'"{MOD_ID}_village_{building}"', "left|vcenter", 14
             elif kind == "why":
                 text, align, size = f'"{MOD_ID}_why_village"', "left|vcenter", 13
-            elif kind in ("n", "nb", "town", "rural", "places", "quota",
-                          "qt", "qr"):
+            elif kind in ("n", "nb", "town", "rural", "places", "qraw",
+                          "quota", "qt", "qr"):
                 sv = ("[GuiScope.SetRoot(GetPlayer.MakeScope)"
                       ".ScriptValue('%s_show_%s')|0]")
                 body = {"n": "#Y " + sv % (MOD_ID, "bn%d" % b) + "#!",
@@ -9647,7 +9741,11 @@ types BagWtpSumCells {
                         "town": "—",
                         "rural": sv % (MOD_ID, "bn%d" % b),
                         "places": sv % (MOD_ID, "ngv%d" % k),
-                        "quota": sv % (MOD_ID, "bq%d" % b),
+                        # Доля деревни -- сельская доля, и вычитать из неё
+                        # нечего: РГО у деревни нет. Её собственный потолок --
+                        # в столбце «доля село».
+                        "qraw": sv % (MOD_ID, "qcapr"),
+                        "quota": sv % (MOD_ID, "qcapr"),
                         "qt": "—",
                         "qr": sv % (MOD_ID, "bq%d" % b)}[kind]
                 text = '"%s"' % body
@@ -10046,6 +10144,8 @@ def main() -> int:
         f"{MOD_ID}_show_ng{i} = {{ value = global_var:{MOD_ID}_ng{i} }}\n"
         f"{MOD_ID}_show_nrgo{i} = {{ value = global_var:{MOD_ID}_nrgo{i} }}\n"
         f"{MOD_ID}_show_pq{i} = {{ value = global_var:{MOD_ID}_pq{i} }}\n"
+        f"# Та же доля до скидки за РГО: сумма долей сторон, где товар умеет.\n"
+        f"{MOD_ID}_show_pqraw{i} = {{ value = global_var:{MOD_ID}_pqraw{i} }}\n"
         # `_pbest` -- доля от `RANK_SCALE`; на экране это проценты.
         f"{MOD_ID}_show_gain{i} = {{ value = global_var:{MOD_ID}_pbest{i} "
         f"divide = {RANK_SCALE // 100} }}\n"

@@ -553,7 +553,8 @@ def digest(lines: list[str]) -> list[str]:
                  else "город" if rural and rural.group(1) == "0"
                  else "земля")
         qt, qr = field(tail, "qt"), field(tail, "qr")
-        goods.append((line.split()[2], n, rgo, n + rgo, where, qt, qr))
+        goods.append((line.split()[2], n, rgo, n + rgo, where, qt, qr,
+                      field(tail, "qraw")))
     if goods:
         show = lambda g: "%s %d+%d=%d" % (g[0], g[1], g[2], g[3])
         out.append("Равномерность — домиков + РГО = всего у товара:")
@@ -570,14 +571,21 @@ def digest(lines: list[str]) -> list[str]:
                           span, why))
             out.append("         " + ", ".join(show(g) for g in part[:5])
                        + (", …" if len(part) > 5 else ""))
-        # **Потолки, какими они стали к концу.** Они растут с каждым сухим
-        # кругом, поэтому одного числа на всех нет; печатаем разброс, чтобы
-        # «связал потолок» было отличимо от «кончились комнаты».
+        # **Доли по сторонам и до скидки за РГО.** Доля до скидки -- это ровно
+        # три числа на всю таблицу: доля города, доля села и их сумма у тех,
+        # кто умеет обе стороны. Всё, что ниже, объясняется РГО или стеснённой
+        # стороной, у которой потолка нет вовсе.
         caps_t = [g[5] for g in goods if g[5] is not None]
         caps_r = [g[6] for g in goods if g[6]]
+        raws = sorted({g[7] for g in goods if g[7]})
+        if raws:
+            out.append("  доля до вычета РГО: %s — больше чисел тут и не должно "
+                       "быть, это доля города, доля села и их сумма"
+                       % ", ".join(str(r) for r in raws))
         if caps_t:
-            out.append("  потолки к концу: город %d…%d, село %d…%d — они растут "
-                       "с каждым сухим кругом, одного числа на всех нет"
+            out.append("  потолки после вычета: город %d…%d, село %d…%d — "
+                       "разница от РГО и от стеснённой стороны, у которой "
+                       "потолка нет вовсе"
                        % (min(caps_t), max(caps_t),
                           min(caps_r or [0]), max(caps_r or [0])))
         best, worst = max(goods, key=lambda g: g[3]), min(goods, key=lambda g: g[3])
