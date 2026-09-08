@@ -3346,12 +3346,33 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"""\tif = {{ limit = {{ global_var:{MOD_ID}_ngr{index} > 0 }} """
         f"""change_global_variable = {{ name = {MOD_ID}_qgr add = 1 }} }}\n"""
         for index in range(1, len(order) + 1))
+    # **Скидка за РГО срезает сначала городской потолок, и только остаток —
+    # сельский.** Его правило, 2026-09-08: «РГО в первую очередь вычитают из
+    # городских лимитов… значит в городах мне не будет тыкаться глина, пока РГО
+    # хватает для этого перевеса». Городская комната дороже сельской, а РГО их
+    # не различает: глина с 16 своими РГО занимала 11 городов из 70, притом что
+    # в селе ей 150 мест.
+    #
+    # **И это же чинит потерю скидки.** Делили её раньше по тому, ГДЕ РГО стоит:
+    # у `medicaments` из семи РГО в городе стоит **одно** (`rgot=1 rgor=6`), а
+    # строить она умеет только в городе — шесть скидок срезали сельский потолок,
+    # которым она не пользуется никогда, и она кончила на 17+7=24 против 17+0=17
+    # у `incense`. Теперь все семь уходят в город: потолок 15-7=8, и она встаёт
+    # вровень.
     quota_lines = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgot{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
+\t# Сколько скидки в город не влезло. Ноль, если влезла вся.
+\tset_global_variable = {{ name = {MOD_ID}_rgleft value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} < 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = global_var:{MOD_ID}_pqt{index} }}
+\t}}
+\t# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+\t# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} subtract = global_var:{MOD_ID}_nrgor{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} add = global_var:{MOD_ID}_rgleft }}
 \tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
 \t# **Общая квота — она и есть равномерность.** Столько домиков товару
 \t# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,

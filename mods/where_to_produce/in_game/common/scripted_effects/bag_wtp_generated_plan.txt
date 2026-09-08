@@ -22829,10 +22829,18 @@ bag_wtp_plan_set_quota = {
 	}
 	change_global_variable = { name = bag_wtp_qcapr max = 1 }
 	set_global_variable = { name = bag_wtp_pqt1 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt1 subtract = global_var:bag_wtp_nrgot1 }
-	change_global_variable = { name = bag_wtp_pqt1 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt1 subtract = global_var:bag_wtp_nrgo1 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt1 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt1 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt1 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr1 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr1 subtract = global_var:bag_wtp_nrgor1 }
+	change_global_variable = { name = bag_wtp_pqr1 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr1 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22841,10 +22849,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq1 subtract = global_var:bag_wtp_nrgo1 }
 	change_global_variable = { name = bag_wtp_pq1 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt2 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt2 subtract = global_var:bag_wtp_nrgot2 }
-	change_global_variable = { name = bag_wtp_pqt2 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt2 subtract = global_var:bag_wtp_nrgo2 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt2 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt2 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt2 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr2 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr2 subtract = global_var:bag_wtp_nrgor2 }
+	change_global_variable = { name = bag_wtp_pqr2 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr2 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22853,10 +22869,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq2 subtract = global_var:bag_wtp_nrgo2 }
 	change_global_variable = { name = bag_wtp_pq2 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt3 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt3 subtract = global_var:bag_wtp_nrgot3 }
-	change_global_variable = { name = bag_wtp_pqt3 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt3 subtract = global_var:bag_wtp_nrgo3 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt3 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt3 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt3 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr3 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr3 subtract = global_var:bag_wtp_nrgor3 }
+	change_global_variable = { name = bag_wtp_pqr3 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr3 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22865,10 +22889,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq3 subtract = global_var:bag_wtp_nrgo3 }
 	change_global_variable = { name = bag_wtp_pq3 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt4 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt4 subtract = global_var:bag_wtp_nrgot4 }
-	change_global_variable = { name = bag_wtp_pqt4 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt4 subtract = global_var:bag_wtp_nrgo4 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt4 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt4 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt4 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr4 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr4 subtract = global_var:bag_wtp_nrgor4 }
+	change_global_variable = { name = bag_wtp_pqr4 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr4 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22877,10 +22909,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq4 subtract = global_var:bag_wtp_nrgo4 }
 	change_global_variable = { name = bag_wtp_pq4 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt5 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt5 subtract = global_var:bag_wtp_nrgot5 }
-	change_global_variable = { name = bag_wtp_pqt5 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt5 subtract = global_var:bag_wtp_nrgo5 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt5 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt5 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt5 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr5 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr5 subtract = global_var:bag_wtp_nrgor5 }
+	change_global_variable = { name = bag_wtp_pqr5 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr5 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22889,10 +22929,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq5 subtract = global_var:bag_wtp_nrgo5 }
 	change_global_variable = { name = bag_wtp_pq5 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt6 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt6 subtract = global_var:bag_wtp_nrgot6 }
-	change_global_variable = { name = bag_wtp_pqt6 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt6 subtract = global_var:bag_wtp_nrgo6 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt6 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt6 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt6 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr6 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr6 subtract = global_var:bag_wtp_nrgor6 }
+	change_global_variable = { name = bag_wtp_pqr6 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr6 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22901,10 +22949,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq6 subtract = global_var:bag_wtp_nrgo6 }
 	change_global_variable = { name = bag_wtp_pq6 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt7 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt7 subtract = global_var:bag_wtp_nrgot7 }
-	change_global_variable = { name = bag_wtp_pqt7 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt7 subtract = global_var:bag_wtp_nrgo7 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt7 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt7 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt7 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr7 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr7 subtract = global_var:bag_wtp_nrgor7 }
+	change_global_variable = { name = bag_wtp_pqr7 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr7 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22913,10 +22969,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq7 subtract = global_var:bag_wtp_nrgo7 }
 	change_global_variable = { name = bag_wtp_pq7 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt8 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt8 subtract = global_var:bag_wtp_nrgot8 }
-	change_global_variable = { name = bag_wtp_pqt8 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt8 subtract = global_var:bag_wtp_nrgo8 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt8 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt8 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt8 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr8 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr8 subtract = global_var:bag_wtp_nrgor8 }
+	change_global_variable = { name = bag_wtp_pqr8 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr8 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22925,10 +22989,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq8 subtract = global_var:bag_wtp_nrgo8 }
 	change_global_variable = { name = bag_wtp_pq8 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt9 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt9 subtract = global_var:bag_wtp_nrgot9 }
-	change_global_variable = { name = bag_wtp_pqt9 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt9 subtract = global_var:bag_wtp_nrgo9 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt9 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt9 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt9 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr9 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr9 subtract = global_var:bag_wtp_nrgor9 }
+	change_global_variable = { name = bag_wtp_pqr9 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr9 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22937,10 +23009,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq9 subtract = global_var:bag_wtp_nrgo9 }
 	change_global_variable = { name = bag_wtp_pq9 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt10 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt10 subtract = global_var:bag_wtp_nrgot10 }
-	change_global_variable = { name = bag_wtp_pqt10 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt10 subtract = global_var:bag_wtp_nrgo10 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt10 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt10 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt10 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr10 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr10 subtract = global_var:bag_wtp_nrgor10 }
+	change_global_variable = { name = bag_wtp_pqr10 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr10 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22949,10 +23029,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq10 subtract = global_var:bag_wtp_nrgo10 }
 	change_global_variable = { name = bag_wtp_pq10 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt11 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt11 subtract = global_var:bag_wtp_nrgot11 }
-	change_global_variable = { name = bag_wtp_pqt11 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt11 subtract = global_var:bag_wtp_nrgo11 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt11 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt11 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt11 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr11 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr11 subtract = global_var:bag_wtp_nrgor11 }
+	change_global_variable = { name = bag_wtp_pqr11 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr11 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22961,10 +23049,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq11 subtract = global_var:bag_wtp_nrgo11 }
 	change_global_variable = { name = bag_wtp_pq11 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt12 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt12 subtract = global_var:bag_wtp_nrgot12 }
-	change_global_variable = { name = bag_wtp_pqt12 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt12 subtract = global_var:bag_wtp_nrgo12 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt12 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt12 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt12 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr12 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr12 subtract = global_var:bag_wtp_nrgor12 }
+	change_global_variable = { name = bag_wtp_pqr12 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr12 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22973,10 +23069,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq12 subtract = global_var:bag_wtp_nrgo12 }
 	change_global_variable = { name = bag_wtp_pq12 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt13 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt13 subtract = global_var:bag_wtp_nrgot13 }
-	change_global_variable = { name = bag_wtp_pqt13 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt13 subtract = global_var:bag_wtp_nrgo13 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt13 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt13 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt13 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr13 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr13 subtract = global_var:bag_wtp_nrgor13 }
+	change_global_variable = { name = bag_wtp_pqr13 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr13 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22985,10 +23089,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq13 subtract = global_var:bag_wtp_nrgo13 }
 	change_global_variable = { name = bag_wtp_pq13 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt14 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt14 subtract = global_var:bag_wtp_nrgot14 }
-	change_global_variable = { name = bag_wtp_pqt14 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt14 subtract = global_var:bag_wtp_nrgo14 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt14 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt14 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt14 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr14 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr14 subtract = global_var:bag_wtp_nrgor14 }
+	change_global_variable = { name = bag_wtp_pqr14 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr14 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -22997,10 +23109,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq14 subtract = global_var:bag_wtp_nrgo14 }
 	change_global_variable = { name = bag_wtp_pq14 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt15 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt15 subtract = global_var:bag_wtp_nrgot15 }
-	change_global_variable = { name = bag_wtp_pqt15 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt15 subtract = global_var:bag_wtp_nrgo15 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt15 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt15 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt15 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr15 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr15 subtract = global_var:bag_wtp_nrgor15 }
+	change_global_variable = { name = bag_wtp_pqr15 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr15 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23009,10 +23129,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq15 subtract = global_var:bag_wtp_nrgo15 }
 	change_global_variable = { name = bag_wtp_pq15 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt16 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt16 subtract = global_var:bag_wtp_nrgot16 }
-	change_global_variable = { name = bag_wtp_pqt16 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt16 subtract = global_var:bag_wtp_nrgo16 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt16 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt16 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt16 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr16 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr16 subtract = global_var:bag_wtp_nrgor16 }
+	change_global_variable = { name = bag_wtp_pqr16 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr16 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23021,10 +23149,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq16 subtract = global_var:bag_wtp_nrgo16 }
 	change_global_variable = { name = bag_wtp_pq16 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt17 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt17 subtract = global_var:bag_wtp_nrgot17 }
-	change_global_variable = { name = bag_wtp_pqt17 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt17 subtract = global_var:bag_wtp_nrgo17 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt17 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt17 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt17 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr17 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr17 subtract = global_var:bag_wtp_nrgor17 }
+	change_global_variable = { name = bag_wtp_pqr17 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr17 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23033,10 +23169,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq17 subtract = global_var:bag_wtp_nrgo17 }
 	change_global_variable = { name = bag_wtp_pq17 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt18 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt18 subtract = global_var:bag_wtp_nrgot18 }
-	change_global_variable = { name = bag_wtp_pqt18 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt18 subtract = global_var:bag_wtp_nrgo18 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt18 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt18 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt18 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr18 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr18 subtract = global_var:bag_wtp_nrgor18 }
+	change_global_variable = { name = bag_wtp_pqr18 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr18 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23045,10 +23189,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq18 subtract = global_var:bag_wtp_nrgo18 }
 	change_global_variable = { name = bag_wtp_pq18 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt19 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt19 subtract = global_var:bag_wtp_nrgot19 }
-	change_global_variable = { name = bag_wtp_pqt19 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt19 subtract = global_var:bag_wtp_nrgo19 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt19 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt19 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt19 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr19 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr19 subtract = global_var:bag_wtp_nrgor19 }
+	change_global_variable = { name = bag_wtp_pqr19 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr19 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23057,10 +23209,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq19 subtract = global_var:bag_wtp_nrgo19 }
 	change_global_variable = { name = bag_wtp_pq19 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt20 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt20 subtract = global_var:bag_wtp_nrgot20 }
-	change_global_variable = { name = bag_wtp_pqt20 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt20 subtract = global_var:bag_wtp_nrgo20 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt20 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt20 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt20 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr20 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr20 subtract = global_var:bag_wtp_nrgor20 }
+	change_global_variable = { name = bag_wtp_pqr20 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr20 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23069,10 +23229,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq20 subtract = global_var:bag_wtp_nrgo20 }
 	change_global_variable = { name = bag_wtp_pq20 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt21 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt21 subtract = global_var:bag_wtp_nrgot21 }
-	change_global_variable = { name = bag_wtp_pqt21 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt21 subtract = global_var:bag_wtp_nrgo21 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt21 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt21 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt21 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr21 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr21 subtract = global_var:bag_wtp_nrgor21 }
+	change_global_variable = { name = bag_wtp_pqr21 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr21 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23081,10 +23249,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq21 subtract = global_var:bag_wtp_nrgo21 }
 	change_global_variable = { name = bag_wtp_pq21 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt22 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt22 subtract = global_var:bag_wtp_nrgot22 }
-	change_global_variable = { name = bag_wtp_pqt22 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt22 subtract = global_var:bag_wtp_nrgo22 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt22 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt22 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt22 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr22 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr22 subtract = global_var:bag_wtp_nrgor22 }
+	change_global_variable = { name = bag_wtp_pqr22 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr22 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23093,10 +23269,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq22 subtract = global_var:bag_wtp_nrgo22 }
 	change_global_variable = { name = bag_wtp_pq22 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt23 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt23 subtract = global_var:bag_wtp_nrgot23 }
-	change_global_variable = { name = bag_wtp_pqt23 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt23 subtract = global_var:bag_wtp_nrgo23 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt23 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt23 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt23 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr23 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr23 subtract = global_var:bag_wtp_nrgor23 }
+	change_global_variable = { name = bag_wtp_pqr23 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr23 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23105,10 +23289,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq23 subtract = global_var:bag_wtp_nrgo23 }
 	change_global_variable = { name = bag_wtp_pq23 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt24 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt24 subtract = global_var:bag_wtp_nrgot24 }
-	change_global_variable = { name = bag_wtp_pqt24 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt24 subtract = global_var:bag_wtp_nrgo24 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt24 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt24 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt24 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr24 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr24 subtract = global_var:bag_wtp_nrgor24 }
+	change_global_variable = { name = bag_wtp_pqr24 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr24 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23117,10 +23309,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq24 subtract = global_var:bag_wtp_nrgo24 }
 	change_global_variable = { name = bag_wtp_pq24 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt25 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt25 subtract = global_var:bag_wtp_nrgot25 }
-	change_global_variable = { name = bag_wtp_pqt25 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt25 subtract = global_var:bag_wtp_nrgo25 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt25 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt25 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt25 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr25 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr25 subtract = global_var:bag_wtp_nrgor25 }
+	change_global_variable = { name = bag_wtp_pqr25 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr25 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23129,10 +23329,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq25 subtract = global_var:bag_wtp_nrgo25 }
 	change_global_variable = { name = bag_wtp_pq25 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt26 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt26 subtract = global_var:bag_wtp_nrgot26 }
-	change_global_variable = { name = bag_wtp_pqt26 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt26 subtract = global_var:bag_wtp_nrgo26 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt26 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt26 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt26 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr26 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr26 subtract = global_var:bag_wtp_nrgor26 }
+	change_global_variable = { name = bag_wtp_pqr26 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr26 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23141,10 +23349,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq26 subtract = global_var:bag_wtp_nrgo26 }
 	change_global_variable = { name = bag_wtp_pq26 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt27 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt27 subtract = global_var:bag_wtp_nrgot27 }
-	change_global_variable = { name = bag_wtp_pqt27 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt27 subtract = global_var:bag_wtp_nrgo27 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt27 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt27 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt27 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr27 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr27 subtract = global_var:bag_wtp_nrgor27 }
+	change_global_variable = { name = bag_wtp_pqr27 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr27 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23153,10 +23369,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq27 subtract = global_var:bag_wtp_nrgo27 }
 	change_global_variable = { name = bag_wtp_pq27 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt28 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt28 subtract = global_var:bag_wtp_nrgot28 }
-	change_global_variable = { name = bag_wtp_pqt28 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt28 subtract = global_var:bag_wtp_nrgo28 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt28 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt28 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt28 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr28 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr28 subtract = global_var:bag_wtp_nrgor28 }
+	change_global_variable = { name = bag_wtp_pqr28 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr28 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23165,10 +23389,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq28 subtract = global_var:bag_wtp_nrgo28 }
 	change_global_variable = { name = bag_wtp_pq28 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt29 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt29 subtract = global_var:bag_wtp_nrgot29 }
-	change_global_variable = { name = bag_wtp_pqt29 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt29 subtract = global_var:bag_wtp_nrgo29 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt29 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt29 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt29 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr29 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr29 subtract = global_var:bag_wtp_nrgor29 }
+	change_global_variable = { name = bag_wtp_pqr29 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr29 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23177,10 +23409,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq29 subtract = global_var:bag_wtp_nrgo29 }
 	change_global_variable = { name = bag_wtp_pq29 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt30 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt30 subtract = global_var:bag_wtp_nrgot30 }
-	change_global_variable = { name = bag_wtp_pqt30 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt30 subtract = global_var:bag_wtp_nrgo30 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt30 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt30 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt30 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr30 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr30 subtract = global_var:bag_wtp_nrgor30 }
+	change_global_variable = { name = bag_wtp_pqr30 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr30 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23189,10 +23429,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq30 subtract = global_var:bag_wtp_nrgo30 }
 	change_global_variable = { name = bag_wtp_pq30 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt31 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt31 subtract = global_var:bag_wtp_nrgot31 }
-	change_global_variable = { name = bag_wtp_pqt31 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt31 subtract = global_var:bag_wtp_nrgo31 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt31 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt31 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt31 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr31 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr31 subtract = global_var:bag_wtp_nrgor31 }
+	change_global_variable = { name = bag_wtp_pqr31 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr31 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23201,10 +23449,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq31 subtract = global_var:bag_wtp_nrgo31 }
 	change_global_variable = { name = bag_wtp_pq31 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt32 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt32 subtract = global_var:bag_wtp_nrgot32 }
-	change_global_variable = { name = bag_wtp_pqt32 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt32 subtract = global_var:bag_wtp_nrgo32 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt32 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt32 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt32 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr32 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr32 subtract = global_var:bag_wtp_nrgor32 }
+	change_global_variable = { name = bag_wtp_pqr32 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr32 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23213,10 +23469,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq32 subtract = global_var:bag_wtp_nrgo32 }
 	change_global_variable = { name = bag_wtp_pq32 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt33 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt33 subtract = global_var:bag_wtp_nrgot33 }
-	change_global_variable = { name = bag_wtp_pqt33 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt33 subtract = global_var:bag_wtp_nrgo33 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt33 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt33 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt33 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr33 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr33 subtract = global_var:bag_wtp_nrgor33 }
+	change_global_variable = { name = bag_wtp_pqr33 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr33 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23225,10 +23489,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq33 subtract = global_var:bag_wtp_nrgo33 }
 	change_global_variable = { name = bag_wtp_pq33 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt34 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt34 subtract = global_var:bag_wtp_nrgot34 }
-	change_global_variable = { name = bag_wtp_pqt34 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt34 subtract = global_var:bag_wtp_nrgo34 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt34 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt34 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt34 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr34 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr34 subtract = global_var:bag_wtp_nrgor34 }
+	change_global_variable = { name = bag_wtp_pqr34 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr34 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23237,10 +23509,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq34 subtract = global_var:bag_wtp_nrgo34 }
 	change_global_variable = { name = bag_wtp_pq34 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt35 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt35 subtract = global_var:bag_wtp_nrgot35 }
-	change_global_variable = { name = bag_wtp_pqt35 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt35 subtract = global_var:bag_wtp_nrgo35 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt35 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt35 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt35 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr35 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr35 subtract = global_var:bag_wtp_nrgor35 }
+	change_global_variable = { name = bag_wtp_pqr35 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr35 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23249,10 +23529,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq35 subtract = global_var:bag_wtp_nrgo35 }
 	change_global_variable = { name = bag_wtp_pq35 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt36 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt36 subtract = global_var:bag_wtp_nrgot36 }
-	change_global_variable = { name = bag_wtp_pqt36 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt36 subtract = global_var:bag_wtp_nrgo36 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt36 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt36 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt36 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr36 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr36 subtract = global_var:bag_wtp_nrgor36 }
+	change_global_variable = { name = bag_wtp_pqr36 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr36 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23261,10 +23549,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq36 subtract = global_var:bag_wtp_nrgo36 }
 	change_global_variable = { name = bag_wtp_pq36 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt37 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt37 subtract = global_var:bag_wtp_nrgot37 }
-	change_global_variable = { name = bag_wtp_pqt37 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt37 subtract = global_var:bag_wtp_nrgo37 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt37 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt37 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt37 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr37 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr37 subtract = global_var:bag_wtp_nrgor37 }
+	change_global_variable = { name = bag_wtp_pqr37 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr37 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23273,10 +23569,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq37 subtract = global_var:bag_wtp_nrgo37 }
 	change_global_variable = { name = bag_wtp_pq37 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt38 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt38 subtract = global_var:bag_wtp_nrgot38 }
-	change_global_variable = { name = bag_wtp_pqt38 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt38 subtract = global_var:bag_wtp_nrgo38 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt38 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt38 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt38 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr38 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr38 subtract = global_var:bag_wtp_nrgor38 }
+	change_global_variable = { name = bag_wtp_pqr38 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr38 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23285,10 +23589,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq38 subtract = global_var:bag_wtp_nrgo38 }
 	change_global_variable = { name = bag_wtp_pq38 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt39 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt39 subtract = global_var:bag_wtp_nrgot39 }
-	change_global_variable = { name = bag_wtp_pqt39 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt39 subtract = global_var:bag_wtp_nrgo39 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt39 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt39 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt39 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr39 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr39 subtract = global_var:bag_wtp_nrgor39 }
+	change_global_variable = { name = bag_wtp_pqr39 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr39 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23297,10 +23609,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq39 subtract = global_var:bag_wtp_nrgo39 }
 	change_global_variable = { name = bag_wtp_pq39 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt40 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt40 subtract = global_var:bag_wtp_nrgot40 }
-	change_global_variable = { name = bag_wtp_pqt40 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt40 subtract = global_var:bag_wtp_nrgo40 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt40 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt40 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt40 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr40 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr40 subtract = global_var:bag_wtp_nrgor40 }
+	change_global_variable = { name = bag_wtp_pqr40 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr40 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23309,10 +23629,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq40 subtract = global_var:bag_wtp_nrgo40 }
 	change_global_variable = { name = bag_wtp_pq40 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt41 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt41 subtract = global_var:bag_wtp_nrgot41 }
-	change_global_variable = { name = bag_wtp_pqt41 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt41 subtract = global_var:bag_wtp_nrgo41 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt41 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt41 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt41 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr41 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr41 subtract = global_var:bag_wtp_nrgor41 }
+	change_global_variable = { name = bag_wtp_pqr41 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr41 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23321,10 +23649,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq41 subtract = global_var:bag_wtp_nrgo41 }
 	change_global_variable = { name = bag_wtp_pq41 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt42 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt42 subtract = global_var:bag_wtp_nrgot42 }
-	change_global_variable = { name = bag_wtp_pqt42 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt42 subtract = global_var:bag_wtp_nrgo42 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt42 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt42 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt42 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr42 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr42 subtract = global_var:bag_wtp_nrgor42 }
+	change_global_variable = { name = bag_wtp_pqr42 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr42 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23333,10 +23669,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq42 subtract = global_var:bag_wtp_nrgo42 }
 	change_global_variable = { name = bag_wtp_pq42 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt43 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt43 subtract = global_var:bag_wtp_nrgot43 }
-	change_global_variable = { name = bag_wtp_pqt43 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt43 subtract = global_var:bag_wtp_nrgo43 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt43 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt43 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt43 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr43 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr43 subtract = global_var:bag_wtp_nrgor43 }
+	change_global_variable = { name = bag_wtp_pqr43 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr43 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23345,10 +23689,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq43 subtract = global_var:bag_wtp_nrgo43 }
 	change_global_variable = { name = bag_wtp_pq43 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt44 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt44 subtract = global_var:bag_wtp_nrgot44 }
-	change_global_variable = { name = bag_wtp_pqt44 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt44 subtract = global_var:bag_wtp_nrgo44 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt44 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt44 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt44 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr44 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr44 subtract = global_var:bag_wtp_nrgor44 }
+	change_global_variable = { name = bag_wtp_pqr44 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr44 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23357,10 +23709,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq44 subtract = global_var:bag_wtp_nrgo44 }
 	change_global_variable = { name = bag_wtp_pq44 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt45 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt45 subtract = global_var:bag_wtp_nrgot45 }
-	change_global_variable = { name = bag_wtp_pqt45 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt45 subtract = global_var:bag_wtp_nrgo45 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt45 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt45 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt45 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr45 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr45 subtract = global_var:bag_wtp_nrgor45 }
+	change_global_variable = { name = bag_wtp_pqr45 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr45 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23369,10 +23729,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq45 subtract = global_var:bag_wtp_nrgo45 }
 	change_global_variable = { name = bag_wtp_pq45 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt46 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt46 subtract = global_var:bag_wtp_nrgot46 }
-	change_global_variable = { name = bag_wtp_pqt46 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt46 subtract = global_var:bag_wtp_nrgo46 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt46 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt46 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt46 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr46 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr46 subtract = global_var:bag_wtp_nrgor46 }
+	change_global_variable = { name = bag_wtp_pqr46 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr46 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
@@ -23381,10 +23749,18 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq46 subtract = global_var:bag_wtp_nrgo46 }
 	change_global_variable = { name = bag_wtp_pq46 max = 1 }
 	set_global_variable = { name = bag_wtp_pqt47 value = global_var:bag_wtp_qcapt }
-	change_global_variable = { name = bag_wtp_pqt47 subtract = global_var:bag_wtp_nrgot47 }
-	change_global_variable = { name = bag_wtp_pqt47 max = 1 }
+	change_global_variable = { name = bag_wtp_pqt47 subtract = global_var:bag_wtp_nrgo47 }
+	# Сколько скидки в город не влезло. Ноль, если влезла вся.
+	set_global_variable = { name = bag_wtp_rgleft value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_pqt47 < 0 }
+		set_global_variable = { name = bag_wtp_rgleft value = global_var:bag_wtp_pqt47 }
+	}
+	# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+	# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+	change_global_variable = { name = bag_wtp_pqt47 max = 0 }
 	set_global_variable = { name = bag_wtp_pqr47 value = global_var:bag_wtp_qcapr }
-	change_global_variable = { name = bag_wtp_pqr47 subtract = global_var:bag_wtp_nrgor47 }
+	change_global_variable = { name = bag_wtp_pqr47 add = global_var:bag_wtp_rgleft }
 	change_global_variable = { name = bag_wtp_pqr47 max = 1 }
 	# **Общая квота — она и есть равномерность.** Столько домиков товару
 	# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
