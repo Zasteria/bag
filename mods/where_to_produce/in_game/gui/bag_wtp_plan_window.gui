@@ -144,29 +144,18 @@ types BagWtpPlanTypes {
 					tooltip = "bag_wtp_plan_prov_sum_tt"
 				}
 
-				# **Шаг 8: автострой этой провинции.** Метит все локации плана в
-				# ней; сам автострой раз в месяц ставит в очередь CM только то,
-				# что в локации правда можно построить.
-				widget = {
+				# **Шаг 8: отмашка на всю провинцию.** Одно нажатие переключает
+				# галочки автостроя CM у домиков плана во всех её локациях —
+				# и больше ничего: дальше решает CM.
+				button_regular = {
 					size = { 40 40 }
-					alwaystransparent = no
 					tooltip = "bag_wtp_cm_prov_tt"
 					visible = "[GetScriptedGui('bag_wtp_cm_present').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
 					icon = {
 						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
-						texture = "gfx/interface/icons/flat_icons/building_panel/build_button.dds"
-						alpha = 0.35
-						visible = "[Not(GetScriptedGui('bag_wtp_cm_loc_on').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End))]"
-					}
-					icon = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						texture = "gfx/interface/icons/flat_icons/building_panel/build_button.dds"
-						visible = "[GetScriptedGui('bag_wtp_cm_loc_on').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+						texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
 					}
 					onclick = "[GetScriptedGui('bag_wtp_cm_press_prov').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 				}
@@ -426,27 +415,16 @@ types BagWtpPlanTypes {
 			}
 		}
 
-		# **Шаг 8: автострой этой локации.**
-		widget = {
+		# **Шаг 8: отмашка на эту локацию.**
+		button_regular = {
 			size = { 40 42 }
-			alwaystransparent = no
 			tooltip = "bag_wtp_cm_loc_tt"
 			visible = "[GetScriptedGui('bag_wtp_cm_present').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
 			icon = {
 				size = { 26 26 }
 				parentanchor = center
 				widgetanchor = center
-				texture = "gfx/interface/icons/flat_icons/building_panel/build_button.dds"
-				alpha = 0.35
-				visible = "[Not(GetScriptedGui('bag_wtp_cm_loc_on').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End))]"
-			}
-			icon = {
-				size = { 26 26 }
-				parentanchor = center
-				widgetanchor = center
-				texture = "gfx/interface/icons/flat_icons/building_panel/build_button.dds"
-				visible = "[GetScriptedGui('bag_wtp_cm_loc_on').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+				texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
 			}
 			onclick = "[GetScriptedGui('bag_wtp_cm_press_loc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 		}
@@ -836,28 +814,16 @@ window = {
 				# The plan is remade only when he says so, which is the whole
 				# point of the button: he may flip a hundred town markers
 				# before he wants an answer.
-				# **Шаг 8: автострой всего плана.** Метит каждую локацию, где
-				# план что-то держит; второе нажатие снимает всё разом.
-				widget = {
+				# **Шаг 8: отмашка на весь план.**
+				button_regular = {
 					size = { 44 42 }
-					alwaystransparent = no
 					tooltip = "bag_wtp_cm_all_tt"
 					visible = "[GetScriptedGui('bag_wtp_cm_present').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
 					icon = {
 						size = { 30 30 }
 						parentanchor = center
 						widgetanchor = center
-						texture = "gfx/interface/icons/flat_icons/building_panel/build_button.dds"
-						alpha = 0.35
-						visible = "[Not(GetScriptedGui('bag_wtp_cm_any_on').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
-					}
-					icon = {
-						size = { 30 30 }
-						parentanchor = center
-						widgetanchor = center
-						texture = "gfx/interface/icons/flat_icons/building_panel/build_button.dds"
-						visible = "[GetScriptedGui('bag_wtp_cm_any_on').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
 					}
 					onclick = "[GetScriptedGui('bag_wtp_cm_press_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}

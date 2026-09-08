@@ -2761,41 +2761,102 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # Здания, про которые фильтру нужно знать «могу ли я это сейчас»: всё, чем
     # план строит, и каждая ступень над ними -- план «на конец» ставит верхнюю,
     # а показать надо ту, что по зубам.
-    def cm_try(building: str, tab: str, first: bool) -> str:
-        """Поставить это здание в очередь CM, если оно тут правда встанет.
+    # **Ступень та же, что показывает фишка фильтра.** Иначе кнопка ставила бы
+    # галочку не на том домике, который он там видит.
+    #
+    # **И только то, что тут правда может стоять**: `can_build_building` в самой
+    # локации, а `_stands_<здание>` -- нет, он нарочно слушается тумблера ранга.
+    # Уже стоящее здание тоже годится: галочка автостроя у него своя и значит
+    # «расширяй дальше».
+    def cm_ok(building: str) -> str:
+        return (f"global_var:{MOD_ID}_ba_{building} = 1\n"
+                f"\t\t\t\tOR = {{\n"
+                f"\t\t\t\t\thas_building = building_type:{building}\n"
+                f"\t\t\t\t\tcan_build_building = building_type:{building}\n"
+                f"\t\t\t\t}}\n")
 
-        `else_if` подряд, а не отдельные `if`: ступень нужна ровно одна, самая
-        высокая из тех, что по зубам, -- иначе в очередь ушли бы и мастерская, и
-        гильдия под неё.
-        """
+    def cm_mark(building: str, tab: str) -> str:
+        """Галочка автостроя CM для этого типа здесь -- поставить или снять."""
+        reg = f"cm_auto_expand_registered_building_types"
+        exc = f"cm_auto_expand_excluded_building_types"
+        t = tab
         return (
-            f"{tab}{'if' if first else 'else_if'} = {{\n"
-            f"{tab}\tlimit = {{\n"
-            f"{tab}\t\tglobal_var:{MOD_ID}_ba_{building} = 1\n"
-            f"{tab}\t\tNOT = {{ has_building = building_type:{building} }}\n"
-            f"{tab}\t\tcan_build_building = building_type:{building}\n"
-            f"{tab}\t}}\n"
-            f"{tab}\t{MOD_ID}_cm_queue_loc = yes\n"
-            f"{tab}\tif = {{\n"
-            f"{tab}\t\tlimit = {{ NOT = {{ is_target_in_variable_list = "
-            f"{{ name = cm_q_ungated_building_types target = building_type:{building} }} }} }}\n"
-            f"{tab}\t\tadd_to_variable_list = {{ name = cm_q_ungated_building_types "
+            f"{t}change_global_variable = {{ name = {MOD_ID}_cm_did add = 1 }}\n"
+            f"{t}if = {{\n"
+            f"{t}\tlimit = {{ owner = {{ is_target_in_variable_list = "
+            f"{{ name = cm_mass_auto_expand_building_types "
+            f"target = building_type:{building} }} }} }}\n"
+            f"{t}\t# Массовый режим страны: «выключено» -- это исключение локации.\n"
+            f"{t}\tif = {{\n"
+            f"{t}\t\tlimit = {{ global_var:{MOD_ID}_cm_off = 1 }}\n"
+            f"{t}\t\tif = {{\n"
+            f"{t}\t\t\tlimit = {{ NOT = {{ is_target_in_variable_list = "
+            f"{{ name = {exc} target = building_type:{building} }} }} }}\n"
+            f"{t}\t\t\tadd_to_variable_list = {{ name = {exc} "
             f"target = building_type:{building} }}\n"
-            f"{tab}\t\tscope:{MOD_ID}_cm_country = {{ change_variable = "
-            f"{{ name = cm_q_staged add = 1 }} }}\n"
-            f"{tab}\t\tchange_global_variable = {{ name = {MOD_ID}_cm_staged add = 1 }}\n"
-            f"{tab}\t}}\n"
-            f"{tab}}}\n")
+            f"{t}\t\t}}\n"
+            f"{t}\t}}\n"
+            f"{t}\telse = {{ remove_list_variable = {{ name = {exc} "
+            f"target = building_type:{building} }} }}\n"
+            f"{t}}}\n"
+            f"{t}else = {{\n"
+            f"{t}\tif = {{\n"
+            f"{t}\t\tlimit = {{ global_var:{MOD_ID}_cm_off = 1 }}\n"
+            f"{t}\t\tremove_list_variable = {{ name = {reg} "
+            f"target = building_type:{building} }}\n"
+            f"{t}\t}}\n"
+            f"{t}\telse = {{\n"
+            f"{t}\t\tif = {{\n"
+            f"{t}\t\t\tlimit = {{ NOT = {{ is_target_in_variable_list = "
+            f"{{ name = {reg} target = building_type:{building} }} }} }}\n"
+            f"{t}\t\t\tadd_to_variable_list = {{ name = {reg} "
+            f"target = building_type:{building} }}\n"
+            f"{t}\t\t}}\n"
+            f"{t}\t}}\n"
+            f"{t}}}\n")
 
-    cm_stage = ""
-    for b in sorted({b for key in groups for b in groups[key]}):
-        rungs = [b] + ladder_below(b, game)
-        cm_stage += (f"\tif = {{\n"
+    def cm_seen(building: str, tab: str) -> str:
+        """Та же галочка, прочитанная: стоит она сейчас или нет."""
+        t = tab
+        return (
+            f"{t}change_global_variable = {{ name = {MOD_ID}_cm_all add = 1 }}\n"
+            f"{t}if = {{\n"
+            f"{t}\tlimit = {{\n"
+            f"{t}\t\tOR = {{\n"
+            f"{t}\t\t\tis_target_in_variable_list = "
+            f"{{ name = cm_auto_expand_registered_building_types "
+            f"target = building_type:{building} }}\n"
+            f"{t}\t\t\tAND = {{\n"
+            f"{t}\t\t\t\towner = {{ is_target_in_variable_list = "
+            f"{{ name = cm_mass_auto_expand_building_types "
+            f"target = building_type:{building} }} }}\n"
+            f"{t}\t\t\t\tNOT = {{ is_target_in_variable_list = "
+            f"{{ name = cm_auto_expand_excluded_building_types "
+            f"target = building_type:{building} }} }}\n"
+            f"{t}\t\t\t}}\n"
+            f"{t}\t\t}}\n"
+            f"{t}\t}}\n"
+            f"{t}\tchange_global_variable = {{ name = {MOD_ID}_cm_on add = 1 }}\n"
+            f"{t}}}\n")
+
+    def cm_walk(body) -> str:
+        """По каждому зданию плана -- та ступень, что по зубам, и с ней `body`."""
+        out_ = ""
+        for b in sorted({b for key in groups for b in groups[key]}):
+            rungs = [b] + ladder_below(b, game)
+            arms = "".join(
+                f"\t\t{'if' if i == 0 else 'else_if'} = {{\n"
+                f"\t\t\tlimit = {{\n\t\t\t\t{cm_ok(r)}\t\t\t}}\n"
+                f"{body(r, chr(9) * 3)}"
+                f"\t\t}}\n" for i, r in enumerate(rungs))
+            out_ += (f"\tif = {{\n"
                      f"\t\tlimit = {{ is_target_in_variable_list = "
                      f"{{ name = {MOD_ID}_plan_builds target = building_type:{b} }} }}\n"
-                     + "".join(cm_try(r, "\t\t", i == 0)
-                               for i, r in enumerate(rungs))
-                     + f"\t}}\n")
+                     + arms + f"\t}}\n")
+        return out_
+
+    cm_apply = cm_walk(cm_mark)
+    cm_scan = cm_walk(cm_seen)
 
     bavail = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_ba_{b} value = 0 }}\n"
@@ -2851,171 +2912,97 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_set_bavail = {{
 {bavail}}}
 
-# **Локация в очередь Construction Manager, если её там ещё нет.**
+# **Одна отмашка на галочки автостроя Construction Manager, и больше ничего.**
 #
-# **Переменные CM пишутся напрямую, ни один его эффект не зовётся.** Имя, которое
-# ничего не определяет, ломается не там, где его ищут (`PITFALLS.md`), а мод
-# должен работать и без CM. Переменную же можно писать в пустоту: нет CM -- никто
-# её не прочитает, и не случится ничего. Форма скопирована с
-# `cm_stage_location_and_type_to_queue` (CM 2.2.12) строка в строку, включая
-# очистку `cm_q_done_ungated_types` при первом добавлении локации.
+# Владелец, 2026-09-09, после первой версии: «я не хочу, чтобы мод делал
+# что-либо каждый месяц… Всё, что это делает — включает 4 кнопки у каждого из
+# этих зданий в их локации. 1 раз она это делает. Просто включает их галочки 1
+# раз… А дальше уже CM сам решает когда строить, что строить. Только ссылка на
+# другие ссылки.» Месячный лист и очередь `cm_q_ungated_*` из первой версии
+# убраны целиком.
 #
-# **Очередь именно «негатированная».** `cm_q_ungated_*` -- та, на которой стоит
-# собственный «Auto Build» CM: она проходит мимо порогов прибыли и скидки. План
-# уже решил, где чему стоять, второй раз это решать незачем.
+# **Галочка -- это две переменные CM на локации**, и обе пишутся напрямую, без
+# единого его имени: имя, которого нет, ломается не там, где его ищут, а
+# переменную можно писать в пустоту. Форма списана с `cm_apply_auto_expand_toggle`
+# (CM 2.2.12): в обычном режиме тип лежит в `cm_auto_expand_registered_building_types`
+# локации; если страна включила его массово (`cm_mass_auto_expand_building_types`),
+# логика переворачивается и «выключено» значит «тип в
+# `cm_auto_expand_excluded_building_types` этой локации».
+#
+# `_cm_off` -- направление отмашки: 1 снять, 0 поставить.
 # Scope: location
-{MOD_ID}_cm_queue_loc = {{
-\tsave_scope_as = {MOD_ID}_cm_here
-\tscope:{MOD_ID}_cm_country = {{
-\t\tif = {{
-\t\t\tlimit = {{ NOT = {{ is_target_in_variable_list = {{ name = cm_q_ungated_locations target = scope:{MOD_ID}_cm_here }} }} }}
-\t\t\tadd_to_variable_list = {{ name = cm_q_ungated_locations target = scope:{MOD_ID}_cm_here }}
-\t\t\tscope:{MOD_ID}_cm_here = {{ clear_variable_list = cm_q_done_ungated_types }}
-\t\t}}
-\t}}
-}}
+{MOD_ID}_cm_apply = {{
+{cm_apply}}}
 
-# **Что план хочет в этой локации -- и что из этого правда можно построить.**
-#
-# Его условие, 2026-09-09: «это должен быть сигнал включения который будет
-# срабатывать только на домики, которые могут быть построены в выбранной
-# локации. Чтобы не вышло так, что я просто переключил в плане тумблер и сделал
-# село городом, а на самом деле там всё ещё село».
-#
-# **Поэтому здесь `can_build_building`, а не `_stands_<здание>`.** `_stands_`
-# нарочно слушается тумблера ранга -- в этом весь смысл плана, он моделирует
-# «я тут сделаю город». Игре этот тумблер не известен, и очередь строительства
-# спрашивает игру: настоящий ранг, местность, рынок и правило «одно РГО на
-# локацию». Плюс `_ba_<здание>` -- продвижение страны, которое в скоупе локации
-# не спрашивается.
-#
-# **Ступень берётся та, что по зубам**, ровно как в фишке фильтра: план «на
-# конец» ставит мельницу, а строится мастерская.
+# **Сколько галочек группы уже стоит.** Кнопка одна, а нажатий два смысла: не всё
+# включено -- включить всё, включено всё -- снять. Считается на нажатие, а не на
+# кадр: строк в окне сорок, и ответ на кадр стоил бы того же, что и панель,
+# которую этот репозиторий до сих пор чинит.
 # Scope: location
-{MOD_ID}_cm_loc_stage = {{
-{cm_stage}}}
+{MOD_ID}_cm_scan = {{
+{cm_scan}}}
 
-# **Раз в месяц: всё, что помечено, в очередь CM.**
-#
-# Лист `cmf_monthly_human_country_pulse`. Диспетчер CM висит там же и **начинает
-# с очистки очередей**, так что порядок листьев решает, переживёт ли наша
-# постановка этот месяц. Порядок между модами не определён ничем, поэтому он не
-# угадывается, а **считается**: `_cm_ran`, `_cm_armed` и `_cm_staged` печатает
-# диагностика, и один прогон скажет, что именно происходит.
-#
-# **`cm_should_construct` ставим сами**, если поставили хоть что-то: окно очереди
-# CM висит на этой переменной, а не на том, кто её выставил.
-# Scope: country
-{MOD_ID}_cm_tick = {{
-\tset_global_variable = {{ name = {MOD_ID}_cm_staged value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_cm_armed value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_cm_ran value = 0 }}
-\tif = {{
-\t\tlimit = {{
-\t\t\t# CM на месте: его список возможностей заводит он сам на старте игры.
-\t\t\thas_variable_list = cm_priority_features_list
-\t\t\thas_global_variable_list = {MOD_ID}_plan_touched
-\t\t}}
-\t\tset_global_variable = {{ name = {MOD_ID}_cm_ran value = 1 }}
-\t\t# Что стране по зубам -- на сегодня, а не на день плана.
-\t\t{MOD_ID}_set_bavail = yes
-\t\tsave_scope_as = {MOD_ID}_cm_country
-\t\t# `scope:actor` спрашивают потенциалы пары зданий; CM сохраняет его так же.
-\t\tsave_temporary_scope_as = actor
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_plan_touched
-\t\t\tlimit = {{
-\t\t\t\tvar:{MOD_ID}_cm_loc = 1
-\t\t\t\towner = scope:{MOD_ID}_cm_country
-\t\t\t}}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_cm_armed add = 1 }}
-\t\t\t{MOD_ID}_cm_loc_stage = yes
-\t\t}}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_cm_staged > 0 }}
-\t\t\tset_variable = {{ name = cm_should_construct value = yes }}
-\t\t}}
-\t}}
-\tset_global_variable = {{ name = {MOD_ID}_cm_last value = global_var:{MOD_ID}_cm_staged }}
-}}
-
-# Сколько локаций помечено -- одно число для подписи кнопок.
-# Scope: country
-{MOD_ID}_cm_count = {{
-\t# **Число, которого нет, читается как ноль и молчит.** Подсказка кнопки
-\t# печатает оба, а до первого месяца второго не существует.
-\tif = {{
-\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_cm_last }} }}
-\t\tset_global_variable = {{ name = {MOD_ID}_cm_last value = 0 }}
-\t}}
-\tset_global_variable = {{ name = {MOD_ID}_cm_n value = 0 }}
-\tif = {{
-\t\tlimit = {{ has_global_variable_list = {MOD_ID}_plan_touched }}
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_plan_touched
-\t\t\tlimit = {{ var:{MOD_ID}_cm_loc = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_cm_n add = 1 }}
-\t\t}}
-\t}}
-}}
-
-# Пометить и снять -- по одной локации, по провинции и по всему плану.
-# **Провинция -- это её локации плана**, отдельной сущности для пометки нет:
-# помечена локация, и переезд плана ничего не ломает.
-# Scope: country, ждёт scope:wtp_location
-{MOD_ID}_cm_toggle_loc = {{
-\tscope:wtp_location = {{
-\t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_cm_loc = 1 }}
-\t\t\tremove_variable = {MOD_ID}_cm_loc
-\t\t}}
-\t\telse = {{ set_variable = {{ name = {MOD_ID}_cm_loc value = 1 }} }}
-\t}}
-\t{MOD_ID}_cm_count = yes
-}}
-
-# Scope: country, ждёт scope:wtp_location -- любую локацию нужной провинции.
-{MOD_ID}_cm_toggle_prov = {{
-\tset_global_variable = {{ name = {MOD_ID}_cm_any value = 0 }}
+# Пройти помеченную группу дважды: сначала посчитать, потом решить и применить.
+# Scope: country, ждёт заполненный global list scope
+{MOD_ID}_cm_press_prov_do = {{
 \tscope:wtp_location = {{ province_definition = {{ save_scope_as = {MOD_ID}_cm_prov }} }}
-\tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_plan_touched
-\t\tlimit = {{
-\t\t\tprovince_definition = {{ this = scope:{MOD_ID}_cm_prov }}
-\t\t\tNOT = {{ var:{MOD_ID}_cm_loc = 1 }}
-\t\t}}
-\t\tset_global_variable = {{ name = {MOD_ID}_cm_any value = 1 }}
-\t}}
+\t{MOD_ID}_cm_zero = yes
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tlimit = {{ province_definition = {{ this = scope:{MOD_ID}_cm_prov }} }}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_cm_any = 1 }}
-\t\t\tset_variable = {{ name = {MOD_ID}_cm_loc value = 1 }}
-\t\t}}
-\t\telse = {{ remove_variable = {MOD_ID}_cm_loc }}
+\t\t{MOD_ID}_cm_scan = yes
 \t}}
-\t{MOD_ID}_cm_count = yes
+\t{MOD_ID}_cm_decide = yes
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{ province_definition = {{ this = scope:{MOD_ID}_cm_prov }} }}
+\t\t{MOD_ID}_cm_apply = yes
+\t}}
 }}
 
-# Scope: country -- весь план разом.
-{MOD_ID}_cm_toggle_all = {{
-\t{MOD_ID}_cm_count = yes
+# Scope: country
+{MOD_ID}_cm_press_loc_do = {{
+\t{MOD_ID}_cm_zero = yes
+\tscope:wtp_location = {{ {MOD_ID}_cm_scan = yes }}
+\t{MOD_ID}_cm_decide = yes
+\tscope:wtp_location = {{ {MOD_ID}_cm_apply = yes }}
+}}
+
+# Scope: country
+{MOD_ID}_cm_press_all_do = {{
+\t{MOD_ID}_cm_zero = yes
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\t{MOD_ID}_cm_scan = yes
+\t}}
+\t{MOD_ID}_cm_decide = yes
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\t{MOD_ID}_cm_apply = yes
+\t}}
+}}
+
+# Scope: country
+{MOD_ID}_cm_zero = {{
+\tset_global_variable = {{ name = {MOD_ID}_cm_all value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_cm_on value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_cm_did value = 0 }}
+\t# Что стране по зубам -- на сегодня: ступень берётся та же, что показывает
+\t# фишка «Из плана — сюда», иначе кнопка и список говорили бы разное.
+\t{MOD_ID}_set_bavail = yes
+}}
+
+# Всё уже включено -- значит нажатие снимает. Иначе включает.
+# Scope: country
+{MOD_ID}_cm_decide = {{
+\tset_global_variable = {{ name = {MOD_ID}_cm_off value = 0 }}
 \tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_cm_n > 0 }}
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_plan_touched
-\t\t\tremove_variable = {MOD_ID}_cm_loc
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_cm_all > 0
+\t\t\tNOT = {{ global_var:{MOD_ID}_cm_all > global_var:{MOD_ID}_cm_on }}
 \t\t}}
+\t\tset_global_variable = {{ name = {MOD_ID}_cm_off value = 1 }}
 \t}}
-\telse = {{
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_plan_touched
-\t\t\tlimit = {{ has_variable = {MOD_ID}_load }}
-\t\t\tset_variable = {{ name = {MOD_ID}_cm_loc value = 1 }}
-\t\t}}
-\t}}
-\t{MOD_ID}_cm_count = yes
 }}
 
 # The ground this run works over, and everything the last one left on the map.
@@ -10091,22 +10078,19 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # `bag_view_location`, и если проба в панели не сработала, фишка не оставит
     # в списке ничего -- симптом, неотличимый от «план сюда ничего не ставит».
     # Одно число разделяет эти два случая без второго прогона.
-    # **Шаг 8, и он весь про порядок листьев.** Диспетчер CM чистит очереди в
-    # начале своего круга; если наш лист месячного пульса встал раньше него,
-    # поставленное стирается в тот же тик и на экране это неотличимо от «нечего
-    # было ставить». Отсюда три числа: доходит ли лист вообще (`ran`), сколько
-    # локаций помечено (`armed`) и сколько встало в очередь (`staged`).
-    for slot, source in enumerate((f"{MOD_ID}_cm_ran", f"{MOD_ID}_cm_armed",
-                                   f"{MOD_ID}_cm_staged", f"{MOD_ID}_cm_n",
-                                   f"{MOD_ID}_cm_last"), start=1):
+    # **Шаг 8 -- одна отмашка, поэтому и числа от неё одноразовые.** Что сделало
+    # последнее нажатие: сколько галочек группы нашлось, сколько из них уже
+    # стояло и сколько переключено. Ноль в первом при нажатой кнопке -- значит в
+    # группе нечему стоять, а не «кнопка не работает».
+    for slot, source in enumerate((f"{MOD_ID}_cm_all", f"{MOD_ID}_cm_on",
+                                   f"{MOD_ID}_cm_did", f"{MOD_ID}_cm_off"), start=1):
         out.append(park(slot, source))
-    out.append(flag(6, "has_variable_list = cm_priority_features_list"))
-    out.append(say("CM ran=%s armed=%s staged=%s marked=%s last=%s present=%s "
-                   "-- present=0 значит Construction Manager не в игре; ran=0 при "
-                   "present=1 значит месячный лист не доходит; staged=0 при "
-                   "armed>0 значит в помеченных локациях нечего строить или "
-                   "очередь CM стёрлась до нас"
-                   % tuple(read(i) for i in range(1, 7))))
+    out.append(flag(5, "has_variable_list = cm_priority_features_list"))
+    out.append(say("CM found=%s were_on=%s touched=%s off=%s present=%s -- "
+                   "present=0 значит Construction Manager не в игре и кнопок "
+                   "автостроя нет; found=0 после нажатия значит в группе нет ни "
+                   "одного домика плана, который тут может стоять"
+                   % tuple(read(i) for i in range(1, 6))))
 
     out.append(flag(1, f"has_global_variable = bag_view_location"))
     out.append(say("FILTER view_location=%s -- 1 значит, что панель "
@@ -11549,7 +11533,7 @@ def main() -> int:
                      "ps_gain", "ps_swaps", "ps_rswaps",
                      # Шаг 8: сколько локаций помечено под автострой и сколько
                      # ушло в очередь CM в прошлый месяц.
-                     "cm_n", "cm_last")))
+                     "cm_all", "cm_did")))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent) + "".join(

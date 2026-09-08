@@ -389,6 +389,27 @@ types the player ticked and stages them in every owned location, checking only
 build-queue slots and `cm_location_can_auto_build`. An addon that must ignore the
 profit gates should stage there rather than invent a queue.
 
+**The auto-build tick box is three variables, and that is the whole of it.** The
+two-up-arrows icon (`gfx/interface/icons/flat_icons/mass_upgrade.dds`) beside a
+building in the production panel is CM's, drawn by
+`cm_auto_expand_existing_building_button` for a standing building and
+`cm_auto_expand_new_building_button` for a type not built yet. Both write the
+same state, which is per **location and building type**:
+
+| variable | scope | meaning |
+| --- | --- | --- |
+| `cm_auto_expand_registered_building_types` | location | ticked here |
+| `cm_mass_auto_expand_building_types` | country | ticked everywhere |
+| `cm_auto_expand_excluded_building_types` | location | untick, against the mass list |
+
+So it is **on** when the location's registered list holds the type, or the
+country's mass list holds it and the location's excluded list does not. Turning
+it on means: mass list holds the type → remove it from the location's excluded
+list; otherwise → add it to the location's registered list. Off is the mirror.
+`cm_apply_auto_expand_toggle` is the original, and it takes `scope:cm_set_off` to
+set rather than flip. An addon that wants to arm a set of buildings hands CM this
+and stops — CM's own monthly cycle then decides when and what to build.
+
 **Feeding that queue needs no CM name at all — write its variables.** A call to a
 scripted effect or trigger CM does not ship breaks in a place nobody looks
 (`PITFALLS.md`), and an addon has to survive CM being absent. Variables have no

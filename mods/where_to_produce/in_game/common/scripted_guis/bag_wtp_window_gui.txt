@@ -758,16 +758,19 @@ bag_wtp_close_summary_window = {
 	}
 }
 
-# ---- шаг 8: автострой плана через Construction Manager ---------------------
+# ---- шаг 8: отмашка на галочки автостроя Construction Manager --------------
 #
-# **Три кнопки на одну пометку.** Помечается всегда локация (`_cm_loc`); кнопка
-# провинции метит её локации плана, кнопка в шапке -- весь план. Отдельной
-# сущности «провинция помечена» нет нарочно: переезд домика между локациями
-# тогда ничего не ломает, а «вся провинция» остаётся правдой по построению.
+# **Кнопка не делает ничего сама.** Одно нажатие переключает галочки автостроя CM
+# у тех домиков плана, что в этой локации правда могут стоять, — и на этом мод
+# заканчивается. «Только ссылка на другие ссылки», 2026-09-09.
+#
+# **Одна кнопка, два смысла**: не все галочки группы стоят — нажатие ставит все;
+# стоят все — снимает. Что именно, решает `_cm_decide` на самом нажатии, а не
+# кадр за кадром: строк в окне сорок.
 #
 # **Видны только когда CM в игре.** Список `cm_priority_features_list` заводит он
-# сам на старте; без CM кнопка просто не рисуется — это лучше, чем кнопка,
-# которая нажимается и молчит.
+# сам на старте; без CM кнопки не рисуются — это лучше, чем кнопка, которая
+# нажимается и молчит.
 
 # Scope: country
 bag_wtp_cm_present = {
@@ -777,40 +780,24 @@ bag_wtp_cm_present = {
 	effect = { }
 }
 
-# Scope: country. Помечена ли эта локация — для второй иконки в ряду.
-bag_wtp_cm_loc_on = {
-	scope = country
-
-	is_shown = { scope:wtp_location = { var:bag_wtp_cm_loc = 1 } }
-	effect = { }
-}
-
-# Scope: country. Помечено ли в плане хоть что-то — для иконки в шапке.
-bag_wtp_cm_any_on = {
-	scope = country
-
-	is_shown = { global_var:bag_wtp_cm_n > 0 }
-	effect = { }
-}
-
-# Scope: country
+# Scope: country, ждёт scope:wtp_location
 bag_wtp_cm_press_loc = {
 	scope = country
 
 	is_shown = { always = yes }
 	is_valid = { always = yes }
 
-	effect = { bag_wtp_cm_toggle_loc = yes }
+	effect = { bag_wtp_cm_press_loc_do = yes }
 }
 
-# Scope: country
+# Scope: country, ждёт scope:wtp_location — любую локацию нужной провинции
 bag_wtp_cm_press_prov = {
 	scope = country
 
 	is_shown = { always = yes }
 	is_valid = { always = yes }
 
-	effect = { bag_wtp_cm_toggle_prov = yes }
+	effect = { bag_wtp_cm_press_prov_do = yes }
 }
 
 # Scope: country
@@ -820,5 +807,5 @@ bag_wtp_cm_press_all = {
 	is_shown = { always = yes }
 	is_valid = { always = yes }
 
-	effect = { bag_wtp_cm_toggle_all = yes }
+	effect = { bag_wtp_cm_press_all_do = yes }
 }

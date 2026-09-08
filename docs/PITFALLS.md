@@ -47,6 +47,13 @@ never worked; `06_country.txt` says "root is player" in its own header. **Ask
 object — a generator's job. `building` and `location` scoped filters do get
 `scope:target`.
 
+**A `widget` with `onclick` does not take clicks; a button does.**
+`alwaystransparent = no` makes a widget receive the mouse for a *tooltip*, and
+that is what it is for. Three icons shipped that way on 2026-09-09 and the owner
+found all three dead. In `where_to_produce`'s own windows the things that take a
+click are `button_regular` and `button_square_plus` — put the `icon` inside one
+of those.
+
 **A trigger that models what the player *means* must never gate what the game will
 *do*.** `where_to_produce`'s `_stands_<building>` deliberately obeys the mod's own
 rank override — that is the whole point of a plan that says «I will make this

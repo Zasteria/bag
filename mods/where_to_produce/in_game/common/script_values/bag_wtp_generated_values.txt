@@ -12238,6 +12238,6 @@ bag_wtp_show_ps_swaps = { value = global_var:bag_wtp_ps_swaps }
 # Scope: country
 bag_wtp_show_ps_rswaps = { value = global_var:bag_wtp_ps_rswaps }
 # Scope: country
-bag_wtp_show_cm_n = { value = global_var:bag_wtp_cm_n }
+bag_wtp_show_cm_all = { value = global_var:bag_wtp_cm_all }
 # Scope: country
-bag_wtp_show_cm_last = { value = global_var:bag_wtp_cm_last }
+bag_wtp_show_cm_did = { value = global_var:bag_wtp_cm_did }
