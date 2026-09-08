@@ -2601,6 +2601,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t{MOD_ID}_plan_place_rights = yes
 \t}}
 \t{MOD_ID}_plan_set_quota = yes
+\t{MOD_ID}_plan_place_scarce = yes
 \t{MOD_ID}_plan_allocate = yes
 \t{MOD_ID}_plan_rank = yes
 \t# **A fresh plan is its own baseline.** «Показать изменения» right after one is
@@ -3515,11 +3516,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 \t# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
-\tset_global_variable = {{ name = {MOD_ID}_ngall value = global_var:{MOD_ID}_ngt{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_ngall add = global_var:{MOD_ID}_ngr{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_ngall subtract = global_var:{MOD_ID}_plan_quota }}
+\t# Число своё на каждый товар, потому что его читает и проход стеснённых.
+\tset_global_variable = {{ name = {MOD_ID}_ngall{index} value = global_var:{MOD_ID}_ngt{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_ngall{index} add = global_var:{MOD_ID}_ngr{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_ngall{index} subtract = global_var:{MOD_ID}_plan_quota }}
 \tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_ngall < 1 }}
+\t\tlimit = {{ global_var:{MOD_ID}_ngall{index} < 1 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_pq{index} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_pq{index} }}
 \t}}
@@ -3754,7 +3756,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# ровными слоями, что и доля. `_plan_opensw` -- сколько раз подняли.
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_dry add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}
-{raise_all}\t\t}}
+\t\t\t# **Последний сухой круг долю не поднимает.** Он тот, на котором
+\t\t\t# раздача кончается, и его прибавка уже никому не достаётся — зато
+\t\t\t# в отчёте товар после неё выглядит недобравшим на единицу: доля 55
+\t\t\t# при 54 домиках. Его наблюдение, 2026-09-08: «они набирают своя
+\t\t\t# доля минус один».
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_plan_dry < 2 }}
+{raise_all}\t\t\t}}
+\t\t}}
 \t\telse = {{ set_global_variable = {{ name = {MOD_ID}_plan_dry value = 0 }} }}
 \t\tif = {{
 \t\t\tlimit = {{ global_var:{MOD_ID}_plan_dry > 1 }}
@@ -3945,6 +3955,59 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 }}
 """)
+
+    # ---- стеснённые берут своё до круга ------------------------------------
+    #
+    # **Его правило, 2026-09-08:** «я не вижу причин, почему железо не может
+    # забрать первым все свои 43 ячейки, потом следующий чуть менее дефицитный
+    # товар, а потом уже все остальные как угодно».
+    #
+    # **Стеснённый — тот, чьей земли меньше его же доли до скидки за РГО.**
+    # Делить ему нечего: круг может только отнять у него места, которые некому
+    # заменить. Железо, 2026-09-08: 43 локации, доля 60, а по кругу оно брало
+    # 34 — восемь городов и две деревни успевали забиться, пока подходила его
+    # очередь.
+    #
+    # **Порядок — по ступеням, от самых стеснённых.** Тот же `_plan_tier`, что
+    # в круге: сперва товары, которым годится 2 % земли, потом 4 % и так далее.
+    # Внутри ступени обход ставит домик **в каждую** подходящую локацию разом —
+    # локация держит один домик товара, так что один проход и есть «забрать всё
+    # своё».
+    #
+    # **Ни уровня, ни доли здесь нет.** Стеснённый по определению не дотянет до
+    # своей доли, а уровень нужен, чтобы товары не обгоняли друг друга — тут
+    # обгонять некого.
+    out.append(f"""
+# Стеснённые товары забирают свою землю целиком, до равного круга.
+# Scope: country
+{MOD_ID}_plan_place_scarce = {{
+""")
+    for tier in PLAN_TIERS:
+        t = PLAN_TIERS.index(tier) + 1
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_tier "
+                   f"value = global_var:{MOD_ID}_candidate_count }}\n"
+                   f"\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
+                   f"divide = {MOD_ID}_tdiv{t} }}\n"
+                   f"\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
+                   f"max = {tier} }}\n")
+        for index, good in enumerate(order, start=1):
+            for side, listname, sfx in (("t", "town", "t"), ("r", "rural", "r")):
+                if not groups.get((good, side)):
+                    continue
+                out.append(f"""\tif = {{
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_ngall{index} < 1
+\t\t\tglobal_var:{MOD_ID}_ng{sfx}{index} > 0
+\t\t\tglobal_var:{MOD_ID}_ng{sfx}{index} <= global_var:{MOD_ID}_plan_tier
+\t\t}}
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ {MOD_ID}_plan_can_{listname}_{index} = yes }}
+\t\t\t{MOD_ID}_plan_try_{listname}_{index} = yes
+\t\t}}
+\t}}
+""")
+    out.append("}\n")
 
     out.append(f"""
 # The rows: one per location that got anything, its province's locations together.
