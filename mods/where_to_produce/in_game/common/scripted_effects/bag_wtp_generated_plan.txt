@@ -32607,18 +32607,27 @@ bag_wtp_plan_try_village_1 = {
 		}
 			if = {
 				limit = { var:bag_wtp_vw1 = 6 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
-				change_global_variable = { name = bag_wtp_pout6 add = 50 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw1 = 39 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
-				change_global_variable = { name = bag_wtp_pout39 add = 50 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw1 = 42 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
-				change_global_variable = { name = bag_wtp_pout42 add = 20 }
 			}
 	}
 }
@@ -32682,18 +32691,27 @@ bag_wtp_plan_try_village_2 = {
 		}
 			if = {
 				limit = { var:bag_wtp_vw2 = 36 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
-				change_global_variable = { name = bag_wtp_pout36 add = 20 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw2 = 46 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
-				change_global_variable = { name = bag_wtp_pout46 add = 50 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw2 = 47 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
-				change_global_variable = { name = bag_wtp_pout47 add = 20 }
 			}
 	}
 }
@@ -32757,28 +32775,43 @@ bag_wtp_plan_try_village_3 = {
 		}
 			if = {
 				limit = { var:bag_wtp_vw3 = 26 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
-				change_global_variable = { name = bag_wtp_pout26 add = 50 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw3 = 34 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
-				change_global_variable = { name = bag_wtp_pout34 add = 10 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw3 = 42 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
-				change_global_variable = { name = bag_wtp_pout42 add = 20 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw3 = 46 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
-				change_global_variable = { name = bag_wtp_pout46 add = 50 }
 			}
 			if = {
 				limit = { var:bag_wtp_vw3 = 47 }
+				# **Товар кладётся только ради строки локации.** `_plan_goods` и
+				# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+				# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+				# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 				add_to_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
-				change_global_variable = { name = bag_wtp_pout47 add = 20 }
 			}
 	}
 }

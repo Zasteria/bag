@@ -4944,6 +4944,321 @@ types BagWtpSumCells {
 
 	}
 
+	# fishing_village
+	type bag_wtp_sum_vrow1 = hbox {
+		size = { 1298 26 }
+		spacing = 6
+		visible = "[GreaterThan_int32(GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv1'),'(int32)0')]"
+		using = bg_number_container_bckg
+
+		text_single = {
+			size = { 216 26 }
+			autoresize = no
+			maximumsize = { 216 26 }
+			align = left|vcenter
+			fontsize = 14
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_name_tt"
+			text = "bag_wtp_village_fishing_village"
+		}
+
+		text_single = {
+			size = { 54 26 }
+			autoresize = no
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 15
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_n_tt"
+			text = "#Y [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn1')|0]#!"
+		}
+
+		text_single = {
+			size = { 110 26 }
+			autoresize = no
+			maximumsize = { 110 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_sides_tt"
+			text = "— / [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn1')|0]"
+		}
+
+		text_single = {
+			size = { 74 26 }
+			autoresize = no
+			maximumsize = { 74 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_places_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv1')|0]"
+		}
+
+		text_single = {
+			size = { 54 26 }
+			autoresize = no
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_quota_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bq1')|0]"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_gain_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 620 26 }
+			autoresize = no
+			maximumsize = { 620 26 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_why_tt"
+			text = "bag_wtp_why_village"
+		}
+
+	}
+
+	# forest_village
+	type bag_wtp_sum_vrow2 = hbox {
+		size = { 1298 26 }
+		spacing = 6
+		visible = "[GreaterThan_int32(GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv2'),'(int32)0')]"
+		using = bg_number_container_bckg
+
+		text_single = {
+			size = { 216 26 }
+			autoresize = no
+			maximumsize = { 216 26 }
+			align = left|vcenter
+			fontsize = 14
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_name_tt"
+			text = "bag_wtp_village_forest_village"
+		}
+
+		text_single = {
+			size = { 54 26 }
+			autoresize = no
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 15
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_n_tt"
+			text = "#Y [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn2')|0]#!"
+		}
+
+		text_single = {
+			size = { 110 26 }
+			autoresize = no
+			maximumsize = { 110 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_sides_tt"
+			text = "— / [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn2')|0]"
+		}
+
+		text_single = {
+			size = { 74 26 }
+			autoresize = no
+			maximumsize = { 74 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_places_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv2')|0]"
+		}
+
+		text_single = {
+			size = { 54 26 }
+			autoresize = no
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_quota_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bq2')|0]"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_gain_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 620 26 }
+			autoresize = no
+			maximumsize = { 620 26 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_why_tt"
+			text = "bag_wtp_why_village"
+		}
+
+	}
+
+	# market_village
+	type bag_wtp_sum_vrow3 = hbox {
+		size = { 1298 26 }
+		spacing = 6
+		visible = "[GreaterThan_int32(GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv3'),'(int32)0')]"
+		using = bg_number_container_bckg
+
+		text_single = {
+			size = { 216 26 }
+			autoresize = no
+			maximumsize = { 216 26 }
+			align = left|vcenter
+			fontsize = 14
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_name_tt"
+			text = "bag_wtp_village_market_village"
+		}
+
+		text_single = {
+			size = { 54 26 }
+			autoresize = no
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 15
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_n_tt"
+			text = "#Y [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn3')|0]#!"
+		}
+
+		text_single = {
+			size = { 110 26 }
+			autoresize = no
+			maximumsize = { 110 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_sides_tt"
+			text = "— / [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn3')|0]"
+		}
+
+		text_single = {
+			size = { 74 26 }
+			autoresize = no
+			maximumsize = { 74 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_places_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv3')|0]"
+		}
+
+		text_single = {
+			size = { 54 26 }
+			autoresize = no
+			maximumsize = { 54 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_quota_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bq3')|0]"
+		}
+
+		text_single = {
+			size = { 64 26 }
+			autoresize = no
+			maximumsize = { 64 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_gain_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 620 26 }
+			autoresize = no
+			maximumsize = { 620 26 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_why_tt"
+			text = "bag_wtp_why_village"
+		}
+
+	}
+
 	# **Все строки одной коробкой, потому что окно написано руками.**
 	# `ignoreinvisible = yes` -- строка товара, которого эта земля не умеет,
 	# должна пропадать вместе со своим местом, иначе список весь в дырах.
@@ -4997,5 +5312,8 @@ types BagWtpSumCells {
 		bag_wtp_sum_row45 = {}
 		bag_wtp_sum_row46 = {}
 		bag_wtp_sum_row47 = {}
+		bag_wtp_sum_vrow1 = {}
+		bag_wtp_sum_vrow2 = {}
+		bag_wtp_sum_vrow3 = {}
 	}
 }

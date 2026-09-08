@@ -11076,6 +11076,18 @@ bag_wtp_show_plan_sweeps = { value = global_var:bag_wtp_plan_sweeps }
 bag_wtp_show_plan_towns = { value = global_var:bag_wtp_plan_towns }
 bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }
 bag_wtp_show_plan_rightn = { value = global_var:bag_wtp_plan_rightn }
+# fishing_village
+bag_wtp_show_bn1 = { value = global_var:bag_wtp_bn1 }
+bag_wtp_show_bq1 = { value = global_var:bag_wtp_bq1 }
+bag_wtp_show_ngv1 = { value = global_var:bag_wtp_ngv1 }
+# forest_village
+bag_wtp_show_bn2 = { value = global_var:bag_wtp_bn2 }
+bag_wtp_show_bq2 = { value = global_var:bag_wtp_bq2 }
+bag_wtp_show_ngv2 = { value = global_var:bag_wtp_ngv2 }
+# market_village
+bag_wtp_show_bn3 = { value = global_var:bag_wtp_bn3 }
+bag_wtp_show_bq3 = { value = global_var:bag_wtp_bq3 }
+bag_wtp_show_ngv3 = { value = global_var:bag_wtp_ngv3 }
 # How many buildings of clay the plan holds. Printed in the picker's
 # own cell, which is why the cells are written out: a datamodel row
 # carries a goods scope and a scope reaches no numbered counter.

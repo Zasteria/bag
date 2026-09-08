@@ -3890,8 +3890,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                  if building in (groups.get((g, "r")) or {})]
         places = "".join(f"""\t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_vw{k} = {i} }}
+\t\t\t\t# **Товар кладётся только ради строки локации.** `_plan_goods` и
+\t\t\t\t# `_plan_builds` обязаны идти в ногу (`ROWPAIR`), и на карте видно,
+\t\t\t\t# что деревня делает. В счёт он не идёт нигде: ни `_pn`, ни `_pnr`,
+\t\t\t\t# ни `_pout`. «Оно ничего не производит кроме самого себя.»
 \t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{order[i - 1]} }}
-\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_pout{i} add = {max(int(round(by_method[mi].output * 100)) for mi in groups[(order[i - 1], "r")][building])} }}
 \t\t\t}}
 """ for i in makes)
         out.append(f"""
@@ -9487,6 +9490,8 @@ def sum_cells_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 types BagWtpSumCells {
 """]
+    villages = village_entities(rows, split, game)
+    shared_all = shared_buildings(rows, split, game)
     for index, good in enumerate(order, start=1):
         cells = ""
         for width, kind in SUM_COLS:
@@ -9522,8 +9527,56 @@ types BagWtpSumCells {
 {cells}\t}}
 
 """)
+    # **Деревня — такая же строка, как товар.** Его правило: «деревня = товар,
+    # оно ничего не производит кроме самого себя». Числа берутся из её
+    # собственных счётчиков: `_bn<b>` домиков, `_bq<b>` доля, `_ngv<k>` мест.
+    for k, building in enumerate(villages, start=1):
+        b = shared_all.index(building) + 1
+        cells = ""
+        for width, kind in SUM_COLS:
+            if kind == "name":
+                text, align, size = f'"{MOD_ID}_village_{building}"', "left|vcenter", 14
+            elif kind == "why":
+                text, align, size = f'"{MOD_ID}_why_village"', "left|vcenter", 13
+            elif kind in ("n", "sides", "places", "quota"):
+                sv = ("[GuiScope.SetRoot(GetPlayer.MakeScope)"
+                      ".ScriptValue('%s_show_%s')|0]")
+                body = {"n": "#Y " + sv % (MOD_ID, "bn%d" % b) + "#!",
+                        "sides": "— / " + sv % (MOD_ID, "bn%d" % b),
+                        "places": sv % (MOD_ID, "ngv%d" % k),
+                        "quota": sv % (MOD_ID, "bq%d" % b)}[kind]
+                text = '"%s"' % body
+                align = "center|vcenter"
+                size = 15 if kind == "n" else 13
+            else:
+                text, align, size = '"—"', "center|vcenter", 13
+            cells += f"""\t\ttext_single = {{
+\t\t\tsize = {{ {width} 26 }}
+\t\t\tautoresize = no
+\t\t\tmaximumsize = {{ {width} 26 }}
+\t\t\talign = {align}
+\t\t\tfontsize = {size}
+\t\t\tfontsize_min = 10
+\t\t\telide = right
+\t\t\ttooltip = "{MOD_ID}_sum_{kind}_tt"
+\t\t\ttext = {text}
+\t\t}}
+
+"""
+        out.append(f"""\t# {building}
+\ttype {MOD_ID}_sum_vrow{k} = hbox {{
+\t\tsize = {{ {SUM_ROW_W} 26 }}
+\t\tspacing = {SUM_SPACING}
+\t\tvisible = "[GreaterThan_int32(GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_ngv{k}'),'(int32)0')]"
+\t\tusing = bg_number_container_bckg
+
+{cells}\t}}
+
+""")
     rowlist = "".join(f"\t\t{MOD_ID}_sum_row{i} = {{}}\n"
                       for i in range(1, len(order) + 1))
+    rowlist += "".join(f"\t\t{MOD_ID}_sum_vrow{k} = {{}}\n"
+                       for k in range(1, len(villages) + 1))
     out.append(f"""\t# **Все строки одной коробкой, потому что окно написано руками.**
 \t# `ignoreinvisible = yes` -- строка товара, которого эта земля не умеет,
 \t# должна пропадать вместе со своим местом, иначе список весь в дырах.
@@ -9534,6 +9587,19 @@ types BagWtpSumCells {
 }}
 """)
     return "".join(out)
+
+def village_values(rows, split, game) -> str:
+    """Читалки для строк деревень в сводке: домиков, доля, мест."""
+    out = []
+    shared_all = shared_buildings(rows, split, game)
+    for k, building in enumerate(village_entities(rows, split, game), start=1):
+        b = shared_all.index(building) + 1
+        out.append(f"# {building}\n"
+                   f"{MOD_ID}_show_bn{b} = {{ value = global_var:{MOD_ID}_bn{b} }}\n"
+                   f"{MOD_ID}_show_bq{b} = {{ value = global_var:{MOD_ID}_bq{b} }}\n"
+                   f"{MOD_ID}_show_ngv{k} = {{ value = global_var:{MOD_ID}_ngv{k} }}\n")
+    return "".join(out)
+
 
 # ----------------------------------------------------------- the specialisation
 #
@@ -9819,7 +9885,7 @@ def main() -> int:
     write(REGION_OUT, region_file(by_continent))
     write(TRIGGERS_OUT, triggers_file(rows, split, game))
     write(PICKER_OUT, picker_file(split, rows))
-    write(VALUES_OUT, values_file(rows, split, game) + "".join(
+    write(VALUES_OUT, values_file(rows, split, game) + village_values(rows, split, game) + "".join(
         f"# How many buildings of {good} the plan holds. Printed in the picker's\n"
         f"# own cell, which is why the cells are written out: a datamodel row\n"
         f"# carries a goods scope and a scope reaches no numbered counter.\n"
