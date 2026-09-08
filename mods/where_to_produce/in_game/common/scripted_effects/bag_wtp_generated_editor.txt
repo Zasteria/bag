@@ -19388,7 +19388,28 @@ bag_wtp_plan_shuffle = {
 	set_global_variable = { name = bag_wtp_ps_swaps value = 0 }
 	set_global_variable = { name = bag_wtp_ps_rounds value = 0 }
 	set_global_variable = { name = bag_wtp_ps_gain0 value = global_var:bag_wtp_plan_gain }
+	set_global_variable = { name = bag_wtp_ps_rswaps value = 0 }
+	set_global_variable = { name = bag_wtp_ps_rrounds value = 0 }
 	change_global_variable = { name = bag_wtp_edit_presses add = 1 }
+	# **Сначала грамоты, потом всё остальное** -- его порядок, 2026-09-09.
+	# Грамота везёт с собой пачку домиков, так что её переезд меняет землю под
+	# ногами у товарного обмена: считать товарам есть смысл только по уже
+	# переставленным грамотам.
+	#
+	# `_edit_right_prepare` -- то же, с чего начинается любое нажатие на
+	# грамоте: доли, разрешения и `_edit_strict = 0`, без которого выравнивание
+	# загрузки города отказалось бы отдавать домик и город остался бы выше
+	# своего потолка.
+	bag_wtp_edit_right_prepare = yes
+	bag_wtp_plan_shuffle_rights = yes
+	if = {
+		limit = { global_var:bag_wtp_ps_did = 1 }
+		bag_wtp_plan_shuffle_rights = yes
+	}
+	if = {
+		limit = { global_var:bag_wtp_ps_did = 1 }
+		bag_wtp_plan_shuffle_rights = yes
+	}
 	bag_wtp_plan_shuffle_round = yes
 	if = {
 		limit = { global_var:bag_wtp_ps_did = 1 }
@@ -71792,6 +71813,1284 @@ bag_wtp_plan_move_r47 = {
 			}
 		}
 	}
+}
+
+# Общее для обмена грамотами: всё про **чужую** грамоту, с которой меняемся. Её
+# номер лежит в `_mv_rj`, а по номеру-переменной ни выгоду (`_rq<k>`), ни
+# «влезет ли сюда» (`_edit_right_fits_<k>`) не прочитать -- отсюда один
+# переключатель на всех, ровно как `_mv_read_b` у товаров.
+# Scope: location
+bag_wtp_mv_read_right = {
+	set_global_variable = { name = bag_wtp_mv_rjv value = 0 }
+	set_global_variable = { name = bag_wtp_mv_rjfit value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 1 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq1 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_1 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 2 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq2 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_2 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 3 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq3 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_3 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 4 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq4 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_4 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 5 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq5 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_5 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 6 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq6 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_6 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 7 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq7 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_7 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 8 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq8 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_8 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 9 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq9 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_9 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 10 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq10 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_10 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 11 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq11 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_11 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 12 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq12 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_12 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+	if = {
+		limit = { global_var:bag_wtp_mv_rj = 13 }
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq13 }
+		set_global_variable = { name = bag_wtp_mv_rjv value = var:bag_wtp_psrq }
+		if = {
+			limit = { bag_wtp_edit_right_fits_13 = yes }
+			set_global_variable = { name = bag_wtp_mv_rjfit value = 1 }
+		}
+	}
+}
+
+# constantinopolitan_silk_monopoly_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_1 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq1 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 1 }
+				bag_wtp_edit_right_fits_1 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 1
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 1 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 1 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# flemish_cloth_industries_right: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_2 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq2 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 2 }
+				bag_wtp_edit_right_fits_2 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 2
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 2 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 2 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_artisan_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_3 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq3 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 3 }
+				bag_wtp_edit_right_fits_3 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 3
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 3 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 3 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_book_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_4 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq4 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 4 }
+				bag_wtp_edit_right_fits_4 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 4
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 4 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 4 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_brewing_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_5 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq5 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 5 }
+				bag_wtp_edit_right_fits_5 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 5
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 5 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 5 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_jewelry_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_6 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq6 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 6 }
+				bag_wtp_edit_right_fits_6 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 6
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 6 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 6 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_masonry_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_7 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq7 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 7 }
+				bag_wtp_edit_right_fits_7 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 7
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 7 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 7 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_naval_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_8 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq8 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 8 }
+				bag_wtp_edit_right_fits_8 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 8
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 8 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 8 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_textile_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_9 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq9 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 9 }
+				bag_wtp_edit_right_fits_9 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 9
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 9 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 9 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_tooling_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_10 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq10 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 10 }
+				bag_wtp_edit_right_fits_10 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 10
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 10 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 10 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# royal_weaponry_rights: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_11 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq11 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 11 }
+				bag_wtp_edit_right_fits_11 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 11
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 11 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 11 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# scandinavian_bergslag_privileges: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_12 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq12 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 12 }
+				bag_wtp_edit_right_fits_12 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 12
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 12 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 12 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# scandinavian_tar_privileges: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+bag_wtp_plan_move_right_13 = {
+	set_global_variable = { name = bag_wtp_mv_rbv value = -1 }
+	set_global_variable = { name = bag_wtp_mv_rwv value = 10000 }
+	remove_global_variable = bag_wtp_mv_rhasto
+	remove_global_variable = bag_wtp_mv_rhasfrom
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = yes
+			has_variable = bag_wtp_plan_right
+		}
+		# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+		# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+		# форма сравнения, доказанная в этом моде везде.
+		set_variable = { name = bag_wtp_psrq value = bag_wtp_rq13 }
+		# Куда: чужой город, где ей платят больше всего и где она может стоять.
+		if = {
+			limit = {
+				NOT = { var:bag_wtp_plan_right = 13 }
+				bag_wtp_edit_right_fits_13 = yes
+				var:bag_wtp_psrq > global_var:bag_wtp_mv_rbv
+			}
+			set_global_variable = { name = bag_wtp_mv_rbv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rto
+			set_global_variable = { name = bag_wtp_mv_rhasto value = 1 }
+		}
+		# Откуда: свой город, где ей платят меньше всего.
+		if = {
+			limit = {
+				var:bag_wtp_plan_right = 13
+				var:bag_wtp_psrq < global_var:bag_wtp_mv_rwv
+			}
+			set_global_variable = { name = bag_wtp_mv_rwv value = var:bag_wtp_psrq }
+			save_scope_as = bag_wtp_mv_rfrom
+			set_global_variable = { name = bag_wtp_mv_rhasfrom value = 1 }
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_mv_rhasto
+			has_global_variable = bag_wtp_mv_rhasfrom
+			global_var:bag_wtp_mv_rbv > global_var:bag_wtp_mv_rwv
+		}
+		# Чья грамота сидит в цели, что она там получает и что получит у нас.
+		scope:bag_wtp_mv_rto = {
+			set_global_variable = { name = bag_wtp_mv_rj value = var:bag_wtp_plan_right }
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rjb value = global_var:bag_wtp_mv_rjv }
+		}
+		scope:bag_wtp_mv_rfrom = {
+			bag_wtp_mv_read_right = yes
+			set_global_variable = { name = bag_wtp_mv_rja value = global_var:bag_wtp_mv_rjv }
+			set_global_variable = { name = bag_wtp_mv_rjfa value = global_var:bag_wtp_mv_rjfit }
+		}
+		# Паре вместе должно стать лучше, а не одному из двоих.
+		set_global_variable = { name = bag_wtp_mv_rnew value = global_var:bag_wtp_mv_rbv }
+		change_global_variable = { name = bag_wtp_mv_rnew add = global_var:bag_wtp_mv_rja }
+		set_global_variable = { name = bag_wtp_mv_rnow value = global_var:bag_wtp_mv_rwv }
+		change_global_variable = { name = bag_wtp_mv_rnow add = global_var:bag_wtp_mv_rjb }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_rjfa = 1
+				global_var:bag_wtp_mv_rnew > global_var:bag_wtp_mv_rnow
+			}
+			# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+			# снимает пачку целиком, освобождает комнату под приезжающую и
+			# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+			scope:bag_wtp_mv_rto = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = global_var:bag_wtp_mv_rj }
+				set_global_variable = { name = bag_wtp_edit_rto value = 13 }
+				bag_wtp_edit_right_swap = yes
+			}
+			scope:bag_wtp_mv_rfrom = {
+				set_global_variable = { name = bag_wtp_edit_rfrom value = 13 }
+				set_global_variable = { name = bag_wtp_edit_rto value = global_var:bag_wtp_mv_rj }
+				bag_wtp_edit_right_swap = yes
+			}
+			set_global_variable = { name = bag_wtp_ps_did value = 1 }
+			change_global_variable = { name = bag_wtp_ps_rswaps add = 1 }
+		}
+	}
+}
+
+# Один круг грамот: каждой по одному переезду.
+# Scope: country
+bag_wtp_plan_shuffle_rights = {
+	set_global_variable = { name = bag_wtp_ps_did value = 0 }
+	change_global_variable = { name = bag_wtp_ps_rrounds add = 1 }
+	bag_wtp_plan_move_right_1 = yes
+	bag_wtp_plan_move_right_2 = yes
+	bag_wtp_plan_move_right_3 = yes
+	bag_wtp_plan_move_right_4 = yes
+	bag_wtp_plan_move_right_5 = yes
+	bag_wtp_plan_move_right_6 = yes
+	bag_wtp_plan_move_right_7 = yes
+	bag_wtp_plan_move_right_8 = yes
+	bag_wtp_plan_move_right_9 = yes
+	bag_wtp_plan_move_right_10 = yes
+	bag_wtp_plan_move_right_11 = yes
+	bag_wtp_plan_move_right_12 = yes
+	bag_wtp_plan_move_right_13 = yes
 }
 
 # constantinopolitan_silk_monopoly_rights: how many rooms its bundle wants here, and afterwards how many it

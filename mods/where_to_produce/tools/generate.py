@@ -6695,7 +6695,28 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_ps_swaps value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_ps_rounds value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_ps_gain0 value = global_var:{MOD_ID}_plan_gain }}
+\tset_global_variable = {{ name = {MOD_ID}_ps_rswaps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ps_rrounds value = 0 }}
 \tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
+\t# **Сначала грамоты, потом всё остальное** -- его порядок, 2026-09-09.
+\t# Грамота везёт с собой пачку домиков, так что её переезд меняет землю под
+\t# ногами у товарного обмена: считать товарам есть смысл только по уже
+\t# переставленным грамотам.
+\t#
+\t# `_edit_right_prepare` -- то же, с чего начинается любое нажатие на
+\t# грамоте: доли, разрешения и `_edit_strict = 0`, без которого выравнивание
+\t# загрузки города отказалось бы отдавать домик и город остался бы выше
+\t# своего потолка.
+\t{MOD_ID}_edit_right_prepare = yes
+\t{MOD_ID}_plan_shuffle_rights = yes
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ps_did = 1 }}
+\t\t{MOD_ID}_plan_shuffle_rights = yes
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ps_did = 1 }}
+\t\t{MOD_ID}_plan_shuffle_rights = yes
+\t}}
 \t{MOD_ID}_plan_shuffle_round = yes
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ps_did = 1 }}
@@ -6871,6 +6892,155 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 {village}\t}}
 }}
+""")
+
+    # ---- «Перетасовать», проход первый: сами грамоты ------------------------
+    #
+    # **Его слово, 2026-09-09:** «Перетасовка должна сначала проработать
+    # городские права, перетасовать именно их, потом всё остальное и не трогать
+    # домики городских прав». Второе сделано оговоркой `not_charter`, первое --
+    # здесь.
+    #
+    # **Почему грамоты идут первыми.** Грамота приезжает пачкой в один-три
+    # домика и уводит столько же чужих: её переезд меняет землю под ногами у
+    # товарного обмена. Значит товарный обмен должен считать уже по
+    # переставленным грамотам, а не наоборот.
+    #
+    # **Это перестановка, а не раздача.** Ни одна грамота не появляется и не
+    # исчезает: пара городов меняется грамотами целиком, `_rn<k>` у обоих
+    # остаётся прежним. Поэтому доли грамот (`_rsh<k>`) проход не спрашивает --
+    # он их не может нарушить.
+    #
+    # **Условие -- пара вместе, как и у товаров.** Города A (держит k) и B
+    # (держит j) меняются, если `rq_k(B) + rq_j(A) > rq_k(A) + rq_j(B)`; каждый
+    # `_rq` -- средняя выгода набора грамоты в этом городе, шкала у всех одна.
+    # Сумма при каждом обмене строго растёт, так что круг не может зациклиться.
+    read_right = "".join(
+        f"""\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_mv_rj = {k} }}
+\t\tset_variable = {{ name = {MOD_ID}_psrq value = {MOD_ID}_rq{k} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_mv_rjv value = var:{MOD_ID}_psrq }}
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_edit_right_fits_{k} = yes }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rjfit value = 1 }}
+\t\t}}
+\t}}
+"""
+        for k in range(1, len(rights) + 1))
+    out.append(f"""
+# Общее для обмена грамотами: всё про **чужую** грамоту, с которой меняемся. Её
+# номер лежит в `_mv_rj`, а по номеру-переменной ни выгоду (`_rq<k>`), ни
+# «влезет ли сюда» (`_edit_right_fits_<k>`) не прочитать -- отсюда один
+# переключатель на всех, ровно как `_mv_read_b` у товаров.
+# Scope: location
+{MOD_ID}_mv_read_right = {{
+\tset_global_variable = {{ name = {MOD_ID}_mv_rjv value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_mv_rjfit value = 0 }}
+{read_right}}}
+""")
+
+    rmoves = ""
+    for k, right in enumerate(rights, start=1):
+        if not [good for good in right.output if groups.get((good, "t"))]:
+            # `_edit_right_fits_<k>` у такой грамоты -- `always = no`: ей некуда
+            # ехать, и обход земли ради неё ничего не найдёт.
+            continue
+        rmoves += f"\t{MOD_ID}_plan_move_right_{k} = yes\n"
+        out.append(f"""
+# {right.key}: один переезд за круг -- из худшего своего города в лучший чужой,
+# обменом грамотами с тем, кто там сидит.
+# Scope: country
+{MOD_ID}_plan_move_right_{k} = {{
+\tset_global_variable = {{ name = {MOD_ID}_mv_rbv value = -1 }}
+\tset_global_variable = {{ name = {MOD_ID}_mv_rwv value = {RANK_SCALE * 10} }}
+\tremove_global_variable = {MOD_ID}_mv_rhasto
+\tremove_global_variable = {MOD_ID}_mv_rhasfrom
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{
+\t\t\thas_variable = {MOD_ID}_load
+\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\thas_variable = {MOD_ID}_plan_right
+\t\t}}
+\t\t# Выгода грамоты здесь -- в переменную локации: бегущий минимум и
+\t\t# максимум лежат в глобалках, а `var:x > global_var:y` -- единственная
+\t\t# форма сравнения, доказанная в этом моде везде.
+\t\tset_variable = {{ name = {MOD_ID}_psrq value = {MOD_ID}_rq{k} }}
+\t\t# Куда: чужой город, где ей платят больше всего и где она может стоять.
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tNOT = {{ var:{MOD_ID}_plan_right = {k} }}
+\t\t\t\t{MOD_ID}_edit_right_fits_{k} = yes
+\t\t\t\tvar:{MOD_ID}_psrq > global_var:{MOD_ID}_mv_rbv
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rbv value = var:{MOD_ID}_psrq }}
+\t\t\tsave_scope_as = {MOD_ID}_mv_rto
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rhasto value = 1 }}
+\t\t}}
+\t\t# Откуда: свой город, где ей платят меньше всего.
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tvar:{MOD_ID}_plan_right = {k}
+\t\t\t\tvar:{MOD_ID}_psrq < global_var:{MOD_ID}_mv_rwv
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rwv value = var:{MOD_ID}_psrq }}
+\t\t\tsave_scope_as = {MOD_ID}_mv_rfrom
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rhasfrom value = 1 }}
+\t\t}}
+\t}}
+\tif = {{
+\t\tlimit = {{
+\t\t\thas_global_variable = {MOD_ID}_mv_rhasto
+\t\t\thas_global_variable = {MOD_ID}_mv_rhasfrom
+\t\t\tglobal_var:{MOD_ID}_mv_rbv > global_var:{MOD_ID}_mv_rwv
+\t\t}}
+\t\t# Чья грамота сидит в цели, что она там получает и что получит у нас.
+\t\tscope:{MOD_ID}_mv_rto = {{
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rj value = var:{MOD_ID}_plan_right }}
+\t\t\t{MOD_ID}_mv_read_right = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rjb value = global_var:{MOD_ID}_mv_rjv }}
+\t\t}}
+\t\tscope:{MOD_ID}_mv_rfrom = {{
+\t\t\t{MOD_ID}_mv_read_right = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rja value = global_var:{MOD_ID}_mv_rjv }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_rjfa value = global_var:{MOD_ID}_mv_rjfit }}
+\t\t}}
+\t\t# Паре вместе должно стать лучше, а не одному из двоих.
+\t\tset_global_variable = {{ name = {MOD_ID}_mv_rnew value = global_var:{MOD_ID}_mv_rbv }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_mv_rnew add = global_var:{MOD_ID}_mv_rja }}
+\t\tset_global_variable = {{ name = {MOD_ID}_mv_rnow value = global_var:{MOD_ID}_mv_rwv }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_mv_rnow add = global_var:{MOD_ID}_mv_rjb }}
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tglobal_var:{MOD_ID}_mv_rjfa = 1
+\t\t\t\tglobal_var:{MOD_ID}_mv_rnew > global_var:{MOD_ID}_mv_rnow
+\t\t\t}}
+\t\t\t# **Обе стороны через `_edit_right_swap`**, а не своим кодом: он
+\t\t\t# снимает пачку целиком, освобождает комнату под приезжающую и
+\t\t\t# выравнивает загрузку города -- то же, что делают «+1» и «−1».
+\t\t\tscope:{MOD_ID}_mv_rto = {{
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rfrom value = global_var:{MOD_ID}_mv_rj }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rto value = {k} }}
+\t\t\t\t{MOD_ID}_edit_right_swap = yes
+\t\t\t}}
+\t\t\tscope:{MOD_ID}_mv_rfrom = {{
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rfrom value = {k} }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_rto value = global_var:{MOD_ID}_mv_rj }}
+\t\t\t\t{MOD_ID}_edit_right_swap = yes
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ps_rswaps add = 1 }}
+\t\t}}
+\t}}
+}}
+""")
+    out.append(f"""
+# Один круг грамот: каждой по одному переезду.
+# Scope: country
+{MOD_ID}_plan_shuffle_rights = {{
+\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 0 }}
+\tchange_global_variable = {{ name = {MOD_ID}_ps_rrounds add = 1 }}
+{rmoves}}}
 """)
 
     # ---- step 5: the charters, moved from one town to another ---------------
@@ -9542,14 +9712,17 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                                    f"{MOD_ID}_rs_gain", f"{MOD_ID}_rs_pairs",
                                    f"{MOD_ID}_rs_same", f"{MOD_ID}_rs_nofit",
                                    f"{MOD_ID}_rs_worse", f"{MOD_ID}_ps_rounds",
-                                   f"{MOD_ID}_ps_swaps", f"{MOD_ID}_ps_gain"), start=1):
+                                   f"{MOD_ID}_ps_swaps", f"{MOD_ID}_ps_gain",
+                                   f"{MOD_ID}_ps_rrounds",
+                                   f"{MOD_ID}_ps_rswaps"), start=1):
         out.append(park(slot, source))
     # **У «Перетасовать» счётчики свои.** `_rs_*` принадлежат доливке и их
     # стирает открытие окна редактора: прогон 2026-09-09 напечатал `rounds=0
     # swaps=0` после перетасовки, переставившей 36 локаций.
     out.append(say("EDIT shuffle rounds=%s swaps=%s gain=%s | pairs=%s same=%s "
-                   "nofit=%s worse=%s || button rounds=%s swaps=%s gain=%s"
-                   % tuple(read(i) for i in range(1, 11))))
+                   "nofit=%s worse=%s || button rounds=%s swaps=%s gain=%s "
+                   "| rights rounds=%s swaps=%s"
+                   % tuple(read(i) for i in range(1, 13))))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan
@@ -10982,7 +11155,7 @@ def main() -> int:
                      "sum_tmin", "sum_tmax", "sum_tg",
                      "sum_rmin", "sum_rmax", "sum_rg",
                      # Что дала последняя «Перетасовка».
-                     "ps_gain", "ps_swaps")))
+                     "ps_gain", "ps_swaps", "ps_rswaps")))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent) + "".join(
