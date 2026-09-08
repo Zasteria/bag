@@ -18155,6 +18155,228 @@ bag_wtp_plan_pick_worst = {
 	}
 }
 
+# fishing_village с локации долой -- обратное к `bag_wtp_plan_try_village_1`, строка
+# в строку. Без него деревня, однажды поставленная, стоит вечно: снять её было
+# нечем, и обмен обойти её не мог.
+# Scope: location
+bag_wtp_plan_drop_village_1 = {
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:fishing_village }
+		if = {
+			limit = { var:bag_wtp_vw1 = 6 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:fish }
+		}
+		if = {
+			limit = { var:bag_wtp_vw1 = 39 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:naval_supplies }
+		}
+		if = {
+			limit = { var:bag_wtp_vw1 = 42 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:pottery }
+		}
+		change_variable = { name = bag_wtp_load subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
+		change_global_variable = { name = bag_wtp_bn1 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_vb1 }
+		if = {
+			limit = { var:bag_wtp_vb1 > 0 }
+			change_global_variable = { name = bag_wtp_plan_fed subtract = 1 }
+		}
+	}
+}
+
+# forest_village с локации долой -- обратное к `bag_wtp_plan_try_village_2`, строка
+# в строку. Без него деревня, однажды поставленная, стоит вечно: снять её было
+# нечем, и обмен обойти её не мог.
+# Scope: location
+bag_wtp_plan_drop_village_2 = {
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:forest_village }
+		if = {
+			limit = { var:bag_wtp_vw2 = 36 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:leather }
+		}
+		if = {
+			limit = { var:bag_wtp_vw2 = 46 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:tools }
+		}
+		if = {
+			limit = { var:bag_wtp_vw2 = 47 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:weaponry }
+		}
+		change_variable = { name = bag_wtp_load subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
+		change_global_variable = { name = bag_wtp_bn2 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_vb2 }
+		if = {
+			limit = { var:bag_wtp_vb2 > 0 }
+			change_global_variable = { name = bag_wtp_plan_fed subtract = 1 }
+		}
+	}
+}
+
+# market_village с локации долой -- обратное к `bag_wtp_plan_try_village_3`, строка
+# в строку. Без него деревня, однажды поставленная, стоит вечно: снять её было
+# нечем, и обмен обойти её не мог.
+# Scope: location
+bag_wtp_plan_drop_village_3 = {
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:market_village }
+		if = {
+			limit = { var:bag_wtp_vw3 = 26 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:beer }
+		}
+		if = {
+			limit = { var:bag_wtp_vw3 = 34 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:jewelry }
+		}
+		if = {
+			limit = { var:bag_wtp_vw3 = 42 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:pottery }
+		}
+		if = {
+			limit = { var:bag_wtp_vw3 = 46 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:tools }
+		}
+		if = {
+			limit = { var:bag_wtp_vw3 = 47 }
+			remove_list_variable = { name = bag_wtp_plan_goods target = goods:weaponry }
+		}
+		change_variable = { name = bag_wtp_load subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
+		change_global_variable = { name = bag_wtp_bn3 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_vb3 }
+		if = {
+			limit = { var:bag_wtp_vb3 > 0 }
+			change_global_variable = { name = bag_wtp_plan_fed subtract = 1 }
+		}
+	}
+}
+
+# Какая деревня стоит на этой локации, номером.
+# Scope: location
+bag_wtp_mv_find_village = {
+	set_global_variable = { name = bag_wtp_mv_vk value = 0 }
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+		set_global_variable = { name = bag_wtp_mv_vk value = 1 }
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+		set_global_variable = { name = bag_wtp_mv_vk value = 2 }
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+		set_global_variable = { name = bag_wtp_mv_vk value = 3 }
+	}
+}
+
+# Встанет ли сюда деревня `_mv_vk`, если освободить одну комнату.
+# Scope: location
+bag_wtp_mv_village_fits = {
+	set_global_variable = { name = bag_wtp_mv_vfit value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_mv_vk > 0 }
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_vk = 1
+				var:bag_wtp_vw1 > 0
+				bag_wtp_plan_is_town = no
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+				OR = {
+					AND = {
+						var:bag_wtp_vw1 = 6
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
+					}
+					AND = {
+						var:bag_wtp_vw1 = 39
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
+					}
+					AND = {
+						var:bag_wtp_vw1 = 42
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
+					}
+				}
+			}
+			set_global_variable = { name = bag_wtp_mv_vfit value = 1 }
+		}
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_vk = 2
+				var:bag_wtp_vw2 > 0
+				bag_wtp_plan_is_town = no
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+				OR = {
+					AND = {
+						var:bag_wtp_vw2 = 36
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
+					}
+					AND = {
+						var:bag_wtp_vw2 = 46
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
+					}
+					AND = {
+						var:bag_wtp_vw2 = 47
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
+					}
+				}
+			}
+			set_global_variable = { name = bag_wtp_mv_vfit value = 1 }
+		}
+		if = {
+			limit = {
+				global_var:bag_wtp_mv_vk = 3
+				var:bag_wtp_vw3 > 0
+				bag_wtp_plan_is_town = no
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+				OR = {
+					AND = {
+						var:bag_wtp_vw3 = 26
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
+					}
+					AND = {
+						var:bag_wtp_vw3 = 34
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
+					}
+					AND = {
+						var:bag_wtp_vw3 = 42
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
+					}
+					AND = {
+						var:bag_wtp_vw3 = 46
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
+					}
+					AND = {
+						var:bag_wtp_vw3 = 47
+						NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
+					}
+				}
+			}
+			set_global_variable = { name = bag_wtp_mv_vfit value = 1 }
+		}
+	}
+}
+
+# Scope: location
+bag_wtp_mv_drop_village = {
+	if = { limit = { global_var:bag_wtp_mv_vk = 1 } bag_wtp_plan_drop_village_1 = yes }
+	if = { limit = { global_var:bag_wtp_mv_vk = 2 } bag_wtp_plan_drop_village_2 = yes }
+	if = { limit = { global_var:bag_wtp_mv_vk = 3 } bag_wtp_plan_drop_village_3 = yes }
+}
+
+# Scope: location
+bag_wtp_mv_put_village = {
+	if = { limit = { global_var:bag_wtp_mv_vk = 1 } bag_wtp_plan_try_village_1 = yes }
+	if = { limit = { global_var:bag_wtp_mv_vk = 2 } bag_wtp_plan_try_village_2 = yes }
+	if = { limit = { global_var:bag_wtp_mv_vk = 3 } bag_wtp_plan_try_village_3 = yes }
+}
+
 # Общее для обмена: всё про **чужой** товар, у которого мы отбираем место. Его
 # номер лежит в `_mv_bg`, а по номеру-переменной ни выгоду, ни «влезет ли» не
 # прочитать -- отсюда один переключатель на всех, а не по одному на пару.
@@ -20457,6 +20679,29 @@ bag_wtp_plan_move_r1 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_1 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_1 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -21973,6 +22218,29 @@ bag_wtp_plan_move_r2 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_2 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_2 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -23488,6 +23756,29 @@ bag_wtp_plan_move_r3 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_3 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_3 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -25763,6 +26054,29 @@ bag_wtp_plan_move_r5 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_5 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_5 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -27279,6 +27593,29 @@ bag_wtp_plan_move_r7 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_7 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_7 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -28794,6 +29131,29 @@ bag_wtp_plan_move_r8 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_8 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_8 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -31069,6 +31429,29 @@ bag_wtp_plan_move_r10 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_10 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_10 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -31827,6 +32210,29 @@ bag_wtp_plan_move_r11 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_11 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_11 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -32584,6 +32990,29 @@ bag_wtp_plan_move_r12 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_12 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_12 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -34100,6 +34529,29 @@ bag_wtp_plan_move_r13 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_13 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_13 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -36375,6 +36827,29 @@ bag_wtp_plan_move_r15 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_15 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_15 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -38648,6 +39123,29 @@ bag_wtp_plan_move_r17 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_17 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_17 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -40923,6 +41421,29 @@ bag_wtp_plan_move_r19 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_19 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_19 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -42438,6 +42959,29 @@ bag_wtp_plan_move_r20 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_20 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_20 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -43955,6 +44499,29 @@ bag_wtp_plan_move_r21 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_21 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_21 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -45471,6 +46038,29 @@ bag_wtp_plan_move_r22 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_22 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_22 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -46228,6 +46818,29 @@ bag_wtp_plan_move_r23 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_23 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_23 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -47744,6 +48357,29 @@ bag_wtp_plan_move_r25 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_25 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_25 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -51535,6 +52171,29 @@ bag_wtp_plan_move_r29 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_29 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_29 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -55325,6 +55984,29 @@ bag_wtp_plan_move_r33 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_33 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_33 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -56840,6 +57522,29 @@ bag_wtp_plan_move_r34 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_34 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_34 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -60630,6 +61335,29 @@ bag_wtp_plan_move_r38 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_38 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_38 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }
@@ -65179,6 +65907,29 @@ bag_wtp_plan_move_r43 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_43 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_43 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -67453,6 +68204,29 @@ bag_wtp_plan_move_r45 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_45 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_45 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -68969,6 +69743,29 @@ bag_wtp_plan_move_r46 = {
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
 		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_46 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_46 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
+		}
 	}
 }
 
@@ -70484,6 +71281,29 @@ bag_wtp_plan_move_r47 = {
 			}
 			set_global_variable = { name = bag_wtp_ps_did value = 1 }
 			change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+		}
+		if = {
+			limit = { NOT = { global_var:bag_wtp_mv_bg > 0 } }
+			scope:bag_wtp_mv_to = { bag_wtp_mv_find_village = yes }
+			scope:bag_wtp_mv_from = { bag_wtp_mv_village_fits = yes }
+			if = {
+				limit = {
+					global_var:bag_wtp_mv_vk > 0
+					global_var:bag_wtp_mv_vfit = 1
+				}
+				scope:bag_wtp_mv_to = {
+					bag_wtp_mv_drop_village = yes
+					bag_wtp_edit_place_rural_47 = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				scope:bag_wtp_mv_from = {
+					bag_wtp_edit_remove_rural_47 = yes
+					bag_wtp_mv_put_village = yes
+					set_variable = { name = bag_wtp_chg_seq value = global_var:bag_wtp_edit_presses }
+				}
+				set_global_variable = { name = bag_wtp_ps_did value = 1 }
+				change_global_variable = { name = bag_wtp_rs_swaps add = 1 }
+			}
 		}
 	}
 }

@@ -6502,6 +6502,116 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {worst}}}
 """)
 
+    # ---- деревня как партнёр обмена -----------------------------------------
+    #
+    # **Его правило, 2026-09-09, и оно намеренно грубое:** «просто разреши любому
+    # сельскому сооружению меняться с любой деревней, при условии конечно что они
+    # вообще могут поменяться... Не смотри на выгоду деревни, пусть стоят где
+    # хотят и похер будет ли кормить земля деревни. Это хороший компромисс,
+    # который вредит не всей земле, а только деревням».
+    #
+    # Значит условие обмена -- **только выгода товара**, она проверена выше
+    # (`_mv_bv > _mv_wv`). Деревня едет на освободившееся место, если она там
+    # вообще может стоять; что земля ей платит, не спрашивается.
+    vills = village_entities(rows, split, game)
+    shared_all = shared_buildings(rows, split, game)
+    vmakes = {k: [i for i, g in enumerate(order, start=1)
+                  if b in (groups.get((g, "r")) or {})]
+              for k, b in enumerate(vills, start=1)}
+    for k, building in enumerate(vills, start=1):
+        vb = shared_all.index(building) + 1
+        drops = "".join(
+            f"\t\tif = {{\n"
+            f"\t\t\tlimit = {{ var:{MOD_ID}_vw{k} = {i} }}\n"
+            f"\t\t\tremove_list_variable = {{ name = {MOD_ID}_plan_goods "
+            f"target = goods:{order[i - 1]} }}\n"
+            f"\t\t}}\n" for i in vmakes[k])
+        out.append(f"""
+# {building} с локации долой -- обратное к `{MOD_ID}_plan_try_village_{k}`, строка
+# в строку. Без него деревня, однажды поставленная, стоит вечно: снять её было
+# нечем, и обмен обойти её не мог.
+# Scope: location
+{MOD_ID}_plan_drop_village_{k} = {{
+\tif = {{
+\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }} }}
+\t\tremove_list_variable = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }}
+{drops}\t\tchange_variable = {{ name = {MOD_ID}_load subtract = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed subtract = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_pr subtract = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_bn{vb} subtract = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_gain subtract = var:{MOD_ID}_vb{k} }}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_vb{k} > 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_fed subtract = 1 }}
+\t\t}}
+\t}}
+}}
+""")
+
+    def village_goods_or(k: int) -> str:
+        """Что деревня здесь сделает и не стоит ли этот товар уже тут."""
+        return "".join(
+            f"\t\t\t\t\tAND = {{\n"
+            f"\t\t\t\t\t\tvar:{MOD_ID}_vw{k} = {i}\n"
+            f"\t\t\t\t\t\tNOT = {{ is_target_in_variable_list = {{ "
+            f"name = {MOD_ID}_plan_goods target = goods:{order[i - 1]} }} }}\n"
+            f"\t\t\t\t\t}}\n" for i in vmakes[k])
+
+    find_v = "".join(
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+        f"target = building_type:{b} }} }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_mv_vk value = {k} }}\n"
+        f"\t}}\n" for k, b in enumerate(vills, start=1))
+    # **Та же проверка, что `_plan_can_village_<k>`, но без строки про комнату.**
+    # Комнату освободит снятие товара, которое случится следом; спрашивать её до
+    # снятия значит всегда получать «нет» на полном плане.
+    fits_v = "".join(
+        f"\t\tif = {{\n"
+        f"\t\t\tlimit = {{\n"
+        f"\t\t\t\tglobal_var:{MOD_ID}_mv_vk = {k}\n"
+        f"\t\t\t\tvar:{MOD_ID}_vw{k} > 0\n"
+        f"\t\t\t\t{MOD_ID}_plan_is_town = no\n"
+        f"\t\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+        f"target = building_type:{b} }} }}\n"
+        f"\t\t\t\tOR = {{\n"
+        f"{village_goods_or(k)}"
+        f"\t\t\t\t}}\n"
+        f"\t\t\t}}\n"
+        f"\t\t\tset_global_variable = {{ name = {MOD_ID}_mv_vfit value = 1 }}\n"
+        f"\t\t}}\n" for k, b in enumerate(vills, start=1))
+    drop_v = "".join(
+        f"\tif = {{ limit = {{ global_var:{MOD_ID}_mv_vk = {k} }} "
+        f"{MOD_ID}_plan_drop_village_{k} = yes }}\n"
+        for k in range(1, len(vills) + 1))
+    put_v = "".join(
+        f"\tif = {{ limit = {{ global_var:{MOD_ID}_mv_vk = {k} }} "
+        f"{MOD_ID}_plan_try_village_{k} = yes }}\n"
+        for k in range(1, len(vills) + 1))
+    out.append(f"""
+# Какая деревня стоит на этой локации, номером.
+# Scope: location
+{MOD_ID}_mv_find_village = {{
+\tset_global_variable = {{ name = {MOD_ID}_mv_vk value = 0 }}
+{find_v}}}
+
+# Встанет ли сюда деревня `_mv_vk`, если освободить одну комнату.
+# Scope: location
+{MOD_ID}_mv_village_fits = {{
+\tset_global_variable = {{ name = {MOD_ID}_mv_vfit value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_mv_vk > 0 }}
+{fits_v}\t}}
+}}
+
+# Scope: location
+{MOD_ID}_mv_drop_village = {{
+{drop_v}}}
+
+# Scope: location
+{MOD_ID}_mv_put_village = {{
+{put_v}}}
+""")
     # ---- переезд между провинциями: общий переключатель и по одному на товар
     read_b = "".join(
         f"""\tif = {{
@@ -6608,6 +6718,36 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 f"var:{MOD_ID}_{mvar}{index} = {m}"
                 for m in sorted(m for b, ms in (groups.get((good, kind)) or {}).items()
                                 if b not in villages_ for m in ms))
+            # **Обмен с деревней, и он спрашивает только выгоду товара.** Его
+            # правило: «не смотри на выгоду деревни, пусть стоят где хотят».
+            # Деревня -- партнёр там, где своего домика в цели нет вовсе
+            # (`_fillg` пуст), а `_mv_bv > _mv_wv` уже проверено выше.
+            village = ""
+            if kind == "r":
+                village = f"""\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_mv_bg > 0 }} }}
+\t\t\tscope:{MOD_ID}_mv_to = {{ {MOD_ID}_mv_find_village = yes }}
+\t\t\tscope:{MOD_ID}_mv_from = {{ {MOD_ID}_mv_village_fits = yes }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_mv_vk > 0
+\t\t\t\t\tglobal_var:{MOD_ID}_mv_vfit = 1
+\t\t\t\t}}
+\t\t\t\tscope:{MOD_ID}_mv_to = {{
+\t\t\t\t\t{MOD_ID}_mv_drop_village = yes
+\t\t\t\t\t{MOD_ID}_edit_place_rural_{index} = yes
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
+\t\t\t\t}}
+\t\t\t\tscope:{MOD_ID}_mv_from = {{
+\t\t\t\t\t{MOD_ID}_edit_remove_rural_{index} = yes
+\t\t\t\t\t{MOD_ID}_mv_put_village = yes
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}
+\t\t\t\t}}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 1 }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
+\t\t\t}}
+\t\t}}
+"""
             out_b = dispatch("edit_remove", f"global_var:{MOD_ID}_mv_bg", "\t" * 4)
             in_a = dispatch("edit_place", f"global_var:{MOD_ID}_mv_ag", "\t" * 4)
             out_a = dispatch("edit_remove", f"global_var:{MOD_ID}_mv_ag", "\t" * 4)
@@ -6700,7 +6840,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ps_did value = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
 \t\t}}
-\t}}
+{village}\t}}
 }}
 """)
 
@@ -10012,8 +10152,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # **Деревни считаются отдельно, потому что они — отдельная сущность.** У них
     # своя выгода `_vb<k>` (лучший из их собственных рецептов здесь), и она у
     # каждой провинции своя, как у товаров. Владелец, 2026-09-09: «у них выгода
-    # вообще почти от любой провинции и везде разная». **В обмене их пока нет** —
-    # снять деревню нечем, — и это число говорит, чего это стоит.
+    # вообще почти от любой провинции и везде разная». **Обмен её не спрашивает**
+    # — «пусть стоят где хотят», — а число здесь говорит, чего это стоит.
     for k, building in enumerate(village_entities(rows, split, game), start=1):
         out.append(f"""\t# {building}
 \tset_global_variable = {{ name = {MOD_ID}_rp_br value = 0 }}
@@ -10049,8 +10189,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(park(7, f"{MOD_ID}_rp_vbound"))
     out.append(park(8, f"{MOD_ID}_rp_vmoves"))
     out.append(say(f"SHUFFLE bound={read(1)} moves={read(2)} in_charter_towns={read(3)}"
-                   f" | villages={read(7)} village_moves={read(8)} (villages are not"
-                   f" traded yet -- there is no effect that takes one out)"
+                   f" | villages={read(7)} village_moves={read(8)} (what the villages"
+                   f" themselves stand to gain -- the trade ignores it on purpose)"
                    f" | same_province={read(6)} (must be 0 -- the gain is a province's,"
                    f" not a location's)"
                    f" | gain_now={read(4)} placed={read(5)} -- bound is the ceiling a"

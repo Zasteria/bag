@@ -544,8 +544,8 @@ def digest(lines: list[str]) -> list[str]:
                        "зонд врёт, числу выше верить нельзя" % same)
         vb, vm = field(sh, "villages"), field(sh, "village_moves")
         if vb:
-            out.append("  деревни: ещё %d потолка (+%d%%) у %s -- их обмен пока "
-                       "не построен, снять деревню нечем"
+            out.append("  деревни: ещё %d потолка (+%d%%) у %s -- обмен их выгоду "
+                       "намеренно не спрашивает, они едут туда, где освободилось"
                        % (vb, round(100 * vb / gain_now),
                           plural(vm or 0, "деревни", "деревень", "деревень")))
     fed, total = field(gain, "fed"), field(gain, "gain_total")

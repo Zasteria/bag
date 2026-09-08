@@ -48,14 +48,13 @@ rank and outlives a save.**
 `домиков + РГО = доля`
 ([`plan_rural_pool.md`](../../docs/investigations/plan_rural_pool.md)).
 
-**Выгода от земли — свойство ПРОВИНЦИИ, а не локации**: `_g<n>` спрашивает
-`any_location_in_province_definition = { raw_material = … }`. Значит обмен внутри
-провинции не даёт ничего. **«Перетасовать» — ручная кнопка**, переезд **между**
-провинциями; потолок меряет зонд `_diag_shuffle`
+**Выгода от земли — свойство ПРОВИНЦИИ, а не локации** (`_g<n>` спрашивает
+`any_location_in_province_definition`), значит внутри провинции менять нечего. **«Перетасовать» — ручная кнопка**, переезд **между** провинциями; сельский
+домик меняется и с деревней, но её выгоду обмен намеренно не спрашивает
 ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)). **Дальше**: шаги 7–8.
 
-**Условие внутри значения ключа локализации ломает клетку** — выбор делает
-диспетчер `customizable_localization`, 2026-09-09.
+**Условие внутри значения ключа локализации ломает клетку** — выбирает
+диспетчер `customizable_localization`.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is
