@@ -227,7 +227,7 @@ DIAG_LAPS = 40
 # shipping on 2026-09-06, and `read(18)` against seventeen slots came within one
 # build again the same day, when the good's line gained `out=`. **Raise this
 # whenever a line gains a number, in the same edit.**
-DIAG_SCRATCH = 22
+DIAG_SCRATCH = 24
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
@@ -3359,27 +3359,45 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # которым она не пользуется никогда, и она кончила на 17+7=24 против 17+0=17
     # у `incense`. Теперь все семь уходят в город: потолок 15-7=8, и она встаёт
     # вровень.
+    # **Стеснённый товар потолков сторон не имеет вовсе.** Его земля меньше его
+    # же доли — значит делить ему нечего, и любой потолок только отнимает.
+    # Железо, 2026-09-08: 43 локации на всю землю при доле 60, а городской
+    # потолок после скидки за РГО стал 9 из 20 — оно взяло 8 городов из 15 и
+    # кончило на 34+11=45 вместо 43+11=54. Скидка за РГО съела ровно те места,
+    # которых у него и так мало, а добрать негде: в селе всего 28 локаций.
+    #
+    # **Признак — своя земля против своей доли**, `_ngt + _ngr <= _pq`. Для
+    # `medicaments` он ложен (132 городских локации против доли 64), и скидка
+    # там работает как задумано; для железа, рыбы и соли — истинен.
     quota_lines = "".join(
-        f"""\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
-\t# Сколько скидки в город не влезло. Ноль, если влезла вся.
-\tset_global_variable = {{ name = {MOD_ID}_rgleft value = 0 }}
-\tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} < 0 }}
-\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = global_var:{MOD_ID}_pqt{index} }}
-\t}}
-\t# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
-\t# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
-\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} add = global_var:{MOD_ID}_rgleft }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
-\t# **Общая квота — она и есть равномерность.** Столько домиков товару
-\t# положено всего, на обеих сторонах вместе; потолки выше говорят лишь,
-\t# сколько из них можно взять на каждой.
-\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+        f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
+\t# Своя земля минус своя доля: меньше единицы — товар стеснён.
+\tset_global_variable = {{ name = {MOD_ID}_ngall value = global_var:{MOD_ID}_ngt{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_ngall add = global_var:{MOD_ID}_ngr{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_ngall subtract = global_var:{MOD_ID}_pq{index} }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ngall < 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_pq{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_pq{index} }}
+\t}}
+\telse = {{
+\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
+\t\t# Сколько скидки в город не влезло. Ноль, если влезла вся.
+\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = 0 }}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} < 0 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = global_var:{MOD_ID}_pqt{index} }}
+\t\t}}
+\t\t# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
+\t\t# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
+\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} add = global_var:{MOD_ID}_rgleft }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
+\t}}
 """
         for index in range(1, len(order) + 1))
     out.append(f"""
@@ -8693,7 +8711,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              # этих двух чисел такое не отличить от формулы,
                              # которая просто не работает.
                              (21, f"{MOD_ID}_nrgot{index}"),
-                             (22, f"{MOD_ID}_nrgor{index}")):
+                             (22, f"{MOD_ID}_nrgor{index}"),
+                             # **Сами потолки, а не только общая доля.** Его
+                             # слова, 2026-09-08: «проблема реально в том, что
+                             # я не вижу потолка». Потолок растёт с каждым сухим
+                             # кругом, поэтому единого числа на всех нет — оно
+                             # своё у каждого товара, и без него не отличить
+                             # «связал потолок» от «кончились комнаты».
+                             (23, f"{MOD_ID}_pqt{index}"),
+                             (24, f"{MOD_ID}_pqr{index}")):
             out.append(park(slot, source))
         # Availability is the country's advance and not the location's ground:
         # `can_build_building` asked here answers the advance, asked in a
@@ -8714,7 +8740,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)} "
                        f"eq={read(17)} out={read(18)} "
                        f"nt={read(19)} nr={read(20)} "
-                       f"rgot={read(21)} rgor={read(22)}"))
+                       f"rgot={read(21)} rgor={read(22)} "
+                       f"qt={read(23)} qr={read(24)}"))
         out.append("}\n")
 
     # ----------------------------------------------------------------- the laps

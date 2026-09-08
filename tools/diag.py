@@ -552,7 +552,8 @@ def digest(lines: list[str]) -> list[str]:
         where = ("квота" if q - n <= 2
                  else "город" if rural and rural.group(1) == "0"
                  else "земля")
-        goods.append((line.split()[2], n, rgo, n + rgo, where))
+        qt, qr = field(tail, "qt"), field(tail, "qr")
+        goods.append((line.split()[2], n, rgo, n + rgo, where, qt, qr))
     if goods:
         show = lambda g: "%s %d+%d=%d" % (g[0], g[1], g[2], g[3])
         out.append("Равномерность — домиков + РГО = всего у товара:")
@@ -569,6 +570,16 @@ def digest(lines: list[str]) -> list[str]:
                           span, why))
             out.append("         " + ", ".join(show(g) for g in part[:5])
                        + (", …" if len(part) > 5 else ""))
+        # **Потолки, какими они стали к концу.** Они растут с каждым сухим
+        # кругом, поэтому одного числа на всех нет; печатаем разброс, чтобы
+        # «связал потолок» было отличимо от «кончились комнаты».
+        caps_t = [g[5] for g in goods if g[5] is not None]
+        caps_r = [g[6] for g in goods if g[6]]
+        if caps_t:
+            out.append("  потолки к концу: город %d…%d, село %d…%d — они растут "
+                       "с каждым сухим кругом, одного числа на всех нет"
+                       % (min(caps_t), max(caps_t),
+                          min(caps_r or [0]), max(caps_r or [0])))
         best, worst = max(goods, key=lambda g: g[3]), min(goods, key=lambda g: g[3])
         out.append("  разрыв %d: %s против %s — и держит его «%s»"
                    % (best[3] - worst[3], show(best), show(worst), worst[4]))
