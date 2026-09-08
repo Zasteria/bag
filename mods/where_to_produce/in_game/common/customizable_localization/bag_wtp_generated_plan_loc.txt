@@ -4151,3 +4151,614 @@ bag_wtp_why_47 = {
 		localization_key = bag_wtp_why_open
 	}
 }
+
+# Scope: country
+bag_wtp_quota_1 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short1 > 0 }
+		localization_key = bag_wtp_sum_quotaA_1
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_1
+	}
+}
+
+# Scope: country
+bag_wtp_quota_2 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short2 > 0 }
+		localization_key = bag_wtp_sum_quotaA_2
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_2
+	}
+}
+
+# Scope: country
+bag_wtp_quota_3 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short3 > 0 }
+		localization_key = bag_wtp_sum_quotaA_3
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_3
+	}
+}
+
+# Scope: country
+bag_wtp_quota_4 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short4 > 0 }
+		localization_key = bag_wtp_sum_quotaA_4
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_4
+	}
+}
+
+# Scope: country
+bag_wtp_quota_5 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short5 > 0 }
+		localization_key = bag_wtp_sum_quotaA_5
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_5
+	}
+}
+
+# Scope: country
+bag_wtp_quota_6 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short6 > 0 }
+		localization_key = bag_wtp_sum_quotaA_6
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_6
+	}
+}
+
+# Scope: country
+bag_wtp_quota_7 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short7 > 0 }
+		localization_key = bag_wtp_sum_quotaA_7
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_7
+	}
+}
+
+# Scope: country
+bag_wtp_quota_8 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short8 > 0 }
+		localization_key = bag_wtp_sum_quotaA_8
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_8
+	}
+}
+
+# Scope: country
+bag_wtp_quota_9 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short9 > 0 }
+		localization_key = bag_wtp_sum_quotaA_9
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_9
+	}
+}
+
+# Scope: country
+bag_wtp_quota_10 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short10 > 0 }
+		localization_key = bag_wtp_sum_quotaA_10
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_10
+	}
+}
+
+# Scope: country
+bag_wtp_quota_11 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short11 > 0 }
+		localization_key = bag_wtp_sum_quotaA_11
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_11
+	}
+}
+
+# Scope: country
+bag_wtp_quota_12 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short12 > 0 }
+		localization_key = bag_wtp_sum_quotaA_12
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_12
+	}
+}
+
+# Scope: country
+bag_wtp_quota_13 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short13 > 0 }
+		localization_key = bag_wtp_sum_quotaA_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_13
+	}
+}
+
+# Scope: country
+bag_wtp_quota_14 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short14 > 0 }
+		localization_key = bag_wtp_sum_quotaA_14
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_14
+	}
+}
+
+# Scope: country
+bag_wtp_quota_15 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short15 > 0 }
+		localization_key = bag_wtp_sum_quotaA_15
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_15
+	}
+}
+
+# Scope: country
+bag_wtp_quota_16 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short16 > 0 }
+		localization_key = bag_wtp_sum_quotaA_16
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_16
+	}
+}
+
+# Scope: country
+bag_wtp_quota_17 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short17 > 0 }
+		localization_key = bag_wtp_sum_quotaA_17
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_17
+	}
+}
+
+# Scope: country
+bag_wtp_quota_18 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short18 > 0 }
+		localization_key = bag_wtp_sum_quotaA_18
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_18
+	}
+}
+
+# Scope: country
+bag_wtp_quota_19 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short19 > 0 }
+		localization_key = bag_wtp_sum_quotaA_19
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_19
+	}
+}
+
+# Scope: country
+bag_wtp_quota_20 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short20 > 0 }
+		localization_key = bag_wtp_sum_quotaA_20
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_20
+	}
+}
+
+# Scope: country
+bag_wtp_quota_21 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short21 > 0 }
+		localization_key = bag_wtp_sum_quotaA_21
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_21
+	}
+}
+
+# Scope: country
+bag_wtp_quota_22 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short22 > 0 }
+		localization_key = bag_wtp_sum_quotaA_22
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_22
+	}
+}
+
+# Scope: country
+bag_wtp_quota_23 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short23 > 0 }
+		localization_key = bag_wtp_sum_quotaA_23
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_23
+	}
+}
+
+# Scope: country
+bag_wtp_quota_24 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short24 > 0 }
+		localization_key = bag_wtp_sum_quotaA_24
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_24
+	}
+}
+
+# Scope: country
+bag_wtp_quota_25 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short25 > 0 }
+		localization_key = bag_wtp_sum_quotaA_25
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_25
+	}
+}
+
+# Scope: country
+bag_wtp_quota_26 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short26 > 0 }
+		localization_key = bag_wtp_sum_quotaA_26
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_26
+	}
+}
+
+# Scope: country
+bag_wtp_quota_27 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short27 > 0 }
+		localization_key = bag_wtp_sum_quotaA_27
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_27
+	}
+}
+
+# Scope: country
+bag_wtp_quota_28 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short28 > 0 }
+		localization_key = bag_wtp_sum_quotaA_28
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_28
+	}
+}
+
+# Scope: country
+bag_wtp_quota_29 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short29 > 0 }
+		localization_key = bag_wtp_sum_quotaA_29
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_29
+	}
+}
+
+# Scope: country
+bag_wtp_quota_30 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short30 > 0 }
+		localization_key = bag_wtp_sum_quotaA_30
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_30
+	}
+}
+
+# Scope: country
+bag_wtp_quota_31 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short31 > 0 }
+		localization_key = bag_wtp_sum_quotaA_31
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_31
+	}
+}
+
+# Scope: country
+bag_wtp_quota_32 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short32 > 0 }
+		localization_key = bag_wtp_sum_quotaA_32
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_32
+	}
+}
+
+# Scope: country
+bag_wtp_quota_33 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short33 > 0 }
+		localization_key = bag_wtp_sum_quotaA_33
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_33
+	}
+}
+
+# Scope: country
+bag_wtp_quota_34 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short34 > 0 }
+		localization_key = bag_wtp_sum_quotaA_34
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_34
+	}
+}
+
+# Scope: country
+bag_wtp_quota_35 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short35 > 0 }
+		localization_key = bag_wtp_sum_quotaA_35
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_35
+	}
+}
+
+# Scope: country
+bag_wtp_quota_36 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short36 > 0 }
+		localization_key = bag_wtp_sum_quotaA_36
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_36
+	}
+}
+
+# Scope: country
+bag_wtp_quota_37 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short37 > 0 }
+		localization_key = bag_wtp_sum_quotaA_37
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_37
+	}
+}
+
+# Scope: country
+bag_wtp_quota_38 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short38 > 0 }
+		localization_key = bag_wtp_sum_quotaA_38
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_38
+	}
+}
+
+# Scope: country
+bag_wtp_quota_39 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short39 > 0 }
+		localization_key = bag_wtp_sum_quotaA_39
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_39
+	}
+}
+
+# Scope: country
+bag_wtp_quota_40 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short40 > 0 }
+		localization_key = bag_wtp_sum_quotaA_40
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_40
+	}
+}
+
+# Scope: country
+bag_wtp_quota_41 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short41 > 0 }
+		localization_key = bag_wtp_sum_quotaA_41
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_41
+	}
+}
+
+# Scope: country
+bag_wtp_quota_42 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short42 > 0 }
+		localization_key = bag_wtp_sum_quotaA_42
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_42
+	}
+}
+
+# Scope: country
+bag_wtp_quota_43 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short43 > 0 }
+		localization_key = bag_wtp_sum_quotaA_43
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_43
+	}
+}
+
+# Scope: country
+bag_wtp_quota_44 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short44 > 0 }
+		localization_key = bag_wtp_sum_quotaA_44
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_44
+	}
+}
+
+# Scope: country
+bag_wtp_quota_45 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short45 > 0 }
+		localization_key = bag_wtp_sum_quotaA_45
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_45
+	}
+}
+
+# Scope: country
+bag_wtp_quota_46 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short46 > 0 }
+		localization_key = bag_wtp_sum_quotaA_46
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_46
+	}
+}
+
+# Scope: country
+bag_wtp_quota_47 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_short47 > 0 }
+		localization_key = bag_wtp_sum_quotaA_47
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_sum_quotaB_47
+	}
+}

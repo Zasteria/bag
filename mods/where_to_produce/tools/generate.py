@@ -2512,6 +2512,27 @@ def plan_loc_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 }}
 """)
+
+    # **Клетка «доля −РГО» -- тоже диспетчер, и по той же причине.** Приписку
+    # «−N» пробовали через `SelectLocalization` с вложенным `GreaterThan_int32`
+    # -- форма из игры, но в клетке сводки она сломала столбец целиком
+    # (2026-09-09). Здесь два готовых ключа и выбор между ними: ровно то, что в
+    # этом же окне работает у «почему остановился».
+    for i in range(1, len(goods_order(split)) + 1):
+        out.append(f"""
+# Scope: country
+{MOD_ID}_quota_{i} = {{
+\ttype = country
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_short{i} > 0 }}
+\t\tlocalization_key = {MOD_ID}_sum_quotaA_{i}
+\t}}
+\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_sum_quotaB_{i}
+\t}}
+}}
+""")
     return "".join(out)
 
 
@@ -8671,16 +8692,14 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         # ровно три числа на всю таблицу: доля города, доля села и их сумма
         # для тех, кто умеет обе стороны.
         out.append(f' {MOD_ID}_sum_qraw_{i}: "{sv % "pqraw"}"\n')
-        # **«19−1» вместо «19».** `SelectLocalization` берёт второй ключ, когда
-        # недобор нулевой, а второй ключ -- пустая строка. Форма взята из игры:
-        # `BUILDING_UPGRADE_ONE` в `interfaces_l_english.yml` так же вкладывает
-        # сравнение внутрь аргумента.
-        out.append(f' {MOD_ID}_sum_short_{i}: "#R −{sv % "short"}#!"\n')
-        out.append(
-            f' {MOD_ID}_sum_quota_{i}: "{sv % "pq"}'
-            f"[SelectLocalization(GreaterThan_int32(GuiScope.SetRoot(GetPlayer"
-            f".MakeScope).ScriptValue('{MOD_ID}_show_short{i}'),'(int32)0'),"
-            f" '{MOD_ID}_sum_short_{i}', '')]\"\n")
+        # **«19-1» вместо «19», и это два готовых значения, а не одно с
+        # условием.** Выбор между ними делает `{MOD_ID}_quota_<i>` -- диспетчер
+        # той же формы, что «почему остановился» в этом же окне. Условие внутри
+        # значения (`SelectLocalization` с вложенным сравнением) сломало столбец
+        # целиком, 2026-09-09; **и цвета здесь нет намеренно** -- «ломаешь ты
+        # цветом что-то почти всегда».
+        out.append(f' {MOD_ID}_sum_quotaA_{i}: "{sv % "pq"}-{sv % "short"}"\n')
+        out.append(f' {MOD_ID}_sum_quotaB_{i}: "{sv % "pq"}"\n')
         out.append(f' {MOD_ID}_sum_gain_{i}: "{sv % "gain"}%"\n')
 
     # **The search picker's cell: the good's icon and nothing else.** Forty-seven
@@ -9994,6 +10013,12 @@ types BagWtpSumCells {
             elif kind == "why":
                 text = f'"[GetPlayer.Custom(\'{MOD_ID}_why_{index}\')]"'
                 align, size = "left|vcenter", 13
+            elif kind == "quota":
+                # **Тоже диспетчер**: «19» или «19-1», смотря добрал ли товар до
+                # своего потолка. Условие внутри значения ключа сломало столбец
+                # целиком, 2026-09-09.
+                text = f'"[GetPlayer.Custom(\'{MOD_ID}_quota_{index}\')]"'
+                align, size = "center|vcenter", 13
             elif kind == "name":
                 text = f'"{MOD_ID}_good_{good}"'
                 align, size = "left|vcenter", 14

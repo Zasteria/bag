@@ -121,7 +121,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_1"
+			text = "[GetPlayer.Custom('bag_wtp_quota_1')]"
 		}
 
 		text_single = {
@@ -286,7 +286,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_2"
+			text = "[GetPlayer.Custom('bag_wtp_quota_2')]"
 		}
 
 		text_single = {
@@ -451,7 +451,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_3"
+			text = "[GetPlayer.Custom('bag_wtp_quota_3')]"
 		}
 
 		text_single = {
@@ -616,7 +616,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_4"
+			text = "[GetPlayer.Custom('bag_wtp_quota_4')]"
 		}
 
 		text_single = {
@@ -781,7 +781,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_5"
+			text = "[GetPlayer.Custom('bag_wtp_quota_5')]"
 		}
 
 		text_single = {
@@ -1111,7 +1111,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_7"
+			text = "[GetPlayer.Custom('bag_wtp_quota_7')]"
 		}
 
 		text_single = {
@@ -1276,7 +1276,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_8"
+			text = "[GetPlayer.Custom('bag_wtp_quota_8')]"
 		}
 
 		text_single = {
@@ -1441,7 +1441,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_9"
+			text = "[GetPlayer.Custom('bag_wtp_quota_9')]"
 		}
 
 		text_single = {
@@ -1606,7 +1606,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_10"
+			text = "[GetPlayer.Custom('bag_wtp_quota_10')]"
 		}
 
 		text_single = {
@@ -1771,7 +1771,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_11"
+			text = "[GetPlayer.Custom('bag_wtp_quota_11')]"
 		}
 
 		text_single = {
@@ -1936,7 +1936,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_12"
+			text = "[GetPlayer.Custom('bag_wtp_quota_12')]"
 		}
 
 		text_single = {
@@ -2101,7 +2101,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_13"
+			text = "[GetPlayer.Custom('bag_wtp_quota_13')]"
 		}
 
 		text_single = {
@@ -2266,7 +2266,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_14"
+			text = "[GetPlayer.Custom('bag_wtp_quota_14')]"
 		}
 
 		text_single = {
@@ -2431,7 +2431,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_15"
+			text = "[GetPlayer.Custom('bag_wtp_quota_15')]"
 		}
 
 		text_single = {
@@ -2596,7 +2596,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_16"
+			text = "[GetPlayer.Custom('bag_wtp_quota_16')]"
 		}
 
 		text_single = {
@@ -2761,7 +2761,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_17"
+			text = "[GetPlayer.Custom('bag_wtp_quota_17')]"
 		}
 
 		text_single = {
@@ -2926,7 +2926,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_18"
+			text = "[GetPlayer.Custom('bag_wtp_quota_18')]"
 		}
 
 		text_single = {
@@ -3091,7 +3091,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_19"
+			text = "[GetPlayer.Custom('bag_wtp_quota_19')]"
 		}
 
 		text_single = {
@@ -3256,7 +3256,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_20"
+			text = "[GetPlayer.Custom('bag_wtp_quota_20')]"
 		}
 
 		text_single = {
@@ -3421,7 +3421,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_21"
+			text = "[GetPlayer.Custom('bag_wtp_quota_21')]"
 		}
 
 		text_single = {
@@ -3586,7 +3586,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_22"
+			text = "[GetPlayer.Custom('bag_wtp_quota_22')]"
 		}
 
 		text_single = {
@@ -3751,7 +3751,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_23"
+			text = "[GetPlayer.Custom('bag_wtp_quota_23')]"
 		}
 
 		text_single = {
@@ -3916,7 +3916,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_24"
+			text = "[GetPlayer.Custom('bag_wtp_quota_24')]"
 		}
 
 		text_single = {
@@ -4081,7 +4081,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_25"
+			text = "[GetPlayer.Custom('bag_wtp_quota_25')]"
 		}
 
 		text_single = {
@@ -4246,7 +4246,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_26"
+			text = "[GetPlayer.Custom('bag_wtp_quota_26')]"
 		}
 
 		text_single = {
@@ -4411,7 +4411,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_27"
+			text = "[GetPlayer.Custom('bag_wtp_quota_27')]"
 		}
 
 		text_single = {
@@ -4576,7 +4576,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_28"
+			text = "[GetPlayer.Custom('bag_wtp_quota_28')]"
 		}
 
 		text_single = {
@@ -4741,7 +4741,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_29"
+			text = "[GetPlayer.Custom('bag_wtp_quota_29')]"
 		}
 
 		text_single = {
@@ -4906,7 +4906,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_30"
+			text = "[GetPlayer.Custom('bag_wtp_quota_30')]"
 		}
 
 		text_single = {
@@ -5071,7 +5071,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_31"
+			text = "[GetPlayer.Custom('bag_wtp_quota_31')]"
 		}
 
 		text_single = {
@@ -5236,7 +5236,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_32"
+			text = "[GetPlayer.Custom('bag_wtp_quota_32')]"
 		}
 
 		text_single = {
@@ -5401,7 +5401,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_33"
+			text = "[GetPlayer.Custom('bag_wtp_quota_33')]"
 		}
 
 		text_single = {
@@ -5566,7 +5566,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_34"
+			text = "[GetPlayer.Custom('bag_wtp_quota_34')]"
 		}
 
 		text_single = {
@@ -5731,7 +5731,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_35"
+			text = "[GetPlayer.Custom('bag_wtp_quota_35')]"
 		}
 
 		text_single = {
@@ -5896,7 +5896,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_36"
+			text = "[GetPlayer.Custom('bag_wtp_quota_36')]"
 		}
 
 		text_single = {
@@ -6061,7 +6061,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_37"
+			text = "[GetPlayer.Custom('bag_wtp_quota_37')]"
 		}
 
 		text_single = {
@@ -6226,7 +6226,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_38"
+			text = "[GetPlayer.Custom('bag_wtp_quota_38')]"
 		}
 
 		text_single = {
@@ -6391,7 +6391,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_39"
+			text = "[GetPlayer.Custom('bag_wtp_quota_39')]"
 		}
 
 		text_single = {
@@ -6556,7 +6556,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_40"
+			text = "[GetPlayer.Custom('bag_wtp_quota_40')]"
 		}
 
 		text_single = {
@@ -6721,7 +6721,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_41"
+			text = "[GetPlayer.Custom('bag_wtp_quota_41')]"
 		}
 
 		text_single = {
@@ -6886,7 +6886,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_42"
+			text = "[GetPlayer.Custom('bag_wtp_quota_42')]"
 		}
 
 		text_single = {
@@ -7051,7 +7051,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_43"
+			text = "[GetPlayer.Custom('bag_wtp_quota_43')]"
 		}
 
 		text_single = {
@@ -7216,7 +7216,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_44"
+			text = "[GetPlayer.Custom('bag_wtp_quota_44')]"
 		}
 
 		text_single = {
@@ -7381,7 +7381,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_45"
+			text = "[GetPlayer.Custom('bag_wtp_quota_45')]"
 		}
 
 		text_single = {
@@ -7546,7 +7546,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_46"
+			text = "[GetPlayer.Custom('bag_wtp_quota_46')]"
 		}
 
 		text_single = {
@@ -7711,7 +7711,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_47"
+			text = "[GetPlayer.Custom('bag_wtp_quota_47')]"
 		}
 
 		text_single = {
