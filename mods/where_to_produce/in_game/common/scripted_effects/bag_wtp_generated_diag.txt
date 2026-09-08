@@ -4923,6 +4923,8 @@ bag_wtp_diag_shuffle = {
 	set_global_variable = { name = bag_wtp_rp_bound value = 0 }
 	set_global_variable = { name = bag_wtp_rp_moves value = 0 }
 	set_global_variable = { name = bag_wtp_rp_right value = 0 }
+	set_global_variable = { name = bag_wtp_rp_lbound value = 0 }
+	set_global_variable = { name = bag_wtp_rp_lmoves value = 0 }
 	# clay
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -4933,22 +4935,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm1 > 0
-								var:bag_wtp_p1 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p1 }
+					if = {
+						limit = {
+							var:bag_wtp_pm1 > 0
+							var:bag_wtp_p1 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p1 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm1 > 0
-								var:bag_wtp_pr1 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr1 }
+					if = {
+						limit = {
+							var:bag_wtp_prm1 > 0
+							var:bag_wtp_pr1 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr1 }
+					}
 				}
 			}
 		}
@@ -4989,6 +4991,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm1 > 0
+						var:bag_wtp_p1 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p1 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm1 > 0
+						var:bag_wtp_pr1 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr1 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p1 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p1 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr1 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr1 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# coal
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -4999,22 +5065,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm2 > 0
-								var:bag_wtp_p2 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p2 }
+					if = {
+						limit = {
+							var:bag_wtp_pm2 > 0
+							var:bag_wtp_p2 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p2 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm2 > 0
-								var:bag_wtp_pr2 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr2 }
+					if = {
+						limit = {
+							var:bag_wtp_prm2 > 0
+							var:bag_wtp_pr2 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr2 }
+					}
 				}
 			}
 		}
@@ -5055,6 +5121,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm2 > 0
+						var:bag_wtp_p2 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p2 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm2 > 0
+						var:bag_wtp_pr2 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr2 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p2 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p2 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr2 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr2 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# cotton
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5065,22 +5195,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm3 > 0
-								var:bag_wtp_p3 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p3 }
+					if = {
+						limit = {
+							var:bag_wtp_pm3 > 0
+							var:bag_wtp_p3 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p3 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm3 > 0
-								var:bag_wtp_pr3 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr3 }
+					if = {
+						limit = {
+							var:bag_wtp_prm3 > 0
+							var:bag_wtp_pr3 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr3 }
+					}
 				}
 			}
 		}
@@ -5121,6 +5251,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm3 > 0
+						var:bag_wtp_p3 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p3 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm3 > 0
+						var:bag_wtp_pr3 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr3 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p3 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p3 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr3 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr3 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# dyes
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5131,13 +5325,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm4 > 0
-								var:bag_wtp_p4 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p4 }
+					if = {
+						limit = {
+							var:bag_wtp_pm4 > 0
+							var:bag_wtp_p4 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p4 }
+					}
 				}
 			}
 		}
@@ -5165,6 +5359,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm4 > 0
+						var:bag_wtp_p4 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p4 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p4 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p4 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# fiber_crops
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5175,22 +5411,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm5 > 0
-								var:bag_wtp_p5 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p5 }
+					if = {
+						limit = {
+							var:bag_wtp_pm5 > 0
+							var:bag_wtp_p5 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p5 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm5 > 0
-								var:bag_wtp_pr5 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr5 }
+					if = {
+						limit = {
+							var:bag_wtp_prm5 > 0
+							var:bag_wtp_pr5 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr5 }
+					}
 				}
 			}
 		}
@@ -5231,6 +5467,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm5 > 0
+						var:bag_wtp_p5 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p5 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm5 > 0
+						var:bag_wtp_pr5 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr5 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p5 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p5 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr5 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr5 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# fish
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5241,13 +5541,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = no }
-						if = {
-							limit = {
-								var:bag_wtp_prm6 > 0
-								var:bag_wtp_pr6 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr6 }
+					if = {
+						limit = {
+							var:bag_wtp_prm6 > 0
+							var:bag_wtp_pr6 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr6 }
+					}
 				}
 			}
 		}
@@ -5275,6 +5575,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+				if = {
+					limit = {
+						var:bag_wtp_prm6 > 0
+						var:bag_wtp_pr6 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr6 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+					if = {
+						limit = { var:bag_wtp_pr6 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr6 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# fruit
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5285,22 +5627,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm7 > 0
-								var:bag_wtp_p7 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p7 }
+					if = {
+						limit = {
+							var:bag_wtp_pm7 > 0
+							var:bag_wtp_p7 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p7 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm7 > 0
-								var:bag_wtp_pr7 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr7 }
+					if = {
+						limit = {
+							var:bag_wtp_prm7 > 0
+							var:bag_wtp_pr7 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr7 }
+					}
 				}
 			}
 		}
@@ -5341,6 +5683,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm7 > 0
+						var:bag_wtp_p7 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p7 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm7 > 0
+						var:bag_wtp_pr7 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr7 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p7 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p7 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr7 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr7 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# horses
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5351,22 +5757,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm8 > 0
-								var:bag_wtp_p8 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p8 }
+					if = {
+						limit = {
+							var:bag_wtp_pm8 > 0
+							var:bag_wtp_p8 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p8 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm8 > 0
-								var:bag_wtp_pr8 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr8 }
+					if = {
+						limit = {
+							var:bag_wtp_prm8 > 0
+							var:bag_wtp_pr8 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr8 }
+					}
 				}
 			}
 		}
@@ -5407,6 +5813,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm8 > 0
+						var:bag_wtp_p8 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p8 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm8 > 0
+						var:bag_wtp_pr8 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr8 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p8 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p8 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr8 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr8 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# incense
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5417,13 +5887,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm9 > 0
-								var:bag_wtp_p9 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p9 }
+					if = {
+						limit = {
+							var:bag_wtp_pm9 > 0
+							var:bag_wtp_p9 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p9 }
+					}
 				}
 			}
 		}
@@ -5451,6 +5921,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm9 > 0
+						var:bag_wtp_p9 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p9 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p9 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p9 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# iron
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5461,22 +5973,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm10 > 0
-								var:bag_wtp_p10 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p10 }
+					if = {
+						limit = {
+							var:bag_wtp_pm10 > 0
+							var:bag_wtp_p10 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p10 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm10 > 0
-								var:bag_wtp_pr10 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr10 }
+					if = {
+						limit = {
+							var:bag_wtp_prm10 > 0
+							var:bag_wtp_pr10 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr10 }
+					}
 				}
 			}
 		}
@@ -5517,6 +6029,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm10 > 0
+						var:bag_wtp_p10 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p10 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm10 > 0
+						var:bag_wtp_pr10 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr10 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p10 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p10 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr10 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr10 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# ivory
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5527,13 +6103,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = no }
-						if = {
-							limit = {
-								var:bag_wtp_prm11 > 0
-								var:bag_wtp_pr11 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr11 }
+					if = {
+						limit = {
+							var:bag_wtp_prm11 > 0
+							var:bag_wtp_pr11 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr11 }
+					}
 				}
 			}
 		}
@@ -5561,6 +6137,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+				if = {
+					limit = {
+						var:bag_wtp_prm11 > 0
+						var:bag_wtp_pr11 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr11 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+					if = {
+						limit = { var:bag_wtp_pr11 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr11 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# livestock
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5571,13 +6189,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = no }
-						if = {
-							limit = {
-								var:bag_wtp_prm12 > 0
-								var:bag_wtp_pr12 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr12 }
+					if = {
+						limit = {
+							var:bag_wtp_prm12 > 0
+							var:bag_wtp_pr12 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr12 }
+					}
 				}
 			}
 		}
@@ -5605,6 +6223,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+				if = {
+					limit = {
+						var:bag_wtp_prm12 > 0
+						var:bag_wtp_pr12 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr12 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+					if = {
+						limit = { var:bag_wtp_pr12 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr12 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# lumber
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5615,22 +6275,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm13 > 0
-								var:bag_wtp_p13 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p13 }
+					if = {
+						limit = {
+							var:bag_wtp_pm13 > 0
+							var:bag_wtp_p13 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p13 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm13 > 0
-								var:bag_wtp_pr13 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr13 }
+					if = {
+						limit = {
+							var:bag_wtp_prm13 > 0
+							var:bag_wtp_pr13 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr13 }
+					}
 				}
 			}
 		}
@@ -5671,6 +6331,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm13 > 0
+						var:bag_wtp_p13 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p13 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm13 > 0
+						var:bag_wtp_pr13 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr13 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p13 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p13 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr13 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr13 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# medicaments
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5681,13 +6405,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm14 > 0
-								var:bag_wtp_p14 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p14 }
+					if = {
+						limit = {
+							var:bag_wtp_pm14 > 0
+							var:bag_wtp_p14 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p14 }
+					}
 				}
 			}
 		}
@@ -5715,6 +6439,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm14 > 0
+						var:bag_wtp_p14 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p14 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p14 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p14 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# salt
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5725,22 +6491,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm15 > 0
-								var:bag_wtp_p15 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p15 }
+					if = {
+						limit = {
+							var:bag_wtp_pm15 > 0
+							var:bag_wtp_p15 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p15 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm15 > 0
-								var:bag_wtp_pr15 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr15 }
+					if = {
+						limit = {
+							var:bag_wtp_prm15 > 0
+							var:bag_wtp_pr15 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr15 }
+					}
 				}
 			}
 		}
@@ -5781,6 +6547,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm15 > 0
+						var:bag_wtp_p15 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p15 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm15 > 0
+						var:bag_wtp_pr15 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr15 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p15 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p15 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr15 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr15 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# saltpeter
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5791,13 +6621,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm16 > 0
-								var:bag_wtp_p16 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p16 }
+					if = {
+						limit = {
+							var:bag_wtp_pm16 > 0
+							var:bag_wtp_p16 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p16 }
+					}
 				}
 			}
 		}
@@ -5825,6 +6655,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm16 > 0
+						var:bag_wtp_p16 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p16 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p16 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p16 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# sand
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5835,22 +6707,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm17 > 0
-								var:bag_wtp_p17 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p17 }
+					if = {
+						limit = {
+							var:bag_wtp_pm17 > 0
+							var:bag_wtp_p17 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p17 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm17 > 0
-								var:bag_wtp_pr17 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr17 }
+					if = {
+						limit = {
+							var:bag_wtp_prm17 > 0
+							var:bag_wtp_pr17 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr17 }
+					}
 				}
 			}
 		}
@@ -5891,6 +6763,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm17 > 0
+						var:bag_wtp_p17 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p17 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm17 > 0
+						var:bag_wtp_pr17 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr17 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p17 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p17 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr17 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr17 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# silk
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5901,13 +6837,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm18 > 0
-								var:bag_wtp_p18 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p18 }
+					if = {
+						limit = {
+							var:bag_wtp_pm18 > 0
+							var:bag_wtp_p18 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p18 }
+					}
 				}
 			}
 		}
@@ -5935,6 +6871,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm18 > 0
+						var:bag_wtp_p18 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p18 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p18 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p18 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# silver
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -5945,22 +6923,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm19 > 0
-								var:bag_wtp_p19 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p19 }
+					if = {
+						limit = {
+							var:bag_wtp_pm19 > 0
+							var:bag_wtp_p19 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p19 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm19 > 0
-								var:bag_wtp_pr19 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr19 }
+					if = {
+						limit = {
+							var:bag_wtp_prm19 > 0
+							var:bag_wtp_pr19 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr19 }
+					}
 				}
 			}
 		}
@@ -6001,6 +6979,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm19 > 0
+						var:bag_wtp_p19 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p19 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm19 > 0
+						var:bag_wtp_pr19 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr19 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p19 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p19 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr19 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr19 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# stone
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6011,22 +7053,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm20 > 0
-								var:bag_wtp_p20 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p20 }
+					if = {
+						limit = {
+							var:bag_wtp_pm20 > 0
+							var:bag_wtp_p20 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p20 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm20 > 0
-								var:bag_wtp_pr20 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr20 }
+					if = {
+						limit = {
+							var:bag_wtp_prm20 > 0
+							var:bag_wtp_pr20 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr20 }
+					}
 				}
 			}
 		}
@@ -6067,6 +7109,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm20 > 0
+						var:bag_wtp_p20 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p20 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm20 > 0
+						var:bag_wtp_pr20 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr20 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p20 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p20 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr20 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr20 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# sugar
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6077,22 +7183,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm21 > 0
-								var:bag_wtp_p21 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p21 }
+					if = {
+						limit = {
+							var:bag_wtp_pm21 > 0
+							var:bag_wtp_p21 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p21 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm21 > 0
-								var:bag_wtp_pr21 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr21 }
+					if = {
+						limit = {
+							var:bag_wtp_prm21 > 0
+							var:bag_wtp_pr21 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr21 }
+					}
 				}
 			}
 		}
@@ -6133,6 +7239,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm21 > 0
+						var:bag_wtp_p21 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p21 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm21 > 0
+						var:bag_wtp_pr21 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr21 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p21 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p21 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr21 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr21 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# tobacco
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6143,22 +7313,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm22 > 0
-								var:bag_wtp_p22 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p22 }
+					if = {
+						limit = {
+							var:bag_wtp_pm22 > 0
+							var:bag_wtp_p22 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p22 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm22 > 0
-								var:bag_wtp_pr22 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr22 }
+					if = {
+						limit = {
+							var:bag_wtp_prm22 > 0
+							var:bag_wtp_pr22 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr22 }
+					}
 				}
 			}
 		}
@@ -6199,6 +7369,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm22 > 0
+						var:bag_wtp_p22 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p22 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm22 > 0
+						var:bag_wtp_pr22 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr22 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p22 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p22 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr22 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr22 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# wild_game
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6209,13 +7443,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = no }
-						if = {
-							limit = {
-								var:bag_wtp_prm23 > 0
-								var:bag_wtp_pr23 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr23 }
+					if = {
+						limit = {
+							var:bag_wtp_prm23 > 0
+							var:bag_wtp_pr23 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr23 }
+					}
 				}
 			}
 		}
@@ -6243,6 +7477,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+				if = {
+					limit = {
+						var:bag_wtp_prm23 > 0
+						var:bag_wtp_pr23 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr23 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+					if = {
+						limit = { var:bag_wtp_pr23 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr23 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# wine
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6253,13 +7529,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm24 > 0
-								var:bag_wtp_p24 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p24 }
+					if = {
+						limit = {
+							var:bag_wtp_pm24 > 0
+							var:bag_wtp_p24 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p24 }
+					}
 				}
 			}
 		}
@@ -6287,6 +7563,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm24 > 0
+						var:bag_wtp_p24 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p24 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p24 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p24 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# wool
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6297,13 +7615,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = no }
-						if = {
-							limit = {
-								var:bag_wtp_prm25 > 0
-								var:bag_wtp_pr25 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr25 }
+					if = {
+						limit = {
+							var:bag_wtp_prm25 > 0
+							var:bag_wtp_pr25 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr25 }
+					}
 				}
 			}
 		}
@@ -6331,6 +7649,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+				if = {
+					limit = {
+						var:bag_wtp_prm25 > 0
+						var:bag_wtp_pr25 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr25 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = no }
+					if = {
+						limit = { var:bag_wtp_pr25 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr25 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# beer
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6341,22 +7701,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm26 > 0
-								var:bag_wtp_p26 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p26 }
+					if = {
+						limit = {
+							var:bag_wtp_pm26 > 0
+							var:bag_wtp_p26 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p26 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm26 > 0
-								var:bag_wtp_pr26 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr26 }
+					if = {
+						limit = {
+							var:bag_wtp_prm26 > 0
+							var:bag_wtp_pr26 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr26 }
+					}
 				}
 			}
 		}
@@ -6397,6 +7757,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm26 > 0
+						var:bag_wtp_p26 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p26 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm26 > 0
+						var:bag_wtp_pr26 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr26 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p26 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p26 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr26 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr26 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# books
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6407,13 +7831,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm27 > 0
-								var:bag_wtp_p27 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p27 }
+					if = {
+						limit = {
+							var:bag_wtp_pm27 > 0
+							var:bag_wtp_p27 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p27 }
+					}
 				}
 			}
 		}
@@ -6441,6 +7865,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm27 > 0
+						var:bag_wtp_p27 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p27 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p27 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p27 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# cannons
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6451,13 +7917,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm28 > 0
-								var:bag_wtp_p28 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p28 }
+					if = {
+						limit = {
+							var:bag_wtp_pm28 > 0
+							var:bag_wtp_p28 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p28 }
+					}
 				}
 			}
 		}
@@ -6485,6 +7951,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm28 > 0
+						var:bag_wtp_p28 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p28 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p28 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p28 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# cloth
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6495,22 +8003,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm29 > 0
-								var:bag_wtp_p29 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p29 }
+					if = {
+						limit = {
+							var:bag_wtp_pm29 > 0
+							var:bag_wtp_p29 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p29 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm29 > 0
-								var:bag_wtp_pr29 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr29 }
+					if = {
+						limit = {
+							var:bag_wtp_prm29 > 0
+							var:bag_wtp_pr29 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr29 }
+					}
 				}
 			}
 		}
@@ -6551,6 +8059,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm29 > 0
+						var:bag_wtp_p29 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p29 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm29 > 0
+						var:bag_wtp_pr29 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr29 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p29 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p29 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr29 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr29 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# fine_cloth
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6561,13 +8133,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm30 > 0
-								var:bag_wtp_p30 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p30 }
+					if = {
+						limit = {
+							var:bag_wtp_pm30 > 0
+							var:bag_wtp_p30 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p30 }
+					}
 				}
 			}
 		}
@@ -6595,6 +8167,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm30 > 0
+						var:bag_wtp_p30 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p30 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p30 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p30 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# firearms
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6605,13 +8219,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm31 > 0
-								var:bag_wtp_p31 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p31 }
+					if = {
+						limit = {
+							var:bag_wtp_pm31 > 0
+							var:bag_wtp_p31 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p31 }
+					}
 				}
 			}
 		}
@@ -6639,6 +8253,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm31 > 0
+						var:bag_wtp_p31 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p31 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p31 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p31 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# furniture
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6649,13 +8305,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm32 > 0
-								var:bag_wtp_p32 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p32 }
+					if = {
+						limit = {
+							var:bag_wtp_pm32 > 0
+							var:bag_wtp_p32 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p32 }
+					}
 				}
 			}
 		}
@@ -6683,6 +8339,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm32 > 0
+						var:bag_wtp_p32 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p32 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p32 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p32 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# glass
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6693,22 +8391,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm33 > 0
-								var:bag_wtp_p33 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p33 }
+					if = {
+						limit = {
+							var:bag_wtp_pm33 > 0
+							var:bag_wtp_p33 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p33 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm33 > 0
-								var:bag_wtp_pr33 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr33 }
+					if = {
+						limit = {
+							var:bag_wtp_prm33 > 0
+							var:bag_wtp_pr33 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr33 }
+					}
 				}
 			}
 		}
@@ -6749,6 +8447,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm33 > 0
+						var:bag_wtp_p33 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p33 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm33 > 0
+						var:bag_wtp_pr33 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr33 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p33 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p33 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr33 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr33 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# jewelry
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6759,22 +8521,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm34 > 0
-								var:bag_wtp_p34 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p34 }
+					if = {
+						limit = {
+							var:bag_wtp_pm34 > 0
+							var:bag_wtp_p34 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p34 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm34 > 0
-								var:bag_wtp_pr34 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr34 }
+					if = {
+						limit = {
+							var:bag_wtp_prm34 > 0
+							var:bag_wtp_pr34 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr34 }
+					}
 				}
 			}
 		}
@@ -6815,6 +8577,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm34 > 0
+						var:bag_wtp_p34 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p34 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm34 > 0
+						var:bag_wtp_pr34 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr34 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p34 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p34 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr34 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr34 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# lacquerware
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6825,13 +8651,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm35 > 0
-								var:bag_wtp_p35 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p35 }
+					if = {
+						limit = {
+							var:bag_wtp_pm35 > 0
+							var:bag_wtp_p35 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p35 }
+					}
 				}
 			}
 		}
@@ -6859,6 +8685,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm35 > 0
+						var:bag_wtp_p35 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p35 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p35 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p35 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# leather
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6869,22 +8737,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm36 > 0
-								var:bag_wtp_p36 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p36 }
+					if = {
+						limit = {
+							var:bag_wtp_pm36 > 0
+							var:bag_wtp_p36 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p36 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm36 > 0
-								var:bag_wtp_pr36 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr36 }
+					if = {
+						limit = {
+							var:bag_wtp_prm36 > 0
+							var:bag_wtp_pr36 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr36 }
+					}
 				}
 			}
 		}
@@ -6925,6 +8793,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm36 > 0
+						var:bag_wtp_p36 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p36 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm36 > 0
+						var:bag_wtp_pr36 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr36 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p36 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p36 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr36 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr36 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# liquor
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6935,13 +8867,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm37 > 0
-								var:bag_wtp_p37 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p37 }
+					if = {
+						limit = {
+							var:bag_wtp_pm37 > 0
+							var:bag_wtp_p37 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p37 }
+					}
 				}
 			}
 		}
@@ -6969,6 +8901,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm37 > 0
+						var:bag_wtp_p37 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p37 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p37 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p37 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# masonry
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -6979,22 +8953,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm38 > 0
-								var:bag_wtp_p38 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p38 }
+					if = {
+						limit = {
+							var:bag_wtp_pm38 > 0
+							var:bag_wtp_p38 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p38 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm38 > 0
-								var:bag_wtp_pr38 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr38 }
+					if = {
+						limit = {
+							var:bag_wtp_prm38 > 0
+							var:bag_wtp_pr38 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr38 }
+					}
 				}
 			}
 		}
@@ -7035,6 +9009,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm38 > 0
+						var:bag_wtp_p38 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p38 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm38 > 0
+						var:bag_wtp_pr38 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr38 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p38 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p38 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr38 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr38 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# naval_supplies
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7045,22 +9083,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm39 > 0
-								var:bag_wtp_p39 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p39 }
+					if = {
+						limit = {
+							var:bag_wtp_pm39 > 0
+							var:bag_wtp_p39 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p39 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm39 > 0
-								var:bag_wtp_pr39 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr39 }
+					if = {
+						limit = {
+							var:bag_wtp_prm39 > 0
+							var:bag_wtp_pr39 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr39 }
+					}
 				}
 			}
 		}
@@ -7101,6 +9139,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm39 > 0
+						var:bag_wtp_p39 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p39 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm39 > 0
+						var:bag_wtp_pr39 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr39 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p39 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p39 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr39 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr39 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# paper
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7111,13 +9213,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm40 > 0
-								var:bag_wtp_p40 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p40 }
+					if = {
+						limit = {
+							var:bag_wtp_pm40 > 0
+							var:bag_wtp_p40 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p40 }
+					}
 				}
 			}
 		}
@@ -7145,6 +9247,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm40 > 0
+						var:bag_wtp_p40 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p40 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p40 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p40 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# porcelain
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7155,13 +9299,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm41 > 0
-								var:bag_wtp_p41 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p41 }
+					if = {
+						limit = {
+							var:bag_wtp_pm41 > 0
+							var:bag_wtp_p41 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p41 }
+					}
 				}
 			}
 		}
@@ -7189,6 +9333,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm41 > 0
+						var:bag_wtp_p41 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p41 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p41 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p41 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# pottery
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7199,22 +9385,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm42 > 0
-								var:bag_wtp_p42 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p42 }
+					if = {
+						limit = {
+							var:bag_wtp_pm42 > 0
+							var:bag_wtp_p42 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p42 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm42 > 0
-								var:bag_wtp_pr42 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr42 }
+					if = {
+						limit = {
+							var:bag_wtp_prm42 > 0
+							var:bag_wtp_pr42 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr42 }
+					}
 				}
 			}
 		}
@@ -7255,6 +9441,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm42 > 0
+						var:bag_wtp_p42 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p42 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm42 > 0
+						var:bag_wtp_pr42 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr42 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p42 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p42 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr42 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr42 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# slaves_goods
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7265,22 +9515,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm43 > 0
-								var:bag_wtp_p43 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p43 }
+					if = {
+						limit = {
+							var:bag_wtp_pm43 > 0
+							var:bag_wtp_p43 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p43 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm43 > 0
-								var:bag_wtp_pr43 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr43 }
+					if = {
+						limit = {
+							var:bag_wtp_prm43 > 0
+							var:bag_wtp_pr43 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr43 }
+					}
 				}
 			}
 		}
@@ -7321,6 +9571,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm43 > 0
+						var:bag_wtp_p43 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p43 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm43 > 0
+						var:bag_wtp_pr43 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr43 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p43 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p43 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr43 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr43 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# steel
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7331,13 +9645,13 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm44 > 0
-								var:bag_wtp_p44 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p44 }
+					if = {
+						limit = {
+							var:bag_wtp_pm44 > 0
+							var:bag_wtp_p44 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p44 }
+					}
 				}
 			}
 		}
@@ -7365,6 +9679,48 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm44 > 0
+						var:bag_wtp_p44 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p44 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p44 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p44 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# tar
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7375,22 +9731,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm45 > 0
-								var:bag_wtp_p45 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p45 }
+					if = {
+						limit = {
+							var:bag_wtp_pm45 > 0
+							var:bag_wtp_p45 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p45 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm45 > 0
-								var:bag_wtp_pr45 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr45 }
+					if = {
+						limit = {
+							var:bag_wtp_prm45 > 0
+							var:bag_wtp_pr45 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr45 }
+					}
 				}
 			}
 		}
@@ -7431,6 +9787,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm45 > 0
+						var:bag_wtp_p45 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p45 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm45 > 0
+						var:bag_wtp_pr45 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr45 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p45 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p45 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr45 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr45 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# tools
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7441,22 +9861,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm46 > 0
-								var:bag_wtp_p46 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p46 }
+					if = {
+						limit = {
+							var:bag_wtp_pm46 > 0
+							var:bag_wtp_p46 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p46 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm46 > 0
-								var:bag_wtp_pr46 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr46 }
+					if = {
+						limit = {
+							var:bag_wtp_prm46 > 0
+							var:bag_wtp_pr46 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr46 }
+					}
 				}
 			}
 		}
@@ -7497,6 +9917,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm46 > 0
+						var:bag_wtp_p46 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p46 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm46 > 0
+						var:bag_wtp_pr46 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr46 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p46 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p46 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr46 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr46 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	# weaponry
 	every_in_global_list = {
 		variable = bag_wtp_plan_prov_locs
@@ -7507,22 +9991,22 @@ bag_wtp_diag_shuffle = {
 				limit = { has_variable = bag_wtp_load }
 				if = {
 					limit = { bag_wtp_plan_is_town = yes }
-						if = {
-							limit = {
-								var:bag_wtp_pm47 > 0
-								var:bag_wtp_p47 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p47 }
+					if = {
+						limit = {
+							var:bag_wtp_pm47 > 0
+							var:bag_wtp_p47 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p47 }
+					}
 				}
 				else = {
-						if = {
-							limit = {
-								var:bag_wtp_prm47 > 0
-								var:bag_wtp_pr47 > global_var:bag_wtp_rp_best
-							}
-							set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr47 }
+					if = {
+						limit = {
+							var:bag_wtp_prm47 > 0
+							var:bag_wtp_pr47 > global_var:bag_wtp_rp_best
 						}
+						set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr47 }
+					}
 				}
 			}
 		}
@@ -7563,6 +10047,70 @@ bag_wtp_diag_shuffle = {
 			}
 		}
 	}
+	# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+	# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+	# соображение надо проверить, а не принять: если по всей земле граница
+	# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+	# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+	# какой-то другой ситуации прирост будет значительно больше».
+	set_global_variable = { name = bag_wtp_rp_best value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { has_variable = bag_wtp_load }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				if = {
+					limit = {
+						var:bag_wtp_pm47 > 0
+						var:bag_wtp_p47 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_p47 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						var:bag_wtp_prm47 > 0
+						var:bag_wtp_pr47 > global_var:bag_wtp_rp_best
+					}
+					set_global_variable = { name = bag_wtp_rp_best value = var:bag_wtp_pr47 }
+				}
+			}
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
+		}
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+					if = {
+						limit = { var:bag_wtp_p47 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p47 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+			else = {
+					if = {
+						limit = { var:bag_wtp_pr47 < global_var:bag_wtp_rp_best }
+						set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_best }
+						change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr47 }
+						change_global_variable = { name = bag_wtp_rp_lbound add = global_var:bag_wtp_rp_d }
+						change_global_variable = { name = bag_wtp_rp_lmoves add = 1 }
+						if = {
+							limit = { has_variable = bag_wtp_plan_right }
+							change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
+						}
+					}
+			}
+	}
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rp_bound } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rp_bound } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
@@ -7573,5 +10121,9 @@ bag_wtp_diag_shuffle = {
 	if = { limit = { has_global_variable = bag_wtp_plan_gain } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_plan_gain } }
 	set_global_variable = { name = bag_wtp_dv5 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_placed } }
-	debug_log = "WTP SHUFFLE bound=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] moves=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] in_charter_towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | gain_now=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] -- bound is the ceiling a within-province reshuffle could add, out of 1000 a building; it ignores that two buildings cannot share a room, so the real trade is always less"
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rp_lbound } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_rp_lbound } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rp_lmoves } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_rp_lmoves } }
+	debug_log = "WTP SHUFFLE bound=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] moves=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] in_charter_towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | land_bound=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] land_moves=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] | gain_now=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] -- bound is the ceiling a within-province reshuffle could add, out of 1000 a building; land_bound is the same with no province limit at all. Both ignore that two buildings cannot share a room, so a real trade is always less"
 }

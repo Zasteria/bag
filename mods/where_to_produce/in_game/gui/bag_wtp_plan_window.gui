@@ -661,17 +661,17 @@ window = {
 				spacing = 8
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_area"
 					description = "bag_wtp_map_pick_area_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_area" }
 					tooltip = "bag_wtp_map_pick_area_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -681,17 +681,17 @@ window = {
 				}
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_province"
 					description = "bag_wtp_map_pick_province_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_province" }
 					tooltip = "bag_wtp_map_pick_province_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -701,17 +701,17 @@ window = {
 				}
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_location"
 					description = "bag_wtp_map_pick_location_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_location" }
 					tooltip = "bag_wtp_map_pick_location_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -721,17 +721,17 @@ window = {
 				}
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_market"
 					description = "bag_wtp_map_pick_market_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_market" }
 					tooltip = "bag_wtp_map_pick_market_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -747,14 +747,14 @@ window = {
 				# plain button and not a map action, because there is nothing
 				# to click on the map — the answer is already known.
 				button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					tooltip = "bag_wtp_pick_my_land_tt"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						widgetanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -770,9 +770,9 @@ window = {
 				# a ranking's, and a plan that redrew itself on every click
 				# would make the picker unusable. Press «План» again.
 				text_single = {
-					size = { 190 34 }
+					size = { 120 34 }
 					autoresize = no
-					maximumsize = { 190 34 }
+					maximumsize = { 120 34 }
 					align = right|vcenter
 					fontsize = 12
 					fontsize_min = 9
@@ -800,6 +800,28 @@ window = {
 						text = "bag_wtp_plan_refresh"
 					}
 					onclick = "[GetScriptedGui('bag_wtp_plan_refresh').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				# **«Перетасовать» — отдельным нажатием и после плана.** Он
+				# меняет места, а не количества: у каждого товара как был домик,
+				# так и остаётся. Не часть «Пересчитать», потому что обход всех
+				# провинций стоит своего времени, а прибавка невелика.
+				button_regular = {
+					size = { 116 42 }
+					tooltip = "bag_wtp_plan_reshuffle_tt"
+					text_single = {
+						size = { 96 26 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 96 26 }
+						fontsize = 13
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_plan_reshuffle"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_plan_reshuffle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 
 				# **«Сохранить план», here and not only in the editor**, because

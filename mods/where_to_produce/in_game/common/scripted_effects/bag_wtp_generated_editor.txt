@@ -17466,6 +17466,743 @@ bag_wtp_edit_reshuffle_round = {
 	}
 }
 
+# Которым товаром эта локация торгует: **худшим стоящим здесь своим домиком.**
+# Бегущий минимум лежит в глобалке, а не в переменной локации: `var:x < var:y`
+# в этом моде нигде не доказан, `var:x < global_var:y` доказан везде.
+# Scope: location
+bag_wtp_plan_pick_worst = {
+	remove_variable = bag_wtp_fillg
+	set_global_variable = { name = bag_wtp_fillv value = 10000 }
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
+			var:bag_wtp_p1 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 1 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p1 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
+			var:bag_wtp_pr1 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 1 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr1 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
+			var:bag_wtp_p2 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 2 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p2 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
+			var:bag_wtp_pr2 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 2 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr2 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
+			var:bag_wtp_p3 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 3 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p3 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
+			var:bag_wtp_pr3 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 3 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr3 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks } }
+			var:bag_wtp_p4 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 4 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p4 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_p5 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 5 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p5 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_pr5 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 5 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr5 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
+			var:bag_wtp_p7 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 7 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p7 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
+			var:bag_wtp_pr7 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 7 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr7 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
+			var:bag_wtp_p8 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 8 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p8 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
+			var:bag_wtp_pr8 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 8 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr8 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery } }
+			var:bag_wtp_p9 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 9 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p9 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_p10 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 10 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p10 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_pr10 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 10 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr10 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds } }
+			var:bag_wtp_pr11 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 11 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr11 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
+			var:bag_wtp_pr12 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 12 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr12 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_p13 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 13 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p13 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_pr13 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 13 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr13 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary } }
+			var:bag_wtp_p14 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 14 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p14 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
+			var:bag_wtp_p15 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 15 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p15 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
+			var:bag_wtp_pr15 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 15 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr15 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop } }
+			var:bag_wtp_p16 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 16 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p16 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
+			var:bag_wtp_p17 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 17 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p17 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
+			var:bag_wtp_pr17 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 17 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr17 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild } }
+			var:bag_wtp_p18 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 18 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p18 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
+			var:bag_wtp_p19 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 19 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p19 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
+			var:bag_wtp_pr19 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 19 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr19 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
+			var:bag_wtp_p20 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 20 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p20 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
+			var:bag_wtp_pr20 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 20 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr20 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
+			var:bag_wtp_p21 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 21 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p21 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
+			var:bag_wtp_pr21 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 21 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr21 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
+			var:bag_wtp_p22 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 22 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p22 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
+			var:bag_wtp_pr22 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 22 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr22 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest } }
+			var:bag_wtp_pr23 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 23 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr23 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory } }
+			var:bag_wtp_p24 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 24 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p24 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms } }
+			var:bag_wtp_pr25 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 25 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr25 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill } }
+			var:bag_wtp_p26 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 26 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p26 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium } }
+			var:bag_wtp_p27 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 27 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p27 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory } }
+			var:bag_wtp_p28 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 28 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p28 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill } }
+			var:bag_wtp_p29 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 29 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p29 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker } }
+			var:bag_wtp_pr29 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 29 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr29 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop } }
+			var:bag_wtp_p30 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 30 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p30 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild } }
+			var:bag_wtp_p31 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 31 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p31 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop } }
+			var:bag_wtp_p32 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 32 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p32 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks } }
+			var:bag_wtp_p33 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 33 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p33 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker } }
+			var:bag_wtp_pr33 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 33 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr33 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
+			var:bag_wtp_p34 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 34 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p34 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
+			var:bag_wtp_pr34 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 34 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr34 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory } }
+			var:bag_wtp_p35 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 35 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p35 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop } }
+			var:bag_wtp_p36 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 36 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p36 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop } }
+			var:bag_wtp_p37 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 37 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p37 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_p38 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 38 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p38 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+			var:bag_wtp_pr38 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 38 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr38 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop } }
+			var:bag_wtp_p39 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 39 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p39 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop } }
+			var:bag_wtp_p40 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 40 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p40 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory } }
+			var:bag_wtp_p41 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 41 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p41 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop } }
+			var:bag_wtp_p42 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 42 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p42 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
+			var:bag_wtp_p43 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 43 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p43 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
+			var:bag_wtp_pr43 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 43 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr43 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill } }
+			var:bag_wtp_p44 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 44 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p44 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
+			var:bag_wtp_p45 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 45 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p45 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
+			var:bag_wtp_pr45 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 45 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr45 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop } }
+			var:bag_wtp_p46 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 46 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p46 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			var:bag_wtp_pr46 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 46 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr46 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = yes
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop } }
+			var:bag_wtp_p47 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 47 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_p47 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_is_town = no
+			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
+			OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+			var:bag_wtp_pr47 < global_var:bag_wtp_fillv
+		}
+		set_variable = { name = bag_wtp_fillg value = 47 }
+		set_global_variable = { name = bag_wtp_fillv value = var:bag_wtp_pr47 }
+	}
+}
+
+# «Перетасовать»: обмен местами по всему плану, провинция за провинцией.
+#
+# **Домиков не меняет вовсе** -- обмен это две пары «убрать/поставить», у
+# каждого товара как был домик, так и остаётся. Меняются только места, и только
+# когда паре от этого лучше обоим вместе.
+# Scope: country
+bag_wtp_plan_shuffle = {
+	bag_wtp_edit_clear_fillset = yes
+	set_global_variable = { name = bag_wtp_ps_gain0 value = global_var:bag_wtp_plan_gain }
+	change_global_variable = { name = bag_wtp_edit_presses add = 1 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		clear_global_variable_list = bag_wtp_edit_fillset
+		clear_global_variable_list = bag_wtp_edit_fillset2
+		province_definition = {
+			every_location_in_province_definition = {
+				limit = { has_variable = bag_wtp_load }
+				bag_wtp_plan_pick_worst = yes
+				add_to_global_variable_list = { name = bag_wtp_edit_fillset target = this }
+			}
+		}
+		# Три круга, и он кончается, как только круг ничего не выменял.
+		bag_wtp_edit_reshuffle_round = yes
+		if = {
+			limit = { global_var:bag_wtp_rs_did = 1 }
+			bag_wtp_edit_reshuffle_round = yes
+		}
+		if = {
+			limit = { global_var:bag_wtp_rs_did = 1 }
+			bag_wtp_edit_reshuffle_round = yes
+		}
+	}
+	# **Метки снимаются, а номера правок остаются.** `_edit_clear_fillset` стёр бы
+	# и `_chg_seq`, то есть ровно то, что «Показать изменения» и рисует.
+	every_in_global_list = {
+		variable = bag_wtp_edit_fillset
+		remove_variable = bag_wtp_fillg
+	}
+	clear_global_variable_list = bag_wtp_edit_fillset
+	clear_global_variable_list = bag_wtp_edit_fillset2
+	set_global_variable = { name = bag_wtp_ps_gain value = global_var:bag_wtp_plan_gain }
+	change_global_variable = { name = bag_wtp_ps_gain subtract = global_var:bag_wtp_ps_gain0 }
+	set_global_variable = { name = bag_wtp_ps_ran value = 1 }
+	# Отчёт `EDIT shuffle` печатает `_rs_gain`; пусть он и здесь значит то же.
+	set_global_variable = { name = bag_wtp_rs_gain value = global_var:bag_wtp_ps_gain }
+	bag_wtp_plan_rank = yes
+}
+
 # constantinopolitan_silk_monopoly_rights: how many rooms its bundle wants here, and afterwards how many it
 # did not get. Read `charter_need` for why both readings are the same effect.
 # Scope: location
@@ -27478,10 +28215,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz1
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt1 value = global_var:bag_wtp_eq1 }
-		set_global_variable = { name = bag_wtp_pqr1 value = global_var:bag_wtp_eq1 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock2 has_global_variable = bag_wtp_skip2 } }
@@ -27491,10 +28224,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz2
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt2 value = global_var:bag_wtp_eq2 }
-		set_global_variable = { name = bag_wtp_pqr2 value = global_var:bag_wtp_eq2 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock3 has_global_variable = bag_wtp_skip3 } }
@@ -27504,10 +28233,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz3
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt3 value = global_var:bag_wtp_eq3 }
-		set_global_variable = { name = bag_wtp_pqr3 value = global_var:bag_wtp_eq3 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock4 has_global_variable = bag_wtp_skip4 } }
@@ -27517,10 +28242,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz4
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt4 value = global_var:bag_wtp_eq4 }
-		set_global_variable = { name = bag_wtp_pqr4 value = global_var:bag_wtp_eq4 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock5 has_global_variable = bag_wtp_skip5 } }
@@ -27530,10 +28251,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz5
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt5 value = global_var:bag_wtp_eq5 }
-		set_global_variable = { name = bag_wtp_pqr5 value = global_var:bag_wtp_eq5 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock6 has_global_variable = bag_wtp_skip6 } }
@@ -27543,10 +28260,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz6
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt6 value = global_var:bag_wtp_eq6 }
-		set_global_variable = { name = bag_wtp_pqr6 value = global_var:bag_wtp_eq6 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock7 has_global_variable = bag_wtp_skip7 } }
@@ -27556,10 +28269,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz7
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt7 value = global_var:bag_wtp_eq7 }
-		set_global_variable = { name = bag_wtp_pqr7 value = global_var:bag_wtp_eq7 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock8 has_global_variable = bag_wtp_skip8 } }
@@ -27569,10 +28278,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz8
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt8 value = global_var:bag_wtp_eq8 }
-		set_global_variable = { name = bag_wtp_pqr8 value = global_var:bag_wtp_eq8 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock9 has_global_variable = bag_wtp_skip9 } }
@@ -27582,10 +28287,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz9
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt9 value = global_var:bag_wtp_eq9 }
-		set_global_variable = { name = bag_wtp_pqr9 value = global_var:bag_wtp_eq9 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock10 has_global_variable = bag_wtp_skip10 } }
@@ -27595,10 +28296,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz10
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt10 value = global_var:bag_wtp_eq10 }
-		set_global_variable = { name = bag_wtp_pqr10 value = global_var:bag_wtp_eq10 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock11 has_global_variable = bag_wtp_skip11 } }
@@ -27608,10 +28305,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz11
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt11 value = global_var:bag_wtp_eq11 }
-		set_global_variable = { name = bag_wtp_pqr11 value = global_var:bag_wtp_eq11 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock12 has_global_variable = bag_wtp_skip12 } }
@@ -27621,10 +28314,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz12
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt12 value = global_var:bag_wtp_eq12 }
-		set_global_variable = { name = bag_wtp_pqr12 value = global_var:bag_wtp_eq12 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock13 has_global_variable = bag_wtp_skip13 } }
@@ -27634,10 +28323,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz13
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt13 value = global_var:bag_wtp_eq13 }
-		set_global_variable = { name = bag_wtp_pqr13 value = global_var:bag_wtp_eq13 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock14 has_global_variable = bag_wtp_skip14 } }
@@ -27647,10 +28332,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz14
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt14 value = global_var:bag_wtp_eq14 }
-		set_global_variable = { name = bag_wtp_pqr14 value = global_var:bag_wtp_eq14 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock15 has_global_variable = bag_wtp_skip15 } }
@@ -27660,10 +28341,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz15
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt15 value = global_var:bag_wtp_eq15 }
-		set_global_variable = { name = bag_wtp_pqr15 value = global_var:bag_wtp_eq15 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock16 has_global_variable = bag_wtp_skip16 } }
@@ -27673,10 +28350,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz16
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt16 value = global_var:bag_wtp_eq16 }
-		set_global_variable = { name = bag_wtp_pqr16 value = global_var:bag_wtp_eq16 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock17 has_global_variable = bag_wtp_skip17 } }
@@ -27686,10 +28359,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz17
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt17 value = global_var:bag_wtp_eq17 }
-		set_global_variable = { name = bag_wtp_pqr17 value = global_var:bag_wtp_eq17 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock18 has_global_variable = bag_wtp_skip18 } }
@@ -27699,10 +28368,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz18
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt18 value = global_var:bag_wtp_eq18 }
-		set_global_variable = { name = bag_wtp_pqr18 value = global_var:bag_wtp_eq18 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock19 has_global_variable = bag_wtp_skip19 } }
@@ -27712,10 +28377,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz19
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt19 value = global_var:bag_wtp_eq19 }
-		set_global_variable = { name = bag_wtp_pqr19 value = global_var:bag_wtp_eq19 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock20 has_global_variable = bag_wtp_skip20 } }
@@ -27725,10 +28386,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz20
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt20 value = global_var:bag_wtp_eq20 }
-		set_global_variable = { name = bag_wtp_pqr20 value = global_var:bag_wtp_eq20 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock21 has_global_variable = bag_wtp_skip21 } }
@@ -27738,10 +28395,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz21
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt21 value = global_var:bag_wtp_eq21 }
-		set_global_variable = { name = bag_wtp_pqr21 value = global_var:bag_wtp_eq21 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock22 has_global_variable = bag_wtp_skip22 } }
@@ -27751,10 +28404,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz22
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt22 value = global_var:bag_wtp_eq22 }
-		set_global_variable = { name = bag_wtp_pqr22 value = global_var:bag_wtp_eq22 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock23 has_global_variable = bag_wtp_skip23 } }
@@ -27764,10 +28413,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz23
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt23 value = global_var:bag_wtp_eq23 }
-		set_global_variable = { name = bag_wtp_pqr23 value = global_var:bag_wtp_eq23 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock24 has_global_variable = bag_wtp_skip24 } }
@@ -27777,10 +28422,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz24
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt24 value = global_var:bag_wtp_eq24 }
-		set_global_variable = { name = bag_wtp_pqr24 value = global_var:bag_wtp_eq24 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock25 has_global_variable = bag_wtp_skip25 } }
@@ -27790,10 +28431,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz25
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt25 value = global_var:bag_wtp_eq25 }
-		set_global_variable = { name = bag_wtp_pqr25 value = global_var:bag_wtp_eq25 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock26 has_global_variable = bag_wtp_skip26 } }
@@ -27803,10 +28440,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz26
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt26 value = global_var:bag_wtp_eq26 }
-		set_global_variable = { name = bag_wtp_pqr26 value = global_var:bag_wtp_eq26 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock27 has_global_variable = bag_wtp_skip27 } }
@@ -27816,10 +28449,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz27
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt27 value = global_var:bag_wtp_eq27 }
-		set_global_variable = { name = bag_wtp_pqr27 value = global_var:bag_wtp_eq27 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock28 has_global_variable = bag_wtp_skip28 } }
@@ -27829,10 +28458,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz28
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt28 value = global_var:bag_wtp_eq28 }
-		set_global_variable = { name = bag_wtp_pqr28 value = global_var:bag_wtp_eq28 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock29 has_global_variable = bag_wtp_skip29 } }
@@ -27842,10 +28467,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz29
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt29 value = global_var:bag_wtp_eq29 }
-		set_global_variable = { name = bag_wtp_pqr29 value = global_var:bag_wtp_eq29 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock30 has_global_variable = bag_wtp_skip30 } }
@@ -27855,10 +28476,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz30
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt30 value = global_var:bag_wtp_eq30 }
-		set_global_variable = { name = bag_wtp_pqr30 value = global_var:bag_wtp_eq30 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock31 has_global_variable = bag_wtp_skip31 } }
@@ -27868,10 +28485,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz31
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt31 value = global_var:bag_wtp_eq31 }
-		set_global_variable = { name = bag_wtp_pqr31 value = global_var:bag_wtp_eq31 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock32 has_global_variable = bag_wtp_skip32 } }
@@ -27881,10 +28494,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz32
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt32 value = global_var:bag_wtp_eq32 }
-		set_global_variable = { name = bag_wtp_pqr32 value = global_var:bag_wtp_eq32 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock33 has_global_variable = bag_wtp_skip33 } }
@@ -27894,10 +28503,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz33
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt33 value = global_var:bag_wtp_eq33 }
-		set_global_variable = { name = bag_wtp_pqr33 value = global_var:bag_wtp_eq33 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock34 has_global_variable = bag_wtp_skip34 } }
@@ -27907,10 +28512,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz34
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt34 value = global_var:bag_wtp_eq34 }
-		set_global_variable = { name = bag_wtp_pqr34 value = global_var:bag_wtp_eq34 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock35 has_global_variable = bag_wtp_skip35 } }
@@ -27920,10 +28521,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz35
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt35 value = global_var:bag_wtp_eq35 }
-		set_global_variable = { name = bag_wtp_pqr35 value = global_var:bag_wtp_eq35 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock36 has_global_variable = bag_wtp_skip36 } }
@@ -27933,10 +28530,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz36
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt36 value = global_var:bag_wtp_eq36 }
-		set_global_variable = { name = bag_wtp_pqr36 value = global_var:bag_wtp_eq36 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock37 has_global_variable = bag_wtp_skip37 } }
@@ -27946,10 +28539,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz37
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt37 value = global_var:bag_wtp_eq37 }
-		set_global_variable = { name = bag_wtp_pqr37 value = global_var:bag_wtp_eq37 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock38 has_global_variable = bag_wtp_skip38 } }
@@ -27959,10 +28548,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz38
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt38 value = global_var:bag_wtp_eq38 }
-		set_global_variable = { name = bag_wtp_pqr38 value = global_var:bag_wtp_eq38 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock39 has_global_variable = bag_wtp_skip39 } }
@@ -27972,10 +28557,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz39
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt39 value = global_var:bag_wtp_eq39 }
-		set_global_variable = { name = bag_wtp_pqr39 value = global_var:bag_wtp_eq39 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock40 has_global_variable = bag_wtp_skip40 } }
@@ -27985,10 +28566,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz40
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt40 value = global_var:bag_wtp_eq40 }
-		set_global_variable = { name = bag_wtp_pqr40 value = global_var:bag_wtp_eq40 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock41 has_global_variable = bag_wtp_skip41 } }
@@ -27998,10 +28575,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz41
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt41 value = global_var:bag_wtp_eq41 }
-		set_global_variable = { name = bag_wtp_pqr41 value = global_var:bag_wtp_eq41 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock42 has_global_variable = bag_wtp_skip42 } }
@@ -28011,10 +28584,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz42
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt42 value = global_var:bag_wtp_eq42 }
-		set_global_variable = { name = bag_wtp_pqr42 value = global_var:bag_wtp_eq42 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock43 has_global_variable = bag_wtp_skip43 } }
@@ -28024,10 +28593,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz43
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt43 value = global_var:bag_wtp_eq43 }
-		set_global_variable = { name = bag_wtp_pqr43 value = global_var:bag_wtp_eq43 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock44 has_global_variable = bag_wtp_skip44 } }
@@ -28037,10 +28602,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz44
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt44 value = global_var:bag_wtp_eq44 }
-		set_global_variable = { name = bag_wtp_pqr44 value = global_var:bag_wtp_eq44 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock45 has_global_variable = bag_wtp_skip45 } }
@@ -28050,10 +28611,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz45
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt45 value = global_var:bag_wtp_eq45 }
-		set_global_variable = { name = bag_wtp_pqr45 value = global_var:bag_wtp_eq45 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock46 has_global_variable = bag_wtp_skip46 } }
@@ -28063,10 +28620,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz46
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt46 value = global_var:bag_wtp_eq46 }
-		set_global_variable = { name = bag_wtp_pqr46 value = global_var:bag_wtp_eq46 }
 	}
 	if = {
 		limit = { OR = { has_global_variable = bag_wtp_lock47 has_global_variable = bag_wtp_skip47 } }
@@ -28076,10 +28629,6 @@ bag_wtp_ext_quotas = {
 	}
 	else = {
 		remove_global_variable = bag_wtp_frz47
-		# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-		# а не про то, где. Доливка кладёт её в обе квоты.
-		set_global_variable = { name = bag_wtp_pqt47 value = global_var:bag_wtp_eq47 }
-		set_global_variable = { name = bag_wtp_pqr47 value = global_var:bag_wtp_eq47 }
 	}
 }
 

@@ -6445,6 +6445,111 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 }}
 """)
 
+    # ---- «Перетасовать»: тот же обмен, но по всему плану ---------------------
+    #
+    # **Механизм готов и узок был только по входу.** `_edit_reshuffle_round`
+    # торгует парами из `_edit_fillset`, где у каждой локации `_fillg` называет
+    # товар, которым она торгует. Долив ставит один домик и метит его; план
+    # ставит три-четыре, и метить надо не «последний поставленный», а **худший
+    # стоящий** — тот, ради которого обмен и затевается.
+    #
+    # **Провинция за провинцией, и это не только про цену.** Пары берутся из
+    # `_edit_fillset`, а копия в `_edit_fillset2` делается из него же: загружая
+    # по одной провинции, мы ограничиваем обмен провинцией даром. По всей земле
+    # это 416² пар за круг, внутри провинции — тридцать.
+    #
+    # **Владелец, 2026-09-09:** «сделай кнопку „Перетасовать“, чтобы оно
+    # работало ручным этапом после создания плана». Ручным — потому что зонд
+    # намерил потолок в два процента: платить за это на каждом «Пересчитать»
+    # незачем, а нажать, когда захотелось, — можно.
+    own = own_sides(rows, split, game)
+    villages_ = village_entities(rows, split, game)
+    worst = ""
+    for index, good in enumerate(order, start=1):
+        has_town, has_rural = own[good]
+        for kind, ok, gvar in (("t", has_town, "p"), ("r", has_rural, "pr")):
+            if not ok:
+                continue
+            # **Своё здание, а не только свой товар в списке.** Деревня кладёт
+            # в `_plan_goods` то, что она делает, а `_edit_remove_*` сняло бы с
+            # локации саму деревню: пиво «стоит» в торговой деревне, но домик
+            # там не пивной. Меняем только то, что действительно своё.
+            side = "t" if kind == "t" else "r"
+            mine = sorted(b for b in (groups.get((good, side)) or {})
+                          if b not in villages_)
+            builds = " ".join(
+                f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+                f"target = building_type:{b} }}" for b in mine)
+            worst += f"""\tif = {{
+\t\tlimit = {{
+\t\t\t{MOD_ID}_plan_is_town = {'yes' if kind == 't' else 'no'}
+\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+\t\t\tOR = {{ {builds} }}
+\t\t\tvar:{MOD_ID}_{gvar}{index} < global_var:{MOD_ID}_fillv
+\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_fillg value = {index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_fillv value = var:{MOD_ID}_{gvar}{index} }}
+\t}}
+"""
+    out.append(f"""
+# Которым товаром эта локация торгует: **худшим стоящим здесь своим домиком.**
+# Бегущий минимум лежит в глобалке, а не в переменной локации: `var:x < var:y`
+# в этом моде нигде не доказан, `var:x < global_var:y` доказан везде.
+# Scope: location
+{MOD_ID}_plan_pick_worst = {{
+\tremove_variable = {MOD_ID}_fillg
+\tset_global_variable = {{ name = {MOD_ID}_fillv value = {RANK_SCALE * 10} }}
+{worst}}}
+
+# «Перетасовать»: обмен местами по всему плану, провинция за провинцией.
+#
+# **Домиков не меняет вовсе** -- обмен это две пары «убрать/поставить», у
+# каждого товара как был домик, так и остаётся. Меняются только места, и только
+# когда паре от этого лучше обоим вместе.
+# Scope: country
+{MOD_ID}_plan_shuffle = {{
+\t{MOD_ID}_edit_clear_fillset = yes
+\tset_global_variable = {{ name = {MOD_ID}_ps_gain0 value = global_var:{MOD_ID}_plan_gain }}
+\tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_prov_locs
+\t\tclear_global_variable_list = {MOD_ID}_edit_fillset
+\t\tclear_global_variable_list = {MOD_ID}_edit_fillset2
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_load }}
+\t\t\t\t{MOD_ID}_plan_pick_worst = yes
+\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_fillset target = this }}
+\t\t\t}}
+\t\t}}
+\t\t# Три круга, и он кончается, как только круг ничего не выменял.
+\t\t{MOD_ID}_edit_reshuffle_round = yes
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
+\t\t\t{MOD_ID}_edit_reshuffle_round = yes
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
+\t\t\t{MOD_ID}_edit_reshuffle_round = yes
+\t\t}}
+\t}}
+\t# **Метки снимаются, а номера правок остаются.** `_edit_clear_fillset` стёр бы
+\t# и `_chg_seq`, то есть ровно то, что «Показать изменения» и рисует.
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_edit_fillset
+\t\tremove_variable = {MOD_ID}_fillg
+\t}}
+\tclear_global_variable_list = {MOD_ID}_edit_fillset
+\tclear_global_variable_list = {MOD_ID}_edit_fillset2
+\tset_global_variable = {{ name = {MOD_ID}_ps_gain value = global_var:{MOD_ID}_plan_gain }}
+\tchange_global_variable = {{ name = {MOD_ID}_ps_gain subtract = global_var:{MOD_ID}_ps_gain0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ps_ran value = 1 }}
+\t# Отчёт `EDIT shuffle` печатает `_rs_gain`; пусть он и здесь значит то же.
+\tset_global_variable = {{ name = {MOD_ID}_rs_gain value = global_var:{MOD_ID}_ps_gain }}
+\t{MOD_ID}_plan_rank = yes
+}}
+""")
+
     # ---- step 5: the charters, moved from one town to another ---------------
     #
     # **A charter is not a building and «+1» on one cannot mean «one more».**
@@ -7445,6 +7550,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 """
         for i in range(1, len(order) + 1))
+    # **Незамороженный товар идёт по своей плановой квоте, а не по редакторской.**
+    # `_plan_set_quota` только что посчитан по всей земле Z = X + Y: две доли
+    # сторон, перелив, скидка за РГО. Доливка кладёт новую землю к старой,
+    # стремясь к тому же плану, каким он был бы на Z целиком, — значит и квота
+    # ей нужна та же. Раньше здесь стояло `_pqt = _pqr = _eq<i>` — одно
+    # редакторское число в обе стороны, — и вся арифметика долей, выправленная
+    # 2026-09-08, до доливки не доезжала.
     freeze = "".join(
         f"""\tif = {{
 \t\tlimit = {{ OR = {{ has_global_variable = {MOD_ID}_lock{i} has_global_variable = {MOD_ID}_skip{i} }} }}
@@ -7454,10 +7566,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 \telse = {{
 \t\tremove_global_variable = {MOD_ID}_frz{i}
-\t\t# Доля редактора одна на обе стороны — она про «сколько ещё раздать»,
-\t\t# а не про то, где. Доливка кладёт её в обе квоты.
-\t\tset_global_variable = {{ name = {MOD_ID}_pqt{i} value = global_var:{MOD_ID}_eq{i} }}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqr{i} value = global_var:{MOD_ID}_eq{i} }}
 \t}}
 """
         for i in range(1, len(order) + 1))
@@ -9644,6 +9752,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_rp_bound value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rp_moves value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rp_right value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rp_lbound value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rp_lmoves value = 0 }}
 """)
     for index, good in enumerate(order, start=1):
         town, rural = bool(groups.get((good, "t"))), bool(groups.get((good, "r")))
@@ -9663,7 +9773,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                     f"value = var:{MOD_ID}_{g}{index} }}\n"
                     f"{tab}}}\n")
 
-        def deficit_block(kind: str, tab: str) -> str:
+        def deficit_block(kind: str, tab: str, acc: str = "") -> str:
             g = "p" if kind == "t" else "pr"
             return (f"{tab}if = {{\n"
                     f"{tab}\tlimit = {{ var:{MOD_ID}_{g}{index} < global_var:{MOD_ID}_rp_best }}\n"
@@ -9671,9 +9781,9 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                     f"value = global_var:{MOD_ID}_rp_best }}\n"
                     f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_d "
                     f"subtract = var:{MOD_ID}_{g}{index} }}\n"
-                    f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_bound "
+                    f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_{acc}bound "
                     f"add = global_var:{MOD_ID}_rp_d }}\n"
-                    f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_moves add = 1 }}\n"
+                    f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rp_{acc}moves add = 1 }}\n"
                     f"{tab}\tif = {{\n"
                     f"{tab}\t\tlimit = {{ has_variable = {MOD_ID}_plan_right }}\n"
                     f"{tab}\t\tchange_global_variable = {{ name = {MOD_ID}_rp_right "
@@ -9681,16 +9791,32 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                     f"{tab}\t}}\n"
                     f"{tab}}}\n")
 
-        best = ""
+        def best_at(depth: int) -> str:
+            pad = chr(9) * depth
+            piece = ""
+            if town:
+                piece += (f"{pad}if = {{\n{pad}\tlimit = {{ {MOD_ID}_plan_is_town = yes }}\n"
+                          f"{side_block('t', pad + chr(9))}{pad}}}\n")
+            if rural:
+                head = (f"{pad}else = {{\n" if town else
+                        f"{pad}if = {{\n{pad}\tlimit = {{ {MOD_ID}_plan_is_town = no }}\n")
+                piece += f"{head}{side_block('r', pad + chr(9))}{pad}}}\n"
+            return piece
+
+        best_prov = best_at(4)
+        best = best_at(3)
+        # Та же арифметика, но накопители другие: земля целиком.
+        lgap = ""
         if town:
-            best += f"""\t\t\t\tif = {{
-\t\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
-{side_block("t", chr(9) * 6)}\t\t\t\t}}
+            lgap += f"""\t\t\tif = {{
+\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+{deficit_block("t", chr(9) * 5, "l")}\t\t\t}}
 """
         if rural:
-            head = "else = {" if town else "if = {\n\t\t\t\t\tlimit = { %s_plan_is_town = no }" % MOD_ID
-            best += f"""\t\t\t\t{head}
-{side_block("r", chr(9) * 6)}\t\t\t\t}}
+            head = ("else = {" if town else
+                    "if = {\n\t\t\t\tlimit = { %s_plan_is_town = no }" % MOD_ID)
+            lgap += f"""\t\t\t{head}
+{deficit_block("r", chr(9) * 5, "l")}\t\t\t}}
 """
         gap = ""
         if town:
@@ -9711,7 +9837,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tprovince_definition = {{
 \t\t\tevery_location_in_province_definition = {{
 \t\t\t\tlimit = {{ has_variable = {MOD_ID}_load }}
-{best}\t\t\t}}
+{best_prov}\t\t\t}}
 \t\t}}
 \t\t# Второй: насколько ниже стоят его домики, которые здесь уже есть.
 \t\tprovince_definition = {{
@@ -9723,17 +9849,39 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {gap}\t\t\t}}
 \t\t}}
 \t}}
+\t# **И то же самое по всей выбранной земле, а не только внутри провинции.**
+\t# Провинция была выбрана из соображения «бонус от РГО соседский», и это
+\t# соображение надо проверить, а не принять: если по всей земле граница
+\t# сильно больше, значит обмен нужен другой -- между провинциями, -- и
+\t# строить надо не то, что задумано. Владелец, 2026-09-09: «возможно в
+\t# какой-то другой ситуации прирост будет значительно больше».
+\tset_global_variable = {{ name = {MOD_ID}_rp_best value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{ has_variable = {MOD_ID}_load }}
+{best}\t}}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{
+\t\t\thas_variable = {MOD_ID}_load
+\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+\t\t}}
+{lgap}\t}}
 """)
     out.append(park(1, f"{MOD_ID}_rp_bound"))
     out.append(park(2, f"{MOD_ID}_rp_moves"))
     out.append(park(3, f"{MOD_ID}_rp_right"))
     out.append(park(4, f"{MOD_ID}_plan_gain"))
     out.append(park(5, f"{MOD_ID}_plan_placed"))
+    out.append(park(6, f"{MOD_ID}_rp_lbound"))
+    out.append(park(7, f"{MOD_ID}_rp_lmoves"))
     out.append(say(f"SHUFFLE bound={read(1)} moves={read(2)} in_charter_towns={read(3)}"
+                   f" | land_bound={read(6)} land_moves={read(7)}"
                    f" | gain_now={read(4)} placed={read(5)} -- bound is the ceiling "
                    f"a within-province reshuffle could add, out of {RANK_SCALE} a "
-                   f"building; it ignores that two buildings cannot share a room, "
-                   f"so the real trade is always less"))
+                   f"building; land_bound is the same with no province limit at all. "
+                   f"Both ignore that two buildings cannot share a room, so a real "
+                   f"trade is always less"))
     out.append("}\n")
     return "".join(out)
 
@@ -10484,7 +10632,9 @@ def main() -> int:
         f"# Scope: country\n{MOD_ID}_show_{name} = {{ value = global_var:{MOD_ID}_{name} }}\n"
         for name in ("sum_min", "sum_max", "sum_zero", "sum_full", "sum_goods",
                      "sum_tmin", "sum_tmax", "sum_tg",
-                     "sum_rmin", "sum_rmax", "sum_rg")))
+                     "sum_rmin", "sum_rmax", "sum_rg",
+                     # Что дала последняя «Перетасовка».
+                     "ps_gain")))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent) + "".join(
