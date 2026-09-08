@@ -22804,6 +22804,24 @@ bag_wtp_plan_set_quota = {
 		change_global_variable = { name = bag_wtp_plan_quota divide = bag_wtp_plan_scored_value }
 	}
 	change_global_variable = { name = bag_wtp_plan_quota max = 1 }
+	bag_wtp_plan_set_caps = yes
+}
+
+# Потолки каждого товара — **выведенные заново из трёх растущих чисел**, а не
+# подправленные на единицу.
+#
+# **Сухой круг раньше прибавлял единицу каждому потолку, и это размывало скидку
+# за РГО.** Северная Германия, 2026-09-08: у прядильных 21 своё РГО, городской
+# потолок на старте 15-21 = 0 — а к концу, после 35 сухих кругов, 35. Ноль
+# держал их ровно до первого сухого круга, и в города они всё-таки влезли,
+# втроём. Его вопрос: «с какого перепуга прядильные должны остаться в городах не
+# на 0, а на 3». Ни с какого.
+#
+# Теперь сухой круг поднимает **три числа** — общую долю и две доли сторон, — и
+# зовёт этот эффект; скидка за РГО вычитается из уже поднятого, то есть держит
+# всю раздачу, а не первый круг.
+# Scope: country
+bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_bq1 value = global_var:bag_wtp_plan_quota }
 	set_global_variable = { name = bag_wtp_bq2 value = global_var:bag_wtp_plan_quota }
 	set_global_variable = { name = bag_wtp_bq3 value = global_var:bag_wtp_plan_quota }
@@ -26040,152 +26058,10 @@ bag_wtp_plan_allocate = {
 			# ровными слоями, что и доля. `_plan_opensw` -- сколько раз подняли.
 			change_global_variable = { name = bag_wtp_plan_dry add = 1 }
 			change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
-			change_global_variable = { name = bag_wtp_pq1 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt1 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr1 add = 1 }
-			change_global_variable = { name = bag_wtp_pq2 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt2 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr2 add = 1 }
-			change_global_variable = { name = bag_wtp_pq3 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt3 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr3 add = 1 }
-			change_global_variable = { name = bag_wtp_pq4 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt4 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr4 add = 1 }
-			change_global_variable = { name = bag_wtp_pq5 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt5 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr5 add = 1 }
-			change_global_variable = { name = bag_wtp_pq6 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt6 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr6 add = 1 }
-			change_global_variable = { name = bag_wtp_pq7 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt7 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr7 add = 1 }
-			change_global_variable = { name = bag_wtp_pq8 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt8 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr8 add = 1 }
-			change_global_variable = { name = bag_wtp_pq9 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt9 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr9 add = 1 }
-			change_global_variable = { name = bag_wtp_pq10 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt10 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr10 add = 1 }
-			change_global_variable = { name = bag_wtp_pq11 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt11 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr11 add = 1 }
-			change_global_variable = { name = bag_wtp_pq12 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt12 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr12 add = 1 }
-			change_global_variable = { name = bag_wtp_pq13 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt13 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr13 add = 1 }
-			change_global_variable = { name = bag_wtp_pq14 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt14 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr14 add = 1 }
-			change_global_variable = { name = bag_wtp_pq15 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt15 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr15 add = 1 }
-			change_global_variable = { name = bag_wtp_pq16 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt16 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr16 add = 1 }
-			change_global_variable = { name = bag_wtp_pq17 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt17 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr17 add = 1 }
-			change_global_variable = { name = bag_wtp_pq18 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt18 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr18 add = 1 }
-			change_global_variable = { name = bag_wtp_pq19 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt19 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr19 add = 1 }
-			change_global_variable = { name = bag_wtp_pq20 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt20 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr20 add = 1 }
-			change_global_variable = { name = bag_wtp_pq21 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt21 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr21 add = 1 }
-			change_global_variable = { name = bag_wtp_pq22 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt22 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr22 add = 1 }
-			change_global_variable = { name = bag_wtp_pq23 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt23 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr23 add = 1 }
-			change_global_variable = { name = bag_wtp_pq24 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt24 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr24 add = 1 }
-			change_global_variable = { name = bag_wtp_pq25 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt25 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr25 add = 1 }
-			change_global_variable = { name = bag_wtp_pq26 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt26 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr26 add = 1 }
-			change_global_variable = { name = bag_wtp_pq27 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt27 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr27 add = 1 }
-			change_global_variable = { name = bag_wtp_pq28 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt28 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr28 add = 1 }
-			change_global_variable = { name = bag_wtp_pq29 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt29 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr29 add = 1 }
-			change_global_variable = { name = bag_wtp_pq30 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt30 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr30 add = 1 }
-			change_global_variable = { name = bag_wtp_pq31 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt31 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr31 add = 1 }
-			change_global_variable = { name = bag_wtp_pq32 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt32 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr32 add = 1 }
-			change_global_variable = { name = bag_wtp_pq33 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt33 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr33 add = 1 }
-			change_global_variable = { name = bag_wtp_pq34 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt34 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr34 add = 1 }
-			change_global_variable = { name = bag_wtp_pq35 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt35 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr35 add = 1 }
-			change_global_variable = { name = bag_wtp_pq36 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt36 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr36 add = 1 }
-			change_global_variable = { name = bag_wtp_pq37 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt37 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr37 add = 1 }
-			change_global_variable = { name = bag_wtp_pq38 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt38 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr38 add = 1 }
-			change_global_variable = { name = bag_wtp_pq39 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt39 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr39 add = 1 }
-			change_global_variable = { name = bag_wtp_pq40 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt40 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr40 add = 1 }
-			change_global_variable = { name = bag_wtp_pq41 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt41 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr41 add = 1 }
-			change_global_variable = { name = bag_wtp_pq42 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt42 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr42 add = 1 }
-			change_global_variable = { name = bag_wtp_pq43 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt43 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr43 add = 1 }
-			change_global_variable = { name = bag_wtp_pq44 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt44 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr44 add = 1 }
-			change_global_variable = { name = bag_wtp_pq45 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt45 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr45 add = 1 }
-			change_global_variable = { name = bag_wtp_pq46 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt46 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr46 add = 1 }
-			change_global_variable = { name = bag_wtp_pq47 add = 1 }
-			change_global_variable = { name = bag_wtp_pqt47 add = 1 }
-			change_global_variable = { name = bag_wtp_pqr47 add = 1 }
-			change_global_variable = { name = bag_wtp_bq1 add = 1 }
-			change_global_variable = { name = bag_wtp_bq2 add = 1 }
-			change_global_variable = { name = bag_wtp_bq3 add = 1 }
-			change_global_variable = { name = bag_wtp_bq4 add = 1 }
-			change_global_variable = { name = bag_wtp_bq5 add = 1 }
+			change_global_variable = { name = bag_wtp_plan_quota add = 1 }
+			change_global_variable = { name = bag_wtp_qcapt add = 1 }
+			change_global_variable = { name = bag_wtp_qcapr add = 1 }
+			bag_wtp_plan_set_caps = yes
 		}
 		else = { set_global_variable = { name = bag_wtp_plan_dry value = 0 } }
 		if = {

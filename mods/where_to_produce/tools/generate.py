@@ -3436,6 +3436,24 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 		change_global_variable = {{ name = {MOD_ID}_plan_quota divide = {MOD_ID}_plan_scored_value }}
 	}}
 	change_global_variable = {{ name = {MOD_ID}_plan_quota max = 1 }}
+	{MOD_ID}_plan_set_caps = yes
+}}
+
+# Потолки каждого товара — **выведенные заново из трёх растущих чисел**, а не
+# подправленные на единицу.
+#
+# **Сухой круг раньше прибавлял единицу каждому потолку, и это размывало скидку
+# за РГО.** Северная Германия, 2026-09-08: у прядильных 21 своё РГО, городской
+# потолок на старте 15-21 = 0 — а к концу, после 35 сухих кругов, 35. Ноль
+# держал их ровно до первого сухого круга, и в города они всё-таки влезли,
+# втроём. Его вопрос: «с какого перепуга прядильные должны остаться в городах не
+# на 0, а на 3». Ни с какого.
+#
+# Теперь сухой круг поднимает **три числа** — общую долю и две доли сторон, — и
+# зовёт этот эффект; скидка за РГО вычитается из уже поднятого, то есть держит
+# всю раздачу, а не первый круг.
+# Scope: country
+{MOD_ID}_plan_set_caps = {{
 {bquotas}
 
 	# **Два потолка: сколько из общей квоты можно взять на каждой стороне.**
@@ -3556,17 +3574,16 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"set_global_variable = {{ name = {MOD_ID}_lapn{lap} "
         f"value = global_var:{MOD_ID}_plan_added }} }}\n"
         for lap in range(1, DIAG_LAPS + 1))
-    raise_all = "".join(
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{i} add = 1 }}\n"
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{i} add = 1 }}\n"
-        for i in range(1, len(order) + 1))
-    # **И потолки зданий той же ступенькой.** Иначе сухой круг открывал бы
-    # товары и запирал здания, и универсальная деревня осталась бы на первой
-    # доле, пока все вокруг растут.
-    raise_all += "".join(
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_bq{k} add = 1 }}\n"
-        for k in range(1, len(shared) + 1))
+    # **Сухой круг поднимает три числа и пересчитывает потолки.** Общая доля и
+    # две доли сторон растут на единицу, а `_plan_set_caps` выводит из них всё
+    # остальное заново — потолки товаров и потолки общих зданий. Прибавлять
+    # единицу каждому потолку по отдельности было ошибкой: скидка за РГО
+    # вычиталась один раз на старте и растворялась в тридцати пяти прибавках.
+    raise_all = (
+        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_quota add = 1 }}\n"
+        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapt add = 1 }}\n"
+        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapr add = 1 }}\n"
+        f"\t\t\t{MOD_ID}_plan_set_caps = yes\n")
     out.append(f"""{lap_marks}\t\tif = {{
 \t\t\tlimit = {{
 \t\t\t\tglobal_var:{MOD_ID}_plan_added = 0
