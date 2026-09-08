@@ -3366,17 +3366,29 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # кончило на 34+11=45 вместо 43+11=54. Скидка за РГО съела ровно те места,
     # которых у него и так мало, а добрать негде: в селе всего 28 локаций.
     #
-    # **Признак — своя земля против своей доли**, `_ngt + _ngr <= _pq`. Для
-    # `medicaments` он ложен (132 городских локации против доли 64), и скидка
-    # там работает как задумано; для железа, рыбы и соли — истинен.
+    # **Признак — своя земля против доли ДО скидки**, `_ngt + _ngr <=
+    # _plan_quota`, а не против `_pq`. Его поправка, 2026-09-08, и она закрывает
+    # щель: при доле 70, десяти своих РГО и земле в 61 локацию признак по `_pq`
+    # (60) сказал бы «обычный», скидка срезала бы город, и товар ушёл бы ниже
+    # своих же шестидесяти — при том, что земли ему и так впритык. Скидка имеет
+    # смысл только там, где земли хватает на **полную** долю: тогда она решает,
+    # где долю набрать, а не сколько её отнять.
+    #
+    # Соль этим и чинится: земли 68 при доле 70 — стеснена, потолков сторон нет,
+    # 26+42 = 52 домика при `_pq` 52, всего 71 вровень со всеми. По старому
+    # признаку (68 > 52) она считалась обычной, городской потолок после скидки
+    # равнялся единице, и она кончала на 62.
+    #
+    # Для `medicaments` признак ложен (132 городских локации против доли 71), и
+    # скидка там работает как задумано.
     quota_lines = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
-\t# Своя земля минус своя доля: меньше единицы — товар стеснён.
+\t# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 \tset_global_variable = {{ name = {MOD_ID}_ngall value = global_var:{MOD_ID}_ngt{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_ngall add = global_var:{MOD_ID}_ngr{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_ngall subtract = global_var:{MOD_ID}_pq{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_ngall subtract = global_var:{MOD_ID}_plan_quota }}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ngall < 1 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_pq{index} }}

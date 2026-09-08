@@ -22849,10 +22849,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq1 subtract = global_var:bag_wtp_nrgo1 }
 	change_global_variable = { name = bag_wtp_pq1 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt1 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr1 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq1 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt1 value = global_var:bag_wtp_pq1 }
@@ -22877,10 +22877,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq2 subtract = global_var:bag_wtp_nrgo2 }
 	change_global_variable = { name = bag_wtp_pq2 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt2 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr2 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq2 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt2 value = global_var:bag_wtp_pq2 }
@@ -22905,10 +22905,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq3 subtract = global_var:bag_wtp_nrgo3 }
 	change_global_variable = { name = bag_wtp_pq3 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt3 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr3 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq3 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt3 value = global_var:bag_wtp_pq3 }
@@ -22933,10 +22933,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq4 subtract = global_var:bag_wtp_nrgo4 }
 	change_global_variable = { name = bag_wtp_pq4 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt4 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr4 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq4 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt4 value = global_var:bag_wtp_pq4 }
@@ -22961,10 +22961,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq5 subtract = global_var:bag_wtp_nrgo5 }
 	change_global_variable = { name = bag_wtp_pq5 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt5 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr5 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq5 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt5 value = global_var:bag_wtp_pq5 }
@@ -22989,10 +22989,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq6 subtract = global_var:bag_wtp_nrgo6 }
 	change_global_variable = { name = bag_wtp_pq6 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt6 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr6 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq6 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt6 value = global_var:bag_wtp_pq6 }
@@ -23017,10 +23017,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq7 subtract = global_var:bag_wtp_nrgo7 }
 	change_global_variable = { name = bag_wtp_pq7 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt7 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr7 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq7 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt7 value = global_var:bag_wtp_pq7 }
@@ -23045,10 +23045,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq8 subtract = global_var:bag_wtp_nrgo8 }
 	change_global_variable = { name = bag_wtp_pq8 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt8 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr8 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq8 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt8 value = global_var:bag_wtp_pq8 }
@@ -23073,10 +23073,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq9 subtract = global_var:bag_wtp_nrgo9 }
 	change_global_variable = { name = bag_wtp_pq9 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt9 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr9 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq9 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt9 value = global_var:bag_wtp_pq9 }
@@ -23101,10 +23101,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq10 subtract = global_var:bag_wtp_nrgo10 }
 	change_global_variable = { name = bag_wtp_pq10 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt10 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr10 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq10 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt10 value = global_var:bag_wtp_pq10 }
@@ -23129,10 +23129,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq11 subtract = global_var:bag_wtp_nrgo11 }
 	change_global_variable = { name = bag_wtp_pq11 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt11 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr11 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq11 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt11 value = global_var:bag_wtp_pq11 }
@@ -23157,10 +23157,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq12 subtract = global_var:bag_wtp_nrgo12 }
 	change_global_variable = { name = bag_wtp_pq12 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt12 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr12 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq12 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt12 value = global_var:bag_wtp_pq12 }
@@ -23185,10 +23185,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq13 subtract = global_var:bag_wtp_nrgo13 }
 	change_global_variable = { name = bag_wtp_pq13 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt13 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr13 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq13 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt13 value = global_var:bag_wtp_pq13 }
@@ -23213,10 +23213,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq14 subtract = global_var:bag_wtp_nrgo14 }
 	change_global_variable = { name = bag_wtp_pq14 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt14 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr14 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq14 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt14 value = global_var:bag_wtp_pq14 }
@@ -23241,10 +23241,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq15 subtract = global_var:bag_wtp_nrgo15 }
 	change_global_variable = { name = bag_wtp_pq15 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt15 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr15 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq15 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt15 value = global_var:bag_wtp_pq15 }
@@ -23269,10 +23269,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq16 subtract = global_var:bag_wtp_nrgo16 }
 	change_global_variable = { name = bag_wtp_pq16 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt16 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr16 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq16 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt16 value = global_var:bag_wtp_pq16 }
@@ -23297,10 +23297,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq17 subtract = global_var:bag_wtp_nrgo17 }
 	change_global_variable = { name = bag_wtp_pq17 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt17 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr17 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq17 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt17 value = global_var:bag_wtp_pq17 }
@@ -23325,10 +23325,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq18 subtract = global_var:bag_wtp_nrgo18 }
 	change_global_variable = { name = bag_wtp_pq18 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt18 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr18 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq18 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt18 value = global_var:bag_wtp_pq18 }
@@ -23353,10 +23353,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq19 subtract = global_var:bag_wtp_nrgo19 }
 	change_global_variable = { name = bag_wtp_pq19 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt19 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr19 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq19 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt19 value = global_var:bag_wtp_pq19 }
@@ -23381,10 +23381,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq20 subtract = global_var:bag_wtp_nrgo20 }
 	change_global_variable = { name = bag_wtp_pq20 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt20 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr20 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq20 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt20 value = global_var:bag_wtp_pq20 }
@@ -23409,10 +23409,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq21 subtract = global_var:bag_wtp_nrgo21 }
 	change_global_variable = { name = bag_wtp_pq21 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt21 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr21 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq21 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt21 value = global_var:bag_wtp_pq21 }
@@ -23437,10 +23437,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq22 subtract = global_var:bag_wtp_nrgo22 }
 	change_global_variable = { name = bag_wtp_pq22 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt22 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr22 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq22 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt22 value = global_var:bag_wtp_pq22 }
@@ -23465,10 +23465,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq23 subtract = global_var:bag_wtp_nrgo23 }
 	change_global_variable = { name = bag_wtp_pq23 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt23 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr23 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq23 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt23 value = global_var:bag_wtp_pq23 }
@@ -23493,10 +23493,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq24 subtract = global_var:bag_wtp_nrgo24 }
 	change_global_variable = { name = bag_wtp_pq24 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt24 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr24 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq24 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt24 value = global_var:bag_wtp_pq24 }
@@ -23521,10 +23521,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq25 subtract = global_var:bag_wtp_nrgo25 }
 	change_global_variable = { name = bag_wtp_pq25 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt25 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr25 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq25 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt25 value = global_var:bag_wtp_pq25 }
@@ -23549,10 +23549,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq26 subtract = global_var:bag_wtp_nrgo26 }
 	change_global_variable = { name = bag_wtp_pq26 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt26 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr26 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq26 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt26 value = global_var:bag_wtp_pq26 }
@@ -23577,10 +23577,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq27 subtract = global_var:bag_wtp_nrgo27 }
 	change_global_variable = { name = bag_wtp_pq27 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt27 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr27 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq27 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt27 value = global_var:bag_wtp_pq27 }
@@ -23605,10 +23605,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq28 subtract = global_var:bag_wtp_nrgo28 }
 	change_global_variable = { name = bag_wtp_pq28 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt28 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr28 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq28 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt28 value = global_var:bag_wtp_pq28 }
@@ -23633,10 +23633,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq29 subtract = global_var:bag_wtp_nrgo29 }
 	change_global_variable = { name = bag_wtp_pq29 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt29 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr29 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq29 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt29 value = global_var:bag_wtp_pq29 }
@@ -23661,10 +23661,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq30 subtract = global_var:bag_wtp_nrgo30 }
 	change_global_variable = { name = bag_wtp_pq30 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt30 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr30 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq30 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt30 value = global_var:bag_wtp_pq30 }
@@ -23689,10 +23689,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq31 subtract = global_var:bag_wtp_nrgo31 }
 	change_global_variable = { name = bag_wtp_pq31 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt31 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr31 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq31 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt31 value = global_var:bag_wtp_pq31 }
@@ -23717,10 +23717,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq32 subtract = global_var:bag_wtp_nrgo32 }
 	change_global_variable = { name = bag_wtp_pq32 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt32 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr32 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq32 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt32 value = global_var:bag_wtp_pq32 }
@@ -23745,10 +23745,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq33 subtract = global_var:bag_wtp_nrgo33 }
 	change_global_variable = { name = bag_wtp_pq33 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt33 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr33 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq33 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt33 value = global_var:bag_wtp_pq33 }
@@ -23773,10 +23773,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq34 subtract = global_var:bag_wtp_nrgo34 }
 	change_global_variable = { name = bag_wtp_pq34 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt34 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr34 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq34 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt34 value = global_var:bag_wtp_pq34 }
@@ -23801,10 +23801,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq35 subtract = global_var:bag_wtp_nrgo35 }
 	change_global_variable = { name = bag_wtp_pq35 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt35 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr35 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq35 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt35 value = global_var:bag_wtp_pq35 }
@@ -23829,10 +23829,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq36 subtract = global_var:bag_wtp_nrgo36 }
 	change_global_variable = { name = bag_wtp_pq36 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt36 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr36 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq36 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt36 value = global_var:bag_wtp_pq36 }
@@ -23857,10 +23857,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq37 subtract = global_var:bag_wtp_nrgo37 }
 	change_global_variable = { name = bag_wtp_pq37 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt37 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr37 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq37 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt37 value = global_var:bag_wtp_pq37 }
@@ -23885,10 +23885,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq38 subtract = global_var:bag_wtp_nrgo38 }
 	change_global_variable = { name = bag_wtp_pq38 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt38 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr38 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq38 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt38 value = global_var:bag_wtp_pq38 }
@@ -23913,10 +23913,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq39 subtract = global_var:bag_wtp_nrgo39 }
 	change_global_variable = { name = bag_wtp_pq39 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt39 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr39 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq39 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt39 value = global_var:bag_wtp_pq39 }
@@ -23941,10 +23941,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq40 subtract = global_var:bag_wtp_nrgo40 }
 	change_global_variable = { name = bag_wtp_pq40 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt40 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr40 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq40 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt40 value = global_var:bag_wtp_pq40 }
@@ -23969,10 +23969,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq41 subtract = global_var:bag_wtp_nrgo41 }
 	change_global_variable = { name = bag_wtp_pq41 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt41 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr41 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq41 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt41 value = global_var:bag_wtp_pq41 }
@@ -23997,10 +23997,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq42 subtract = global_var:bag_wtp_nrgo42 }
 	change_global_variable = { name = bag_wtp_pq42 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt42 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr42 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq42 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt42 value = global_var:bag_wtp_pq42 }
@@ -24025,10 +24025,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq43 subtract = global_var:bag_wtp_nrgo43 }
 	change_global_variable = { name = bag_wtp_pq43 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt43 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr43 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq43 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt43 value = global_var:bag_wtp_pq43 }
@@ -24053,10 +24053,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq44 subtract = global_var:bag_wtp_nrgo44 }
 	change_global_variable = { name = bag_wtp_pq44 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt44 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr44 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq44 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt44 value = global_var:bag_wtp_pq44 }
@@ -24081,10 +24081,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq45 subtract = global_var:bag_wtp_nrgo45 }
 	change_global_variable = { name = bag_wtp_pq45 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt45 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr45 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq45 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt45 value = global_var:bag_wtp_pq45 }
@@ -24109,10 +24109,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq46 subtract = global_var:bag_wtp_nrgo46 }
 	change_global_variable = { name = bag_wtp_pq46 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt46 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr46 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq46 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt46 value = global_var:bag_wtp_pq46 }
@@ -24137,10 +24137,10 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq47 subtract = global_var:bag_wtp_nrgo47 }
 	change_global_variable = { name = bag_wtp_pq47 max = 1 }
-	# Своя земля минус своя доля: меньше единицы — товар стеснён.
+	# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
 	set_global_variable = { name = bag_wtp_ngall value = global_var:bag_wtp_ngt47 }
 	change_global_variable = { name = bag_wtp_ngall add = global_var:bag_wtp_ngr47 }
-	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_pq47 }
+	change_global_variable = { name = bag_wtp_ngall subtract = global_var:bag_wtp_plan_quota }
 	if = {
 		limit = { global_var:bag_wtp_ngall < 1 }
 		set_global_variable = { name = bag_wtp_pqt47 value = global_var:bag_wtp_pq47 }
