@@ -32,23 +32,19 @@ rank and outlives a save.**
 единицу, товар берёт один домик за круг, **полоса выгоды решает «где», а не
 «сколько»**
 ([`plan_as_reservation.md`](../../docs/investigations/plan_as_reservation.md)).
-**Весов город/село нет и не будет**, и **выхлоп сторону не различает**
-([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
-**Правила редактора, доливки, рядов, «Специализации» и сводки — выписаны**:
-[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md); устройство —
+**Весов город/село нет и не будет.**
+**Правила редактора, доливки, рядов, «Специализации» и сводки**:
+[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md),
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**Мера равномерности — `n + rgo`**, разбор печатает `tools/diag.py`; по ней
-снята резервация
+**Мера равномерности — `n + rgo`**, разбор печатает `tools/diag.py`
 ([`archive/plan_reservation.md`](../../docs/archive/plan_reservation.md)).
 
-**Деревня — одно здание на несколько товаров**, и локация держит по одному
-каждого вида. **Такое здание идёт по кругу как однотоварное** — свой уровень и
-свой потолок; однотоварные (фермерская деревня) держит квота их товара
-([`plan_villages.md`](../../docs/investigations/plan_villages.md)).
-
-**«Все по 60» невозможно**: среднее = комнаты ÷ товары, и порядок раздачи
-разрыва не меняет
+**Деревня — одно здание на несколько товаров**, локация держит по одному
+каждого вида, и такое здание идёт по кругу как однотоварное — свой уровень и
+свой потолок
+([`plan_villages.md`](../../docs/investigations/plan_villages.md)). **Порядок
+раздачи разрыва не меняет**
 ([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
 
 **Два котла, и в сельском считаются только свои здания.** «Деревня = товар»:
@@ -56,7 +52,12 @@ rank and outlives a save.**
 `_ngr` не входят — иначе он третий лишний в делителе. В сводке там **прочерк**
 ([`plan_rural_pool.md`](../../docs/investigations/plan_rural_pool.md)).
 
-**Дальше**: прогон таблицы и сельского делителя, потом перетасовка и шаги 7–8.
+**Доля стороны решается вместе со скидкой за РГО**: наименьшее X, при котором
+`Σ min(земля, X − РГО)` накрывает **все** комнаты стороны, грамоты в том числе.
+Иначе земля недобирает ровно столько комнат, сколько на ней РГО
+([`plan_rural_pool.md`](../../docs/investigations/plan_rural_pool.md)).
+
+**Дальше**: прогон этой формулы, потом перетасовка и шаги 7–8.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is

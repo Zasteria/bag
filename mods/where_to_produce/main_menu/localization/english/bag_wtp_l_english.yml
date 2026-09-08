@@ -405,4 +405,3 @@
  bag_wtp_sum_col_rgo: "RGO"
  bag_wtp_sum_rgo_tt: "How many locations of the chosen ground already yield this good as an RGO.\n\nEach one takes a building off the good's share and off the cap of the side it lies on — one RGO is one building, the owner's rule. So a good with two RGOs finishes two buildings below the rest, and that is a deduction rather than a skew."
  bag_wtp_why_taken: "no places left — #R other goods took the ones it could use#!"
- bag_wtp_why_village_only: "it has no buildings of its own — a village makes it, and the building counts as the village's"
