@@ -2686,6 +2686,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tclear_global_variable_list = {MOD_ID}_plan_provs
 \tclear_global_variable_list = {MOD_ID}_plan_results
 {bzero}\tset_global_variable = {{ name = {MOD_ID}_plan_placed value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pt value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pr value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_fed value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_gain value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_scored value = 0 }}
@@ -3135,6 +3137,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_pn{index} add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_pn{side}{index} add = 1 }}
+\t\t\t# **И сколько комнат занято на этой стороне.** Сухой круг поднимает
+\t\t\t# долю только той стороны, где ещё есть куда ставить: сторон две, и
+\t\t\t# растить их вместе значило растить городскую долю ради сельских
+\t\t\t# комнат — на северной Германии это давало потолок 20 там, где товар
+\t\t\t# доходил до 18.
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_p{side} add = 1 }}
 {bcount}
 \t\t\t# **What this building gets out of standing here**, which is the question
 \t\t\t# the owner asked of the whole plan on 2026-09-02: «какой процент из них
@@ -3577,6 +3585,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_qgo value = 0 }}
 \t\t}}
 \t}}
+\t# **И на единицу ниже найденного.** Цикл возвращает наименьшее X, при котором
+\t# ёмкость накрывает комнаты, — а накрывает она с запасом: 35 товаров на 528
+\t# городских комнат нацело не делятся, и при X=20 потолков выходит на 577
+\t# домиков. Тогда потолок в таблице стоит на 2-3 выше того, до чего товар
+\t# доходит. Начинать надо снизу и дать сухому кругу дойти ровно до той доли,
+\t# на которой земля заполнилась: он поднимает по единице, а последнюю,
+\t# никому не доставшуюся, раздача в конце отменяет. Тогда «доля» и есть то,
+\t# что товар получает.
+\tchange_global_variable = {{ name = {MOD_ID}_{cap} subtract = 1 }}
 \tchange_global_variable = {{ name = {MOD_ID}_{cap} max = 1 }}
 """
     villages_ = village_entities(rows, split, game)
@@ -3682,54 +3699,87 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # **У стеснённой стороны потолка нет вовсе.** Если земли товара на этой
     # стороне не больше её доли, делить ему нечего и любой потолок только
     # отнимает — железо с 15 городами и 28 сёлами при долях 23 и 48 берёт всё.
+    # **Три равенства, которые эта дюжина строк держит.** Владелец, 2026-09-08:
+    # «арифметика любит красоту».
+    #
+    #     доля           = доля города + доля села        (три числа на таблицу)
+    #     доля − РГО     = доля город + доля село         (везде, где земля даёт)
+    #     домиков + РГО  = доля                           (везде, где земля даёт)
+    #
+    # **Перелив.** Доля стороны, которую своя земля не может принять, уходит на
+    # другую: у соли 42 сельских локации при сельской доле 55, и тринадцать её
+    # доли годятся только в городе. Без перелива соль кончала на 42 при доле 56.
+    #
+    # **Скидка за РГО срезает город первым** — его правило: «в городах мне не
+    # будет тыкаться глина, пока РГО хватает для этого перевеса». **Но не
+    # глубже, чем село способно добрать**: если селу не хватает земли на всю
+    # `_pq`, недостача возвращается городу. Иначе скидка отнимает домики,
+    # которых товару и так не досталось.
+    #
+    # **Стеснённой стороны как особого случая больше нет.** Она делала
+    # `_pqt = _pqr = _pq` у товара, стеснённого с обеих сторон, и он ставил
+    # `_pq` **на каждой**: камень 73 домика при квоте 62 и 88 «с РГО» против 75
+    # у всех (прогон 2026-09-08). Перелив делает ту же работу без этой дыры.
     quota_lines = "".join(
-        f"""\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = 0 }}
+        f"""\tset_global_variable = {{ name = {MOD_ID}_qsct value = 0 }}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ngt{index} > 0 }}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qsct value = global_var:{MOD_ID}_qcapt }}
 \t}}
-\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_qscr value = 0 }}
 """ + (f"""\tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ngr{index} > 0 }}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qscr value = global_var:{MOD_ID}_qcapr }}
 \t}}
-""" if index in own_rural else "") + f"""\t# Доля до скидки: сумма долей тех сторон, где товар вообще умеет.
-\tset_global_variable = {{ name = {MOD_ID}_pqraw{index} value = global_var:{MOD_ID}_pqt{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqraw{index} add = global_var:{MOD_ID}_pqr{index} }}
+""" if index in own_rural else "") + f"""\t# Доля до скидки: сумма долей тех сторон, где товар умеет. Перелив её не
+\t# меняет — это по-прежнему одно из трёх чисел таблицы.
+\tset_global_variable = {{ name = {MOD_ID}_pqraw{index} value = global_var:{MOD_ID}_qsct }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqraw{index} add = global_var:{MOD_ID}_qscr }}
+\t# Перелив в обе стороны, город после села — землю проверяем ещё раз.
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qsct > global_var:{MOD_ID}_ngt{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qeff value = global_var:{MOD_ID}_qsct }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qeff subtract = global_var:{MOD_ID}_ngt{index} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qscr add = global_var:{MOD_ID}_qeff }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qsct value = global_var:{MOD_ID}_ngt{index} }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qscr > global_var:{MOD_ID}_ngr{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qeff value = global_var:{MOD_ID}_qscr }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qeff subtract = global_var:{MOD_ID}_ngr{index} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_qsct add = global_var:{MOD_ID}_qeff }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qscr value = global_var:{MOD_ID}_ngr{index} }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_qsct > global_var:{MOD_ID}_ngt{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qsct value = global_var:{MOD_ID}_ngt{index} }}
+\t}}
+\t# Общая квота: доля минус свои РГО, но не ниже одного.
 \tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_pqraw{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
-\t# Скидка срезает сначала городскую сторону, остаток уходит в сельскую.
+\t# Городской потолок: своя доля минус РГО, но не ниже того, что село не добирает.
+\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qsct }}
 \tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
-\tset_global_variable = {{ name = {MOD_ID}_rgleft value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_qeff value = global_var:{MOD_ID}_pq{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_qeff subtract = global_var:{MOD_ID}_qscr }}
 \tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} < 0 }}
-\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = global_var:{MOD_ID}_pqt{index} }}
+\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} < global_var:{MOD_ID}_qeff }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qeff }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} > global_var:{MOD_ID}_qsct }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qsct }}
 \t}}
 \tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 0 }}
-\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} add = global_var:{MOD_ID}_rgleft }}
+\t# Сельский потолок: всё, что осталось от общей квоты, но не больше своей земли.
+\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_pq{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} subtract = global_var:{MOD_ID}_pqt{index} }}
 \tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_ngr{index} > 0 }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
+\t\tlimit = {{ global_var:{MOD_ID}_pqr{index} > global_var:{MOD_ID}_qscr }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qscr }}
 \t}}
 \tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 0 }}
-\t# стеснённая сторона: потолка нет. Стороны, которой у товара нет, это не
-\t# касается -- её потолок остаётся нулём, иначе шерсть получала бы городской
-\t# потолок 10 при нуле городских мест.
-\tif = {{
-\t\tlimit = {{
-\t\t\tglobal_var:{MOD_ID}_ngt{index} > 0
-\t\t\tNOT = {{ global_var:{MOD_ID}_ngt{index} > global_var:{MOD_ID}_qcapt }}
-\t\t}}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_pq{index} }}
-\t}}
-\tif = {{
-\t\tlimit = {{
-\t\t\tglobal_var:{MOD_ID}_ngr{index} > 0
-\t\t\tNOT = {{ global_var:{MOD_ID}_ngr{index} > global_var:{MOD_ID}_qcapr }}
-\t\t}}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_pq{index} }}
-\t}}
 """
         for index in range(1, len(order) + 1))
     out.append(f"""
@@ -3926,25 +3976,36 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # Прибавлять единицу каждому потолку по отдельности было ошибкой: скидка
     # за РГО вычиталась один раз на старте и растворялась в прибавках.
     raise_all = (
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_quota add = 1 }}\n"
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapt add = 1 }}\n"
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapr add = 1 }}\n"
-        f"\t\t\t{MOD_ID}_plan_set_caps = yes\n")
+        f"\t\t\t\tremove_global_variable = {MOD_ID}_qrt\n"
+        f"\t\t\t\tremove_global_variable = {MOD_ID}_qrr\n"
+        f"\t\t\t\tif = {{\n"
+        f"\t\t\t\t\tlimit = {{ global_var:{MOD_ID}_plan_pt < global_var:{MOD_ID}_prooms_t }}\n"
+        f"\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapt add = 1 }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_qrt value = 1 }}\n"
+        f"\t\t\t\t}}\n"
+        f"\t\t\t\tif = {{\n"
+        f"\t\t\t\t\tlimit = {{ global_var:{MOD_ID}_plan_pr < global_var:{MOD_ID}_prooms_r }}\n"
+        f"\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapr add = 1 }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_qrr value = 1 }}\n"
+        f"\t\t\t\t}}\n"
+        f"\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_quota add = 1 }}\n"
+        f"\t\t\t\t{MOD_ID}_plan_set_caps = yes\n")
     out.append(f"""{lap_marks}\t\tif = {{
 \t\t\tlimit = {{
 \t\t\t\tglobal_var:{MOD_ID}_plan_added = 0
 \t\t\t\tglobal_var:{MOD_ID}_plan_lvl > global_var:{MOD_ID}_plan_top
 \t\t\t}}
 \t\t\t# **Сухой круг открывает квоту, и это вся бывшая открытая лестница.**
-\t\t\t# Поднимаются все квоты разом, поэтому остаток земли расходится теми же
-\t\t\t# ровными слоями, что и доля. `_plan_opensw` -- сколько раз подняли.
+\t\t\t# Поднимается доля **той стороны, где ещё остались комнаты**, и только
+\t\t\t# она: сторон две, и растить их вместе значит растить городскую долю
+\t\t\t# ради сельских комнат. На северной Германии это давало городской
+\t\t\t# потолок 20 там, где товар доходил до 18. `_plan_opensw` -- сколько
+\t\t\t# раз поднимали.
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_dry add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}
-\t\t\t# **Последний сухой круг долю не поднимает.** Он тот, на котором
-\t\t\t# раздача кончается, и его прибавка уже никому не достаётся — зато
-\t\t\t# в отчёте товар после неё выглядит недобравшим на единицу: доля 55
-\t\t\t# при 54 домиках. Его наблюдение, 2026-09-08: «они набирают своя
-\t\t\t# доля минус один».
+\t\t\t# **Второй сухой круг подряд не поднимает ничего** -- он тот, на
+\t\t\t# котором раздача кончается. Прибавку первого, если она никому не
+\t\t\t# досталась, отменяет блок ниже.
 \t\t\tif = {{
 \t\t\t\tlimit = {{ global_var:{MOD_ID}_plan_dry < 2 }}
 {raise_all}\t\t\t}}
@@ -3952,6 +4013,24 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\telse = {{ set_global_variable = {{ name = {MOD_ID}_plan_dry value = 0 }} }}
 \t\tif = {{
 \t\t\tlimit = {{ global_var:{MOD_ID}_plan_dry > 1 }}
+\t\t\t# **Последняя прибавка отменяется, потому что она никому не досталась.**
+\t\t\t# Раздача кончается двумя пустыми кругами подряд, а прибавку сделал
+\t\t\t# первый из них — значит она заведомо не дала ни одного домика, и доля
+\t\t\t# на экране оказывалась на единицу выше достижимой. Его слова,
+\t\t\t# 2026-09-08: «недочёты или переборы по +1 −1 в каждой строке
+\t\t\t# достаточно сильно мне не нравятся». Отменяем ровно её: всё, что
+\t\t\t# поставлено, поставлено на предыдущем уровне доли.
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_quota subtract = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_global_variable = {MOD_ID}_qrt }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapt subtract = 1 }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_global_variable = {MOD_ID}_qrr }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapr subtract = 1 }}
+\t\t\t}}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw subtract = 1 }}
+\t\t\t{MOD_ID}_plan_set_caps = yes
 \t\t\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 0 }}
 \t\t}}
 \t}}
@@ -3997,7 +4076,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# первый. Полоса выгоды решает, в какую локацию и кто раньше внутри
 \t\t\t# круга, -- но «сколько» она больше не решает, и восемь товаров с
 \t\t\t# шестью местами каждый, кончивших план с одним домиком, -- это она.
-\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_lvl
+\t\t\t#
+\t\t\t# **Уровень считается по своей стороне, а не по обеим сразу.** Котла
+\t\t\t# два, и ровность меряется в каждом отдельно; общий счётчик выбивал из
+\t\t\t# городского круга того, кто уже набрал в селе. Соль, 2026-09-08: 42
+\t\t\t# сельских домика разом (проход стеснённых) подняли её общий счёт выше
+\t\t\t# уровня, и к тому кругу, когда уровень её догнал, городов не осталось
+\t\t\t# ни одного — 0 при городском потолке 14.
+\t\t\tglobal_var:{MOD_ID}_pn{sfx}{index} < global_var:{MOD_ID}_plan_lvl
 \t\t\t# **Квота своей стороны, и она про сторону, а не про равномерность.**
 \t\t\t# Городская комната и сельская не взаимозаменяемы, поэтому у товара
 \t\t\t# два счётчика: городские домики сравниваются с городскими остальных,
@@ -4096,6 +4182,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed add = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_pr add = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_bn{b} add = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_gain add = var:{MOD_ID}_vb{k} }}
 \t\tif = {{
@@ -4184,17 +4271,27 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 out.append(f"""\tif = {{
 \t\tlimit = {{
 \t\t\tglobal_var:{MOD_ID}_ng{sfx}{index} > 0
-\t\t\tNOT = {{ global_var:{MOD_ID}_ng{sfx}{index} > global_var:{MOD_ID}_qcap{sfx} }}
+\t\t\tNOT = {{ global_var:{MOD_ID}_ng{sfx}{index} > global_var:{MOD_ID}_pq{sfx}{index} }}
 \t\t\tglobal_var:{MOD_ID}_ng{sfx}{index} <= global_var:{MOD_ID}_plan_tier
 \t\t}}
+\t\t# **Проход стеснённых тоже держит квоту.** Он ставил домик в **каждую**
+\t\t# подходящую локацию и не спрашивал ничего: камень, стеснённый с обеих
+\t\t# сторон, взял 20 городов и 53 села — 73 домика при квоте 62 и 88 «с РГО»
+\t\t# против 75 у всех (2026-09-08). `limit` пересчитывается на каждой
+\t\t# локации, так что счётчик, растущий по ходу обхода, его и останавливает.
 \t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
-\t\t\tlimit = {{ {MOD_ID}_plan_can_{listname}_{index} = yes }}
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_plan_can_{listname}_{index} = yes
+\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index}
+\t\t\t\tglobal_var:{MOD_ID}_pn{sfx}{index} < global_var:{MOD_ID}_pq{sfx}{index}
+\t\t\t}}
 \t\t\t{MOD_ID}_plan_try_{listname}_{index} = yes
 \t\t}}
 \t}}
 """)
     for k, building in enumerate(village_entities(rows, split, game), start=1):
+        b = shared_buildings(rows, split, game).index(building) + 1
         out.append(f"""\tif = {{
 \t\tlimit = {{
 \t\t\tglobal_var:{MOD_ID}_ngv{k} > 0
@@ -4202,7 +4299,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
-\t\t\tlimit = {{ {MOD_ID}_plan_can_village_{k} = yes }}
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_plan_can_village_{k} = yes
+\t\t\t\tglobal_var:{MOD_ID}_bn{b} < global_var:{MOD_ID}_bq{b}
+\t\t\t}}
 \t\t\t{MOD_ID}_plan_try_village_{k} = yes
 \t\t}}
 \t}}
@@ -8897,13 +8997,20 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for slot, source in enumerate((f"{MOD_ID}_prooms_t", f"{MOD_ID}_prooms_r",
                                    f"{MOD_ID}_qgt", f"{MOD_ID}_qgr",
                                    f"{MOD_ID}_qcapt", f"{MOD_ID}_qcapr",
-                                   f"{MOD_ID}_plan_quota"), start=1):
+                                   f"{MOD_ID}_plan_quota", f"{MOD_ID}_plan_pt",
+                                   f"{MOD_ID}_plan_pr"), start=1):
         out.append(park(slot, source))
+    # **`filled` -- комнаты, занятые на этой стороне.** Сухой круг поднимает долю
+    # только той стороны, где `filled < rooms`; если сторона полна, а товары
+    # стоят ниже своего потолка, её потолок и не должен расти -- делится
+    # неделимое, 528 комнат на 35 товаров.
     out.append(say("SHARE quota=%s is what a good is owed in all | town: rooms=%s "
-                   "goods=%s -> cap=%s | village: rooms=%s goods=%s -> cap=%s "
+                   "filled=%s goods=%s -> cap=%s | village: rooms=%s filled=%s "
+                   "goods=%s -> cap=%s "
                    "-- a cap adds no buildings, it stops one good draining the "
                    "scarce side"
-                   % (read(7), read(1), read(3), read(5), read(2), read(4), read(6))))
+                   % (read(7), read(1), read(8), read(3), read(5),
+                      read(2), read(9), read(4), read(6))))
     # **Доливка новой земли, и `moved` -- единственное число здесь, у которого
     # есть неправильное значение.** Ноль значит, что на старой земле не сдвинулся
     # ни один домик, то есть замок сработал; всё остальное -- что доливка полезла

@@ -505,6 +505,17 @@ def digest(lines: list[str]) -> list[str]:
         out.append("Земля: %d зданий на %d мест (%d%% заполнено), локаций %s, "
                    "провинций %s" % (placed, rooms, round(100 * placed / rooms),
                                      field(pas, "used_locs"), field(pas, "provs")))
+        # **И по сторонам отдельно.** Доля стороны растёт, пока на ней есть
+        # свободные комнаты, поэтому «сколько занято из скольких» на каждой
+        # стороне -- это первое, на что смотреть, если товары стоят ниже своего
+        # потолка: полная сторона объясняет это без всякой формулы.
+        share = first("WTP SHARE")
+        fills = re.findall(r"rooms=(\d+) filled=(\d+)", share or "")
+        if len(fills) == 2:
+            out.append("  по сторонам: город %s из %s, село %s из %s%s"
+                       % (fills[0][1], fills[0][0], fills[1][1], fills[1][0],
+                          "" if all(a == b for a, b in fills)
+                          else " -- сторона не заполнилась, смотри «упёрлись»"))
     fed, total = field(gain, "fed"), field(gain, "gain_total")
     if fed is not None and placed:
         out.append("Выгода от места: %d зданий из %d (%d%%) что-то получают от "
