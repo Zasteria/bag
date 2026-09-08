@@ -7,6 +7,7 @@
 # Scope: location
 bag_wtp_edit_fits_town_1 = {
 	var:bag_wtp_pm1 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
 	OR = {
@@ -23,6 +24,7 @@ bag_wtp_edit_fits_town_1 = {
 # Scope: location
 bag_wtp_edit_fits_town_2 = {
 	var:bag_wtp_pm2 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
 	OR = {
@@ -39,6 +41,7 @@ bag_wtp_edit_fits_town_2 = {
 # Scope: location
 bag_wtp_edit_fits_town_3 = {
 	var:bag_wtp_pm3 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
 	OR = {
@@ -55,6 +58,7 @@ bag_wtp_edit_fits_town_3 = {
 # Scope: location
 bag_wtp_edit_fits_town_4 = {
 	var:bag_wtp_pm4 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } }
 	OR = {
@@ -90,6 +94,7 @@ bag_wtp_edit_fits_town_4 = {
 # Scope: location
 bag_wtp_edit_fits_town_5 = {
 	var:bag_wtp_pm5 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
 	OR = {
@@ -115,6 +120,7 @@ bag_wtp_edit_fits_town_6 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_town_7 = {
 	var:bag_wtp_pm7 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
 	OR = {
@@ -131,6 +137,7 @@ bag_wtp_edit_fits_town_7 = {
 # Scope: location
 bag_wtp_edit_fits_town_8 = {
 	var:bag_wtp_pm8 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
 	OR = {
@@ -147,6 +154,7 @@ bag_wtp_edit_fits_town_8 = {
 # Scope: location
 bag_wtp_edit_fits_town_9 = {
 	var:bag_wtp_pm9 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } }
 	OR = {
@@ -163,6 +171,7 @@ bag_wtp_edit_fits_town_9 = {
 # Scope: location
 bag_wtp_edit_fits_town_10 = {
 	var:bag_wtp_pm10 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
 	OR = {
@@ -191,6 +200,7 @@ bag_wtp_edit_fits_town_12 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_town_13 = {
 	var:bag_wtp_pm13 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
 	OR = {
@@ -207,6 +217,7 @@ bag_wtp_edit_fits_town_13 = {
 # Scope: location
 bag_wtp_edit_fits_town_14 = {
 	var:bag_wtp_pm14 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } }
 	OR = {
@@ -224,6 +235,7 @@ bag_wtp_edit_fits_town_14 = {
 # Scope: location
 bag_wtp_edit_fits_town_15 = {
 	var:bag_wtp_pm15 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
 	OR = {
@@ -240,6 +252,7 @@ bag_wtp_edit_fits_town_15 = {
 # Scope: location
 bag_wtp_edit_fits_town_16 = {
 	var:bag_wtp_pm16 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } }
 	OR = {
@@ -274,6 +287,7 @@ bag_wtp_edit_fits_town_16 = {
 # Scope: location
 bag_wtp_edit_fits_town_17 = {
 	var:bag_wtp_pm17 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
 	OR = {
@@ -290,6 +304,7 @@ bag_wtp_edit_fits_town_17 = {
 # Scope: location
 bag_wtp_edit_fits_town_18 = {
 	var:bag_wtp_pm18 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } }
 	OR = {
@@ -312,6 +327,7 @@ bag_wtp_edit_fits_town_18 = {
 # Scope: location
 bag_wtp_edit_fits_town_19 = {
 	var:bag_wtp_pm19 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
 	OR = {
@@ -328,6 +344,7 @@ bag_wtp_edit_fits_town_19 = {
 # Scope: location
 bag_wtp_edit_fits_town_20 = {
 	var:bag_wtp_pm20 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
 	OR = {
@@ -345,6 +362,7 @@ bag_wtp_edit_fits_town_20 = {
 # Scope: location
 bag_wtp_edit_fits_town_21 = {
 	var:bag_wtp_pm21 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
 	OR = {
@@ -361,6 +379,7 @@ bag_wtp_edit_fits_town_21 = {
 # Scope: location
 bag_wtp_edit_fits_town_22 = {
 	var:bag_wtp_pm22 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
 	OR = {
@@ -380,6 +399,7 @@ bag_wtp_edit_fits_town_23 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_town_24 = {
 	var:bag_wtp_pm24 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } }
 	OR = {
@@ -409,6 +429,7 @@ bag_wtp_edit_fits_town_25 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_town_26 = {
 	var:bag_wtp_pm26 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
 	OR = {
@@ -455,6 +476,7 @@ bag_wtp_edit_fits_town_26 = {
 # Scope: location
 bag_wtp_edit_fits_town_27 = {
 	var:bag_wtp_pm27 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } }
 	OR = {
@@ -489,6 +511,7 @@ bag_wtp_edit_fits_town_27 = {
 # Scope: location
 bag_wtp_edit_fits_town_28 = {
 	var:bag_wtp_pm28 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } }
 	OR = {
@@ -536,6 +559,7 @@ bag_wtp_edit_fits_town_28 = {
 # Scope: location
 bag_wtp_edit_fits_town_29 = {
 	var:bag_wtp_pm29 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
 	OR = {
@@ -578,6 +602,7 @@ bag_wtp_edit_fits_town_29 = {
 # Scope: location
 bag_wtp_edit_fits_town_30 = {
 	var:bag_wtp_pm30 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } }
 	OR = {
@@ -638,6 +663,7 @@ bag_wtp_edit_fits_town_30 = {
 # Scope: location
 bag_wtp_edit_fits_town_31 = {
 	var:bag_wtp_pm31 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } }
 	OR = {
@@ -686,6 +712,7 @@ bag_wtp_edit_fits_town_31 = {
 # Scope: location
 bag_wtp_edit_fits_town_32 = {
 	var:bag_wtp_pm32 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } }
 	OR = {
@@ -720,6 +747,7 @@ bag_wtp_edit_fits_town_32 = {
 # Scope: location
 bag_wtp_edit_fits_town_33 = {
 	var:bag_wtp_pm33 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
 	OR = {
@@ -755,6 +783,7 @@ bag_wtp_edit_fits_town_33 = {
 # Scope: location
 bag_wtp_edit_fits_town_34 = {
 	var:bag_wtp_pm34 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
 	OR = {
@@ -788,6 +817,7 @@ bag_wtp_edit_fits_town_34 = {
 # Scope: location
 bag_wtp_edit_fits_town_35 = {
 	var:bag_wtp_pm35 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } }
 	OR = {
@@ -810,6 +840,7 @@ bag_wtp_edit_fits_town_35 = {
 # Scope: location
 bag_wtp_edit_fits_town_36 = {
 	var:bag_wtp_pm36 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
 	OR = {
@@ -848,6 +879,7 @@ bag_wtp_edit_fits_town_36 = {
 # Scope: location
 bag_wtp_edit_fits_town_37 = {
 	var:bag_wtp_pm37 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } }
 	OR = {
@@ -898,6 +930,7 @@ bag_wtp_edit_fits_town_37 = {
 # Scope: location
 bag_wtp_edit_fits_town_38 = {
 	var:bag_wtp_pm38 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
 	OR = {
@@ -921,6 +954,7 @@ bag_wtp_edit_fits_town_38 = {
 # Scope: location
 bag_wtp_edit_fits_town_39 = {
 	var:bag_wtp_pm39 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
 	OR = {
@@ -955,6 +989,7 @@ bag_wtp_edit_fits_town_39 = {
 # Scope: location
 bag_wtp_edit_fits_town_40 = {
 	var:bag_wtp_pm40 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } }
 	OR = {
@@ -993,6 +1028,7 @@ bag_wtp_edit_fits_town_40 = {
 # Scope: location
 bag_wtp_edit_fits_town_41 = {
 	var:bag_wtp_pm41 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } }
 	OR = {
@@ -1015,6 +1051,7 @@ bag_wtp_edit_fits_town_41 = {
 # Scope: location
 bag_wtp_edit_fits_town_42 = {
 	var:bag_wtp_pm42 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
 	OR = {
@@ -1049,6 +1086,7 @@ bag_wtp_edit_fits_town_42 = {
 # Scope: location
 bag_wtp_edit_fits_town_43 = {
 	var:bag_wtp_pm43 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
 	OR = {
@@ -1065,6 +1103,7 @@ bag_wtp_edit_fits_town_43 = {
 # Scope: location
 bag_wtp_edit_fits_town_44 = {
 	var:bag_wtp_pm44 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } }
 	OR = {
@@ -1081,6 +1120,7 @@ bag_wtp_edit_fits_town_44 = {
 # Scope: location
 bag_wtp_edit_fits_town_45 = {
 	var:bag_wtp_pm45 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
 	OR = {
@@ -1097,6 +1137,7 @@ bag_wtp_edit_fits_town_45 = {
 # Scope: location
 bag_wtp_edit_fits_town_46 = {
 	var:bag_wtp_pm46 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
 	OR = {
@@ -1140,6 +1181,7 @@ bag_wtp_edit_fits_town_46 = {
 # Scope: location
 bag_wtp_edit_fits_town_47 = {
 	var:bag_wtp_pm47 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
 	OR = {
@@ -1182,6 +1224,7 @@ bag_wtp_edit_fits_town_47 = {
 # Scope: location
 bag_wtp_edit_fits_rural_1 = {
 	var:bag_wtp_prm1 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
 	OR = {
@@ -1198,6 +1241,7 @@ bag_wtp_edit_fits_rural_1 = {
 # Scope: location
 bag_wtp_edit_fits_rural_2 = {
 	var:bag_wtp_prm2 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
 	OR = {
@@ -1220,6 +1264,7 @@ bag_wtp_edit_fits_rural_2 = {
 # Scope: location
 bag_wtp_edit_fits_rural_3 = {
 	var:bag_wtp_prm3 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
 	OR = {
@@ -1239,6 +1284,7 @@ bag_wtp_edit_fits_rural_4 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_5 = {
 	var:bag_wtp_prm5 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
 	OR = {
@@ -1261,6 +1307,7 @@ bag_wtp_edit_fits_rural_5 = {
 # Scope: location
 bag_wtp_edit_fits_rural_6 = {
 	var:bag_wtp_prm6 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
 	OR = {
@@ -1278,6 +1325,7 @@ bag_wtp_edit_fits_rural_6 = {
 # Scope: location
 bag_wtp_edit_fits_rural_7 = {
 	var:bag_wtp_prm7 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
 	OR = {
@@ -1294,6 +1342,7 @@ bag_wtp_edit_fits_rural_7 = {
 # Scope: location
 bag_wtp_edit_fits_rural_8 = {
 	var:bag_wtp_prm8 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
 	OR = {
@@ -1313,6 +1362,7 @@ bag_wtp_edit_fits_rural_9 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_10 = {
 	var:bag_wtp_prm10 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
 	OR = {
@@ -1335,6 +1385,7 @@ bag_wtp_edit_fits_rural_10 = {
 # Scope: location
 bag_wtp_edit_fits_rural_11 = {
 	var:bag_wtp_prm11 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } }
 	OR = {
@@ -1351,6 +1402,7 @@ bag_wtp_edit_fits_rural_11 = {
 # Scope: location
 bag_wtp_edit_fits_rural_12 = {
 	var:bag_wtp_prm12 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
 	OR = {
@@ -1367,6 +1419,7 @@ bag_wtp_edit_fits_rural_12 = {
 # Scope: location
 bag_wtp_edit_fits_rural_13 = {
 	var:bag_wtp_prm13 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
 	OR = {
@@ -1386,6 +1439,7 @@ bag_wtp_edit_fits_rural_14 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_15 = {
 	var:bag_wtp_prm15 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
 	OR = {
@@ -1405,6 +1459,7 @@ bag_wtp_edit_fits_rural_16 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_17 = {
 	var:bag_wtp_prm17 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
 	OR = {
@@ -1424,6 +1479,7 @@ bag_wtp_edit_fits_rural_18 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_19 = {
 	var:bag_wtp_prm19 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
 	OR = {
@@ -1440,6 +1496,7 @@ bag_wtp_edit_fits_rural_19 = {
 # Scope: location
 bag_wtp_edit_fits_rural_20 = {
 	var:bag_wtp_prm20 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
 	OR = {
@@ -1457,6 +1514,7 @@ bag_wtp_edit_fits_rural_20 = {
 # Scope: location
 bag_wtp_edit_fits_rural_21 = {
 	var:bag_wtp_prm21 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
 	OR = {
@@ -1473,6 +1531,7 @@ bag_wtp_edit_fits_rural_21 = {
 # Scope: location
 bag_wtp_edit_fits_rural_22 = {
 	var:bag_wtp_prm22 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
 	OR = {
@@ -1489,6 +1548,7 @@ bag_wtp_edit_fits_rural_22 = {
 # Scope: location
 bag_wtp_edit_fits_rural_23 = {
 	var:bag_wtp_prm23 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } }
 	OR = {
@@ -1508,6 +1568,7 @@ bag_wtp_edit_fits_rural_24 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_25 = {
 	var:bag_wtp_prm25 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } }
 	OR = {
@@ -1524,6 +1585,7 @@ bag_wtp_edit_fits_rural_25 = {
 # Scope: location
 bag_wtp_edit_fits_rural_26 = {
 	var:bag_wtp_prm26 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
 	OR = {
@@ -1546,6 +1608,7 @@ bag_wtp_edit_fits_rural_28 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_29 = {
 	var:bag_wtp_prm29 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
 	OR = {
@@ -1573,6 +1636,7 @@ bag_wtp_edit_fits_rural_32 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_33 = {
 	var:bag_wtp_prm33 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
 	OR = {
@@ -1589,6 +1653,7 @@ bag_wtp_edit_fits_rural_33 = {
 # Scope: location
 bag_wtp_edit_fits_rural_34 = {
 	var:bag_wtp_prm34 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
 	OR = {
@@ -1614,6 +1679,7 @@ bag_wtp_edit_fits_rural_35 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_36 = {
 	var:bag_wtp_prm36 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
 	OR = {
@@ -1633,6 +1699,7 @@ bag_wtp_edit_fits_rural_37 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_38 = {
 	var:bag_wtp_prm38 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
 	OR = {
@@ -1656,6 +1723,7 @@ bag_wtp_edit_fits_rural_38 = {
 # Scope: location
 bag_wtp_edit_fits_rural_39 = {
 	var:bag_wtp_prm39 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
 	OR = {
@@ -1678,6 +1746,7 @@ bag_wtp_edit_fits_rural_41 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_42 = {
 	var:bag_wtp_prm42 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
 	OR = {
@@ -1700,6 +1769,7 @@ bag_wtp_edit_fits_rural_42 = {
 # Scope: location
 bag_wtp_edit_fits_rural_43 = {
 	var:bag_wtp_prm43 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
 	OR = {
@@ -1719,6 +1789,7 @@ bag_wtp_edit_fits_rural_44 = { always = no }
 # Scope: location
 bag_wtp_edit_fits_rural_45 = {
 	var:bag_wtp_prm45 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
 	OR = {
@@ -1735,6 +1806,7 @@ bag_wtp_edit_fits_rural_45 = {
 # Scope: location
 bag_wtp_edit_fits_rural_46 = {
 	var:bag_wtp_prm46 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
 	OR = {
@@ -1763,6 +1835,7 @@ bag_wtp_edit_fits_rural_46 = {
 # Scope: location
 bag_wtp_edit_fits_rural_47 = {
 	var:bag_wtp_prm47 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
 	OR = {

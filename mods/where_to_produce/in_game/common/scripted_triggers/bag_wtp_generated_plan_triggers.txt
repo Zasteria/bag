@@ -11,6 +11,7 @@ bag_wtp_plan_can_town_1 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm1 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
@@ -31,6 +32,7 @@ bag_wtp_plan_can_town_2 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm2 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
@@ -51,6 +53,7 @@ bag_wtp_plan_can_town_3 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm3 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
@@ -71,6 +74,7 @@ bag_wtp_plan_can_town_4 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm4 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } }
@@ -110,6 +114,7 @@ bag_wtp_plan_can_town_5 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm5 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
@@ -142,6 +147,7 @@ bag_wtp_plan_can_town_7 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm7 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
@@ -162,6 +168,7 @@ bag_wtp_plan_can_town_8 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm8 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
@@ -182,6 +189,7 @@ bag_wtp_plan_can_town_9 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm9 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } }
@@ -202,6 +210,7 @@ bag_wtp_plan_can_town_10 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm10 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
@@ -238,6 +247,7 @@ bag_wtp_plan_can_town_13 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm13 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
@@ -260,6 +270,7 @@ bag_wtp_plan_can_town_14 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm14 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } }
@@ -281,6 +292,7 @@ bag_wtp_plan_can_town_15 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm15 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
@@ -301,6 +313,7 @@ bag_wtp_plan_can_town_16 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm16 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } }
@@ -339,6 +352,7 @@ bag_wtp_plan_can_town_17 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm17 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
@@ -359,6 +373,7 @@ bag_wtp_plan_can_town_18 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm18 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } }
@@ -385,6 +400,7 @@ bag_wtp_plan_can_town_19 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm19 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
@@ -405,6 +421,7 @@ bag_wtp_plan_can_town_20 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm20 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
@@ -426,6 +443,7 @@ bag_wtp_plan_can_town_21 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm21 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
@@ -446,6 +464,7 @@ bag_wtp_plan_can_town_22 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm22 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
@@ -470,6 +489,7 @@ bag_wtp_plan_can_town_24 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm24 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } }
@@ -504,6 +524,7 @@ bag_wtp_plan_can_town_26 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm26 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
@@ -554,6 +575,7 @@ bag_wtp_plan_can_town_27 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm27 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } }
@@ -592,6 +614,7 @@ bag_wtp_plan_can_town_28 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm28 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } }
@@ -643,6 +666,7 @@ bag_wtp_plan_can_town_29 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm29 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
@@ -689,6 +713,7 @@ bag_wtp_plan_can_town_30 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm30 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } }
@@ -753,6 +778,7 @@ bag_wtp_plan_can_town_31 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm31 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } }
@@ -805,6 +831,7 @@ bag_wtp_plan_can_town_32 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm32 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } }
@@ -843,6 +870,7 @@ bag_wtp_plan_can_town_33 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm33 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
@@ -882,6 +910,7 @@ bag_wtp_plan_can_town_34 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm34 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
@@ -919,6 +948,7 @@ bag_wtp_plan_can_town_35 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm35 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } }
@@ -945,6 +975,7 @@ bag_wtp_plan_can_town_36 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm36 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
@@ -987,6 +1018,7 @@ bag_wtp_plan_can_town_37 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm37 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } }
@@ -1041,6 +1073,7 @@ bag_wtp_plan_can_town_38 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm38 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
@@ -1070,6 +1103,7 @@ bag_wtp_plan_can_town_39 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm39 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
@@ -1108,6 +1142,7 @@ bag_wtp_plan_can_town_40 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm40 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } }
@@ -1150,6 +1185,7 @@ bag_wtp_plan_can_town_41 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm41 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } }
@@ -1176,6 +1212,7 @@ bag_wtp_plan_can_town_42 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm42 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
@@ -1214,6 +1251,7 @@ bag_wtp_plan_can_town_43 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm43 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
@@ -1234,6 +1272,7 @@ bag_wtp_plan_can_town_44 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm44 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } }
@@ -1254,6 +1293,7 @@ bag_wtp_plan_can_town_45 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm45 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
@@ -1274,6 +1314,7 @@ bag_wtp_plan_can_town_46 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm46 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
@@ -1323,6 +1364,7 @@ bag_wtp_plan_can_town_47 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_pm47 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
@@ -1371,6 +1413,7 @@ bag_wtp_plan_can_rural_1 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm1 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
@@ -1391,6 +1434,7 @@ bag_wtp_plan_can_rural_2 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm2 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
@@ -1417,6 +1461,7 @@ bag_wtp_plan_can_rural_3 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm3 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
@@ -1441,6 +1486,7 @@ bag_wtp_plan_can_rural_5 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm5 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
@@ -1473,6 +1519,7 @@ bag_wtp_plan_can_rural_7 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm7 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
@@ -1493,6 +1540,7 @@ bag_wtp_plan_can_rural_8 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm8 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
@@ -1517,6 +1565,7 @@ bag_wtp_plan_can_rural_10 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm10 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
@@ -1545,6 +1594,7 @@ bag_wtp_plan_can_rural_11 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm11 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } }
@@ -1565,6 +1615,7 @@ bag_wtp_plan_can_rural_12 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm12 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
@@ -1585,6 +1636,7 @@ bag_wtp_plan_can_rural_13 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm13 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
@@ -1611,6 +1663,7 @@ bag_wtp_plan_can_rural_15 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm15 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
@@ -1635,6 +1688,7 @@ bag_wtp_plan_can_rural_17 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm17 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
@@ -1659,6 +1713,7 @@ bag_wtp_plan_can_rural_19 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm19 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
@@ -1679,6 +1734,7 @@ bag_wtp_plan_can_rural_20 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm20 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
@@ -1700,6 +1756,7 @@ bag_wtp_plan_can_rural_21 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm21 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
@@ -1720,6 +1777,7 @@ bag_wtp_plan_can_rural_22 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm22 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
@@ -1740,6 +1798,7 @@ bag_wtp_plan_can_rural_23 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm23 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } }
@@ -1764,6 +1823,7 @@ bag_wtp_plan_can_rural_25 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm25 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } }
@@ -1796,6 +1856,7 @@ bag_wtp_plan_can_rural_29 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm29 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
@@ -1830,6 +1891,7 @@ bag_wtp_plan_can_rural_33 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm33 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
@@ -1850,6 +1912,7 @@ bag_wtp_plan_can_rural_34 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm34 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
@@ -1882,6 +1945,7 @@ bag_wtp_plan_can_rural_38 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm38 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
@@ -1927,6 +1991,7 @@ bag_wtp_plan_can_rural_43 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm43 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
@@ -1951,6 +2016,7 @@ bag_wtp_plan_can_rural_45 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm45 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
@@ -1971,6 +2037,7 @@ bag_wtp_plan_can_rural_46 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm46 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
@@ -1993,6 +2060,7 @@ bag_wtp_plan_can_rural_47 = {
 	# nothing still has a gain of zero and must still be placed: «не важно есть
 	# для них сырьё на этой земле или нет».
 	var:bag_wtp_prm47 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
@@ -2012,6 +2080,7 @@ bag_wtp_plan_can_rural_47 = {
 # Scope: location
 bag_wtp_plan_can_village_1 = {
 	var:bag_wtp_vw1 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
@@ -2035,6 +2104,7 @@ bag_wtp_plan_can_village_1 = {
 # Scope: location
 bag_wtp_plan_can_village_2 = {
 	var:bag_wtp_vw2 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
@@ -2058,6 +2128,7 @@ bag_wtp_plan_can_village_2 = {
 # Scope: location
 bag_wtp_plan_can_village_3 = {
 	var:bag_wtp_vw3 > 0
+	bag_wtp_is_granary = no
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
@@ -2088,6 +2159,7 @@ bag_wtp_plan_can_village_3 = {
 # constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_1 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_29 = yes
 		bag_wtp_plan_can_town_30 = yes
@@ -2098,6 +2170,7 @@ bag_wtp_plan_right_fits_1 = {
 # flemish_cloth_industries_right: cloth, fine_cloth. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_2 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_29 = yes
 		bag_wtp_plan_can_town_30 = yes
@@ -2107,6 +2180,7 @@ bag_wtp_plan_right_fits_2 = {
 # royal_artisan_rights: furniture, leather, pottery. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_3 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_32 = yes
 		bag_wtp_plan_can_town_36 = yes
@@ -2117,6 +2191,7 @@ bag_wtp_plan_right_fits_3 = {
 # royal_book_rights: books, dyes, paper. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_4 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_27 = yes
 		bag_wtp_plan_can_town_4 = yes
@@ -2127,6 +2202,7 @@ bag_wtp_plan_right_fits_4 = {
 # royal_brewing_rights: beer, liquor, wine. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_5 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_26 = yes
 		bag_wtp_plan_can_town_37 = yes
@@ -2137,6 +2213,7 @@ bag_wtp_plan_right_fits_5 = {
 # royal_jewelry_rights: jewelry. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_6 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_34 = yes
 	}
@@ -2145,6 +2222,7 @@ bag_wtp_plan_right_fits_6 = {
 # royal_masonry_rights: glass, masonry. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_7 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_33 = yes
 		bag_wtp_plan_can_town_38 = yes
@@ -2154,6 +2232,7 @@ bag_wtp_plan_right_fits_7 = {
 # royal_naval_rights: naval_supplies, tar. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_8 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_39 = yes
 		bag_wtp_plan_can_town_45 = yes
@@ -2163,6 +2242,7 @@ bag_wtp_plan_right_fits_8 = {
 # royal_textile_rights: cloth, dyes, fine_cloth. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_9 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_29 = yes
 		bag_wtp_plan_can_town_4 = yes
@@ -2173,6 +2253,7 @@ bag_wtp_plan_right_fits_9 = {
 # royal_tooling_rights: tools. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_10 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_46 = yes
 	}
@@ -2181,6 +2262,7 @@ bag_wtp_plan_right_fits_10 = {
 # royal_weaponry_rights: cannons, firearms, weaponry. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_11 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_28 = yes
 		bag_wtp_plan_can_town_31 = yes
@@ -2191,6 +2273,7 @@ bag_wtp_plan_right_fits_11 = {
 # scandinavian_bergslag_privileges: tools. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_12 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_46 = yes
 	}
@@ -2199,6 +2282,7 @@ bag_wtp_plan_right_fits_12 = {
 # scandinavian_tar_privileges: naval_supplies, tar. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_13 = {
+	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_39 = yes
 		bag_wtp_plan_can_town_45 = yes

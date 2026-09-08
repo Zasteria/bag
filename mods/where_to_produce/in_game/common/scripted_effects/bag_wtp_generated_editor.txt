@@ -82679,12 +82679,16 @@ bag_wtp_ext_recount = {
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
 		if = {
-			limit = { bag_wtp_plan_is_town = yes }
+			limit = {
+				bag_wtp_is_granary = no
+				bag_wtp_plan_is_town = yes
+			}
 			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
 			change_global_variable = { name = bag_wtp_prooms_t add = bag_wtp_show_plan_cap_urban }
 			change_global_variable = { name = bag_wtp_plan_towns add = 1 }
 		}
-		else = {
+		else_if = {
+			limit = { bag_wtp_is_granary = no }
 			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
 			change_global_variable = { name = bag_wtp_prooms_r add = bag_wtp_show_plan_cap_rural }
 		}

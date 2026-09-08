@@ -839,6 +839,30 @@ def triggers_file(rows, split, game) -> str:
     # Where the potential names a scope this one has not got -- `scope:actor`,
     # two buildings of a hundred and ten -- the game is asked as before. A
     # condition evaluated wrong is worse than a condition not overridden.
+    # **Житница Construction Manager -- локация, которую план не трогает вовсе.**
+    #
+    # Владелец, 2026-09-09: «в CM есть функция, которая переключает выбранную
+    # локацию в режим "житницы"... Задача мода прочитать эти локации и выключить
+    # их из плана в плане строительства, но при этом считать РГО которые они
+    # дают и бонус земли тоже случайно не убрать».
+    #
+    # **Признак -- переменная CM, а не его имя.** `cm_auto_food_location_enabled`
+    # ставит `cm_set_auto_food_for_location`, ручное включение по одной локации;
+    # нет CM -- переменной нет, и трогать план нечему. Массовое покрытие по виду
+    # сырья сюда намеренно не входит: у него свой речной фильтр, повторять
+    # который значило бы гадать за CM.
+    #
+    # **Из плана она выпадает только как место.** В `_candidates` она остаётся,
+    # поэтому её РГО считается в `_nrgo<n>` как раньше, а выгода провинции
+    # спрашивает `any_location_in_province_definition` и наших списков не знает
+    # вовсе -- земля платит соседям столько же, сколько платила.
+    out.append(f"""
+# Scope: location
+{MOD_ID}_is_granary = {{
+\thas_variable = cm_auto_food_location_enabled
+}}
+""")
+
     out.append("\n# Scope: location\n")
     seen: dict[str, eu5data.Method] = {}
     for method in rows:
@@ -2145,6 +2169,7 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# nothing still has a gain of zero and must still be placed: «не важно есть
 \t# для них сырьё на этой земле или нет».
 \tvar:{MOD_ID}_{method_var}{index} > 0
+\t{MOD_ID}_is_granary = no
 \t{MOD_ID}_plan_is_town = {rank}
 \tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_{cap}
 \tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
@@ -2173,6 +2198,7 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_plan_can_village_{k} = {{
 \tvar:{MOD_ID}_vw{k} > 0
+\t{MOD_ID}_is_granary = no
 \t{MOD_ID}_plan_is_town = no
 \tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_rural
 \tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }} }}
@@ -2213,6 +2239,7 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # {right.key}: {", ".join(wanted)}. Granted if any one of them can be made here.
 # Scope: location
 {MOD_ID}_plan_right_fits_{k} = {{
+\t{MOD_ID}_is_granary = no
 \tOR = {{
 {tests}\t}}
 }}
@@ -3275,14 +3302,25 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tif = {{
 \t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 \t\t\tset_variable = {{ name = {MOD_ID}_plan_town_row value = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_t add = {MOD_ID}_show_plan_cap_urban }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
 \t\t}}
-\t\telse = {{
-\t\t\tremove_variable = {MOD_ID}_plan_town_row
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_r add = {MOD_ID}_show_plan_cap_rural }}
+\t\telse = {{ remove_variable = {MOD_ID}_plan_town_row }}
+\t\t# **Места житницы -- не места плана.** Комнаты, которые нельзя заполнить,
+\t\t# делят доли на всех и оставляют товары ниже потолка: ровно тот случай,
+\t\t# из-за которого 259 комнат стояли пустыми 2026-09-08. Ряд у неё остаётся,
+\t\t# РГО считается, город городом быть не перестаёт -- в счёт не идут только
+\t\t# места.
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_is_granary = no }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_t add = {MOD_ID}_show_plan_cap_urban }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
+\t\t\t}}
+\t\t\telse = {{
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_r add = {MOD_ID}_show_plan_cap_rural }}
+\t\t\t}}
 \t\t}}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_plan_seen }} }}
@@ -5749,6 +5787,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_edit_fits_{listname}_{index} = {{
 \tvar:{MOD_ID}_{method_var}{index} > 0
+\t{MOD_ID}_is_granary = no
 \t{MOD_ID}_plan_is_town = {rank}
 \tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
 \tOR = {{
@@ -8626,12 +8665,16 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tif = {{
-\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_is_granary = no
+\t\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\t}}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_t add = {MOD_ID}_show_plan_cap_urban }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
 \t\t}}
-\t\telse = {{
+\t\telse_if = {{
+\t\t\tlimit = {{ {MOD_ID}_is_granary = no }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_prooms_r add = {MOD_ID}_show_plan_cap_rural }}
 \t\t}}
@@ -10197,6 +10240,23 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                                    f"{MOD_ID}_cm_did", f"{MOD_ID}_cm_off"), start=1):
         out.append(park(slot, source))
     out.append(flag(5, "has_variable_list = cm_priority_features_list"))
+    # **Житницы CM, одним числом.** Они остаются в земле и в РГО, но мест не
+    # дают и домиков не берут: если их много, «мест» в шапке станет меньше, и
+    # это не потеря, а вычет, который надо уметь отличить от ошибки.
+    out.append(f"\tset_global_variable = {{ name = {MOD_ID}_dv6 value = 0 }}\n"
+               f"\tif = {{\n"
+               f"\t\tlimit = {{ has_global_variable_list = {MOD_ID}_plan_touched }}\n"
+               f"\t\tevery_in_global_list = {{\n"
+               f"\t\t\tvariable = {MOD_ID}_plan_touched\n"
+               f"\t\t\tlimit = {{ {MOD_ID}_is_granary = yes }}\n"
+               f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_dv6 add = 1 }}\n"
+               f"\t\t}}\n"
+               f"\t}}\n")
+    out.append(say("GRANARY n=%s -- локаций в режиме житницы CM: план в них "
+                   "ничего не ставит и их мест не считает, но РГО их считает "
+                   "по-прежнему и выгоду провинции они дают как раньше"
+                   % read(6)))
+
     out.append(say("CM found=%s were_on=%s touched=%s off=%s present=%s -- "
                    "present=0 значит Construction Manager не в игре и кнопок "
                    "автостроя нет; found=0 после нажатия значит в группе нет ни "

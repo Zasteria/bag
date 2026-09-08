@@ -19932,14 +19932,25 @@ bag_wtp_plan_prepare = {
 		if = {
 			limit = { bag_wtp_plan_is_town = yes }
 			set_variable = { name = bag_wtp_plan_town_row value = 1 }
-			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
-			change_global_variable = { name = bag_wtp_prooms_t add = bag_wtp_show_plan_cap_urban }
-			change_global_variable = { name = bag_wtp_plan_towns add = 1 }
 		}
-		else = {
-			remove_variable = bag_wtp_plan_town_row
-			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
-			change_global_variable = { name = bag_wtp_prooms_r add = bag_wtp_show_plan_cap_rural }
+		else = { remove_variable = bag_wtp_plan_town_row }
+		# **Места житницы -- не места плана.** Комнаты, которые нельзя заполнить,
+		# делят доли на всех и оставляют товары ниже потолка: ровно тот случай,
+		# из-за которого 259 комнат стояли пустыми 2026-09-08. Ряд у неё остаётся,
+		# РГО считается, город городом быть не перестаёт -- в счёт не идут только
+		# места.
+		if = {
+			limit = { bag_wtp_is_granary = no }
+			if = {
+				limit = { bag_wtp_plan_is_town = yes }
+				change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
+				change_global_variable = { name = bag_wtp_prooms_t add = bag_wtp_show_plan_cap_urban }
+				change_global_variable = { name = bag_wtp_plan_towns add = 1 }
+			}
+			else = {
+				change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
+				change_global_variable = { name = bag_wtp_prooms_r add = bag_wtp_show_plan_cap_rural }
+			}
 		}
 		if = {
 			limit = { NOT = { has_variable = bag_wtp_plan_seen } }

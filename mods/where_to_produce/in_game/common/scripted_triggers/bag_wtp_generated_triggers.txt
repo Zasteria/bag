@@ -848,6 +848,11 @@ bag_wtp_avail_241 = {
 }
 
 # Scope: location
+bag_wtp_is_granary = {
+	has_variable = cm_auto_food_location_enabled
+}
+
+# Scope: location
 # an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
 bag_wtp_stands_ablaq_palace = {
 	can_build_building = building_type:ablaq_palace

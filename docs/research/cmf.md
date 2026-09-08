@@ -389,6 +389,14 @@ types the player ticked and stages them in every owned location, checking only
 build-queue slots and `cm_location_can_auto_build`. An addon that must ignore the
 profit gates should stage there rather than invent a queue.
 
+**The granary mode is a location variable too.** CM's per-location food toggle
+(`cm_set_auto_food_for_location`) sets `cm_auto_food_location_enabled` on the
+location and pins it with the `cm_auto_food_locked_location` modifier; a second
+pair, the country's `cm_auto_food_rgo_types_enabled` against the location's
+`cm_auto_food_location_excluded`, is the mass form, and that one also passes
+through CM's own river filter. So the manual opt-in reads in one word, and the
+mass form does not without repeating a trigger of CM's.
+
 **The auto-build tick box is three variables, and that is the whole of it.** The
 two-up-arrows icon (`gfx/interface/icons/flat_icons/mass_upgrade.dds`) beside a
 building in the production panel is CM's, drawn by
