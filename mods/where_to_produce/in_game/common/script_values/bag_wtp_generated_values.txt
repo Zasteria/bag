@@ -11506,6 +11506,9 @@ bag_wtp_show_rgiven13 = { value = global_var:bag_wtp_rgiven13 }
 # clay в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt1 = { value = global_var:bag_wtp_pnt1 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt1 = { value = global_var:bag_wtp_pqt1 }
+bag_wtp_show_pqr1 = { value = global_var:bag_wtp_pqr1 }
 bag_wtp_show_pnr1 = { value = global_var:bag_wtp_pnr1 }
 bag_wtp_show_ng1 = { value = global_var:bag_wtp_ng1 }
 bag_wtp_show_nrgo1 = { value = global_var:bag_wtp_nrgo1 }
@@ -11514,6 +11517,9 @@ bag_wtp_show_gain1 = { value = global_var:bag_wtp_pbest1 divide = 10 }
 # coal в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt2 = { value = global_var:bag_wtp_pnt2 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt2 = { value = global_var:bag_wtp_pqt2 }
+bag_wtp_show_pqr2 = { value = global_var:bag_wtp_pqr2 }
 bag_wtp_show_pnr2 = { value = global_var:bag_wtp_pnr2 }
 bag_wtp_show_ng2 = { value = global_var:bag_wtp_ng2 }
 bag_wtp_show_nrgo2 = { value = global_var:bag_wtp_nrgo2 }
@@ -11522,6 +11528,9 @@ bag_wtp_show_gain2 = { value = global_var:bag_wtp_pbest2 divide = 10 }
 # cotton в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt3 = { value = global_var:bag_wtp_pnt3 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt3 = { value = global_var:bag_wtp_pqt3 }
+bag_wtp_show_pqr3 = { value = global_var:bag_wtp_pqr3 }
 bag_wtp_show_pnr3 = { value = global_var:bag_wtp_pnr3 }
 bag_wtp_show_ng3 = { value = global_var:bag_wtp_ng3 }
 bag_wtp_show_nrgo3 = { value = global_var:bag_wtp_nrgo3 }
@@ -11530,6 +11539,9 @@ bag_wtp_show_gain3 = { value = global_var:bag_wtp_pbest3 divide = 10 }
 # dyes в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt4 = { value = global_var:bag_wtp_pnt4 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt4 = { value = global_var:bag_wtp_pqt4 }
+bag_wtp_show_pqr4 = { value = global_var:bag_wtp_pqr4 }
 bag_wtp_show_pnr4 = { value = global_var:bag_wtp_pnr4 }
 bag_wtp_show_ng4 = { value = global_var:bag_wtp_ng4 }
 bag_wtp_show_nrgo4 = { value = global_var:bag_wtp_nrgo4 }
@@ -11538,6 +11550,9 @@ bag_wtp_show_gain4 = { value = global_var:bag_wtp_pbest4 divide = 10 }
 # fiber_crops в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt5 = { value = global_var:bag_wtp_pnt5 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt5 = { value = global_var:bag_wtp_pqt5 }
+bag_wtp_show_pqr5 = { value = global_var:bag_wtp_pqr5 }
 bag_wtp_show_pnr5 = { value = global_var:bag_wtp_pnr5 }
 bag_wtp_show_ng5 = { value = global_var:bag_wtp_ng5 }
 bag_wtp_show_nrgo5 = { value = global_var:bag_wtp_nrgo5 }
@@ -11546,6 +11561,9 @@ bag_wtp_show_gain5 = { value = global_var:bag_wtp_pbest5 divide = 10 }
 # fish в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt6 = { value = global_var:bag_wtp_pnt6 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt6 = { value = global_var:bag_wtp_pqt6 }
+bag_wtp_show_pqr6 = { value = global_var:bag_wtp_pqr6 }
 bag_wtp_show_pnr6 = { value = global_var:bag_wtp_pnr6 }
 bag_wtp_show_ng6 = { value = global_var:bag_wtp_ng6 }
 bag_wtp_show_nrgo6 = { value = global_var:bag_wtp_nrgo6 }
@@ -11554,6 +11572,9 @@ bag_wtp_show_gain6 = { value = global_var:bag_wtp_pbest6 divide = 10 }
 # fruit в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt7 = { value = global_var:bag_wtp_pnt7 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt7 = { value = global_var:bag_wtp_pqt7 }
+bag_wtp_show_pqr7 = { value = global_var:bag_wtp_pqr7 }
 bag_wtp_show_pnr7 = { value = global_var:bag_wtp_pnr7 }
 bag_wtp_show_ng7 = { value = global_var:bag_wtp_ng7 }
 bag_wtp_show_nrgo7 = { value = global_var:bag_wtp_nrgo7 }
@@ -11562,6 +11583,9 @@ bag_wtp_show_gain7 = { value = global_var:bag_wtp_pbest7 divide = 10 }
 # horses в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt8 = { value = global_var:bag_wtp_pnt8 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt8 = { value = global_var:bag_wtp_pqt8 }
+bag_wtp_show_pqr8 = { value = global_var:bag_wtp_pqr8 }
 bag_wtp_show_pnr8 = { value = global_var:bag_wtp_pnr8 }
 bag_wtp_show_ng8 = { value = global_var:bag_wtp_ng8 }
 bag_wtp_show_nrgo8 = { value = global_var:bag_wtp_nrgo8 }
@@ -11570,6 +11594,9 @@ bag_wtp_show_gain8 = { value = global_var:bag_wtp_pbest8 divide = 10 }
 # incense в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt9 = { value = global_var:bag_wtp_pnt9 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt9 = { value = global_var:bag_wtp_pqt9 }
+bag_wtp_show_pqr9 = { value = global_var:bag_wtp_pqr9 }
 bag_wtp_show_pnr9 = { value = global_var:bag_wtp_pnr9 }
 bag_wtp_show_ng9 = { value = global_var:bag_wtp_ng9 }
 bag_wtp_show_nrgo9 = { value = global_var:bag_wtp_nrgo9 }
@@ -11578,6 +11605,9 @@ bag_wtp_show_gain9 = { value = global_var:bag_wtp_pbest9 divide = 10 }
 # iron в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt10 = { value = global_var:bag_wtp_pnt10 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt10 = { value = global_var:bag_wtp_pqt10 }
+bag_wtp_show_pqr10 = { value = global_var:bag_wtp_pqr10 }
 bag_wtp_show_pnr10 = { value = global_var:bag_wtp_pnr10 }
 bag_wtp_show_ng10 = { value = global_var:bag_wtp_ng10 }
 bag_wtp_show_nrgo10 = { value = global_var:bag_wtp_nrgo10 }
@@ -11586,6 +11616,9 @@ bag_wtp_show_gain10 = { value = global_var:bag_wtp_pbest10 divide = 10 }
 # ivory в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt11 = { value = global_var:bag_wtp_pnt11 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt11 = { value = global_var:bag_wtp_pqt11 }
+bag_wtp_show_pqr11 = { value = global_var:bag_wtp_pqr11 }
 bag_wtp_show_pnr11 = { value = global_var:bag_wtp_pnr11 }
 bag_wtp_show_ng11 = { value = global_var:bag_wtp_ng11 }
 bag_wtp_show_nrgo11 = { value = global_var:bag_wtp_nrgo11 }
@@ -11594,6 +11627,9 @@ bag_wtp_show_gain11 = { value = global_var:bag_wtp_pbest11 divide = 10 }
 # livestock в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt12 = { value = global_var:bag_wtp_pnt12 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt12 = { value = global_var:bag_wtp_pqt12 }
+bag_wtp_show_pqr12 = { value = global_var:bag_wtp_pqr12 }
 bag_wtp_show_pnr12 = { value = global_var:bag_wtp_pnr12 }
 bag_wtp_show_ng12 = { value = global_var:bag_wtp_ng12 }
 bag_wtp_show_nrgo12 = { value = global_var:bag_wtp_nrgo12 }
@@ -11602,6 +11638,9 @@ bag_wtp_show_gain12 = { value = global_var:bag_wtp_pbest12 divide = 10 }
 # lumber в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt13 = { value = global_var:bag_wtp_pnt13 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt13 = { value = global_var:bag_wtp_pqt13 }
+bag_wtp_show_pqr13 = { value = global_var:bag_wtp_pqr13 }
 bag_wtp_show_pnr13 = { value = global_var:bag_wtp_pnr13 }
 bag_wtp_show_ng13 = { value = global_var:bag_wtp_ng13 }
 bag_wtp_show_nrgo13 = { value = global_var:bag_wtp_nrgo13 }
@@ -11610,6 +11649,9 @@ bag_wtp_show_gain13 = { value = global_var:bag_wtp_pbest13 divide = 10 }
 # medicaments в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt14 = { value = global_var:bag_wtp_pnt14 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt14 = { value = global_var:bag_wtp_pqt14 }
+bag_wtp_show_pqr14 = { value = global_var:bag_wtp_pqr14 }
 bag_wtp_show_pnr14 = { value = global_var:bag_wtp_pnr14 }
 bag_wtp_show_ng14 = { value = global_var:bag_wtp_ng14 }
 bag_wtp_show_nrgo14 = { value = global_var:bag_wtp_nrgo14 }
@@ -11618,6 +11660,9 @@ bag_wtp_show_gain14 = { value = global_var:bag_wtp_pbest14 divide = 10 }
 # salt в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt15 = { value = global_var:bag_wtp_pnt15 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt15 = { value = global_var:bag_wtp_pqt15 }
+bag_wtp_show_pqr15 = { value = global_var:bag_wtp_pqr15 }
 bag_wtp_show_pnr15 = { value = global_var:bag_wtp_pnr15 }
 bag_wtp_show_ng15 = { value = global_var:bag_wtp_ng15 }
 bag_wtp_show_nrgo15 = { value = global_var:bag_wtp_nrgo15 }
@@ -11626,6 +11671,9 @@ bag_wtp_show_gain15 = { value = global_var:bag_wtp_pbest15 divide = 10 }
 # saltpeter в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt16 = { value = global_var:bag_wtp_pnt16 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt16 = { value = global_var:bag_wtp_pqt16 }
+bag_wtp_show_pqr16 = { value = global_var:bag_wtp_pqr16 }
 bag_wtp_show_pnr16 = { value = global_var:bag_wtp_pnr16 }
 bag_wtp_show_ng16 = { value = global_var:bag_wtp_ng16 }
 bag_wtp_show_nrgo16 = { value = global_var:bag_wtp_nrgo16 }
@@ -11634,6 +11682,9 @@ bag_wtp_show_gain16 = { value = global_var:bag_wtp_pbest16 divide = 10 }
 # sand в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt17 = { value = global_var:bag_wtp_pnt17 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt17 = { value = global_var:bag_wtp_pqt17 }
+bag_wtp_show_pqr17 = { value = global_var:bag_wtp_pqr17 }
 bag_wtp_show_pnr17 = { value = global_var:bag_wtp_pnr17 }
 bag_wtp_show_ng17 = { value = global_var:bag_wtp_ng17 }
 bag_wtp_show_nrgo17 = { value = global_var:bag_wtp_nrgo17 }
@@ -11642,6 +11693,9 @@ bag_wtp_show_gain17 = { value = global_var:bag_wtp_pbest17 divide = 10 }
 # silk в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt18 = { value = global_var:bag_wtp_pnt18 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt18 = { value = global_var:bag_wtp_pqt18 }
+bag_wtp_show_pqr18 = { value = global_var:bag_wtp_pqr18 }
 bag_wtp_show_pnr18 = { value = global_var:bag_wtp_pnr18 }
 bag_wtp_show_ng18 = { value = global_var:bag_wtp_ng18 }
 bag_wtp_show_nrgo18 = { value = global_var:bag_wtp_nrgo18 }
@@ -11650,6 +11704,9 @@ bag_wtp_show_gain18 = { value = global_var:bag_wtp_pbest18 divide = 10 }
 # silver в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt19 = { value = global_var:bag_wtp_pnt19 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt19 = { value = global_var:bag_wtp_pqt19 }
+bag_wtp_show_pqr19 = { value = global_var:bag_wtp_pqr19 }
 bag_wtp_show_pnr19 = { value = global_var:bag_wtp_pnr19 }
 bag_wtp_show_ng19 = { value = global_var:bag_wtp_ng19 }
 bag_wtp_show_nrgo19 = { value = global_var:bag_wtp_nrgo19 }
@@ -11658,6 +11715,9 @@ bag_wtp_show_gain19 = { value = global_var:bag_wtp_pbest19 divide = 10 }
 # stone в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt20 = { value = global_var:bag_wtp_pnt20 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt20 = { value = global_var:bag_wtp_pqt20 }
+bag_wtp_show_pqr20 = { value = global_var:bag_wtp_pqr20 }
 bag_wtp_show_pnr20 = { value = global_var:bag_wtp_pnr20 }
 bag_wtp_show_ng20 = { value = global_var:bag_wtp_ng20 }
 bag_wtp_show_nrgo20 = { value = global_var:bag_wtp_nrgo20 }
@@ -11666,6 +11726,9 @@ bag_wtp_show_gain20 = { value = global_var:bag_wtp_pbest20 divide = 10 }
 # sugar в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt21 = { value = global_var:bag_wtp_pnt21 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt21 = { value = global_var:bag_wtp_pqt21 }
+bag_wtp_show_pqr21 = { value = global_var:bag_wtp_pqr21 }
 bag_wtp_show_pnr21 = { value = global_var:bag_wtp_pnr21 }
 bag_wtp_show_ng21 = { value = global_var:bag_wtp_ng21 }
 bag_wtp_show_nrgo21 = { value = global_var:bag_wtp_nrgo21 }
@@ -11674,6 +11737,9 @@ bag_wtp_show_gain21 = { value = global_var:bag_wtp_pbest21 divide = 10 }
 # tobacco в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt22 = { value = global_var:bag_wtp_pnt22 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt22 = { value = global_var:bag_wtp_pqt22 }
+bag_wtp_show_pqr22 = { value = global_var:bag_wtp_pqr22 }
 bag_wtp_show_pnr22 = { value = global_var:bag_wtp_pnr22 }
 bag_wtp_show_ng22 = { value = global_var:bag_wtp_ng22 }
 bag_wtp_show_nrgo22 = { value = global_var:bag_wtp_nrgo22 }
@@ -11682,6 +11748,9 @@ bag_wtp_show_gain22 = { value = global_var:bag_wtp_pbest22 divide = 10 }
 # wild_game в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt23 = { value = global_var:bag_wtp_pnt23 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt23 = { value = global_var:bag_wtp_pqt23 }
+bag_wtp_show_pqr23 = { value = global_var:bag_wtp_pqr23 }
 bag_wtp_show_pnr23 = { value = global_var:bag_wtp_pnr23 }
 bag_wtp_show_ng23 = { value = global_var:bag_wtp_ng23 }
 bag_wtp_show_nrgo23 = { value = global_var:bag_wtp_nrgo23 }
@@ -11690,6 +11759,9 @@ bag_wtp_show_gain23 = { value = global_var:bag_wtp_pbest23 divide = 10 }
 # wine в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt24 = { value = global_var:bag_wtp_pnt24 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt24 = { value = global_var:bag_wtp_pqt24 }
+bag_wtp_show_pqr24 = { value = global_var:bag_wtp_pqr24 }
 bag_wtp_show_pnr24 = { value = global_var:bag_wtp_pnr24 }
 bag_wtp_show_ng24 = { value = global_var:bag_wtp_ng24 }
 bag_wtp_show_nrgo24 = { value = global_var:bag_wtp_nrgo24 }
@@ -11698,6 +11770,9 @@ bag_wtp_show_gain24 = { value = global_var:bag_wtp_pbest24 divide = 10 }
 # wool в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt25 = { value = global_var:bag_wtp_pnt25 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt25 = { value = global_var:bag_wtp_pqt25 }
+bag_wtp_show_pqr25 = { value = global_var:bag_wtp_pqr25 }
 bag_wtp_show_pnr25 = { value = global_var:bag_wtp_pnr25 }
 bag_wtp_show_ng25 = { value = global_var:bag_wtp_ng25 }
 bag_wtp_show_nrgo25 = { value = global_var:bag_wtp_nrgo25 }
@@ -11706,6 +11781,9 @@ bag_wtp_show_gain25 = { value = global_var:bag_wtp_pbest25 divide = 10 }
 # beer в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt26 = { value = global_var:bag_wtp_pnt26 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt26 = { value = global_var:bag_wtp_pqt26 }
+bag_wtp_show_pqr26 = { value = global_var:bag_wtp_pqr26 }
 bag_wtp_show_pnr26 = { value = global_var:bag_wtp_pnr26 }
 bag_wtp_show_ng26 = { value = global_var:bag_wtp_ng26 }
 bag_wtp_show_nrgo26 = { value = global_var:bag_wtp_nrgo26 }
@@ -11714,6 +11792,9 @@ bag_wtp_show_gain26 = { value = global_var:bag_wtp_pbest26 divide = 10 }
 # books в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt27 = { value = global_var:bag_wtp_pnt27 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt27 = { value = global_var:bag_wtp_pqt27 }
+bag_wtp_show_pqr27 = { value = global_var:bag_wtp_pqr27 }
 bag_wtp_show_pnr27 = { value = global_var:bag_wtp_pnr27 }
 bag_wtp_show_ng27 = { value = global_var:bag_wtp_ng27 }
 bag_wtp_show_nrgo27 = { value = global_var:bag_wtp_nrgo27 }
@@ -11722,6 +11803,9 @@ bag_wtp_show_gain27 = { value = global_var:bag_wtp_pbest27 divide = 10 }
 # cannons в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt28 = { value = global_var:bag_wtp_pnt28 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt28 = { value = global_var:bag_wtp_pqt28 }
+bag_wtp_show_pqr28 = { value = global_var:bag_wtp_pqr28 }
 bag_wtp_show_pnr28 = { value = global_var:bag_wtp_pnr28 }
 bag_wtp_show_ng28 = { value = global_var:bag_wtp_ng28 }
 bag_wtp_show_nrgo28 = { value = global_var:bag_wtp_nrgo28 }
@@ -11730,6 +11814,9 @@ bag_wtp_show_gain28 = { value = global_var:bag_wtp_pbest28 divide = 10 }
 # cloth в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt29 = { value = global_var:bag_wtp_pnt29 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt29 = { value = global_var:bag_wtp_pqt29 }
+bag_wtp_show_pqr29 = { value = global_var:bag_wtp_pqr29 }
 bag_wtp_show_pnr29 = { value = global_var:bag_wtp_pnr29 }
 bag_wtp_show_ng29 = { value = global_var:bag_wtp_ng29 }
 bag_wtp_show_nrgo29 = { value = global_var:bag_wtp_nrgo29 }
@@ -11738,6 +11825,9 @@ bag_wtp_show_gain29 = { value = global_var:bag_wtp_pbest29 divide = 10 }
 # fine_cloth в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt30 = { value = global_var:bag_wtp_pnt30 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt30 = { value = global_var:bag_wtp_pqt30 }
+bag_wtp_show_pqr30 = { value = global_var:bag_wtp_pqr30 }
 bag_wtp_show_pnr30 = { value = global_var:bag_wtp_pnr30 }
 bag_wtp_show_ng30 = { value = global_var:bag_wtp_ng30 }
 bag_wtp_show_nrgo30 = { value = global_var:bag_wtp_nrgo30 }
@@ -11746,6 +11836,9 @@ bag_wtp_show_gain30 = { value = global_var:bag_wtp_pbest30 divide = 10 }
 # firearms в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt31 = { value = global_var:bag_wtp_pnt31 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt31 = { value = global_var:bag_wtp_pqt31 }
+bag_wtp_show_pqr31 = { value = global_var:bag_wtp_pqr31 }
 bag_wtp_show_pnr31 = { value = global_var:bag_wtp_pnr31 }
 bag_wtp_show_ng31 = { value = global_var:bag_wtp_ng31 }
 bag_wtp_show_nrgo31 = { value = global_var:bag_wtp_nrgo31 }
@@ -11754,6 +11847,9 @@ bag_wtp_show_gain31 = { value = global_var:bag_wtp_pbest31 divide = 10 }
 # furniture в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt32 = { value = global_var:bag_wtp_pnt32 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt32 = { value = global_var:bag_wtp_pqt32 }
+bag_wtp_show_pqr32 = { value = global_var:bag_wtp_pqr32 }
 bag_wtp_show_pnr32 = { value = global_var:bag_wtp_pnr32 }
 bag_wtp_show_ng32 = { value = global_var:bag_wtp_ng32 }
 bag_wtp_show_nrgo32 = { value = global_var:bag_wtp_nrgo32 }
@@ -11762,6 +11858,9 @@ bag_wtp_show_gain32 = { value = global_var:bag_wtp_pbest32 divide = 10 }
 # glass в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt33 = { value = global_var:bag_wtp_pnt33 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt33 = { value = global_var:bag_wtp_pqt33 }
+bag_wtp_show_pqr33 = { value = global_var:bag_wtp_pqr33 }
 bag_wtp_show_pnr33 = { value = global_var:bag_wtp_pnr33 }
 bag_wtp_show_ng33 = { value = global_var:bag_wtp_ng33 }
 bag_wtp_show_nrgo33 = { value = global_var:bag_wtp_nrgo33 }
@@ -11770,6 +11869,9 @@ bag_wtp_show_gain33 = { value = global_var:bag_wtp_pbest33 divide = 10 }
 # jewelry в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt34 = { value = global_var:bag_wtp_pnt34 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt34 = { value = global_var:bag_wtp_pqt34 }
+bag_wtp_show_pqr34 = { value = global_var:bag_wtp_pqr34 }
 bag_wtp_show_pnr34 = { value = global_var:bag_wtp_pnr34 }
 bag_wtp_show_ng34 = { value = global_var:bag_wtp_ng34 }
 bag_wtp_show_nrgo34 = { value = global_var:bag_wtp_nrgo34 }
@@ -11778,6 +11880,9 @@ bag_wtp_show_gain34 = { value = global_var:bag_wtp_pbest34 divide = 10 }
 # lacquerware в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt35 = { value = global_var:bag_wtp_pnt35 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt35 = { value = global_var:bag_wtp_pqt35 }
+bag_wtp_show_pqr35 = { value = global_var:bag_wtp_pqr35 }
 bag_wtp_show_pnr35 = { value = global_var:bag_wtp_pnr35 }
 bag_wtp_show_ng35 = { value = global_var:bag_wtp_ng35 }
 bag_wtp_show_nrgo35 = { value = global_var:bag_wtp_nrgo35 }
@@ -11786,6 +11891,9 @@ bag_wtp_show_gain35 = { value = global_var:bag_wtp_pbest35 divide = 10 }
 # leather в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt36 = { value = global_var:bag_wtp_pnt36 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt36 = { value = global_var:bag_wtp_pqt36 }
+bag_wtp_show_pqr36 = { value = global_var:bag_wtp_pqr36 }
 bag_wtp_show_pnr36 = { value = global_var:bag_wtp_pnr36 }
 bag_wtp_show_ng36 = { value = global_var:bag_wtp_ng36 }
 bag_wtp_show_nrgo36 = { value = global_var:bag_wtp_nrgo36 }
@@ -11794,6 +11902,9 @@ bag_wtp_show_gain36 = { value = global_var:bag_wtp_pbest36 divide = 10 }
 # liquor в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt37 = { value = global_var:bag_wtp_pnt37 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt37 = { value = global_var:bag_wtp_pqt37 }
+bag_wtp_show_pqr37 = { value = global_var:bag_wtp_pqr37 }
 bag_wtp_show_pnr37 = { value = global_var:bag_wtp_pnr37 }
 bag_wtp_show_ng37 = { value = global_var:bag_wtp_ng37 }
 bag_wtp_show_nrgo37 = { value = global_var:bag_wtp_nrgo37 }
@@ -11802,6 +11913,9 @@ bag_wtp_show_gain37 = { value = global_var:bag_wtp_pbest37 divide = 10 }
 # masonry в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt38 = { value = global_var:bag_wtp_pnt38 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt38 = { value = global_var:bag_wtp_pqt38 }
+bag_wtp_show_pqr38 = { value = global_var:bag_wtp_pqr38 }
 bag_wtp_show_pnr38 = { value = global_var:bag_wtp_pnr38 }
 bag_wtp_show_ng38 = { value = global_var:bag_wtp_ng38 }
 bag_wtp_show_nrgo38 = { value = global_var:bag_wtp_nrgo38 }
@@ -11810,6 +11924,9 @@ bag_wtp_show_gain38 = { value = global_var:bag_wtp_pbest38 divide = 10 }
 # naval_supplies в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt39 = { value = global_var:bag_wtp_pnt39 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt39 = { value = global_var:bag_wtp_pqt39 }
+bag_wtp_show_pqr39 = { value = global_var:bag_wtp_pqr39 }
 bag_wtp_show_pnr39 = { value = global_var:bag_wtp_pnr39 }
 bag_wtp_show_ng39 = { value = global_var:bag_wtp_ng39 }
 bag_wtp_show_nrgo39 = { value = global_var:bag_wtp_nrgo39 }
@@ -11818,6 +11935,9 @@ bag_wtp_show_gain39 = { value = global_var:bag_wtp_pbest39 divide = 10 }
 # paper в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt40 = { value = global_var:bag_wtp_pnt40 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt40 = { value = global_var:bag_wtp_pqt40 }
+bag_wtp_show_pqr40 = { value = global_var:bag_wtp_pqr40 }
 bag_wtp_show_pnr40 = { value = global_var:bag_wtp_pnr40 }
 bag_wtp_show_ng40 = { value = global_var:bag_wtp_ng40 }
 bag_wtp_show_nrgo40 = { value = global_var:bag_wtp_nrgo40 }
@@ -11826,6 +11946,9 @@ bag_wtp_show_gain40 = { value = global_var:bag_wtp_pbest40 divide = 10 }
 # porcelain в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt41 = { value = global_var:bag_wtp_pnt41 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt41 = { value = global_var:bag_wtp_pqt41 }
+bag_wtp_show_pqr41 = { value = global_var:bag_wtp_pqr41 }
 bag_wtp_show_pnr41 = { value = global_var:bag_wtp_pnr41 }
 bag_wtp_show_ng41 = { value = global_var:bag_wtp_ng41 }
 bag_wtp_show_nrgo41 = { value = global_var:bag_wtp_nrgo41 }
@@ -11834,6 +11957,9 @@ bag_wtp_show_gain41 = { value = global_var:bag_wtp_pbest41 divide = 10 }
 # pottery в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt42 = { value = global_var:bag_wtp_pnt42 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt42 = { value = global_var:bag_wtp_pqt42 }
+bag_wtp_show_pqr42 = { value = global_var:bag_wtp_pqr42 }
 bag_wtp_show_pnr42 = { value = global_var:bag_wtp_pnr42 }
 bag_wtp_show_ng42 = { value = global_var:bag_wtp_ng42 }
 bag_wtp_show_nrgo42 = { value = global_var:bag_wtp_nrgo42 }
@@ -11842,6 +11968,9 @@ bag_wtp_show_gain42 = { value = global_var:bag_wtp_pbest42 divide = 10 }
 # slaves_goods в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt43 = { value = global_var:bag_wtp_pnt43 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt43 = { value = global_var:bag_wtp_pqt43 }
+bag_wtp_show_pqr43 = { value = global_var:bag_wtp_pqr43 }
 bag_wtp_show_pnr43 = { value = global_var:bag_wtp_pnr43 }
 bag_wtp_show_ng43 = { value = global_var:bag_wtp_ng43 }
 bag_wtp_show_nrgo43 = { value = global_var:bag_wtp_nrgo43 }
@@ -11850,6 +11979,9 @@ bag_wtp_show_gain43 = { value = global_var:bag_wtp_pbest43 divide = 10 }
 # steel в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt44 = { value = global_var:bag_wtp_pnt44 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt44 = { value = global_var:bag_wtp_pqt44 }
+bag_wtp_show_pqr44 = { value = global_var:bag_wtp_pqr44 }
 bag_wtp_show_pnr44 = { value = global_var:bag_wtp_pnr44 }
 bag_wtp_show_ng44 = { value = global_var:bag_wtp_ng44 }
 bag_wtp_show_nrgo44 = { value = global_var:bag_wtp_nrgo44 }
@@ -11858,6 +11990,9 @@ bag_wtp_show_gain44 = { value = global_var:bag_wtp_pbest44 divide = 10 }
 # tar в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt45 = { value = global_var:bag_wtp_pnt45 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt45 = { value = global_var:bag_wtp_pqt45 }
+bag_wtp_show_pqr45 = { value = global_var:bag_wtp_pqr45 }
 bag_wtp_show_pnr45 = { value = global_var:bag_wtp_pnr45 }
 bag_wtp_show_ng45 = { value = global_var:bag_wtp_ng45 }
 bag_wtp_show_nrgo45 = { value = global_var:bag_wtp_nrgo45 }
@@ -11866,6 +12001,9 @@ bag_wtp_show_gain45 = { value = global_var:bag_wtp_pbest45 divide = 10 }
 # tools в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt46 = { value = global_var:bag_wtp_pnt46 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt46 = { value = global_var:bag_wtp_pqt46 }
+bag_wtp_show_pqr46 = { value = global_var:bag_wtp_pqr46 }
 bag_wtp_show_pnr46 = { value = global_var:bag_wtp_pnr46 }
 bag_wtp_show_ng46 = { value = global_var:bag_wtp_ng46 }
 bag_wtp_show_nrgo46 = { value = global_var:bag_wtp_nrgo46 }
@@ -11874,6 +12012,9 @@ bag_wtp_show_gain46 = { value = global_var:bag_wtp_pbest46 divide = 10 }
 # weaponry в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt47 = { value = global_var:bag_wtp_pnt47 }
+# Потолки сторон: к чему домик стремится в городе и в селе.
+bag_wtp_show_pqt47 = { value = global_var:bag_wtp_pqt47 }
+bag_wtp_show_pqr47 = { value = global_var:bag_wtp_pqr47 }
 bag_wtp_show_pnr47 = { value = global_var:bag_wtp_pnr47 }
 bag_wtp_show_ng47 = { value = global_var:bag_wtp_ng47 }
 bag_wtp_show_nrgo47 = { value = global_var:bag_wtp_nrgo47 }

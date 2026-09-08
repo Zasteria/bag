@@ -3456,10 +3456,19 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # **Владелец, 2026-09-07:** «я хочу видеть приблизительно одинаковое кол-во
     # городских домиков по отношению к друг другу, примерно как городские права
     # 7/7/7/7/6/6». Это ровно оно и есть — и без единого весового коэффициента.
+    # **Деревня живёт в том же сельском котле, что и товары**: её потолок —
+    # сельская доля, и стеснённой деревне его так же снимают. Рыбацкая, 2026-09-08:
+    # 42 прибрежных места при доле 56 — делить нечего, а она взяла 35.
     bquotas = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_bq{k} "
         f"value = global_var:{MOD_ID}_qcapr }}\n"
         for k in range(1, len(shared) + 1))
+    bquotas += "".join(
+        f"""\tif = {{
+\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_ngv{k} > global_var:{MOD_ID}_qcapr }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_bq{shared.index(b) + 1} value = {SHARE_CAP} }}
+\t}}
+""" for k, b in enumerate(village_entities(rows, split, game), start=1))
 
     # **Доля стороны считается точно и сразу, а не растёт сухими кругами.**
     # Это наименьшее X, при котором `Σ min(своя земля, X)` по всем участникам
@@ -3502,7 +3511,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     villages_ = village_entities(rows, split, game)
     own_rural = [i for i, g in enumerate(order, start=1)
                  if any(b not in villages_ for b in (groups.get((g, "r")) or {}))]
-    shares = share_loop("qcapt", "prooms_t",
+    # **Грамоты вычитаются из городских комнат.** Они ставятся до раздачи и ни
+    # доли, ни потолка не спрашивают («Оно БУДЕТ выдано ОБЯЗАТЕЛЬНО»,
+    # 2026-09-01), поэтому делить между товарами надо то, что осталось. Без
+    # этого доля города считалась от 528 комнат при 132 занятых грамотами, и
+    # выходила 30 там, где земля давала 19-20.
+    shares = (f"\tset_global_variable = {{ name = {MOD_ID}_qfreet "
+              f"value = global_var:{MOD_ID}_prooms_t }}\n"
+              f"\tchange_global_variable = {{ name = {MOD_ID}_qfreet "
+              f"subtract = global_var:{MOD_ID}_plan_rightn }}\n"
+              f"\tchange_global_variable = {{ name = {MOD_ID}_qfreet max = 1 }}\n")
+    shares += share_loop("qcapt", "qfreet",
                         [f"ngt{i}" for i in range(1, len(order) + 1)])
     shares += share_loop("qcapr", "prooms_r",
                          [f"ngr{i}" for i in own_rural]
@@ -3791,11 +3810,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # остальное заново — потолки товаров и потолки общих зданий. Прибавлять
     # единицу каждому потолку по отдельности было ошибкой: скидка за РГО
     # вычиталась один раз на старте и растворялась в тридцати пяти прибавках.
-    raise_all = (
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_quota add = 1 }}\n"
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapt add = 1 }}\n"
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_qcapr add = 1 }}\n"
-        f"\t\t\t{MOD_ID}_plan_set_caps = yes\n")
+    # **Сухой круг долю больше не растит.** Она посчитана точно перед раздачей:
+    # наименьшее X, при котором `Σ min(своя земля, X)` накрывает комнаты
+    # стороны, — то есть земля заполнится ровно при ней. Прибавка на сухом
+    # круге эту точность съедала: доли выходили 30 и 56, а потолки к концу
+    # доползали до 75, и товар кончал выше своей же доли (уголь 68 при
+    # сельской доле 56, 2026-09-08).
+    raise_all = ""
     out.append(f"""{lap_marks}\t\tif = {{
 \t\t\tlimit = {{
 \t\t\t\tglobal_var:{MOD_ID}_plan_added = 0
@@ -4057,6 +4078,19 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\tlimit = {{ {MOD_ID}_plan_can_{listname}_{index} = yes }}
 \t\t\t{MOD_ID}_plan_try_{listname}_{index} = yes
+\t\t}}
+\t}}
+""")
+    for k, building in enumerate(village_entities(rows, split, game), start=1):
+        out.append(f"""\tif = {{
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_ngv{k} > 0
+\t\t\tNOT = {{ global_var:{MOD_ID}_ngv{k} > global_var:{MOD_ID}_qcapr }}
+\t\t}}
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ {MOD_ID}_plan_can_village_{k} = yes }}
+\t\t\t{MOD_ID}_plan_try_village_{k} = yes
 \t\t}}
 \t}}
 """)
@@ -8395,6 +8429,11 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         # домики плюс РГО; чтобы видеть, что из чего сложилось, рядом стоят три
         # числа без РГО: сколько построено всего, сколько в городах, сколько в
         # сёлах.
+        # **Потолки сторон — то, к чему домик стремится в городе и в селе.**
+        # Его слова 2026-09-08: «я не вижу, к какому лимиту стремятся домики
+        # отдельно в городах и отдельно в сёлах».
+        out.append(f' {MOD_ID}_sum_qt_{i}: "{sv % "pqt"}"\n')
+        out.append(f' {MOD_ID}_sum_qr_{i}: "{sv % "pqr"}"\n')
         out.append(f' {MOD_ID}_sum_nb_{i}: "{sv % "pn"}"\n')
         out.append(f' {MOD_ID}_sum_town_{i}: "{sv % "pnt"}"\n')
         out.append(f' {MOD_ID}_sum_rural_{i}: "{sv % "pnr"}"\n')
@@ -9336,8 +9375,8 @@ SUM_CELLS_OUT = MOD / "in_game/gui/bag_wtp_sum_cells.gui"
 # город и село вместо одной город/село и так же столбик с общим реальным
 # количеством без РГО».
 SUM_COLS = ((200, "name"), (54, "n"), (60, "nb"), (54, "town"), (54, "rural"),
-            (60, "places"), (48, "rgo"), (54, "quota"), (54, "gain"),
-            (560, "why"))
+            (60, "places"), (48, "rgo"), (54, "quota"), (58, "qt"), (58, "qr"),
+            (54, "gain"), (440, "why"))
 SUM_SPACING = 6
 SUM_ROW_W = sum(w for w, _ in SUM_COLS) + SUM_SPACING * (len(SUM_COLS) - 1)
 SUM_WINDOW_W = 1460
@@ -9599,7 +9638,8 @@ types BagWtpSumCells {
                 text, align, size = f'"{MOD_ID}_village_{building}"', "left|vcenter", 14
             elif kind == "why":
                 text, align, size = f'"{MOD_ID}_why_village"', "left|vcenter", 13
-            elif kind in ("n", "nb", "town", "rural", "places", "quota"):
+            elif kind in ("n", "nb", "town", "rural", "places", "quota",
+                          "qt", "qr"):
                 sv = ("[GuiScope.SetRoot(GetPlayer.MakeScope)"
                       ".ScriptValue('%s_show_%s')|0]")
                 body = {"n": "#Y " + sv % (MOD_ID, "bn%d" % b) + "#!",
@@ -9607,7 +9647,9 @@ types BagWtpSumCells {
                         "town": "—",
                         "rural": sv % (MOD_ID, "bn%d" % b),
                         "places": sv % (MOD_ID, "ngv%d" % k),
-                        "quota": sv % (MOD_ID, "bq%d" % b)}[kind]
+                        "quota": sv % (MOD_ID, "bq%d" % b),
+                        "qt": "—",
+                        "qr": sv % (MOD_ID, "bq%d" % b)}[kind]
                 text = '"%s"' % body
                 align = "center|vcenter"
                 size = 15 if kind == "n" else 13
@@ -9997,6 +10039,9 @@ def main() -> int:
         f"# {good} в сводке: город, село, мест на земле, доля, лучшая выгода.\n"
         f"# Scope: country\n"
         f"{MOD_ID}_show_pnt{i} = {{ value = global_var:{MOD_ID}_pnt{i} }}\n"
+        f"# Потолки сторон: к чему домик стремится в городе и в селе.\n"
+        f"{MOD_ID}_show_pqt{i} = {{ value = global_var:{MOD_ID}_pqt{i} }}\n"
+        f"{MOD_ID}_show_pqr{i} = {{ value = global_var:{MOD_ID}_pqr{i} }}\n"
         f"{MOD_ID}_show_pnr{i} = {{ value = global_var:{MOD_ID}_pnr{i} }}\n"
         f"{MOD_ID}_show_ng{i} = {{ value = global_var:{MOD_ID}_ng{i} }}\n"
         f"{MOD_ID}_show_nrgo{i} = {{ value = global_var:{MOD_ID}_nrgo{i} }}\n"

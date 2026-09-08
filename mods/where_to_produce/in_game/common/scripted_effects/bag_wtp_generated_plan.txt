@@ -22937,6 +22937,9 @@ bag_wtp_plan_set_quota = {
 	# Они не добавляют товару домиков — они мешают одному выгрести дефицитную
 	# сторону, из-за чего «15 стекла» и «15 текстиля» оказывались разными
 	# планами под одним числом.
+	set_global_variable = { name = bag_wtp_qfreet value = global_var:bag_wtp_prooms_t }
+	change_global_variable = { name = bag_wtp_qfreet subtract = global_var:bag_wtp_plan_rightn }
+	change_global_variable = { name = bag_wtp_qfreet max = 1 }
 	set_global_variable = { name = bag_wtp_qcapt value = 0 }
 	set_global_variable = { name = bag_wtp_qgo value = 1 }
 	while = {
@@ -23417,7 +23420,7 @@ bag_wtp_plan_set_quota = {
 			}
 		}
 		if = {
-			limit = { NOT = { global_var:bag_wtp_qsum < global_var:bag_wtp_prooms_t } }
+			limit = { NOT = { global_var:bag_wtp_qsum < global_var:bag_wtp_qfreet } }
 			set_global_variable = { name = bag_wtp_qgo value = 0 }
 		}
 	}
@@ -23752,6 +23755,18 @@ bag_wtp_plan_set_caps = {
 	set_global_variable = { name = bag_wtp_bq3 value = global_var:bag_wtp_qcapr }
 	set_global_variable = { name = bag_wtp_bq4 value = global_var:bag_wtp_qcapr }
 	set_global_variable = { name = bag_wtp_bq5 value = global_var:bag_wtp_qcapr }
+	if = {
+		limit = { NOT = { global_var:bag_wtp_ngv1 > global_var:bag_wtp_qcapr } }
+		set_global_variable = { name = bag_wtp_bq1 value = 2000 }
+	}
+	if = {
+		limit = { NOT = { global_var:bag_wtp_ngv2 > global_var:bag_wtp_qcapr } }
+		set_global_variable = { name = bag_wtp_bq2 value = 2000 }
+	}
+	if = {
+		limit = { NOT = { global_var:bag_wtp_ngv3 > global_var:bag_wtp_qcapr } }
+		set_global_variable = { name = bag_wtp_bq3 value = 2000 }
+	}
 	set_global_variable = { name = bag_wtp_pq1 value = 0 }
 	if = {
 		limit = { global_var:bag_wtp_ngt1 > 0 }
@@ -27121,10 +27136,6 @@ bag_wtp_plan_allocate = {
 			# доля минус один».
 			if = {
 				limit = { global_var:bag_wtp_plan_dry < 2 }
-			change_global_variable = { name = bag_wtp_plan_quota add = 1 }
-			change_global_variable = { name = bag_wtp_qcapt add = 1 }
-			change_global_variable = { name = bag_wtp_qcapr add = 1 }
-			bag_wtp_plan_set_caps = yes
 			}
 		}
 		else = { set_global_variable = { name = bag_wtp_plan_dry value = 0 } }
@@ -38036,6 +38047,39 @@ bag_wtp_plan_place_scarce = {
 			variable = bag_wtp_candidates
 			limit = { bag_wtp_plan_can_rural_47 = yes }
 			bag_wtp_plan_try_rural_47 = yes
+		}
+	}
+	if = {
+		limit = {
+			global_var:bag_wtp_ngv1 > 0
+			NOT = { global_var:bag_wtp_ngv1 > global_var:bag_wtp_qcapr }
+		}
+		every_in_global_list = {
+			variable = bag_wtp_candidates
+			limit = { bag_wtp_plan_can_village_1 = yes }
+			bag_wtp_plan_try_village_1 = yes
+		}
+	}
+	if = {
+		limit = {
+			global_var:bag_wtp_ngv2 > 0
+			NOT = { global_var:bag_wtp_ngv2 > global_var:bag_wtp_qcapr }
+		}
+		every_in_global_list = {
+			variable = bag_wtp_candidates
+			limit = { bag_wtp_plan_can_village_2 = yes }
+			bag_wtp_plan_try_village_2 = yes
+		}
+	}
+	if = {
+		limit = {
+			global_var:bag_wtp_ngv3 > 0
+			NOT = { global_var:bag_wtp_ngv3 > global_var:bag_wtp_qcapr }
+		}
+		every_in_global_list = {
+			variable = bag_wtp_candidates
+			limit = { bag_wtp_plan_can_village_3 = yes }
+			bag_wtp_plan_try_village_3 = yes
 		}
 	}
 }
