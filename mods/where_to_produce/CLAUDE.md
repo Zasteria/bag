@@ -53,7 +53,9 @@ rank and outlives a save.**
 `доля − РГО = потолок города + потолок села`, `домиков + РГО = доля`
 ([`plan_rural_pool.md`](../../docs/investigations/plan_rural_pool.md)).
 
-**Дальше**: прогон арифметики, потом перетасовка и шаги 7–8.
+**Раздача принята 2026-09-08** — земля 1380 из 1380, обе стороны полные.
+**Дальше**: перетасовка (её нет — `_edit_reshuffle` торгует только после «−1»),
+потом шаги 7–8.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is
