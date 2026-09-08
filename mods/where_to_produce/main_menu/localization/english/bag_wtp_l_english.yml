@@ -383,7 +383,7 @@
  bag_wtp_sum_n_tt: "This good's buildings plus the RGOs already standing. This is the number evenness is judged by: one RGO is one building."
  bag_wtp_sum_sides_tt: "How many of them stand in town locations and how many in village ones.\n\nThe two are not interchangeable rooms, and a good that can do both takes part in both shares."
  bag_wtp_sum_places_tt: "How many locations of the chosen ground this good could occupy at all, taken ones included. The ceiling on what it could ever get."
- bag_wtp_sum_quota_tt: "The same share less one for each of its own RGOs, never below one. This is the good's ceiling across both sides together.\n\nA dash means the good has no building of its own on either side."
+ bag_wtp_sum_quota_tt: "The same share less one for each of its own RGOs, never below one. This is the good's ceiling across both sides together.\n\n#R −N#! beside the number is how far short of that ceiling the good stopped. A side has only as many rooms as it has, and they do not cover every ceiling: 544 town ceilings over 528 rooms, so a dozen or so goods finish one below. Which one and why is the «why it stopped» column.\n\nA dash means the good has no building of its own on either side."
  bag_wtp_sum_gain_tt: "What the ground pays this good's best building — the fraction of its recipe's ceiling, as a percentage.\n\nZero means no raw material of its own lies anywhere here: such a good must still be produced, but it has nothing to choose between."
  bag_wtp_sum_why_tt: "What stopped the good. Computed when the window opens, from the plan on the map."
  bag_wtp_why_none: "this ground does not make it"
