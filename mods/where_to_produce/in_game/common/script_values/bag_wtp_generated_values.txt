@@ -8859,6 +8859,21 @@ bag_wtp_g241 = {
 		add = 1000.0000
 	}
 }
+# fishing_village
+# Scope: location
+bag_wtp_ordv1 = {
+	value = var:bag_wtp_vb1
+}
+# forest_village
+# Scope: location
+bag_wtp_ordv2 = {
+	value = var:bag_wtp_vb2
+}
+# market_village
+# Scope: location
+bag_wtp_ordv3 = {
+	value = var:bag_wtp_vb3
+}
 
 # The better of the two sides -- built-up and village -- in each of the three
 # ages a row carries. A province with nothing but a village to offer still

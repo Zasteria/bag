@@ -1101,6 +1101,15 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tvalue = var:{MOD_ID}_pr{index}
 }}
 """)
+    # Порядок обхода для деревни — лучшая выгода среди её собственных рецептов
+    # на этой локации; её считает `{MOD_ID}_plan_village_scores`.
+    for k, building in enumerate(village_entities(rows, split, game), start=1):
+        out.append(f"""# {building}
+# Scope: location
+{MOD_ID}_ordv{k} = {{
+\tvalue = var:{MOD_ID}_vb{k}
+}}
+""")
 
     # What a whole urban right is worth on this ground: its bundle's own
     # normalized scores added up. It costs no pass of its own -- every good in
@@ -1871,6 +1880,25 @@ def market_inputs(game: eu5data.Game) -> dict[str, str]:
     return out
 
 
+# Четыре деревни игры, `is_village = yes` в `rural_buildings.txt`. Три из них
+# делят несколько товаров и становятся сущностями сами по себе; фермерская
+# однотоварна (`unique_production_methods`, всегда скот) и остаётся товаром.
+VILLAGES = ("fishing_village", "forest_village", "farming_village",
+            "market_village")
+
+
+def village_entities(rows, split, game) -> list[str]:
+    """Деревни, которые считаются сущностью, а не товаром.
+
+    **Его правило, повторённое полсотни раз:** «убрать все деревенские доли
+    товаров и заменить их просто на торговая деревня = 1 уникальный товар».
+    Деревня, за которую спорят несколько товаров, — один слот на всех них, и в
+    равном круге она участвует сама, а не через пиво с гончаркой. Что она
+    производит, решает лучший из её рецептов на этой локации.
+    """
+    return [b for b in shared_buildings(rows, split, game) if b in VILLAGES]
+
+
 def shared_buildings(rows, split, game) -> list[str]:
     """Здания, за которые спорят несколько товаров, в устойчивом порядке.
 
@@ -1989,6 +2017,7 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     order = [good for kind in ("raw", "made") for good in split[kind]]
     groups = plan_groups(rows, split, game)
     shared = shared_buildings(rows, split, game)
+    villages = village_entities(rows, split, game)
     out = [HEADER, f"""#
 # **Written with OR and AND and never an `if`.** A scripted trigger takes an
 # effect's `if` without complaining and answers true everywhere afterwards, which
@@ -1999,6 +2028,15 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             ("r", "rural", "rural", "pr", "prm", "no")):
         for index, good in enumerate(order, start=1):
             by_building = groups.get((good, side), {})
+            # **Деревня-сущность сюда не входит.** Её ставит собственный
+            # круг `_plan_pick_v<k>`, и товару её домик не засчитывается —
+            # «убрать все деревенские доли товаров и заменить их просто на
+            # торговая деревня = 1 уникальный товар». Товар, у которого в
+            # селе только такая деревня, становится здесь `always = no`.
+            # Ворота редактора строятся отдельно и деревни сохраняют.
+            if side == "r":
+                by_building = {b: m for b, m in by_building.items()
+                               if b not in villages}
             if not by_building:
                 out.append(f"""
 # {good}: no building that makes it may stand {"in a town" if side == "t" else "in a rural settlement"}.
@@ -2053,6 +2091,34 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
 \tOR = {{
 {branches}\t}}
+}}
+""")
+
+    # Ворота деревни-сущности: пускает ли эта локация ещё одну такую деревню.
+    #
+    # **Товар выбран заранее** -- `_vw<k>` его номер, `_vb<k>` его выгода, оба
+    # посчитаны `{MOD_ID}_plan_village_scores`. Здесь остаётся спросить то же,
+    # что спрашивают ворота товара: своя сторона, свободная комната, этой
+    # деревни тут ещё нет и её товара тут ещё нет.
+    for k, building in enumerate(village_entities(rows, split, game), start=1):
+        makes = [i for i, g in enumerate(order, start=1)
+                 if building in (groups.get((g, "r")) or {})]
+        goods_free = "".join(
+            f"\t\tAND = {{\n"
+            f"\t\t\tvar:{MOD_ID}_vw{k} = {i}\n"
+            f"\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods "
+            f"target = goods:{order[i - 1]} }} }}\n"
+            f"\t\t}}\n" for i in makes)
+        out.append(f"""
+# {building}: {len(makes)} товар(ов) могут в ней встать.
+# Scope: location
+{MOD_ID}_plan_can_village_{k} = {{
+\tvar:{MOD_ID}_vw{k} > 0
+\t{MOD_ID}_plan_is_town = no
+\tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_rural
+\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }} }}
+\tOR = {{
+{goods_free}\t}}
 }}
 """)
 
@@ -2737,7 +2803,56 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for index, good in enumerate(order, start=1):
         out.append(f"\t{MOD_ID}_score_{index} = yes\n"
                    f"\t{MOD_ID}_plan_harvest_{index} = yes\n")
-    out.append("}\n")
+    out.append(f"\t{MOD_ID}_plan_village_scores = yes\n"
+               "}\n")
+
+    # ---- деревня как сущность --------------------------------------------
+    #
+    # **Его правило: «торговая деревня = 1 уникальный товар».** В равном круге
+    # участвует сама деревня, а не пиво с гончаркой через неё. Что она
+    # производит — лучший из её собственных рецептов на этой локации, и это
+    # **не** засчитывается товару: у пива в сёлах теперь ноль, а вместо доли
+    # деревенского производства стоит счёт деревень.
+    #
+    # `_vb<k>` — эта лучшая выгода, `_vw<k>` — номер товара, который её дал,
+    # `_ngv<k>` — на скольких локациях выбранной земли деревня вообще может
+    # стоять (её ступень в круге).
+    villages = village_entities(rows, split, game)
+    out.append(f"""
+# Что каждая деревня стоит на каждой локации и сколько локаций её пускают.
+# Scope: country
+{MOD_ID}_plan_village_scores = {{
+""")
+    for k in range(1, len(villages) + 1):
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_ngv{k} value = 0 }}\n")
+    out.append(f"""\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tlimit = {{ {MOD_ID}_plan_is_town = no }}
+""")
+    for k, building in enumerate(villages, start=1):
+        makes = [i for i, g in enumerate(order, start=1)
+                 if building in (groups.get((g, "r")) or {})]
+        picks = "".join(f"""\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tvar:{MOD_ID}_prm{i} > 0
+\t\t\t\t\tvar:{MOD_ID}_pr{i} > var:{MOD_ID}_vb{k}
+\t\t\t\t}}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_vb{k} value = var:{MOD_ID}_pr{i} }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_vw{k} value = {i} }}
+\t\t\t}}
+""" for i in makes)
+        out.append(f"""\t\t# {building}: {", ".join(order[i - 1] for i in makes)}
+\t\tset_variable = {{ name = {MOD_ID}_vb{k} value = -1 }}
+\t\tset_variable = {{ name = {MOD_ID}_vw{k} value = 0 }}
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_stands_{building} = yes }}
+{picks}\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_vw{k} > 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ngv{k} add = 1 }}
+\t\t}}
+""")
+    out.append("\t}\n}\n")
 
     for index, good in enumerate(order, start=1):
         # **One RGO already standing counts as one building of that good**, the
@@ -3340,12 +3455,26 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\tset_global_variable = {{ name = {MOD_ID}_bq{k} "
         f"value = global_var:{MOD_ID}_plan_quota }}\n"
         for k in range(1, len(shared) + 1))
+    # **Сельскую долю делят сущности, а не товары.** Своё сельское здание есть
+    # у четырнадцати товаров; три деревни считаются сами. Товар, у которого в
+    # селе только деревня, из делителя выпадает — он получает то, что случится
+    # в деревне, а своей доли в селе у него нет. На северной Германии это 18
+    # сущностей вместо 23, то есть 852 ÷ 18 = 47 вместо 37.
+    villages_ = village_entities(rows, split, game)
+    own_rural = [i for i, g in enumerate(order, start=1)
+                 if any(b not in villages_ for b in (groups.get((g, "r")) or {}))]
     counts = "".join(
         f"""\tif = {{ limit = {{ global_var:{MOD_ID}_ngt{index} > 0 }} """
         f"""change_global_variable = {{ name = {MOD_ID}_qgt add = 1 }} }}\n"""
+        for index in range(1, len(order) + 1))
+    counts += "".join(
         f"""\tif = {{ limit = {{ global_var:{MOD_ID}_ngr{index} > 0 }} """
         f"""change_global_variable = {{ name = {MOD_ID}_qgr add = 1 }} }}\n"""
-        for index in range(1, len(order) + 1))
+        for index in own_rural)
+    counts += "".join(
+        f"""\tif = {{ limit = {{ global_var:{MOD_ID}_ngv{k} > 0 }} """
+        f"""change_global_variable = {{ name = {MOD_ID}_qgr add = 1 }} }}\n"""
+        for k in range(1, len(villages_) + 1))
     # **Скидка за РГО срезает сначала городской потолок, и только остаток —
     # сельский.** Его правило, 2026-09-08: «РГО в первую очередь вычитают из
     # городских лимитов… значит в городах мне не будет тыкаться глина, пока РГО
@@ -3561,6 +3690,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             if not groups.get((good, sfx)):
                 continue
             out.append(f"\tremove_global_variable = {MOD_ID}_px{sfx}{index}\n")
+    for k in range(1, len(village_entities(rows, split, game)) + 1):
+        out.append(f"\tremove_global_variable = {MOD_ID}_pxv{k}\n")
     # Самый крупный счёт, с которым раздача начинает. Свежий план приходит сюда
     # с тем, что раздали хартии; доливка -- со всем прошлым планом.
     for index in range(1, len(order) + 1):
@@ -3595,6 +3726,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             out.append(f"\t\tset_global_variable = {{ name = {MOD_ID}_plan_tier value = 0 }}\n")
         for index in range(1, len(order) + 1):
             out.append(f"\t\t{MOD_ID}_plan_pick_{index} = yes\n")
+        for k in range(1, len(village_entities(rows, split, game)) + 1):
+            out.append(f"\t\t{MOD_ID}_plan_pick_v{k} = yes\n")
     # Сколько положил каждый круг -- вся форма раздачи одним столбцом.
     lap_marks = "".join(
         f"\t\tif = {{ limit = {{ global_var:{MOD_ID}_plan_laps = {lap} }} "
@@ -3739,6 +3872,80 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\tchange_global_variable = {{ name = {MOD_ID}_tot{i} "
         f"add = global_var:{MOD_ID}_nrgo{i} }}\n"
         for i in range(1, len(order) + 1))
+    # ---- деревня ходит в круге сама ---------------------------------------
+    shared_all = shared_buildings(rows, split, game)
+    for k, building in enumerate(village_entities(rows, split, game), start=1):
+        b = shared_all.index(building) + 1
+        makes = [i for i, g in enumerate(order, start=1)
+                 if building in (groups.get((g, "r")) or {})]
+        places = "".join(f"""\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_vw{k} = {i} }}
+\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{order[i - 1]} }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_pout{i} add = {max(int(round(by_method[mi].output * 100)) for mi in groups[(order[i - 1], "r")][building])} }}
+\t\t\t}}
+""" for i in makes)
+        out.append(f"""
+# {building} как сущность круга: одна за круг, своя доля, своя ступень.
+#
+# **Товару её домик не засчитывается.** `_pn`/`_pnr` не растут -- деревня стоит
+# в счёте сама, `_bn{b}`, и это то, о чём он просил полсотни раз: «убрать все
+# деревенские доли товаров и заменить их просто на торговая деревня = 1
+# уникальный товар».
+# Scope: location
+{MOD_ID}_plan_try_village_{k} = {{
+\tif = {{
+\t\tlimit = {{ {MOD_ID}_plan_can_village_{k} = yes }}
+\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }}
+\t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_bn{b} add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_gain add = var:{MOD_ID}_vb{k} }}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_vb{k} > 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_fed add = 1 }}
+\t\t}}
+{places}\t}}
+}}
+
+# Scope: country
+{MOD_ID}_plan_pick_v{k} = {{
+\tif = {{
+\t\tlimit = {{
+\t\t\tOR = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
+\t\t\t\tAND = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_ngv{k} > 0
+\t\t\t\t\tglobal_var:{MOD_ID}_ngv{k} <= global_var:{MOD_ID}_plan_tier
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tglobal_var:{MOD_ID}_bn{b} < global_var:{MOD_ID}_plan_lvl
+\t\t\tglobal_var:{MOD_ID}_bn{b} < global_var:{MOD_ID}_bq{b}
+\t\t\tNOT = {{ has_global_variable = {MOD_ID}_pxv{k} }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_band = 0
+\t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_pxv{k} value = 1 }}
+\t\t}}
+\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_plan_can_village_{k} = yes
+\t\t\t\t{MOD_ID}_ordv{k} >= global_var:{MOD_ID}_plan_band
+\t\t\t}}
+\t\t\torder_by = {MOD_ID}_ordv{k}
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
+\t\t\tremove_global_variable = {MOD_ID}_pxv{k}
+\t\t\t{MOD_ID}_plan_try_village_{k} = yes
+\t\t}}
+\t}}
+}}
+""")
+
     out.append(f"""
 # The rows: one per location that got anything, its province's locations together.
 #
