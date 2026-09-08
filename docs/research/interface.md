@@ -197,6 +197,18 @@ own R.G.O. filter, storing the viewed building type through
 `trigger_on_create = yes`. What else a filter can read depends on its scope; see
 [Filter scopes](#filter-scopes-what-a-trigger-actually-gets).
 
+**Two mods that need the same probe must share it, or the later one silently
+wins.** The probe has to live inside the panel it reads, so every mod wanting the
+viewed location overrides `location_production_lateralview.gui` — and the game
+keeps one definition of a window name. `rgo_bonus_filter` and `where_to_produce`
+therefore ship *one* probe under names belonging to neither
+(`bag_view_location`, `bag_store_view_location`,
+`bag_view_location_is_current`), in two byte-identical files
+(`gui/location_production_lateralview.gui` and
+`common/scripted_guis/bag_shared_view_location.txt`). Either mod alone works,
+both together work in any load order, and `tools/check_script.py` fails the build
+when the copies drift.
+
 Filters are the right tool rather than hiding rows from the GUI: the list body
 is a `fixedgridbox` with a fixed row height, so a hidden row still occupies its
 cell and leaves a gap.

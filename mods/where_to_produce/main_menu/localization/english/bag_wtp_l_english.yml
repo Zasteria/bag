@@ -1,4 +1,8 @@
 ﻿l_english:
+ search_filter_bag_wtp_planned_name: "Plannable"
+ search_filter_bag_wtp_planned_desc: "Only the buildings «Where To Produce» plans with at all: production, not garrisons or ports. Reads nothing off the map — it just shortens the list."
+ search_filter_bag_wtp_plan_here_name: "In the plan, here"
+ search_filter_bag_wtp_plan_here_desc: "Only the buildings the plan puts #Y in this very location#!.\n\nIt shows the plan that is on the map now: load a slot in the editor and the chip shows that one.\n\nIf this chip leaves nothing while «Plannable» beside it works, the panel did not tell the mod which location it is showing."
  bag_wtp_name: "Where To Produce"
  bag_wtp_desc: "A planning tool. Name a good and the ground, and the mod finds the best production method available in each location and ranks the locations by what that method would earn from the raw materials there."
 

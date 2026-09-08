@@ -2200,6 +2200,57 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {body}
 }}
 """)
+
+    # ---- шаг 7: две фишки в списке зданий локации ---------------------------
+    #
+    # **Фишка -- это `gui/filters/*.txt`, а не окно.** Панель зовёт свои фильтры
+    # через `WithFilterTags('building')`, и любой мод, положивший туда файл со
+    # `scope = building_type`, получает свою галочку в том же ряду -- и в
+    # ванильной панели, и в чужой, которая её перекрыла. Никакого `.gui` Glorp UI
+    # для этого трогать не надо; решение «перекрывать их файл целиком или класть
+    # своё окно рядом» отпало вместе с вопросом.
+    #
+    # **`root` -- это сам тип здания**, так пишет `gui/filters/readme.txt` игры и
+    # так работает `bag_rgo_location_feeds_root` в соседнем моде. А вот
+    # `scope:target` в фильтре типа зданий не приходит, что бы ни говорил
+    # ванильный комментарий: чтение его пишет ошибку каждый проход.
+    #
+    # **Локацию приносит общая проба** -- `bag_view_location`, см.
+    # `common/scripted_guis/bag_shared_view_location.txt`.
+    #
+    # Две фишки, потому что они отвечают на разное и ломаются по-разному. Первая
+    # ничего не знает про локацию и не может не сработать -- она список типов,
+    # известный на сборке. Если в игре видно её и не видно вторую, причина
+    # названа без второго прогона: проба не записала локацию.
+    plan_builds = sorted({method.building for method in rows
+                          if method.building not in village_entities(rows, split, game)}
+                         & {b for key in groups for b in groups[key]})
+    listed = "".join(f"\t\tthis = building_type:{b}\n" for b in plan_builds)
+    out.append(f"""
+# **Здания, которыми план вообще умеет строить** -- {len(plan_builds)} из тех, что
+# есть в игре. Список известен на сборке, так что фишка стоит одно сравнение и
+# ничего не читает: она сужает список локации до производственных зданий этого
+# мода, и она же -- признак того, что фишки мода вообще доходят до панели.
+# Scope: building_type
+{MOD_ID}_type_is_planned = {{
+\tOR = {{
+{listed}\t}}
+}}
+
+# **Здания, которые план ставит именно здесь.** `_plan_builds` -- список типов на
+# самой локации, его ведут и раздача, и редактор, так что фишка показывает то,
+# что на карте сейчас: загрузили слот -- показывает слот.
+#
+# `target = root` -- та же форма, что у игры в `remove_list_global_variable`;
+# `root` в фильтре типа зданий и есть тип.
+# Scope: building_type
+{MOD_ID}_type_in_plan_here = {{
+\thas_global_variable = bag_view_location
+\tglobal_var:bag_view_location = {{
+\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = root }}
+\t}}
+}}
+""")
     return "".join(out)
 
 
@@ -9723,6 +9774,17 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    "nofit=%s worse=%s || button rounds=%s swaps=%s gain=%s "
                    "| rights rounds=%s swaps=%s"
                    % tuple(read(i) for i in range(1, 13))))
+
+    # **Шаг 7: записала ли панель локацию.** Фишка «Из плана — сюда» стоит на
+    # `bag_view_location`, и если проба в панели не сработала, фишка не оставит
+    # в списке ничего -- симптом, неотличимый от «план сюда ничего не ставит».
+    # Одно число разделяет эти два случая без второго прогона.
+    out.append(flag(1, f"has_global_variable = bag_view_location"))
+    out.append(say("FILTER view_location=%s -- 1 значит, что панель "
+                   "производства локации записала, какую локацию показывает; "
+                   "0 -- что фишка «Из плана — сюда» не может работать "
+                   "(её проба не сработала или панель ещё не открывали)"
+                   % read(1)))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan

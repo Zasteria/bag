@@ -1,4 +1,4 @@
-# `rgo_bonus_filter` — brief
+﻿# `rgo_bonus_filter` — brief
 
 Two filter chips, one per building list, leaving only buildings that gain
 production efficiency from a raw material the province actually has.
@@ -15,6 +15,15 @@ hand.
 **The one thing to know before touching it.** A `building_type` filter receives
 `root` and nothing else — not `scope:target`, whatever vanilla's comment says.
 Reading `scope:target` logs an error every pass.
+
+**Проба локации теперь общая с `where_to_produce`.** Оба мода перекрывают
+`gui/location_production_lateralview.gui` — иначе фильтру не узнать, какую
+локацию показывает панель, — и тот, кто загрузился последним, унёс бы пробу
+другого. Поэтому проба одна, под именами `bag_view_location`,
+`bag_store_view_location`, `bag_view_location_is_current`, и оба мода возят две
+копии **побайтово одинаковыми**: сам `.gui` и
+`common/scripted_guis/bag_shared_view_location.txt`. Разойдутся — `tools/check_script.py`
+уронит сборку. **Править в обеих копиях или не править вовсе.**
 
 **And the one open cost.** Four of the fifteen chips mods add to the `building`
 tag are this mod's, and they are not cheap: `bag_rgo_has_local_bonus` walks

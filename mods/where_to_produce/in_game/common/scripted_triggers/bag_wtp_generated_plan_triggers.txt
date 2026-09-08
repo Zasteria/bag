@@ -2287,3 +2287,134 @@ bag_wtp_plan_right_gate_12 = {
 bag_wtp_plan_right_gate_13 = {
 	culture = { has_culture_group = culture_group:scandinavian_group }
 }
+
+# **Здания, которыми план вообще умеет строить** -- 107 из тех, что
+# есть в игре. Список известен на сборке, так что фишка стоит одно сравнение и
+# ничего не читает: она сужает список локации до производственных зданий этого
+# мода, и она же -- признак того, что фишки мода вообще доходят до панели.
+# Scope: building_type
+bag_wtp_type_is_planned = {
+	OR = {
+		this = building_type:ablaq_palace
+		this = building_type:apothecary
+		this = building_type:beer_workshop
+		this = building_type:bog_iron_smelter
+		this = building_type:brewery
+		this = building_type:brewery_manufactory
+		this = building_type:brewery_mill
+		this = building_type:cannon_foundry
+		this = building_type:cannon_maker
+		this = building_type:cannon_workshop
+		this = building_type:cannons_factory
+		this = building_type:charcoal_maker
+		this = building_type:clay_pit
+		this = building_type:cloth_guild
+		this = building_type:cloth_manufactory
+		this = building_type:cloth_workshop
+		this = building_type:cotton_plantation
+		this = building_type:distiller_manufactory
+		this = building_type:distiller_mill
+		this = building_type:distillers_guild
+		this = building_type:distillers_workshop
+		this = building_type:dyes_guild
+		this = building_type:dyes_mill
+		this = building_type:dyes_workshop
+		this = building_type:dyesworks
+		this = building_type:elephant_hunting_grounds
+		this = building_type:eng_royal_forest
+		this = building_type:farming_village
+		this = building_type:fiber_crops_farm
+		this = building_type:fine_cloth_guild
+		this = building_type:fine_cloth_manufactory
+		this = building_type:fine_cloth_mill
+		this = building_type:fine_cloth_workshop
+		this = building_type:firearms_factory
+		this = building_type:firearms_manufactory
+		this = building_type:fruit_orchard
+		this = building_type:furniture_guild
+		this = building_type:furniture_manufactory
+		this = building_type:furniture_mill
+		this = building_type:furniture_workshop
+		this = building_type:glass_guild
+		this = building_type:glass_mill
+		this = building_type:glass_workshop
+		this = building_type:glassworks
+		this = building_type:gun_smith
+		this = building_type:guns_workshop
+		this = building_type:hand_cannon_guild
+		this = building_type:horse_breeders
+		this = building_type:improved_charcoal_maker
+		this = building_type:iron_foundry
+		this = building_type:iron_mill
+		this = building_type:jewelry_guild
+		this = building_type:lacquerware_guild
+		this = building_type:lacquerware_manufactory
+		this = building_type:lucca_silk_production_guild
+		this = building_type:mason
+		this = building_type:naval_supplies_guild
+		this = building_type:naval_supplies_manufactory
+		this = building_type:naval_supplies_mill
+		this = building_type:naval_supplies_workshop
+		this = building_type:paper_guild
+		this = building_type:paper_manufactory
+		this = building_type:paper_mill
+		this = building_type:paper_workshop
+		this = building_type:perfumery
+		this = building_type:porcelain_guild
+		this = building_type:porcelain_manufactory
+		this = building_type:pottery_guild
+		this = building_type:pottery_manufactory
+		this = building_type:pottery_mill
+		this = building_type:pottery_workshop
+		this = building_type:pounamou_carver
+		this = building_type:printing_manufactory
+		this = building_type:printing_mill
+		this = building_type:printing_press_shop
+		this = building_type:putrefaction_mill
+		this = building_type:putrefaction_works
+		this = building_type:rural_clothmaker
+		this = building_type:rural_glassmaker
+		this = building_type:salt_collector
+		this = building_type:saltpeter_guild
+		this = building_type:saltpeter_workshop
+		this = building_type:sand_pit
+		this = building_type:schwaz_mine
+		this = building_type:scriptorium
+		this = building_type:sheep_farms
+		this = building_type:shoen
+		this = building_type:slave_center
+		this = building_type:steel_mill
+		this = building_type:stone_quarry
+		this = building_type:sugar_plantation
+		this = building_type:tannery
+		this = building_type:tannery_manufactory
+		this = building_type:tannery_mill
+		this = building_type:tanning_workshop
+		this = building_type:tar_kiln
+		this = building_type:tatara
+		this = building_type:textile_mill
+		this = building_type:tobacco_plantation
+		this = building_type:tools_guild
+		this = building_type:tools_workshop
+		this = building_type:weapon_factory
+		this = building_type:weapon_guild
+		this = building_type:weapon_manufactory
+		this = building_type:weapon_workshop
+		this = building_type:winery
+		this = building_type:winery_manufactory
+	}
+}
+
+# **Здания, которые план ставит именно здесь.** `_plan_builds` -- список типов на
+# самой локации, его ведут и раздача, и редактор, так что фишка показывает то,
+# что на карте сейчас: загрузили слот -- показывает слот.
+#
+# `target = root` -- та же форма, что у игры в `remove_list_global_variable`;
+# `root` в фильтре типа зданий и есть тип.
+# Scope: building_type
+bag_wtp_type_in_plan_here = {
+	has_global_variable = bag_view_location
+	global_var:bag_view_location = {
+		is_target_in_variable_list = { name = bag_wtp_plan_builds target = root }
+	}
+}
