@@ -157,6 +157,10 @@ PLAN_PROVS = 600
 # локаций выйти в те же 1/2/4/8/15 — не сломать то, что уже проверено прогонами.
 #
 # 2 % / 4 % / 8 % / 16 % / 32 % — делители 50, 25, 12.5, 6.25, 3.125.
+# Предел, до которого ищется доля стороны. Больше него не бывает: доля не
+# превосходит числа комнат самой большой стороны.
+SHARE_CAP = 2000
+
 PLAN_TIERS = (1, 2, 4, 8, 16)
 TIER_DIVISORS = (50, 25, 12.5, 6.25, 3.125)
 
@@ -3454,8 +3458,55 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # 7/7/7/7/6/6». Это ровно оно и есть — и без единого весового коэффициента.
     bquotas = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_bq{k} "
-        f"value = global_var:{MOD_ID}_plan_quota }}\n"
+        f"value = global_var:{MOD_ID}_qcapr }}\n"
         for k in range(1, len(shared) + 1))
+
+    # **Доля стороны считается точно и сразу, а не растёт сухими кругами.**
+    # Это наименьшее X, при котором `Σ min(своя земля, X)` по всем участникам
+    # стороны накрывает её комнаты: земля заполнится ровно тогда. Раньше доля
+    # стартовала с «комнаты ÷ товары» и доползала до правды сухими кругами, и
+    # всё, что считалось от неё **до** этого, считалось от вранья — проход
+    # стеснённых пропускал железо, потому что его 43 локации были больше
+    # стартовых 36 и меньше настоящих 71.
+    #
+    # Его же числа, угаданные по прогону 2026-09-08: «лимит в города 22–23,
+    # лимит в сёлах 47–48». Столько и выходит.
+    def share_loop(cap, rooms, terms):
+        body = "".join(f"""\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_{t} > 0 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_{t} < global_var:{MOD_ID}_{cap} }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_qsum add = global_var:{MOD_ID}_{t} }}
+\t\t\t}}
+\t\t\telse = {{
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_qsum add = global_var:{MOD_ID}_{cap} }}
+\t\t\t}}
+\t\t}}
+""" for t in terms)
+        return f"""\tset_global_variable = {{ name = {MOD_ID}_{cap} value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_qgo value = 1 }}
+\twhile = {{
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_qgo = 1
+\t\t\tglobal_var:{MOD_ID}_{cap} < {SHARE_CAP}
+\t\t}}
+\t\tchange_global_variable = {{ name = {MOD_ID}_{cap} add = 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_qsum value = 0 }}
+{body}\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_qsum < global_var:{MOD_ID}_{rooms} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_qgo value = 0 }}
+\t\t}}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_{cap} max = 1 }}
+"""
+    villages_ = village_entities(rows, split, game)
+    own_rural = [i for i, g in enumerate(order, start=1)
+                 if any(b not in villages_ for b in (groups.get((g, "r")) or {}))]
+    shares = share_loop("qcapt", "prooms_t",
+                        [f"ngt{i}" for i in range(1, len(order) + 1)])
+    shares += share_loop("qcapr", "prooms_r",
+                         [f"ngr{i}" for i in own_rural]
+                         + [f"ngv{k}" for k in range(1, len(villages_) + 1)])
     # **Сельскую долю делят сущности, а не товары.** Своё сельское здание есть
     # у четырнадцати товаров; три деревни считаются сами. Товар, у которого в
     # селе только деревня, из делителя выпадает — он получает то, что случится
@@ -3511,35 +3562,47 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     #
     # Для `medicaments` признак ложен (132 городских локации против доли 71), и
     # скидка там работает как задумано.
+    # **Доля товара — сумма долей тех сторон, где он умеет, минус свои РГО.**
+    # Двусторонний держит обе, односторонний одну. Это его решение 2026-09-08:
+    # два котла, полная доля в каждом.
+    #
+    # **Скидка за РГО срезает сначала городской потолок**, остаток — сельский:
+    # городская комната дороже, а РГО их не различает.
+    #
+    # **У стеснённой стороны потолка нет вовсе.** Если земли товара на этой
+    # стороне не больше её доли, делить ему нечего и любой потолок только
+    # отнимает — железо с 15 городами и 28 сёлами при долях 23 и 48 берёт всё.
     quota_lines = "".join(
-        f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
-\tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
-\t# Своя земля минус доля **до** скидки за РГО: меньше единицы — товар стеснён.
-\t# Число своё на каждый товар, потому что его читает и проход стеснённых.
-\tset_global_variable = {{ name = {MOD_ID}_ngall{index} value = global_var:{MOD_ID}_ngt{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_ngall{index} add = global_var:{MOD_ID}_ngr{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_ngall{index} subtract = global_var:{MOD_ID}_plan_quota }}
+        f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 0 }}
 \tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_ngall{index} < 1 }}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_pq{index} }}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_pq{index} }}
+\t\tlimit = {{ global_var:{MOD_ID}_ngt{index} > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_qcapt }}
 \t}}
-\telse = {{
-\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
-\t\t# Сколько скидки в город не влезло. Ноль, если влезла вся.
-\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = 0 }}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} < 0 }}
-\t\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = global_var:{MOD_ID}_pqt{index} }}
-\t\t}}
-\t\t# **Пол городского потолка — ноль, а не единица.** Товар, у которого своих
-\t\t# РГО больше, чем городская доля, в городе не нужен вовсе: он уже есть.
-\t\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 0 }}
-\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} add = global_var:{MOD_ID}_rgleft }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
+""" + (f"""\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ngr{index} > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_qcapr }}
+\t}}
+""" if index in own_rural else "") + f"""\tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_qcapt }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
+\tset_global_variable = {{ name = {MOD_ID}_rgleft value = 0 }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_pqt{index} < 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rgleft value = global_var:{MOD_ID}_pqt{index} }}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_pqt{index} max = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_qcapr }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} add = global_var:{MOD_ID}_rgleft }}
+\tchange_global_variable = {{ name = {MOD_ID}_pqr{index} max = 1 }}
+\t# стеснённая сторона: потолка нет
+\tif = {{
+\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_ngt{index} > global_var:{MOD_ID}_qcapt }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqt{index} value = global_var:{MOD_ID}_pq{index} }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_ngr{index} > global_var:{MOD_ID}_qcapr }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pqr{index} value = global_var:{MOD_ID}_pq{index} }}
 \t}}
 """
         for index in range(1, len(order) + 1))
@@ -3598,20 +3661,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 	# Они не добавляют товару домиков — они мешают одному выгрести дефицитную
 	# сторону, из-за чего «15 стекла» и «15 текстиля» оказывались разными
 	# планами под одним числом.
-	set_global_variable = {{ name = {MOD_ID}_qcapt value = global_var:{MOD_ID}_prooms_t }}
-	if = {{
-		limit = {{ global_var:{MOD_ID}_qgt > 0 }}
-		change_global_variable = {{ name = {MOD_ID}_qcapt divide = {MOD_ID}_qgt_value }}
-	}}
-	change_global_variable = {{ name = {MOD_ID}_qcapt max = 1 }}
-
-	set_global_variable = {{ name = {MOD_ID}_qcapr value = global_var:{MOD_ID}_prooms_r }}
-	if = {{
-		limit = {{ global_var:{MOD_ID}_qgr > 0 }}
-		change_global_variable = {{ name = {MOD_ID}_qcapr divide = {MOD_ID}_qgr_value }}
-	}}
-	change_global_variable = {{ name = {MOD_ID}_qcapr max = 1 }}
-	{MOD_ID}_plan_set_caps = yes
+{shares}	{MOD_ID}_plan_set_caps = yes
 }}
 
 # Потолки каждого товара и каждого общего здания — **выведенные заново из трёх
@@ -3999,8 +4049,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                     continue
                 out.append(f"""\tif = {{
 \t\tlimit = {{
-\t\t\tglobal_var:{MOD_ID}_ngall{index} < 1
 \t\t\tglobal_var:{MOD_ID}_ng{sfx}{index} > 0
+\t\t\tNOT = {{ global_var:{MOD_ID}_ng{sfx}{index} > global_var:{MOD_ID}_qcap{sfx} }}
 \t\t\tglobal_var:{MOD_ID}_ng{sfx}{index} <= global_var:{MOD_ID}_plan_tier
 \t\t}}
 \t\tevery_in_global_list = {{
@@ -8341,7 +8391,13 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         # итоге в адекватные цифры»; сами домики видны в столбце «город / село»,
         # а РГО -- в своём.
         out.append(f' {MOD_ID}_sum_n_{i}: "#Y {sv % "tot"}#!"\n')
-        out.append(f' {MOD_ID}_sum_sides_{i}: "{sv % "pnt"} / {sv % "pnr"}"\n')
+        # **Чистое число домиков и стороны по отдельности.** «Всего» — это
+        # домики плюс РГО; чтобы видеть, что из чего сложилось, рядом стоят три
+        # числа без РГО: сколько построено всего, сколько в городах, сколько в
+        # сёлах.
+        out.append(f' {MOD_ID}_sum_nb_{i}: "{sv % "pn"}"\n')
+        out.append(f' {MOD_ID}_sum_town_{i}: "{sv % "pnt"}"\n')
+        out.append(f' {MOD_ID}_sum_rural_{i}: "{sv % "pnr"}"\n')
         out.append(f' {MOD_ID}_sum_places_{i}: "{sv % "ng"}"\n')
         # **РГО отдельным столбцом, потому что он объясняет почти каждое
         # «почему у него меньше».** Доля товара -- это доля земли минус одно за
@@ -9275,8 +9331,13 @@ SUM_CELLS_OUT = MOD / "in_game/gui/bag_wtp_sum_cells.gui"
 
 # Ширины столбцов сводки. Сумма плюс промежутки не должна превышать ширину окна
 # минус рамку -- `docs/pitfalls/windows.md`, правило 3.
-SUM_COLS = ((216, "name"), (54, "n"), (110, "sides"), (74, "places"),
-            (54, "rgo"), (64, "quota"), (64, "gain"), (620, "why"))
+# **Город и село — отдельные столбцы, и рядом с «всего» стоит чистое число
+# домиков.** Его просьба 2026-09-08: «стоит разделить в таблице на отдельные
+# город и село вместо одной город/село и так же столбик с общим реальным
+# количеством без РГО».
+SUM_COLS = ((200, "name"), (54, "n"), (60, "nb"), (54, "town"), (54, "rural"),
+            (60, "places"), (48, "rgo"), (54, "quota"), (54, "gain"),
+            (560, "why"))
 SUM_SPACING = 6
 SUM_ROW_W = sum(w for w, _ in SUM_COLS) + SUM_SPACING * (len(SUM_COLS) - 1)
 SUM_WINDOW_W = 1460
@@ -9538,11 +9599,13 @@ types BagWtpSumCells {
                 text, align, size = f'"{MOD_ID}_village_{building}"', "left|vcenter", 14
             elif kind == "why":
                 text, align, size = f'"{MOD_ID}_why_village"', "left|vcenter", 13
-            elif kind in ("n", "sides", "places", "quota"):
+            elif kind in ("n", "nb", "town", "rural", "places", "quota"):
                 sv = ("[GuiScope.SetRoot(GetPlayer.MakeScope)"
                       ".ScriptValue('%s_show_%s')|0]")
                 body = {"n": "#Y " + sv % (MOD_ID, "bn%d" % b) + "#!",
-                        "sides": "— / " + sv % (MOD_ID, "bn%d" % b),
+                        "nb": sv % (MOD_ID, "bn%d" % b),
+                        "town": "—",
+                        "rural": sv % (MOD_ID, "bn%d" % b),
                         "places": sv % (MOD_ID, "ngv%d" % k),
                         "quota": sv % (MOD_ID, "bq%d" % b)}[kind]
                 text = '"%s"' % body
@@ -9571,6 +9634,33 @@ types BagWtpSumCells {
 \t\tusing = bg_number_container_bckg
 
 {cells}\t}}
+
+""")
+    # **Заголовки столбцов — тоже отсюда.** Они были выписаны в окне руками, и
+    # при первом же изменении `SUM_COLS` разъехались со строками: восемь
+    # заголовков над десятью столбцами. Теперь у обоих один источник.
+    head = ""
+    for width, kind in SUM_COLS:
+        align = "left|vcenter" if kind in ("name", "why") else "center|vcenter"
+        head += f"""\t\ttext_single = {{
+\t\t\tsize = {{ {width} 22 }}
+\t\t\tautoresize = no
+\t\t\tmaximumsize = {{ {width} 22 }}
+\t\t\talign = {align}
+\t\t\tfontsize = 13
+\t\t\tfontsize_min = 10
+\t\t\telide = right
+\t\t\ttooltip = "{MOD_ID}_sum_{kind}_tt"
+\t\t\ttext = "{MOD_ID}_sum_col_{kind}"
+\t\t}}
+
+"""
+    out.append(f"""\t# Заголовки столбцов, теми же ширинами, что и строки.
+\ttype {MOD_ID}_sum_head_row = hbox {{
+\t\tsize = {{ {SUM_ROW_W} 22 }}
+\t\tspacing = {SUM_SPACING}
+
+{head}\t}}
 
 """)
     rowlist = "".join(f"\t\t{MOD_ID}_sum_row{i} = {{}}\n"
