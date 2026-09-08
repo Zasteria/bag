@@ -2855,8 +2855,34 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                      + arms + f"\t}}\n")
         return out_
 
+    def cm_light(building: str, tab: str) -> str:
+        """То же чтение, но в переменные локации -- для того, горит ли иконка."""
+        t = tab
+        return (
+            f"{t}change_variable = {{ name = {MOD_ID}_cm_lfound add = 1 }}\n"
+            f"{t}change_variable = {{ name = {MOD_ID}_cm_lall add = 1 }}\n"
+            f"{t}if = {{\n"
+            f"{t}\tlimit = {{\n"
+            f"{t}\t\tOR = {{\n"
+            f"{t}\t\t\tis_target_in_variable_list = "
+            f"{{ name = cm_auto_expand_registered_building_types "
+            f"target = building_type:{building} }}\n"
+            f"{t}\t\t\tAND = {{\n"
+            f"{t}\t\t\t\towner = {{ is_target_in_variable_list = "
+            f"{{ name = cm_mass_auto_expand_building_types "
+            f"target = building_type:{building} }} }}\n"
+            f"{t}\t\t\t\tNOT = {{ is_target_in_variable_list = "
+            f"{{ name = cm_auto_expand_excluded_building_types "
+            f"target = building_type:{building} }} }}\n"
+            f"{t}\t\t\t}}\n"
+            f"{t}\t\t}}\n"
+            f"{t}\t}}\n"
+            f"{t}\tchange_variable = {{ name = {MOD_ID}_cm_lall subtract = 1 }}\n"
+            f"{t}}}\n")
+
     cm_apply = cm_walk(cm_mark)
     cm_scan = cm_walk(cm_seen)
+    cm_lit = cm_walk(cm_light)
 
     bavail = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_ba_{b} value = 0 }}\n"
@@ -2942,6 +2968,84 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_cm_scan = {{
 {cm_scan}}}
 
+# **Горит ли иконка -- переменная, а не вопрос на каждом кадре.**
+#
+# Владелец, 2026-09-09: «иконки всегда горят так, как выглядит положение "вкл"…
+# Она должна загораться и потухать». Ответ считается на нажатии и на открытии
+# окна и лежит на локации: `visible` умеет читать переменную и не умеет звать
+# триггер, а сорок строк, каждая со своим обходом плана на кадр, -- это ровно та
+# цена, которую этот репозиторий до сих пор ищет в `panel_hitch.md`.
+#
+# **Считается вычитанием, а не сравнением двух переменных.** `var:x = var:y` тут
+# нигде не доказан: `_cm_lall` растёт на каждую найденную галочку и убывает на
+# каждую стоящую, так что «горит» -- это `_cm_lfound > 0` и `_cm_lall = 0`,
+# оба против чисел.
+# Scope: location
+{MOD_ID}_cm_light_loc = {{
+\tset_variable = {{ name = {MOD_ID}_cm_lfound value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_cm_lall value = 0 }}
+{cm_lit}\tremove_variable = {MOD_ID}_cm_lit
+\tif = {{
+\t\tlimit = {{
+\t\t\tvar:{MOD_ID}_cm_lfound > 0
+\t\t\tNOT = {{ var:{MOD_ID}_cm_lall > 0 }}
+\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_cm_lit value = 1 }}
+\t}}
+}}
+
+# Тот же ответ для ряда провинции и для шапки. Провинция горит, когда горят все
+# её локации плана; шапка -- когда горит весь план. Провинция читается со своей
+# представительной локации, той же, на которой стоит её ряд.
+# Scope: country
+{MOD_ID}_cm_light = {{
+\t{MOD_ID}_set_bavail = yes
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\t{MOD_ID}_cm_light_loc = yes
+\t}}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_provs
+\t\tprovince_definition = {{ save_scope_as = {MOD_ID}_cm_prov }}
+\t\tremove_variable = {MOD_ID}_cm_lit_prov
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tany_in_global_list = {{
+\t\t\t\t\tvariable = {MOD_ID}_plan_touched
+\t\t\t\t\tprovince_definition = {{ this = scope:{MOD_ID}_cm_prov }}
+\t\t\t\t\tvar:{MOD_ID}_cm_lit = 1
+\t\t\t\t}}
+\t\t\t\tNOT = {{
+\t\t\t\t\tany_in_global_list = {{
+\t\t\t\t\t\tvariable = {MOD_ID}_plan_touched
+\t\t\t\t\t\tprovince_definition = {{ this = scope:{MOD_ID}_cm_prov }}
+\t\t\t\t\t\tvar:{MOD_ID}_cm_lfound > 0
+\t\t\t\t\t\tNOT = {{ var:{MOD_ID}_cm_lit = 1 }}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tset_variable = {{ name = {MOD_ID}_cm_lit_prov value = 1 }}
+\t\t}}
+\t}}
+\tremove_global_variable = {MOD_ID}_cm_lit_all
+\tif = {{
+\t\tlimit = {{
+\t\t\tany_in_global_list = {{
+\t\t\t\tvariable = {MOD_ID}_plan_touched
+\t\t\t\tvar:{MOD_ID}_cm_lit = 1
+\t\t\t}}
+\t\t\tNOT = {{
+\t\t\t\tany_in_global_list = {{
+\t\t\t\t\tvariable = {MOD_ID}_plan_touched
+\t\t\t\t\tvar:{MOD_ID}_cm_lfound > 0
+\t\t\t\t\tNOT = {{ var:{MOD_ID}_cm_lit = 1 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\tset_global_variable = {{ name = {MOD_ID}_cm_lit_all value = 1 }}
+\t}}
+}}
+
 # Пройти помеченную группу дважды: сначала посчитать, потом решить и применить.
 # Scope: country, ждёт заполненный global list scope
 {MOD_ID}_cm_press_prov_do = {{
@@ -2958,6 +3062,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tlimit = {{ province_definition = {{ this = scope:{MOD_ID}_cm_prov }} }}
 \t\t{MOD_ID}_cm_apply = yes
 \t}}
+\t{MOD_ID}_cm_light = yes
 }}
 
 # Scope: country
@@ -2966,6 +3071,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tscope:wtp_location = {{ {MOD_ID}_cm_scan = yes }}
 \t{MOD_ID}_cm_decide = yes
 \tscope:wtp_location = {{ {MOD_ID}_cm_apply = yes }}
+\t{MOD_ID}_cm_light = yes
 }}
 
 # Scope: country
@@ -2980,6 +3086,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_plan_touched
 \t\t{MOD_ID}_cm_apply = yes
 \t}}
+\t{MOD_ID}_cm_light = yes
 }}
 
 # Scope: country
@@ -4987,6 +5094,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_open_plan_window_effect = {{
 \t{MOD_ID}_sel_restore_plan = yes
 \t{MOD_ID}_plan_show = yes
+\t# **Галочки CM он мог трогать и сам**, по одной в панели локации, поэтому
+\t# подсветка кнопок отмашки пересчитывается на каждом открытии окна, а не
+\t# только после своего же нажатия.
+\t{MOD_ID}_cm_light = yes
 \tremove_variable = {MOD_ID}_result_open
 \tremove_variable = {MOD_ID}_right_open
 \t{MOD_ID}_hide_results = yes
