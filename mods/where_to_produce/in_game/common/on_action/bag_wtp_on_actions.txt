@@ -16,6 +16,25 @@ bag_wtp_on_registration = {
 	}
 }
 
+# Раз в месяц, по одному человеку. **Лист, а не свой on_action**: CMF собирает
+# сюда всех, и диспетчер Construction Manager висит здесь же. Он начинает свой
+# круг с очистки очередей, поэтому порядок листьев решает, переживёт ли наша
+# постановка этот месяц, — а порядок между модами не определён ничем. Поэтому он
+# не угадывается: `_cm_ran`, `_cm_armed` и `_cm_staged` печатает диагностика.
+# Scope: country
+cmf_monthly_human_country_pulse = {
+	on_actions = {
+		bag_wtp_on_monthly
+	}
+}
+
+# Scope: country
+bag_wtp_on_monthly = {
+	effect = {
+		bag_wtp_cm_tick = yes
+	}
+}
+
 # A CMM setting changed, or a button was clicked. The dropdown and the tick both
 # auto-apply and arrive here; the region lists do not, because a list reaches
 # nothing but its own `_on_changed` scripted GUI.

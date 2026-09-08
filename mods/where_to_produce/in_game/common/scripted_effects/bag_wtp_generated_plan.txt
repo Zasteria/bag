@@ -596,6 +596,3583 @@ bag_wtp_set_bavail = {
 	}
 }
 
+# **Локация в очередь Construction Manager, если её там ещё нет.**
+#
+# **Переменные CM пишутся напрямую, ни один его эффект не зовётся.** Имя, которое
+# ничего не определяет, ломается не там, где его ищут (`PITFALLS.md`), а мод
+# должен работать и без CM. Переменную же можно писать в пустоту: нет CM -- никто
+# её не прочитает, и не случится ничего. Форма скопирована с
+# `cm_stage_location_and_type_to_queue` (CM 2.2.12) строка в строку, включая
+# очистку `cm_q_done_ungated_types` при первом добавлении локации.
+#
+# **Очередь именно «негатированная».** `cm_q_ungated_*` -- та, на которой стоит
+# собственный «Auto Build» CM: она проходит мимо порогов прибыли и скидки. План
+# уже решил, где чему стоять, второй раз это решать незачем.
+# Scope: location
+bag_wtp_cm_queue_loc = {
+	save_scope_as = bag_wtp_cm_here
+	scope:bag_wtp_cm_country = {
+		if = {
+			limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_locations target = scope:bag_wtp_cm_here } } }
+			add_to_variable_list = { name = cm_q_ungated_locations target = scope:bag_wtp_cm_here }
+			scope:bag_wtp_cm_here = { clear_variable_list = cm_q_done_ungated_types }
+		}
+	}
+}
+
+# **Что план хочет в этой локации -- и что из этого правда можно построить.**
+#
+# Его условие, 2026-09-09: «это должен быть сигнал включения который будет
+# срабатывать только на домики, которые могут быть построены в выбранной
+# локации. Чтобы не вышло так, что я просто переключил в плане тумблер и сделал
+# село городом, а на самом деле там всё ещё село».
+#
+# **Поэтому здесь `can_build_building`, а не `_stands_<здание>`.** `_stands_`
+# нарочно слушается тумблера ранга -- в этом весь смысл плана, он моделирует
+# «я тут сделаю город». Игре этот тумблер не известен, и очередь строительства
+# спрашивает игру: настоящий ранг, местность, рынок и правило «одно РГО на
+# локацию». Плюс `_ba_<здание>` -- продвижение страны, которое в скоупе локации
+# не спрашивается.
+#
+# **Ступень берётся та, что по зубам**, ровно как в фишке фильтра: план «на
+# конец» ставит мельницу, а строится мастерская.
+# Scope: location
+bag_wtp_cm_loc_stage = {
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_ablaq_palace = 1
+				NOT = { has_building = building_type:ablaq_palace }
+				can_build_building = building_type:ablaq_palace
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:ablaq_palace } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:ablaq_palace }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_apothecary = 1
+				NOT = { has_building = building_type:apothecary }
+				can_build_building = building_type:apothecary
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:apothecary } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:apothecary }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_beer_workshop = 1
+				NOT = { has_building = building_type:beer_workshop }
+				can_build_building = building_type:beer_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:beer_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:beer_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_brewery = 1
+				NOT = { has_building = building_type:brewery }
+				can_build_building = building_type:brewery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_bog_iron_smelter = 1
+				NOT = { has_building = building_type:bog_iron_smelter }
+				can_build_building = building_type:bog_iron_smelter
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:bog_iron_smelter } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:bog_iron_smelter }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_brewery = 1
+				NOT = { has_building = building_type:brewery }
+				can_build_building = building_type:brewery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_brewery_manufactory = 1
+				NOT = { has_building = building_type:brewery_manufactory }
+				can_build_building = building_type:brewery_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_beer_workshop = 1
+				NOT = { has_building = building_type:beer_workshop }
+				can_build_building = building_type:beer_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:beer_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:beer_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_brewery = 1
+				NOT = { has_building = building_type:brewery }
+				can_build_building = building_type:brewery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_brewery_mill = 1
+				NOT = { has_building = building_type:brewery_mill }
+				can_build_building = building_type:brewery_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_brewery_manufactory = 1
+				NOT = { has_building = building_type:brewery_manufactory }
+				can_build_building = building_type:brewery_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_beer_workshop = 1
+				NOT = { has_building = building_type:beer_workshop }
+				can_build_building = building_type:beer_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:beer_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:beer_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_brewery = 1
+				NOT = { has_building = building_type:brewery }
+				can_build_building = building_type:brewery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:brewery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_foundry = 1
+				NOT = { has_building = building_type:cannon_foundry }
+				can_build_building = building_type:cannon_foundry
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_foundry } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_foundry }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_workshop = 1
+				NOT = { has_building = building_type:cannon_workshop }
+				can_build_building = building_type:cannon_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_maker = 1
+				NOT = { has_building = building_type:cannon_maker }
+				can_build_building = building_type:cannon_maker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_maker = 1
+				NOT = { has_building = building_type:cannon_maker }
+				can_build_building = building_type:cannon_maker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_workshop = 1
+				NOT = { has_building = building_type:cannon_workshop }
+				can_build_building = building_type:cannon_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_maker = 1
+				NOT = { has_building = building_type:cannon_maker }
+				can_build_building = building_type:cannon_maker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cannons_factory = 1
+				NOT = { has_building = building_type:cannons_factory }
+				can_build_building = building_type:cannons_factory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannons_factory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannons_factory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_foundry = 1
+				NOT = { has_building = building_type:cannon_foundry }
+				can_build_building = building_type:cannon_foundry
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_foundry } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_foundry }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_workshop = 1
+				NOT = { has_building = building_type:cannon_workshop }
+				can_build_building = building_type:cannon_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cannon_maker = 1
+				NOT = { has_building = building_type:cannon_maker }
+				can_build_building = building_type:cannon_maker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cannon_maker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_charcoal_maker = 1
+				NOT = { has_building = building_type:charcoal_maker }
+				can_build_building = building_type:charcoal_maker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:charcoal_maker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:charcoal_maker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_clay_pit = 1
+				NOT = { has_building = building_type:clay_pit }
+				can_build_building = building_type:clay_pit
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:clay_pit } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:clay_pit }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_guild = 1
+				NOT = { has_building = building_type:cloth_guild }
+				can_build_building = building_type:cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_manufactory = 1
+				NOT = { has_building = building_type:cloth_manufactory }
+				can_build_building = building_type:cloth_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_workshop = 1
+				NOT = { has_building = building_type:cloth_workshop }
+				can_build_building = building_type:cloth_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_guild = 1
+				NOT = { has_building = building_type:cloth_guild }
+				can_build_building = building_type:cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_workshop = 1
+				NOT = { has_building = building_type:cloth_workshop }
+				can_build_building = building_type:cloth_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_guild = 1
+				NOT = { has_building = building_type:cloth_guild }
+				can_build_building = building_type:cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_cotton_plantation = 1
+				NOT = { has_building = building_type:cotton_plantation }
+				can_build_building = building_type:cotton_plantation
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cotton_plantation } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cotton_plantation }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_distiller_manufactory = 1
+				NOT = { has_building = building_type:distiller_manufactory }
+				can_build_building = building_type:distiller_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distiller_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distiller_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_distillers_workshop = 1
+				NOT = { has_building = building_type:distillers_workshop }
+				can_build_building = building_type:distillers_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_distillers_guild = 1
+				NOT = { has_building = building_type:distillers_guild }
+				can_build_building = building_type:distillers_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_distiller_mill = 1
+				NOT = { has_building = building_type:distiller_mill }
+				can_build_building = building_type:distiller_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distiller_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distiller_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_distiller_manufactory = 1
+				NOT = { has_building = building_type:distiller_manufactory }
+				can_build_building = building_type:distiller_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distiller_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distiller_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_distillers_workshop = 1
+				NOT = { has_building = building_type:distillers_workshop }
+				can_build_building = building_type:distillers_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_distillers_guild = 1
+				NOT = { has_building = building_type:distillers_guild }
+				can_build_building = building_type:distillers_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_distillers_guild = 1
+				NOT = { has_building = building_type:distillers_guild }
+				can_build_building = building_type:distillers_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_distillers_workshop = 1
+				NOT = { has_building = building_type:distillers_workshop }
+				can_build_building = building_type:distillers_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_distillers_guild = 1
+				NOT = { has_building = building_type:distillers_guild }
+				can_build_building = building_type:distillers_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:distillers_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_guild = 1
+				NOT = { has_building = building_type:dyes_guild }
+				can_build_building = building_type:dyes_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_mill = 1
+				NOT = { has_building = building_type:dyes_mill }
+				can_build_building = building_type:dyes_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_dyesworks = 1
+				NOT = { has_building = building_type:dyesworks }
+				can_build_building = building_type:dyesworks
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyesworks } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyesworks }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_workshop = 1
+				NOT = { has_building = building_type:dyes_workshop }
+				can_build_building = building_type:dyes_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_guild = 1
+				NOT = { has_building = building_type:dyes_guild }
+				can_build_building = building_type:dyes_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_workshop = 1
+				NOT = { has_building = building_type:dyes_workshop }
+				can_build_building = building_type:dyes_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_guild = 1
+				NOT = { has_building = building_type:dyes_guild }
+				can_build_building = building_type:dyes_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_dyesworks = 1
+				NOT = { has_building = building_type:dyesworks }
+				can_build_building = building_type:dyesworks
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyesworks } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyesworks }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_workshop = 1
+				NOT = { has_building = building_type:dyes_workshop }
+				can_build_building = building_type:dyes_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_dyes_guild = 1
+				NOT = { has_building = building_type:dyes_guild }
+				can_build_building = building_type:dyes_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:dyes_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_elephant_hunting_grounds = 1
+				NOT = { has_building = building_type:elephant_hunting_grounds }
+				can_build_building = building_type:elephant_hunting_grounds
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:elephant_hunting_grounds } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:elephant_hunting_grounds }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_eng_royal_forest = 1
+				NOT = { has_building = building_type:eng_royal_forest }
+				can_build_building = building_type:eng_royal_forest
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:eng_royal_forest } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:eng_royal_forest }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_farming_village = 1
+				NOT = { has_building = building_type:farming_village }
+				can_build_building = building_type:farming_village
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:farming_village } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:farming_village }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_fiber_crops_farm = 1
+				NOT = { has_building = building_type:fiber_crops_farm }
+				can_build_building = building_type:fiber_crops_farm
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fiber_crops_farm } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fiber_crops_farm }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_guild = 1
+				NOT = { has_building = building_type:fine_cloth_guild }
+				can_build_building = building_type:fine_cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_manufactory = 1
+				NOT = { has_building = building_type:fine_cloth_manufactory }
+				can_build_building = building_type:fine_cloth_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_workshop = 1
+				NOT = { has_building = building_type:fine_cloth_workshop }
+				can_build_building = building_type:fine_cloth_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_guild = 1
+				NOT = { has_building = building_type:fine_cloth_guild }
+				can_build_building = building_type:fine_cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_mill = 1
+				NOT = { has_building = building_type:fine_cloth_mill }
+				can_build_building = building_type:fine_cloth_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_manufactory = 1
+				NOT = { has_building = building_type:fine_cloth_manufactory }
+				can_build_building = building_type:fine_cloth_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_workshop = 1
+				NOT = { has_building = building_type:fine_cloth_workshop }
+				can_build_building = building_type:fine_cloth_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_guild = 1
+				NOT = { has_building = building_type:fine_cloth_guild }
+				can_build_building = building_type:fine_cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_workshop = 1
+				NOT = { has_building = building_type:fine_cloth_workshop }
+				can_build_building = building_type:fine_cloth_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_fine_cloth_guild = 1
+				NOT = { has_building = building_type:fine_cloth_guild }
+				can_build_building = building_type:fine_cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fine_cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_firearms_factory = 1
+				NOT = { has_building = building_type:firearms_factory }
+				can_build_building = building_type:firearms_factory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:firearms_factory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:firearms_factory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_firearms_manufactory = 1
+				NOT = { has_building = building_type:firearms_manufactory }
+				can_build_building = building_type:firearms_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:firearms_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:firearms_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_guns_workshop = 1
+				NOT = { has_building = building_type:guns_workshop }
+				can_build_building = building_type:guns_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:guns_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:guns_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_gun_smith = 1
+				NOT = { has_building = building_type:gun_smith }
+				can_build_building = building_type:gun_smith
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_hand_cannon_guild = 1
+				NOT = { has_building = building_type:hand_cannon_guild }
+				can_build_building = building_type:hand_cannon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_firearms_manufactory = 1
+				NOT = { has_building = building_type:firearms_manufactory }
+				can_build_building = building_type:firearms_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:firearms_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:firearms_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_guns_workshop = 1
+				NOT = { has_building = building_type:guns_workshop }
+				can_build_building = building_type:guns_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:guns_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:guns_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_gun_smith = 1
+				NOT = { has_building = building_type:gun_smith }
+				can_build_building = building_type:gun_smith
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_hand_cannon_guild = 1
+				NOT = { has_building = building_type:hand_cannon_guild }
+				can_build_building = building_type:hand_cannon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_fishing_village = 1
+				NOT = { has_building = building_type:fishing_village }
+				can_build_building = building_type:fishing_village
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fishing_village } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fishing_village }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_forest_village = 1
+				NOT = { has_building = building_type:forest_village }
+				can_build_building = building_type:forest_village
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:forest_village } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:forest_village }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_fruit_orchard = 1
+				NOT = { has_building = building_type:fruit_orchard }
+				can_build_building = building_type:fruit_orchard
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:fruit_orchard } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:fruit_orchard }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_guild = 1
+				NOT = { has_building = building_type:furniture_guild }
+				can_build_building = building_type:furniture_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_manufactory = 1
+				NOT = { has_building = building_type:furniture_manufactory }
+				can_build_building = building_type:furniture_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_workshop = 1
+				NOT = { has_building = building_type:furniture_workshop }
+				can_build_building = building_type:furniture_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_guild = 1
+				NOT = { has_building = building_type:furniture_guild }
+				can_build_building = building_type:furniture_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_mill = 1
+				NOT = { has_building = building_type:furniture_mill }
+				can_build_building = building_type:furniture_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_manufactory = 1
+				NOT = { has_building = building_type:furniture_manufactory }
+				can_build_building = building_type:furniture_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_workshop = 1
+				NOT = { has_building = building_type:furniture_workshop }
+				can_build_building = building_type:furniture_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_guild = 1
+				NOT = { has_building = building_type:furniture_guild }
+				can_build_building = building_type:furniture_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_workshop = 1
+				NOT = { has_building = building_type:furniture_workshop }
+				can_build_building = building_type:furniture_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_furniture_guild = 1
+				NOT = { has_building = building_type:furniture_guild }
+				can_build_building = building_type:furniture_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:furniture_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_guild = 1
+				NOT = { has_building = building_type:glass_guild }
+				can_build_building = building_type:glass_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_mill = 1
+				NOT = { has_building = building_type:glass_mill }
+				can_build_building = building_type:glass_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_glassworks = 1
+				NOT = { has_building = building_type:glassworks }
+				can_build_building = building_type:glassworks
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glassworks } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glassworks }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_workshop = 1
+				NOT = { has_building = building_type:glass_workshop }
+				can_build_building = building_type:glass_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_guild = 1
+				NOT = { has_building = building_type:glass_guild }
+				can_build_building = building_type:glass_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_workshop = 1
+				NOT = { has_building = building_type:glass_workshop }
+				can_build_building = building_type:glass_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_guild = 1
+				NOT = { has_building = building_type:glass_guild }
+				can_build_building = building_type:glass_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_glassworks = 1
+				NOT = { has_building = building_type:glassworks }
+				can_build_building = building_type:glassworks
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glassworks } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glassworks }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_workshop = 1
+				NOT = { has_building = building_type:glass_workshop }
+				can_build_building = building_type:glass_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_glass_guild = 1
+				NOT = { has_building = building_type:glass_guild }
+				can_build_building = building_type:glass_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:glass_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_gun_smith = 1
+				NOT = { has_building = building_type:gun_smith }
+				can_build_building = building_type:gun_smith
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_hand_cannon_guild = 1
+				NOT = { has_building = building_type:hand_cannon_guild }
+				can_build_building = building_type:hand_cannon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_guns_workshop = 1
+				NOT = { has_building = building_type:guns_workshop }
+				can_build_building = building_type:guns_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:guns_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:guns_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_gun_smith = 1
+				NOT = { has_building = building_type:gun_smith }
+				can_build_building = building_type:gun_smith
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:gun_smith }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_hand_cannon_guild = 1
+				NOT = { has_building = building_type:hand_cannon_guild }
+				can_build_building = building_type:hand_cannon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_hand_cannon_guild = 1
+				NOT = { has_building = building_type:hand_cannon_guild }
+				can_build_building = building_type:hand_cannon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:hand_cannon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_horse_breeders = 1
+				NOT = { has_building = building_type:horse_breeders }
+				can_build_building = building_type:horse_breeders
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:horse_breeders } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:horse_breeders }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_improved_charcoal_maker = 1
+				NOT = { has_building = building_type:improved_charcoal_maker }
+				can_build_building = building_type:improved_charcoal_maker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:improved_charcoal_maker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:improved_charcoal_maker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_charcoal_maker = 1
+				NOT = { has_building = building_type:charcoal_maker }
+				can_build_building = building_type:charcoal_maker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:charcoal_maker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:charcoal_maker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_iron_foundry = 1
+				NOT = { has_building = building_type:iron_foundry }
+				can_build_building = building_type:iron_foundry
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:iron_foundry } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:iron_foundry }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tools_workshop = 1
+				NOT = { has_building = building_type:tools_workshop }
+				can_build_building = building_type:tools_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tools_guild = 1
+				NOT = { has_building = building_type:tools_guild }
+				can_build_building = building_type:tools_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_iron_mill = 1
+				NOT = { has_building = building_type:iron_mill }
+				can_build_building = building_type:iron_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:iron_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:iron_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_iron_foundry = 1
+				NOT = { has_building = building_type:iron_foundry }
+				can_build_building = building_type:iron_foundry
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:iron_foundry } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:iron_foundry }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tools_workshop = 1
+				NOT = { has_building = building_type:tools_workshop }
+				can_build_building = building_type:tools_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tools_guild = 1
+				NOT = { has_building = building_type:tools_guild }
+				can_build_building = building_type:tools_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_jewelry_guild = 1
+				NOT = { has_building = building_type:jewelry_guild }
+				can_build_building = building_type:jewelry_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:jewelry_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:jewelry_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_lacquerware_guild = 1
+				NOT = { has_building = building_type:lacquerware_guild }
+				can_build_building = building_type:lacquerware_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:lacquerware_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:lacquerware_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_lacquerware_manufactory = 1
+				NOT = { has_building = building_type:lacquerware_manufactory }
+				can_build_building = building_type:lacquerware_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:lacquerware_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:lacquerware_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_lacquerware_guild = 1
+				NOT = { has_building = building_type:lacquerware_guild }
+				can_build_building = building_type:lacquerware_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:lacquerware_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:lacquerware_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_lucca_silk_production_guild = 1
+				NOT = { has_building = building_type:lucca_silk_production_guild }
+				can_build_building = building_type:lucca_silk_production_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:lucca_silk_production_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:lucca_silk_production_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_market_village = 1
+				NOT = { has_building = building_type:market_village }
+				can_build_building = building_type:market_village
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:market_village } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:market_village }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_mason = 1
+				NOT = { has_building = building_type:mason }
+				can_build_building = building_type:mason
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:mason } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:mason }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_guild = 1
+				NOT = { has_building = building_type:naval_supplies_guild }
+				can_build_building = building_type:naval_supplies_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_manufactory = 1
+				NOT = { has_building = building_type:naval_supplies_manufactory }
+				can_build_building = building_type:naval_supplies_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_workshop = 1
+				NOT = { has_building = building_type:naval_supplies_workshop }
+				can_build_building = building_type:naval_supplies_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_guild = 1
+				NOT = { has_building = building_type:naval_supplies_guild }
+				can_build_building = building_type:naval_supplies_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_mill = 1
+				NOT = { has_building = building_type:naval_supplies_mill }
+				can_build_building = building_type:naval_supplies_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_manufactory = 1
+				NOT = { has_building = building_type:naval_supplies_manufactory }
+				can_build_building = building_type:naval_supplies_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_workshop = 1
+				NOT = { has_building = building_type:naval_supplies_workshop }
+				can_build_building = building_type:naval_supplies_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_guild = 1
+				NOT = { has_building = building_type:naval_supplies_guild }
+				can_build_building = building_type:naval_supplies_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_workshop = 1
+				NOT = { has_building = building_type:naval_supplies_workshop }
+				can_build_building = building_type:naval_supplies_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_naval_supplies_guild = 1
+				NOT = { has_building = building_type:naval_supplies_guild }
+				can_build_building = building_type:naval_supplies_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:naval_supplies_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_guild = 1
+				NOT = { has_building = building_type:paper_guild }
+				can_build_building = building_type:paper_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_manufactory = 1
+				NOT = { has_building = building_type:paper_manufactory }
+				can_build_building = building_type:paper_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_workshop = 1
+				NOT = { has_building = building_type:paper_workshop }
+				can_build_building = building_type:paper_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_guild = 1
+				NOT = { has_building = building_type:paper_guild }
+				can_build_building = building_type:paper_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_mill = 1
+				NOT = { has_building = building_type:paper_mill }
+				can_build_building = building_type:paper_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_manufactory = 1
+				NOT = { has_building = building_type:paper_manufactory }
+				can_build_building = building_type:paper_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_workshop = 1
+				NOT = { has_building = building_type:paper_workshop }
+				can_build_building = building_type:paper_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_guild = 1
+				NOT = { has_building = building_type:paper_guild }
+				can_build_building = building_type:paper_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_workshop = 1
+				NOT = { has_building = building_type:paper_workshop }
+				can_build_building = building_type:paper_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_paper_guild = 1
+				NOT = { has_building = building_type:paper_guild }
+				can_build_building = building_type:paper_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:paper_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_perfumery = 1
+				NOT = { has_building = building_type:perfumery }
+				can_build_building = building_type:perfumery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:perfumery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:perfumery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_porcelain_guild = 1
+				NOT = { has_building = building_type:porcelain_guild }
+				can_build_building = building_type:porcelain_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:porcelain_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:porcelain_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_porcelain_manufactory = 1
+				NOT = { has_building = building_type:porcelain_manufactory }
+				can_build_building = building_type:porcelain_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:porcelain_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:porcelain_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_porcelain_guild = 1
+				NOT = { has_building = building_type:porcelain_guild }
+				can_build_building = building_type:porcelain_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:porcelain_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:porcelain_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_guild = 1
+				NOT = { has_building = building_type:pottery_guild }
+				can_build_building = building_type:pottery_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_manufactory = 1
+				NOT = { has_building = building_type:pottery_manufactory }
+				can_build_building = building_type:pottery_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_workshop = 1
+				NOT = { has_building = building_type:pottery_workshop }
+				can_build_building = building_type:pottery_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_guild = 1
+				NOT = { has_building = building_type:pottery_guild }
+				can_build_building = building_type:pottery_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_mill = 1
+				NOT = { has_building = building_type:pottery_mill }
+				can_build_building = building_type:pottery_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_manufactory = 1
+				NOT = { has_building = building_type:pottery_manufactory }
+				can_build_building = building_type:pottery_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_workshop = 1
+				NOT = { has_building = building_type:pottery_workshop }
+				can_build_building = building_type:pottery_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_guild = 1
+				NOT = { has_building = building_type:pottery_guild }
+				can_build_building = building_type:pottery_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_workshop = 1
+				NOT = { has_building = building_type:pottery_workshop }
+				can_build_building = building_type:pottery_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_pottery_guild = 1
+				NOT = { has_building = building_type:pottery_guild }
+				can_build_building = building_type:pottery_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pottery_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_pounamou_carver = 1
+				NOT = { has_building = building_type:pounamou_carver }
+				can_build_building = building_type:pounamou_carver
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:pounamou_carver } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:pounamou_carver }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_printing_manufactory = 1
+				NOT = { has_building = building_type:printing_manufactory }
+				can_build_building = building_type:printing_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_printing_press_shop = 1
+				NOT = { has_building = building_type:printing_press_shop }
+				can_build_building = building_type:printing_press_shop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_press_shop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_press_shop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_scriptorium = 1
+				NOT = { has_building = building_type:scriptorium }
+				can_build_building = building_type:scriptorium
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_printing_mill = 1
+				NOT = { has_building = building_type:printing_mill }
+				can_build_building = building_type:printing_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_printing_manufactory = 1
+				NOT = { has_building = building_type:printing_manufactory }
+				can_build_building = building_type:printing_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_printing_press_shop = 1
+				NOT = { has_building = building_type:printing_press_shop }
+				can_build_building = building_type:printing_press_shop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_press_shop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_press_shop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_scriptorium = 1
+				NOT = { has_building = building_type:scriptorium }
+				can_build_building = building_type:scriptorium
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_printing_press_shop = 1
+				NOT = { has_building = building_type:printing_press_shop }
+				can_build_building = building_type:printing_press_shop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_press_shop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:printing_press_shop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_scriptorium = 1
+				NOT = { has_building = building_type:scriptorium }
+				can_build_building = building_type:scriptorium
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_putrefaction_mill = 1
+				NOT = { has_building = building_type:putrefaction_mill }
+				can_build_building = building_type:putrefaction_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:putrefaction_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:putrefaction_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_putrefaction_works = 1
+				NOT = { has_building = building_type:putrefaction_works }
+				can_build_building = building_type:putrefaction_works
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:putrefaction_works } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:putrefaction_works }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_saltpeter_workshop = 1
+				NOT = { has_building = building_type:saltpeter_workshop }
+				can_build_building = building_type:saltpeter_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_saltpeter_guild = 1
+				NOT = { has_building = building_type:saltpeter_guild }
+				can_build_building = building_type:saltpeter_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_putrefaction_works = 1
+				NOT = { has_building = building_type:putrefaction_works }
+				can_build_building = building_type:putrefaction_works
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:putrefaction_works } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:putrefaction_works }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_saltpeter_workshop = 1
+				NOT = { has_building = building_type:saltpeter_workshop }
+				can_build_building = building_type:saltpeter_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_saltpeter_guild = 1
+				NOT = { has_building = building_type:saltpeter_guild }
+				can_build_building = building_type:saltpeter_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_rural_clothmaker = 1
+				NOT = { has_building = building_type:rural_clothmaker }
+				can_build_building = building_type:rural_clothmaker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:rural_clothmaker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:rural_clothmaker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_rural_glassmaker = 1
+				NOT = { has_building = building_type:rural_glassmaker }
+				can_build_building = building_type:rural_glassmaker
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:rural_glassmaker } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:rural_glassmaker }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_salt_collector = 1
+				NOT = { has_building = building_type:salt_collector }
+				can_build_building = building_type:salt_collector
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:salt_collector } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:salt_collector }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_saltpeter_guild = 1
+				NOT = { has_building = building_type:saltpeter_guild }
+				can_build_building = building_type:saltpeter_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_saltpeter_workshop = 1
+				NOT = { has_building = building_type:saltpeter_workshop }
+				can_build_building = building_type:saltpeter_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_saltpeter_guild = 1
+				NOT = { has_building = building_type:saltpeter_guild }
+				can_build_building = building_type:saltpeter_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:saltpeter_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_sand_pit = 1
+				NOT = { has_building = building_type:sand_pit }
+				can_build_building = building_type:sand_pit
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:sand_pit } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:sand_pit }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_schwaz_mine = 1
+				NOT = { has_building = building_type:schwaz_mine }
+				can_build_building = building_type:schwaz_mine
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:schwaz_mine } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:schwaz_mine }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_scriptorium = 1
+				NOT = { has_building = building_type:scriptorium }
+				can_build_building = building_type:scriptorium
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:scriptorium }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_sheep_farms = 1
+				NOT = { has_building = building_type:sheep_farms }
+				can_build_building = building_type:sheep_farms
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:sheep_farms } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:sheep_farms }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_shoen = 1
+				NOT = { has_building = building_type:shoen }
+				can_build_building = building_type:shoen
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:shoen } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:shoen }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_slave_center = 1
+				NOT = { has_building = building_type:slave_center }
+				can_build_building = building_type:slave_center
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:slave_center } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:slave_center }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_steel_mill = 1
+				NOT = { has_building = building_type:steel_mill }
+				can_build_building = building_type:steel_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:steel_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:steel_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_stone_quarry = 1
+				NOT = { has_building = building_type:stone_quarry }
+				can_build_building = building_type:stone_quarry
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:stone_quarry } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:stone_quarry }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_sugar_plantation = 1
+				NOT = { has_building = building_type:sugar_plantation }
+				can_build_building = building_type:sugar_plantation
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:sugar_plantation } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:sugar_plantation }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tannery = 1
+				NOT = { has_building = building_type:tannery }
+				can_build_building = building_type:tannery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tannery_manufactory = 1
+				NOT = { has_building = building_type:tannery_manufactory }
+				can_build_building = building_type:tannery_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tanning_workshop = 1
+				NOT = { has_building = building_type:tanning_workshop }
+				can_build_building = building_type:tanning_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tanning_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tanning_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tannery = 1
+				NOT = { has_building = building_type:tannery }
+				can_build_building = building_type:tannery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tannery_mill = 1
+				NOT = { has_building = building_type:tannery_mill }
+				can_build_building = building_type:tannery_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tannery_manufactory = 1
+				NOT = { has_building = building_type:tannery_manufactory }
+				can_build_building = building_type:tannery_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tanning_workshop = 1
+				NOT = { has_building = building_type:tanning_workshop }
+				can_build_building = building_type:tanning_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tanning_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tanning_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tannery = 1
+				NOT = { has_building = building_type:tannery }
+				can_build_building = building_type:tannery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tanning_workshop = 1
+				NOT = { has_building = building_type:tanning_workshop }
+				can_build_building = building_type:tanning_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tanning_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tanning_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tannery = 1
+				NOT = { has_building = building_type:tannery }
+				can_build_building = building_type:tannery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tannery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tar_kiln = 1
+				NOT = { has_building = building_type:tar_kiln }
+				can_build_building = building_type:tar_kiln
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tar_kiln } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tar_kiln }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tatara = 1
+				NOT = { has_building = building_type:tatara }
+				can_build_building = building_type:tatara
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tatara } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tatara }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_textile_mill = 1
+				NOT = { has_building = building_type:textile_mill }
+				can_build_building = building_type:textile_mill
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:textile_mill } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:textile_mill }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_manufactory = 1
+				NOT = { has_building = building_type:cloth_manufactory }
+				can_build_building = building_type:cloth_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_workshop = 1
+				NOT = { has_building = building_type:cloth_workshop }
+				can_build_building = building_type:cloth_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_cloth_guild = 1
+				NOT = { has_building = building_type:cloth_guild }
+				can_build_building = building_type:cloth_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:cloth_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tobacco_plantation = 1
+				NOT = { has_building = building_type:tobacco_plantation }
+				can_build_building = building_type:tobacco_plantation
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tobacco_plantation } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tobacco_plantation }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tools_guild = 1
+				NOT = { has_building = building_type:tools_guild }
+				can_build_building = building_type:tools_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_tools_workshop = 1
+				NOT = { has_building = building_type:tools_workshop }
+				can_build_building = building_type:tools_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_tools_guild = 1
+				NOT = { has_building = building_type:tools_guild }
+				can_build_building = building_type:tools_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:tools_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_factory = 1
+				NOT = { has_building = building_type:weapon_factory }
+				can_build_building = building_type:weapon_factory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_factory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_factory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_manufactory = 1
+				NOT = { has_building = building_type:weapon_manufactory }
+				can_build_building = building_type:weapon_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_workshop = 1
+				NOT = { has_building = building_type:weapon_workshop }
+				can_build_building = building_type:weapon_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_guild = 1
+				NOT = { has_building = building_type:weapon_guild }
+				can_build_building = building_type:weapon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_guild = 1
+				NOT = { has_building = building_type:weapon_guild }
+				can_build_building = building_type:weapon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_manufactory = 1
+				NOT = { has_building = building_type:weapon_manufactory }
+				can_build_building = building_type:weapon_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_workshop = 1
+				NOT = { has_building = building_type:weapon_workshop }
+				can_build_building = building_type:weapon_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_guild = 1
+				NOT = { has_building = building_type:weapon_guild }
+				can_build_building = building_type:weapon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_workshop = 1
+				NOT = { has_building = building_type:weapon_workshop }
+				can_build_building = building_type:weapon_workshop
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_workshop } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_workshop }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_weapon_guild = 1
+				NOT = { has_building = building_type:weapon_guild }
+				can_build_building = building_type:weapon_guild
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:weapon_guild }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_winery = 1
+				NOT = { has_building = building_type:winery }
+				can_build_building = building_type:winery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:winery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:winery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory } }
+		if = {
+			limit = {
+				global_var:bag_wtp_ba_winery_manufactory = 1
+				NOT = { has_building = building_type:winery_manufactory }
+				can_build_building = building_type:winery_manufactory
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:winery_manufactory } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:winery_manufactory }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:bag_wtp_ba_winery = 1
+				NOT = { has_building = building_type:winery }
+				can_build_building = building_type:winery
+			}
+			bag_wtp_cm_queue_loc = yes
+			if = {
+				limit = { NOT = { is_target_in_variable_list = { name = cm_q_ungated_building_types target = building_type:winery } } }
+				add_to_variable_list = { name = cm_q_ungated_building_types target = building_type:winery }
+				scope:bag_wtp_cm_country = { change_variable = { name = cm_q_staged add = 1 } }
+				change_global_variable = { name = bag_wtp_cm_staged add = 1 }
+			}
+		}
+	}
+}
+
+# **Раз в месяц: всё, что помечено, в очередь CM.**
+#
+# Лист `cmf_monthly_human_country_pulse`. Диспетчер CM висит там же и **начинает
+# с очистки очередей**, так что порядок листьев решает, переживёт ли наша
+# постановка этот месяц. Порядок между модами не определён ничем, поэтому он не
+# угадывается, а **считается**: `_cm_ran`, `_cm_armed` и `_cm_staged` печатает
+# диагностика, и один прогон скажет, что именно происходит.
+#
+# **`cm_should_construct` ставим сами**, если поставили хоть что-то: окно очереди
+# CM висит на этой переменной, а не на том, кто её выставил.
+# Scope: country
+bag_wtp_cm_tick = {
+	set_global_variable = { name = bag_wtp_cm_staged value = 0 }
+	set_global_variable = { name = bag_wtp_cm_armed value = 0 }
+	set_global_variable = { name = bag_wtp_cm_ran value = 0 }
+	if = {
+		limit = {
+			# CM на месте: его список возможностей заводит он сам на старте игры.
+			has_variable_list = cm_priority_features_list
+			has_global_variable_list = bag_wtp_plan_touched
+		}
+		set_global_variable = { name = bag_wtp_cm_ran value = 1 }
+		# Что стране по зубам -- на сегодня, а не на день плана.
+		bag_wtp_set_bavail = yes
+		save_scope_as = bag_wtp_cm_country
+		# `scope:actor` спрашивают потенциалы пары зданий; CM сохраняет его так же.
+		save_temporary_scope_as = actor
+		every_in_global_list = {
+			variable = bag_wtp_plan_touched
+			limit = {
+				var:bag_wtp_cm_loc = 1
+				owner = scope:bag_wtp_cm_country
+			}
+			change_global_variable = { name = bag_wtp_cm_armed add = 1 }
+			bag_wtp_cm_loc_stage = yes
+		}
+		if = {
+			limit = { global_var:bag_wtp_cm_staged > 0 }
+			set_variable = { name = cm_should_construct value = yes }
+		}
+	}
+	set_global_variable = { name = bag_wtp_cm_last value = global_var:bag_wtp_cm_staged }
+}
+
+# Сколько локаций помечено -- одно число для подписи кнопок.
+# Scope: country
+bag_wtp_cm_count = {
+	# **Число, которого нет, читается как ноль и молчит.** Подсказка кнопки
+	# печатает оба, а до первого месяца второго не существует.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_cm_last } }
+		set_global_variable = { name = bag_wtp_cm_last value = 0 }
+	}
+	set_global_variable = { name = bag_wtp_cm_n value = 0 }
+	if = {
+		limit = { has_global_variable_list = bag_wtp_plan_touched }
+		every_in_global_list = {
+			variable = bag_wtp_plan_touched
+			limit = { var:bag_wtp_cm_loc = 1 }
+			change_global_variable = { name = bag_wtp_cm_n add = 1 }
+		}
+	}
+}
+
+# Пометить и снять -- по одной локации, по провинции и по всему плану.
+# **Провинция -- это её локации плана**, отдельной сущности для пометки нет:
+# помечена локация, и переезд плана ничего не ломает.
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_cm_toggle_loc = {
+	scope:wtp_location = {
+		if = {
+			limit = { var:bag_wtp_cm_loc = 1 }
+			remove_variable = bag_wtp_cm_loc
+		}
+		else = { set_variable = { name = bag_wtp_cm_loc value = 1 } }
+	}
+	bag_wtp_cm_count = yes
+}
+
+# Scope: country, ждёт scope:wtp_location -- любую локацию нужной провинции.
+bag_wtp_cm_toggle_prov = {
+	set_global_variable = { name = bag_wtp_cm_any value = 0 }
+	scope:wtp_location = { province_definition = { save_scope_as = bag_wtp_cm_prov } }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			province_definition = { this = scope:bag_wtp_cm_prov }
+			NOT = { var:bag_wtp_cm_loc = 1 }
+		}
+		set_global_variable = { name = bag_wtp_cm_any value = 1 }
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = { province_definition = { this = scope:bag_wtp_cm_prov } }
+		if = {
+			limit = { global_var:bag_wtp_cm_any = 1 }
+			set_variable = { name = bag_wtp_cm_loc value = 1 }
+		}
+		else = { remove_variable = bag_wtp_cm_loc }
+	}
+	bag_wtp_cm_count = yes
+}
+
+# Scope: country -- весь план разом.
+bag_wtp_cm_toggle_all = {
+	bag_wtp_cm_count = yes
+	if = {
+		limit = { global_var:bag_wtp_cm_n > 0 }
+		every_in_global_list = {
+			variable = bag_wtp_plan_touched
+			remove_variable = bag_wtp_cm_loc
+		}
+	}
+	else = {
+		every_in_global_list = {
+			variable = bag_wtp_plan_touched
+			limit = { has_variable = bag_wtp_load }
+			set_variable = { name = bag_wtp_cm_loc value = 1 }
+		}
+	}
+	bag_wtp_cm_count = yes
+}
+
 # The ground this run works over, and everything the last one left on the map.
 #
 # `_plan_touched` is the previous run's locations, which a new choice on the map

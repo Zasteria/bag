@@ -12237,3 +12237,7 @@ bag_wtp_show_ps_gain = { value = global_var:bag_wtp_ps_gain }
 bag_wtp_show_ps_swaps = { value = global_var:bag_wtp_ps_swaps }
 # Scope: country
 bag_wtp_show_ps_rswaps = { value = global_var:bag_wtp_ps_rswaps }
+# Scope: country
+bag_wtp_show_cm_n = { value = global_var:bag_wtp_cm_n }
+# Scope: country
+bag_wtp_show_cm_last = { value = global_var:bag_wtp_cm_last }

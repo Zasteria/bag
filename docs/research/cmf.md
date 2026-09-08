@@ -389,6 +389,25 @@ types the player ticked and stages them in every owned location, checking only
 build-queue slots and `cm_location_can_auto_build`. An addon that must ignore the
 profit gates should stage there rather than invent a queue.
 
+**Feeding that queue needs no CM name at all — write its variables.** A call to a
+scripted effect or trigger CM does not ship breaks in a place nobody looks
+(`PITFALLS.md`), and an addon has to survive CM being absent. Variables have no
+such problem: `add_to_variable_list = { name = cm_q_ungated_locations target =
+<location> }` on the country, `cm_q_ungated_building_types` on the location,
+`cm_q_staged` up by one, and `cm_should_construct` set — the queue window hangs
+off that variable, not off who wrote it. Mirror
+`cm_stage_location_and_type_to_queue` exactly, including clearing the location's
+`cm_q_done_ungated_types` the first time it is added. With CM absent, the writes
+land in variables nobody reads.
+
+**But the monthly leaf order decides whether it survives.** CM's dispatcher is a
+leaf of `cmf_monthly_human_country_pulse` and *starts by clearing every queue*.
+Another mod's leaf on the same pulse runs before or after it depending on file
+merge order, which nothing in CMF or the game guarantees. Staging before CM's
+leaf is erased in the same tick, and on screen that is indistinguishable from
+"there was nothing to build" — so an addon that stages here has to print its own
+count and let a run say which side of the dispatcher it landed on.
+
 **The gates it would be skipping** are `cm_should_rgo_auto_expand` and its
 building equivalent: gold on hand, nothing already under construction, a metric
 gate (`cm_priority_min_profit` per feature) and a discount gate

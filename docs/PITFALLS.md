@@ -47,6 +47,16 @@ never worked; `06_country.txt` says "root is player" in its own header. **Ask
 object — a generator's job. `building` and `location` scoped filters do get
 `scope:target`.
 
+**A trigger that models what the player *means* must never gate what the game will
+*do*.** `where_to_produce`'s `_stands_<building>` deliberately obeys the mod's own
+rank override — that is the whole point of a plan that says «I will make this
+village a town». Ask it before queueing a real construction order and the game is
+handed a town building for a village. The owner named this before it was built,
+2026-09-09: «чтобы не вышло так, что я просто переключил в плане тумблер и сделал
+село городом, а на самом деле там всё ещё село». Anything the engine acts on asks
+the engine: `can_build_building` at the location, plus the country's own answer
+for the advance.
+
 **A scripted trigger answers the question its first caller needed, not the one
 its name promises.** `bag_wtp_plan_right_fits_<k>` reads as «может ли эта грамота
 тут стоять» and is built out of `_plan_can_town_<n>`, which also demands **a free

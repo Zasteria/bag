@@ -757,3 +757,68 @@ bag_wtp_close_summary_window = {
 		bag_wtp_close_summary_window_effect = yes
 	}
 }
+
+# ---- шаг 8: автострой плана через Construction Manager ---------------------
+#
+# **Три кнопки на одну пометку.** Помечается всегда локация (`_cm_loc`); кнопка
+# провинции метит её локации плана, кнопка в шапке -- весь план. Отдельной
+# сущности «провинция помечена» нет нарочно: переезд домика между локациями
+# тогда ничего не ломает, а «вся провинция» остаётся правдой по построению.
+#
+# **Видны только когда CM в игре.** Список `cm_priority_features_list` заводит он
+# сам на старте; без CM кнопка просто не рисуется — это лучше, чем кнопка,
+# которая нажимается и молчит.
+
+# Scope: country
+bag_wtp_cm_present = {
+	scope = country
+
+	is_shown = { has_variable_list = cm_priority_features_list }
+	effect = { }
+}
+
+# Scope: country. Помечена ли эта локация — для второй иконки в ряду.
+bag_wtp_cm_loc_on = {
+	scope = country
+
+	is_shown = { scope:wtp_location = { var:bag_wtp_cm_loc = 1 } }
+	effect = { }
+}
+
+# Scope: country. Помечено ли в плане хоть что-то — для иконки в шапке.
+bag_wtp_cm_any_on = {
+	scope = country
+
+	is_shown = { global_var:bag_wtp_cm_n > 0 }
+	effect = { }
+}
+
+# Scope: country
+bag_wtp_cm_press_loc = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_cm_toggle_loc = yes }
+}
+
+# Scope: country
+bag_wtp_cm_press_prov = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_cm_toggle_prov = yes }
+}
+
+# Scope: country
+bag_wtp_cm_press_all = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_cm_toggle_all = yes }
+}
