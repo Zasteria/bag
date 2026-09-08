@@ -26,6 +26,576 @@ bag_wtp_plan_run = {
 	cmf_log = { action = bag_wtp_log_plan }
 }
 
+# **Какие здания эта страна может строить сейчас** -- по одному числу на здание.
+#
+# Владелец, 2026-09-09: «я обычно использую метод плана „на конец"... если в
+# плане стоит домик, который не доступен мне по уровню -- мне не показывается. Но
+# я хочу, чтобы мне показывался его аналог более низкого уровня». Ступени лестницы
+# игра называет сама (`obsolete` в `building_types`), а «доступна ли ступень»
+# спрашивается `can_build_building` **в скоупе страны** -- именно она отвечает за
+# продвижения, как и у `_avail_<n>`.
+#
+# **Почему числом в глобалке, а не вопросом на месте.** Фильтру списка достаётся
+# только сам объект и глобальные переменные; страны у него нет вовсе. Значит
+# ответ надо посчитать заранее там, где страна есть, -- здесь.
+#
+# Считается при каждой «Пересчитать» и при регистрации мода (то есть на загрузке
+# сохранения и при открытии страницы мода). Взял продвижение и не пересчитал план
+# -- фильтр покажет ступень ниже, чем мог бы; это единственная цена.
+# Scope: country
+bag_wtp_set_bavail = {
+	set_global_variable = { name = bag_wtp_ba_ablaq_palace value = 0 }
+	if = {
+		limit = { can_build_building = building_type:ablaq_palace }
+		set_global_variable = { name = bag_wtp_ba_ablaq_palace value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_apothecary value = 0 }
+	if = {
+		limit = { can_build_building = building_type:apothecary }
+		set_global_variable = { name = bag_wtp_ba_apothecary value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_beer_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:beer_workshop }
+		set_global_variable = { name = bag_wtp_ba_beer_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_bog_iron_smelter value = 0 }
+	if = {
+		limit = { can_build_building = building_type:bog_iron_smelter }
+		set_global_variable = { name = bag_wtp_ba_bog_iron_smelter value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_brewery value = 0 }
+	if = {
+		limit = { can_build_building = building_type:brewery }
+		set_global_variable = { name = bag_wtp_ba_brewery value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_brewery_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:brewery_manufactory }
+		set_global_variable = { name = bag_wtp_ba_brewery_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_brewery_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:brewery_mill }
+		set_global_variable = { name = bag_wtp_ba_brewery_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cannon_foundry value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cannon_foundry }
+		set_global_variable = { name = bag_wtp_ba_cannon_foundry value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cannon_maker value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cannon_maker }
+		set_global_variable = { name = bag_wtp_ba_cannon_maker value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cannon_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cannon_workshop }
+		set_global_variable = { name = bag_wtp_ba_cannon_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cannons_factory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cannons_factory }
+		set_global_variable = { name = bag_wtp_ba_cannons_factory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_charcoal_maker value = 0 }
+	if = {
+		limit = { can_build_building = building_type:charcoal_maker }
+		set_global_variable = { name = bag_wtp_ba_charcoal_maker value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_clay_pit value = 0 }
+	if = {
+		limit = { can_build_building = building_type:clay_pit }
+		set_global_variable = { name = bag_wtp_ba_clay_pit value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cloth_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cloth_guild }
+		set_global_variable = { name = bag_wtp_ba_cloth_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cloth_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cloth_manufactory }
+		set_global_variable = { name = bag_wtp_ba_cloth_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cloth_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cloth_workshop }
+		set_global_variable = { name = bag_wtp_ba_cloth_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_cotton_plantation value = 0 }
+	if = {
+		limit = { can_build_building = building_type:cotton_plantation }
+		set_global_variable = { name = bag_wtp_ba_cotton_plantation value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_distiller_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:distiller_manufactory }
+		set_global_variable = { name = bag_wtp_ba_distiller_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_distiller_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:distiller_mill }
+		set_global_variable = { name = bag_wtp_ba_distiller_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_distillers_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:distillers_guild }
+		set_global_variable = { name = bag_wtp_ba_distillers_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_distillers_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:distillers_workshop }
+		set_global_variable = { name = bag_wtp_ba_distillers_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_dyes_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:dyes_guild }
+		set_global_variable = { name = bag_wtp_ba_dyes_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_dyes_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:dyes_mill }
+		set_global_variable = { name = bag_wtp_ba_dyes_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_dyes_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:dyes_workshop }
+		set_global_variable = { name = bag_wtp_ba_dyes_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_dyesworks value = 0 }
+	if = {
+		limit = { can_build_building = building_type:dyesworks }
+		set_global_variable = { name = bag_wtp_ba_dyesworks value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_elephant_hunting_grounds value = 0 }
+	if = {
+		limit = { can_build_building = building_type:elephant_hunting_grounds }
+		set_global_variable = { name = bag_wtp_ba_elephant_hunting_grounds value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_eng_royal_forest value = 0 }
+	if = {
+		limit = { can_build_building = building_type:eng_royal_forest }
+		set_global_variable = { name = bag_wtp_ba_eng_royal_forest value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_farming_village value = 0 }
+	if = {
+		limit = { can_build_building = building_type:farming_village }
+		set_global_variable = { name = bag_wtp_ba_farming_village value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_fiber_crops_farm value = 0 }
+	if = {
+		limit = { can_build_building = building_type:fiber_crops_farm }
+		set_global_variable = { name = bag_wtp_ba_fiber_crops_farm value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_fine_cloth_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:fine_cloth_guild }
+		set_global_variable = { name = bag_wtp_ba_fine_cloth_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_fine_cloth_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:fine_cloth_manufactory }
+		set_global_variable = { name = bag_wtp_ba_fine_cloth_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_fine_cloth_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:fine_cloth_mill }
+		set_global_variable = { name = bag_wtp_ba_fine_cloth_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_fine_cloth_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:fine_cloth_workshop }
+		set_global_variable = { name = bag_wtp_ba_fine_cloth_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_firearms_factory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:firearms_factory }
+		set_global_variable = { name = bag_wtp_ba_firearms_factory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_firearms_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:firearms_manufactory }
+		set_global_variable = { name = bag_wtp_ba_firearms_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_fishing_village value = 0 }
+	if = {
+		limit = { can_build_building = building_type:fishing_village }
+		set_global_variable = { name = bag_wtp_ba_fishing_village value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_forest_village value = 0 }
+	if = {
+		limit = { can_build_building = building_type:forest_village }
+		set_global_variable = { name = bag_wtp_ba_forest_village value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_fruit_orchard value = 0 }
+	if = {
+		limit = { can_build_building = building_type:fruit_orchard }
+		set_global_variable = { name = bag_wtp_ba_fruit_orchard value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_furniture_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:furniture_guild }
+		set_global_variable = { name = bag_wtp_ba_furniture_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_furniture_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:furniture_manufactory }
+		set_global_variable = { name = bag_wtp_ba_furniture_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_furniture_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:furniture_mill }
+		set_global_variable = { name = bag_wtp_ba_furniture_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_furniture_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:furniture_workshop }
+		set_global_variable = { name = bag_wtp_ba_furniture_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_glass_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:glass_guild }
+		set_global_variable = { name = bag_wtp_ba_glass_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_glass_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:glass_mill }
+		set_global_variable = { name = bag_wtp_ba_glass_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_glass_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:glass_workshop }
+		set_global_variable = { name = bag_wtp_ba_glass_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_glassworks value = 0 }
+	if = {
+		limit = { can_build_building = building_type:glassworks }
+		set_global_variable = { name = bag_wtp_ba_glassworks value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_gun_smith value = 0 }
+	if = {
+		limit = { can_build_building = building_type:gun_smith }
+		set_global_variable = { name = bag_wtp_ba_gun_smith value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_guns_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:guns_workshop }
+		set_global_variable = { name = bag_wtp_ba_guns_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_hand_cannon_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:hand_cannon_guild }
+		set_global_variable = { name = bag_wtp_ba_hand_cannon_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_horse_breeders value = 0 }
+	if = {
+		limit = { can_build_building = building_type:horse_breeders }
+		set_global_variable = { name = bag_wtp_ba_horse_breeders value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_improved_charcoal_maker value = 0 }
+	if = {
+		limit = { can_build_building = building_type:improved_charcoal_maker }
+		set_global_variable = { name = bag_wtp_ba_improved_charcoal_maker value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_iron_foundry value = 0 }
+	if = {
+		limit = { can_build_building = building_type:iron_foundry }
+		set_global_variable = { name = bag_wtp_ba_iron_foundry value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_iron_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:iron_mill }
+		set_global_variable = { name = bag_wtp_ba_iron_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_jewelry_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:jewelry_guild }
+		set_global_variable = { name = bag_wtp_ba_jewelry_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_lacquerware_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:lacquerware_guild }
+		set_global_variable = { name = bag_wtp_ba_lacquerware_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_lacquerware_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:lacquerware_manufactory }
+		set_global_variable = { name = bag_wtp_ba_lacquerware_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_lucca_silk_production_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:lucca_silk_production_guild }
+		set_global_variable = { name = bag_wtp_ba_lucca_silk_production_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_market_village value = 0 }
+	if = {
+		limit = { can_build_building = building_type:market_village }
+		set_global_variable = { name = bag_wtp_ba_market_village value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_mason value = 0 }
+	if = {
+		limit = { can_build_building = building_type:mason }
+		set_global_variable = { name = bag_wtp_ba_mason value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_naval_supplies_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:naval_supplies_guild }
+		set_global_variable = { name = bag_wtp_ba_naval_supplies_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_naval_supplies_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:naval_supplies_manufactory }
+		set_global_variable = { name = bag_wtp_ba_naval_supplies_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_naval_supplies_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:naval_supplies_mill }
+		set_global_variable = { name = bag_wtp_ba_naval_supplies_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_naval_supplies_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:naval_supplies_workshop }
+		set_global_variable = { name = bag_wtp_ba_naval_supplies_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_paper_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:paper_guild }
+		set_global_variable = { name = bag_wtp_ba_paper_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_paper_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:paper_manufactory }
+		set_global_variable = { name = bag_wtp_ba_paper_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_paper_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:paper_mill }
+		set_global_variable = { name = bag_wtp_ba_paper_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_paper_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:paper_workshop }
+		set_global_variable = { name = bag_wtp_ba_paper_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_perfumery value = 0 }
+	if = {
+		limit = { can_build_building = building_type:perfumery }
+		set_global_variable = { name = bag_wtp_ba_perfumery value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_porcelain_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:porcelain_guild }
+		set_global_variable = { name = bag_wtp_ba_porcelain_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_porcelain_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:porcelain_manufactory }
+		set_global_variable = { name = bag_wtp_ba_porcelain_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_pottery_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:pottery_guild }
+		set_global_variable = { name = bag_wtp_ba_pottery_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_pottery_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:pottery_manufactory }
+		set_global_variable = { name = bag_wtp_ba_pottery_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_pottery_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:pottery_mill }
+		set_global_variable = { name = bag_wtp_ba_pottery_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_pottery_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:pottery_workshop }
+		set_global_variable = { name = bag_wtp_ba_pottery_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_pounamou_carver value = 0 }
+	if = {
+		limit = { can_build_building = building_type:pounamou_carver }
+		set_global_variable = { name = bag_wtp_ba_pounamou_carver value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_printing_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:printing_manufactory }
+		set_global_variable = { name = bag_wtp_ba_printing_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_printing_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:printing_mill }
+		set_global_variable = { name = bag_wtp_ba_printing_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_printing_press_shop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:printing_press_shop }
+		set_global_variable = { name = bag_wtp_ba_printing_press_shop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_putrefaction_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:putrefaction_mill }
+		set_global_variable = { name = bag_wtp_ba_putrefaction_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_putrefaction_works value = 0 }
+	if = {
+		limit = { can_build_building = building_type:putrefaction_works }
+		set_global_variable = { name = bag_wtp_ba_putrefaction_works value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_rural_clothmaker value = 0 }
+	if = {
+		limit = { can_build_building = building_type:rural_clothmaker }
+		set_global_variable = { name = bag_wtp_ba_rural_clothmaker value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_rural_glassmaker value = 0 }
+	if = {
+		limit = { can_build_building = building_type:rural_glassmaker }
+		set_global_variable = { name = bag_wtp_ba_rural_glassmaker value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_salt_collector value = 0 }
+	if = {
+		limit = { can_build_building = building_type:salt_collector }
+		set_global_variable = { name = bag_wtp_ba_salt_collector value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_saltpeter_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:saltpeter_guild }
+		set_global_variable = { name = bag_wtp_ba_saltpeter_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_saltpeter_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:saltpeter_workshop }
+		set_global_variable = { name = bag_wtp_ba_saltpeter_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_sand_pit value = 0 }
+	if = {
+		limit = { can_build_building = building_type:sand_pit }
+		set_global_variable = { name = bag_wtp_ba_sand_pit value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_schwaz_mine value = 0 }
+	if = {
+		limit = { can_build_building = building_type:schwaz_mine }
+		set_global_variable = { name = bag_wtp_ba_schwaz_mine value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_scriptorium value = 0 }
+	if = {
+		limit = { can_build_building = building_type:scriptorium }
+		set_global_variable = { name = bag_wtp_ba_scriptorium value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_sheep_farms value = 0 }
+	if = {
+		limit = { can_build_building = building_type:sheep_farms }
+		set_global_variable = { name = bag_wtp_ba_sheep_farms value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_shoen value = 0 }
+	if = {
+		limit = { can_build_building = building_type:shoen }
+		set_global_variable = { name = bag_wtp_ba_shoen value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_slave_center value = 0 }
+	if = {
+		limit = { can_build_building = building_type:slave_center }
+		set_global_variable = { name = bag_wtp_ba_slave_center value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_steel_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:steel_mill }
+		set_global_variable = { name = bag_wtp_ba_steel_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_stone_quarry value = 0 }
+	if = {
+		limit = { can_build_building = building_type:stone_quarry }
+		set_global_variable = { name = bag_wtp_ba_stone_quarry value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_sugar_plantation value = 0 }
+	if = {
+		limit = { can_build_building = building_type:sugar_plantation }
+		set_global_variable = { name = bag_wtp_ba_sugar_plantation value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tannery value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tannery }
+		set_global_variable = { name = bag_wtp_ba_tannery value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tannery_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tannery_manufactory }
+		set_global_variable = { name = bag_wtp_ba_tannery_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tannery_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tannery_mill }
+		set_global_variable = { name = bag_wtp_ba_tannery_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tanning_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tanning_workshop }
+		set_global_variable = { name = bag_wtp_ba_tanning_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tar_kiln value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tar_kiln }
+		set_global_variable = { name = bag_wtp_ba_tar_kiln value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tatara value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tatara }
+		set_global_variable = { name = bag_wtp_ba_tatara value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_textile_mill value = 0 }
+	if = {
+		limit = { can_build_building = building_type:textile_mill }
+		set_global_variable = { name = bag_wtp_ba_textile_mill value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tobacco_plantation value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tobacco_plantation }
+		set_global_variable = { name = bag_wtp_ba_tobacco_plantation value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tools_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tools_guild }
+		set_global_variable = { name = bag_wtp_ba_tools_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_tools_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:tools_workshop }
+		set_global_variable = { name = bag_wtp_ba_tools_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_weapon_factory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:weapon_factory }
+		set_global_variable = { name = bag_wtp_ba_weapon_factory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_weapon_guild value = 0 }
+	if = {
+		limit = { can_build_building = building_type:weapon_guild }
+		set_global_variable = { name = bag_wtp_ba_weapon_guild value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_weapon_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:weapon_manufactory }
+		set_global_variable = { name = bag_wtp_ba_weapon_manufactory value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_weapon_workshop value = 0 }
+	if = {
+		limit = { can_build_building = building_type:weapon_workshop }
+		set_global_variable = { name = bag_wtp_ba_weapon_workshop value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_winery value = 0 }
+	if = {
+		limit = { can_build_building = building_type:winery }
+		set_global_variable = { name = bag_wtp_ba_winery value = 1 }
+	}
+	set_global_variable = { name = bag_wtp_ba_winery_manufactory value = 0 }
+	if = {
+		limit = { can_build_building = building_type:winery_manufactory }
+		set_global_variable = { name = bag_wtp_ba_winery_manufactory value = 1 }
+	}
+}
+
 # The ground this run works over, and everything the last one left on the map.
 #
 # `_plan_touched` is the previous run's locations, which a new choice on the map
@@ -36,6 +606,7 @@ bag_wtp_plan_run = {
 # they are the player's answer to «what is this location», not the plan's.
 # Scope: country
 bag_wtp_plan_prepare = {
+	bag_wtp_set_bavail = yes
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
 		remove_variable = bag_wtp_load

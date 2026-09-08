@@ -2024,6 +2024,29 @@ def plan_right_gates(rows: list[eu5data.Method],
     return bodies
 
 
+def ladder_above(building: str, game: eu5data.Game) -> list[str]:
+    """Ступени **над** этим зданием, снизу вверх.
+
+    Игра называет их сама: `obsolete = <нижняя>` в `building_types`, откуда
+    `eu5data` строит `successor` -- «кто делает это здание устаревшим». Гончарная
+    гильдия → мастерская → мануфактура → мельница, одна цепочка на четыре
+    ступени, и длиннее в игре не бывает.
+    """
+    chain, seen = [], {building}
+    upper = game.successor.get(building)
+    while upper and upper not in seen:
+        chain.append(upper)
+        seen.add(upper)
+        upper = game.successor.get(upper)
+    return chain
+
+
+def ladder_set(groups: dict, game: eu5data.Game) -> list[str]:
+    """Здания плана и все ступени над ними -- то, про что фильтр спрашивает."""
+    planned = {b for key in groups for b in groups[key]}
+    return sorted(planned | {a for b in planned for a in ladder_above(b, game)})
+
+
 def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                        game: eu5data.Game) -> str:
     """Whether this location may still take this good on this side.
@@ -2222,18 +2245,46 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # ничего не знает про локацию и не может не сработать -- она список типов,
     # известный на сборке. Если в игре видно её и не видно вторую, причина
     # названа без второго прогона: проба не записала локацию.
-    plan_builds = sorted({method.building for method in rows
-                          if method.building not in village_entities(rows, split, game)}
-                         & {b for key in groups for b in groups[key]})
+    # **Деревни здесь ровня всем прочим.** Владелец, 2026-09-09: «деревни не
+    # предлагаются в фильтре, а должны». В обмене их выделяют потому, что одна
+    # деревня стоит за несколько товаров; для списка зданий локации она такое же
+    # здание, как любое другое, и план кладёт её в `_plan_builds` наравне.
+    plan_builds = sorted({b for key in groups for b in groups[key]})
     listed = "".join(f"\t\tthis = building_type:{b}\n" for b in plan_builds)
-    here = "".join(
-        f"\t\tAND = {{\n"
-        f"\t\t\tthis = building_type:{b}\n"
-        f"\t\t\tglobal_var:bag_view_location = {{\n"
-        f"\t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
-        f"target = building_type:{b} }}\n"
-        f"\t\t\t}}\n"
-        f"\t\t}}\n" for b in plan_builds)
+
+    def in_list(building: str, tab: str) -> str:
+        return (f"{tab}is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+                f"target = building_type:{building} }}\n")
+
+    # **Ступень, которая по зубам, когда план поставил ту, что не по зубам.**
+    #
+    # План «на конец» ставит мельницу, а строить можно мастерскую -- и панель
+    # мельницу даже не покажет, так что строка товара пропадает целиком. Поэтому
+    # здание проходит фильтр ещё и тогда, когда план поставил сюда ступень
+    # **над** ним, и ни одна ступень между ними стране сейчас не доступна:
+    # показывается ровно одна -- самая высокая из доступных.
+    #
+    # `_ba_<здание>` считает `{MOD_ID}_set_bavail` в скоупе страны; у фильтра
+    # страны нет вовсе, поэтому ответ и лежит готовым числом.
+    here = ""
+    for b in plan_builds:
+        branches = in_list(b, "\t" * 4)
+        blocked = []
+        for upper in ladder_above(b, game):
+            # Каждая ступень между нами и поставленной обязана быть недоступной,
+            # иначе показывать надо её, а не нас.
+            branches += (f"\t\t\t\tAND = {{\n"
+                         + in_list(upper, "\t" * 5)
+                         + "".join(f"\t\t\t\t\tNOT = {{ global_var:{MOD_ID}_ba_{a} = 1 }}\n"
+                                   for a in blocked + [upper])
+                         + f"\t\t\t\t}}\n")
+            blocked.append(upper)
+        here += (f"\t\tAND = {{\n"
+                 f"\t\t\tthis = building_type:{b}\n"
+                 f"\t\t\tglobal_var:bag_view_location = {{\n"
+                 f"\t\t\t\tOR = {{\n{branches}\t\t\t\t}}\n"
+                 f"\t\t\t}}\n"
+                 f"\t\t}}\n")
     out.append(f"""
 # **Здания, которыми план вообще умеет строить** -- {len(plan_builds)} из тех, что
 # есть в игре. Список известен на сборке, так что фишка стоит одно сравнение и
@@ -2265,16 +2316,6 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \thas_global_variable = bag_view_location
 \tOR = {{
 {here}\t}}
-}}
-
-# **Проба, а не удобство.** Она пропускает всё, если мод вообще может прочитать с
-# фильтра ту локацию, которую показывает панель. Пустой список под ней и полный
-# под «Планируемые» -- это «смена скоупа на `global_var:` из фильтра типа зданий
-# не работает», и тогда ответ надо класть на само здание, а не на локацию.
-# Scope: building_type
-{MOD_ID}_view_location_seen = {{
-\thas_global_variable = bag_view_location
-\tglobal_var:bag_view_location = {{ has_variable = {MOD_ID}_load }}
 }}
 """)
     return "".join(out)
@@ -2705,6 +2746,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     bzero = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_bn{k} value = 0 }}\n"
         for k in range(1, len(shared) + 1))
+    # Здания, про которые фильтру нужно знать «могу ли я это сейчас»: всё, чем
+    # план строит, и каждая ступень над ними -- план «на конец» ставит верхнюю,
+    # а показать надо ту, что по зубам.
+    bavail = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_ba_{b} value = 0 }}\n"
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ can_build_building = building_type:{b} }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_ba_{b} value = 1 }}\n"
+        f"\t}}\n" for b in ladder_set(groups, game))
 
     out = [HEADER, f"""#
 # Scope: country
@@ -2733,6 +2783,26 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tcmf_log = {{ action = {MOD_ID}_log_plan }}
 }}
 
+# **Какие здания эта страна может строить сейчас** -- по одному числу на здание.
+#
+# Владелец, 2026-09-09: «я обычно использую метод плана „на конец"... если в
+# плане стоит домик, который не доступен мне по уровню -- мне не показывается. Но
+# я хочу, чтобы мне показывался его аналог более низкого уровня». Ступени лестницы
+# игра называет сама (`obsolete` в `building_types`), а «доступна ли ступень»
+# спрашивается `can_build_building` **в скоупе страны** -- именно она отвечает за
+# продвижения, как и у `_avail_<n>`.
+#
+# **Почему числом в глобалке, а не вопросом на месте.** Фильтру списка достаётся
+# только сам объект и глобальные переменные; страны у него нет вовсе. Значит
+# ответ надо посчитать заранее там, где страна есть, -- здесь.
+#
+# Считается при каждой «Пересчитать» и при регистрации мода (то есть на загрузке
+# сохранения и при открытии страницы мода). Взял продвижение и не пересчитал план
+# -- фильтр покажет ступень ниже, чем мог бы; это единственная цена.
+# Scope: country
+{MOD_ID}_set_bavail = {{
+{bavail}}}
+
 # The ground this run works over, and everything the last one left on the map.
 #
 # `_plan_touched` is the previous run's locations, which a new choice on the map
@@ -2743,6 +2813,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # they are the player's answer to «what is this location», not the plan's.
 # Scope: country
 {MOD_ID}_plan_prepare = {{
+\t{MOD_ID}_set_bavail = yes
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tremove_variable = {MOD_ID}_load

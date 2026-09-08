@@ -34,14 +34,3 @@ bag_wtp_plan_here = {
 	exclusive_group = no
 	trigger = { bag_wtp_type_in_plan_here = yes }
 }
-
-# **Временная проба, а не удобство.** Пропускает всё, если мод может прочитать с
-# фильтра локацию, которую показывает панель. Стоит здесь ровно до того прогона,
-# который скажет, работает ли «Из плана — сюда»; после -- убрать.
-bag_wtp_sees_location = {
-	scope = building_type
-	tag = building
-	group = 10
-	exclusive_group = no
-	trigger = { bag_wtp_view_location_seen = yes }
-}
