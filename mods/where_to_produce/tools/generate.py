@@ -6603,6 +6603,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             builds = " ".join(
                 f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
                 f"target = building_type:{b} }}" for b in mine)
+            mvar = "pm" if kind == "t" else "prm"
+            ownm = " ".join(
+                f"var:{MOD_ID}_{mvar}{index} = {m}"
+                for m in sorted(m for b, ms in (groups.get((good, kind)) or {}).items()
+                                if b not in villages_ for m in ms))
             out_b = dispatch("edit_remove", f"global_var:{MOD_ID}_mv_bg", "\t" * 4)
             in_a = dispatch("edit_place", f"global_var:{MOD_ID}_mv_ag", "\t" * 4)
             out_a = dispatch("edit_remove", f"global_var:{MOD_ID}_mv_ag", "\t" * 4)
@@ -6627,6 +6632,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tif = {{
 \t\t\tlimit = {{
 \t\t\t\t{MOD_ID}_edit_fits_{sidename}_{index} = yes
+\t\t\t\t# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+\t\t\t\t# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+\t\t\t\t# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+\t\t\t\t# который убирали всю сессию.
+\t\t\t\tOR = {{ {ownm} }}
 \t\t\t\tvar:{MOD_ID}_{gvar}{index} > global_var:{MOD_ID}_mv_bv
 \t\t\t}}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_mv_bv value = var:{MOD_ID}_{gvar}{index} }}
@@ -9895,16 +9905,33 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_rp_moves value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rp_right value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_rp_pbound value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rp_vbound value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rp_vmoves value = 0 }}
 """)
+    own = own_sides(rows, split, game)
+    villages_ = village_entities(rows, split, game)
     for index, good in enumerate(order, start=1):
-        town, rural = bool(groups.get((good, "t"))), bool(groups.get((good, "r")))
+        # **Сторона считается по СВОИМ зданиям.** У пива в селе только торговая
+        # деревня: сельской стороны у него нет, и мерить её через деревенский
+        # рецепт значит мерить чужой домик. Владелец, 2026-09-09: «ты учёл, что у
+        # сёл теперь нет рыбы, пива и т.п.»
+        town, rural = own[good]
         if not town and not rural:
             continue
+        # Свои рецепты стороны: `_prm<n>` -- лучший сельский, и он может быть
+        # деревенским даже у товара, у которого своё здание есть (украшения:
+        # торговая деревня против `pounamou_carver`).
+        own_m = {}
+        for kind, side in (("t", "t"), ("r", "r")):
+            own_m[kind] = sorted(
+                m for b, ms in (groups.get((good, side)) or {}).items()
+                if b not in villages_ for m in ms)
 
         def best(kind: str, tab: str) -> str:
             """Лучшее, что земля платит этому товару на этой стороне."""
             g, m = ("p", "pm") if kind == "t" else ("pr", "prm")
             acc = "rp_bt" if kind == "t" else "rp_br"
+            mine = " ".join(f"var:{MOD_ID}_{m}{index} = {x}" for x in own_m[kind])
             return (f"{tab}if = {{\n"
                     f"{tab}\t{MOD_ID}_plan_is_town = {'yes' if kind == 't' else 'no'}\n"
                     .replace(f"{tab}\t{MOD_ID}", f"{tab}\tlimit = {{ {MOD_ID}")
@@ -9912,7 +9939,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                              f"= {'yes' if kind == 't' else 'no'} }}\n")
                     + f"{tab}\tif = {{\n"
                       f"{tab}\t\tlimit = {{\n"
-                      f"{tab}\t\t\tvar:{MOD_ID}_{m}{index} > 0\n"
+                      f"{tab}\t\t\tOR = {{ {mine} }}\n"
                       f"{tab}\t\t\tvar:{MOD_ID}_{g}{index} > global_var:{MOD_ID}_{acc}\n"
                       f"{tab}\t\t}}\n"
                       f"{tab}\t\tset_global_variable = {{ name = {MOD_ID}_{acc} "
@@ -9921,12 +9948,19 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                       f"{tab}}}\n")
 
         def gap(kind: str, tab: str, acc: str) -> str:
-            """Насколько ниже лучшего стоит домик этого товара здесь."""
+            """Насколько ниже лучшего стоит **свой** домик этого товара здесь."""
             g = "p" if kind == "t" else "pr"
             b = "rp_bt" if kind == "t" else "rp_br"
+            side = kind
+            builds = " ".join(
+                f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+                f"target = building_type:{x} }}"
+                for x in sorted(x for x in (groups.get((good, side)) or {})
+                                if x not in villages_))
             return (f"{tab}if = {{\n"
                     f"{tab}\tlimit = {{\n"
                     f"{tab}\t\t{MOD_ID}_plan_is_town = {'yes' if kind == 't' else 'no'}\n"
+                    f"{tab}\t\tOR = {{ {builds} }}\n"
                     f"{tab}\t\tvar:{MOD_ID}_{g}{index} < global_var:{MOD_ID}_{b}\n"
                     f"{tab}\t}}\n"
                     f"{tab}\tset_global_variable = {{ name = {MOD_ID}_rp_d "
@@ -9975,13 +10009,48 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 """)
+    # **Деревни считаются отдельно, потому что они — отдельная сущность.** У них
+    # своя выгода `_vb<k>` (лучший из их собственных рецептов здесь), и она у
+    # каждой провинции своя, как у товаров. Владелец, 2026-09-09: «у них выгода
+    # вообще почти от любой провинции и везде разная». **В обмене их пока нет** —
+    # снять деревню нечем, — и это число говорит, чего это стоит.
+    for k, building in enumerate(village_entities(rows, split, game), start=1):
+        out.append(f"""\t# {building}
+\tset_global_variable = {{ name = {MOD_ID}_rp_br value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{
+\t\t\thas_variable = {MOD_ID}_load
+\t\t\t{MOD_ID}_plan_is_town = no
+\t\t\t{MOD_ID}_stands_{building} = yes
+\t\t\tvar:{MOD_ID}_vb{k} > global_var:{MOD_ID}_rp_br
+\t\t}}
+\t\tset_global_variable = {{ name = {MOD_ID}_rp_br value = var:{MOD_ID}_vb{k} }}
+\t}}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{
+\t\t\thas_variable = {MOD_ID}_load
+\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }}
+\t\t\tvar:{MOD_ID}_vb{k} < global_var:{MOD_ID}_rp_br
+\t\t}}
+\t\tset_global_variable = {{ name = {MOD_ID}_rp_d value = global_var:{MOD_ID}_rp_br }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_rp_d subtract = var:{MOD_ID}_vb{k} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_rp_vbound add = global_var:{MOD_ID}_rp_d }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_rp_vmoves add = 1 }}
+\t}}
+""")
     out.append(park(1, f"{MOD_ID}_rp_bound"))
     out.append(park(2, f"{MOD_ID}_rp_moves"))
     out.append(park(3, f"{MOD_ID}_rp_right"))
     out.append(park(4, f"{MOD_ID}_plan_gain"))
     out.append(park(5, f"{MOD_ID}_plan_placed"))
     out.append(park(6, f"{MOD_ID}_rp_pbound"))
+    out.append(park(7, f"{MOD_ID}_rp_vbound"))
+    out.append(park(8, f"{MOD_ID}_rp_vmoves"))
     out.append(say(f"SHUFFLE bound={read(1)} moves={read(2)} in_charter_towns={read(3)}"
+                   f" | villages={read(7)} village_moves={read(8)} (villages are not"
+                   f" traded yet -- there is no effect that takes one out)"
                    f" | same_province={read(6)} (must be 0 -- the gain is a province's,"
                    f" not a location's)"
                    f" | gain_now={read(4)} placed={read(5)} -- bound is the ceiling a"

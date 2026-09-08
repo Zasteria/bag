@@ -4923,6 +4923,8 @@ bag_wtp_diag_shuffle = {
 	set_global_variable = { name = bag_wtp_rp_moves value = 0 }
 	set_global_variable = { name = bag_wtp_rp_right value = 0 }
 	set_global_variable = { name = bag_wtp_rp_pbound value = 0 }
+	set_global_variable = { name = bag_wtp_rp_vbound value = 0 }
+	set_global_variable = { name = bag_wtp_rp_vmoves value = 0 }
 	# clay: по всей земле — что и есть «между провинциями».
 	set_global_variable = { name = bag_wtp_rp_bt value = 0 }
 	set_global_variable = { name = bag_wtp_rp_br value = 0 }
@@ -4933,7 +4935,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm1 > 0
+					OR = { var:bag_wtp_pm1 = 39 }
 					var:bag_wtp_p1 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p1 }
@@ -4943,7 +4945,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm1 > 0
+					OR = { var:bag_wtp_prm1 = 39 }
 					var:bag_wtp_pr1 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr1 }
@@ -4959,6 +4961,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
 				var:bag_wtp_p1 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -4973,6 +4976,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
 				var:bag_wtp_pr1 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -4997,7 +5001,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm1 > 0
+							OR = { var:bag_wtp_pm1 = 39 }
 							var:bag_wtp_p1 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p1 }
@@ -5007,7 +5011,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm1 > 0
+							OR = { var:bag_wtp_prm1 = 39 }
 							var:bag_wtp_pr1 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr1 }
@@ -5024,6 +5028,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
 						var:bag_wtp_p1 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5033,6 +5038,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
 						var:bag_wtp_pr1 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5052,7 +5058,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm2 > 0
+					OR = { var:bag_wtp_pm2 = 56 }
 					var:bag_wtp_p2 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p2 }
@@ -5062,7 +5068,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm2 > 0
+					OR = { var:bag_wtp_prm2 = 55 var:bag_wtp_prm2 = 56 }
 					var:bag_wtp_pr2 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr2 }
@@ -5078,6 +5084,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
 				var:bag_wtp_p2 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5092,6 +5099,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
 				var:bag_wtp_pr2 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5116,7 +5124,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm2 > 0
+							OR = { var:bag_wtp_pm2 = 56 }
 							var:bag_wtp_p2 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p2 }
@@ -5126,7 +5134,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm2 > 0
+							OR = { var:bag_wtp_prm2 = 55 var:bag_wtp_prm2 = 56 }
 							var:bag_wtp_pr2 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr2 }
@@ -5143,6 +5151,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
 						var:bag_wtp_p2 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5152,6 +5161,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
 						var:bag_wtp_pr2 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5171,7 +5181,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm3 > 0
+					OR = { var:bag_wtp_pm3 = 57 }
 					var:bag_wtp_p3 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p3 }
@@ -5181,7 +5191,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm3 > 0
+					OR = { var:bag_wtp_prm3 = 57 }
 					var:bag_wtp_pr3 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr3 }
@@ -5197,6 +5207,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
 				var:bag_wtp_p3 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5211,6 +5222,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
 				var:bag_wtp_pr3 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5235,7 +5247,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm3 > 0
+							OR = { var:bag_wtp_pm3 = 57 }
 							var:bag_wtp_p3 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p3 }
@@ -5245,7 +5257,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm3 > 0
+							OR = { var:bag_wtp_prm3 = 57 }
 							var:bag_wtp_pr3 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr3 }
@@ -5262,6 +5274,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
 						var:bag_wtp_p3 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5271,6 +5284,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
 						var:bag_wtp_pr3 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5290,7 +5304,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm4 > 0
+					OR = { var:bag_wtp_pm4 = 58 var:bag_wtp_pm4 = 59 var:bag_wtp_pm4 = 60 var:bag_wtp_pm4 = 61 var:bag_wtp_pm4 = 62 }
 					var:bag_wtp_p4 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p4 }
@@ -5306,6 +5320,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks } }
 				var:bag_wtp_p4 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5330,7 +5345,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm4 > 0
+							OR = { var:bag_wtp_pm4 = 58 var:bag_wtp_pm4 = 59 var:bag_wtp_pm4 = 60 var:bag_wtp_pm4 = 61 var:bag_wtp_pm4 = 62 }
 							var:bag_wtp_p4 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p4 }
@@ -5347,6 +5362,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks } }
 						var:bag_wtp_p4 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5366,7 +5382,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm5 > 0
+					OR = { var:bag_wtp_pm5 = 63 var:bag_wtp_pm5 = 64 }
 					var:bag_wtp_p5 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p5 }
@@ -5376,7 +5392,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm5 > 0
+					OR = { var:bag_wtp_prm5 = 63 var:bag_wtp_prm5 = 64 }
 					var:bag_wtp_pr5 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr5 }
@@ -5392,6 +5408,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_p5 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5406,6 +5423,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_pr5 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5430,7 +5448,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm5 > 0
+							OR = { var:bag_wtp_pm5 = 63 var:bag_wtp_pm5 = 64 }
 							var:bag_wtp_p5 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p5 }
@@ -5440,7 +5458,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm5 > 0
+							OR = { var:bag_wtp_prm5 = 63 var:bag_wtp_prm5 = 64 }
 							var:bag_wtp_pr5 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr5 }
@@ -5457,6 +5475,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_p5 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5466,86 +5485,11 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_pr5 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
 					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr5 }
-					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
-				}
-			}
-		}
-	}
-	# fish: по всей земле — что и есть «между провинциями».
-	set_global_variable = { name = bag_wtp_rp_bt value = 0 }
-	set_global_variable = { name = bag_wtp_rp_br value = 0 }
-	every_in_global_list = {
-		variable = bag_wtp_plan_touched
-		limit = { has_variable = bag_wtp_load }
-		if = {
-			limit = { bag_wtp_plan_is_town = no }
-			if = {
-				limit = {
-					var:bag_wtp_prm6 > 0
-					var:bag_wtp_pr6 > global_var:bag_wtp_rp_br
-				}
-				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr6 }
-			}
-		}
-	}
-	every_in_global_list = {
-		variable = bag_wtp_plan_touched
-		limit = {
-			has_variable = bag_wtp_load
-			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
-		}
-		if = {
-			limit = {
-				bag_wtp_plan_is_town = no
-				var:bag_wtp_pr6 < global_var:bag_wtp_rp_br
-			}
-			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr6 }
-			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
-			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
-			if = {
-				limit = { has_variable = bag_wtp_plan_right }
-				change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
-			}
-		}
-	}
-	# Он же внутри провинции — проверка, и она обязана дать ноль.
-	every_in_global_list = {
-		variable = bag_wtp_plan_prov_locs
-	set_global_variable = { name = bag_wtp_rp_bt value = 0 }
-	set_global_variable = { name = bag_wtp_rp_br value = 0 }
-		province_definition = {
-			every_location_in_province_definition = {
-				limit = { has_variable = bag_wtp_load }
-				if = {
-					limit = { bag_wtp_plan_is_town = no }
-					if = {
-						limit = {
-							var:bag_wtp_prm6 > 0
-							var:bag_wtp_pr6 > global_var:bag_wtp_rp_br
-						}
-						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr6 }
-					}
-				}
-			}
-		}
-		province_definition = {
-			every_location_in_province_definition = {
-				limit = {
-				has_variable = bag_wtp_load
-			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
-				}
-				if = {
-					limit = {
-						bag_wtp_plan_is_town = no
-						var:bag_wtp_pr6 < global_var:bag_wtp_rp_br
-					}
-					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr6 }
 					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
 				}
 			}
@@ -5561,7 +5505,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm7 > 0
+					OR = { var:bag_wtp_pm7 = 110 }
 					var:bag_wtp_p7 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p7 }
@@ -5571,7 +5515,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm7 > 0
+					OR = { var:bag_wtp_prm7 = 110 }
 					var:bag_wtp_pr7 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr7 }
@@ -5587,6 +5531,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
 				var:bag_wtp_p7 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5601,6 +5546,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
 				var:bag_wtp_pr7 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5625,7 +5571,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm7 > 0
+							OR = { var:bag_wtp_pm7 = 110 }
 							var:bag_wtp_p7 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p7 }
@@ -5635,7 +5581,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm7 > 0
+							OR = { var:bag_wtp_prm7 = 110 }
 							var:bag_wtp_pr7 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr7 }
@@ -5652,6 +5598,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
 						var:bag_wtp_p7 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5661,6 +5608,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
 						var:bag_wtp_pr7 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5680,7 +5628,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm8 > 0
+					OR = { var:bag_wtp_pm8 = 121 }
 					var:bag_wtp_p8 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p8 }
@@ -5690,7 +5638,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm8 > 0
+					OR = { var:bag_wtp_prm8 = 121 }
 					var:bag_wtp_pr8 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr8 }
@@ -5706,6 +5654,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
 				var:bag_wtp_p8 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5720,6 +5669,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
 				var:bag_wtp_pr8 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5744,7 +5694,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm8 > 0
+							OR = { var:bag_wtp_pm8 = 121 }
 							var:bag_wtp_p8 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p8 }
@@ -5754,7 +5704,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm8 > 0
+							OR = { var:bag_wtp_prm8 = 121 }
 							var:bag_wtp_pr8 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr8 }
@@ -5771,6 +5721,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
 						var:bag_wtp_p8 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5780,6 +5731,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
 						var:bag_wtp_pr8 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5799,7 +5751,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm9 > 0
+					OR = { var:bag_wtp_pm9 = 122 }
 					var:bag_wtp_p9 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p9 }
@@ -5815,6 +5767,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery } }
 				var:bag_wtp_p9 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5839,7 +5792,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm9 > 0
+							OR = { var:bag_wtp_pm9 = 122 }
 							var:bag_wtp_p9 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p9 }
@@ -5856,6 +5809,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery } }
 						var:bag_wtp_p9 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5875,7 +5829,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm10 > 0
+					OR = { var:bag_wtp_pm10 = 123 var:bag_wtp_pm10 = 124 }
 					var:bag_wtp_p10 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p10 }
@@ -5885,7 +5839,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm10 > 0
+					OR = { var:bag_wtp_prm10 = 123 var:bag_wtp_prm10 = 124 }
 					var:bag_wtp_pr10 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr10 }
@@ -5901,6 +5855,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_p10 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5915,6 +5870,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_pr10 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5939,7 +5895,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm10 > 0
+							OR = { var:bag_wtp_pm10 = 123 var:bag_wtp_pm10 = 124 }
 							var:bag_wtp_p10 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p10 }
@@ -5949,7 +5905,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm10 > 0
+							OR = { var:bag_wtp_prm10 = 123 var:bag_wtp_prm10 = 124 }
 							var:bag_wtp_pr10 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr10 }
@@ -5966,6 +5922,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_p10 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -5975,6 +5932,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_pr10 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -5994,7 +5952,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm11 > 0
+					OR = { var:bag_wtp_prm11 = 125 }
 					var:bag_wtp_pr11 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr11 }
@@ -6010,6 +5968,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds } }
 				var:bag_wtp_pr11 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6034,7 +5993,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm11 > 0
+							OR = { var:bag_wtp_prm11 = 125 }
 							var:bag_wtp_pr11 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr11 }
@@ -6051,6 +6010,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds } }
 						var:bag_wtp_pr11 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6070,7 +6030,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm12 > 0
+					OR = { var:bag_wtp_prm12 = 171 }
 					var:bag_wtp_pr12 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr12 }
@@ -6086,6 +6046,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
 				var:bag_wtp_pr12 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6110,7 +6071,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm12 > 0
+							OR = { var:bag_wtp_prm12 = 171 }
 							var:bag_wtp_pr12 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr12 }
@@ -6127,6 +6088,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
 						var:bag_wtp_pr12 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6146,7 +6108,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm13 > 0
+					OR = { var:bag_wtp_pm13 = 172 }
 					var:bag_wtp_p13 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p13 }
@@ -6156,7 +6118,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm13 > 0
+					OR = { var:bag_wtp_prm13 = 172 }
 					var:bag_wtp_pr13 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr13 }
@@ -6172,6 +6134,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_p13 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6186,6 +6149,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_pr13 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6210,7 +6174,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm13 > 0
+							OR = { var:bag_wtp_pm13 = 172 }
 							var:bag_wtp_p13 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p13 }
@@ -6220,7 +6184,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm13 > 0
+							OR = { var:bag_wtp_prm13 = 172 }
 							var:bag_wtp_pr13 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr13 }
@@ -6237,6 +6201,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_p13 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6246,6 +6211,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_pr13 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6265,7 +6231,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm14 > 0
+					OR = { var:bag_wtp_pm14 = 176 var:bag_wtp_pm14 = 177 }
 					var:bag_wtp_p14 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p14 }
@@ -6281,6 +6247,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary } }
 				var:bag_wtp_p14 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6305,7 +6272,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm14 > 0
+							OR = { var:bag_wtp_pm14 = 176 var:bag_wtp_pm14 = 177 }
 							var:bag_wtp_p14 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p14 }
@@ -6322,6 +6289,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary } }
 						var:bag_wtp_p14 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6341,7 +6309,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm15 > 0
+					OR = { var:bag_wtp_pm15 = 199 }
 					var:bag_wtp_p15 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p15 }
@@ -6351,7 +6319,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm15 > 0
+					OR = { var:bag_wtp_prm15 = 199 }
 					var:bag_wtp_pr15 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr15 }
@@ -6367,6 +6335,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
 				var:bag_wtp_p15 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6381,6 +6350,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
 				var:bag_wtp_pr15 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6405,7 +6375,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm15 > 0
+							OR = { var:bag_wtp_pm15 = 199 }
 							var:bag_wtp_p15 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p15 }
@@ -6415,7 +6385,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm15 > 0
+							OR = { var:bag_wtp_prm15 = 199 }
 							var:bag_wtp_pr15 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr15 }
@@ -6432,6 +6402,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
 						var:bag_wtp_p15 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6441,6 +6412,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
 						var:bag_wtp_pr15 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6460,7 +6432,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm16 > 0
+					OR = { var:bag_wtp_pm16 = 200 var:bag_wtp_pm16 = 201 var:bag_wtp_pm16 = 202 var:bag_wtp_pm16 = 203 }
 					var:bag_wtp_p16 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p16 }
@@ -6476,6 +6448,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop } }
 				var:bag_wtp_p16 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6500,7 +6473,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm16 > 0
+							OR = { var:bag_wtp_pm16 = 200 var:bag_wtp_pm16 = 201 var:bag_wtp_pm16 = 202 var:bag_wtp_pm16 = 203 }
 							var:bag_wtp_p16 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p16 }
@@ -6517,6 +6490,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop } }
 						var:bag_wtp_p16 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6536,7 +6510,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm17 > 0
+					OR = { var:bag_wtp_pm17 = 204 }
 					var:bag_wtp_p17 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p17 }
@@ -6546,7 +6520,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm17 > 0
+					OR = { var:bag_wtp_prm17 = 204 }
 					var:bag_wtp_pr17 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr17 }
@@ -6562,6 +6536,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
 				var:bag_wtp_p17 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6576,6 +6551,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
 				var:bag_wtp_pr17 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6600,7 +6576,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm17 > 0
+							OR = { var:bag_wtp_pm17 = 204 }
 							var:bag_wtp_p17 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p17 }
@@ -6610,7 +6586,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm17 > 0
+							OR = { var:bag_wtp_prm17 = 204 }
 							var:bag_wtp_pr17 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr17 }
@@ -6627,6 +6603,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
 						var:bag_wtp_p17 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6636,6 +6613,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
 						var:bag_wtp_pr17 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6655,7 +6633,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm18 > 0
+					OR = { var:bag_wtp_pm18 = 205 var:bag_wtp_pm18 = 206 }
 					var:bag_wtp_p18 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p18 }
@@ -6671,6 +6649,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild } }
 				var:bag_wtp_p18 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6695,7 +6674,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm18 > 0
+							OR = { var:bag_wtp_pm18 = 205 var:bag_wtp_pm18 = 206 }
 							var:bag_wtp_p18 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p18 }
@@ -6712,6 +6691,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild } }
 						var:bag_wtp_p18 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6731,7 +6711,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm19 > 0
+					OR = { var:bag_wtp_pm19 = 207 }
 					var:bag_wtp_p19 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p19 }
@@ -6741,7 +6721,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm19 > 0
+					OR = { var:bag_wtp_prm19 = 207 }
 					var:bag_wtp_pr19 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr19 }
@@ -6757,6 +6737,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
 				var:bag_wtp_p19 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6771,6 +6752,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
 				var:bag_wtp_pr19 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6795,7 +6777,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm19 > 0
+							OR = { var:bag_wtp_pm19 = 207 }
 							var:bag_wtp_p19 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p19 }
@@ -6805,7 +6787,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm19 > 0
+							OR = { var:bag_wtp_prm19 = 207 }
 							var:bag_wtp_pr19 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr19 }
@@ -6822,6 +6804,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
 						var:bag_wtp_p19 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6831,6 +6814,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
 						var:bag_wtp_pr19 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6850,7 +6834,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm20 > 0
+					OR = { var:bag_wtp_pm20 = 210 var:bag_wtp_pm20 = 211 }
 					var:bag_wtp_p20 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p20 }
@@ -6860,7 +6844,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm20 > 0
+					OR = { var:bag_wtp_prm20 = 210 var:bag_wtp_prm20 = 211 }
 					var:bag_wtp_pr20 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr20 }
@@ -6876,6 +6860,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
 				var:bag_wtp_p20 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6890,6 +6875,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
 				var:bag_wtp_pr20 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6914,7 +6900,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm20 > 0
+							OR = { var:bag_wtp_pm20 = 210 var:bag_wtp_pm20 = 211 }
 							var:bag_wtp_p20 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p20 }
@@ -6924,7 +6910,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm20 > 0
+							OR = { var:bag_wtp_prm20 = 210 var:bag_wtp_prm20 = 211 }
 							var:bag_wtp_pr20 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr20 }
@@ -6941,6 +6927,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
 						var:bag_wtp_p20 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -6950,6 +6937,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
 						var:bag_wtp_pr20 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -6969,7 +6957,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm21 > 0
+					OR = { var:bag_wtp_pm21 = 212 }
 					var:bag_wtp_p21 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p21 }
@@ -6979,7 +6967,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm21 > 0
+					OR = { var:bag_wtp_prm21 = 212 }
 					var:bag_wtp_pr21 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr21 }
@@ -6995,6 +6983,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
 				var:bag_wtp_p21 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7009,6 +6998,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
 				var:bag_wtp_pr21 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7033,7 +7023,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm21 > 0
+							OR = { var:bag_wtp_pm21 = 212 }
 							var:bag_wtp_p21 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p21 }
@@ -7043,7 +7033,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm21 > 0
+							OR = { var:bag_wtp_prm21 = 212 }
 							var:bag_wtp_pr21 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr21 }
@@ -7060,6 +7050,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
 						var:bag_wtp_p21 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7069,6 +7060,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
 						var:bag_wtp_pr21 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7088,7 +7080,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm22 > 0
+					OR = { var:bag_wtp_pm22 = 214 }
 					var:bag_wtp_p22 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p22 }
@@ -7098,7 +7090,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm22 > 0
+					OR = { var:bag_wtp_prm22 = 214 }
 					var:bag_wtp_pr22 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr22 }
@@ -7114,6 +7106,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
 				var:bag_wtp_p22 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7128,6 +7121,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
 				var:bag_wtp_pr22 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7152,7 +7146,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm22 > 0
+							OR = { var:bag_wtp_pm22 = 214 }
 							var:bag_wtp_p22 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p22 }
@@ -7162,7 +7156,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm22 > 0
+							OR = { var:bag_wtp_prm22 = 214 }
 							var:bag_wtp_pr22 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr22 }
@@ -7179,6 +7173,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
 						var:bag_wtp_p22 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7188,6 +7183,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
 						var:bag_wtp_pr22 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7207,7 +7203,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm23 > 0
+					OR = { var:bag_wtp_prm23 = 234 }
 					var:bag_wtp_pr23 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr23 }
@@ -7223,6 +7219,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest } }
 				var:bag_wtp_pr23 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7247,7 +7244,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm23 > 0
+							OR = { var:bag_wtp_prm23 = 234 }
 							var:bag_wtp_pr23 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr23 }
@@ -7264,6 +7261,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest } }
 						var:bag_wtp_pr23 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7283,7 +7281,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm24 > 0
+					OR = { var:bag_wtp_pm24 = 235 var:bag_wtp_pm24 = 236 var:bag_wtp_pm24 = 237 var:bag_wtp_pm24 = 238 var:bag_wtp_pm24 = 239 var:bag_wtp_pm24 = 240 }
 					var:bag_wtp_p24 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p24 }
@@ -7299,6 +7297,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory } }
 				var:bag_wtp_p24 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7323,7 +7322,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm24 > 0
+							OR = { var:bag_wtp_pm24 = 235 var:bag_wtp_pm24 = 236 var:bag_wtp_pm24 = 237 var:bag_wtp_pm24 = 238 var:bag_wtp_pm24 = 239 var:bag_wtp_pm24 = 240 }
 							var:bag_wtp_p24 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p24 }
@@ -7340,6 +7339,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory } }
 						var:bag_wtp_p24 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7359,7 +7359,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm25 > 0
+					OR = { var:bag_wtp_prm25 = 241 }
 					var:bag_wtp_pr25 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr25 }
@@ -7375,6 +7375,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms } }
 				var:bag_wtp_pr25 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7399,7 +7400,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm25 > 0
+							OR = { var:bag_wtp_prm25 = 241 }
 							var:bag_wtp_pr25 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr25 }
@@ -7416,6 +7417,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms } }
 						var:bag_wtp_pr25 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7435,20 +7437,10 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm26 > 0
+					OR = { var:bag_wtp_pm26 = 1 var:bag_wtp_pm26 = 2 var:bag_wtp_pm26 = 3 var:bag_wtp_pm26 = 4 var:bag_wtp_pm26 = 5 var:bag_wtp_pm26 = 6 var:bag_wtp_pm26 = 7 var:bag_wtp_pm26 = 8 var:bag_wtp_pm26 = 9 var:bag_wtp_pm26 = 10 var:bag_wtp_pm26 = 11 var:bag_wtp_pm26 = 12 var:bag_wtp_pm26 = 13 var:bag_wtp_pm26 = 14 var:bag_wtp_pm26 = 15 var:bag_wtp_pm26 = 16 }
 					var:bag_wtp_p26 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p26 }
-			}
-		}
-		if = {
-			limit = { bag_wtp_plan_is_town = no }
-			if = {
-				limit = {
-					var:bag_wtp_prm26 > 0
-					var:bag_wtp_pr26 > global_var:bag_wtp_rp_br
-				}
-				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr26 }
 			}
 		}
 	}
@@ -7461,24 +7453,11 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill } }
 				var:bag_wtp_p26 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p26 }
-			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
-			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
-			if = {
-				limit = { has_variable = bag_wtp_plan_right }
-				change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
-			}
-		}
-		if = {
-			limit = {
-				bag_wtp_plan_is_town = no
-				var:bag_wtp_pr26 < global_var:bag_wtp_rp_br
-			}
-			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr26 }
 			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
 			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
 			if = {
@@ -7499,20 +7478,10 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm26 > 0
+							OR = { var:bag_wtp_pm26 = 1 var:bag_wtp_pm26 = 2 var:bag_wtp_pm26 = 3 var:bag_wtp_pm26 = 4 var:bag_wtp_pm26 = 5 var:bag_wtp_pm26 = 6 var:bag_wtp_pm26 = 7 var:bag_wtp_pm26 = 8 var:bag_wtp_pm26 = 9 var:bag_wtp_pm26 = 10 var:bag_wtp_pm26 = 11 var:bag_wtp_pm26 = 12 var:bag_wtp_pm26 = 13 var:bag_wtp_pm26 = 14 var:bag_wtp_pm26 = 15 var:bag_wtp_pm26 = 16 }
 							var:bag_wtp_p26 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p26 }
-					}
-				}
-				if = {
-					limit = { bag_wtp_plan_is_town = no }
-					if = {
-						limit = {
-							var:bag_wtp_prm26 > 0
-							var:bag_wtp_pr26 > global_var:bag_wtp_rp_br
-						}
-						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr26 }
 					}
 				}
 			}
@@ -7526,19 +7495,11 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:beer_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill } }
 						var:bag_wtp_p26 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p26 }
-					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
-				}
-				if = {
-					limit = {
-						bag_wtp_plan_is_town = no
-						var:bag_wtp_pr26 < global_var:bag_wtp_rp_br
-					}
-					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr26 }
 					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
 				}
 			}
@@ -7554,7 +7515,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm27 > 0
+					OR = { var:bag_wtp_pm27 = 18 var:bag_wtp_pm27 = 19 var:bag_wtp_pm27 = 20 var:bag_wtp_pm27 = 21 }
 					var:bag_wtp_p27 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p27 }
@@ -7570,6 +7531,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium } }
 				var:bag_wtp_p27 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7594,7 +7556,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm27 > 0
+							OR = { var:bag_wtp_pm27 = 18 var:bag_wtp_pm27 = 19 var:bag_wtp_pm27 = 20 var:bag_wtp_pm27 = 21 }
 							var:bag_wtp_p27 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p27 }
@@ -7611,6 +7573,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium } }
 						var:bag_wtp_p27 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7630,7 +7593,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm28 > 0
+					OR = { var:bag_wtp_pm28 = 22 var:bag_wtp_pm28 = 23 var:bag_wtp_pm28 = 24 var:bag_wtp_pm28 = 25 var:bag_wtp_pm28 = 26 var:bag_wtp_pm28 = 27 var:bag_wtp_pm28 = 28 var:bag_wtp_pm28 = 29 var:bag_wtp_pm28 = 30 var:bag_wtp_pm28 = 31 var:bag_wtp_pm28 = 32 var:bag_wtp_pm28 = 33 var:bag_wtp_pm28 = 34 var:bag_wtp_pm28 = 35 var:bag_wtp_pm28 = 36 var:bag_wtp_pm28 = 37 var:bag_wtp_pm28 = 38 }
 					var:bag_wtp_p28 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p28 }
@@ -7646,6 +7609,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory } }
 				var:bag_wtp_p28 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7670,7 +7634,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm28 > 0
+							OR = { var:bag_wtp_pm28 = 22 var:bag_wtp_pm28 = 23 var:bag_wtp_pm28 = 24 var:bag_wtp_pm28 = 25 var:bag_wtp_pm28 = 26 var:bag_wtp_pm28 = 27 var:bag_wtp_pm28 = 28 var:bag_wtp_pm28 = 29 var:bag_wtp_pm28 = 30 var:bag_wtp_pm28 = 31 var:bag_wtp_pm28 = 32 var:bag_wtp_pm28 = 33 var:bag_wtp_pm28 = 34 var:bag_wtp_pm28 = 35 var:bag_wtp_pm28 = 36 var:bag_wtp_pm28 = 37 var:bag_wtp_pm28 = 38 }
 							var:bag_wtp_p28 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p28 }
@@ -7687,6 +7651,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory } }
 						var:bag_wtp_p28 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7706,7 +7671,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm29 > 0
+					OR = { var:bag_wtp_pm29 = 40 var:bag_wtp_pm29 = 41 var:bag_wtp_pm29 = 42 var:bag_wtp_pm29 = 43 var:bag_wtp_pm29 = 44 var:bag_wtp_pm29 = 45 var:bag_wtp_pm29 = 46 var:bag_wtp_pm29 = 47 var:bag_wtp_pm29 = 48 var:bag_wtp_pm29 = 52 var:bag_wtp_pm29 = 53 var:bag_wtp_pm29 = 54 }
 					var:bag_wtp_p29 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p29 }
@@ -7716,7 +7681,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm29 > 0
+					OR = { var:bag_wtp_prm29 = 49 var:bag_wtp_prm29 = 50 var:bag_wtp_prm29 = 51 }
 					var:bag_wtp_pr29 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr29 }
@@ -7732,6 +7697,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill } }
 				var:bag_wtp_p29 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7746,6 +7712,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker } }
 				var:bag_wtp_pr29 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7770,7 +7737,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm29 > 0
+							OR = { var:bag_wtp_pm29 = 40 var:bag_wtp_pm29 = 41 var:bag_wtp_pm29 = 42 var:bag_wtp_pm29 = 43 var:bag_wtp_pm29 = 44 var:bag_wtp_pm29 = 45 var:bag_wtp_pm29 = 46 var:bag_wtp_pm29 = 47 var:bag_wtp_pm29 = 48 var:bag_wtp_pm29 = 52 var:bag_wtp_pm29 = 53 var:bag_wtp_pm29 = 54 }
 							var:bag_wtp_p29 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p29 }
@@ -7780,7 +7747,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm29 > 0
+							OR = { var:bag_wtp_prm29 = 49 var:bag_wtp_prm29 = 50 var:bag_wtp_prm29 = 51 }
 							var:bag_wtp_pr29 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr29 }
@@ -7797,6 +7764,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill } }
 						var:bag_wtp_p29 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7806,6 +7774,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker } }
 						var:bag_wtp_pr29 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -7825,7 +7794,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm30 > 0
+					OR = { var:bag_wtp_pm30 = 65 var:bag_wtp_pm30 = 66 var:bag_wtp_pm30 = 67 var:bag_wtp_pm30 = 68 var:bag_wtp_pm30 = 69 var:bag_wtp_pm30 = 70 var:bag_wtp_pm30 = 71 var:bag_wtp_pm30 = 72 var:bag_wtp_pm30 = 73 var:bag_wtp_pm30 = 74 var:bag_wtp_pm30 = 75 var:bag_wtp_pm30 = 76 var:bag_wtp_pm30 = 77 var:bag_wtp_pm30 = 78 var:bag_wtp_pm30 = 79 var:bag_wtp_pm30 = 80 var:bag_wtp_pm30 = 81 var:bag_wtp_pm30 = 82 var:bag_wtp_pm30 = 83 var:bag_wtp_pm30 = 84 var:bag_wtp_pm30 = 85 var:bag_wtp_pm30 = 86 var:bag_wtp_pm30 = 87 var:bag_wtp_pm30 = 88 var:bag_wtp_pm30 = 89 var:bag_wtp_pm30 = 90 var:bag_wtp_pm30 = 91 var:bag_wtp_pm30 = 92 var:bag_wtp_pm30 = 93 var:bag_wtp_pm30 = 94 }
 					var:bag_wtp_p30 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p30 }
@@ -7841,6 +7810,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop } }
 				var:bag_wtp_p30 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7865,7 +7835,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm30 > 0
+							OR = { var:bag_wtp_pm30 = 65 var:bag_wtp_pm30 = 66 var:bag_wtp_pm30 = 67 var:bag_wtp_pm30 = 68 var:bag_wtp_pm30 = 69 var:bag_wtp_pm30 = 70 var:bag_wtp_pm30 = 71 var:bag_wtp_pm30 = 72 var:bag_wtp_pm30 = 73 var:bag_wtp_pm30 = 74 var:bag_wtp_pm30 = 75 var:bag_wtp_pm30 = 76 var:bag_wtp_pm30 = 77 var:bag_wtp_pm30 = 78 var:bag_wtp_pm30 = 79 var:bag_wtp_pm30 = 80 var:bag_wtp_pm30 = 81 var:bag_wtp_pm30 = 82 var:bag_wtp_pm30 = 83 var:bag_wtp_pm30 = 84 var:bag_wtp_pm30 = 85 var:bag_wtp_pm30 = 86 var:bag_wtp_pm30 = 87 var:bag_wtp_pm30 = 88 var:bag_wtp_pm30 = 89 var:bag_wtp_pm30 = 90 var:bag_wtp_pm30 = 91 var:bag_wtp_pm30 = 92 var:bag_wtp_pm30 = 93 var:bag_wtp_pm30 = 94 }
 							var:bag_wtp_p30 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p30 }
@@ -7882,6 +7852,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop } }
 						var:bag_wtp_p30 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7901,7 +7872,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm31 > 0
+					OR = { var:bag_wtp_pm31 = 95 var:bag_wtp_pm31 = 96 var:bag_wtp_pm31 = 97 var:bag_wtp_pm31 = 98 var:bag_wtp_pm31 = 99 var:bag_wtp_pm31 = 100 var:bag_wtp_pm31 = 101 var:bag_wtp_pm31 = 102 var:bag_wtp_pm31 = 103 var:bag_wtp_pm31 = 104 var:bag_wtp_pm31 = 105 var:bag_wtp_pm31 = 106 var:bag_wtp_pm31 = 107 }
 					var:bag_wtp_p31 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p31 }
@@ -7917,6 +7888,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild } }
 				var:bag_wtp_p31 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7941,7 +7913,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm31 > 0
+							OR = { var:bag_wtp_pm31 = 95 var:bag_wtp_pm31 = 96 var:bag_wtp_pm31 = 97 var:bag_wtp_pm31 = 98 var:bag_wtp_pm31 = 99 var:bag_wtp_pm31 = 100 var:bag_wtp_pm31 = 101 var:bag_wtp_pm31 = 102 var:bag_wtp_pm31 = 103 var:bag_wtp_pm31 = 104 var:bag_wtp_pm31 = 105 var:bag_wtp_pm31 = 106 var:bag_wtp_pm31 = 107 }
 							var:bag_wtp_p31 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p31 }
@@ -7958,6 +7930,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild } }
 						var:bag_wtp_p31 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -7977,7 +7950,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm32 > 0
+					OR = { var:bag_wtp_pm32 = 111 var:bag_wtp_pm32 = 112 var:bag_wtp_pm32 = 113 var:bag_wtp_pm32 = 114 }
 					var:bag_wtp_p32 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p32 }
@@ -7993,6 +7966,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop } }
 				var:bag_wtp_p32 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8017,7 +7991,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm32 > 0
+							OR = { var:bag_wtp_pm32 = 111 var:bag_wtp_pm32 = 112 var:bag_wtp_pm32 = 113 var:bag_wtp_pm32 = 114 }
 							var:bag_wtp_p32 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p32 }
@@ -8034,6 +8008,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop } }
 						var:bag_wtp_p32 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8053,7 +8028,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm33 > 0
+					OR = { var:bag_wtp_pm33 = 115 var:bag_wtp_pm33 = 116 var:bag_wtp_pm33 = 117 var:bag_wtp_pm33 = 118 var:bag_wtp_pm33 = 119 }
 					var:bag_wtp_p33 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p33 }
@@ -8063,7 +8038,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm33 > 0
+					OR = { var:bag_wtp_prm33 = 120 }
 					var:bag_wtp_pr33 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr33 }
@@ -8079,6 +8054,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks } }
 				var:bag_wtp_p33 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8093,6 +8069,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker } }
 				var:bag_wtp_pr33 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -8117,7 +8094,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm33 > 0
+							OR = { var:bag_wtp_pm33 = 115 var:bag_wtp_pm33 = 116 var:bag_wtp_pm33 = 117 var:bag_wtp_pm33 = 118 var:bag_wtp_pm33 = 119 }
 							var:bag_wtp_p33 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p33 }
@@ -8127,7 +8104,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm33 > 0
+							OR = { var:bag_wtp_prm33 = 120 }
 							var:bag_wtp_pr33 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr33 }
@@ -8144,6 +8121,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks } }
 						var:bag_wtp_p33 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8153,6 +8131,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker } }
 						var:bag_wtp_pr33 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -8172,7 +8151,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm34 > 0
+					OR = { var:bag_wtp_pm34 = 126 var:bag_wtp_pm34 = 127 var:bag_wtp_pm34 = 128 var:bag_wtp_pm34 = 129 var:bag_wtp_pm34 = 130 var:bag_wtp_pm34 = 131 var:bag_wtp_pm34 = 132 var:bag_wtp_pm34 = 133 var:bag_wtp_pm34 = 134 var:bag_wtp_pm34 = 135 var:bag_wtp_pm34 = 136 var:bag_wtp_pm34 = 137 var:bag_wtp_pm34 = 139 }
 					var:bag_wtp_p34 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p34 }
@@ -8182,7 +8161,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm34 > 0
+					OR = { var:bag_wtp_prm34 = 139 }
 					var:bag_wtp_pr34 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr34 }
@@ -8198,6 +8177,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
 				var:bag_wtp_p34 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8212,6 +8192,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
 				var:bag_wtp_pr34 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -8236,7 +8217,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm34 > 0
+							OR = { var:bag_wtp_pm34 = 126 var:bag_wtp_pm34 = 127 var:bag_wtp_pm34 = 128 var:bag_wtp_pm34 = 129 var:bag_wtp_pm34 = 130 var:bag_wtp_pm34 = 131 var:bag_wtp_pm34 = 132 var:bag_wtp_pm34 = 133 var:bag_wtp_pm34 = 134 var:bag_wtp_pm34 = 135 var:bag_wtp_pm34 = 136 var:bag_wtp_pm34 = 137 var:bag_wtp_pm34 = 139 }
 							var:bag_wtp_p34 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p34 }
@@ -8246,7 +8227,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm34 > 0
+							OR = { var:bag_wtp_prm34 = 139 }
 							var:bag_wtp_pr34 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr34 }
@@ -8263,6 +8244,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
 						var:bag_wtp_p34 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8272,6 +8254,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
 						var:bag_wtp_pr34 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -8291,7 +8274,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm35 > 0
+					OR = { var:bag_wtp_pm35 = 140 var:bag_wtp_pm35 = 141 }
 					var:bag_wtp_p35 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p35 }
@@ -8307,6 +8290,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory } }
 				var:bag_wtp_p35 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8331,7 +8315,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm35 > 0
+							OR = { var:bag_wtp_pm35 = 140 var:bag_wtp_pm35 = 141 }
 							var:bag_wtp_p35 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p35 }
@@ -8348,6 +8332,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory } }
 						var:bag_wtp_p35 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8367,20 +8352,10 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm36 > 0
+					OR = { var:bag_wtp_pm36 = 143 var:bag_wtp_pm36 = 144 var:bag_wtp_pm36 = 145 var:bag_wtp_pm36 = 146 var:bag_wtp_pm36 = 147 var:bag_wtp_pm36 = 148 var:bag_wtp_pm36 = 149 var:bag_wtp_pm36 = 150 }
 					var:bag_wtp_p36 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p36 }
-			}
-		}
-		if = {
-			limit = { bag_wtp_plan_is_town = no }
-			if = {
-				limit = {
-					var:bag_wtp_prm36 > 0
-					var:bag_wtp_pr36 > global_var:bag_wtp_rp_br
-				}
-				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr36 }
 			}
 		}
 	}
@@ -8393,24 +8368,11 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop } }
 				var:bag_wtp_p36 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p36 }
-			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
-			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
-			if = {
-				limit = { has_variable = bag_wtp_plan_right }
-				change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
-			}
-		}
-		if = {
-			limit = {
-				bag_wtp_plan_is_town = no
-				var:bag_wtp_pr36 < global_var:bag_wtp_rp_br
-			}
-			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr36 }
 			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
 			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
 			if = {
@@ -8431,20 +8393,10 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm36 > 0
+							OR = { var:bag_wtp_pm36 = 143 var:bag_wtp_pm36 = 144 var:bag_wtp_pm36 = 145 var:bag_wtp_pm36 = 146 var:bag_wtp_pm36 = 147 var:bag_wtp_pm36 = 148 var:bag_wtp_pm36 = 149 var:bag_wtp_pm36 = 150 }
 							var:bag_wtp_p36 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p36 }
-					}
-				}
-				if = {
-					limit = { bag_wtp_plan_is_town = no }
-					if = {
-						limit = {
-							var:bag_wtp_prm36 > 0
-							var:bag_wtp_pr36 > global_var:bag_wtp_rp_br
-						}
-						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr36 }
 					}
 				}
 			}
@@ -8458,19 +8410,11 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop } }
 						var:bag_wtp_p36 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p36 }
-					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
-				}
-				if = {
-					limit = {
-						bag_wtp_plan_is_town = no
-						var:bag_wtp_pr36 < global_var:bag_wtp_rp_br
-					}
-					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr36 }
 					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
 				}
 			}
@@ -8486,7 +8430,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm37 > 0
+					OR = { var:bag_wtp_pm37 = 151 var:bag_wtp_pm37 = 152 var:bag_wtp_pm37 = 153 var:bag_wtp_pm37 = 154 var:bag_wtp_pm37 = 155 var:bag_wtp_pm37 = 156 var:bag_wtp_pm37 = 157 var:bag_wtp_pm37 = 158 var:bag_wtp_pm37 = 159 var:bag_wtp_pm37 = 160 var:bag_wtp_pm37 = 161 var:bag_wtp_pm37 = 162 var:bag_wtp_pm37 = 163 var:bag_wtp_pm37 = 164 var:bag_wtp_pm37 = 165 var:bag_wtp_pm37 = 166 var:bag_wtp_pm37 = 167 var:bag_wtp_pm37 = 168 var:bag_wtp_pm37 = 169 var:bag_wtp_pm37 = 170 }
 					var:bag_wtp_p37 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p37 }
@@ -8502,6 +8446,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop } }
 				var:bag_wtp_p37 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8526,7 +8471,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm37 > 0
+							OR = { var:bag_wtp_pm37 = 151 var:bag_wtp_pm37 = 152 var:bag_wtp_pm37 = 153 var:bag_wtp_pm37 = 154 var:bag_wtp_pm37 = 155 var:bag_wtp_pm37 = 156 var:bag_wtp_pm37 = 157 var:bag_wtp_pm37 = 158 var:bag_wtp_pm37 = 159 var:bag_wtp_pm37 = 160 var:bag_wtp_pm37 = 161 var:bag_wtp_pm37 = 162 var:bag_wtp_pm37 = 163 var:bag_wtp_pm37 = 164 var:bag_wtp_pm37 = 165 var:bag_wtp_pm37 = 166 var:bag_wtp_pm37 = 167 var:bag_wtp_pm37 = 168 var:bag_wtp_pm37 = 169 var:bag_wtp_pm37 = 170 }
 							var:bag_wtp_p37 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p37 }
@@ -8543,6 +8488,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop } }
 						var:bag_wtp_p37 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8562,7 +8508,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm38 > 0
+					OR = { var:bag_wtp_pm38 = 173 var:bag_wtp_pm38 = 174 var:bag_wtp_pm38 = 175 }
 					var:bag_wtp_p38 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p38 }
@@ -8572,7 +8518,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm38 > 0
+					OR = { var:bag_wtp_prm38 = 173 var:bag_wtp_prm38 = 174 var:bag_wtp_prm38 = 175 }
 					var:bag_wtp_pr38 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr38 }
@@ -8588,6 +8534,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_p38 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8602,6 +8549,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 				var:bag_wtp_pr38 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -8626,7 +8574,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm38 > 0
+							OR = { var:bag_wtp_pm38 = 173 var:bag_wtp_pm38 = 174 var:bag_wtp_pm38 = 175 }
 							var:bag_wtp_p38 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p38 }
@@ -8636,7 +8584,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm38 > 0
+							OR = { var:bag_wtp_prm38 = 173 var:bag_wtp_prm38 = 174 var:bag_wtp_prm38 = 175 }
 							var:bag_wtp_pr38 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr38 }
@@ -8653,6 +8601,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_p38 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8662,6 +8611,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 						var:bag_wtp_pr38 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -8681,20 +8631,10 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm39 > 0
+					OR = { var:bag_wtp_pm39 = 179 var:bag_wtp_pm39 = 180 var:bag_wtp_pm39 = 181 var:bag_wtp_pm39 = 182 }
 					var:bag_wtp_p39 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p39 }
-			}
-		}
-		if = {
-			limit = { bag_wtp_plan_is_town = no }
-			if = {
-				limit = {
-					var:bag_wtp_prm39 > 0
-					var:bag_wtp_pr39 > global_var:bag_wtp_rp_br
-				}
-				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr39 }
 			}
 		}
 	}
@@ -8707,24 +8647,11 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop } }
 				var:bag_wtp_p39 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p39 }
-			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
-			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
-			if = {
-				limit = { has_variable = bag_wtp_plan_right }
-				change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
-			}
-		}
-		if = {
-			limit = {
-				bag_wtp_plan_is_town = no
-				var:bag_wtp_pr39 < global_var:bag_wtp_rp_br
-			}
-			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr39 }
 			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
 			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
 			if = {
@@ -8745,20 +8672,10 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm39 > 0
+							OR = { var:bag_wtp_pm39 = 179 var:bag_wtp_pm39 = 180 var:bag_wtp_pm39 = 181 var:bag_wtp_pm39 = 182 }
 							var:bag_wtp_p39 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p39 }
-					}
-				}
-				if = {
-					limit = { bag_wtp_plan_is_town = no }
-					if = {
-						limit = {
-							var:bag_wtp_prm39 > 0
-							var:bag_wtp_pr39 > global_var:bag_wtp_rp_br
-						}
-						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr39 }
 					}
 				}
 			}
@@ -8772,19 +8689,11 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop } }
 						var:bag_wtp_p39 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p39 }
-					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
-				}
-				if = {
-					limit = {
-						bag_wtp_plan_is_town = no
-						var:bag_wtp_pr39 < global_var:bag_wtp_rp_br
-					}
-					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr39 }
 					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
 				}
 			}
@@ -8800,7 +8709,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm40 > 0
+					OR = { var:bag_wtp_pm40 = 183 var:bag_wtp_pm40 = 184 var:bag_wtp_pm40 = 185 var:bag_wtp_pm40 = 186 var:bag_wtp_pm40 = 187 var:bag_wtp_pm40 = 188 var:bag_wtp_pm40 = 189 var:bag_wtp_pm40 = 190 }
 					var:bag_wtp_p40 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p40 }
@@ -8816,6 +8725,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop } }
 				var:bag_wtp_p40 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8840,7 +8750,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm40 > 0
+							OR = { var:bag_wtp_pm40 = 183 var:bag_wtp_pm40 = 184 var:bag_wtp_pm40 = 185 var:bag_wtp_pm40 = 186 var:bag_wtp_pm40 = 187 var:bag_wtp_pm40 = 188 var:bag_wtp_pm40 = 189 var:bag_wtp_pm40 = 190 }
 							var:bag_wtp_p40 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p40 }
@@ -8857,6 +8767,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop } }
 						var:bag_wtp_p40 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8876,7 +8787,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm41 > 0
+					OR = { var:bag_wtp_pm41 = 191 var:bag_wtp_pm41 = 192 }
 					var:bag_wtp_p41 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p41 }
@@ -8892,6 +8803,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory } }
 				var:bag_wtp_p41 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8916,7 +8828,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm41 > 0
+							OR = { var:bag_wtp_pm41 = 191 var:bag_wtp_pm41 = 192 }
 							var:bag_wtp_p41 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p41 }
@@ -8933,6 +8845,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory } }
 						var:bag_wtp_p41 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -8952,20 +8865,10 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm42 > 0
+					OR = { var:bag_wtp_pm42 = 195 var:bag_wtp_pm42 = 196 var:bag_wtp_pm42 = 197 var:bag_wtp_pm42 = 198 }
 					var:bag_wtp_p42 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p42 }
-			}
-		}
-		if = {
-			limit = { bag_wtp_plan_is_town = no }
-			if = {
-				limit = {
-					var:bag_wtp_prm42 > 0
-					var:bag_wtp_pr42 > global_var:bag_wtp_rp_br
-				}
-				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr42 }
 			}
 		}
 	}
@@ -8978,24 +8881,11 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop } }
 				var:bag_wtp_p42 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p42 }
-			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
-			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
-			if = {
-				limit = { has_variable = bag_wtp_plan_right }
-				change_global_variable = { name = bag_wtp_rp_right add = global_var:bag_wtp_rp_d }
-			}
-		}
-		if = {
-			limit = {
-				bag_wtp_plan_is_town = no
-				var:bag_wtp_pr42 < global_var:bag_wtp_rp_br
-			}
-			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-			change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr42 }
 			change_global_variable = { name = bag_wtp_rp_bound add = global_var:bag_wtp_rp_d }
 			change_global_variable = { name = bag_wtp_rp_moves add = 1 }
 			if = {
@@ -9016,20 +8906,10 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm42 > 0
+							OR = { var:bag_wtp_pm42 = 195 var:bag_wtp_pm42 = 196 var:bag_wtp_pm42 = 197 var:bag_wtp_pm42 = 198 }
 							var:bag_wtp_p42 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p42 }
-					}
-				}
-				if = {
-					limit = { bag_wtp_plan_is_town = no }
-					if = {
-						limit = {
-							var:bag_wtp_prm42 > 0
-							var:bag_wtp_pr42 > global_var:bag_wtp_rp_br
-						}
-						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr42 }
 					}
 				}
 			}
@@ -9043,19 +8923,11 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop } }
 						var:bag_wtp_p42 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
 					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_p42 }
-					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
-				}
-				if = {
-					limit = {
-						bag_wtp_plan_is_town = no
-						var:bag_wtp_pr42 < global_var:bag_wtp_rp_br
-					}
-					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
-					change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_pr42 }
 					change_global_variable = { name = bag_wtp_rp_pbound add = global_var:bag_wtp_rp_d }
 				}
 			}
@@ -9071,7 +8943,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm43 > 0
+					OR = { var:bag_wtp_pm43 = 208 }
 					var:bag_wtp_p43 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p43 }
@@ -9081,7 +8953,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm43 > 0
+					OR = { var:bag_wtp_prm43 = 208 }
 					var:bag_wtp_pr43 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr43 }
@@ -9097,6 +8969,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
 				var:bag_wtp_p43 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9111,6 +8984,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
 				var:bag_wtp_pr43 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9135,7 +9009,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm43 > 0
+							OR = { var:bag_wtp_pm43 = 208 }
 							var:bag_wtp_p43 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p43 }
@@ -9145,7 +9019,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm43 > 0
+							OR = { var:bag_wtp_prm43 = 208 }
 							var:bag_wtp_pr43 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr43 }
@@ -9162,6 +9036,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
 						var:bag_wtp_p43 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9171,6 +9046,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
 						var:bag_wtp_pr43 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9190,7 +9066,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm44 > 0
+					OR = { var:bag_wtp_pm44 = 209 }
 					var:bag_wtp_p44 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p44 }
@@ -9206,6 +9082,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill } }
 				var:bag_wtp_p44 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9230,7 +9107,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm44 > 0
+							OR = { var:bag_wtp_pm44 = 209 }
 							var:bag_wtp_p44 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p44 }
@@ -9247,6 +9124,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill } }
 						var:bag_wtp_p44 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9266,7 +9144,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm45 > 0
+					OR = { var:bag_wtp_pm45 = 213 }
 					var:bag_wtp_p45 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p45 }
@@ -9276,7 +9154,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm45 > 0
+					OR = { var:bag_wtp_prm45 = 213 }
 					var:bag_wtp_pr45 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr45 }
@@ -9292,6 +9170,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
 				var:bag_wtp_p45 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9306,6 +9185,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
 				var:bag_wtp_pr45 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9330,7 +9210,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm45 > 0
+							OR = { var:bag_wtp_pm45 = 213 }
 							var:bag_wtp_p45 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p45 }
@@ -9340,7 +9220,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm45 > 0
+							OR = { var:bag_wtp_prm45 = 213 }
 							var:bag_wtp_pr45 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr45 }
@@ -9357,6 +9237,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
 						var:bag_wtp_p45 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9366,6 +9247,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
 						var:bag_wtp_pr45 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9385,7 +9267,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm46 > 0
+					OR = { var:bag_wtp_pm46 = 216 var:bag_wtp_pm46 = 217 var:bag_wtp_pm46 = 219 var:bag_wtp_pm46 = 220 var:bag_wtp_pm46 = 221 var:bag_wtp_pm46 = 222 var:bag_wtp_pm46 = 223 var:bag_wtp_pm46 = 224 }
 					var:bag_wtp_p46 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p46 }
@@ -9395,7 +9277,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm46 > 0
+					OR = { var:bag_wtp_prm46 = 219 }
 					var:bag_wtp_pr46 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr46 }
@@ -9411,6 +9293,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop } }
 				var:bag_wtp_p46 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9425,6 +9308,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 				var:bag_wtp_pr46 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9449,7 +9333,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm46 > 0
+							OR = { var:bag_wtp_pm46 = 216 var:bag_wtp_pm46 = 217 var:bag_wtp_pm46 = 219 var:bag_wtp_pm46 = 220 var:bag_wtp_pm46 = 221 var:bag_wtp_pm46 = 222 var:bag_wtp_pm46 = 223 var:bag_wtp_pm46 = 224 }
 							var:bag_wtp_p46 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p46 }
@@ -9459,7 +9343,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm46 > 0
+							OR = { var:bag_wtp_prm46 = 219 }
 							var:bag_wtp_pr46 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr46 }
@@ -9476,6 +9360,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop } }
 						var:bag_wtp_p46 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9485,6 +9370,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 						var:bag_wtp_pr46 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9504,7 +9390,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = yes }
 			if = {
 				limit = {
-					var:bag_wtp_pm47 > 0
+					OR = { var:bag_wtp_pm47 = 227 var:bag_wtp_pm47 = 228 var:bag_wtp_pm47 = 229 var:bag_wtp_pm47 = 230 var:bag_wtp_pm47 = 231 var:bag_wtp_pm47 = 232 var:bag_wtp_pm47 = 233 }
 					var:bag_wtp_p47 > global_var:bag_wtp_rp_bt
 				}
 				set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p47 }
@@ -9514,7 +9400,7 @@ bag_wtp_diag_shuffle = {
 			limit = { bag_wtp_plan_is_town = no }
 			if = {
 				limit = {
-					var:bag_wtp_prm47 > 0
+					OR = { var:bag_wtp_prm47 = 227 }
 					var:bag_wtp_pr47 > global_var:bag_wtp_rp_br
 				}
 				set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr47 }
@@ -9530,6 +9416,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = yes
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop } }
 				var:bag_wtp_p47 < global_var:bag_wtp_rp_bt
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9544,6 +9431,7 @@ bag_wtp_diag_shuffle = {
 		if = {
 			limit = {
 				bag_wtp_plan_is_town = no
+				OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 				var:bag_wtp_pr47 < global_var:bag_wtp_rp_br
 			}
 			set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9568,7 +9456,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = yes }
 					if = {
 						limit = {
-							var:bag_wtp_pm47 > 0
+							OR = { var:bag_wtp_pm47 = 227 var:bag_wtp_pm47 = 228 var:bag_wtp_pm47 = 229 var:bag_wtp_pm47 = 230 var:bag_wtp_pm47 = 231 var:bag_wtp_pm47 = 232 var:bag_wtp_pm47 = 233 }
 							var:bag_wtp_p47 > global_var:bag_wtp_rp_bt
 						}
 						set_global_variable = { name = bag_wtp_rp_bt value = var:bag_wtp_p47 }
@@ -9578,7 +9466,7 @@ bag_wtp_diag_shuffle = {
 					limit = { bag_wtp_plan_is_town = no }
 					if = {
 						limit = {
-							var:bag_wtp_prm47 > 0
+							OR = { var:bag_wtp_prm47 = 227 }
 							var:bag_wtp_pr47 > global_var:bag_wtp_rp_br
 						}
 						set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_pr47 }
@@ -9595,6 +9483,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = yes
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory } is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop } }
 						var:bag_wtp_p47 < global_var:bag_wtp_rp_bt
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_bt }
@@ -9604,6 +9493,7 @@ bag_wtp_diag_shuffle = {
 				if = {
 					limit = {
 						bag_wtp_plan_is_town = no
+						OR = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 						var:bag_wtp_pr47 < global_var:bag_wtp_rp_br
 					}
 					set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
@@ -9612,6 +9502,78 @@ bag_wtp_diag_shuffle = {
 				}
 			}
 		}
+	}
+	# fishing_village
+	set_global_variable = { name = bag_wtp_rp_br value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = no
+			bag_wtp_stands_fishing_village = yes
+			var:bag_wtp_vb1 > global_var:bag_wtp_rp_br
+		}
+		set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_vb1 }
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village }
+			var:bag_wtp_vb1 < global_var:bag_wtp_rp_br
+		}
+		set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
+		change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_vb1 }
+		change_global_variable = { name = bag_wtp_rp_vbound add = global_var:bag_wtp_rp_d }
+		change_global_variable = { name = bag_wtp_rp_vmoves add = 1 }
+	}
+	# forest_village
+	set_global_variable = { name = bag_wtp_rp_br value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = no
+			bag_wtp_stands_forest_village = yes
+			var:bag_wtp_vb2 > global_var:bag_wtp_rp_br
+		}
+		set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_vb2 }
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village }
+			var:bag_wtp_vb2 < global_var:bag_wtp_rp_br
+		}
+		set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
+		change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_vb2 }
+		change_global_variable = { name = bag_wtp_rp_vbound add = global_var:bag_wtp_rp_d }
+		change_global_variable = { name = bag_wtp_rp_vmoves add = 1 }
+	}
+	# market_village
+	set_global_variable = { name = bag_wtp_rp_br value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			bag_wtp_plan_is_town = no
+			bag_wtp_stands_market_village = yes
+			var:bag_wtp_vb3 > global_var:bag_wtp_rp_br
+		}
+		set_global_variable = { name = bag_wtp_rp_br value = var:bag_wtp_vb3 }
+	}
+	every_in_global_list = {
+		variable = bag_wtp_plan_touched
+		limit = {
+			has_variable = bag_wtp_load
+			is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village }
+			var:bag_wtp_vb3 < global_var:bag_wtp_rp_br
+		}
+		set_global_variable = { name = bag_wtp_rp_d value = global_var:bag_wtp_rp_br }
+		change_global_variable = { name = bag_wtp_rp_d subtract = var:bag_wtp_vb3 }
+		change_global_variable = { name = bag_wtp_rp_vbound add = global_var:bag_wtp_rp_d }
+		change_global_variable = { name = bag_wtp_rp_vmoves add = 1 }
 	}
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rp_bound } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rp_bound } }
@@ -9625,5 +9587,9 @@ bag_wtp_diag_shuffle = {
 	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_placed } }
 	set_global_variable = { name = bag_wtp_dv6 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rp_pbound } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_rp_pbound } }
-	debug_log = "WTP SHUFFLE bound=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] moves=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] in_charter_towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | same_province=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] (must be 0 -- the gain is a province's, not a location's) | gain_now=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] -- bound is the ceiling a reshuffle across provinces could add, out of 1000 a building, counted per side; it ignores that a good's buildings cannot all crowd into one province, so a real trade is far less"
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rp_vbound } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_rp_vbound } }
+	set_global_variable = { name = bag_wtp_dv8 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rp_vmoves } set_global_variable = { name = bag_wtp_dv8 value = global_var:bag_wtp_rp_vmoves } }
+	debug_log = "WTP SHUFFLE bound=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] moves=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] in_charter_towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | villages=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] village_moves=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] (villages are not traded yet -- there is no effect that takes one out) | same_province=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] (must be 0 -- the gain is a province's, not a location's) | gain_now=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] -- bound is the ceiling a reshuffle across provinces could add, out of 1000 a building, counted per side; it ignores that a good's buildings cannot all crowd into one province, so a real trade is far less"
 }

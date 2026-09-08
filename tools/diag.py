@@ -525,15 +525,29 @@ def digest(lines: list[str]) -> list[str]:
     sh = first("WTP SHUFFLE")
     bound, gain_now = field(sh, "bound"), field(sh, "gain_now")
     if bound is not None and gain_now:
-        out.append("Перетасовка: потолок прибавки %d из %d, это #%d%% выгоды "
-                   "(домиков не тронет, только места). Ниже своего лучшего места "
-                   "в провинции стоят %s; из них %d%% приходится на города с "
+        out.append("Перетасовка: потолок прибавки %d из %d, это +%d%% выгоды "
+                   "(домиков не тронет, только места). Ниже своей лучшей "
+                   "провинции стоят %s; из них %d%% приходится на города с "
                    "грамотой -- там переезд тянет всю пачку."
-                   .replace("#", "+")
                    % (bound, gain_now, round(100 * bound / gain_now),
                       plural(field(sh, "moves") or 0, "домик", "домика", "домиков"),
                       round(100 * (field(sh, "in_charter_towns") or 0)
                             / bound) if bound else 0))
+        # **Проверка самого зонда.** Выгода -- свойство провинции, а не локации:
+        # `_g<n>` спрашивает `any_location_in_province_definition`. Значит внутри
+        # провинции разницы быть не может, и всё, что здесь не ноль, -- ошибка
+        # зонда, а не запас. Первая версия давала 18 244, сравнивая городскую
+        # выгоду с сельской (2026-09-09).
+        same = field(sh, "same_province")
+        if same:
+            out.append("  !! внутри провинции насчитано %d, а должно быть 0 -- "
+                       "зонд врёт, числу выше верить нельзя" % same)
+        vb, vm = field(sh, "villages"), field(sh, "village_moves")
+        if vb:
+            out.append("  деревни: ещё %d потолка (+%d%%) у %s -- их обмен пока "
+                       "не построен, снять деревню нечем"
+                       % (vb, round(100 * vb / gain_now),
+                          plural(vm or 0, "деревни", "деревень", "деревень")))
     fed, total = field(gain, "fed"), field(gain, "gain_total")
     if fed is not None and placed:
         out.append("Выгода от места: %d зданий из %d (%d%%) что-то получают от "

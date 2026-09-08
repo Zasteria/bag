@@ -18963,6 +18963,11 @@ bag_wtp_plan_move_t1 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_1 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm1 = 39 }
 				var:bag_wtp_p1 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p1 }
@@ -19716,6 +19721,11 @@ bag_wtp_plan_move_r1 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_1 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm1 = 39 }
 				var:bag_wtp_pr1 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr1 }
@@ -20469,6 +20479,11 @@ bag_wtp_plan_move_t2 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_2 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm2 = 56 }
 				var:bag_wtp_p2 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p2 }
@@ -21222,6 +21237,11 @@ bag_wtp_plan_move_r2 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_2 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm2 = 55 var:bag_wtp_prm2 = 56 }
 				var:bag_wtp_pr2 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr2 }
@@ -21975,6 +21995,11 @@ bag_wtp_plan_move_t3 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_3 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm3 = 57 }
 				var:bag_wtp_p3 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p3 }
@@ -22728,6 +22753,11 @@ bag_wtp_plan_move_r3 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_3 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm3 = 57 }
 				var:bag_wtp_pr3 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr3 }
@@ -23481,6 +23511,11 @@ bag_wtp_plan_move_t4 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_4 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm4 = 58 var:bag_wtp_pm4 = 59 var:bag_wtp_pm4 = 60 var:bag_wtp_pm4 = 61 var:bag_wtp_pm4 = 62 }
 				var:bag_wtp_p4 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p4 }
@@ -24234,6 +24269,11 @@ bag_wtp_plan_move_t5 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_5 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm5 = 63 var:bag_wtp_pm5 = 64 }
 				var:bag_wtp_p5 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p5 }
@@ -24987,6 +25027,11 @@ bag_wtp_plan_move_r5 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_5 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm5 = 63 var:bag_wtp_prm5 = 64 }
 				var:bag_wtp_pr5 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr5 }
@@ -25740,6 +25785,11 @@ bag_wtp_plan_move_t7 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_7 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm7 = 110 }
 				var:bag_wtp_p7 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p7 }
@@ -26493,6 +26543,11 @@ bag_wtp_plan_move_r7 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_7 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm7 = 110 }
 				var:bag_wtp_pr7 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr7 }
@@ -27246,6 +27301,11 @@ bag_wtp_plan_move_t8 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_8 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm8 = 121 }
 				var:bag_wtp_p8 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p8 }
@@ -27999,6 +28059,11 @@ bag_wtp_plan_move_r8 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_8 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm8 = 121 }
 				var:bag_wtp_pr8 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr8 }
@@ -28752,6 +28817,11 @@ bag_wtp_plan_move_t9 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_9 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm9 = 122 }
 				var:bag_wtp_p9 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p9 }
@@ -29505,6 +29575,11 @@ bag_wtp_plan_move_t10 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_10 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm10 = 123 var:bag_wtp_pm10 = 124 }
 				var:bag_wtp_p10 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p10 }
@@ -30258,6 +30333,11 @@ bag_wtp_plan_move_r10 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_10 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm10 = 123 var:bag_wtp_prm10 = 124 }
 				var:bag_wtp_pr10 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr10 }
@@ -31011,6 +31091,11 @@ bag_wtp_plan_move_r11 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_11 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm11 = 125 }
 				var:bag_wtp_pr11 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr11 }
@@ -31764,6 +31849,11 @@ bag_wtp_plan_move_r12 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_12 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm12 = 171 }
 				var:bag_wtp_pr12 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr12 }
@@ -32517,6 +32607,11 @@ bag_wtp_plan_move_t13 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_13 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm13 = 172 }
 				var:bag_wtp_p13 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p13 }
@@ -33270,6 +33365,11 @@ bag_wtp_plan_move_r13 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_13 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm13 = 172 }
 				var:bag_wtp_pr13 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr13 }
@@ -34023,6 +34123,11 @@ bag_wtp_plan_move_t14 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_14 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm14 = 176 var:bag_wtp_pm14 = 177 }
 				var:bag_wtp_p14 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p14 }
@@ -34776,6 +34881,11 @@ bag_wtp_plan_move_t15 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_15 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm15 = 199 }
 				var:bag_wtp_p15 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p15 }
@@ -35529,6 +35639,11 @@ bag_wtp_plan_move_r15 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_15 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm15 = 199 }
 				var:bag_wtp_pr15 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr15 }
@@ -36282,6 +36397,11 @@ bag_wtp_plan_move_t16 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_16 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm16 = 200 var:bag_wtp_pm16 = 201 var:bag_wtp_pm16 = 202 var:bag_wtp_pm16 = 203 }
 				var:bag_wtp_p16 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p16 }
@@ -37035,6 +37155,11 @@ bag_wtp_plan_move_t17 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_17 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm17 = 204 }
 				var:bag_wtp_p17 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p17 }
@@ -37788,6 +37913,11 @@ bag_wtp_plan_move_r17 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_17 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm17 = 204 }
 				var:bag_wtp_pr17 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr17 }
@@ -38541,6 +38671,11 @@ bag_wtp_plan_move_t18 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_18 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm18 = 205 var:bag_wtp_pm18 = 206 }
 				var:bag_wtp_p18 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p18 }
@@ -39294,6 +39429,11 @@ bag_wtp_plan_move_t19 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_19 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm19 = 207 }
 				var:bag_wtp_p19 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p19 }
@@ -40047,6 +40187,11 @@ bag_wtp_plan_move_r19 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_19 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm19 = 207 }
 				var:bag_wtp_pr19 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr19 }
@@ -40800,6 +40945,11 @@ bag_wtp_plan_move_t20 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_20 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm20 = 210 var:bag_wtp_pm20 = 211 }
 				var:bag_wtp_p20 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p20 }
@@ -41553,6 +41703,11 @@ bag_wtp_plan_move_r20 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_20 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm20 = 210 var:bag_wtp_prm20 = 211 }
 				var:bag_wtp_pr20 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr20 }
@@ -42306,6 +42461,11 @@ bag_wtp_plan_move_t21 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_21 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm21 = 212 }
 				var:bag_wtp_p21 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p21 }
@@ -43059,6 +43219,11 @@ bag_wtp_plan_move_r21 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_21 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm21 = 212 }
 				var:bag_wtp_pr21 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr21 }
@@ -43812,6 +43977,11 @@ bag_wtp_plan_move_t22 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_22 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm22 = 214 }
 				var:bag_wtp_p22 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p22 }
@@ -44565,6 +44735,11 @@ bag_wtp_plan_move_r22 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_22 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm22 = 214 }
 				var:bag_wtp_pr22 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr22 }
@@ -45318,6 +45493,11 @@ bag_wtp_plan_move_r23 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_23 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm23 = 234 }
 				var:bag_wtp_pr23 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr23 }
@@ -46071,6 +46251,11 @@ bag_wtp_plan_move_t24 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_24 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm24 = 235 var:bag_wtp_pm24 = 236 var:bag_wtp_pm24 = 237 var:bag_wtp_pm24 = 238 var:bag_wtp_pm24 = 239 var:bag_wtp_pm24 = 240 }
 				var:bag_wtp_p24 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p24 }
@@ -46824,6 +47009,11 @@ bag_wtp_plan_move_r25 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_25 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm25 = 241 }
 				var:bag_wtp_pr25 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr25 }
@@ -47577,6 +47767,11 @@ bag_wtp_plan_move_t26 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_26 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm26 = 1 var:bag_wtp_pm26 = 2 var:bag_wtp_pm26 = 3 var:bag_wtp_pm26 = 4 var:bag_wtp_pm26 = 5 var:bag_wtp_pm26 = 6 var:bag_wtp_pm26 = 7 var:bag_wtp_pm26 = 8 var:bag_wtp_pm26 = 9 var:bag_wtp_pm26 = 10 var:bag_wtp_pm26 = 11 var:bag_wtp_pm26 = 12 var:bag_wtp_pm26 = 13 var:bag_wtp_pm26 = 14 var:bag_wtp_pm26 = 15 var:bag_wtp_pm26 = 16 }
 				var:bag_wtp_p26 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p26 }
@@ -48330,6 +48525,11 @@ bag_wtp_plan_move_t27 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_27 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm27 = 18 var:bag_wtp_pm27 = 19 var:bag_wtp_pm27 = 20 var:bag_wtp_pm27 = 21 }
 				var:bag_wtp_p27 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p27 }
@@ -49083,6 +49283,11 @@ bag_wtp_plan_move_t28 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_28 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm28 = 22 var:bag_wtp_pm28 = 23 var:bag_wtp_pm28 = 24 var:bag_wtp_pm28 = 25 var:bag_wtp_pm28 = 26 var:bag_wtp_pm28 = 27 var:bag_wtp_pm28 = 28 var:bag_wtp_pm28 = 29 var:bag_wtp_pm28 = 30 var:bag_wtp_pm28 = 31 var:bag_wtp_pm28 = 32 var:bag_wtp_pm28 = 33 var:bag_wtp_pm28 = 34 var:bag_wtp_pm28 = 35 var:bag_wtp_pm28 = 36 var:bag_wtp_pm28 = 37 var:bag_wtp_pm28 = 38 }
 				var:bag_wtp_p28 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p28 }
@@ -49836,6 +50041,11 @@ bag_wtp_plan_move_t29 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_29 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm29 = 40 var:bag_wtp_pm29 = 41 var:bag_wtp_pm29 = 42 var:bag_wtp_pm29 = 43 var:bag_wtp_pm29 = 44 var:bag_wtp_pm29 = 45 var:bag_wtp_pm29 = 46 var:bag_wtp_pm29 = 47 var:bag_wtp_pm29 = 48 var:bag_wtp_pm29 = 52 var:bag_wtp_pm29 = 53 var:bag_wtp_pm29 = 54 }
 				var:bag_wtp_p29 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p29 }
@@ -50589,6 +50799,11 @@ bag_wtp_plan_move_r29 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_29 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm29 = 49 var:bag_wtp_prm29 = 50 var:bag_wtp_prm29 = 51 }
 				var:bag_wtp_pr29 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr29 }
@@ -51342,6 +51557,11 @@ bag_wtp_plan_move_t30 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_30 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm30 = 65 var:bag_wtp_pm30 = 66 var:bag_wtp_pm30 = 67 var:bag_wtp_pm30 = 68 var:bag_wtp_pm30 = 69 var:bag_wtp_pm30 = 70 var:bag_wtp_pm30 = 71 var:bag_wtp_pm30 = 72 var:bag_wtp_pm30 = 73 var:bag_wtp_pm30 = 74 var:bag_wtp_pm30 = 75 var:bag_wtp_pm30 = 76 var:bag_wtp_pm30 = 77 var:bag_wtp_pm30 = 78 var:bag_wtp_pm30 = 79 var:bag_wtp_pm30 = 80 var:bag_wtp_pm30 = 81 var:bag_wtp_pm30 = 82 var:bag_wtp_pm30 = 83 var:bag_wtp_pm30 = 84 var:bag_wtp_pm30 = 85 var:bag_wtp_pm30 = 86 var:bag_wtp_pm30 = 87 var:bag_wtp_pm30 = 88 var:bag_wtp_pm30 = 89 var:bag_wtp_pm30 = 90 var:bag_wtp_pm30 = 91 var:bag_wtp_pm30 = 92 var:bag_wtp_pm30 = 93 var:bag_wtp_pm30 = 94 }
 				var:bag_wtp_p30 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p30 }
@@ -52095,6 +52315,11 @@ bag_wtp_plan_move_t31 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_31 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm31 = 95 var:bag_wtp_pm31 = 96 var:bag_wtp_pm31 = 97 var:bag_wtp_pm31 = 98 var:bag_wtp_pm31 = 99 var:bag_wtp_pm31 = 100 var:bag_wtp_pm31 = 101 var:bag_wtp_pm31 = 102 var:bag_wtp_pm31 = 103 var:bag_wtp_pm31 = 104 var:bag_wtp_pm31 = 105 var:bag_wtp_pm31 = 106 var:bag_wtp_pm31 = 107 }
 				var:bag_wtp_p31 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p31 }
@@ -52848,6 +53073,11 @@ bag_wtp_plan_move_t32 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_32 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm32 = 111 var:bag_wtp_pm32 = 112 var:bag_wtp_pm32 = 113 var:bag_wtp_pm32 = 114 }
 				var:bag_wtp_p32 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p32 }
@@ -53601,6 +53831,11 @@ bag_wtp_plan_move_t33 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_33 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm33 = 115 var:bag_wtp_pm33 = 116 var:bag_wtp_pm33 = 117 var:bag_wtp_pm33 = 118 var:bag_wtp_pm33 = 119 }
 				var:bag_wtp_p33 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p33 }
@@ -54354,6 +54589,11 @@ bag_wtp_plan_move_r33 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_33 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm33 = 120 }
 				var:bag_wtp_pr33 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr33 }
@@ -55107,6 +55347,11 @@ bag_wtp_plan_move_t34 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_34 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm34 = 126 var:bag_wtp_pm34 = 127 var:bag_wtp_pm34 = 128 var:bag_wtp_pm34 = 129 var:bag_wtp_pm34 = 130 var:bag_wtp_pm34 = 131 var:bag_wtp_pm34 = 132 var:bag_wtp_pm34 = 133 var:bag_wtp_pm34 = 134 var:bag_wtp_pm34 = 135 var:bag_wtp_pm34 = 136 var:bag_wtp_pm34 = 137 var:bag_wtp_pm34 = 139 }
 				var:bag_wtp_p34 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p34 }
@@ -55860,6 +56105,11 @@ bag_wtp_plan_move_r34 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_34 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm34 = 139 }
 				var:bag_wtp_pr34 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr34 }
@@ -56613,6 +56863,11 @@ bag_wtp_plan_move_t35 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_35 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm35 = 140 var:bag_wtp_pm35 = 141 }
 				var:bag_wtp_p35 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p35 }
@@ -57366,6 +57621,11 @@ bag_wtp_plan_move_t36 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_36 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm36 = 143 var:bag_wtp_pm36 = 144 var:bag_wtp_pm36 = 145 var:bag_wtp_pm36 = 146 var:bag_wtp_pm36 = 147 var:bag_wtp_pm36 = 148 var:bag_wtp_pm36 = 149 var:bag_wtp_pm36 = 150 }
 				var:bag_wtp_p36 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p36 }
@@ -58119,6 +58379,11 @@ bag_wtp_plan_move_t37 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_37 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm37 = 151 var:bag_wtp_pm37 = 152 var:bag_wtp_pm37 = 153 var:bag_wtp_pm37 = 154 var:bag_wtp_pm37 = 155 var:bag_wtp_pm37 = 156 var:bag_wtp_pm37 = 157 var:bag_wtp_pm37 = 158 var:bag_wtp_pm37 = 159 var:bag_wtp_pm37 = 160 var:bag_wtp_pm37 = 161 var:bag_wtp_pm37 = 162 var:bag_wtp_pm37 = 163 var:bag_wtp_pm37 = 164 var:bag_wtp_pm37 = 165 var:bag_wtp_pm37 = 166 var:bag_wtp_pm37 = 167 var:bag_wtp_pm37 = 168 var:bag_wtp_pm37 = 169 var:bag_wtp_pm37 = 170 }
 				var:bag_wtp_p37 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p37 }
@@ -58872,6 +59137,11 @@ bag_wtp_plan_move_t38 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_38 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm38 = 173 var:bag_wtp_pm38 = 174 var:bag_wtp_pm38 = 175 }
 				var:bag_wtp_p38 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p38 }
@@ -59625,6 +59895,11 @@ bag_wtp_plan_move_r38 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_38 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm38 = 173 var:bag_wtp_prm38 = 174 var:bag_wtp_prm38 = 175 }
 				var:bag_wtp_pr38 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr38 }
@@ -60378,6 +60653,11 @@ bag_wtp_plan_move_t39 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_39 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm39 = 179 var:bag_wtp_pm39 = 180 var:bag_wtp_pm39 = 181 var:bag_wtp_pm39 = 182 }
 				var:bag_wtp_p39 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p39 }
@@ -61131,6 +61411,11 @@ bag_wtp_plan_move_t40 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_40 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm40 = 183 var:bag_wtp_pm40 = 184 var:bag_wtp_pm40 = 185 var:bag_wtp_pm40 = 186 var:bag_wtp_pm40 = 187 var:bag_wtp_pm40 = 188 var:bag_wtp_pm40 = 189 var:bag_wtp_pm40 = 190 }
 				var:bag_wtp_p40 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p40 }
@@ -61884,6 +62169,11 @@ bag_wtp_plan_move_t41 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_41 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm41 = 191 var:bag_wtp_pm41 = 192 }
 				var:bag_wtp_p41 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p41 }
@@ -62637,6 +62927,11 @@ bag_wtp_plan_move_t42 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_42 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm42 = 195 var:bag_wtp_pm42 = 196 var:bag_wtp_pm42 = 197 var:bag_wtp_pm42 = 198 }
 				var:bag_wtp_p42 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p42 }
@@ -63390,6 +63685,11 @@ bag_wtp_plan_move_t43 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_43 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm43 = 208 }
 				var:bag_wtp_p43 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p43 }
@@ -64143,6 +64443,11 @@ bag_wtp_plan_move_r43 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_43 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm43 = 208 }
 				var:bag_wtp_pr43 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr43 }
@@ -64896,6 +65201,11 @@ bag_wtp_plan_move_t44 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_44 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm44 = 209 }
 				var:bag_wtp_p44 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p44 }
@@ -65649,6 +65959,11 @@ bag_wtp_plan_move_t45 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_45 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm45 = 213 }
 				var:bag_wtp_p45 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p45 }
@@ -66402,6 +66717,11 @@ bag_wtp_plan_move_r45 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_45 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm45 = 213 }
 				var:bag_wtp_pr45 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr45 }
@@ -67155,6 +67475,11 @@ bag_wtp_plan_move_t46 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_46 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm46 = 216 var:bag_wtp_pm46 = 217 var:bag_wtp_pm46 = 219 var:bag_wtp_pm46 = 220 var:bag_wtp_pm46 = 221 var:bag_wtp_pm46 = 222 var:bag_wtp_pm46 = 223 var:bag_wtp_pm46 = 224 }
 				var:bag_wtp_p46 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p46 }
@@ -67908,6 +68233,11 @@ bag_wtp_plan_move_r46 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_46 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm46 = 219 }
 				var:bag_wtp_pr46 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr46 }
@@ -68661,6 +68991,11 @@ bag_wtp_plan_move_t47 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_town_47 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_pm47 = 227 var:bag_wtp_pm47 = 228 var:bag_wtp_pm47 = 229 var:bag_wtp_pm47 = 230 var:bag_wtp_pm47 = 231 var:bag_wtp_pm47 = 232 var:bag_wtp_pm47 = 233 }
 				var:bag_wtp_p47 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_p47 }
@@ -69414,6 +69749,11 @@ bag_wtp_plan_move_r47 = {
 		if = {
 			limit = {
 				bag_wtp_edit_fits_rural_47 = yes
+				# **И только под своё здание.** `_edit_fits_rural_<n>` пускает и
+				# деревенский рецепт: украшения «влезли бы» в торговую деревню, а
+				# постановка добавила бы саму деревню -- ровно тот двойной счёт,
+				# который убирали всю сессию.
+				OR = { var:bag_wtp_prm47 = 227 }
 				var:bag_wtp_pr47 > global_var:bag_wtp_mv_bv
 			}
 			set_global_variable = { name = bag_wtp_mv_bv value = var:bag_wtp_pr47 }
