@@ -1,4 +1,4 @@
-"""Read the parts of the EU5 game files a mod is likely to reason about.
+﻿"""Read the parts of the EU5 game files a mod is likely to reason about.
 
 Point `load_game(path)` at `<EU5>/game/in_game/common` — or call it with no
 argument for the copy in `reference/` — and it returns the goods catalogue plus
@@ -95,6 +95,21 @@ def load_dir(directory: Path) -> dict:
         for key, value in entries:
             if key is not None and isinstance(value, list):
                 blocks[key] = value
+    return blocks
+
+
+def load_dirs(dirs) -> dict:
+    """Те же блоки, но по нескольким папкам: поздняя перекрывает раннюю.
+
+    **Так мод видит здания чужих модов.** Игра склеивает `common/` всех
+    включённых модов, и ключ, объявленный дважды, достаётся тому, кто загрузился
+    позже. Здесь то же самое и в том же порядке: игра, потом моды из
+    `reference/mods` по имени папки.
+    """
+    blocks: dict = {}
+    for directory in dirs:
+        if directory and Path(directory).is_dir():
+            blocks.update(load_dir(Path(directory)))
     return blocks
 
 
@@ -397,7 +412,8 @@ def _goods(goods_dir: Path) -> tuple[set[str], set[str], dict[str, float]]:
     books a level and 0.3 masonry a level are not one number without it.
     """
     every, raw, price = set(), set(), {}
-    for name, entries in load_dir(goods_dir).items():
+    for name, entries in load_dirs(goods_dir if isinstance(goods_dir, list)
+                                   else [goods_dir]).items():
         every.add(name)
         if all(c == "raw_material" for c in find(entries, "category")):
             raw.add(name)
@@ -417,9 +433,8 @@ def _raw_potentials(rights_dir: Path) -> dict[str, str]:
     """
     import re as _re
     out: dict[str, str] = {}
-    if not rights_dir.is_dir():
-        return out
-    for path in sorted(rights_dir.glob("*.txt")):
+    for path in [q for d in (rights_dir if isinstance(rights_dir, list) else [rights_dir])
+                 if Path(d).is_dir() for q in sorted(Path(d).glob("*.txt"))]:
         text = path.read_text(encoding="utf-8-sig")
         for match in _re.finditer(r"^(\w+)\s*=\s*\{", text, _re.M):
             depth, i = 0, match.end() - 1
@@ -445,9 +460,10 @@ def _raw_potentials(rights_dir: Path) -> dict[str, str]:
 def _unlocked_by(advances_dir: Path) -> dict[str, str]:
     """Which advance unlocks each town right, by `unlock_town_rights`."""
     out: dict[str, str] = {}
-    if not advances_dir.is_dir():
+    dirs = advances_dir if isinstance(advances_dir, list) else [advances_dir]
+    if not any(Path(d).is_dir() for d in dirs):
         return out
-    for name, entries in load_dir(advances_dir).items():
+    for name, entries in load_dirs(dirs).items():
         for right in find(entries, "unlock_town_rights"):
             out.setdefault(str(right), name)
     return out
@@ -460,18 +476,21 @@ def _town_rights(rights_dir: Path, advances_dir: Path) -> list[TownRight]:
     every bundle in prose and is exactly the source this repository has a rule
     against believing.
     """
-    if not rights_dir.is_dir():
+    rights_dirs = rights_dir if isinstance(rights_dir, list) else [rights_dir]
+    advances_dirs = (advances_dir if isinstance(advances_dir, list)
+                     else [advances_dir])
+    if not any(Path(d).is_dir() for d in rights_dirs):
         return []
-    unlocked = _unlocked_by(advances_dir)
-    potentials = _raw_potentials(rights_dir)
+    unlocked = _unlocked_by(advances_dirs)
+    potentials = _raw_potentials(rights_dirs)
     # An advance's own `potential` is the country gate on the right it unlocks.
     # The Scandinavian privileges carry none of their own: what keeps them out of
     # a Wallachian list is `culture = { has_culture_group = ... }` on the advance,
     # and asking `has_advance` instead hides a right from anyone who has not taken
     # it yet -- which hides the plan from the planner.
-    advance_gates = _raw_potentials(advances_dir)
+    advance_gates = _raw_potentials(advances_dirs)
     out: list[TownRight] = []
-    for name, entries in load_dir(rights_dir).items():
+    for name, entries in load_dirs(rights_dirs).items():
         advance = unlocked.get(name, "")
         right = TownRight(key=name, advance=advance,
                           potential=potentials.get(name, "")
@@ -509,7 +528,9 @@ def location_potentials(folder: Path) -> dict[str, tuple[str, bool]]:
     silently loses half of itself is worse than one that is not copied at all.
     """
     found: dict[str, tuple[str, bool]] = {}
-    for path in sorted(folder.glob("*.txt")):
+    for path in sorted(p for f in ([folder] if isinstance(folder, (str, Path))
+                                   else folder)
+                       if Path(f).is_dir() for p in sorted(Path(f).glob("*.txt"))):
         text = path.read_text(encoding="utf-8-sig")
         for match in re.finditer(r"(?m)^([a-z0-9_]+)\s*=\s*\{", text):
             body = _braced(text, match.end() - 1)
@@ -535,15 +556,32 @@ def _braced(text: str, start: int) -> str:
     return text[start + 1:]
 
 
-def load_game(common: Path | None = None) -> Game:
+def load_game(common: Path | None = None, mods: list[Path] | None = None) -> Game:
+    """The game's own data, with the reference mods' laid over it.
+
+    **Мод обязан видеть здания чужих модов.** Владелец, 2026-09-09: «нужно, чтобы
+    мод сканировал другие моды на наличие производственных зданий, определял их в
+    подходящие своей логике категории... и вставлял их в план наравне со всеми».
+    В скрипте перечислить типы зданий нельзя ничем, поэтому «сканирует»
+    генератор: `common/` каждого мода из `reference/mods` кладётся поверх
+    игровой, как их кладёт сама игра. Дальше здание идёт общей дорогой -- сторона
+    из `town`/`rural_settlement`, котёл из категории, доступность из
+    `can_build_building`, -- и ни одна ветка не знает, откуда оно взялось.
+    """
     if common is None:
         import refs  # local: only needed when no explicit copy was named
         common = refs.GAME_COMMON
-    goods, raw, price = _goods(common / "goods")
-    shared = load_dir(common / "production_methods")
+        if mods is None:
+            mods = refs.mod_commons()
+    mods = mods or []
+    def dirs(name: str) -> list[Path]:
+        return [Path(common) / name] + [Path(m) / name for m in mods]
 
-    buildings = load_dir(common / "building_types")
-    potentials = location_potentials(common / "building_types")
+    goods, raw, price = _goods(dirs("goods"))
+    shared = load_dirs(dirs("production_methods"))
+
+    buildings = load_dirs(dirs("building_types"))
+    potentials = location_potentials(dirs("building_types"))
 
     methods: list[Method] = []
     for building, entries in buildings.items():
@@ -607,12 +645,12 @@ def load_game(common: Path | None = None) -> Game:
     successor = {str(scalar(entries, "obsolete")): name
                  for name, entries in buildings.items() if scalar(entries, "obsolete")}
     unlock_age: dict[str, int] = {}
-    for entries in load_dir(common / "advances").values():
+    for entries in load_dirs(dirs("advances")).values():
         age = AGES.get(str(scalar(entries, "age")), 0)
         for building in find(entries, "unlock_building"):
             building = str(building)
             unlock_age[building] = min(unlock_age.get(building, LAST_AGE), age)
     return Game(raw_goods=raw, methods=methods, all_goods=goods, prices=price,
                 obsoleted=obsoleted, successor=successor, unlock_age=unlock_age,
-                town_rights=_town_rights(common / "town_rights",
-                                         common / "advances"))
+                town_rights=_town_rights(dirs("town_rights"),
+                                         dirs("advances")))

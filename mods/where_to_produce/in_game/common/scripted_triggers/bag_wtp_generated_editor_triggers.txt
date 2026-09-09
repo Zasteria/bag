@@ -13,7 +13,7 @@ bag_wtp_edit_fits_town_1 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm1 = 39
+				var:bag_wtp_pm1 = 80
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
 		}
@@ -30,9 +30,21 @@ bag_wtp_edit_fits_town_2 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm2 = 56
+				var:bag_wtp_pm2 = 136
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm2 = 137
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gbu_walloon_coalworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm2 = 138
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_coal_works } }
 		}
 	}
 }
@@ -47,7 +59,7 @@ bag_wtp_edit_fits_town_3 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm3 = 57
+				var:bag_wtp_pm3 = 139
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
 		}
@@ -64,28 +76,66 @@ bag_wtp_edit_fits_town_4 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm4 = 58
-				var:bag_wtp_pm4 = 59
+				var:bag_wtp_pm4 = 140
+				var:bag_wtp_pm4 = 141
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm4 = 60
+				var:bag_wtp_pm4 = 142
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm4 = 61
+				var:bag_wtp_pm4 = 143
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyes_workshop } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm4 = 62
+				var:bag_wtp_pm4 = 144
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:dyesworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm4 = 145
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bng_indigo_vat } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm4 = 146
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_guj_dye_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm4 = 147
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mex_cochineal_obraje } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm4 = 148
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm4 = 149
+				var:bag_wtp_pm4 = 150
+				var:bag_wtp_pm4 = 151
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_obrador_del_pastel } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm4 = 152
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pun_shawl_karkhana } }
 		}
 	}
 }
@@ -100,21 +150,53 @@ bag_wtp_edit_fits_town_5 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm5 = 63
+				var:bag_wtp_pm5 = 153
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm5 = 64
+				var:bag_wtp_pm5 = 154
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
 	}
 }
 
+# fish, town side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_town_6 = { always = no }
+bag_wtp_edit_fits_town_6 = {
+	var:bag_wtp_pm6 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = yes
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_pm6 = 277
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kry_shilat_khaneh } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm6 = 278
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_upemba_fishery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm6 = 279
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nse_herring_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm6 = 280
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ryu_fishing_settlement } }
+		}
+	}
+}
 
 # fruit, town side, room not asked.
 # Scope: location
@@ -126,9 +208,15 @@ bag_wtp_edit_fits_town_7 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm7 = 110
+				var:bag_wtp_pm7 = 281
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm7 = 282
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_nakhil_grove } }
 		}
 	}
 }
@@ -143,9 +231,30 @@ bag_wtp_edit_fits_town_8 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm8 = 121
+				var:bag_wtp_pm8 = 297
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm8 = 298
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_han_landgestut } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm8 = 299
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_horse_stud } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm8 = 301
+				var:bag_wtp_pm8 = 302
+				var:bag_wtp_pm8 = 303
+				var:bag_wtp_pm8 = 304
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_num_horse_corral } }
 		}
 	}
 }
@@ -160,7 +269,13 @@ bag_wtp_edit_fits_town_9 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm9 = 122
+				var:bag_wtp_pm9 = 305
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lxa_forest_camp } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm9 = 306
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:perfumery } }
 		}
@@ -177,13 +292,25 @@ bag_wtp_edit_fits_town_10 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm10 = 123
+				var:bag_wtp_pm10 = 307
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm10 = 124
+				var:bag_wtp_pm10 = 308
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm10 = 309
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lot_walloon_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm10 = 310
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
@@ -193,8 +320,28 @@ bag_wtp_edit_fits_town_10 = {
 # Scope: location
 bag_wtp_edit_fits_town_11 = { always = no }
 
+# livestock, town side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_town_12 = { always = no }
+bag_wtp_edit_fits_town_12 = {
+	var:bag_wtp_pm12 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = yes
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_pm12 = 442
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sko_cattle_camp } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm12 = 443
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tws_masseria } }
+		}
+	}
+}
 
 # lumber, town side, room not asked.
 # Scope: location
@@ -206,7 +353,13 @@ bag_wtp_edit_fits_town_13 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm13 = 172
+				var:bag_wtp_pm13 = 444
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_liv_dampfsagewerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm13 = 445
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
@@ -223,10 +376,34 @@ bag_wtp_edit_fits_town_14 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm14 = 176
-				var:bag_wtp_pm14 = 177
+				var:bag_wtp_pm14 = 451
+				var:bag_wtp_pm14 = 452
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:apothecary } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm14 = 453
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_hos_apothecary } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm14 = 454
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kon_palm_oil_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm14 = 455
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_oye_ile_ise } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm14 = 456
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_myron_hall } }
 		}
 	}
 }
@@ -241,7 +418,80 @@ bag_wtp_edit_fits_town_15 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm15 = 199
+				var:bag_wtp_pm15 = 498
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bav_salzwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 499
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bgp_saline } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 500
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kbu_natron_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 501
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_copper_smithy } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 502
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_may_salt_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 503
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_salt_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 504
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_npl_newari_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 505
+				var:bag_wtp_pm15 = 506
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nzo_salt_wells } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 507
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pol_kopalnia_soli } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 508
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rmn_ocna_de_sare } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 509
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_shl_saline } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 510
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_wes_hellweg_saltworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm15 = 511
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
 		}
@@ -258,25 +508,25 @@ bag_wtp_edit_fits_town_16 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm16 = 200
+				var:bag_wtp_pm16 = 512
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm16 = 201
+				var:bag_wtp_pm16 = 513
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:putrefaction_works } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm16 = 202
+				var:bag_wtp_pm16 = 514
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm16 = 203
+				var:bag_wtp_pm16 = 515
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:saltpeter_workshop } }
 		}
@@ -293,7 +543,7 @@ bag_wtp_edit_fits_town_17 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm17 = 204
+				var:bag_wtp_pm17 = 516
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
 		}
@@ -310,15 +560,21 @@ bag_wtp_edit_fits_town_18 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm18 = 205
+				var:bag_wtp_pm18 = 517
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:ablaq_palace } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm18 = 206
+				var:bag_wtp_pm18 = 518
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lucca_silk_production_guild } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm18 = 519
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ahm_eka_sarana_workshop } }
 		}
 	}
 }
@@ -333,7 +589,59 @@ bag_wtp_edit_fits_town_19 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm19 = 207
+				var:bag_wtp_pm19 = 520
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 521
+				var:bag_wtp_pm19 = 522
+				var:bag_wtp_pm19 = 523
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_han_oberharzer_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 524
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_inc_silver_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 527
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nse_danelaw_mint } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 528
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pon_argyria_silver_mine } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 529
+				var:bag_wtp_pm19 = 530
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sax_silberbergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 531
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_mining_pit } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 532
+				var:bag_wtp_pm19 = 533
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_sidirokausia_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm19 = 534
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
 		}
@@ -350,8 +658,8 @@ bag_wtp_edit_fits_town_20 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm20 = 210
-				var:bag_wtp_pm20 = 211
+				var:bag_wtp_pm20 = 553
+				var:bag_wtp_pm20 = 554
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
 		}
@@ -368,7 +676,31 @@ bag_wtp_edit_fits_town_21 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm21 = 212
+				var:bag_wtp_pm21 = 555
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_koj_sugar_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm21 = 556
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mor_sugar_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm21 = 557
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_plantation_complex } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm21 = 558
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ryu_sugar_mill } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm21 = 559
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
 		}
@@ -385,7 +717,7 @@ bag_wtp_edit_fits_town_22 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm22 = 214
+				var:bag_wtp_pm22 = 565
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
 		}
@@ -405,17 +737,72 @@ bag_wtp_edit_fits_town_24 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm24 = 235
-				var:bag_wtp_pm24 = 236
-				var:bag_wtp_pm24 = 237
+				var:bag_wtp_pm24 = 638
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_anv_gascon_winery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 639
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bgp_grand_domaine } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 640
+				var:bag_wtp_pm24 = 641
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bgp_vignoble } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 642
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cda_mediterranean_vineyard } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 643
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eth_tej_bet } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 644
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gre_olive_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 645
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mol_boyar_estate } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 646
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rmn_vie_domneasca } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 647
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tus_fattoria } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm24 = 648
+				var:bag_wtp_pm24 = 649
+				var:bag_wtp_pm24 = 650
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm24 = 238
-				var:bag_wtp_pm24 = 239
-				var:bag_wtp_pm24 = 240
+				var:bag_wtp_pm24 = 651
+				var:bag_wtp_pm24 = 652
+				var:bag_wtp_pm24 = 653
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:winery_manufactory } }
 		}
@@ -469,6 +856,61 @@ bag_wtp_edit_fits_town_26 = {
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:brewery_mill } }
 		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 18
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bav_brauerei } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 19
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bav_hofbrauhaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 20
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bel_abdijbrouwerij } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 21
+				var:bag_wtp_pm26 = 22
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_boh_brewhouse } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 23
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 24
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_hau_kofar_mata } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 25
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 26
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ntr_flour_mill } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm26 = 27
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ukr_chernozem_estate } }
+		}
 	}
 }
 
@@ -482,25 +924,132 @@ bag_wtp_edit_fits_town_27 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm27 = 18
+				var:bag_wtp_pm27 = 28
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_aramaic_print_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 29
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_translation_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 30
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cso_printing_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 31
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eur_universitas } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 32
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_druckerei } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 33
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_hochstift } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 34
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_druckerei } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 35
+				var:bag_wtp_pm27 = 36
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_han_georgia_augusta } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 37
+				var:bag_wtp_pm27 = 38
+				var:bag_wtp_pm27 = 39
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ily_glagoljska_tiskara } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 40
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ire_bardic_school } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 41
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_maz_printing_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 42
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mol_printing_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 43
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sax_druckhaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 44
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sax_werkstatt } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 45
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tab_vernacular_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 46
+				var:bag_wtp_pm27 = 47
+				var:bag_wtp_pm27 = 48
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tbt_imperial_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 49
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tib_printing_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm27 = 50
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm27 = 19
+				var:bag_wtp_pm27 = 51
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm27 = 20
+				var:bag_wtp_pm27 = 52
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:printing_press_shop } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm27 = 21
+				var:bag_wtp_pm27 = 53
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:scriptorium } }
 		}
@@ -517,40 +1066,94 @@ bag_wtp_edit_fits_town_28 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm28 = 22
+				var:bag_wtp_pm28 = 54
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_foundry } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm28 = 23
-				var:bag_wtp_pm28 = 24
-				var:bag_wtp_pm28 = 25
-				var:bag_wtp_pm28 = 26
-				var:bag_wtp_pm28 = 27
-				var:bag_wtp_pm28 = 28
-				var:bag_wtp_pm28 = 29
-				var:bag_wtp_pm28 = 30
-				var:bag_wtp_pm28 = 31
+				var:bag_wtp_pm28 = 55
+				var:bag_wtp_pm28 = 56
+				var:bag_wtp_pm28 = 57
+				var:bag_wtp_pm28 = 58
+				var:bag_wtp_pm28 = 59
+				var:bag_wtp_pm28 = 60
+				var:bag_wtp_pm28 = 61
+				var:bag_wtp_pm28 = 62
+				var:bag_wtp_pm28 = 63
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_maker } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm28 = 32
-				var:bag_wtp_pm28 = 33
-				var:bag_wtp_pm28 = 34
-				var:bag_wtp_pm28 = 35
-				var:bag_wtp_pm28 = 36
-				var:bag_wtp_pm28 = 37
+				var:bag_wtp_pm28 = 64
+				var:bag_wtp_pm28 = 65
+				var:bag_wtp_pm28 = 66
+				var:bag_wtp_pm28 = 67
+				var:bag_wtp_pm28 = 68
+				var:bag_wtp_pm28 = 69
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannon_workshop } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm28 = 38
+				var:bag_wtp_pm28 = 70
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cannons_factory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 71
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aeg_cairo_arsenal } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 72
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_mosul_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 73
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eur_imperial_arsenal } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 74
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gbu_mechelen_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 75
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_krupp_stahlwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 76
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mhr_tophkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 77
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_spa_royal_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 78
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_vjn_swarnakara_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm28 = 79
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ymp_imperial_arsenal } }
 		}
 	}
 }
@@ -565,33 +1168,242 @@ bag_wtp_edit_fits_town_29 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm29 = 40
-				var:bag_wtp_pm29 = 41
-				var:bag_wtp_pm29 = 42
+				var:bag_wtp_pm29 = 81
+				var:bag_wtp_pm29 = 82
+				var:bag_wtp_pm29 = 83
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm29 = 43
-				var:bag_wtp_pm29 = 44
-				var:bag_wtp_pm29 = 45
+				var:bag_wtp_pm29 = 84
+				var:bag_wtp_pm29 = 85
+				var:bag_wtp_pm29 = 86
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm29 = 46
-				var:bag_wtp_pm29 = 47
-				var:bag_wtp_pm29 = 48
+				var:bag_wtp_pm29 = 87
+				var:bag_wtp_pm29 = 88
+				var:bag_wtp_pm29 = 89
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cloth_workshop } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm29 = 52
-				var:bag_wtp_pm29 = 53
-				var:bag_wtp_pm29 = 54
+				var:bag_wtp_pm29 = 90
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ahm_river_industry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 91
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cda_catalan_cotton_mill } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 92
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_egy_state_factory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 93
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gbu_belgian_textile_mill } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 94
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gbu_flemish_cloth_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 95
+				var:bag_wtp_pm29 = 96
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_guj_cotton_mill } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 97
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ire_bleach_green } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 98
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ire_wool_cottage } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 99
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kbu_cotton_weaving } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 100
+				var:bag_wtp_pm29 = 101
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lot_lakenhalle } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 102
+				var:bag_wtp_pm29 = 103
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_cotton_weaving_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 104
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mgo_felt_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 105
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mol_beeswax_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 106
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_weaving_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 107
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nse_longship_yards } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 108
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ntr_pounamu_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 109
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_draparia } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 110
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_oye_ile_ise } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 111
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pue_cotton_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 112
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rum_ahi_guild_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 113
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_pinnetta } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 114
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_linen_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 115
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_mechanized_mill } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 116
+				var:bag_wtp_pm29 = 117
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sko_kano_dye_pit } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 118
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_salas } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 119
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_spa_mesta_sheepwalk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 120
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swa_webhaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 121
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swi_textile_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 122
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tbt_nambu_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 123
+				var:bag_wtp_pm29 = 124
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_broadcloth_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 125
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tib_wool_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 126
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tus_cappelleria } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 127
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_usa_cotton_gin_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 128
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_wes_linen_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm29 = 132
+				var:bag_wtp_pm29 = 133
+				var:bag_wtp_pm29 = 134
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:textile_mill } }
 		}
@@ -608,53 +1420,378 @@ bag_wtp_edit_fits_town_30 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm30 = 65
-				var:bag_wtp_pm30 = 66
-				var:bag_wtp_pm30 = 67
-				var:bag_wtp_pm30 = 68
-				var:bag_wtp_pm30 = 69
-				var:bag_wtp_pm30 = 70
-				var:bag_wtp_pm30 = 71
-				var:bag_wtp_pm30 = 72
-				var:bag_wtp_pm30 = 73
-				var:bag_wtp_pm30 = 74
-				var:bag_wtp_pm30 = 75
-				var:bag_wtp_pm30 = 76
+				var:bag_wtp_pm30 = 155
+				var:bag_wtp_pm30 = 156
+				var:bag_wtp_pm30 = 157
+				var:bag_wtp_pm30 = 158
+				var:bag_wtp_pm30 = 159
+				var:bag_wtp_pm30 = 160
+				var:bag_wtp_pm30 = 161
+				var:bag_wtp_pm30 = 162
+				var:bag_wtp_pm30 = 163
+				var:bag_wtp_pm30 = 164
+				var:bag_wtp_pm30 = 165
+				var:bag_wtp_pm30 = 166
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm30 = 77
-				var:bag_wtp_pm30 = 78
-				var:bag_wtp_pm30 = 79
-				var:bag_wtp_pm30 = 80
+				var:bag_wtp_pm30 = 167
+				var:bag_wtp_pm30 = 168
+				var:bag_wtp_pm30 = 169
+				var:bag_wtp_pm30 = 170
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm30 = 81
-				var:bag_wtp_pm30 = 82
+				var:bag_wtp_pm30 = 171
+				var:bag_wtp_pm30 = 172
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm30 = 83
-				var:bag_wtp_pm30 = 84
-				var:bag_wtp_pm30 = 85
-				var:bag_wtp_pm30 = 86
-				var:bag_wtp_pm30 = 87
-				var:bag_wtp_pm30 = 88
-				var:bag_wtp_pm30 = 89
-				var:bag_wtp_pm30 = 90
-				var:bag_wtp_pm30 = 91
-				var:bag_wtp_pm30 = 92
-				var:bag_wtp_pm30 = 93
-				var:bag_wtp_pm30 = 94
+				var:bag_wtp_pm30 = 173
+				var:bag_wtp_pm30 = 174
+				var:bag_wtp_pm30 = 175
+				var:bag_wtp_pm30 = 176
+				var:bag_wtp_pm30 = 177
+				var:bag_wtp_pm30 = 178
+				var:bag_wtp_pm30 = 179
+				var:bag_wtp_pm30 = 180
+				var:bag_wtp_pm30 = 181
+				var:bag_wtp_pm30 = 182
+				var:bag_wtp_pm30 = 183
+				var:bag_wtp_pm30 = 184
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fine_cloth_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 185
+				var:bag_wtp_pm30 = 186
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_adu_dar_al_tiraz } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 187
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aeg_khalili_bazaar } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 188
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_air_indigo_dyeworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 189
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_alm_andalusi_silk_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 190
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_arc_cilician_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 191
+				var:bag_wtp_pm30 = 192
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ate_kente_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 193
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bel_tapisserie } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 194
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bgp_silk_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 195
+				var:bag_wtp_pm30 = 196
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bng_muslin_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 197
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_byz_silk_ergasterion } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 198
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cso_silk_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 199
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cth_dye_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 200
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dlh_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 201
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eur_trade_fair } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 202
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gbu_flemish_cloth_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 203
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_guj_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 204
+				var:bag_wtp_pm30 = 205
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_hau_kofar_mata } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 206
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_hin_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 207
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_inc_textile_obraje } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 208
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ira_karkhane } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 209
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_attabiya_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 210
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ita_setificio } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 211
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_jap_za_guild_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 212
+				var:bag_wtp_pm30 = 213
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kry_abrisham_khaneh } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 214
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lat_fondaco } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 215
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lot_lakenhalle } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 216
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lxa_silk_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 217
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mal_sahel_caravanserai } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 218
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mhr_koshti_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 219
+				var:bag_wtp_pm30 = 220
+				var:bag_wtp_pm30 = 221
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mir_lamba_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 222
+				var:bag_wtp_pm30 = 223
+				var:bag_wtp_pm30 = 224
+				var:bag_wtp_pm30 = 225
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_batik_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 226
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mug_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 227
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_draparia } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 228
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_manufactura_reiala } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 229
+				var:bag_wtp_pm30 = 230
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_out_tiraz_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 231
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pun_shawl_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 232
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rjp_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 233
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rum_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 234
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ryu_bingata_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 235
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_piedmont_filatoio } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 236
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sax_messehaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 237
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sha_weaving_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 238
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_linen_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 239
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sko_cloth_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 240
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_weaving_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 241
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swa_webhaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 242
+				var:bag_wtp_pm30 = 243
+				var:bag_wtp_pm30 = 244
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tbt_nambu_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 245
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tbt_thangka_atelier } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 246
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tgd_silk_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 247
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_broadcloth_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 248
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tus_silk_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm30 = 249
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tws_reale_seteria } }
 		}
 	}
 }
@@ -669,41 +1806,98 @@ bag_wtp_edit_fits_town_31 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm31 = 95
+				var:bag_wtp_pm31 = 250
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_factory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm31 = 96
+				var:bag_wtp_pm31 = 251
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:firearms_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm31 = 97
-				var:bag_wtp_pm31 = 98
-				var:bag_wtp_pm31 = 99
-				var:bag_wtp_pm31 = 100
-				var:bag_wtp_pm31 = 101
-				var:bag_wtp_pm31 = 102
+				var:bag_wtp_pm31 = 252
+				var:bag_wtp_pm31 = 253
+				var:bag_wtp_pm31 = 254
+				var:bag_wtp_pm31 = 255
+				var:bag_wtp_pm31 = 256
+				var:bag_wtp_pm31 = 257
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:gun_smith } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm31 = 103
-				var:bag_wtp_pm31 = 104
-				var:bag_wtp_pm31 = 105
-				var:bag_wtp_pm31 = 106
+				var:bag_wtp_pm31 = 258
+				var:bag_wtp_pm31 = 259
+				var:bag_wtp_pm31 = 260
+				var:bag_wtp_pm31 = 261
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:guns_workshop } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm31 = 107
+				var:bag_wtp_pm31 = 262
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:hand_cannon_guild } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 263
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bel_liege_armory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 264
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_drr_jezail_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 265
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_armeria } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 266
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mhr_tophkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 267
+				var:bag_wtp_pm31 = 268
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mir_musket_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 269
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mro_lantaka_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 270
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_royal_arsenal } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 271
+				var:bag_wtp_pm31 = 272
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_usa_federal_armory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm31 = 273
+				var:bag_wtp_pm31 = 274
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ymp_arsenal_foundry } }
 		}
 	}
 }
@@ -718,27 +1912,39 @@ bag_wtp_edit_fits_town_32 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm32 = 111
+				var:bag_wtp_pm32 = 283
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm32 = 112
+				var:bag_wtp_pm32 = 284
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm32 = 113
+				var:bag_wtp_pm32 = 285
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm32 = 114
+				var:bag_wtp_pm32 = 286
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:furniture_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm32 = 287
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_handelshaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm32 = 288
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nse_stave_church } }
 		}
 	}
 }
@@ -753,28 +1959,40 @@ bag_wtp_edit_fits_town_33 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm33 = 115
-				var:bag_wtp_pm33 = 116
+				var:bag_wtp_pm33 = 289
+				var:bag_wtp_pm33 = 290
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm33 = 117
+				var:bag_wtp_pm33 = 291
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm33 = 118
+				var:bag_wtp_pm33 = 292
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glass_workshop } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm33 = 119
+				var:bag_wtp_pm33 = 293
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:glassworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm33 = 294
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cth_glassworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm33 = 295
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ita_vetreria } }
 		}
 	}
 }
@@ -789,24 +2007,272 @@ bag_wtp_edit_fits_town_34 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm34 = 126
-				var:bag_wtp_pm34 = 127
-				var:bag_wtp_pm34 = 128
-				var:bag_wtp_pm34 = 129
-				var:bag_wtp_pm34 = 130
-				var:bag_wtp_pm34 = 131
-				var:bag_wtp_pm34 = 132
-				var:bag_wtp_pm34 = 133
-				var:bag_wtp_pm34 = 134
-				var:bag_wtp_pm34 = 135
-				var:bag_wtp_pm34 = 136
-				var:bag_wtp_pm34 = 137
+				var:bag_wtp_pm34 = 312
+				var:bag_wtp_pm34 = 313
+				var:bag_wtp_pm34 = 314
+				var:bag_wtp_pm34 = 315
+				var:bag_wtp_pm34 = 316
+				var:bag_wtp_pm34 = 317
+				var:bag_wtp_pm34 = 318
+				var:bag_wtp_pm34 = 319
+				var:bag_wtp_pm34 = 320
+				var:bag_wtp_pm34 = 321
+				var:bag_wtp_pm34 = 322
+				var:bag_wtp_pm34 = 323
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:jewelry_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm34 = 139
+				var:bag_wtp_pm34 = 325
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_air_inadan_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 326
+				var:bag_wtp_pm34 = 327
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ate_abrafoo_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 328
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bah_bidri_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 329
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bel_diamantwijk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 330
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_boh_kutna_hora_mint } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 331
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dec_diamond_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 332
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dlh_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 333
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_edo_igun_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 334
+				var:bag_wtp_pm34 = 335
+				var:bag_wtp_pm34 = 336
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_got_aurifex } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 337
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kon_palm_oil_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 338
+				var:bag_wtp_pm34 = 339
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kws_mint } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 340
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_copper_smithy } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 341
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_liv_bernsteinkammer } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 342
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lva_amber_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 343
+				var:bag_wtp_pm34 = 344
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_goldsmith_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 345
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mex_casa_de_moneda } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 346
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mrl_ginto_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 347
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mrl_panday_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 348
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mug_karkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 349
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_npl_newari_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 350
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ntr_pounamu_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 351
+				var:bag_wtp_pm34 = 352
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nzo_silver_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 353
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_plc_amber_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 354
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pnt_panday_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 355
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pom_amber_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 356
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pru_amber_guild } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 357
+				var:bag_wtp_pm34 = 358
+				var:bag_wtp_pm34 = 359
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pue_turquoise_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 360
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_curia_regni } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 361
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_pinnetta } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 362
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sha_silverworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 363
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_kremnica_mint } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 364
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_mogadishu_mint } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 365
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_weaving_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 366
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_spa_silver_minting_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 367
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_bronze_buddha_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 368
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_gem_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 369
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swi_horological_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 370
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tdr_pontic_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 371
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_vjn_swarnakara_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 372
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_yav_bilingual_mint } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm34 = 373
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
 		}
@@ -823,15 +2289,46 @@ bag_wtp_edit_fits_town_35 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm35 = 140
+				var:bag_wtp_pm35 = 374
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm35 = 141
+				var:bag_wtp_pm35 = 375
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:lacquerware_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm35 = 376
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_jap_za_guild_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm35 = 377
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lxa_silk_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm35 = 378
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ryu_lacquerware_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm35 = 379
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_lacquerware_atelier } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm35 = 380
+				var:bag_wtp_pm35 = 381
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ymp_lacquer_workshop } }
 		}
 	}
 }
@@ -846,29 +2343,86 @@ bag_wtp_edit_fits_town_36 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm36 = 143
-				var:bag_wtp_pm36 = 144
+				var:bag_wtp_pm36 = 383
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_hau_majema_tannery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 384
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_iro_three_sisters_garden } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 385
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kbu_tannery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 386
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lva_amber_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 387
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mch_fur_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 388
+				var:bag_wtp_pm36 = 389
+				var:bag_wtp_pm36 = 390
+				var:bag_wtp_pm36 = 391
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_num_bison_camp } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 392
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rmn_tabacarie } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 393
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_salas } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 394
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_weaving_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm36 = 395
+				var:bag_wtp_pm36 = 396
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm36 = 145
-				var:bag_wtp_pm36 = 146
+				var:bag_wtp_pm36 = 397
+				var:bag_wtp_pm36 = 398
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm36 = 147
-				var:bag_wtp_pm36 = 148
+				var:bag_wtp_pm36 = 399
+				var:bag_wtp_pm36 = 400
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tannery_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm36 = 149
-				var:bag_wtp_pm36 = 150
+				var:bag_wtp_pm36 = 401
+				var:bag_wtp_pm36 = 402
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tanning_workshop } }
 		}
@@ -885,43 +2439,140 @@ bag_wtp_edit_fits_town_37 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm37 = 151
-				var:bag_wtp_pm37 = 152
-				var:bag_wtp_pm37 = 153
-				var:bag_wtp_pm37 = 154
-				var:bag_wtp_pm37 = 155
+				var:bag_wtp_pm37 = 403
+				var:bag_wtp_pm37 = 404
+				var:bag_wtp_pm37 = 405
+				var:bag_wtp_pm37 = 406
+				var:bag_wtp_pm37 = 407
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm37 = 156
-				var:bag_wtp_pm37 = 157
-				var:bag_wtp_pm37 = 158
-				var:bag_wtp_pm37 = 159
-				var:bag_wtp_pm37 = 160
+				var:bag_wtp_pm37 = 408
+				var:bag_wtp_pm37 = 409
+				var:bag_wtp_pm37 = 410
+				var:bag_wtp_pm37 = 411
+				var:bag_wtp_pm37 = 412
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distiller_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm37 = 161
-				var:bag_wtp_pm37 = 162
-				var:bag_wtp_pm37 = 163
-				var:bag_wtp_pm37 = 164
-				var:bag_wtp_pm37 = 165
+				var:bag_wtp_pm37 = 413
+				var:bag_wtp_pm37 = 414
+				var:bag_wtp_pm37 = 415
+				var:bag_wtp_pm37 = 416
+				var:bag_wtp_pm37 = 417
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm37 = 166
-				var:bag_wtp_pm37 = 167
-				var:bag_wtp_pm37 = 168
-				var:bag_wtp_pm37 = 169
-				var:bag_wtp_pm37 = 170
+				var:bag_wtp_pm37 = 418
+				var:bag_wtp_pm37 = 419
+				var:bag_wtp_pm37 = 420
+				var:bag_wtp_pm37 = 421
+				var:bag_wtp_pm37 = 422
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:distillers_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 423
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aeg_khalili_bazaar } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 424
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dah_palm_oil_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 425
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_weinberghaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 426
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gre_olive_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 427
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ire_distillery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 428
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_jap_za_guild_hall } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 429
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_kumis_brewery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 431
+				var:bag_wtp_pm37 = 432
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_alambic } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 433
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pon_kapheneion } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 434
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_vodka_distillery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 435
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ryu_awamori_distillery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 436
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tdr_pontic_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 437
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tgd_tea_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 438
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_metochion } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 439
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ukr_medovarnia } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm37 = 440
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_usa_cotton_gin_workshop } }
 		}
 	}
 }
@@ -936,14 +2587,26 @@ bag_wtp_edit_fits_town_38 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm38 = 173
-				var:bag_wtp_pm38 = 174
+				var:bag_wtp_pm38 = 446
+				var:bag_wtp_pm38 = 447
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm38 = 175
+				var:bag_wtp_pm38 = 448
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtp_njanja_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm38 = 449
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tus_marble_quarry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm38 = 450
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
@@ -960,27 +2623,64 @@ bag_wtp_edit_fits_town_39 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm39 = 179
+				var:bag_wtp_pm39 = 458
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm39 = 180
+				var:bag_wtp_pm39 = 459
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm39 = 181
+				var:bag_wtp_pm39 = 460
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm39 = 182
+				var:bag_wtp_pm39 = 461
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:naval_supplies_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm39 = 462
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_arc_cilician_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm39 = 463
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_sahalaitos } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm39 = 464
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_tervanpolttaja } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm39 = 465
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lat_arsenal } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm39 = 466
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lva_amber_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm39 = 467
+				var:bag_wtp_pm39 = 468
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nse_longship_yards } }
 		}
 	}
 }
@@ -995,29 +2695,47 @@ bag_wtp_edit_fits_town_40 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm40 = 183
-				var:bag_wtp_pm40 = 184
-				var:bag_wtp_pm40 = 185
+				var:bag_wtp_pm40 = 469
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_river_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm40 = 470
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_cartiera } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm40 = 471
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_metochion } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm40 = 472
+				var:bag_wtp_pm40 = 473
+				var:bag_wtp_pm40 = 474
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm40 = 186
+				var:bag_wtp_pm40 = 475
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm40 = 187
-				var:bag_wtp_pm40 = 188
+				var:bag_wtp_pm40 = 476
+				var:bag_wtp_pm40 = 477
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm40 = 189
-				var:bag_wtp_pm40 = 190
+				var:bag_wtp_pm40 = 478
+				var:bag_wtp_pm40 = 479
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:paper_workshop } }
 		}
@@ -1034,13 +2752,39 @@ bag_wtp_edit_fits_town_41 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm41 = 191
+				var:bag_wtp_pm41 = 480
+				var:bag_wtp_pm41 = 481
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_chi_porcelain_kiln } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm41 = 482
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cso_porcelain_kiln } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm41 = 483
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sax_porzellanmanufaktur } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm41 = 484
+				var:bag_wtp_pm41 = 485
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tgd_sancai_kiln } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm41 = 486
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm41 = 192
+				var:bag_wtp_pm41 = 487
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:porcelain_manufactory } }
 		}
@@ -1057,25 +2801,49 @@ bag_wtp_edit_fits_town_42 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm42 = 195
+				var:bag_wtp_pm42 = 490
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_adu_lusterware_kiln } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm42 = 491
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nub_pottery_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm42 = 492
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pue_pottery_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm42 = 493
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ryu_tsuboya_kiln } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm42 = 494
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm42 = 196
+				var:bag_wtp_pm42 = 495
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm42 = 197
+				var:bag_wtp_pm42 = 496
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm42 = 198
+				var:bag_wtp_pm42 = 497
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pottery_workshop } }
 		}
@@ -1092,7 +2860,7 @@ bag_wtp_edit_fits_town_43 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm43 = 208
+				var:bag_wtp_pm43 = 535
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
 		}
@@ -1109,7 +2877,98 @@ bag_wtp_edit_fits_town_44 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm44 = 209
+				var:bag_wtp_pm44 = 536
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_arc_taurus_combinat } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 537
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bel_cockerillsmelterij } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 538
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_boh_ironworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 539
+				var:bag_wtp_pm44 = 540
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cso_iron_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 541
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_meisterhaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 542
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gbr_industrial_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 543
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ita_manifattura } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 544
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lot_steel_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 545
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_forga_del_roergue } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 546
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pon_argyria_refining_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 547
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_ural_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 548
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sca_bergslagen_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 549
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_coal_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 550
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_banska_mines } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 551
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_wes_sauerland_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm44 = 552
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:steel_mill } }
 		}
@@ -1126,7 +2985,25 @@ bag_wtp_edit_fits_town_45 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm45 = 213
+				var:bag_wtp_pm45 = 560
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_tervanpolttaja } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm45 = 561
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lva_amber_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm45 = 562
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rmn_rafinarie } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm45 = 563
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
 		}
@@ -1143,34 +3020,174 @@ bag_wtp_edit_fits_town_46 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm46 = 216
+				var:bag_wtp_pm46 = 567
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_foundry } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm46 = 217
+				var:bag_wtp_pm46 = 568
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:iron_mill } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm46 = 219
+				var:bag_wtp_pm46 = 570
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_azt_mesoamerican_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 571
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bno_diamond_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 572
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_edo_igun_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 573
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eur_colonial_exchange } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 574
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eur_continental_railway } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 575
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eur_state_manufactory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 576
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_ruukki } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 577
+				var:bag_wtp_pm46 = 578
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_meisterhaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 579
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_hau_kofar_mata } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 580
+				var:bag_wtp_pm46 = 581
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_inc_mita_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 582
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_jap_tamahagane_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 583
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kon_iron_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 584
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_krs_highland_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 585
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_copper_smithy } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 586
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lot_meuse_ironworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 587
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mir_musket_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 588
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 589
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtp_njanja_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 590
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nse_danelaw_mint } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 591
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_plc_manufaktura } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 592
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sca_koppargruva } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 593
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_banska_mines } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 594
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_vjn_swarnakara_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm46 = 595
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm46 = 220
-				var:bag_wtp_pm46 = 221
-				var:bag_wtp_pm46 = 222
-				var:bag_wtp_pm46 = 223
+				var:bag_wtp_pm46 = 596
+				var:bag_wtp_pm46 = 597
+				var:bag_wtp_pm46 = 598
+				var:bag_wtp_pm46 = 599
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm46 = 224
+				var:bag_wtp_pm46 = 600
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tools_workshop } }
 		}
@@ -1187,33 +3204,185 @@ bag_wtp_edit_fits_town_47 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_pm47 = 227
+				var:bag_wtp_pm47 = 603
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_adu_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 604
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_air_inadan_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 605
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_alm_caliphal_armoury } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 606
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_azt_obsidian_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 607
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_smithy } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 608
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bel_wapenfabriek } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 609
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_meisterhaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 610
+				var:bag_wtp_pm47 = 611
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_waffenschmiede } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 612
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_jap_tamahagane_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 613
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kon_royal_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 614
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_armeria } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 615
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_may_obsidian_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 616
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mge_bow_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 617
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mhr_tophkhana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 618
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mlc_pandai_besi } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 619
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mol_armory } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 620
+				var:bag_wtp_pm47 = 621
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mro_kris_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 622
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_empu_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 623
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nin_imperial_arsenal } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 624
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nse_hirdstova } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 625
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pru_arms_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 626
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_banska_mines } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 627
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_dest_krajina_fortress } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 628
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tgd_gunpowder_foundry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 629
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_wes_sauerland_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_pm47 = 630
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm47 = 228
+				var:bag_wtp_pm47 = 631
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_factory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm47 = 229
-				var:bag_wtp_pm47 = 230
-				var:bag_wtp_pm47 = 231
+				var:bag_wtp_pm47 = 632
+				var:bag_wtp_pm47 = 633
+				var:bag_wtp_pm47 = 634
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_guild } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm47 = 232
+				var:bag_wtp_pm47 = 635
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_manufactory } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_pm47 = 233
+				var:bag_wtp_pm47 = 636
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:weapon_workshop } }
 		}
@@ -1230,7 +3399,7 @@ bag_wtp_edit_fits_rural_1 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm1 = 39
+				var:bag_wtp_prm1 = 80
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:clay_pit } }
 		}
@@ -1247,15 +3416,27 @@ bag_wtp_edit_fits_rural_2 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm2 = 55
+				var:bag_wtp_prm2 = 135
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:charcoal_maker } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm2 = 56
+				var:bag_wtp_prm2 = 136
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:improved_charcoal_maker } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm2 = 137
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gbu_walloon_coalworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm2 = 138
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_coal_works } }
 		}
 	}
 }
@@ -1270,15 +3451,35 @@ bag_wtp_edit_fits_rural_3 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm3 = 57
+				var:bag_wtp_prm3 = 139
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:cotton_plantation } }
 		}
 	}
 }
 
+# dyes, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_4 = { always = no }
+bag_wtp_edit_fits_rural_4 = {
+	var:bag_wtp_prm4 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm4 = 145
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bng_indigo_vat } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm4 = 148
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_forge } }
+		}
+	}
+}
 
 # fiber_crops, village side, room not asked.
 # Scope: location
@@ -1290,13 +3491,13 @@ bag_wtp_edit_fits_rural_5 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm5 = 63
+				var:bag_wtp_prm5 = 153
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fiber_crops_farm } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm5 = 64
+				var:bag_wtp_prm5 = 154
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
@@ -1313,10 +3514,28 @@ bag_wtp_edit_fits_rural_6 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm6 = 108
-				var:bag_wtp_prm6 = 109
+				var:bag_wtp_prm6 = 275
+				var:bag_wtp_prm6 = 276
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm6 = 277
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kry_shilat_khaneh } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm6 = 278
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_upemba_fishery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm6 = 280
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ryu_fishing_settlement } }
 		}
 	}
 }
@@ -1331,9 +3550,15 @@ bag_wtp_edit_fits_rural_7 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm7 = 110
+				var:bag_wtp_prm7 = 281
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fruit_orchard } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm7 = 282
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_nakhil_grove } }
 		}
 	}
 }
@@ -1348,15 +3573,56 @@ bag_wtp_edit_fits_rural_8 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm8 = 121
+				var:bag_wtp_prm8 = 297
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:horse_breeders } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm8 = 298
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_han_landgestut } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm8 = 299
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_horse_stud } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm8 = 300
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mgo_horse_grounds } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm8 = 301
+				var:bag_wtp_prm8 = 302
+				var:bag_wtp_prm8 = 303
+				var:bag_wtp_prm8 = 304
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_num_horse_corral } }
 		}
 	}
 }
 
+# incense, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_9 = { always = no }
+bag_wtp_edit_fits_rural_9 = {
+	var:bag_wtp_prm9 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm9 = 305
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lxa_forest_camp } }
+		}
+	}
+}
 
 # iron, village side, room not asked.
 # Scope: location
@@ -1368,13 +3634,25 @@ bag_wtp_edit_fits_rural_10 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm10 = 123
+				var:bag_wtp_prm10 = 307
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bog_iron_smelter } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm10 = 124
+				var:bag_wtp_prm10 = 308
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm10 = 309
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lot_walloon_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm10 = 310
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
@@ -1391,7 +3669,7 @@ bag_wtp_edit_fits_rural_11 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm11 = 125
+				var:bag_wtp_prm11 = 311
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:elephant_hunting_grounds } }
 		}
@@ -1408,9 +3686,21 @@ bag_wtp_edit_fits_rural_12 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm12 = 171
+				var:bag_wtp_prm12 = 441
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm12 = 442
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sko_cattle_camp } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm12 = 443
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tws_masseria } }
 		}
 	}
 }
@@ -1425,15 +3715,29 @@ bag_wtp_edit_fits_rural_13 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm13 = 172
+				var:bag_wtp_prm13 = 445
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
 	}
 }
 
+# medicaments, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_14 = { always = no }
+bag_wtp_edit_fits_rural_14 = {
+	var:bag_wtp_prm14 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm14 = 454
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kon_palm_oil_press } }
+		}
+	}
+}
 
 # salt, village side, room not asked.
 # Scope: location
@@ -1445,7 +3749,56 @@ bag_wtp_edit_fits_rural_15 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm15 = 199
+				var:bag_wtp_prm15 = 500
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kbu_natron_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 502
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_may_salt_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 503
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_salt_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 505
+				var:bag_wtp_prm15 = 506
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nzo_salt_wells } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 507
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pol_kopalnia_soli } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 508
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rmn_ocna_de_sare } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 509
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_shl_saline } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 510
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_wes_hellweg_saltworks } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm15 = 511
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:salt_collector } }
 		}
@@ -1465,15 +3818,29 @@ bag_wtp_edit_fits_rural_17 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm17 = 204
+				var:bag_wtp_prm17 = 516
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sand_pit } }
 		}
 	}
 }
 
+# silk, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_18 = { always = no }
+bag_wtp_edit_fits_rural_18 = {
+	var:bag_wtp_prm18 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm18 = 519
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ahm_eka_sarana_workshop } }
+		}
+	}
+}
 
 # silver, village side, room not asked.
 # Scope: location
@@ -1485,7 +3852,54 @@ bag_wtp_edit_fits_rural_19 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm19 = 207
+				var:bag_wtp_prm19 = 520
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm19 = 521
+				var:bag_wtp_prm19 = 522
+				var:bag_wtp_prm19 = 523
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_han_oberharzer_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm19 = 525
+				var:bag_wtp_prm19 = 526
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mex_hacienda_grande } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm19 = 528
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pon_argyria_silver_mine } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm19 = 529
+				var:bag_wtp_prm19 = 530
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sax_silberbergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm19 = 531
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_mining_pit } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm19 = 532
+				var:bag_wtp_prm19 = 533
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_sidirokausia_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm19 = 534
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:schwaz_mine } }
 		}
@@ -1502,8 +3916,8 @@ bag_wtp_edit_fits_rural_20 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm20 = 210
-				var:bag_wtp_prm20 = 211
+				var:bag_wtp_prm20 = 553
+				var:bag_wtp_prm20 = 554
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:stone_quarry } }
 		}
@@ -1520,7 +3934,25 @@ bag_wtp_edit_fits_rural_21 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm21 = 212
+				var:bag_wtp_prm21 = 555
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_koj_sugar_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm21 = 556
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mor_sugar_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm21 = 557
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_plantation_complex } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm21 = 559
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sugar_plantation } }
 		}
@@ -1537,7 +3969,13 @@ bag_wtp_edit_fits_rural_22 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm22 = 214
+				var:bag_wtp_prm22 = 564
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pgr_gambier_gardens } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm22 = 565
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tobacco_plantation } }
 		}
@@ -1554,15 +3992,78 @@ bag_wtp_edit_fits_rural_23 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm23 = 234
+				var:bag_wtp_prm23 = 637
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest } }
 		}
 	}
 }
 
+# wine, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_24 = { always = no }
+bag_wtp_edit_fits_rural_24 = {
+	var:bag_wtp_prm24 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 638
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_anv_gascon_winery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 639
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bgp_grand_domaine } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 640
+				var:bag_wtp_prm24 = 641
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bgp_vignoble } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 642
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cda_mediterranean_vineyard } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 643
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eth_tej_bet } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 644
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gre_olive_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 645
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mol_boyar_estate } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 646
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rmn_vie_domneasca } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm24 = 647
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tus_fattoria } }
+		}
+	}
+}
 
 # wool, village side, room not asked.
 # Scope: location
@@ -1574,7 +4075,19 @@ bag_wtp_edit_fits_rural_25 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm25 = 241
+				var:bag_wtp_prm25 = 654
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cel_clachan } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm25 = 655
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rmn_stana } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm25 = 656
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:sheep_farms } }
 		}
@@ -1595,6 +4108,24 @@ bag_wtp_edit_fits_rural_26 = {
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
 		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm26 = 23
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ger_bergwerk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm26 = 25
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm26 = 27
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ukr_chernozem_estate } }
+		}
 	}
 }
 
@@ -1614,17 +4145,67 @@ bag_wtp_edit_fits_rural_29 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm29 = 49
-				var:bag_wtp_prm29 = 50
-				var:bag_wtp_prm29 = 51
+				var:bag_wtp_prm29 = 97
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ire_bleach_green } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm29 = 98
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ire_wool_cottage } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm29 = 105
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mol_beeswax_house } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm29 = 113
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_pinnetta } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm29 = 118
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_salas } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm29 = 119
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_spa_mesta_sheepwalk } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm29 = 129
+				var:bag_wtp_prm29 = 130
+				var:bag_wtp_prm29 = 131
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_clothmaker } }
 		}
 	}
 }
 
+# fine_cloth, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_30 = { always = no }
+bag_wtp_edit_fits_rural_30 = {
+	var:bag_wtp_prm30 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm30 = 235
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_piedmont_filatoio } }
+		}
+	}
+}
 
 # Scope: location
 bag_wtp_edit_fits_rural_31 = { always = no }
@@ -1642,7 +4223,7 @@ bag_wtp_edit_fits_rural_33 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm33 = 120
+				var:bag_wtp_prm33 = 296
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:rural_glassmaker } }
 		}
@@ -1659,13 +4240,25 @@ bag_wtp_edit_fits_rural_34 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm34 = 138
+				var:bag_wtp_prm34 = 324
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm34 = 139
+				var:bag_wtp_prm34 = 337
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kon_palm_oil_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm34 = 361
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_pinnetta } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm34 = 373
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pounamou_carver } }
 		}
@@ -1685,15 +4278,81 @@ bag_wtp_edit_fits_rural_36 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm36 = 142
+				var:bag_wtp_prm36 = 382
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm36 = 384
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_iro_three_sisters_garden } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm36 = 388
+				var:bag_wtp_prm36 = 389
+				var:bag_wtp_prm36 = 390
+				var:bag_wtp_prm36 = 391
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_num_bison_camp } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm36 = 393
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_salas } }
 		}
 	}
 }
 
+# liquor, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_37 = { always = no }
+bag_wtp_edit_fits_rural_37 = {
+	var:bag_wtp_prm37 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm37 = 425
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fkn_weinberghaus } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm37 = 426
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_gre_olive_press } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm37 = 429
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_kumis_brewery } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm37 = 430
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mex_hacienda_grande } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm37 = 431
+				var:bag_wtp_prm37 = 432
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_alambic } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm37 = 438
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_metochion } }
+		}
+	}
+}
 
 # masonry, village side, room not asked.
 # Scope: location
@@ -1705,14 +4364,20 @@ bag_wtp_edit_fits_rural_38 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm38 = 173
-				var:bag_wtp_prm38 = 174
+				var:bag_wtp_prm38 = 446
+				var:bag_wtp_prm38 = 447
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:mason } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm38 = 175
+				var:bag_wtp_prm38 = 449
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tus_marble_quarry } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm38 = 450
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:shoen } }
 		}
@@ -1729,15 +4394,41 @@ bag_wtp_edit_fits_rural_39 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm39 = 178
+				var:bag_wtp_prm39 = 457
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm39 = 463
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_sahalaitos } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm39 = 464
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_tervanpolttaja } }
 		}
 	}
 }
 
+# paper, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_40 = { always = no }
+bag_wtp_edit_fits_rural_40 = {
+	var:bag_wtp_prm40 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm40 = 471
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_the_metochion } }
+		}
+	}
+}
 
 # Scope: location
 bag_wtp_edit_fits_rural_41 = { always = no }
@@ -1752,13 +4443,13 @@ bag_wtp_edit_fits_rural_42 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm42 = 193
+				var:bag_wtp_prm42 = 488
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm42 = 194
+				var:bag_wtp_prm42 = 489
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
 		}
@@ -1775,15 +4466,47 @@ bag_wtp_edit_fits_rural_43 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm43 = 208
+				var:bag_wtp_prm43 = 535
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:slave_center } }
 		}
 	}
 }
 
+# steel, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_44 = { always = no }
+bag_wtp_edit_fits_rural_44 = {
+	var:bag_wtp_prm44 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } }
+	OR = {
+		AND = {
+			OR = {
+				var:bag_wtp_prm44 = 545
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_forga_del_roergue } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm44 = 546
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pon_argyria_refining_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm44 = 549
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sil_coal_works } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm44 = 550
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_banska_mines } }
+		}
+	}
+}
 
 # tar, village side, room not asked.
 # Scope: location
@@ -1795,7 +4518,13 @@ bag_wtp_edit_fits_rural_45 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm45 = 213
+				var:bag_wtp_prm45 = 560
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_tervanpolttaja } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm45 = 563
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tar_kiln } }
 		}
@@ -1812,19 +4541,49 @@ bag_wtp_edit_fits_rural_46 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm46 = 215
+				var:bag_wtp_prm46 = 566
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm46 = 218
+				var:bag_wtp_prm46 = 569
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm46 = 219
+				var:bag_wtp_prm46 = 571
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bno_diamond_workshop } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm46 = 574
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_eur_continental_railway } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm46 = 588
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_forge } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm46 = 592
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sca_koppargruva } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm46 = 593
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_banska_mines } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm46 = 595
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 		}
@@ -1841,19 +4600,31 @@ bag_wtp_edit_fits_rural_47 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm47 = 225
+				var:bag_wtp_prm47 = 601
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm47 = 226
+				var:bag_wtp_prm47 = 602
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
 		}
 		AND = {
 			OR = {
-				var:bag_wtp_prm47 = 227
+				var:bag_wtp_prm47 = 626
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_banska_mines } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm47 = 627
+			}
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_slo_dest_krajina_fortress } }
+		}
+		AND = {
+			OR = {
+				var:bag_wtp_prm47 = 630
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:tatara } }
 		}

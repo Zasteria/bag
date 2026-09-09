@@ -568,7 +568,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_4"
 		}
 
 		text_single = {
@@ -640,7 +640,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_4"
 		}
 
 		text_single = {
@@ -886,7 +886,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_town_tt"
-			text = "—"
+			text = "bag_wtp_sum_town_6"
 		}
 
 		text_single = {
@@ -898,7 +898,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_6"
 		}
 
 		text_single = {
@@ -934,7 +934,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qraw_tt"
-			text = "—"
+			text = "bag_wtp_sum_qraw_6"
 		}
 
 		text_single = {
@@ -946,7 +946,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "—"
+			text = "[GetPlayer.Custom('bag_wtp_quota_6')]"
 		}
 
 		text_single = {
@@ -958,7 +958,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qt_tt"
-			text = "—"
+			text = "bag_wtp_sum_qt_6"
 		}
 
 		text_single = {
@@ -970,7 +970,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_6"
 		}
 
 		text_single = {
@@ -1393,7 +1393,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_9"
 		}
 
 		text_single = {
@@ -1465,7 +1465,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_9"
 		}
 
 		text_single = {
@@ -1876,7 +1876,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_town_tt"
-			text = "—"
+			text = "bag_wtp_sum_town_12"
 		}
 
 		text_single = {
@@ -1948,7 +1948,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qt_tt"
-			text = "—"
+			text = "bag_wtp_sum_qt_12"
 		}
 
 		text_single = {
@@ -2218,7 +2218,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_14"
 		}
 
 		text_single = {
@@ -2290,7 +2290,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_14"
 		}
 
 		text_single = {
@@ -2878,7 +2878,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_18"
 		}
 
 		text_single = {
@@ -2950,7 +2950,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_18"
 		}
 
 		text_single = {
@@ -3868,7 +3868,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_24"
 		}
 
 		text_single = {
@@ -3940,7 +3940,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_24"
 		}
 
 		text_single = {
@@ -4198,7 +4198,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_26"
 		}
 
 		text_single = {
@@ -4270,7 +4270,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_26"
 		}
 
 		text_single = {
@@ -4858,7 +4858,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_30"
 		}
 
 		text_single = {
@@ -4930,7 +4930,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_30"
 		}
 
 		text_single = {
@@ -5848,7 +5848,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_36"
 		}
 
 		text_single = {
@@ -5920,7 +5920,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_36"
 		}
 
 		text_single = {
@@ -6013,7 +6013,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_37"
 		}
 
 		text_single = {
@@ -6085,7 +6085,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_37"
 		}
 
 		text_single = {
@@ -6343,7 +6343,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_39"
 		}
 
 		text_single = {
@@ -6415,7 +6415,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_39"
 		}
 
 		text_single = {
@@ -6508,7 +6508,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_40"
 		}
 
 		text_single = {
@@ -6580,7 +6580,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_40"
 		}
 
 		text_single = {
@@ -7168,7 +7168,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rural_tt"
-			text = "—"
+			text = "bag_wtp_sum_rural_44"
 		}
 
 		text_single = {
@@ -7240,7 +7240,7 @@ types BagWtpSumCells {
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_qr_tt"
-			text = "—"
+			text = "bag_wtp_sum_qr_44"
 		}
 
 		text_single = {

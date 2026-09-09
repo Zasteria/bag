@@ -38,7 +38,7 @@ bag_wtp_in_zone = {
 	}
 }
 
-# The 13 methods of 241 behind an advance somebody can never take.
+# The 13 methods of 656 behind an advance somebody can never take.
 # The rest are reachable by construction and are not written out.
 # Scope: country
 # beer_workshop / bavarian_beer_workshop_maintenance: bavarian_brewing_expertise
@@ -50,47 +50,47 @@ bag_wtp_reach_8 = {
 	AND = { OR = { has_or_had_tag = UBV has_or_had_tag = LBV has_or_had_tag = PSS has_or_had_tag = GRF has_or_had_tag = FRE has_or_had_tag = REG has_or_had_tag = SLZ has_or_had_tag = BAV } }
 }
 # hand_cannon_guild / hand_cannon_guild_maintenance: hand_cannon_guild_advance
-bag_wtp_reach_107 = {
+bag_wtp_reach_262 = {
 	AND = { original_capital ?= { sub_continent = sub_continent:east_asia } }
 }
 # jewelry_guild / copper_base+amber_enhancement: copperworking
-bag_wtp_reach_126 = {
+bag_wtp_reach_312 = {
 	AND = { is_capital_mesoamerica = yes }
 }
 # jewelry_guild / copper_base+gems_enhancement: copperworking
-bag_wtp_reach_127 = {
+bag_wtp_reach_313 = {
 	AND = { is_capital_mesoamerica = yes }
 }
 # jewelry_guild / copper_base+ivory_enhancement: copperworking
-bag_wtp_reach_128 = {
+bag_wtp_reach_314 = {
 	AND = { is_capital_mesoamerica = yes }
 }
 # jewelry_guild / copper_base+pearls_enhancement: copperworking
-bag_wtp_reach_129 = {
+bag_wtp_reach_315 = {
 	AND = { is_capital_mesoamerica = yes }
 }
 # lacquerware_guild / lacquerware_shop_maintenance: lacquerware_guild_advance
-bag_wtp_reach_140 = {
+bag_wtp_reach_374 = {
 	AND = { num_of_non_rural > 0 original_capital = { sub_continent = sub_continent:east_asia } }
 }
 # distiller_manufactory / scottish_whisky_distillery_maintenance: scottish_whisky
-bag_wtp_reach_153 = {
+bag_wtp_reach_405 = {
 	AND = { OR = { has_or_had_tag = SCO culture = { has_culture_group = culture_group:scottish_group } } }
 }
 # distiller_mill / scottish_whisky_distillery_mill_maintenance: scottish_whisky
-bag_wtp_reach_158 = {
+bag_wtp_reach_410 = {
 	AND = { OR = { has_or_had_tag = SCO culture = { has_culture_group = culture_group:scottish_group } } }
 }
 # porcelain_guild / porcelain_guild_maintenance: porcelain_kiln_advance
-bag_wtp_reach_191 = {
+bag_wtp_reach_486 = {
 	AND = { num_of_non_rural > 0 original_capital = { sub_continent = sub_continent:east_asia } }
 }
 # tools_guild / copper_tools_guild_maintenance: copperworking
-bag_wtp_reach_221 = {
+bag_wtp_reach_597 = {
 	AND = { is_capital_mesoamerica = yes }
 }
 # weapon_guild / weapon_guild_obsidian_maintenance: refined_obsidian_weaponry
-bag_wtp_reach_230 = {
+bag_wtp_reach_633 = {
 	AND = { is_capital_mesoamerica = yes }
 }
 
@@ -149,701 +149,1946 @@ bag_wtp_avail_17 = {
 	can_build_building = building_type:market_village
 }
 bag_wtp_avail_18 = {
-	can_build_building = building_type:printing_manufactory
+	can_build_building = building_type:nd_bav_brauerei
 }
 bag_wtp_avail_19 = {
-	can_build_building = building_type:printing_mill
+	can_build_building = building_type:nd_bav_hofbrauhaus
 }
 bag_wtp_avail_20 = {
-	can_build_building = building_type:printing_press_shop
+	can_build_building = building_type:nd_bel_abdijbrouwerij
 }
 bag_wtp_avail_21 = {
-	can_build_building = building_type:scriptorium
+	can_build_building = building_type:nd_boh_brewhouse
 }
 bag_wtp_avail_22 = {
+	can_build_building = building_type:nd_boh_brewhouse
+}
+bag_wtp_avail_23 = {
+	can_build_building = building_type:nd_ger_bergwerk
+}
+bag_wtp_avail_24 = {
+	can_build_building = building_type:nd_hau_kofar_mata
+}
+bag_wtp_avail_25 = {
+	can_build_building = building_type:nd_msi_forge
+}
+bag_wtp_avail_26 = {
+	can_build_building = building_type:nd_ntr_flour_mill
+}
+bag_wtp_avail_27 = {
+	can_build_building = building_type:nd_ukr_chernozem_estate
+}
+bag_wtp_avail_28 = {
+	can_build_building = building_type:nd_bnh_aramaic_print_house
+}
+bag_wtp_avail_29 = {
+	can_build_building = building_type:nd_bnh_translation_house
+}
+bag_wtp_avail_30 = {
+	can_build_building = building_type:nd_cso_printing_house
+}
+bag_wtp_avail_31 = {
+	can_build_building = building_type:nd_eur_universitas
+}
+bag_wtp_avail_32 = {
+	can_build_building = building_type:nd_fkn_druckerei
+}
+bag_wtp_avail_33 = {
+	can_build_building = building_type:nd_fkn_hochstift
+}
+bag_wtp_avail_34 = {
+	can_build_building = building_type:nd_ger_druckerei
+}
+bag_wtp_avail_35 = {
+	can_build_building = building_type:nd_han_georgia_augusta
+}
+bag_wtp_avail_36 = {
+	can_build_building = building_type:nd_han_georgia_augusta
+}
+bag_wtp_avail_37 = {
+	can_build_building = building_type:nd_ily_glagoljska_tiskara
+}
+bag_wtp_avail_38 = {
+	can_build_building = building_type:nd_ily_glagoljska_tiskara
+}
+bag_wtp_avail_39 = {
+	can_build_building = building_type:nd_ily_glagoljska_tiskara
+}
+bag_wtp_avail_40 = {
+	can_build_building = building_type:nd_ire_bardic_school
+}
+bag_wtp_avail_41 = {
+	can_build_building = building_type:nd_maz_printing_house
+}
+bag_wtp_avail_42 = {
+	can_build_building = building_type:nd_mol_printing_house
+}
+bag_wtp_avail_43 = {
+	can_build_building = building_type:nd_sax_druckhaus
+}
+bag_wtp_avail_44 = {
+	can_build_building = building_type:nd_sax_werkstatt
+}
+bag_wtp_avail_45 = {
+	can_build_building = building_type:nd_tab_vernacular_press
+}
+bag_wtp_avail_46 = {
+	can_build_building = building_type:nd_tbt_imperial_press
+}
+bag_wtp_avail_47 = {
+	can_build_building = building_type:nd_tbt_imperial_press
+}
+bag_wtp_avail_48 = {
+	can_build_building = building_type:nd_tbt_imperial_press
+}
+bag_wtp_avail_49 = {
+	can_build_building = building_type:nd_tib_printing_house
+}
+bag_wtp_avail_50 = {
+	can_build_building = building_type:printing_manufactory
+}
+bag_wtp_avail_51 = {
+	can_build_building = building_type:printing_mill
+}
+bag_wtp_avail_52 = {
+	can_build_building = building_type:printing_press_shop
+}
+bag_wtp_avail_53 = {
+	can_build_building = building_type:scriptorium
+}
+bag_wtp_avail_54 = {
 	can_build_building = building_type:cannon_foundry
 }
 # cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_23 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_24 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_25 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_26 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_27 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_28 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_29 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_30 = {
-	always = yes
-}
-# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_31 = {
-	always = yes
-}
-bag_wtp_avail_32 = {
-	can_build_building = building_type:cannon_workshop
-}
-bag_wtp_avail_33 = {
-	can_build_building = building_type:cannon_workshop
-}
-bag_wtp_avail_34 = {
-	can_build_building = building_type:cannon_workshop
-}
-bag_wtp_avail_35 = {
-	can_build_building = building_type:cannon_workshop
-}
-bag_wtp_avail_36 = {
-	can_build_building = building_type:cannon_workshop
-}
-bag_wtp_avail_37 = {
-	can_build_building = building_type:cannon_workshop
-}
-bag_wtp_avail_38 = {
-	can_build_building = building_type:cannons_factory
-}
-bag_wtp_avail_39 = {
-	can_build_building = building_type:clay_pit
-}
-bag_wtp_avail_40 = {
-	can_build_building = building_type:cloth_guild
-}
-bag_wtp_avail_41 = {
-	can_build_building = building_type:cloth_guild
-}
-bag_wtp_avail_42 = {
-	can_build_building = building_type:cloth_guild
-}
-bag_wtp_avail_43 = {
-	can_build_building = building_type:cloth_manufactory
-}
-bag_wtp_avail_44 = {
-	can_build_building = building_type:cloth_manufactory
-}
-bag_wtp_avail_45 = {
-	can_build_building = building_type:cloth_manufactory
-}
-bag_wtp_avail_46 = {
-	can_build_building = building_type:cloth_workshop
-}
-bag_wtp_avail_47 = {
-	can_build_building = building_type:cloth_workshop
-}
-bag_wtp_avail_48 = {
-	can_build_building = building_type:cloth_workshop
-}
-bag_wtp_avail_49 = {
-	can_build_building = building_type:rural_clothmaker
-}
-bag_wtp_avail_50 = {
-	can_build_building = building_type:rural_clothmaker
-}
-bag_wtp_avail_51 = {
-	can_build_building = building_type:rural_clothmaker
-}
-bag_wtp_avail_52 = {
-	can_build_building = building_type:textile_mill
-}
-bag_wtp_avail_53 = {
-	can_build_building = building_type:textile_mill
-}
-bag_wtp_avail_54 = {
-	can_build_building = building_type:textile_mill
-}
 bag_wtp_avail_55 = {
-	can_build_building = building_type:charcoal_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_56 = {
-	can_build_building = building_type:improved_charcoal_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_57 = {
-	can_build_building = building_type:cotton_plantation
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_58 = {
-	can_build_building = building_type:dyes_guild
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_59 = {
-	can_build_building = building_type:dyes_guild
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_60 = {
-	can_build_building = building_type:dyes_mill
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_61 = {
-	can_build_building = building_type:dyes_workshop
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_62 = {
-	can_build_building = building_type:dyesworks
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_63 = {
-	can_build_building = building_type:fiber_crops_farm
+	always = yes
 }
 bag_wtp_avail_64 = {
-	can_build_building = building_type:shoen
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_65 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_66 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_67 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_68 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_69 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_70 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:cannons_factory
 }
 bag_wtp_avail_71 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:nd_aeg_cairo_arsenal
 }
 bag_wtp_avail_72 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:nd_bnh_mosul_foundry
 }
 bag_wtp_avail_73 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:nd_eur_imperial_arsenal
 }
 bag_wtp_avail_74 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:nd_gbu_mechelen_foundry
 }
 bag_wtp_avail_75 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:nd_ger_krupp_stahlwerk
 }
 bag_wtp_avail_76 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:nd_mhr_tophkhana
 }
 bag_wtp_avail_77 = {
-	can_build_building = building_type:fine_cloth_manufactory
+	can_build_building = building_type:nd_spa_royal_foundry
 }
 bag_wtp_avail_78 = {
-	can_build_building = building_type:fine_cloth_manufactory
+	can_build_building = building_type:nd_vjn_swarnakara_workshop
 }
 bag_wtp_avail_79 = {
-	can_build_building = building_type:fine_cloth_manufactory
+	can_build_building = building_type:nd_ymp_imperial_arsenal
 }
 bag_wtp_avail_80 = {
-	can_build_building = building_type:fine_cloth_manufactory
+	can_build_building = building_type:clay_pit
 }
 bag_wtp_avail_81 = {
-	can_build_building = building_type:fine_cloth_mill
+	can_build_building = building_type:cloth_guild
 }
 bag_wtp_avail_82 = {
-	can_build_building = building_type:fine_cloth_mill
+	can_build_building = building_type:cloth_guild
 }
 bag_wtp_avail_83 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:cloth_guild
 }
 bag_wtp_avail_84 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:cloth_manufactory
 }
 bag_wtp_avail_85 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:cloth_manufactory
 }
 bag_wtp_avail_86 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:cloth_manufactory
 }
 bag_wtp_avail_87 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:cloth_workshop
 }
 bag_wtp_avail_88 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:cloth_workshop
 }
 bag_wtp_avail_89 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:cloth_workshop
 }
 bag_wtp_avail_90 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:nd_ahm_river_industry
 }
 bag_wtp_avail_91 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:nd_cda_catalan_cotton_mill
 }
 bag_wtp_avail_92 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:nd_egy_state_factory
 }
 bag_wtp_avail_93 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:nd_gbu_belgian_textile_mill
 }
 bag_wtp_avail_94 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:nd_gbu_flemish_cloth_hall
 }
 bag_wtp_avail_95 = {
-	can_build_building = building_type:firearms_factory
+	can_build_building = building_type:nd_guj_cotton_mill
 }
 bag_wtp_avail_96 = {
+	can_build_building = building_type:nd_guj_cotton_mill
+}
+bag_wtp_avail_97 = {
+	can_build_building = building_type:nd_ire_bleach_green
+}
+bag_wtp_avail_98 = {
+	can_build_building = building_type:nd_ire_wool_cottage
+}
+bag_wtp_avail_99 = {
+	can_build_building = building_type:nd_kbu_cotton_weaving
+}
+bag_wtp_avail_100 = {
+	can_build_building = building_type:nd_lot_lakenhalle
+}
+bag_wtp_avail_101 = {
+	can_build_building = building_type:nd_lot_lakenhalle
+}
+bag_wtp_avail_102 = {
+	can_build_building = building_type:nd_mca_cotton_weaving_house
+}
+bag_wtp_avail_103 = {
+	can_build_building = building_type:nd_mca_cotton_weaving_house
+}
+bag_wtp_avail_104 = {
+	can_build_building = building_type:nd_mgo_felt_manufactory
+}
+bag_wtp_avail_105 = {
+	can_build_building = building_type:nd_mol_beeswax_house
+}
+bag_wtp_avail_106 = {
+	can_build_building = building_type:nd_msi_weaving_house
+}
+bag_wtp_avail_107 = {
+	can_build_building = building_type:nd_nse_longship_yards
+}
+bag_wtp_avail_108 = {
+	can_build_building = building_type:nd_ntr_pounamu_workshop
+}
+bag_wtp_avail_109 = {
+	can_build_building = building_type:nd_occ_draparia
+}
+bag_wtp_avail_110 = {
+	can_build_building = building_type:nd_oye_ile_ise
+}
+bag_wtp_avail_111 = {
+	can_build_building = building_type:nd_pue_cotton_hall
+}
+bag_wtp_avail_112 = {
+	can_build_building = building_type:nd_rum_ahi_guild_hall
+}
+bag_wtp_avail_113 = {
+	can_build_building = building_type:nd_sar_pinnetta
+}
+bag_wtp_avail_114 = {
+	can_build_building = building_type:nd_sil_linen_workshop
+}
+bag_wtp_avail_115 = {
+	can_build_building = building_type:nd_sil_mechanized_mill
+}
+bag_wtp_avail_116 = {
+	can_build_building = building_type:nd_sko_kano_dye_pit
+}
+bag_wtp_avail_117 = {
+	can_build_building = building_type:nd_sko_kano_dye_pit
+}
+bag_wtp_avail_118 = {
+	can_build_building = building_type:nd_slo_salas
+}
+bag_wtp_avail_119 = {
+	can_build_building = building_type:nd_spa_mesta_sheepwalk
+}
+bag_wtp_avail_120 = {
+	can_build_building = building_type:nd_swa_webhaus
+}
+bag_wtp_avail_121 = {
+	can_build_building = building_type:nd_swi_textile_manufactory
+}
+bag_wtp_avail_122 = {
+	can_build_building = building_type:nd_tbt_nambu_workshop
+}
+bag_wtp_avail_123 = {
+	can_build_building = building_type:nd_the_broadcloth_hall
+}
+bag_wtp_avail_124 = {
+	can_build_building = building_type:nd_the_broadcloth_hall
+}
+bag_wtp_avail_125 = {
+	can_build_building = building_type:nd_tib_wool_workshop
+}
+bag_wtp_avail_126 = {
+	can_build_building = building_type:nd_tus_cappelleria
+}
+bag_wtp_avail_127 = {
+	can_build_building = building_type:nd_usa_cotton_gin_workshop
+}
+bag_wtp_avail_128 = {
+	can_build_building = building_type:nd_wes_linen_house
+}
+bag_wtp_avail_129 = {
+	can_build_building = building_type:rural_clothmaker
+}
+bag_wtp_avail_130 = {
+	can_build_building = building_type:rural_clothmaker
+}
+bag_wtp_avail_131 = {
+	can_build_building = building_type:rural_clothmaker
+}
+bag_wtp_avail_132 = {
+	can_build_building = building_type:textile_mill
+}
+bag_wtp_avail_133 = {
+	can_build_building = building_type:textile_mill
+}
+bag_wtp_avail_134 = {
+	can_build_building = building_type:textile_mill
+}
+bag_wtp_avail_135 = {
+	can_build_building = building_type:charcoal_maker
+}
+bag_wtp_avail_136 = {
+	can_build_building = building_type:improved_charcoal_maker
+}
+bag_wtp_avail_137 = {
+	can_build_building = building_type:nd_gbu_walloon_coalworks
+}
+bag_wtp_avail_138 = {
+	can_build_building = building_type:nd_sil_coal_works
+}
+bag_wtp_avail_139 = {
+	can_build_building = building_type:cotton_plantation
+}
+bag_wtp_avail_140 = {
+	can_build_building = building_type:dyes_guild
+}
+bag_wtp_avail_141 = {
+	can_build_building = building_type:dyes_guild
+}
+bag_wtp_avail_142 = {
+	can_build_building = building_type:dyes_mill
+}
+bag_wtp_avail_143 = {
+	can_build_building = building_type:dyes_workshop
+}
+bag_wtp_avail_144 = {
+	can_build_building = building_type:dyesworks
+}
+bag_wtp_avail_145 = {
+	can_build_building = building_type:nd_bng_indigo_vat
+}
+bag_wtp_avail_146 = {
+	can_build_building = building_type:nd_guj_dye_works
+}
+bag_wtp_avail_147 = {
+	can_build_building = building_type:nd_mex_cochineal_obraje
+}
+bag_wtp_avail_148 = {
+	can_build_building = building_type:nd_msi_forge
+}
+bag_wtp_avail_149 = {
+	can_build_building = building_type:nd_occ_obrador_del_pastel
+}
+bag_wtp_avail_150 = {
+	can_build_building = building_type:nd_occ_obrador_del_pastel
+}
+bag_wtp_avail_151 = {
+	can_build_building = building_type:nd_occ_obrador_del_pastel
+}
+bag_wtp_avail_152 = {
+	can_build_building = building_type:nd_pun_shawl_karkhana
+}
+bag_wtp_avail_153 = {
+	can_build_building = building_type:fiber_crops_farm
+}
+bag_wtp_avail_154 = {
+	can_build_building = building_type:shoen
+}
+bag_wtp_avail_155 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_156 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_157 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_158 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_159 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_160 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_161 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_162 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_163 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_164 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_165 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_166 = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_avail_167 = {
+	can_build_building = building_type:fine_cloth_manufactory
+}
+bag_wtp_avail_168 = {
+	can_build_building = building_type:fine_cloth_manufactory
+}
+bag_wtp_avail_169 = {
+	can_build_building = building_type:fine_cloth_manufactory
+}
+bag_wtp_avail_170 = {
+	can_build_building = building_type:fine_cloth_manufactory
+}
+bag_wtp_avail_171 = {
+	can_build_building = building_type:fine_cloth_mill
+}
+bag_wtp_avail_172 = {
+	can_build_building = building_type:fine_cloth_mill
+}
+bag_wtp_avail_173 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_174 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_175 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_176 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_177 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_178 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_179 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_180 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_181 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_182 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_183 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_184 = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_avail_185 = {
+	can_build_building = building_type:nd_adu_dar_al_tiraz
+}
+bag_wtp_avail_186 = {
+	can_build_building = building_type:nd_adu_dar_al_tiraz
+}
+bag_wtp_avail_187 = {
+	can_build_building = building_type:nd_aeg_khalili_bazaar
+}
+bag_wtp_avail_188 = {
+	can_build_building = building_type:nd_air_indigo_dyeworks
+}
+bag_wtp_avail_189 = {
+	can_build_building = building_type:nd_alm_andalusi_silk_workshop
+}
+bag_wtp_avail_190 = {
+	can_build_building = building_type:nd_arc_cilician_workshop
+}
+bag_wtp_avail_191 = {
+	can_build_building = building_type:nd_ate_kente_workshop
+}
+bag_wtp_avail_192 = {
+	can_build_building = building_type:nd_ate_kente_workshop
+}
+bag_wtp_avail_193 = {
+	can_build_building = building_type:nd_bel_tapisserie
+}
+bag_wtp_avail_194 = {
+	can_build_building = building_type:nd_bgp_silk_workshop
+}
+bag_wtp_avail_195 = {
+	can_build_building = building_type:nd_bng_muslin_workshop
+}
+bag_wtp_avail_196 = {
+	can_build_building = building_type:nd_bng_muslin_workshop
+}
+bag_wtp_avail_197 = {
+	can_build_building = building_type:nd_byz_silk_ergasterion
+}
+bag_wtp_avail_198 = {
+	can_build_building = building_type:nd_cso_silk_workshop
+}
+bag_wtp_avail_199 = {
+	can_build_building = building_type:nd_cth_dye_works
+}
+bag_wtp_avail_200 = {
+	can_build_building = building_type:nd_dlh_karkhana
+}
+bag_wtp_avail_201 = {
+	can_build_building = building_type:nd_eur_trade_fair
+}
+bag_wtp_avail_202 = {
+	can_build_building = building_type:nd_gbu_flemish_cloth_hall
+}
+bag_wtp_avail_203 = {
+	can_build_building = building_type:nd_guj_karkhana
+}
+bag_wtp_avail_204 = {
+	can_build_building = building_type:nd_hau_kofar_mata
+}
+bag_wtp_avail_205 = {
+	can_build_building = building_type:nd_hau_kofar_mata
+}
+bag_wtp_avail_206 = {
+	can_build_building = building_type:nd_hin_karkhana
+}
+bag_wtp_avail_207 = {
+	can_build_building = building_type:nd_inc_textile_obraje
+}
+bag_wtp_avail_208 = {
+	can_build_building = building_type:nd_ira_karkhane
+}
+bag_wtp_avail_209 = {
+	can_build_building = building_type:nd_irq_attabiya_workshop
+}
+bag_wtp_avail_210 = {
+	can_build_building = building_type:nd_ita_setificio
+}
+bag_wtp_avail_211 = {
+	can_build_building = building_type:nd_jap_za_guild_hall
+}
+bag_wtp_avail_212 = {
+	can_build_building = building_type:nd_kry_abrisham_khaneh
+}
+bag_wtp_avail_213 = {
+	can_build_building = building_type:nd_kry_abrisham_khaneh
+}
+bag_wtp_avail_214 = {
+	can_build_building = building_type:nd_lat_fondaco
+}
+bag_wtp_avail_215 = {
+	can_build_building = building_type:nd_lot_lakenhalle
+}
+bag_wtp_avail_216 = {
+	can_build_building = building_type:nd_lxa_silk_house
+}
+bag_wtp_avail_217 = {
+	can_build_building = building_type:nd_mal_sahel_caravanserai
+}
+bag_wtp_avail_218 = {
+	can_build_building = building_type:nd_mhr_koshti_karkhana
+}
+bag_wtp_avail_219 = {
+	can_build_building = building_type:nd_mir_lamba_workshop
+}
+bag_wtp_avail_220 = {
+	can_build_building = building_type:nd_mir_lamba_workshop
+}
+bag_wtp_avail_221 = {
+	can_build_building = building_type:nd_mir_lamba_workshop
+}
+bag_wtp_avail_222 = {
+	can_build_building = building_type:nd_mtm_batik_workshop
+}
+bag_wtp_avail_223 = {
+	can_build_building = building_type:nd_mtm_batik_workshop
+}
+bag_wtp_avail_224 = {
+	can_build_building = building_type:nd_mtm_batik_workshop
+}
+bag_wtp_avail_225 = {
+	can_build_building = building_type:nd_mtm_batik_workshop
+}
+bag_wtp_avail_226 = {
+	can_build_building = building_type:nd_mug_karkhana
+}
+bag_wtp_avail_227 = {
+	can_build_building = building_type:nd_occ_draparia
+}
+bag_wtp_avail_228 = {
+	can_build_building = building_type:nd_occ_manufactura_reiala
+}
+bag_wtp_avail_229 = {
+	can_build_building = building_type:nd_out_tiraz_house
+}
+bag_wtp_avail_230 = {
+	can_build_building = building_type:nd_out_tiraz_house
+}
+bag_wtp_avail_231 = {
+	can_build_building = building_type:nd_pun_shawl_karkhana
+}
+bag_wtp_avail_232 = {
+	can_build_building = building_type:nd_rjp_karkhana
+}
+bag_wtp_avail_233 = {
+	can_build_building = building_type:nd_rum_manufactory
+}
+bag_wtp_avail_234 = {
+	can_build_building = building_type:nd_ryu_bingata_workshop
+}
+bag_wtp_avail_235 = {
+	can_build_building = building_type:nd_sar_piedmont_filatoio
+}
+bag_wtp_avail_236 = {
+	can_build_building = building_type:nd_sax_messehaus
+}
+bag_wtp_avail_237 = {
+	can_build_building = building_type:nd_sha_weaving_workshop
+}
+bag_wtp_avail_238 = {
+	can_build_building = building_type:nd_sil_linen_workshop
+}
+bag_wtp_avail_239 = {
+	can_build_building = building_type:nd_sko_cloth_manufactory
+}
+bag_wtp_avail_240 = {
+	can_build_building = building_type:nd_soi_weaving_house
+}
+bag_wtp_avail_241 = {
+	can_build_building = building_type:nd_swa_webhaus
+}
+bag_wtp_avail_242 = {
+	can_build_building = building_type:nd_tbt_nambu_workshop
+}
+bag_wtp_avail_243 = {
+	can_build_building = building_type:nd_tbt_nambu_workshop
+}
+bag_wtp_avail_244 = {
+	can_build_building = building_type:nd_tbt_nambu_workshop
+}
+bag_wtp_avail_245 = {
+	can_build_building = building_type:nd_tbt_thangka_atelier
+}
+bag_wtp_avail_246 = {
+	can_build_building = building_type:nd_tgd_silk_workshop
+}
+bag_wtp_avail_247 = {
+	can_build_building = building_type:nd_the_broadcloth_hall
+}
+bag_wtp_avail_248 = {
+	can_build_building = building_type:nd_tus_silk_workshop
+}
+bag_wtp_avail_249 = {
+	can_build_building = building_type:nd_tws_reale_seteria
+}
+bag_wtp_avail_250 = {
+	can_build_building = building_type:firearms_factory
+}
+bag_wtp_avail_251 = {
 	can_build_building = building_type:firearms_manufactory
 }
 # gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_97 = {
+bag_wtp_avail_252 = {
 	always = yes
 }
 # gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_98 = {
+bag_wtp_avail_253 = {
 	always = yes
 }
 # gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_99 = {
+bag_wtp_avail_254 = {
 	always = yes
 }
 # gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_100 = {
+bag_wtp_avail_255 = {
 	always = yes
 }
 # gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_101 = {
+bag_wtp_avail_256 = {
 	always = yes
 }
 # gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
-bag_wtp_avail_102 = {
+bag_wtp_avail_257 = {
 	always = yes
 }
-bag_wtp_avail_103 = {
+bag_wtp_avail_258 = {
 	can_build_building = building_type:guns_workshop
 }
-bag_wtp_avail_104 = {
+bag_wtp_avail_259 = {
 	can_build_building = building_type:guns_workshop
 }
-bag_wtp_avail_105 = {
+bag_wtp_avail_260 = {
 	can_build_building = building_type:guns_workshop
 }
-bag_wtp_avail_106 = {
+bag_wtp_avail_261 = {
 	can_build_building = building_type:guns_workshop
 }
-bag_wtp_avail_107 = {
+bag_wtp_avail_262 = {
 	can_build_building = building_type:hand_cannon_guild
 }
-bag_wtp_avail_108 = {
+bag_wtp_avail_263 = {
+	can_build_building = building_type:nd_bel_liege_armory
+}
+bag_wtp_avail_264 = {
+	can_build_building = building_type:nd_drr_jezail_workshop
+}
+bag_wtp_avail_265 = {
+	can_build_building = building_type:nd_lmb_armeria
+}
+bag_wtp_avail_266 = {
+	can_build_building = building_type:nd_mhr_tophkhana
+}
+bag_wtp_avail_267 = {
+	can_build_building = building_type:nd_mir_musket_workshop
+}
+bag_wtp_avail_268 = {
+	can_build_building = building_type:nd_mir_musket_workshop
+}
+bag_wtp_avail_269 = {
+	can_build_building = building_type:nd_mro_lantaka_foundry
+}
+bag_wtp_avail_270 = {
+	can_build_building = building_type:nd_svb_royal_arsenal
+}
+bag_wtp_avail_271 = {
+	can_build_building = building_type:nd_usa_federal_armory
+}
+bag_wtp_avail_272 = {
+	can_build_building = building_type:nd_usa_federal_armory
+}
+bag_wtp_avail_273 = {
+	can_build_building = building_type:nd_ymp_arsenal_foundry
+}
+bag_wtp_avail_274 = {
+	can_build_building = building_type:nd_ymp_arsenal_foundry
+}
+bag_wtp_avail_275 = {
 	can_build_building = building_type:fishing_village
 }
-bag_wtp_avail_109 = {
+bag_wtp_avail_276 = {
 	can_build_building = building_type:fishing_village
 }
-bag_wtp_avail_110 = {
+bag_wtp_avail_277 = {
+	can_build_building = building_type:nd_kry_shilat_khaneh
+}
+bag_wtp_avail_278 = {
+	can_build_building = building_type:nd_lbe_upemba_fishery
+}
+bag_wtp_avail_279 = {
+	can_build_building = building_type:nd_nse_herring_hall
+}
+bag_wtp_avail_280 = {
+	can_build_building = building_type:nd_ryu_fishing_settlement
+}
+bag_wtp_avail_281 = {
 	can_build_building = building_type:fruit_orchard
 }
-bag_wtp_avail_111 = {
+bag_wtp_avail_282 = {
+	can_build_building = building_type:nd_irq_nakhil_grove
+}
+bag_wtp_avail_283 = {
 	can_build_building = building_type:furniture_guild
 }
-bag_wtp_avail_112 = {
+bag_wtp_avail_284 = {
 	can_build_building = building_type:furniture_manufactory
 }
-bag_wtp_avail_113 = {
+bag_wtp_avail_285 = {
 	can_build_building = building_type:furniture_mill
 }
-bag_wtp_avail_114 = {
+bag_wtp_avail_286 = {
 	can_build_building = building_type:furniture_workshop
 }
-bag_wtp_avail_115 = {
+bag_wtp_avail_287 = {
+	can_build_building = building_type:nd_fkn_handelshaus
+}
+bag_wtp_avail_288 = {
+	can_build_building = building_type:nd_nse_stave_church
+}
+bag_wtp_avail_289 = {
 	can_build_building = building_type:glass_guild
 }
-bag_wtp_avail_116 = {
+bag_wtp_avail_290 = {
 	can_build_building = building_type:glass_guild
 }
-bag_wtp_avail_117 = {
+bag_wtp_avail_291 = {
 	can_build_building = building_type:glass_mill
 }
-bag_wtp_avail_118 = {
+bag_wtp_avail_292 = {
 	can_build_building = building_type:glass_workshop
 }
-bag_wtp_avail_119 = {
+bag_wtp_avail_293 = {
 	can_build_building = building_type:glassworks
 }
-bag_wtp_avail_120 = {
+bag_wtp_avail_294 = {
+	can_build_building = building_type:nd_cth_glassworks
+}
+bag_wtp_avail_295 = {
+	can_build_building = building_type:nd_ita_vetreria
+}
+bag_wtp_avail_296 = {
 	can_build_building = building_type:rural_glassmaker
 }
-bag_wtp_avail_121 = {
+bag_wtp_avail_297 = {
 	can_build_building = building_type:horse_breeders
 }
-bag_wtp_avail_122 = {
+bag_wtp_avail_298 = {
+	can_build_building = building_type:nd_han_landgestut
+}
+bag_wtp_avail_299 = {
+	can_build_building = building_type:nd_kaz_horse_stud
+}
+bag_wtp_avail_300 = {
+	can_build_building = building_type:nd_mgo_horse_grounds
+}
+bag_wtp_avail_301 = {
+	can_build_building = building_type:nd_num_horse_corral
+}
+bag_wtp_avail_302 = {
+	can_build_building = building_type:nd_num_horse_corral
+}
+bag_wtp_avail_303 = {
+	can_build_building = building_type:nd_num_horse_corral
+}
+bag_wtp_avail_304 = {
+	can_build_building = building_type:nd_num_horse_corral
+}
+bag_wtp_avail_305 = {
+	can_build_building = building_type:nd_lxa_forest_camp
+}
+bag_wtp_avail_306 = {
 	can_build_building = building_type:perfumery
 }
-bag_wtp_avail_123 = {
+bag_wtp_avail_307 = {
 	can_build_building = building_type:bog_iron_smelter
 }
-bag_wtp_avail_124 = {
+bag_wtp_avail_308 = {
+	can_build_building = building_type:nd_ger_bergwerk
+}
+bag_wtp_avail_309 = {
+	can_build_building = building_type:nd_lot_walloon_forge
+}
+bag_wtp_avail_310 = {
 	can_build_building = building_type:shoen
 }
-bag_wtp_avail_125 = {
+bag_wtp_avail_311 = {
 	can_build_building = building_type:elephant_hunting_grounds
 }
-bag_wtp_avail_126 = {
+bag_wtp_avail_312 = {
 	can_build_building = building_type:jewelry_guild
 	has_advance = copperworking
 }
-bag_wtp_avail_127 = {
+bag_wtp_avail_313 = {
 	can_build_building = building_type:jewelry_guild
 	has_advance = copperworking
 }
-bag_wtp_avail_128 = {
+bag_wtp_avail_314 = {
 	can_build_building = building_type:jewelry_guild
 	has_advance = copperworking
 }
-bag_wtp_avail_129 = {
+bag_wtp_avail_315 = {
 	can_build_building = building_type:jewelry_guild
 	has_advance = copperworking
 }
-bag_wtp_avail_130 = {
+bag_wtp_avail_316 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_131 = {
+bag_wtp_avail_317 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_132 = {
+bag_wtp_avail_318 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_133 = {
+bag_wtp_avail_319 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_134 = {
+bag_wtp_avail_320 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_135 = {
+bag_wtp_avail_321 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_136 = {
+bag_wtp_avail_322 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_137 = {
+bag_wtp_avail_323 = {
 	can_build_building = building_type:jewelry_guild
 }
-bag_wtp_avail_138 = {
+bag_wtp_avail_324 = {
 	can_build_building = building_type:market_village
 }
-bag_wtp_avail_139 = {
+bag_wtp_avail_325 = {
+	can_build_building = building_type:nd_air_inadan_forge
+}
+bag_wtp_avail_326 = {
+	can_build_building = building_type:nd_ate_abrafoo_foundry
+}
+bag_wtp_avail_327 = {
+	can_build_building = building_type:nd_ate_abrafoo_foundry
+}
+bag_wtp_avail_328 = {
+	can_build_building = building_type:nd_bah_bidri_workshop
+}
+bag_wtp_avail_329 = {
+	can_build_building = building_type:nd_bel_diamantwijk
+}
+bag_wtp_avail_330 = {
+	can_build_building = building_type:nd_boh_kutna_hora_mint
+}
+bag_wtp_avail_331 = {
+	can_build_building = building_type:nd_dec_diamond_workshop
+}
+bag_wtp_avail_332 = {
+	can_build_building = building_type:nd_dlh_karkhana
+}
+bag_wtp_avail_333 = {
+	can_build_building = building_type:nd_edo_igun_workshop
+}
+bag_wtp_avail_334 = {
+	can_build_building = building_type:nd_got_aurifex
+}
+bag_wtp_avail_335 = {
+	can_build_building = building_type:nd_got_aurifex
+}
+bag_wtp_avail_336 = {
+	can_build_building = building_type:nd_got_aurifex
+}
+bag_wtp_avail_337 = {
+	can_build_building = building_type:nd_kon_palm_oil_press
+}
+bag_wtp_avail_338 = {
+	can_build_building = building_type:nd_kws_mint
+}
+bag_wtp_avail_339 = {
+	can_build_building = building_type:nd_kws_mint
+}
+bag_wtp_avail_340 = {
+	can_build_building = building_type:nd_lbe_copper_smithy
+}
+bag_wtp_avail_341 = {
+	can_build_building = building_type:nd_liv_bernsteinkammer
+}
+bag_wtp_avail_342 = {
+	can_build_building = building_type:nd_lva_amber_workshop
+}
+bag_wtp_avail_343 = {
+	can_build_building = building_type:nd_mca_goldsmith_workshop
+}
+bag_wtp_avail_344 = {
+	can_build_building = building_type:nd_mca_goldsmith_workshop
+}
+bag_wtp_avail_345 = {
+	can_build_building = building_type:nd_mex_casa_de_moneda
+}
+bag_wtp_avail_346 = {
+	can_build_building = building_type:nd_mrl_ginto_foundry
+}
+bag_wtp_avail_347 = {
+	can_build_building = building_type:nd_mrl_panday_workshop
+}
+bag_wtp_avail_348 = {
+	can_build_building = building_type:nd_mug_karkhana
+}
+bag_wtp_avail_349 = {
+	can_build_building = building_type:nd_npl_newari_workshop
+}
+bag_wtp_avail_350 = {
+	can_build_building = building_type:nd_ntr_pounamu_workshop
+}
+bag_wtp_avail_351 = {
+	can_build_building = building_type:nd_nzo_silver_workshop
+}
+bag_wtp_avail_352 = {
+	can_build_building = building_type:nd_nzo_silver_workshop
+}
+bag_wtp_avail_353 = {
+	can_build_building = building_type:nd_plc_amber_workshop
+}
+bag_wtp_avail_354 = {
+	can_build_building = building_type:nd_pnt_panday_workshop
+}
+bag_wtp_avail_355 = {
+	can_build_building = building_type:nd_pom_amber_workshop
+}
+bag_wtp_avail_356 = {
+	can_build_building = building_type:nd_pru_amber_guild
+}
+bag_wtp_avail_357 = {
+	can_build_building = building_type:nd_pue_turquoise_workshop
+}
+bag_wtp_avail_358 = {
+	can_build_building = building_type:nd_pue_turquoise_workshop
+}
+bag_wtp_avail_359 = {
+	can_build_building = building_type:nd_pue_turquoise_workshop
+}
+bag_wtp_avail_360 = {
+	can_build_building = building_type:nd_sar_curia_regni
+}
+bag_wtp_avail_361 = {
+	can_build_building = building_type:nd_sar_pinnetta
+}
+bag_wtp_avail_362 = {
+	can_build_building = building_type:nd_sha_silverworks
+}
+bag_wtp_avail_363 = {
+	can_build_building = building_type:nd_slo_kremnica_mint
+}
+bag_wtp_avail_364 = {
+	can_build_building = building_type:nd_soi_mogadishu_mint
+}
+bag_wtp_avail_365 = {
+	can_build_building = building_type:nd_soi_weaving_house
+}
+bag_wtp_avail_366 = {
+	can_build_building = building_type:nd_spa_silver_minting_house
+}
+bag_wtp_avail_367 = {
+	can_build_building = building_type:nd_svb_bronze_buddha_foundry
+}
+bag_wtp_avail_368 = {
+	can_build_building = building_type:nd_svb_gem_workshop
+}
+bag_wtp_avail_369 = {
+	can_build_building = building_type:nd_swi_horological_workshop
+}
+bag_wtp_avail_370 = {
+	can_build_building = building_type:nd_tdr_pontic_workshop
+}
+bag_wtp_avail_371 = {
+	can_build_building = building_type:nd_vjn_swarnakara_workshop
+}
+bag_wtp_avail_372 = {
+	can_build_building = building_type:nd_yav_bilingual_mint
+}
+bag_wtp_avail_373 = {
 	can_build_building = building_type:pounamou_carver
 }
-bag_wtp_avail_140 = {
+bag_wtp_avail_374 = {
 	can_build_building = building_type:lacquerware_guild
 }
-bag_wtp_avail_141 = {
+bag_wtp_avail_375 = {
 	can_build_building = building_type:lacquerware_manufactory
 }
-bag_wtp_avail_142 = {
+bag_wtp_avail_376 = {
+	can_build_building = building_type:nd_jap_za_guild_hall
+}
+bag_wtp_avail_377 = {
+	can_build_building = building_type:nd_lxa_silk_house
+}
+bag_wtp_avail_378 = {
+	can_build_building = building_type:nd_ryu_lacquerware_workshop
+}
+bag_wtp_avail_379 = {
+	can_build_building = building_type:nd_svb_lacquerware_atelier
+}
+bag_wtp_avail_380 = {
+	can_build_building = building_type:nd_ymp_lacquer_workshop
+}
+bag_wtp_avail_381 = {
+	can_build_building = building_type:nd_ymp_lacquer_workshop
+}
+bag_wtp_avail_382 = {
 	can_build_building = building_type:forest_village
 }
-bag_wtp_avail_143 = {
+bag_wtp_avail_383 = {
+	can_build_building = building_type:nd_hau_majema_tannery
+}
+bag_wtp_avail_384 = {
+	can_build_building = building_type:nd_iro_three_sisters_garden
+}
+bag_wtp_avail_385 = {
+	can_build_building = building_type:nd_kbu_tannery
+}
+bag_wtp_avail_386 = {
+	can_build_building = building_type:nd_lva_amber_workshop
+}
+bag_wtp_avail_387 = {
+	can_build_building = building_type:nd_mch_fur_workshop
+}
+bag_wtp_avail_388 = {
+	can_build_building = building_type:nd_num_bison_camp
+}
+bag_wtp_avail_389 = {
+	can_build_building = building_type:nd_num_bison_camp
+}
+bag_wtp_avail_390 = {
+	can_build_building = building_type:nd_num_bison_camp
+}
+bag_wtp_avail_391 = {
+	can_build_building = building_type:nd_num_bison_camp
+}
+bag_wtp_avail_392 = {
+	can_build_building = building_type:nd_rmn_tabacarie
+}
+bag_wtp_avail_393 = {
+	can_build_building = building_type:nd_slo_salas
+}
+bag_wtp_avail_394 = {
+	can_build_building = building_type:nd_soi_weaving_house
+}
+bag_wtp_avail_395 = {
 	can_build_building = building_type:tannery
 }
-bag_wtp_avail_144 = {
+bag_wtp_avail_396 = {
 	can_build_building = building_type:tannery
 }
-bag_wtp_avail_145 = {
+bag_wtp_avail_397 = {
 	can_build_building = building_type:tannery_manufactory
 }
-bag_wtp_avail_146 = {
+bag_wtp_avail_398 = {
 	can_build_building = building_type:tannery_manufactory
 }
-bag_wtp_avail_147 = {
+bag_wtp_avail_399 = {
 	can_build_building = building_type:tannery_mill
 }
-bag_wtp_avail_148 = {
+bag_wtp_avail_400 = {
 	can_build_building = building_type:tannery_mill
 }
-bag_wtp_avail_149 = {
+bag_wtp_avail_401 = {
 	can_build_building = building_type:tanning_workshop
 }
-bag_wtp_avail_150 = {
+bag_wtp_avail_402 = {
 	can_build_building = building_type:tanning_workshop
 }
-bag_wtp_avail_151 = {
+bag_wtp_avail_403 = {
 	can_build_building = building_type:distiller_manufactory
 }
-bag_wtp_avail_152 = {
+bag_wtp_avail_404 = {
 	can_build_building = building_type:distiller_manufactory
 }
-bag_wtp_avail_153 = {
+bag_wtp_avail_405 = {
 	can_build_building = building_type:distiller_manufactory
 	has_advance = scottish_whisky
 }
-bag_wtp_avail_154 = {
+bag_wtp_avail_406 = {
 	can_build_building = building_type:distiller_manufactory
 }
-bag_wtp_avail_155 = {
+bag_wtp_avail_407 = {
 	can_build_building = building_type:distiller_manufactory
 }
-bag_wtp_avail_156 = {
+bag_wtp_avail_408 = {
 	can_build_building = building_type:distiller_mill
 }
-bag_wtp_avail_157 = {
+bag_wtp_avail_409 = {
 	can_build_building = building_type:distiller_mill
 }
-bag_wtp_avail_158 = {
+bag_wtp_avail_410 = {
 	can_build_building = building_type:distiller_mill
 	has_advance = scottish_whisky
 }
-bag_wtp_avail_159 = {
+bag_wtp_avail_411 = {
 	can_build_building = building_type:distiller_mill
 }
-bag_wtp_avail_160 = {
+bag_wtp_avail_412 = {
 	can_build_building = building_type:distiller_mill
 }
-bag_wtp_avail_161 = {
+bag_wtp_avail_413 = {
 	can_build_building = building_type:distillers_guild
 }
-bag_wtp_avail_162 = {
+bag_wtp_avail_414 = {
 	can_build_building = building_type:distillers_guild
 }
-bag_wtp_avail_163 = {
+bag_wtp_avail_415 = {
 	can_build_building = building_type:distillers_guild
 }
-bag_wtp_avail_164 = {
+bag_wtp_avail_416 = {
 	can_build_building = building_type:distillers_guild
 }
-bag_wtp_avail_165 = {
+bag_wtp_avail_417 = {
 	can_build_building = building_type:distillers_guild
 }
-bag_wtp_avail_166 = {
+bag_wtp_avail_418 = {
 	can_build_building = building_type:distillers_workshop
 }
-bag_wtp_avail_167 = {
+bag_wtp_avail_419 = {
 	can_build_building = building_type:distillers_workshop
 }
-bag_wtp_avail_168 = {
+bag_wtp_avail_420 = {
 	can_build_building = building_type:distillers_workshop
 }
-bag_wtp_avail_169 = {
+bag_wtp_avail_421 = {
 	can_build_building = building_type:distillers_workshop
 }
-bag_wtp_avail_170 = {
+bag_wtp_avail_422 = {
 	can_build_building = building_type:distillers_workshop
 }
-bag_wtp_avail_171 = {
+bag_wtp_avail_423 = {
+	can_build_building = building_type:nd_aeg_khalili_bazaar
+}
+bag_wtp_avail_424 = {
+	can_build_building = building_type:nd_dah_palm_oil_works
+}
+bag_wtp_avail_425 = {
+	can_build_building = building_type:nd_fkn_weinberghaus
+}
+bag_wtp_avail_426 = {
+	can_build_building = building_type:nd_gre_olive_press
+}
+bag_wtp_avail_427 = {
+	can_build_building = building_type:nd_ire_distillery
+}
+bag_wtp_avail_428 = {
+	can_build_building = building_type:nd_jap_za_guild_hall
+}
+bag_wtp_avail_429 = {
+	can_build_building = building_type:nd_kaz_kumis_brewery
+}
+bag_wtp_avail_430 = {
+	can_build_building = building_type:nd_mex_hacienda_grande
+}
+bag_wtp_avail_431 = {
+	can_build_building = building_type:nd_occ_alambic
+}
+bag_wtp_avail_432 = {
+	can_build_building = building_type:nd_occ_alambic
+}
+bag_wtp_avail_433 = {
+	can_build_building = building_type:nd_pon_kapheneion
+}
+bag_wtp_avail_434 = {
+	can_build_building = building_type:nd_rus_vodka_distillery
+}
+bag_wtp_avail_435 = {
+	can_build_building = building_type:nd_ryu_awamori_distillery
+}
+bag_wtp_avail_436 = {
+	can_build_building = building_type:nd_tdr_pontic_workshop
+}
+bag_wtp_avail_437 = {
+	can_build_building = building_type:nd_tgd_tea_house
+}
+bag_wtp_avail_438 = {
+	can_build_building = building_type:nd_the_metochion
+}
+bag_wtp_avail_439 = {
+	can_build_building = building_type:nd_ukr_medovarnia
+}
+bag_wtp_avail_440 = {
+	can_build_building = building_type:nd_usa_cotton_gin_workshop
+}
+bag_wtp_avail_441 = {
 	can_build_building = building_type:farming_village
 }
-bag_wtp_avail_172 = {
+bag_wtp_avail_442 = {
+	can_build_building = building_type:nd_sko_cattle_camp
+}
+bag_wtp_avail_443 = {
+	can_build_building = building_type:nd_tws_masseria
+}
+bag_wtp_avail_444 = {
+	can_build_building = building_type:nd_liv_dampfsagewerk
+}
+bag_wtp_avail_445 = {
 	can_build_building = building_type:shoen
 }
-bag_wtp_avail_173 = {
+bag_wtp_avail_446 = {
 	can_build_building = building_type:mason
 }
-bag_wtp_avail_174 = {
+bag_wtp_avail_447 = {
 	can_build_building = building_type:mason
 }
-bag_wtp_avail_175 = {
+bag_wtp_avail_448 = {
+	can_build_building = building_type:nd_mtp_njanja_forge
+}
+bag_wtp_avail_449 = {
+	can_build_building = building_type:nd_tus_marble_quarry
+}
+bag_wtp_avail_450 = {
 	can_build_building = building_type:shoen
 }
-bag_wtp_avail_176 = {
+bag_wtp_avail_451 = {
 	can_build_building = building_type:apothecary
 }
-bag_wtp_avail_177 = {
+bag_wtp_avail_452 = {
 	can_build_building = building_type:apothecary
 }
-bag_wtp_avail_178 = {
+bag_wtp_avail_453 = {
+	can_build_building = building_type:nd_hos_apothecary
+}
+bag_wtp_avail_454 = {
+	can_build_building = building_type:nd_kon_palm_oil_press
+}
+bag_wtp_avail_455 = {
+	can_build_building = building_type:nd_oye_ile_ise
+}
+bag_wtp_avail_456 = {
+	can_build_building = building_type:nd_the_myron_hall
+}
+bag_wtp_avail_457 = {
 	can_build_building = building_type:fishing_village
 }
-bag_wtp_avail_179 = {
+bag_wtp_avail_458 = {
 	can_build_building = building_type:naval_supplies_guild
 }
-bag_wtp_avail_180 = {
+bag_wtp_avail_459 = {
 	can_build_building = building_type:naval_supplies_manufactory
 }
-bag_wtp_avail_181 = {
+bag_wtp_avail_460 = {
 	can_build_building = building_type:naval_supplies_mill
 }
-bag_wtp_avail_182 = {
+bag_wtp_avail_461 = {
 	can_build_building = building_type:naval_supplies_workshop
 }
-bag_wtp_avail_183 = {
+bag_wtp_avail_462 = {
+	can_build_building = building_type:nd_arc_cilician_workshop
+}
+bag_wtp_avail_463 = {
+	can_build_building = building_type:nd_fin_sahalaitos
+}
+bag_wtp_avail_464 = {
+	can_build_building = building_type:nd_fin_tervanpolttaja
+}
+bag_wtp_avail_465 = {
+	can_build_building = building_type:nd_lat_arsenal
+}
+bag_wtp_avail_466 = {
+	can_build_building = building_type:nd_lva_amber_workshop
+}
+bag_wtp_avail_467 = {
+	can_build_building = building_type:nd_nse_longship_yards
+}
+bag_wtp_avail_468 = {
+	can_build_building = building_type:nd_nse_longship_yards
+}
+bag_wtp_avail_469 = {
+	can_build_building = building_type:nd_bnh_river_manufactory
+}
+bag_wtp_avail_470 = {
+	can_build_building = building_type:nd_lmb_cartiera
+}
+bag_wtp_avail_471 = {
+	can_build_building = building_type:nd_the_metochion
+}
+bag_wtp_avail_472 = {
 	can_build_building = building_type:paper_guild
 	has_advance = paper_guild_cloth_maintenance_advance
 }
-bag_wtp_avail_184 = {
+bag_wtp_avail_473 = {
 	can_build_building = building_type:paper_guild
 	has_advance = paper_guild_fiber_pulp_maintenance_advance
 }
-bag_wtp_avail_185 = {
+bag_wtp_avail_474 = {
 	can_build_building = building_type:paper_guild
 }
-bag_wtp_avail_186 = {
+bag_wtp_avail_475 = {
 	can_build_building = building_type:paper_manufactory
 }
-bag_wtp_avail_187 = {
+bag_wtp_avail_476 = {
 	can_build_building = building_type:paper_mill
 }
-bag_wtp_avail_188 = {
+bag_wtp_avail_477 = {
 	can_build_building = building_type:paper_mill
 	has_advance = paper_guild_wood_pulp_maintenance_advance
 }
-bag_wtp_avail_189 = {
+bag_wtp_avail_478 = {
 	can_build_building = building_type:paper_workshop
 }
-bag_wtp_avail_190 = {
+bag_wtp_avail_479 = {
 	can_build_building = building_type:paper_workshop
 }
-bag_wtp_avail_191 = {
+bag_wtp_avail_480 = {
+	can_build_building = building_type:nd_chi_porcelain_kiln
+}
+bag_wtp_avail_481 = {
+	can_build_building = building_type:nd_chi_porcelain_kiln
+}
+bag_wtp_avail_482 = {
+	can_build_building = building_type:nd_cso_porcelain_kiln
+}
+bag_wtp_avail_483 = {
+	can_build_building = building_type:nd_sax_porzellanmanufaktur
+}
+bag_wtp_avail_484 = {
+	can_build_building = building_type:nd_tgd_sancai_kiln
+}
+bag_wtp_avail_485 = {
+	can_build_building = building_type:nd_tgd_sancai_kiln
+}
+bag_wtp_avail_486 = {
 	can_build_building = building_type:porcelain_guild
 }
-bag_wtp_avail_192 = {
+bag_wtp_avail_487 = {
 	can_build_building = building_type:porcelain_manufactory
 }
-bag_wtp_avail_193 = {
+bag_wtp_avail_488 = {
 	can_build_building = building_type:fishing_village
 }
-bag_wtp_avail_194 = {
+bag_wtp_avail_489 = {
 	can_build_building = building_type:market_village
 }
-bag_wtp_avail_195 = {
+bag_wtp_avail_490 = {
+	can_build_building = building_type:nd_adu_lusterware_kiln
+}
+bag_wtp_avail_491 = {
+	can_build_building = building_type:nd_nub_pottery_workshop
+}
+bag_wtp_avail_492 = {
+	can_build_building = building_type:nd_pue_pottery_workshop
+}
+bag_wtp_avail_493 = {
+	can_build_building = building_type:nd_ryu_tsuboya_kiln
+}
+bag_wtp_avail_494 = {
 	can_build_building = building_type:pottery_guild
 }
-bag_wtp_avail_196 = {
+bag_wtp_avail_495 = {
 	can_build_building = building_type:pottery_manufactory
 }
-bag_wtp_avail_197 = {
+bag_wtp_avail_496 = {
 	can_build_building = building_type:pottery_mill
 }
-bag_wtp_avail_198 = {
+bag_wtp_avail_497 = {
 	can_build_building = building_type:pottery_workshop
 }
-bag_wtp_avail_199 = {
+bag_wtp_avail_498 = {
+	can_build_building = building_type:nd_bav_salzwerk
+}
+bag_wtp_avail_499 = {
+	can_build_building = building_type:nd_bgp_saline
+}
+bag_wtp_avail_500 = {
+	can_build_building = building_type:nd_kbu_natron_works
+}
+bag_wtp_avail_501 = {
+	can_build_building = building_type:nd_lbe_copper_smithy
+}
+bag_wtp_avail_502 = {
+	can_build_building = building_type:nd_may_salt_works
+}
+bag_wtp_avail_503 = {
+	can_build_building = building_type:nd_mca_salt_works
+}
+bag_wtp_avail_504 = {
+	can_build_building = building_type:nd_npl_newari_workshop
+}
+bag_wtp_avail_505 = {
+	can_build_building = building_type:nd_nzo_salt_wells
+}
+bag_wtp_avail_506 = {
+	can_build_building = building_type:nd_nzo_salt_wells
+}
+bag_wtp_avail_507 = {
+	can_build_building = building_type:nd_pol_kopalnia_soli
+}
+bag_wtp_avail_508 = {
+	can_build_building = building_type:nd_rmn_ocna_de_sare
+}
+bag_wtp_avail_509 = {
+	can_build_building = building_type:nd_shl_saline
+}
+bag_wtp_avail_510 = {
+	can_build_building = building_type:nd_wes_hellweg_saltworks
+}
+bag_wtp_avail_511 = {
 	can_build_building = building_type:salt_collector
 }
-bag_wtp_avail_200 = {
+bag_wtp_avail_512 = {
 	can_build_building = building_type:putrefaction_mill
 }
-bag_wtp_avail_201 = {
+bag_wtp_avail_513 = {
 	can_build_building = building_type:putrefaction_works
 }
-bag_wtp_avail_202 = {
+bag_wtp_avail_514 = {
 	can_build_building = building_type:saltpeter_guild
 }
-bag_wtp_avail_203 = {
+bag_wtp_avail_515 = {
 	can_build_building = building_type:saltpeter_workshop
 }
-bag_wtp_avail_204 = {
+bag_wtp_avail_516 = {
 	can_build_building = building_type:sand_pit
 }
-bag_wtp_avail_205 = {
+bag_wtp_avail_517 = {
 	can_build_building = building_type:ablaq_palace
 }
-bag_wtp_avail_206 = {
+bag_wtp_avail_518 = {
 	can_build_building = building_type:lucca_silk_production_guild
 }
-bag_wtp_avail_207 = {
+bag_wtp_avail_519 = {
+	can_build_building = building_type:nd_ahm_eka_sarana_workshop
+}
+bag_wtp_avail_520 = {
+	can_build_building = building_type:nd_ger_bergwerk
+}
+bag_wtp_avail_521 = {
+	can_build_building = building_type:nd_han_oberharzer_bergwerk
+}
+bag_wtp_avail_522 = {
+	can_build_building = building_type:nd_han_oberharzer_bergwerk
+}
+bag_wtp_avail_523 = {
+	can_build_building = building_type:nd_han_oberharzer_bergwerk
+}
+bag_wtp_avail_524 = {
+	can_build_building = building_type:nd_inc_silver_foundry
+}
+bag_wtp_avail_525 = {
+	can_build_building = building_type:nd_mex_hacienda_grande
+}
+bag_wtp_avail_526 = {
+	can_build_building = building_type:nd_mex_hacienda_grande
+}
+bag_wtp_avail_527 = {
+	can_build_building = building_type:nd_nse_danelaw_mint
+}
+bag_wtp_avail_528 = {
+	can_build_building = building_type:nd_pon_argyria_silver_mine
+}
+bag_wtp_avail_529 = {
+	can_build_building = building_type:nd_sax_silberbergwerk
+}
+bag_wtp_avail_530 = {
+	can_build_building = building_type:nd_sax_silberbergwerk
+}
+bag_wtp_avail_531 = {
+	can_build_building = building_type:nd_sil_mining_pit
+}
+bag_wtp_avail_532 = {
+	can_build_building = building_type:nd_the_sidirokausia_works
+}
+bag_wtp_avail_533 = {
+	can_build_building = building_type:nd_the_sidirokausia_works
+}
+bag_wtp_avail_534 = {
 	can_build_building = building_type:schwaz_mine
 }
-bag_wtp_avail_208 = {
+bag_wtp_avail_535 = {
 	can_build_building = building_type:slave_center
 }
-bag_wtp_avail_209 = {
+bag_wtp_avail_536 = {
+	can_build_building = building_type:nd_arc_taurus_combinat
+}
+bag_wtp_avail_537 = {
+	can_build_building = building_type:nd_bel_cockerillsmelterij
+}
+bag_wtp_avail_538 = {
+	can_build_building = building_type:nd_boh_ironworks
+}
+bag_wtp_avail_539 = {
+	can_build_building = building_type:nd_cso_iron_foundry
+}
+bag_wtp_avail_540 = {
+	can_build_building = building_type:nd_cso_iron_foundry
+}
+bag_wtp_avail_541 = {
+	can_build_building = building_type:nd_fkn_meisterhaus
+}
+bag_wtp_avail_542 = {
+	can_build_building = building_type:nd_gbr_industrial_works
+}
+bag_wtp_avail_543 = {
+	can_build_building = building_type:nd_ita_manifattura
+}
+bag_wtp_avail_544 = {
+	can_build_building = building_type:nd_lot_steel_works
+}
+bag_wtp_avail_545 = {
+	can_build_building = building_type:nd_occ_forga_del_roergue
+}
+bag_wtp_avail_546 = {
+	can_build_building = building_type:nd_pon_argyria_refining_works
+}
+bag_wtp_avail_547 = {
+	can_build_building = building_type:nd_rus_ural_foundry
+}
+bag_wtp_avail_548 = {
+	can_build_building = building_type:nd_sca_bergslagen_forge
+}
+bag_wtp_avail_549 = {
+	can_build_building = building_type:nd_sil_coal_works
+}
+bag_wtp_avail_550 = {
+	can_build_building = building_type:nd_slo_banska_mines
+}
+bag_wtp_avail_551 = {
+	can_build_building = building_type:nd_wes_sauerland_forge
+}
+bag_wtp_avail_552 = {
 	can_build_building = building_type:steel_mill
 }
-bag_wtp_avail_210 = {
+bag_wtp_avail_553 = {
 	can_build_building = building_type:stone_quarry
 }
-bag_wtp_avail_211 = {
+bag_wtp_avail_554 = {
 	can_build_building = building_type:stone_quarry
 }
-bag_wtp_avail_212 = {
+bag_wtp_avail_555 = {
+	can_build_building = building_type:nd_koj_sugar_press
+}
+bag_wtp_avail_556 = {
+	can_build_building = building_type:nd_mor_sugar_press
+}
+bag_wtp_avail_557 = {
+	can_build_building = building_type:nd_mtm_plantation_complex
+}
+bag_wtp_avail_558 = {
+	can_build_building = building_type:nd_ryu_sugar_mill
+}
+bag_wtp_avail_559 = {
 	can_build_building = building_type:sugar_plantation
 }
-bag_wtp_avail_213 = {
+bag_wtp_avail_560 = {
+	can_build_building = building_type:nd_fin_tervanpolttaja
+}
+bag_wtp_avail_561 = {
+	can_build_building = building_type:nd_lva_amber_workshop
+}
+bag_wtp_avail_562 = {
+	can_build_building = building_type:nd_rmn_rafinarie
+}
+bag_wtp_avail_563 = {
 	can_build_building = building_type:tar_kiln
 }
-bag_wtp_avail_214 = {
+bag_wtp_avail_564 = {
+	can_build_building = building_type:nd_pgr_gambier_gardens
+}
+bag_wtp_avail_565 = {
 	can_build_building = building_type:tobacco_plantation
 }
-bag_wtp_avail_215 = {
+bag_wtp_avail_566 = {
 	can_build_building = building_type:forest_village
 }
-bag_wtp_avail_216 = {
+bag_wtp_avail_567 = {
 	can_build_building = building_type:iron_foundry
 }
-bag_wtp_avail_217 = {
+bag_wtp_avail_568 = {
 	can_build_building = building_type:iron_mill
 }
-bag_wtp_avail_218 = {
+bag_wtp_avail_569 = {
 	can_build_building = building_type:market_village
 }
-bag_wtp_avail_219 = {
+bag_wtp_avail_570 = {
+	can_build_building = building_type:nd_azt_mesoamerican_manufactory
+}
+bag_wtp_avail_571 = {
+	can_build_building = building_type:nd_bno_diamond_workshop
+}
+bag_wtp_avail_572 = {
+	can_build_building = building_type:nd_edo_igun_workshop
+}
+bag_wtp_avail_573 = {
+	can_build_building = building_type:nd_eur_colonial_exchange
+}
+bag_wtp_avail_574 = {
+	can_build_building = building_type:nd_eur_continental_railway
+}
+bag_wtp_avail_575 = {
+	can_build_building = building_type:nd_eur_state_manufactory
+}
+bag_wtp_avail_576 = {
+	can_build_building = building_type:nd_fin_ruukki
+}
+bag_wtp_avail_577 = {
+	can_build_building = building_type:nd_fkn_meisterhaus
+}
+bag_wtp_avail_578 = {
+	can_build_building = building_type:nd_fkn_meisterhaus
+}
+bag_wtp_avail_579 = {
+	can_build_building = building_type:nd_hau_kofar_mata
+}
+bag_wtp_avail_580 = {
+	can_build_building = building_type:nd_inc_mita_workshop
+}
+bag_wtp_avail_581 = {
+	can_build_building = building_type:nd_inc_mita_workshop
+}
+bag_wtp_avail_582 = {
+	can_build_building = building_type:nd_jap_tamahagane_forge
+}
+bag_wtp_avail_583 = {
+	can_build_building = building_type:nd_kon_iron_forge
+}
+bag_wtp_avail_584 = {
+	can_build_building = building_type:nd_krs_highland_forge
+}
+bag_wtp_avail_585 = {
+	can_build_building = building_type:nd_lbe_copper_smithy
+}
+bag_wtp_avail_586 = {
+	can_build_building = building_type:nd_lot_meuse_ironworks
+}
+bag_wtp_avail_587 = {
+	can_build_building = building_type:nd_mir_musket_workshop
+}
+bag_wtp_avail_588 = {
+	can_build_building = building_type:nd_msi_forge
+}
+bag_wtp_avail_589 = {
+	can_build_building = building_type:nd_mtp_njanja_forge
+}
+bag_wtp_avail_590 = {
+	can_build_building = building_type:nd_nse_danelaw_mint
+}
+bag_wtp_avail_591 = {
+	can_build_building = building_type:nd_plc_manufaktura
+}
+bag_wtp_avail_592 = {
+	can_build_building = building_type:nd_sca_koppargruva
+}
+bag_wtp_avail_593 = {
+	can_build_building = building_type:nd_slo_banska_mines
+}
+bag_wtp_avail_594 = {
+	can_build_building = building_type:nd_vjn_swarnakara_workshop
+}
+bag_wtp_avail_595 = {
 	can_build_building = building_type:tatara
 }
-bag_wtp_avail_220 = {
+bag_wtp_avail_596 = {
 	can_build_building = building_type:tools_guild
 }
-bag_wtp_avail_221 = {
+bag_wtp_avail_597 = {
 	can_build_building = building_type:tools_guild
 	has_advance = copperworking
 }
-bag_wtp_avail_222 = {
+bag_wtp_avail_598 = {
 	can_build_building = building_type:tools_guild
 }
-bag_wtp_avail_223 = {
+bag_wtp_avail_599 = {
 	can_build_building = building_type:tools_guild
 }
-bag_wtp_avail_224 = {
+bag_wtp_avail_600 = {
 	can_build_building = building_type:tools_workshop
 }
-bag_wtp_avail_225 = {
+bag_wtp_avail_601 = {
 	can_build_building = building_type:forest_village
 }
-bag_wtp_avail_226 = {
+bag_wtp_avail_602 = {
 	can_build_building = building_type:market_village
 }
-bag_wtp_avail_227 = {
+bag_wtp_avail_603 = {
+	can_build_building = building_type:nd_adu_forge
+}
+bag_wtp_avail_604 = {
+	can_build_building = building_type:nd_air_inadan_forge
+}
+bag_wtp_avail_605 = {
+	can_build_building = building_type:nd_alm_caliphal_armoury
+}
+bag_wtp_avail_606 = {
+	can_build_building = building_type:nd_azt_obsidian_workshop
+}
+bag_wtp_avail_607 = {
+	can_build_building = building_type:nd_bej_smithy
+}
+bag_wtp_avail_608 = {
+	can_build_building = building_type:nd_bel_wapenfabriek
+}
+bag_wtp_avail_609 = {
+	can_build_building = building_type:nd_fkn_meisterhaus
+}
+bag_wtp_avail_610 = {
+	can_build_building = building_type:nd_ger_waffenschmiede
+}
+bag_wtp_avail_611 = {
+	can_build_building = building_type:nd_ger_waffenschmiede
+}
+bag_wtp_avail_612 = {
+	can_build_building = building_type:nd_jap_tamahagane_forge
+}
+bag_wtp_avail_613 = {
+	can_build_building = building_type:nd_kon_royal_forge
+}
+bag_wtp_avail_614 = {
+	can_build_building = building_type:nd_lmb_armeria
+}
+bag_wtp_avail_615 = {
+	can_build_building = building_type:nd_may_obsidian_workshop
+}
+bag_wtp_avail_616 = {
+	can_build_building = building_type:nd_mge_bow_workshop
+}
+bag_wtp_avail_617 = {
+	can_build_building = building_type:nd_mhr_tophkhana
+}
+bag_wtp_avail_618 = {
+	can_build_building = building_type:nd_mlc_pandai_besi
+}
+bag_wtp_avail_619 = {
+	can_build_building = building_type:nd_mol_armory
+}
+bag_wtp_avail_620 = {
+	can_build_building = building_type:nd_mro_kris_foundry
+}
+bag_wtp_avail_621 = {
+	can_build_building = building_type:nd_mro_kris_foundry
+}
+bag_wtp_avail_622 = {
+	can_build_building = building_type:nd_mtm_empu_forge
+}
+bag_wtp_avail_623 = {
+	can_build_building = building_type:nd_nin_imperial_arsenal
+}
+bag_wtp_avail_624 = {
+	can_build_building = building_type:nd_nse_hirdstova
+}
+bag_wtp_avail_625 = {
+	can_build_building = building_type:nd_pru_arms_foundry
+}
+bag_wtp_avail_626 = {
+	can_build_building = building_type:nd_slo_banska_mines
+}
+bag_wtp_avail_627 = {
+	can_build_building = building_type:nd_slo_dest_krajina_fortress
+}
+bag_wtp_avail_628 = {
+	can_build_building = building_type:nd_tgd_gunpowder_foundry
+}
+bag_wtp_avail_629 = {
+	can_build_building = building_type:nd_wes_sauerland_forge
+}
+bag_wtp_avail_630 = {
 	can_build_building = building_type:tatara
 }
-bag_wtp_avail_228 = {
+bag_wtp_avail_631 = {
 	can_build_building = building_type:weapon_factory
 }
-bag_wtp_avail_229 = {
+bag_wtp_avail_632 = {
 	can_build_building = building_type:weapon_guild
 }
-bag_wtp_avail_230 = {
+bag_wtp_avail_633 = {
 	can_build_building = building_type:weapon_guild
 	has_advance = refined_obsidian_weaponry
 }
-bag_wtp_avail_231 = {
+bag_wtp_avail_634 = {
 	can_build_building = building_type:weapon_guild
 }
-bag_wtp_avail_232 = {
+bag_wtp_avail_635 = {
 	can_build_building = building_type:weapon_manufactory
 }
-bag_wtp_avail_233 = {
+bag_wtp_avail_636 = {
 	can_build_building = building_type:weapon_workshop
 }
-bag_wtp_avail_234 = {
+bag_wtp_avail_637 = {
 	can_build_building = building_type:eng_royal_forest
 }
-bag_wtp_avail_235 = {
+bag_wtp_avail_638 = {
+	can_build_building = building_type:nd_anv_gascon_winery
+}
+bag_wtp_avail_639 = {
+	can_build_building = building_type:nd_bgp_grand_domaine
+}
+bag_wtp_avail_640 = {
+	can_build_building = building_type:nd_bgp_vignoble
+}
+bag_wtp_avail_641 = {
+	can_build_building = building_type:nd_bgp_vignoble
+}
+bag_wtp_avail_642 = {
+	can_build_building = building_type:nd_cda_mediterranean_vineyard
+}
+bag_wtp_avail_643 = {
+	can_build_building = building_type:nd_eth_tej_bet
+}
+bag_wtp_avail_644 = {
+	can_build_building = building_type:nd_gre_olive_press
+}
+bag_wtp_avail_645 = {
+	can_build_building = building_type:nd_mol_boyar_estate
+}
+bag_wtp_avail_646 = {
+	can_build_building = building_type:nd_rmn_vie_domneasca
+}
+bag_wtp_avail_647 = {
+	can_build_building = building_type:nd_tus_fattoria
+}
+bag_wtp_avail_648 = {
 	can_build_building = building_type:winery
 }
-bag_wtp_avail_236 = {
+bag_wtp_avail_649 = {
 	can_build_building = building_type:winery
 }
-bag_wtp_avail_237 = {
+bag_wtp_avail_650 = {
 	can_build_building = building_type:winery
 }
-bag_wtp_avail_238 = {
+bag_wtp_avail_651 = {
 	can_build_building = building_type:winery_manufactory
 }
-bag_wtp_avail_239 = {
+bag_wtp_avail_652 = {
 	can_build_building = building_type:winery_manufactory
 }
-bag_wtp_avail_240 = {
+bag_wtp_avail_653 = {
 	can_build_building = building_type:winery_manufactory
 }
-bag_wtp_avail_241 = {
+bag_wtp_avail_654 = {
+	can_build_building = building_type:nd_cel_clachan
+}
+bag_wtp_avail_655 = {
+	can_build_building = building_type:nd_rmn_stana
+}
+bag_wtp_avail_656 = {
 	can_build_building = building_type:sheep_farms
 }
 
@@ -1279,6 +2524,1194 @@ bag_wtp_stands_naval_supplies_workshop = {
 		bag_wtp_rank_is_ticked = yes
 		can_build_building = building_type:naval_supplies_workshop
 	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_adu_dar_al_tiraz = {
+	can_build_building = building_type:nd_adu_dar_al_tiraz
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_adu_forge = {
+	can_build_building = building_type:nd_adu_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_adu_lusterware_kiln = {
+	can_build_building = building_type:nd_adu_lusterware_kiln
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_aeg_cairo_arsenal = {
+	can_build_building = building_type:nd_aeg_cairo_arsenal
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_aeg_khalili_bazaar = {
+	can_build_building = building_type:nd_aeg_khalili_bazaar
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ahm_eka_sarana_workshop = {
+	can_build_building = building_type:nd_ahm_eka_sarana_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ahm_river_industry = {
+	can_build_building = building_type:nd_ahm_river_industry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_air_inadan_forge = {
+	can_build_building = building_type:nd_air_inadan_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_air_indigo_dyeworks = {
+	can_build_building = building_type:nd_air_indigo_dyeworks
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_alm_andalusi_silk_workshop = {
+	can_build_building = building_type:nd_alm_andalusi_silk_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_alm_caliphal_armoury = {
+	can_build_building = building_type:nd_alm_caliphal_armoury
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_anv_gascon_winery = {
+	can_build_building = building_type:nd_anv_gascon_winery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_arc_cilician_workshop = {
+	can_build_building = building_type:nd_arc_cilician_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_arc_taurus_combinat = {
+	can_build_building = building_type:nd_arc_taurus_combinat
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ate_abrafoo_foundry = {
+	can_build_building = building_type:nd_ate_abrafoo_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ate_kente_workshop = {
+	can_build_building = building_type:nd_ate_kente_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_azt_mesoamerican_manufactory = {
+	can_build_building = building_type:nd_azt_mesoamerican_manufactory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_azt_obsidian_workshop = {
+	can_build_building = building_type:nd_azt_obsidian_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bah_bidri_workshop = {
+	can_build_building = building_type:nd_bah_bidri_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bav_brauerei = {
+	can_build_building = building_type:nd_bav_brauerei
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bav_hofbrauhaus = {
+	can_build_building = building_type:nd_bav_hofbrauhaus
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bav_salzwerk = {
+	can_build_building = building_type:nd_bav_salzwerk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bej_smithy = {
+	can_build_building = building_type:nd_bej_smithy
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bel_abdijbrouwerij = {
+	can_build_building = building_type:nd_bel_abdijbrouwerij
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bel_cockerillsmelterij = {
+	can_build_building = building_type:nd_bel_cockerillsmelterij
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bel_diamantwijk = {
+	can_build_building = building_type:nd_bel_diamantwijk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bel_liege_armory = {
+	can_build_building = building_type:nd_bel_liege_armory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bel_tapisserie = {
+	can_build_building = building_type:nd_bel_tapisserie
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bel_wapenfabriek = {
+	can_build_building = building_type:nd_bel_wapenfabriek
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bgp_grand_domaine = {
+	can_build_building = building_type:nd_bgp_grand_domaine
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bgp_saline = {
+	can_build_building = building_type:nd_bgp_saline
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bgp_silk_workshop = {
+	can_build_building = building_type:nd_bgp_silk_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bgp_vignoble = {
+	can_build_building = building_type:nd_bgp_vignoble
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bng_indigo_vat = {
+	can_build_building = building_type:nd_bng_indigo_vat
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bng_muslin_workshop = {
+	can_build_building = building_type:nd_bng_muslin_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bnh_aramaic_print_house = {
+	can_build_building = building_type:nd_bnh_aramaic_print_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bnh_mosul_foundry = {
+	can_build_building = building_type:nd_bnh_mosul_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bnh_river_manufactory = {
+	can_build_building = building_type:nd_bnh_river_manufactory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bnh_translation_house = {
+	can_build_building = building_type:nd_bnh_translation_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_bno_diamond_workshop = {
+	can_build_building = building_type:nd_bno_diamond_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_boh_brewhouse = {
+	can_build_building = building_type:nd_boh_brewhouse
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_boh_ironworks = {
+	can_build_building = building_type:nd_boh_ironworks
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_boh_kutna_hora_mint = {
+	can_build_building = building_type:nd_boh_kutna_hora_mint
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_byz_silk_ergasterion = {
+	can_build_building = building_type:nd_byz_silk_ergasterion
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cda_catalan_cotton_mill = {
+	can_build_building = building_type:nd_cda_catalan_cotton_mill
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cda_mediterranean_vineyard = {
+	can_build_building = building_type:nd_cda_mediterranean_vineyard
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cel_clachan = {
+	can_build_building = building_type:nd_cel_clachan
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_chi_porcelain_kiln = {
+	can_build_building = building_type:nd_chi_porcelain_kiln
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cso_iron_foundry = {
+	can_build_building = building_type:nd_cso_iron_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cso_porcelain_kiln = {
+	can_build_building = building_type:nd_cso_porcelain_kiln
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cso_printing_house = {
+	can_build_building = building_type:nd_cso_printing_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cso_silk_workshop = {
+	can_build_building = building_type:nd_cso_silk_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cth_dye_works = {
+	can_build_building = building_type:nd_cth_dye_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_cth_glassworks = {
+	can_build_building = building_type:nd_cth_glassworks
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_dah_palm_oil_works = {
+	can_build_building = building_type:nd_dah_palm_oil_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_dec_diamond_workshop = {
+	can_build_building = building_type:nd_dec_diamond_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_dlh_karkhana = {
+	can_build_building = building_type:nd_dlh_karkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_drr_jezail_workshop = {
+	can_build_building = building_type:nd_drr_jezail_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_edo_igun_workshop = {
+	can_build_building = building_type:nd_edo_igun_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_egy_state_factory = {
+	can_build_building = building_type:nd_egy_state_factory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_eth_tej_bet = {
+	can_build_building = building_type:nd_eth_tej_bet
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_eur_colonial_exchange = {
+	can_build_building = building_type:nd_eur_colonial_exchange
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_eur_continental_railway = {
+	can_build_building = building_type:nd_eur_continental_railway
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_eur_imperial_arsenal = {
+	can_build_building = building_type:nd_eur_imperial_arsenal
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_eur_state_manufactory = {
+	can_build_building = building_type:nd_eur_state_manufactory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_eur_trade_fair = {
+	can_build_building = building_type:nd_eur_trade_fair
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_eur_universitas = {
+	can_build_building = building_type:nd_eur_universitas
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fin_ruukki = {
+	can_build_building = building_type:nd_fin_ruukki
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fin_sahalaitos = {
+	can_build_building = building_type:nd_fin_sahalaitos
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fin_tervanpolttaja = {
+	can_build_building = building_type:nd_fin_tervanpolttaja
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fkn_druckerei = {
+	can_build_building = building_type:nd_fkn_druckerei
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fkn_handelshaus = {
+	can_build_building = building_type:nd_fkn_handelshaus
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fkn_hochstift = {
+	can_build_building = building_type:nd_fkn_hochstift
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fkn_meisterhaus = {
+	can_build_building = building_type:nd_fkn_meisterhaus
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_fkn_weinberghaus = {
+	can_build_building = building_type:nd_fkn_weinberghaus
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_gbr_industrial_works = {
+	can_build_building = building_type:nd_gbr_industrial_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_gbu_belgian_textile_mill = {
+	can_build_building = building_type:nd_gbu_belgian_textile_mill
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_gbu_flemish_cloth_hall = {
+	can_build_building = building_type:nd_gbu_flemish_cloth_hall
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_gbu_mechelen_foundry = {
+	can_build_building = building_type:nd_gbu_mechelen_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_gbu_walloon_coalworks = {
+	can_build_building = building_type:nd_gbu_walloon_coalworks
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ger_bergwerk = {
+	can_build_building = building_type:nd_ger_bergwerk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ger_druckerei = {
+	can_build_building = building_type:nd_ger_druckerei
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ger_krupp_stahlwerk = {
+	can_build_building = building_type:nd_ger_krupp_stahlwerk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ger_waffenschmiede = {
+	can_build_building = building_type:nd_ger_waffenschmiede
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_got_aurifex = {
+	can_build_building = building_type:nd_got_aurifex
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_gre_olive_press = {
+	can_build_building = building_type:nd_gre_olive_press
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_guj_cotton_mill = {
+	can_build_building = building_type:nd_guj_cotton_mill
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_guj_dye_works = {
+	can_build_building = building_type:nd_guj_dye_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_guj_karkhana = {
+	can_build_building = building_type:nd_guj_karkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_han_georgia_augusta = {
+	can_build_building = building_type:nd_han_georgia_augusta
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_han_landgestut = {
+	can_build_building = building_type:nd_han_landgestut
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_han_oberharzer_bergwerk = {
+	can_build_building = building_type:nd_han_oberharzer_bergwerk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_hau_kofar_mata = {
+	can_build_building = building_type:nd_hau_kofar_mata
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_hau_majema_tannery = {
+	can_build_building = building_type:nd_hau_majema_tannery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_hin_karkhana = {
+	can_build_building = building_type:nd_hin_karkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_hos_apothecary = {
+	can_build_building = building_type:nd_hos_apothecary
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ily_glagoljska_tiskara = {
+	can_build_building = building_type:nd_ily_glagoljska_tiskara
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_inc_mita_workshop = {
+	can_build_building = building_type:nd_inc_mita_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_inc_silver_foundry = {
+	can_build_building = building_type:nd_inc_silver_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_inc_textile_obraje = {
+	can_build_building = building_type:nd_inc_textile_obraje
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ira_karkhane = {
+	can_build_building = building_type:nd_ira_karkhane
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ire_bardic_school = {
+	can_build_building = building_type:nd_ire_bardic_school
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ire_bleach_green = {
+	can_build_building = building_type:nd_ire_bleach_green
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ire_distillery = {
+	can_build_building = building_type:nd_ire_distillery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ire_wool_cottage = {
+	can_build_building = building_type:nd_ire_wool_cottage
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_iro_three_sisters_garden = {
+	can_build_building = building_type:nd_iro_three_sisters_garden
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_irq_attabiya_workshop = {
+	can_build_building = building_type:nd_irq_attabiya_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_irq_nakhil_grove = {
+	can_build_building = building_type:nd_irq_nakhil_grove
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ita_manifattura = {
+	can_build_building = building_type:nd_ita_manifattura
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ita_setificio = {
+	can_build_building = building_type:nd_ita_setificio
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ita_vetreria = {
+	can_build_building = building_type:nd_ita_vetreria
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_jap_tamahagane_forge = {
+	can_build_building = building_type:nd_jap_tamahagane_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_jap_za_guild_hall = {
+	can_build_building = building_type:nd_jap_za_guild_hall
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kaz_horse_stud = {
+	can_build_building = building_type:nd_kaz_horse_stud
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kaz_kumis_brewery = {
+	can_build_building = building_type:nd_kaz_kumis_brewery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kbu_cotton_weaving = {
+	can_build_building = building_type:nd_kbu_cotton_weaving
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kbu_natron_works = {
+	can_build_building = building_type:nd_kbu_natron_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kbu_tannery = {
+	can_build_building = building_type:nd_kbu_tannery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_koj_sugar_press = {
+	can_build_building = building_type:nd_koj_sugar_press
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kon_iron_forge = {
+	can_build_building = building_type:nd_kon_iron_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kon_palm_oil_press = {
+	can_build_building = building_type:nd_kon_palm_oil_press
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kon_royal_forge = {
+	can_build_building = building_type:nd_kon_royal_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_krs_highland_forge = {
+	can_build_building = building_type:nd_krs_highland_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kry_abrisham_khaneh = {
+	can_build_building = building_type:nd_kry_abrisham_khaneh
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kry_shilat_khaneh = {
+	can_build_building = building_type:nd_kry_shilat_khaneh
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_kws_mint = {
+	can_build_building = building_type:nd_kws_mint
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lat_arsenal = {
+	can_build_building = building_type:nd_lat_arsenal
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lat_fondaco = {
+	can_build_building = building_type:nd_lat_fondaco
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lbe_copper_smithy = {
+	can_build_building = building_type:nd_lbe_copper_smithy
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lbe_upemba_fishery = {
+	can_build_building = building_type:nd_lbe_upemba_fishery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_liv_bernsteinkammer = {
+	can_build_building = building_type:nd_liv_bernsteinkammer
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_liv_dampfsagewerk = {
+	can_build_building = building_type:nd_liv_dampfsagewerk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lmb_armeria = {
+	can_build_building = building_type:nd_lmb_armeria
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lmb_cartiera = {
+	can_build_building = building_type:nd_lmb_cartiera
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lot_lakenhalle = {
+	can_build_building = building_type:nd_lot_lakenhalle
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lot_meuse_ironworks = {
+	can_build_building = building_type:nd_lot_meuse_ironworks
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lot_steel_works = {
+	can_build_building = building_type:nd_lot_steel_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lot_walloon_forge = {
+	can_build_building = building_type:nd_lot_walloon_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lva_amber_workshop = {
+	can_build_building = building_type:nd_lva_amber_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lxa_forest_camp = {
+	can_build_building = building_type:nd_lxa_forest_camp
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_lxa_silk_house = {
+	can_build_building = building_type:nd_lxa_silk_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mal_sahel_caravanserai = {
+	can_build_building = building_type:nd_mal_sahel_caravanserai
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_may_obsidian_workshop = {
+	can_build_building = building_type:nd_may_obsidian_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_may_salt_works = {
+	can_build_building = building_type:nd_may_salt_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_maz_printing_house = {
+	can_build_building = building_type:nd_maz_printing_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mca_cotton_weaving_house = {
+	can_build_building = building_type:nd_mca_cotton_weaving_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mca_goldsmith_workshop = {
+	can_build_building = building_type:nd_mca_goldsmith_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mca_salt_works = {
+	can_build_building = building_type:nd_mca_salt_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mch_fur_workshop = {
+	can_build_building = building_type:nd_mch_fur_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mex_casa_de_moneda = {
+	can_build_building = building_type:nd_mex_casa_de_moneda
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mex_cochineal_obraje = {
+	can_build_building = building_type:nd_mex_cochineal_obraje
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mex_hacienda_grande = {
+	can_build_building = building_type:nd_mex_hacienda_grande
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mge_bow_workshop = {
+	can_build_building = building_type:nd_mge_bow_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mgo_felt_manufactory = {
+	can_build_building = building_type:nd_mgo_felt_manufactory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mgo_horse_grounds = {
+	can_build_building = building_type:nd_mgo_horse_grounds
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mhr_koshti_karkhana = {
+	can_build_building = building_type:nd_mhr_koshti_karkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mhr_tophkhana = {
+	can_build_building = building_type:nd_mhr_tophkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mir_lamba_workshop = {
+	can_build_building = building_type:nd_mir_lamba_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mir_musket_workshop = {
+	can_build_building = building_type:nd_mir_musket_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mlc_pandai_besi = {
+	can_build_building = building_type:nd_mlc_pandai_besi
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mol_armory = {
+	can_build_building = building_type:nd_mol_armory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mol_beeswax_house = {
+	can_build_building = building_type:nd_mol_beeswax_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mol_boyar_estate = {
+	can_build_building = building_type:nd_mol_boyar_estate
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mol_printing_house = {
+	can_build_building = building_type:nd_mol_printing_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mor_sugar_press = {
+	can_build_building = building_type:nd_mor_sugar_press
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mrl_ginto_foundry = {
+	can_build_building = building_type:nd_mrl_ginto_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mrl_panday_workshop = {
+	can_build_building = building_type:nd_mrl_panday_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mro_kris_foundry = {
+	can_build_building = building_type:nd_mro_kris_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mro_lantaka_foundry = {
+	can_build_building = building_type:nd_mro_lantaka_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_msi_forge = {
+	can_build_building = building_type:nd_msi_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_msi_weaving_house = {
+	can_build_building = building_type:nd_msi_weaving_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mtm_batik_workshop = {
+	can_build_building = building_type:nd_mtm_batik_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mtm_empu_forge = {
+	can_build_building = building_type:nd_mtm_empu_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mtm_plantation_complex = {
+	can_build_building = building_type:nd_mtm_plantation_complex
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mtp_njanja_forge = {
+	can_build_building = building_type:nd_mtp_njanja_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_mug_karkhana = {
+	can_build_building = building_type:nd_mug_karkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nin_imperial_arsenal = {
+	can_build_building = building_type:nd_nin_imperial_arsenal
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_npl_newari_workshop = {
+	can_build_building = building_type:nd_npl_newari_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nse_danelaw_mint = {
+	can_build_building = building_type:nd_nse_danelaw_mint
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nse_herring_hall = {
+	can_build_building = building_type:nd_nse_herring_hall
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nse_hirdstova = {
+	can_build_building = building_type:nd_nse_hirdstova
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nse_longship_yards = {
+	can_build_building = building_type:nd_nse_longship_yards
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nse_stave_church = {
+	can_build_building = building_type:nd_nse_stave_church
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ntr_flour_mill = {
+	can_build_building = building_type:nd_ntr_flour_mill
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ntr_pounamu_workshop = {
+	can_build_building = building_type:nd_ntr_pounamu_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nub_pottery_workshop = {
+	can_build_building = building_type:nd_nub_pottery_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_num_bison_camp = {
+	can_build_building = building_type:nd_num_bison_camp
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_num_horse_corral = {
+	can_build_building = building_type:nd_num_horse_corral
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nzo_salt_wells = {
+	can_build_building = building_type:nd_nzo_salt_wells
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_nzo_silver_workshop = {
+	can_build_building = building_type:nd_nzo_silver_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_occ_alambic = {
+	can_build_building = building_type:nd_occ_alambic
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_occ_draparia = {
+	can_build_building = building_type:nd_occ_draparia
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_occ_forga_del_roergue = {
+	can_build_building = building_type:nd_occ_forga_del_roergue
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_occ_manufactura_reiala = {
+	can_build_building = building_type:nd_occ_manufactura_reiala
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_occ_obrador_del_pastel = {
+	can_build_building = building_type:nd_occ_obrador_del_pastel
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_out_tiraz_house = {
+	can_build_building = building_type:nd_out_tiraz_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_oye_ile_ise = {
+	can_build_building = building_type:nd_oye_ile_ise
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pgr_gambier_gardens = {
+	can_build_building = building_type:nd_pgr_gambier_gardens
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_plc_amber_workshop = {
+	can_build_building = building_type:nd_plc_amber_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_plc_manufaktura = {
+	can_build_building = building_type:nd_plc_manufaktura
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pnt_panday_workshop = {
+	can_build_building = building_type:nd_pnt_panday_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pol_kopalnia_soli = {
+	can_build_building = building_type:nd_pol_kopalnia_soli
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pom_amber_workshop = {
+	can_build_building = building_type:nd_pom_amber_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pon_argyria_refining_works = {
+	can_build_building = building_type:nd_pon_argyria_refining_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pon_argyria_silver_mine = {
+	can_build_building = building_type:nd_pon_argyria_silver_mine
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pon_kapheneion = {
+	can_build_building = building_type:nd_pon_kapheneion
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pru_amber_guild = {
+	can_build_building = building_type:nd_pru_amber_guild
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pru_arms_foundry = {
+	can_build_building = building_type:nd_pru_arms_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pue_cotton_hall = {
+	can_build_building = building_type:nd_pue_cotton_hall
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pue_pottery_workshop = {
+	can_build_building = building_type:nd_pue_pottery_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pue_turquoise_workshop = {
+	can_build_building = building_type:nd_pue_turquoise_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_pun_shawl_karkhana = {
+	can_build_building = building_type:nd_pun_shawl_karkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rjp_karkhana = {
+	can_build_building = building_type:nd_rjp_karkhana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rmn_ocna_de_sare = {
+	can_build_building = building_type:nd_rmn_ocna_de_sare
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rmn_rafinarie = {
+	can_build_building = building_type:nd_rmn_rafinarie
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rmn_stana = {
+	can_build_building = building_type:nd_rmn_stana
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rmn_tabacarie = {
+	can_build_building = building_type:nd_rmn_tabacarie
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rmn_vie_domneasca = {
+	can_build_building = building_type:nd_rmn_vie_domneasca
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rum_ahi_guild_hall = {
+	can_build_building = building_type:nd_rum_ahi_guild_hall
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rum_manufactory = {
+	can_build_building = building_type:nd_rum_manufactory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rus_ural_foundry = {
+	can_build_building = building_type:nd_rus_ural_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_rus_vodka_distillery = {
+	can_build_building = building_type:nd_rus_vodka_distillery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ryu_awamori_distillery = {
+	can_build_building = building_type:nd_ryu_awamori_distillery
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ryu_bingata_workshop = {
+	can_build_building = building_type:nd_ryu_bingata_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ryu_fishing_settlement = {
+	can_build_building = building_type:nd_ryu_fishing_settlement
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ryu_lacquerware_workshop = {
+	can_build_building = building_type:nd_ryu_lacquerware_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ryu_sugar_mill = {
+	can_build_building = building_type:nd_ryu_sugar_mill
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ryu_tsuboya_kiln = {
+	can_build_building = building_type:nd_ryu_tsuboya_kiln
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sar_curia_regni = {
+	can_build_building = building_type:nd_sar_curia_regni
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sar_piedmont_filatoio = {
+	can_build_building = building_type:nd_sar_piedmont_filatoio
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sar_pinnetta = {
+	can_build_building = building_type:nd_sar_pinnetta
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sax_druckhaus = {
+	can_build_building = building_type:nd_sax_druckhaus
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sax_messehaus = {
+	can_build_building = building_type:nd_sax_messehaus
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sax_porzellanmanufaktur = {
+	can_build_building = building_type:nd_sax_porzellanmanufaktur
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sax_silberbergwerk = {
+	can_build_building = building_type:nd_sax_silberbergwerk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sax_werkstatt = {
+	can_build_building = building_type:nd_sax_werkstatt
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sca_bergslagen_forge = {
+	can_build_building = building_type:nd_sca_bergslagen_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sca_koppargruva = {
+	can_build_building = building_type:nd_sca_koppargruva
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sha_silverworks = {
+	can_build_building = building_type:nd_sha_silverworks
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sha_weaving_workshop = {
+	can_build_building = building_type:nd_sha_weaving_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_shl_saline = {
+	can_build_building = building_type:nd_shl_saline
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sil_coal_works = {
+	can_build_building = building_type:nd_sil_coal_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sil_linen_workshop = {
+	can_build_building = building_type:nd_sil_linen_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sil_mechanized_mill = {
+	can_build_building = building_type:nd_sil_mechanized_mill
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sil_mining_pit = {
+	can_build_building = building_type:nd_sil_mining_pit
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sko_cattle_camp = {
+	can_build_building = building_type:nd_sko_cattle_camp
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sko_cloth_manufactory = {
+	can_build_building = building_type:nd_sko_cloth_manufactory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_sko_kano_dye_pit = {
+	can_build_building = building_type:nd_sko_kano_dye_pit
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_slo_banska_mines = {
+	can_build_building = building_type:nd_slo_banska_mines
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_slo_dest_krajina_fortress = {
+	can_build_building = building_type:nd_slo_dest_krajina_fortress
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_slo_kremnica_mint = {
+	can_build_building = building_type:nd_slo_kremnica_mint
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_slo_salas = {
+	can_build_building = building_type:nd_slo_salas
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_soi_mogadishu_mint = {
+	can_build_building = building_type:nd_soi_mogadishu_mint
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_soi_weaving_house = {
+	can_build_building = building_type:nd_soi_weaving_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_spa_mesta_sheepwalk = {
+	can_build_building = building_type:nd_spa_mesta_sheepwalk
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_spa_royal_foundry = {
+	can_build_building = building_type:nd_spa_royal_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_spa_silver_minting_house = {
+	can_build_building = building_type:nd_spa_silver_minting_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_svb_bronze_buddha_foundry = {
+	can_build_building = building_type:nd_svb_bronze_buddha_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_svb_gem_workshop = {
+	can_build_building = building_type:nd_svb_gem_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_svb_lacquerware_atelier = {
+	can_build_building = building_type:nd_svb_lacquerware_atelier
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_svb_royal_arsenal = {
+	can_build_building = building_type:nd_svb_royal_arsenal
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_swa_webhaus = {
+	can_build_building = building_type:nd_swa_webhaus
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_swi_horological_workshop = {
+	can_build_building = building_type:nd_swi_horological_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_swi_textile_manufactory = {
+	can_build_building = building_type:nd_swi_textile_manufactory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tab_vernacular_press = {
+	can_build_building = building_type:nd_tab_vernacular_press
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tbt_imperial_press = {
+	can_build_building = building_type:nd_tbt_imperial_press
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tbt_nambu_workshop = {
+	can_build_building = building_type:nd_tbt_nambu_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tbt_thangka_atelier = {
+	can_build_building = building_type:nd_tbt_thangka_atelier
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tdr_pontic_workshop = {
+	can_build_building = building_type:nd_tdr_pontic_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tgd_gunpowder_foundry = {
+	can_build_building = building_type:nd_tgd_gunpowder_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tgd_sancai_kiln = {
+	can_build_building = building_type:nd_tgd_sancai_kiln
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tgd_silk_workshop = {
+	can_build_building = building_type:nd_tgd_silk_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tgd_tea_house = {
+	can_build_building = building_type:nd_tgd_tea_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_the_broadcloth_hall = {
+	can_build_building = building_type:nd_the_broadcloth_hall
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_the_metochion = {
+	can_build_building = building_type:nd_the_metochion
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_the_myron_hall = {
+	can_build_building = building_type:nd_the_myron_hall
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_the_sidirokausia_works = {
+	can_build_building = building_type:nd_the_sidirokausia_works
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tib_printing_house = {
+	can_build_building = building_type:nd_tib_printing_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tib_wool_workshop = {
+	can_build_building = building_type:nd_tib_wool_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tus_cappelleria = {
+	can_build_building = building_type:nd_tus_cappelleria
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tus_fattoria = {
+	can_build_building = building_type:nd_tus_fattoria
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tus_marble_quarry = {
+	can_build_building = building_type:nd_tus_marble_quarry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tus_silk_workshop = {
+	can_build_building = building_type:nd_tus_silk_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tws_masseria = {
+	can_build_building = building_type:nd_tws_masseria
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_tws_reale_seteria = {
+	can_build_building = building_type:nd_tws_reale_seteria
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ukr_chernozem_estate = {
+	can_build_building = building_type:nd_ukr_chernozem_estate
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ukr_medovarnia = {
+	can_build_building = building_type:nd_ukr_medovarnia
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_usa_cotton_gin_workshop = {
+	can_build_building = building_type:nd_usa_cotton_gin_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_usa_federal_armory = {
+	can_build_building = building_type:nd_usa_federal_armory
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_vjn_swarnakara_workshop = {
+	can_build_building = building_type:nd_vjn_swarnakara_workshop
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_wes_hellweg_saltworks = {
+	can_build_building = building_type:nd_wes_hellweg_saltworks
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_wes_linen_house = {
+	can_build_building = building_type:nd_wes_linen_house
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_wes_sauerland_forge = {
+	can_build_building = building_type:nd_wes_sauerland_forge
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_yav_bilingual_mint = {
+	can_build_building = building_type:nd_yav_bilingual_mint
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ymp_arsenal_foundry = {
+	can_build_building = building_type:nd_ymp_arsenal_foundry
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ymp_imperial_arsenal = {
+	can_build_building = building_type:nd_ymp_imperial_arsenal
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_nd_ymp_lacquer_workshop = {
+	can_build_building = building_type:nd_ymp_lacquer_workshop
 }
 bag_wtp_stands_paper_guild = {
 	OR = {

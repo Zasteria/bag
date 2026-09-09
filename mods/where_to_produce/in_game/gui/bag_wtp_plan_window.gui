@@ -169,6 +169,19 @@ types BagWtpPlanTypes {
 					onclick = "[GetScriptedGui('bag_wtp_cm_press_prov').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 				}
 
+				# **Снос лишнего в этой провинции.**
+				button_regular = {
+					size = { 40 40 }
+					tooltip = "bag_wtp_raze_prov_tt"
+					icon = {
+						size = { 24 24 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/disable_icon.dds"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_raze_press_prov').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+				}
+
 				widget = { layoutpolicy_horizontal = expanding size = { -1 40 } }
 			}
 		}
@@ -445,6 +458,42 @@ types BagWtpPlanTypes {
 				visible = "[Location.MakeScope.GetVariable('bag_wtp_cm_lit').IsSet]"
 			}
 			onclick = "[GetScriptedGui('bag_wtp_cm_press_loc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		# **Снос лишнего в этой локации.**
+		button_regular = {
+			size = { 40 42 }
+			tooltip = "bag_wtp_raze_loc_tt"
+			icon = {
+				size = { 24 24 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/flat_icons/disable_icon.dds"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_raze_press_loc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		# **Режим житницы CM**, и только там, где CM его предлагает.
+		button_regular = {
+			size = { 40 42 }
+			tooltip = "bag_wtp_food_loc_tt"
+			visible = "[GetScriptedGui('bag_wtp_food_here').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+			icon = {
+				size = { 24 24 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/unit_view/food.dds"
+				alpha = 0.35
+				visible = "[Not(Location.MakeScope.GetVariable('cm_auto_food_location_enabled').IsSet)]"
+			}
+			icon = {
+				size = { 24 24 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/unit_view/food.dds"
+				visible = "[Location.MakeScope.GetVariable('cm_auto_food_location_enabled').IsSet]"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_food_press_loc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 		}
 
 		widget = { layoutpolicy_horizontal = expanding size = { -1 30 } }
@@ -853,6 +902,19 @@ window = {
 						visible = "[GetGlobalVariable('bag_wtp_cm_lit_all').IsSet]"
 					}
 					onclick = "[GetScriptedGui('bag_wtp_cm_press_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				# **Снос лишнего по всему плану.**
+				button_regular = {
+					size = { 44 42 }
+					tooltip = "bag_wtp_raze_all_tt"
+					icon = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/disable_icon.dds"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_raze_press_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 
 				button_regular = {

@@ -809,3 +809,58 @@ bag_wtp_cm_press_all = {
 
 	effect = { bag_wtp_cm_press_all_do = yes }
 }
+
+# ---- снос лишнего и режим житницы -----------------------------------------
+#
+# **Снос трогает только тот список зданий, которым план строит.** Гарнизона,
+# порта и университета в нём нет вовсе, поэтому «снесла не то» невозможно по
+# построению, а не по проверке.
+
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_raze_press_loc = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_raze_press_loc_do = yes }
+}
+
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_raze_press_prov = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_raze_press_prov_do = yes }
+}
+
+# Scope: country
+bag_wtp_raze_press_all = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_raze_press_all_do = yes }
+}
+
+# Локация, которой CM предлагает режим житницы: только там наша кнопка и рисуется.
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_food_here = {
+	scope = country
+
+	is_shown = { scope:wtp_location = { bag_wtp_is_food_loc = yes } }
+	effect = { }
+}
+
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_food_press_loc = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_food_press_loc_do = yes }
+}

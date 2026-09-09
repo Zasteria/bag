@@ -2907,6 +2907,34 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             f"{t}\tchange_variable = {{ name = {MOD_ID}_cm_lall subtract = 1 }}\n"
             f"{t}}}\n")
 
+    # **Что план тут держит**, тем же правилом, что у фишки и у отмашки: само
+    # здание или высшая доступная ступень того, что стоит в плане.
+    def keeps(b: str, tab: str) -> str:
+        arms = (f"{tab}\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+                f"target = building_type:{b} }}\n")
+        blocked: list[str] = []
+        for upper in ladder_above(b, game):
+            arms += (f"{tab}\tAND = {{\n"
+                     f"{tab}\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+                     f"target = building_type:{upper} }}\n"
+                     + "".join(f"{tab}\t\tNOT = {{ global_var:{MOD_ID}_ba_{a} = 1 }}\n"
+                               for a in blocked + [upper])
+                     + f"{tab}\t}}\n")
+            blocked.append(upper)
+        return f"{tab}OR = {{\n{arms}{tab}}}\n"
+
+    raze = "".join(
+        f"\tif = {{\n"
+        f"\t\tlimit = {{\n"
+        f"\t\t\thas_building = building_type:{b}\n"
+        f"\t\t\tNOT = {{\n{keeps(b, chr(9) * 4)}\t\t\t}}\n"
+        f"\t\t}}\n"
+        f"\t\tdestroy_all_buildings_of_type = building_type:{b}\n"
+        f"\t\tchange_global_variable = {{ name = {MOD_ID}_raze_n add = 1 }}\n"
+        f"\t\tset_variable = {{ name = {MOD_ID}_chg_seq value = global_var:{MOD_ID}_edit_presses }}\n"
+        f"\t}}\n" for b in sorted({b for key in groups for b in groups[key]}))
+    food_or = "".join(f"\t\traw_material = goods:{g}\n" for g in FOOD_GOODS)
+
     cm_apply = cm_walk(cm_mark)
     cm_scan = cm_walk(cm_seen)
     cm_lit = cm_walk(cm_light)
@@ -2964,6 +2992,83 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_set_bavail = {{
 {bavail}}}
+
+# **Локация, которой Construction Manager предлагает режим житницы.**
+#
+# Список сырья прочитан у самого CM (`cm_is_food_rgo_location`) на сборке, а не
+# выписан по памяти: обновится он -- обновится и здесь при пересборке. Условие
+# то же, что у него: сельское поселение с продовольственным РГО, потому что
+# фермерскую и рыбацкую деревни в городе не построить, и кнопка там ни к чему.
+# Scope: location
+{MOD_ID}_is_food_loc = {{
+\tlocation_rank = location_rank:rural_settlement
+\tOR = {{
+{food_or}\t}}
+}}
+
+# Переключить режим житницы CM для этой локации. **Переменная CM пишется
+# напрямую**, как и галочки автостроя; модификатор `cm_auto_food_locked_location`
+# намеренно не ставится -- имя чужого модификатора в нашем файле сломалось бы у
+# того, у кого CM не стоит, а на саму житницу CM смотрит по переменной.
+# Scope: country, ждёт scope:wtp_location
+{MOD_ID}_food_press_loc_do = {{
+\tscope:wtp_location = {{
+\t\tif = {{
+\t\t\tlimit = {{ has_variable = cm_auto_food_location_enabled }}
+\t\t\tremove_variable = cm_auto_food_location_enabled
+\t\t}}
+\t\telse = {{ set_variable = {{ name = cm_auto_food_location_enabled value = yes }} }}
+\t}}
+}}
+
+# **Снос всего производственного, чего план тут не хочет.**
+#
+# Его слово, 2026-09-09: «в локации 2 здания подходят и стоит там ещё штук 10
+# производственных зданий, которые не подходят. При нажатии той кнопки все эти 10
+# снесёт, а остальные 2 останутся. Только смотри, чтобы эта кнопка не сносила
+# какие-либо другие здания.»
+#
+# **Трогается ровно тот список, которым план строит** -- здания
+# производственных котлов и деревни, выписанные на сборке. Гарнизон, порт,
+# университет и всё прочее в этот список не входят вовсе, поэтому «случайно
+# снесла не то» тут невозможно по построению, а не по проверке.
+#
+# **Ступень лестницы считается подходящей.** План «на конец» ставит мельницу, а
+# стоит мастерская: сносить её -- значит сносить то, что фильтр и автострой
+# только что назвали правильным. Правило то же самое: здание остаётся, если оно
+# в плане или это высшая доступная ступень того, что в плане.
+# Scope: location
+{MOD_ID}_raze_loc = {{
+{raze}}}
+
+# Scope: country, ждёт scope:wtp_location
+{MOD_ID}_raze_press_loc_do = {{
+\tset_global_variable = {{ name = {MOD_ID}_raze_n value = 0 }}
+\t{MOD_ID}_set_bavail = yes
+\tscope:wtp_location = {{ {MOD_ID}_raze_loc = yes }}
+}}
+
+# Scope: country, ждёт scope:wtp_location -- любую локацию нужной провинции
+{MOD_ID}_raze_press_prov_do = {{
+\tset_global_variable = {{ name = {MOD_ID}_raze_n value = 0 }}
+\t{MOD_ID}_set_bavail = yes
+\tscope:wtp_location = {{ province_definition = {{ save_scope_as = {MOD_ID}_cm_prov }} }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tlimit = {{ province_definition = {{ this = scope:{MOD_ID}_cm_prov }} }}
+\t\t{MOD_ID}_raze_loc = yes
+\t}}
+}}
+
+# Scope: country
+{MOD_ID}_raze_press_all_do = {{
+\tset_global_variable = {{ name = {MOD_ID}_raze_n value = 0 }}
+\t{MOD_ID}_set_bavail = yes
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\t{MOD_ID}_raze_loc = yes
+\t}}
+}}
 
 # **Одна отмашка на галочки автостроя Construction Manager, и больше ничего.**
 #
@@ -4983,7 +5088,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 0 }}
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
-\t\tlimit = {{ var:{MOD_ID}_load > 0 }}
+\t\t# **Житница остаётся в списке.** Его слово, 2026-09-09: «не удаляй из
+\t\t# списка в плане локацию которая помечена как житница, я ожидаю, что в
+\t\t# плане она будет просто помечена значком житницы и просто не будет
+\t\t# указано никаких своих зданий». Домиков у неё ноль, и без этой оговорки
+\t\t# ряд бы не выпал -- он бы просто не появился.
+\t\tlimit = {{
+\t\t\tOR = {{
+\t\t\t\tvar:{MOD_ID}_load > 0
+\t\t\t\t{MOD_ID}_is_granary = yes
+\t\t\t}}
+\t\t}}
 \t\torder_by = {MOD_ID}_plan_order
 \t\tmax = {PLAN_RANKED}
 \t\tcheck_range_bounds = no
@@ -5151,6 +5266,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # минимум 3.» A slot is a global list of locations plus one list of goods on each
 # of them, so the cost is per slot and per location the plan touched, and nothing
 # at all for a slot never written.
+# **Продовольственное сырьё -- список Construction Manager, прочитанный у него.**
+# Он решает, каким локациям CM вообще предлагает режим житницы; наша кнопка
+# должна стоять ровно там же.
+FOOD_GOODS = ['beeswax', 'fish', 'fruit', 'fur', 'legumes', 'livestock', 'maize', 'millet', 'olives', 'potato', 'rice', 'wheat', 'wild_game']
+
 EDIT_SLOTS = 3
 
 # **The picker is rows, and the rows are cut here.** Ten cells of 104 plus their
@@ -10252,6 +10372,9 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_dv6 add = 1 }}\n"
                f"\t\t}}\n"
                f"\t}}\n")
+    out.append(park(7, f"{MOD_ID}_raze_n"))
+    out.append(say("RAZE last=%s -- сколько производственных зданий снесло "
+                   "последнее нажатие «снести лишнее»" % read(7)))
     out.append(say("GRANARY n=%s -- локаций в режиме житницы CM: план в них "
                    "ничего не ставит и их мест не считает, но РГО их считает "
                    "по-прежнему и выгоду провинции они дают как раньше"
@@ -11621,8 +11744,25 @@ def spec_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 def main() -> int:
+    # **Здания чужих модов идут в план наравне со своими -- но не их товары.**
+    #
+    # Владелец, 2026-09-09: «нужно, чтобы мод сканировал другие моды на наличие
+    # производственных зданий... и вставлял их в план наравне со всеми». Читает
+    # их `eu5data.load_game`, кладя `common/` каждого мода из `reference/mods`
+    # поверх игровой -- ровно как их кладёт сама игра.
+    #
+    # **Товар, которого нет у игры, в список не входит, и это не выбор, а
+    # потолок.** CMM обрабатывает клик по строке списка до пятидесятой и дальше
+    # нет; у игры 47 товаров, а моды этого дерева довели бы список до 64. Поэтому
+    # чужое здание попадает в план тогда, когда делает товар, который план и так
+    # знает: соляная мастерская чужого мода -- да, товар, которого в игре нет, --
+    # нет. Сколько таких отброшено, генератор печатает, чтобы это не было тихо.
     game = eu5data.load_game()
-    rows = methods(game)
+    core = eu5data.load_game(refs.GAME_COMMON, [])
+    known = {good for method in methods(core) for good in method.produced.split()}
+    rows_all = methods(game)
+    rows = [m for m in rows_all if set(m.produced.split()) & known]
+    dropped = sorted({m.building for m in rows_all} - {m.building for m in rows})
     split = goods_split(rows, game)
 
     # **What the generator would otherwise get wrong quietly**, checked once here
@@ -11852,6 +11992,9 @@ def main() -> int:
     print(f"{sum(len(v) for v in by_continent.values())} regions in "
           f"{len(by_continent)} lists, {len(UNLOCKS)} methods gated by an advance")
     rural = sum(1 for m in rows if m.building_category in RURAL_CATEGORIES)
+    if dropped:
+        print(f"{len(dropped)} building(s) of other mods left out: they make no "
+              f"good the game itself has, and the picker list stops at {LIST_CAP}")
     print(f"{len(rows)} methods scored, {rural} of them in a village, "
           f"{len(split['raw'])} raw + {len(split['made'])} made goods, "
           f"{len(CONTINENTS)} continents, {RESULT_ROWS} provinces ranked, "

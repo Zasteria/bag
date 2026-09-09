@@ -658,6 +658,15 @@ bag_wtp_plan_spec_best = {
 	}
 	if = {
 		limit = {
+			bag_wtp_plan_can_rural_4 = yes
+			var:bag_wtp_pr4 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip4 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr4 }
+		set_variable = { name = bag_wtp_speck value = 4 }
+	}
+	if = {
+		limit = {
 			bag_wtp_plan_can_town_5 = yes
 			var:bag_wtp_p5 > var:bag_wtp_specv
 			NOT = { has_global_variable = bag_wtp_skip5 }
@@ -673,6 +682,15 @@ bag_wtp_plan_spec_best = {
 		}
 		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr5 }
 		set_variable = { name = bag_wtp_speck value = 5 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_can_town_6 = yes
+			var:bag_wtp_p6 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip6 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_p6 }
+		set_variable = { name = bag_wtp_speck value = 6 }
 	}
 	if = {
 		limit = {
@@ -730,6 +748,15 @@ bag_wtp_plan_spec_best = {
 	}
 	if = {
 		limit = {
+			bag_wtp_plan_can_rural_9 = yes
+			var:bag_wtp_pr9 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip9 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr9 }
+		set_variable = { name = bag_wtp_speck value = 9 }
+	}
+	if = {
+		limit = {
 			bag_wtp_plan_can_town_10 = yes
 			var:bag_wtp_p10 > var:bag_wtp_specv
 			NOT = { has_global_variable = bag_wtp_skip10 }
@@ -754,6 +781,15 @@ bag_wtp_plan_spec_best = {
 		}
 		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr11 }
 		set_variable = { name = bag_wtp_speck value = 11 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_can_town_12 = yes
+			var:bag_wtp_p12 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip12 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_p12 }
+		set_variable = { name = bag_wtp_speck value = 12 }
 	}
 	if = {
 		limit = {
@@ -789,6 +825,15 @@ bag_wtp_plan_spec_best = {
 			NOT = { has_global_variable = bag_wtp_skip14 }
 		}
 		set_variable = { name = bag_wtp_specv value = var:bag_wtp_p14 }
+		set_variable = { name = bag_wtp_speck value = 14 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_can_rural_14 = yes
+			var:bag_wtp_pr14 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip14 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr14 }
 		set_variable = { name = bag_wtp_speck value = 14 }
 	}
 	if = {
@@ -843,6 +888,15 @@ bag_wtp_plan_spec_best = {
 			NOT = { has_global_variable = bag_wtp_skip18 }
 		}
 		set_variable = { name = bag_wtp_specv value = var:bag_wtp_p18 }
+		set_variable = { name = bag_wtp_speck value = 18 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_can_rural_18 = yes
+			var:bag_wtp_pr18 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip18 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr18 }
 		set_variable = { name = bag_wtp_speck value = 18 }
 	}
 	if = {
@@ -937,6 +991,15 @@ bag_wtp_plan_spec_best = {
 	}
 	if = {
 		limit = {
+			bag_wtp_plan_can_rural_24 = yes
+			var:bag_wtp_pr24 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip24 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr24 }
+		set_variable = { name = bag_wtp_speck value = 24 }
+	}
+	if = {
+		limit = {
 			bag_wtp_plan_can_rural_25 = yes
 			var:bag_wtp_pr25 > var:bag_wtp_specv
 			NOT = { has_global_variable = bag_wtp_skip25 }
@@ -1005,6 +1068,15 @@ bag_wtp_plan_spec_best = {
 			NOT = { has_global_variable = bag_wtp_skip30 }
 		}
 		set_variable = { name = bag_wtp_specv value = var:bag_wtp_p30 }
+		set_variable = { name = bag_wtp_speck value = 30 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_can_rural_30 = yes
+			var:bag_wtp_pr30 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip30 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr30 }
 		set_variable = { name = bag_wtp_speck value = 30 }
 	}
 	if = {
@@ -1099,6 +1171,15 @@ bag_wtp_plan_spec_best = {
 	}
 	if = {
 		limit = {
+			bag_wtp_plan_can_rural_37 = yes
+			var:bag_wtp_pr37 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip37 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr37 }
+		set_variable = { name = bag_wtp_speck value = 37 }
+	}
+	if = {
+		limit = {
 			bag_wtp_plan_can_town_38 = yes
 			var:bag_wtp_p38 > var:bag_wtp_specv
 			NOT = { has_global_variable = bag_wtp_skip38 }
@@ -1140,6 +1221,15 @@ bag_wtp_plan_spec_best = {
 			NOT = { has_global_variable = bag_wtp_skip40 }
 		}
 		set_variable = { name = bag_wtp_specv value = var:bag_wtp_p40 }
+		set_variable = { name = bag_wtp_speck value = 40 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_can_rural_40 = yes
+			var:bag_wtp_pr40 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip40 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr40 }
 		set_variable = { name = bag_wtp_speck value = 40 }
 	}
 	if = {
@@ -1194,6 +1284,15 @@ bag_wtp_plan_spec_best = {
 			NOT = { has_global_variable = bag_wtp_skip44 }
 		}
 		set_variable = { name = bag_wtp_specv value = var:bag_wtp_p44 }
+		set_variable = { name = bag_wtp_speck value = 44 }
+	}
+	if = {
+		limit = {
+			bag_wtp_plan_can_rural_44 = yes
+			var:bag_wtp_pr44 > var:bag_wtp_specv
+			NOT = { has_global_variable = bag_wtp_skip44 }
+		}
+		set_variable = { name = bag_wtp_specv value = var:bag_wtp_pr44 }
 		set_variable = { name = bag_wtp_speck value = 44 }
 	}
 	if = {
@@ -1289,6 +1388,10 @@ bag_wtp_plan_spec_best = {
 			limit = { bag_wtp_plan_can_town_4 = yes }
 			bag_wtp_plan_try_town_4 = yes
 		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_4 = yes }
+			bag_wtp_plan_try_rural_4 = yes
+		}
 	}
 	if = {
 		limit = { var:bag_wtp_speck = 5 }
@@ -1303,6 +1406,10 @@ bag_wtp_plan_spec_best = {
 	}
 	if = {
 		limit = { var:bag_wtp_speck = 6 }
+		if = {
+			limit = { bag_wtp_plan_can_town_6 = yes }
+			bag_wtp_plan_try_town_6 = yes
+		}
 		if = {
 			limit = { bag_wtp_plan_can_rural_6 = yes }
 			bag_wtp_plan_try_rural_6 = yes
@@ -1336,6 +1443,10 @@ bag_wtp_plan_spec_best = {
 			limit = { bag_wtp_plan_can_town_9 = yes }
 			bag_wtp_plan_try_town_9 = yes
 		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_9 = yes }
+			bag_wtp_plan_try_rural_9 = yes
+		}
 	}
 	if = {
 		limit = { var:bag_wtp_speck = 10 }
@@ -1358,6 +1469,10 @@ bag_wtp_plan_spec_best = {
 	if = {
 		limit = { var:bag_wtp_speck = 12 }
 		if = {
+			limit = { bag_wtp_plan_can_town_12 = yes }
+			bag_wtp_plan_try_town_12 = yes
+		}
+		if = {
 			limit = { bag_wtp_plan_can_rural_12 = yes }
 			bag_wtp_plan_try_rural_12 = yes
 		}
@@ -1378,6 +1493,10 @@ bag_wtp_plan_spec_best = {
 		if = {
 			limit = { bag_wtp_plan_can_town_14 = yes }
 			bag_wtp_plan_try_town_14 = yes
+		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_14 = yes }
+			bag_wtp_plan_try_rural_14 = yes
 		}
 	}
 	if = {
@@ -1414,6 +1533,10 @@ bag_wtp_plan_spec_best = {
 		if = {
 			limit = { bag_wtp_plan_can_town_18 = yes }
 			bag_wtp_plan_try_town_18 = yes
+		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_18 = yes }
+			bag_wtp_plan_try_rural_18 = yes
 		}
 	}
 	if = {
@@ -1473,6 +1596,10 @@ bag_wtp_plan_spec_best = {
 			limit = { bag_wtp_plan_can_town_24 = yes }
 			bag_wtp_plan_try_town_24 = yes
 		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_24 = yes }
+			bag_wtp_plan_try_rural_24 = yes
+		}
 	}
 	if = {
 		limit = { var:bag_wtp_speck = 25 }
@@ -1522,6 +1649,10 @@ bag_wtp_plan_spec_best = {
 		if = {
 			limit = { bag_wtp_plan_can_town_30 = yes }
 			bag_wtp_plan_try_town_30 = yes
+		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_30 = yes }
+			bag_wtp_plan_try_rural_30 = yes
 		}
 	}
 	if = {
@@ -1584,6 +1715,10 @@ bag_wtp_plan_spec_best = {
 			limit = { bag_wtp_plan_can_town_37 = yes }
 			bag_wtp_plan_try_town_37 = yes
 		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_37 = yes }
+			bag_wtp_plan_try_rural_37 = yes
+		}
 	}
 	if = {
 		limit = { var:bag_wtp_speck = 38 }
@@ -1612,6 +1747,10 @@ bag_wtp_plan_spec_best = {
 		if = {
 			limit = { bag_wtp_plan_can_town_40 = yes }
 			bag_wtp_plan_try_town_40 = yes
+		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_40 = yes }
+			bag_wtp_plan_try_rural_40 = yes
 		}
 	}
 	if = {
@@ -1648,6 +1787,10 @@ bag_wtp_plan_spec_best = {
 		if = {
 			limit = { bag_wtp_plan_can_town_44 = yes }
 			bag_wtp_plan_try_town_44 = yes
+		}
+		if = {
+			limit = { bag_wtp_plan_can_rural_44 = yes }
+			bag_wtp_plan_try_rural_44 = yes
 		}
 	}
 	if = {
