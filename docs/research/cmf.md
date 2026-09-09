@@ -389,6 +389,19 @@ types the player ticked and stages them in every owned location, checking only
 build-queue slots and `cm_location_can_auto_build`. An addon that must ignore the
 profit gates should stage there rather than invent a queue.
 
+**Auto Town Rights is a priority walk with no delegation point.**
+`cm_run_auto_town_rights` walks `cm_auto_town_rights_list` — an ordered list of
+`town_rights_type` values built from its CMM list — and for each right walks
+owned locations, granting where `has_max_town_rights = no`,
+`cm_can_grant_specific_town_right_at_location` and affordability allow, then pays
+`price:grant_town_rights`. The right granted is `scope:cm_town_right` and nothing
+else: there is no branch where another mod could say "ask me which right this
+town wants". Structurally the same fact as the feature dispatcher's `switch` with
+no default branch — **CM is extensible where it chose to be, and a marker entry
+in one of its lists is not one of those places.** An addon that wants a
+per-location right grants it itself: `grant_town_rights` is a plain location
+effect, and the gates above are readable from script.
+
 **The granary mode is a location variable too.** CM's per-location food toggle
 (`cm_set_auto_food_for_location`) sets `cm_auto_food_location_enabled` on the
 location and pins it with the `cm_auto_food_locked_location` modifier; a second
