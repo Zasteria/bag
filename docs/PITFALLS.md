@@ -47,6 +47,20 @@ never worked; `06_country.txt` says "root is player" in its own header. **Ask
 object — a generator's job. `building` and `location` scoped filters do get
 `scope:target`.
 
+**One predicate in two places will drift, and the copy that decides is the one
+nobody edits.** `_reach_<n>` — "could this country ever have this method" — was
+computed twice: once to write the trigger, once to decide whether to ask it. The
+writer learnt about `country_potential`; the asker did not, so 429 triggers were
+generated correct and never consulted, and a Tibetan atelier stood in Westphalia.
+Both now call `method_gates`. The symptom is the worst kind: the fix looks
+present in the generated files.
+
+**A partial report read as a whole one is a wrong answer with a number attached.**
+`WTP BLDG ... built=0` covers only *multi-good* buildings; concluding "no foreign
+building was placed" from it was reading an absence in a subset as a fact about
+the plan. The rule this repository already has — an empty result is a fact about
+the tree, never about the game — applies to its own diagnostics too.
+
 **`local_<x>_building_levels` names a building, not a good — and the two look
 alike.** `local_fine_cloth_guild_building_levels` raises the level cap of
 `fine_cloth_guild`; stripping `_guild` turns it into the good `fine_cloth`, and
@@ -54,13 +68,6 @@ the charter then reads as "favours fine cloth" and pulls in every building that
 makes it — a Tibetan atelier the bonus will never touch. Caught by the owner on
 2026-09-09. A per-building bonus has to stay attached to its building: derive the
 good from the building, and gate on the winning method being that building's.
-
-**A `widget` with `onclick` does not take clicks; a button does.**
-`alwaystransparent = no` makes a widget receive the mouse for a *tooltip*, and
-that is what it is for. Three icons shipped that way on 2026-09-09 and the owner
-found all three dead. In `where_to_produce`'s own windows the things that take a
-click are `button_regular` and `button_square_plus` — put the `icon` inside one
-of those.
 
 **A trigger that models what the player *means* must never gate what the game will
 *do*.** `where_to_produce`'s `_stands_<building>` deliberately obeys the mod's own

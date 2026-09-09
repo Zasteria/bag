@@ -386,6 +386,23 @@ LOCKED = locked_advances()
 COUNTRY_POTENTIALS = country_potentials()
 
 
+def method_gates(method: eu5data.Method) -> list[str]:
+    """Условия «может ли эта страна вообще получить этот метод», все до одного.
+
+    **Один источник правды, потому что их было два, и они разошлись.**
+    `triggers_file` писал `_reach_<n>` по продвижениям **и** по
+    `country_potential` здания, а `score_file` решал, спрашивать ли `_reach_<n>`
+    вообще, только по продвижениям. У тибетского ателье продвижения нет -- оно
+    заперто `country_potential`, -- поэтому ворота были написаны и ни разу не
+    спрошены, и Вестфалия получила его в план «на конец». Владелец, 2026-09-09,
+    со скриншотом Дортмунда: «так и что ты мне рассказываешь что в план не попал
+    ни один лишний домик?»
+    """
+    gates = [LOCKED[a] for a in method_advances(method) if a in LOCKED]
+    own = building_reach(method.building)
+    return gates + ([own] if own else [])
+
+
 def building_reach(building: str) -> str | None:
     """«Может ли эта страна вообще получить это здание», из его `country_potential`.
 
@@ -875,8 +892,7 @@ def triggers_file(rows, split, game) -> str:
     # behind this method"; for all but thirteen of the 241 the answer is yes by
     # construction, and writing those out was 228 scripted triggers saying
     # `always = yes` that the engine parses on every load and nothing ever calls.
-    reach = {index: [LOCKED[a] for a in method_advances(method) if a in LOCKED]
-                    + [g for g in [building_reach(method.building)] if g]
+    reach = {index: method_gates(method)
              for index, method in enumerate(rows, start=1)}
     reach = {index: gates for index, gates in reach.items() if gates}
     out.append(f"\n# The {len(reach)} methods of {len(rows)} behind an advance somebody can never "
@@ -1837,7 +1853,11 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # end cannot bring is an advance this country may never take.**
             # `_reach_<n>` is `always = yes` for all but thirteen methods, so the
             # `if` costs nothing where nothing is locked.
-            reachable = [a for a in method_advances(rows[method_index - 1]) if a in LOCKED]
+            # **Тот же вопрос и то же место, откуда он берётся.** Раньше здесь
+            # стоял свой список -- только по продвижениям, -- и метод, запертый
+            # `country_potential`, ворот не получал: они писались и не
+            # спрашивались.
+            reachable = method_gates(rows[method_index - 1])
             deep, shut = ("\t\t", "") if not reachable else ("\t\t\t", f"""\t\tif = {{
 \t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_reach_{method_index} = yes }} }}
 """)
@@ -10525,8 +10545,29 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                + "".join(f"\tif = {{ limit = {{ can_build_building = building_type:{b} }} "
                          f"change_global_variable = {{ name = {MOD_ID}_dv8 add = 1 }} }}\n"
                          for b in foreign))
-    out.append(say("FOREIGN pool=%d mine=%%s -- зданий чужих модов в пуле плана "
-                   "и из них доступных этой державе" % len(foreign) % read(8)))
+    # **И число, которого не хватило 2026-09-09.** `mine` говорит, сколько чужих
+    # зданий стране доступно, и по нему я решил, что лишних в плане нет; лишние
+    # были, просто ни одно из них не попадало в строки `BLDG` -- те пишутся
+    # только про многотоварные здания. Считаем прямо: сколько зданий стоит в
+    # плане при том, что построить их страна не может. Это должно быть ноль
+    # всегда, и любое другое число -- дыра в воротах, а не особенность.
+    out.append(f"\tset_global_variable = {{ name = {MOD_ID}_dv9 value = 0 }}\n"
+               + "".join(
+                   f"\tif = {{\n"
+                   f"\t\tlimit = {{\n"
+                   f"\t\t\tNOT = {{ can_build_building = building_type:{b} }}\n"
+                   f"\t\t\tany_in_global_list = {{\n"
+                   f"\t\t\t\tvariable = {MOD_ID}_plan_touched\n"
+                   f"\t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_builds "
+                   f"target = building_type:{b} }}\n"
+                   f"\t\t\t}}\n"
+                   f"\t\t}}\n"
+                   f"\t\tchange_global_variable = {{ name = {MOD_ID}_dv9 add = 1 }}\n"
+                   f"\t}}\n" for b in foreign))
+    out.append(say("FOREIGN pool=%d mine=%%s unbuildable=%%s -- зданий чужих модов "
+                   "в пуле плана, из них доступных этой державе, и сколько видов "
+                   "стоит в плане, не будучи ей доступными: последнее обязано "
+                   "быть нулём" % len(foreign) % (read(8), read(9))))
 
     out.append(park(7, f"{MOD_ID}_raze_n"))
     out.append(say("RAZE last=%s -- сколько производственных зданий снесло "

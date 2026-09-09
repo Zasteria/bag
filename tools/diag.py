@@ -573,10 +573,15 @@ def digest(lines: list[str]) -> list[str]:
     fr = first("WTP FOREIGN")
     if fr:
         pool, mine = field(fr, "pool"), field(fr, "mine")
+        bad = field(fr, "unbuildable")
         out.append("Здания чужих модов: %s в пуле, доступно этой державе %s%s"
                    % (pool, mine,
                       " — то есть эти моды ей зданий не дают, и это не поломка"
                       if not mine else ""))
+        if bad:
+            out.append("  !! %s стоят в плане, не будучи доступными державе — "
+                       "это дыра в воротах «на конец», а не особенность"
+                       % plural(bad, "вид", "вида", "видов"))
 
     raze = field(first("WTP RAZE"), "last")
     if raze:
