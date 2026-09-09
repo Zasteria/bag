@@ -1273,8 +1273,18 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # good raises the charters that favour it. Without this the regulator
         # could not touch Sauerland, where the charter round decides all 28
         # buildings and the allocator none of them.
+        def _won_here(g: str) -> str:
+            mis = right_methods(right, g, rows)
+            if not mis:
+                return _won(g)
+            # Право на лимит конкретного здания: считается только там, где
+            # именно это здание и выиграло.
+            return "AND = { %s OR = { %s } }" % (
+                _won(g), " ".join(f"var:{MOD_ID}_pm{order.index(g) + 1} = {mi}"
+                                  for mi in mis))
+
         adds = "".join(f"""\tif = {{
-\t\tlimit = {{ {_won(g)} }}
+\t\tlimit = {{ {_won_here(g)} }}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
 \t}}
 """ for g in bundle)
@@ -2315,9 +2325,19 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_plan_right_fits_{k} = {{ always = no }}
 """)
             continue
-        tests = "".join(
-            "\t\t%s_plan_can_town_%d = yes\n" % (MOD_ID, order.index(g) + 1)
-            for g in wanted)
+        def _fit(g: str) -> str:
+            i = order.index(g) + 1
+            mis = right_methods(right, g, rows)
+            if not mis:
+                return "\t\t%s_plan_can_town_%d = yes\n" % (MOD_ID, i)
+            return ("\t\tAND = {\n"
+                    "\t\t\t%s_plan_can_town_%d = yes\n"
+                    "\t\t\tOR = { %s }\n"
+                    "\t\t}\n" % (MOD_ID, i,
+                                   " ".join(f"var:{MOD_ID}_pm{i} = {mi}"
+                                            for mi in mis)))
+
+        tests = "".join(_fit(g) for g in wanted)
         out.append(f"""
 # {right.key}: {", ".join(wanted)}. Granted if any one of them can be made here.
 # Scope: location
@@ -7788,14 +7808,18 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # a refusal: the swap plants what is missing, and `_edit_locked_<n>` takes the
     # rest into the bundle once `_plan_right` says so.
     for k, right in enumerate(rights, start=1):
-        makes = [order.index(good) + 1 for good in sorted(right.output)
-                 if groups.get((good, "t"))]
-        if not makes:
+        wanted_t = [good for good in sorted(right.output) if groups.get((good, "t"))]
+        if not wanted_t:
             gate.append(f"\n# {right.key}: no town building at all.\n"
                         f"# Scope: location\n"
                         f"{MOD_ID}_edit_right_fits_{k} = {{ always = no }}\n")
             continue
-        inside = "".join(f"\t\tvar:{MOD_ID}_pm{i} > 0\n" for i in makes)
+        inside = ""
+        for good in wanted_t:
+            i = order.index(good) + 1
+            mis = right_methods(right, good, rows)
+            inside += ("".join(f"\t\tvar:{MOD_ID}_pm{i} = {mi}\n" for mi in mis)
+                       if mis else f"\t\tvar:{MOD_ID}_pm{i} > 0\n")
         gate.append(f"""
 # {right.key}: {", ".join(sorted(right.output))}. **A method, not a free room** --
 # see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.
@@ -9396,6 +9420,23 @@ def excluded_rights() -> dict[str, str]:
 PREFERRED_RIGHT = {"royal_textile_rights": "flemish_cloth_industries_right"}
 
 
+def right_methods(right: eu5data.TownRight, good: str,
+                  rows: list[eu5data.Method]) -> list[int]:
+    """Номера городских методов, которым право этого товара и адресовано.
+
+    Пусто -- право поднимает товар целиком, годится любое его здание. Не пусто --
+    бонус на лимит домиков конкретного здания, и «любое здание того же товара»
+    тут неправда: `flemish_cloth_industries_right` поднимает гильдию портных, а
+    не тибетское ателье, которое делает то же тонкое сукно. Владелец поймал это
+    на прогоне 2026-09-09.
+    """
+    names = right.only.get(good)
+    if not names:
+        return []
+    return sorted(i for i, m in enumerate(rows, start=1)
+                  if m.building in names and m.urban and m.produced == good)
+
+
 def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5data.TownRight]:
     """The urban rights this mod answers for: every one that helps a good.
 
@@ -9428,9 +9469,27 @@ def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5dat
             f"the game no longer forbids {victim} beside {winner}; "
             f"`PREFERRED_RIGHT` is a ruling about a pair that has gone")
     keep = []
+    # **Здание -> товары, которые оно делает в городе.** Право на лимит домиков
+    # адресовано зданию (`local_fine_cloth_guild_building_levels` -- гильдии
+    # портных), и товар из него выводится, а не читается: на чужое здание того
+    # же товара бонус не действует, и план не должен считать иначе.
+    building_goods: dict[str, set[str]] = {}
+    for method in rows:
+        if method.urban:
+            building_goods.setdefault(method.building, set()).add(method.produced)
+
     for right in game.town_rights:
-        favoured = {**right.levels, **right.output}
+        only: dict[str, list[str]] = {}
+        by_levels: dict[str, float] = {}
+        for building, amount in right.levels.items():
+            for good in building_goods.get(building, ()):
+                by_levels[good] = max(by_levels.get(good, 0.0), amount)
+                only.setdefault(good, []).append(building)
+        favoured = {**by_levels, **right.output}
         bundle = {g: v for g, v in favoured.items() if g in made}
+        # Товар, который право поднимает целиком, оговорки не получает.
+        only = {g: sorted(set(bs)) for g, bs in only.items()
+                if g in bundle and g not in right.output}
         if not bundle:
             continue
         # **One charter stands aside for another, and only where the owner said
@@ -9442,7 +9501,7 @@ def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5dat
         if winner is not None and winner.potential:
             gate = f"NOT = {{ {winner.potential} }}"
             potential = f"{potential} {gate}" if potential else gate
-        keep.append(eu5data.TownRight(key=right.key, output=bundle,
+        keep.append(eu5data.TownRight(key=right.key, output=bundle, only=only,
                                       levels=right.levels, penalty=right.penalty,
                                       advance=right.advance, potential=potential))
     return keep

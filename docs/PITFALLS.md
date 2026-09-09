@@ -47,6 +47,14 @@ never worked; `06_country.txt` says "root is player" in its own header. **Ask
 object — a generator's job. `building` and `location` scoped filters do get
 `scope:target`.
 
+**`local_<x>_building_levels` names a building, not a good — and the two look
+alike.** `local_fine_cloth_guild_building_levels` raises the level cap of
+`fine_cloth_guild`; stripping `_guild` turns it into the good `fine_cloth`, and
+the charter then reads as "favours fine cloth" and pulls in every building that
+makes it — a Tibetan atelier the bonus will never touch. Caught by the owner on
+2026-09-09. A per-building bonus has to stay attached to its building: derive the
+good from the building, and gate on the winning method being that building's.
+
 **A `widget` with `onclick` does not take clicks; a button does.**
 `alwaystransparent = no` makes a widget receive the mouse for a *tooltip*, and
 that is what it is for. Three icons shipped that way on 2026-09-09 and the owner

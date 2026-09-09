@@ -25262,11 +25262,11 @@ bag_wtp_rq1 = {
 bag_wtp_rq2 = {
 	value = 0
 	if = {
-		limit = { var:bag_wtp_pm29 > 0 }
+		limit = { AND = { var:bag_wtp_pm29 > 0 OR = { var:bag_wtp_pm29 = 81 var:bag_wtp_pm29 = 82 var:bag_wtp_pm29 = 83 } } }
 		add = var:bag_wtp_p29
 	}
 	if = {
-		limit = { var:bag_wtp_pm30 > 0 }
+		limit = { AND = { var:bag_wtp_pm30 > 0 OR = { var:bag_wtp_pm30 = 155 var:bag_wtp_pm30 = 156 var:bag_wtp_pm30 = 157 var:bag_wtp_pm30 = 158 var:bag_wtp_pm30 = 159 var:bag_wtp_pm30 = 160 var:bag_wtp_pm30 = 161 var:bag_wtp_pm30 = 162 var:bag_wtp_pm30 = 163 var:bag_wtp_pm30 = 164 var:bag_wtp_pm30 = 165 var:bag_wtp_pm30 = 166 } } }
 		add = var:bag_wtp_p30
 	}
 	divide = 2

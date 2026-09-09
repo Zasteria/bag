@@ -5274,8 +5274,14 @@ bag_wtp_plan_right_fits_1 = {
 bag_wtp_plan_right_fits_2 = {
 	bag_wtp_is_granary = no
 	OR = {
-		bag_wtp_plan_can_town_29 = yes
-		bag_wtp_plan_can_town_30 = yes
+		AND = {
+			bag_wtp_plan_can_town_29 = yes
+			OR = { var:bag_wtp_pm29 = 81 var:bag_wtp_pm29 = 82 var:bag_wtp_pm29 = 83 }
+		}
+		AND = {
+			bag_wtp_plan_can_town_30 = yes
+			OR = { var:bag_wtp_pm30 = 155 var:bag_wtp_pm30 = 156 var:bag_wtp_pm30 = 157 var:bag_wtp_pm30 = 158 var:bag_wtp_pm30 = 159 var:bag_wtp_pm30 = 160 var:bag_wtp_pm30 = 161 var:bag_wtp_pm30 = 162 var:bag_wtp_pm30 = 163 var:bag_wtp_pm30 = 164 var:bag_wtp_pm30 = 165 var:bag_wtp_pm30 = 166 }
+		}
 	}
 }
 

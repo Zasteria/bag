@@ -282,6 +282,9 @@ class TownRight:
     key: str
     output: dict[str, float] = field(default_factory=dict)
     levels: dict[str, float] = field(default_factory=dict)
+    # Товар -> здания, которым этот бонус и адресован. Пусто -- бонус товару
+    # целиком, любому его зданию.
+    only: dict[str, list[str]] = field(default_factory=dict)
     penalty: bool = False
     # The advance that unlocks it, from `unlock_town_rights` in `common/advances`,
     # and the country condition the right carries itself. Both are how a right
@@ -512,8 +515,14 @@ def _town_rights(rights_dir: Path, advances_dir: Path) -> list[TownRight]:
                 if body.endswith("_output_modifier"):
                     right.output[body[:-len("_output_modifier")]] = amount
                 elif body.endswith("_building_levels"):
-                    good = body[:-len("_building_levels")]
-                    right.levels[good.removesuffix("_guild")] = amount
+                    # **Ключ -- здание, а не товар.** `_guild` тут отрезали, и
+                    # `local_fine_cloth_guild_building_levels` читалось как
+                    # «право на тонкое сукно»; на деле это лимит **гильдии
+                    # портных**, и на чужое здание того же товара он не
+                    # действует. Владелец, 2026-09-09: «мод считает его как
+                    # обычный бонус к производству и поэтому ставит любое
+                    # здание, которое даёт тонкое сукно. Это плохо».
+                    right.levels[body[:-len("_building_levels")]] = amount
         if right.output or right.levels:
             out.append(right)
     return sorted(out, key=lambda r: r.key)
