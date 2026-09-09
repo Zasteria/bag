@@ -3573,6 +3573,9 @@ bag_wtp_diag_state = {
 		}
 		change_global_variable = { name = bag_wtp_dv9 add = 1 }
 	}
+	set_global_variable = { name = bag_wtp_dv10 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_src3 } set_global_variable = { name = bag_wtp_dv10 value = global_var:bag_wtp_src3 } }
+	debug_log = "WTP SOURCES 3=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] -- галочка «читать этот мод» в настройках: 0 значит, что его здания в план не идут вовсе"
 	debug_log = "WTP FOREIGN pool=297 mine=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] unbuildable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] -- зданий чужих модов в пуле плана, из них доступных этой державе, и сколько видов стоит в плане, не будучи ей доступными: последнее обязано быть нулём"
 	set_global_variable = { name = bag_wtp_dv7 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_raze_n } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_raze_n } }

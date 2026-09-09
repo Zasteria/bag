@@ -249,6 +249,7 @@ TAB_ZONE = "zone"
 TAB_PLAN = "plan"
 
 ZONE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_zone.txt"
+SOURCES_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_sources.txt"
 REGION_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_regions.txt"
 PICKER_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_picker.txt"
 SCORE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_score.txt"
@@ -386,6 +387,47 @@ LOCKED = locked_advances()
 COUNTRY_POTENTIALS = country_potentials()
 
 
+def building_sources() -> dict[str, int]:
+    """Здание -> номер мода, который его объявил; ванильные сюда не попадают.
+
+    **Читается тем же способом, каким склеивается игра**: чей `common` объявил
+    ключ последним, того здание и есть. Номер нужен, чтобы у каждого мода-
+    источника была своя галочка в настройках.
+    """
+    out: dict[str, int] = {}
+    for number, (_folder, _name, common) in enumerate(refs.mod_sources(), start=1):
+        folder = common / "building_types"
+        if not folder.is_dir():
+            continue
+        for path in sorted(folder.glob("*.txt")):
+            if "readme" in path.name.lower():
+                continue
+            text = path.read_text(encoding="utf-8-sig", errors="replace")
+            for match in re.finditer(r"^([a-z0-9_]+)\s*=\s*\{", text, re.M):
+                out[match.group(1)] = number
+    return out
+
+
+BUILDING_SOURCE = building_sources()
+VANILLA_BUILDINGS = {
+    match.group(1)
+    for path in sorted((refs.GAME_COMMON / "building_types").glob("*.txt"))
+    if "readme" not in path.name.lower()
+    for match in re.finditer(r"^([a-z0-9_]+)\s*=\s*\{",
+                             path.read_text(encoding="utf-8-sig", errors="replace"), re.M)}
+
+
+def source_of(building: str) -> int:
+    """Номер мода-источника, или 0 -- если здание есть и у самой игры.
+
+    **Перекрытие ванильного здания источником не делает.** `construction_manager`
+    объявляет свой `cm_location_upgrade_buildings`, но и правит чужие; галочка
+    «не читать этот мод» не должна выключать здание, которое было в игре и без
+    него.
+    """
+    return 0 if building in VANILLA_BUILDINGS else BUILDING_SOURCE.get(building, 0)
+
+
 def method_gates(method: eu5data.Method) -> list[str]:
     """Условия «может ли эта страна вообще получить этот метод», все до одного.
 
@@ -400,7 +442,14 @@ def method_gates(method: eu5data.Method) -> list[str]:
     """
     gates = [LOCKED[a] for a in method_advances(method) if a in LOCKED]
     own = building_reach(method.building)
-    return gates + ([own] if own else [])
+    gates += [own] if own else []
+    # **И галочка мода-источника.** Она же делает список ворот непустым у любого
+    # чужого здания, а значит `score_file` спросит их всегда -- ровно та дыра,
+    # через которую тибетское ателье попало к Вестфалии.
+    source = source_of(method.building)
+    if source:
+        gates.append(f"global_var:{MOD_ID}_src{source} = 1")
+    return gates
 
 
 def building_reach(building: str) -> str | None:
@@ -766,6 +815,96 @@ def clear_ticks_effect() -> str:
 """
 
 
+def sources_file(rows: list[eu5data.Method]) -> str:
+    """Список модов, из которых мод взял здания, галочкой на каждый.
+
+    Его слово, 2026-09-09: «в настройках мода должна быть секция, в которой будет
+    отображаться список модов из которых наш мод подхватил какие-либо сооружения.
+    В этом списке мы можем нажать галочку включить или выключить использование
+    этих зданий в наших планах».
+
+    **Список -- только те моды, чьё здание правда попало в пул.** Мод, который
+    ничего производственного не даёт, строкой не будет: пустая галочка -- это
+    вопрос без ответа.
+
+    **Снятая галочка не убирает здание из файлов, а закрывает ему ворота.**
+    Скрипт написан на сборке и другим уже не станет; `_src<k>` стоит в `_avail_`
+    и в `_reach_` каждого метода этого мода, то есть и «на сейчас», и «на конец».
+    По умолчанию включено: он их для того и просил.
+
+    **Порядок и номера -- от `refs.mod_sources`**, папка за папкой. Мод, ушедший
+    из дерева, сдвинул бы номера; поэтому пересборка после смены плейсета
+    обязательна, как и для всего остального здесь.
+    """
+    used = sorted({source_of(m.building) for m in rows} - {0})
+    named = {n: (folder, name) for n, (folder, name, _c)
+             in enumerate(refs.mod_sources(), start=1)}
+    out = [HEADER, f"""#
+# Scope: country
+{MOD_ID}_register_source_list = {{
+"""]
+    if not used:
+        out.append("\t# Ни один мод дерева не дал плану здания -- списка нет.\n}\n")
+        out.append(f"\n# Scope: country\n{MOD_ID}_rebuild_sources = {{\n}}\n")
+        return "".join(out)
+    out.append(f"""\tcmm_register_settings_list = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = source
+\t\ttab_id = tech
+\t\titem_count = {len(used)}
+\t\tis_ordered = 0
+\t}}
+
+""")
+    for index, number in enumerate(used, start=1):
+        folder, _name = named[number]
+        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
+                   f"setting_id = source item = {index} value = flag:{MOD_ID}_src_{folder} }}\n")
+    out.append("\n")
+    for index, number in enumerate(used, start=1):
+        folder, _name = named[number]
+        out.append(f"\tset_variable = {{ name = {MOD_ID}__source_i{index}_name "
+                   f"value = flag:{MOD_ID}_src_{folder} }}\n")
+    out.append(f"""
+\tcmm_register_list_bool_field = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = source
+\t\tfield_id = pick
+\t\tdefault_value = 1
+\t}}
+}}
+
+# Галочки в числа, которые читают ворота методов.
+#
+# **До первой регистрации все включены.** Глобалки, которой нет, ворота читают
+# как ложь, и здания чужих модов исчезли бы из плана молча -- то есть ровно так,
+# как выглядит поломка.
+# Scope: country
+{MOD_ID}_rebuild_sources = {{
+""")
+    for number in used:
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_src{number} value = 1 }}\n")
+    out.append(f"""\tif = {{
+\t\tlimit = {{ has_variable_list = cmm_list_items_{MOD_ID}__source }}
+\t\tclear_global_variable_list = {MOD_ID}_source_ticks
+\t\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__source field_slot = 1 list_name = {MOD_ID}_source_ticked }}
+\t\tevery_in_list = {{
+\t\t\tvariable = {MOD_ID}_source_ticked
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_source_ticks target = this }}
+\t\t}}
+""")
+    for number in used:
+        folder, _name = named[number]
+        out.append(f"""\t\tset_global_variable = {{ name = {MOD_ID}_src{number} value = 0 }}
+\t\tif = {{
+\t\t\tlimit = {{ is_target_in_global_variable_list = {{ name = {MOD_ID}_source_ticks target = flag:{MOD_ID}_src_{folder} }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_src{number} value = 1 }}
+\t\t}}
+""")
+    out.append("\t}\n}\n")
+    return "".join(out)
+
+
 def zone_file() -> str:
     """The zone: the continents to look inside, ticked.
 
@@ -916,6 +1055,9 @@ def triggers_file(rows, split, game) -> str:
         # finds it through a pair's `base+improvement` key.
         extra = "".join(f"\n\thas_advance = {gate}" for gate in method_advances(method)
                         if gate in UNLOCKS.values())
+        source = source_of(method.building)
+        if source:
+            extra += f"\n\tglobal_var:{MOD_ID}_src{source} = 1"
         out.append(f"{MOD_ID}_avail_{index} = {{\n"
                    f"\tcan_build_building = building_type:{method.building}{extra}\n}}\n")
 
@@ -10017,6 +10159,17 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
     """
     out = [f"l_{language}:\n"]
 
+    # **Имя мода-источника, как его пишет он сам.** Строка списка в настройках
+    # берёт своё имя из флага, а флаг -- ключ локализации; имя читается из
+    # `.metadata/metadata.json` того мода, чтобы в настройках стояло то, что
+    # игрок видит в лаунчере.
+    used = sorted({source_of(m.building) for m in rows} - {0})
+    named = {n: (folder, name) for n, (folder, name, _c)
+             in enumerate(refs.mod_sources(), start=1)}
+    for number in used:
+        folder, name = named[number]
+        out.append(f' {MOD_ID}_src_{folder}: "{name}"\n')
+
     for kind in ("raw", "made"):
         for good in split[kind]:
             out.append(f" {MOD_ID}_good_{good}: "
@@ -10564,6 +10717,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"\t\t}}\n"
                    f"\t\tchange_global_variable = {{ name = {MOD_ID}_dv9 add = 1 }}\n"
                    f"\t}}\n" for b in foreign))
+    used_src = sorted({source_of(m.building) for m in rows} - {0})
+    if used_src:
+        out.append("".join(park(10 + n, f"{MOD_ID}_src{number}")
+                           for n, number in enumerate(used_src)))
+        out.append(say("SOURCES " + " ".join(
+            "%d=%s" % (number, read(10 + n)) for n, number in enumerate(used_src))
+            + " -- галочка «читать этот мод» в настройках: 0 значит, что его "
+              "здания в план не идут вовсе"))
+
     out.append(say("FOREIGN pool=%d mine=%%s unbuildable=%%s -- зданий чужих модов "
                    "в пуле плана, из них доступных этой державе, и сколько видов "
                    "стоит в плане, не будучи ей доступными: последнее обязано "
@@ -11991,6 +12153,7 @@ def main() -> int:
 
     by_continent = regions()
     write(ZONE_OUT, zone_file() + clear_ticks_effect())
+    write(SOURCES_OUT, sources_file(rows))
     write(REGION_OUT, region_file(by_continent))
     write(TRIGGERS_OUT, triggers_file(rows, split, game))
     write(PICKER_OUT, picker_file(split, rows))

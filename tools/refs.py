@@ -116,6 +116,28 @@ def mod_commons() -> list[Path]:
             if (folder / "in_game/common").is_dir()]
 
 
+def mod_sources() -> list[tuple[str, str, Path]]:
+    """Папка, человеческое имя и `in_game/common` каждого мода дерева.
+
+    Имя берётся из его же `.metadata/metadata.json`, чтобы в настройках стояло
+    то, что игрок видит в лаунчере, а не имя папки Мастерской.
+    """
+    out: list[tuple[str, str, Path]] = []
+    for folder in sorted(MODS.iterdir()) if MODS.is_dir() else []:
+        common = folder / "in_game/common"
+        if not common.is_dir():
+            continue
+        name = folder.name
+        meta = folder / ".metadata/metadata.json"
+        if meta.is_file():
+            try:
+                name = json.loads(meta.read_text(encoding="utf-8-sig")).get("name") or name
+            except Exception:
+                pass
+        out.append((folder.name, name, common))
+    return out
+
+
 def mods() -> list[Mod]:
     """Every mod folder currently under `reference/mods/`, sorted by folder."""
     if not MODS.is_dir():

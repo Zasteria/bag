@@ -38,6 +38,15 @@ bag_wtp_register = {
 	bag_wtp_register_zone_list = yes
 	bag_wtp_register_region_lists = yes
 
+	# ---- «Техническая»: моды, из которых взяты здания ----------------------
+	#
+	# Его слово, 2026-09-09: «список модов из которых наш мод подхватил
+	# какие-либо сооружения… мы можем нажать галочку включить или выключить
+	# использование этих зданий в наших планах». Снятая галочка не убирает
+	# здание из файлов — скрипт написан на сборке, — а закрывает ему ворота
+	# `_avail_` и `_reach_`, то есть и «на сейчас», и «на конец».
+	bag_wtp_register_source_list = yes
+
 	# ---- «Расчёты» — three functions, three doors --------------------------
 	#
 	# **Each of these only opens a window.** «как "расчёт" отдельно стоит от
@@ -144,6 +153,7 @@ bag_wtp_register = {
 	bag_wtp_init_counters = yes
 	bag_wtp_rebuild_zone = yes
 	bag_wtp_rebuild_regions = yes
+	bag_wtp_rebuild_sources = yes
 	# Which urban rights this country may ever hold, as one variable per right:
 	# a `visible` in a window cannot ask a trigger, and a unique right nobody
 	# can take is a cell that must not be there to click.

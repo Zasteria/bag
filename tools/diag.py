@@ -570,6 +570,14 @@ def digest(lines: list[str]) -> list[str]:
     # Прогон 2026-09-09 показал Вестфалии японскую кузню — пул был общий, а не
     # её. «Ноль своих» теперь значит «эти моды ничего не дают этой державе», а
     # не «мод их не увидел», и различает это одно число.
+    src = first("WTP SOURCES")
+    if src:
+        off = [pair.split("=")[0] for pair in src.split()[2:]
+               if "=" in pair and pair.split("=")[1] == "0"]
+        if off:
+            out.append("  выключено галочкой в настройках: %d мод(ов) — их "
+                       "здания в план не идут вовсе" % len(off))
+
     fr = first("WTP FOREIGN")
     if fr:
         pool, mine = field(fr, "pool"), field(fr, "mine")
