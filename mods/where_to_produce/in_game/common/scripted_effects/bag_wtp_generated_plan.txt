@@ -53487,6 +53487,15 @@ bag_wtp_plan_prepare = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_load value = 0 }
 		set_variable = { name = bag_wtp_plan_prank value = 9999 }
+		# **Продовольственный потенциал -- в переменную, а не в строку.** Он не
+		# зависит от плана вовсе, только от локации, поэтому считается один раз
+		# на обходе: `visible` в ряду умеет читать переменную и не умеет звать
+		# значение, а сорок строк со своим счётом на кадр -- это `panel_hitch`.
+		set_variable = { name = bag_wtp_food_pot value = bag_wtp_food_potential }
+		if = {
+			limit = { NOT = { var:bag_wtp_food_pot > 0 } }
+			remove_variable = bag_wtp_food_pot
+		}
 		remove_variable = bag_wtp_plan_right
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds

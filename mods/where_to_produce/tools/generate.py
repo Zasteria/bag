@@ -250,6 +250,7 @@ TAB_PLAN = "plan"
 
 ZONE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_zone.txt"
 SOURCES_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_sources.txt"
+FOODPOT_OUT = MOD / "in_game/common/script_values/bag_wtp_generated_foodpot.txt"
 REGION_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_regions.txt"
 PICKER_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_picker.txt"
 SCORE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_score.txt"
@@ -813,6 +814,62 @@ def clear_ticks_effect() -> str:
 \tset_global_variable = {{ name = {MOD_ID}_tick_count value = 0 }}
 {walks}}}
 """
+
+
+def food_potential_file() -> str:
+    """Продовольственный потенциал локации -- формула CM, переписанная под себя.
+
+    Его слово, 2026-09-09: «у CM есть режим карты, который считает
+    продовольственный потенциал... хочу, чтобы в плане в строке каждой локации,
+    которая производит пищу, был указан этот продовольственный потенциал».
+
+    **Копируется, а не зовётся, и вот почему это здесь честно.** Три значения CM
+    (`cm_location_food_potential` и два его множителя) -- чистая функция локации:
+    `raw_material.food_value`, `modifier:local_*`, `development`,
+    `location_building_level`, `has_river`. Ни одной его переменной, ни одного
+    его состояния. Значит копия даёт то же число, а мод остаётся рабочим без CM
+    -- имя, которого нет, ломается не там, где его ищут.
+
+    **И копируется генератором, а не руками**: текст берётся из его файла на
+    сборке и переименовывается. Обновит CM формулу -- пересборка возьмёт новую;
+    уйдёт CM из дерева -- значение станет нулём, и столбец просто не появится.
+    """
+    src = None
+    for _folder, _name, common in refs.mod_sources():
+        path = common / "script_values/cm_filter_script_values.txt"
+        if path.is_file():
+            src = path.read_text(encoding="utf-8-sig")
+            break
+    out = [HEADER, "#\n"]
+    if src is None or "cm_location_food_potential = {" not in (src or ""):
+        out.append("# Construction Manager не в дереве -- считать нечего.\n"
+                   f"# Scope: location\n{MOD_ID}_food_potential = {{\n\tvalue = 0\n}}\n")
+        return "".join(out)
+    names = ("cm_location_food_potential_food_multiplier",
+             "cm_location_food_potential_raw_output_multiplier",
+             "cm_location_food_potential")
+    for name in names:
+        start = src.index(f"\n{name} = {{")
+        depth, i = 0, src.index("{", start)
+        while i < len(src):
+            depth += (src[i] == "{") - (src[i] == "}")
+            if depth == 0:
+                break
+            i += 1
+        body = src[start:i + 1]
+        for cm_name in names:
+            body = body.replace(cm_name, f"{MOD_ID}_fp_{cm_name[len('cm_location_food_potential'):].strip('_') or 'value'}")
+        out.append(f"\n# Scope: location\n# Списано с `{name}` (Construction Manager) на сборке.\n")
+        out.append(body.strip() + "\n")
+    out.append(f"""
+# То же число, но округлённое до сотых и в целых: строка плана печатает целое.
+# Scope: location
+{MOD_ID}_food_potential = {{
+\tvalue = {MOD_ID}_fp_value
+\tmultiply = 100
+}}
+""")
+    return "".join(out)
 
 
 def sources_file(rows: list[eu5data.Method]) -> str:
@@ -3665,6 +3722,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_candidates
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
+\t\t# **Продовольственный потенциал -- в переменную, а не в строку.** Он не
+\t\t# зависит от плана вовсе, только от локации, поэтому считается один раз
+\t\t# на обходе: `visible` в ряду умеет читать переменную и не умеет звать
+\t\t# значение, а сорок строк со своим счётом на кадр -- это `panel_hitch`.
+\t\tset_variable = {{ name = {MOD_ID}_food_pot value = {MOD_ID}_food_potential }}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ var:{MOD_ID}_food_pot > 0 }} }}
+\t\t\tremove_variable = {MOD_ID}_food_pot
+\t\t}}
 \t\tremove_variable = {MOD_ID}_plan_right
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
@@ -9008,6 +9074,15 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_ext_locs
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
+\t\t# **Продовольственный потенциал -- в переменную, а не в строку.** Он не
+\t\t# зависит от плана вовсе, только от локации, поэтому считается один раз
+\t\t# на обходе: `visible` в ряду умеет читать переменную и не умеет звать
+\t\t# значение, а сорок строк со своим счётом на кадр -- это `panel_hitch`.
+\t\tset_variable = {{ name = {MOD_ID}_food_pot value = {MOD_ID}_food_potential }}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ var:{MOD_ID}_food_pot > 0 }} }}
+\t\t\tremove_variable = {MOD_ID}_food_pot
+\t\t}}
 \t\tremove_variable = {MOD_ID}_plan_right
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
@@ -12154,6 +12229,7 @@ def main() -> int:
     by_continent = regions()
     write(ZONE_OUT, zone_file() + clear_ticks_effect())
     write(SOURCES_OUT, sources_file(rows))
+    write(FOODPOT_OUT, food_potential_file())
     write(REGION_OUT, region_file(by_continent))
     write(TRIGGERS_OUT, triggers_file(rows, split, game))
     write(PICKER_OUT, picker_file(split, rows))

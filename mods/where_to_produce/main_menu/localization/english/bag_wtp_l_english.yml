@@ -1,4 +1,6 @@
 ﻿l_english:
+ bag_wtp_food_pot_value: "[Location.MakeScope.GetVariable('bag_wtp_food_pot').GetValue|0]"
+ bag_wtp_food_pot_tt: "#Y Food potential.#!\n\nThe number Construction Manager's map mode paints: how much food this location yields once its food buildings are taken to their maximum — windmill, irrigation, farming village.\n\nShown in hundredths so it reads as a whole number: 150 means 1.5.\n\nIt is what decides which location becomes a #Y granary#! (the food icon beside it) and which gets production. Empty means the location's raw material is not a food good.\n\nThe formula is copied from CM at build time, so the number matches while the mod keeps working without CM."
  bag_wtp__tech__source_name: "Buildings from other mods"
  bag_wtp__tech__source_desc: "The mods «Where To Produce» took production buildings from. Unticking one keeps that mod's buildings out of the plans — both «now» and «at the end».\n\nA building is still only placed where your country can actually build it: another nation's buildings never enter the plan anyway.\n\nThe list is gathered at build time and shows the mods whose buildings really reached the pool."
  bag_wtp__source_item_column_name: "Mod"
