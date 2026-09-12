@@ -917,10 +917,55 @@ def _widest_rows(block: str, base: int = 0,
     return rows
 
 
+# **Файлы, которые два мода возят побайтово одинаковыми, и почему.**
+#
+# `rgo_bonus_filter` и `where_to_produce` оба перекрывают панель производства
+# локации: обоим нужен один и тот же факт -- какую локацию она показывает, --
+# а донести его до фильтра можно только глобалкой, которую пишет виджет внутри
+# самой панели. Два разных перекрытия одного окна -- это молчаливая пропажа:
+# кто загрузился последним, тот и унёс пробу другого.
+#
+# Поэтому проба одна, под именами, не принадлежащими ни одному из модов, и оба
+# мода возят её копию. Разойдутся копии -- вернётся ровно та же пропажа, только
+# теперь её никто не заметит, потому что «у меня же есть этот файл».
+SHARED_COPIES = (
+    ("in_game/gui/location_production_lateralview.gui",
+     ("rgo_bonus_filter", "where_to_produce")),
+    ("in_game/common/scripted_guis/bag_shared_view_location.txt",
+     ("rgo_bonus_filter", "where_to_produce")),
+)
+
+
+def shared_copies() -> list[str]:
+    """Одинаковые файлы двух модов -- одинаковы ли они на самом деле."""
+    found: list[str] = []
+    for name, mods in SHARED_COPIES:
+        paths = [REPO / "mods" / mod / name for mod in mods]
+        missing = [p for p in paths if not p.is_file()]
+        if missing:
+            for p in missing:
+                found.append(f"{p.relative_to(REPO)}: общая копия пропала — "
+                             f"её возят оба мода, {' и '.join(mods)}")
+            continue
+        first = paths[0].read_bytes()
+        for other in paths[1:]:
+            if other.read_bytes() != first:
+                found.append(f"{other.relative_to(REPO)}: разошлась с "
+                             f"{paths[0].relative_to(REPO)} — общая проба должна "
+                             f"быть побайтово одинаковой в обоих модах, иначе "
+                             f"порядок загрузки решает, чья останется")
+    return found
+
+
 def main(argv: list[str]) -> int:
     roots = [Path(a) for a in argv[1:]] or sorted((REPO / "mods").iterdir())
     known = known_names()
     total = 0
+    if not argv[1:]:
+        shared = shared_copies()
+        total += len(shared)
+        for line in shared:
+            print(line)
     for root in roots:
         if not root.is_dir():
             continue

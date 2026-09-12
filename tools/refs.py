@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Where the reference tree is — resolved by mod id, not by folder name.
 
 `reference/` is refreshed by hand, whenever the owner feels like it, and the
@@ -99,6 +99,43 @@ def _metadata(folder: Path) -> dict:
             except json.JSONDecodeError as exc:
                 raise SystemExit(f"{candidate}: {exc}") from exc
     return {}
+
+
+def mod_commons() -> list[Path]:
+    """`in_game/common` каждого мода из `reference/mods`, в порядке имён папок.
+
+    **Это и есть «сканирование других модов».** Перечислить типы зданий из
+    скрипта игры нельзя ничем, поэтому сканирует генератор: он читает те же
+    папки, что читает игра, и кладёт их поверх игровых. Порядок между модами --
+    имя папки; настоящий порядок загрузки задаёт плейсет и знать его тут нечем,
+    но два мода, объявляющих одно здание, -- случай, которого в этом дереве нет.
+    """
+    if not MODS.is_dir():
+        return []
+    return [folder / "in_game/common" for folder in sorted(MODS.iterdir())
+            if (folder / "in_game/common").is_dir()]
+
+
+def mod_sources() -> list[tuple[str, str, Path]]:
+    """Папка, человеческое имя и `in_game/common` каждого мода дерева.
+
+    Имя берётся из его же `.metadata/metadata.json`, чтобы в настройках стояло
+    то, что игрок видит в лаунчере, а не имя папки Мастерской.
+    """
+    out: list[tuple[str, str, Path]] = []
+    for folder in sorted(MODS.iterdir()) if MODS.is_dir() else []:
+        common = folder / "in_game/common"
+        if not common.is_dir():
+            continue
+        name = folder.name
+        meta = folder / ".metadata/metadata.json"
+        if meta.is_file():
+            try:
+                name = json.loads(meta.read_text(encoding="utf-8-sig")).get("name") or name
+            except Exception:
+                pass
+        out.append((folder.name, name, common))
+    return out
 
 
 def mods() -> list[Mod]:

@@ -252,3 +252,10 @@ with a size of its own, size the children too.
 `overflowing_windows` делает это на каждой сборке. Правила целиком, с числами:
 [`../archive/wtp_window_rules.md`](../archive/wtp_window_rules.md), расследование —
 [`../archive/wtp_window_width.md`](../archive/wtp_window_width.md).
+
+**A `widget` with `onclick` does not take clicks; a button does.**
+`alwaystransparent = no` makes a widget receive the mouse for a *tooltip*, and
+that is what it is for. Three icons shipped that way on 2026-09-09 and the owner
+found all three dead. In `where_to_produce`'s own windows the things that take a
+click are `button_regular` and `button_square_plus` — put the `icon` inside one
+of those.

@@ -11,15 +11,15 @@
 types BagWtpSumCells {
 	# clay
 	type bag_wtp_sum_row1 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum1').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -29,9 +29,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -41,21 +41,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_1"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_1"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_1"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_1"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -65,9 +89,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -77,21 +101,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_1"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_1"
+			text = "[GetPlayer.Custom('bag_wtp_quota_1')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_1"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_1"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -101,9 +161,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -116,15 +176,15 @@ types BagWtpSumCells {
 
 	# coal
 	type bag_wtp_sum_row2 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum2').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -134,9 +194,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -146,21 +206,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_2"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_2"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_2"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_2"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -170,9 +254,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -182,21 +266,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_2"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_2"
+			text = "[GetPlayer.Custom('bag_wtp_quota_2')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_2"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_2"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -206,9 +326,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -221,15 +341,15 @@ types BagWtpSumCells {
 
 	# cotton
 	type bag_wtp_sum_row3 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum3').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -239,9 +359,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -251,21 +371,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_3"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_3"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_3"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_3"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -275,9 +419,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -287,21 +431,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_3"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_3"
+			text = "[GetPlayer.Custom('bag_wtp_quota_3')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_3"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_3"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -311,9 +491,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -326,15 +506,15 @@ types BagWtpSumCells {
 
 	# dyes
 	type bag_wtp_sum_row4 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum4').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -344,9 +524,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -356,21 +536,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_4"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_4"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_4"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_4"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -380,9 +584,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -392,21 +596,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_4"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_4"
+			text = "[GetPlayer.Custom('bag_wtp_quota_4')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_4"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_4"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -416,9 +656,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -431,15 +671,15 @@ types BagWtpSumCells {
 
 	# fiber_crops
 	type bag_wtp_sum_row5 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum5').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -449,9 +689,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -461,21 +701,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_5"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_5"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_5"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_5"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -485,9 +749,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -497,21 +761,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_5"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_5"
+			text = "[GetPlayer.Custom('bag_wtp_quota_5')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_5"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_5"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -521,9 +821,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -536,15 +836,15 @@ types BagWtpSumCells {
 
 	# fish
 	type bag_wtp_sum_row6 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum6').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -554,9 +854,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -566,21 +866,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_6"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_6"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_6"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_6"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -590,9 +914,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -602,21 +926,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_6"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_6"
+			text = "[GetPlayer.Custom('bag_wtp_quota_6')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_6"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_6"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -626,9 +986,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -641,15 +1001,15 @@ types BagWtpSumCells {
 
 	# fruit
 	type bag_wtp_sum_row7 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum7').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -659,9 +1019,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -671,21 +1031,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_7"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_7"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_7"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_7"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -695,9 +1079,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -707,21 +1091,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_7"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_7"
+			text = "[GetPlayer.Custom('bag_wtp_quota_7')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_7"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_7"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -731,9 +1151,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -746,15 +1166,15 @@ types BagWtpSumCells {
 
 	# horses
 	type bag_wtp_sum_row8 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum8').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -764,9 +1184,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -776,21 +1196,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_8"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_8"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_8"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_8"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -800,9 +1244,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -812,21 +1256,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_8"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_8"
+			text = "[GetPlayer.Custom('bag_wtp_quota_8')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_8"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_8"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -836,9 +1316,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -851,15 +1331,15 @@ types BagWtpSumCells {
 
 	# incense
 	type bag_wtp_sum_row9 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum9').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -869,9 +1349,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -881,21 +1361,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_9"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_9"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_9"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_9"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -905,9 +1409,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -917,21 +1421,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_9"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_9"
+			text = "[GetPlayer.Custom('bag_wtp_quota_9')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_9"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_9"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -941,9 +1481,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -956,15 +1496,15 @@ types BagWtpSumCells {
 
 	# iron
 	type bag_wtp_sum_row10 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum10').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -974,9 +1514,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -986,21 +1526,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_10"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_10"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_10"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_10"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1010,9 +1574,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1022,21 +1586,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_10"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_10"
+			text = "[GetPlayer.Custom('bag_wtp_quota_10')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_10"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_10"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1046,9 +1646,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1061,15 +1661,15 @@ types BagWtpSumCells {
 
 	# ivory
 	type bag_wtp_sum_row11 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum11').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1079,9 +1679,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1091,21 +1691,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_11"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_11"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_11"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1115,9 +1739,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1127,21 +1751,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_11"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_11"
+			text = "[GetPlayer.Custom('bag_wtp_quota_11')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_11"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1151,9 +1811,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1166,15 +1826,15 @@ types BagWtpSumCells {
 
 	# livestock
 	type bag_wtp_sum_row12 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum12').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1184,9 +1844,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1196,21 +1856,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_12"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_12"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_12"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_12"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1220,9 +1904,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1232,21 +1916,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_12"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_12"
+			text = "[GetPlayer.Custom('bag_wtp_quota_12')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_12"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_12"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1256,9 +1976,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1271,15 +1991,15 @@ types BagWtpSumCells {
 
 	# lumber
 	type bag_wtp_sum_row13 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum13').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1289,9 +2009,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1301,21 +2021,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_13"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_13"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_13"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_13"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1325,9 +2069,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1337,21 +2081,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_13"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_13"
+			text = "[GetPlayer.Custom('bag_wtp_quota_13')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_13"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_13"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1361,9 +2141,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1376,15 +2156,15 @@ types BagWtpSumCells {
 
 	# medicaments
 	type bag_wtp_sum_row14 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum14').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1394,9 +2174,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1406,21 +2186,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_14"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_14"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_14"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_14"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1430,9 +2234,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1442,21 +2246,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_14"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_14"
+			text = "[GetPlayer.Custom('bag_wtp_quota_14')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_14"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_14"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1466,9 +2306,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1481,15 +2321,15 @@ types BagWtpSumCells {
 
 	# salt
 	type bag_wtp_sum_row15 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum15').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1499,9 +2339,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1511,21 +2351,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_15"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_15"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_15"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_15"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1535,9 +2399,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1547,21 +2411,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_15"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_15"
+			text = "[GetPlayer.Custom('bag_wtp_quota_15')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_15"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_15"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1571,9 +2471,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1586,15 +2486,15 @@ types BagWtpSumCells {
 
 	# saltpeter
 	type bag_wtp_sum_row16 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum16').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1604,9 +2504,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1616,21 +2516,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_16"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_16"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_16"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1640,9 +2564,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1652,21 +2576,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_16"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_16"
+			text = "[GetPlayer.Custom('bag_wtp_quota_16')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_16"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1676,9 +2636,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1691,15 +2651,15 @@ types BagWtpSumCells {
 
 	# sand
 	type bag_wtp_sum_row17 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum17').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1709,9 +2669,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1721,21 +2681,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_17"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_17"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_17"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_17"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1745,9 +2729,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1757,21 +2741,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_17"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_17"
+			text = "[GetPlayer.Custom('bag_wtp_quota_17')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_17"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_17"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1781,9 +2801,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1796,15 +2816,15 @@ types BagWtpSumCells {
 
 	# silk
 	type bag_wtp_sum_row18 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum18').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1814,9 +2834,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1826,21 +2846,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_18"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_18"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_18"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_18"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1850,9 +2894,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1862,21 +2906,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_18"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_18"
+			text = "[GetPlayer.Custom('bag_wtp_quota_18')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_18"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_18"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1886,9 +2966,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1901,15 +2981,15 @@ types BagWtpSumCells {
 
 	# silver
 	type bag_wtp_sum_row19 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum19').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -1919,9 +2999,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -1931,21 +3011,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_19"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_19"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_19"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_19"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1955,9 +3059,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1967,21 +3071,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_19"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_19"
+			text = "[GetPlayer.Custom('bag_wtp_quota_19')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_19"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_19"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -1991,9 +3131,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2006,15 +3146,15 @@ types BagWtpSumCells {
 
 	# stone
 	type bag_wtp_sum_row20 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum20').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2024,9 +3164,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2036,21 +3176,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_20"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_20"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_20"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_20"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2060,9 +3224,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2072,21 +3236,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_20"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_20"
+			text = "[GetPlayer.Custom('bag_wtp_quota_20')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_20"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_20"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2096,9 +3296,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2111,15 +3311,15 @@ types BagWtpSumCells {
 
 	# sugar
 	type bag_wtp_sum_row21 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum21').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2129,9 +3329,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2141,21 +3341,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_21"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_21"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_21"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_21"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2165,9 +3389,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2177,21 +3401,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_21"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_21"
+			text = "[GetPlayer.Custom('bag_wtp_quota_21')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_21"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_21"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2201,9 +3461,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2216,15 +3476,15 @@ types BagWtpSumCells {
 
 	# tobacco
 	type bag_wtp_sum_row22 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum22').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2234,9 +3494,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2246,21 +3506,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_22"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_22"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_22"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_22"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2270,9 +3554,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2282,21 +3566,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_22"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_22"
+			text = "[GetPlayer.Custom('bag_wtp_quota_22')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_22"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_22"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2306,9 +3626,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2321,15 +3641,15 @@ types BagWtpSumCells {
 
 	# wild_game
 	type bag_wtp_sum_row23 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum23').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2339,9 +3659,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2351,21 +3671,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_23"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_23"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_23"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2375,9 +3719,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2387,21 +3731,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_23"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_23"
+			text = "[GetPlayer.Custom('bag_wtp_quota_23')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_23"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2411,9 +3791,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2426,15 +3806,15 @@ types BagWtpSumCells {
 
 	# wine
 	type bag_wtp_sum_row24 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum24').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2444,9 +3824,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2456,21 +3836,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_24"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_24"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_24"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_24"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2480,9 +3884,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2492,21 +3896,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_24"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_24"
+			text = "[GetPlayer.Custom('bag_wtp_quota_24')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_24"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_24"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2516,9 +3956,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2531,15 +3971,15 @@ types BagWtpSumCells {
 
 	# wool
 	type bag_wtp_sum_row25 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum25').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2549,9 +3989,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2561,21 +4001,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_25"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_25"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_25"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2585,9 +4049,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2597,21 +4061,57 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_25"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_25"
+			text = "[GetPlayer.Custom('bag_wtp_quota_25')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_25"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2621,9 +4121,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2636,15 +4136,15 @@ types BagWtpSumCells {
 
 	# beer
 	type bag_wtp_sum_row26 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum26').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2654,9 +4154,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2666,21 +4166,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_26"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_26"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_26"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_26"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2690,33 +4214,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_26"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_26"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_26"
+			text = "[GetPlayer.Custom('bag_wtp_quota_26')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_26"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_26"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2726,9 +4286,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2741,15 +4301,15 @@ types BagWtpSumCells {
 
 	# books
 	type bag_wtp_sum_row27 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum27').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2759,9 +4319,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2771,21 +4331,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_27"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_27"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_27"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2795,33 +4379,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_27"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_27"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_27"
+			text = "[GetPlayer.Custom('bag_wtp_quota_27')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_27"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2831,9 +4451,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2846,15 +4466,15 @@ types BagWtpSumCells {
 
 	# cannons
 	type bag_wtp_sum_row28 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum28').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2864,9 +4484,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2876,21 +4496,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_28"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_28"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_28"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2900,33 +4544,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_28"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_28"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_28"
+			text = "[GetPlayer.Custom('bag_wtp_quota_28')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_28"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2936,9 +4616,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -2951,15 +4631,15 @@ types BagWtpSumCells {
 
 	# cloth
 	type bag_wtp_sum_row29 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum29').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -2969,9 +4649,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -2981,21 +4661,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_29"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_29"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_29"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_29"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3005,33 +4709,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_29"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_29"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_29"
+			text = "[GetPlayer.Custom('bag_wtp_quota_29')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_29"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_29"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3041,9 +4781,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3056,15 +4796,15 @@ types BagWtpSumCells {
 
 	# fine_cloth
 	type bag_wtp_sum_row30 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum30').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3074,9 +4814,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3086,21 +4826,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_30"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_30"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_30"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_30"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3110,33 +4874,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_30"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_30"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_30"
+			text = "[GetPlayer.Custom('bag_wtp_quota_30')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_30"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_30"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3146,9 +4946,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3161,15 +4961,15 @@ types BagWtpSumCells {
 
 	# firearms
 	type bag_wtp_sum_row31 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum31').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3179,9 +4979,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3191,21 +4991,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_31"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_31"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_31"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3215,33 +5039,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_31"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_31"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_31"
+			text = "[GetPlayer.Custom('bag_wtp_quota_31')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_31"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3251,9 +5111,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3266,15 +5126,15 @@ types BagWtpSumCells {
 
 	# furniture
 	type bag_wtp_sum_row32 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum32').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3284,9 +5144,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3296,21 +5156,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_32"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_32"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_32"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3320,33 +5204,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_32"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_32"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_32"
+			text = "[GetPlayer.Custom('bag_wtp_quota_32')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_32"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3356,9 +5276,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3371,15 +5291,15 @@ types BagWtpSumCells {
 
 	# glass
 	type bag_wtp_sum_row33 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum33').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3389,9 +5309,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3401,21 +5321,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_33"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_33"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_33"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_33"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3425,33 +5369,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_33"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_33"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_33"
+			text = "[GetPlayer.Custom('bag_wtp_quota_33')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_33"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_33"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3461,9 +5441,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3476,15 +5456,15 @@ types BagWtpSumCells {
 
 	# jewelry
 	type bag_wtp_sum_row34 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum34').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3494,9 +5474,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3506,21 +5486,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_34"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_34"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_34"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_34"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3530,33 +5534,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_34"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_34"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_34"
+			text = "[GetPlayer.Custom('bag_wtp_quota_34')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_34"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_34"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3566,9 +5606,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3581,15 +5621,15 @@ types BagWtpSumCells {
 
 	# lacquerware
 	type bag_wtp_sum_row35 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum35').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3599,9 +5639,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3611,21 +5651,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_35"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_35"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_35"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3635,33 +5699,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_35"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_35"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_35"
+			text = "[GetPlayer.Custom('bag_wtp_quota_35')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_35"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3671,9 +5771,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3686,15 +5786,15 @@ types BagWtpSumCells {
 
 	# leather
 	type bag_wtp_sum_row36 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum36').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3704,9 +5804,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3716,21 +5816,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_36"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_36"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_36"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_36"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3740,33 +5864,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_36"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_36"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_36"
+			text = "[GetPlayer.Custom('bag_wtp_quota_36')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_36"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_36"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3776,9 +5936,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3791,15 +5951,15 @@ types BagWtpSumCells {
 
 	# liquor
 	type bag_wtp_sum_row37 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum37').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3809,9 +5969,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3821,21 +5981,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_37"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_37"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_37"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_37"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3845,33 +6029,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_37"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_37"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_37"
+			text = "[GetPlayer.Custom('bag_wtp_quota_37')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_37"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_37"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3881,9 +6101,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3896,15 +6116,15 @@ types BagWtpSumCells {
 
 	# masonry
 	type bag_wtp_sum_row38 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum38').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -3914,9 +6134,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -3926,21 +6146,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_38"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_38"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_38"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_38"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3950,33 +6194,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_38"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_38"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_38"
+			text = "[GetPlayer.Custom('bag_wtp_quota_38')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_38"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_38"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -3986,9 +6266,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4001,15 +6281,15 @@ types BagWtpSumCells {
 
 	# naval_supplies
 	type bag_wtp_sum_row39 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum39').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4019,9 +6299,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4031,21 +6311,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_39"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_39"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_39"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_39"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4055,33 +6359,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_39"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_39"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_39"
+			text = "[GetPlayer.Custom('bag_wtp_quota_39')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_39"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_39"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4091,9 +6431,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4106,15 +6446,15 @@ types BagWtpSumCells {
 
 	# paper
 	type bag_wtp_sum_row40 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum40').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4124,9 +6464,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4136,21 +6476,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_40"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_40"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_40"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_40"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4160,33 +6524,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_40"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_40"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_40"
+			text = "[GetPlayer.Custom('bag_wtp_quota_40')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_40"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_40"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4196,9 +6596,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4211,15 +6611,15 @@ types BagWtpSumCells {
 
 	# porcelain
 	type bag_wtp_sum_row41 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum41').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4229,9 +6629,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4241,21 +6641,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_41"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_41"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_41"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4265,33 +6689,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_41"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_41"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_41"
+			text = "[GetPlayer.Custom('bag_wtp_quota_41')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_41"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4301,9 +6761,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4316,15 +6776,15 @@ types BagWtpSumCells {
 
 	# pottery
 	type bag_wtp_sum_row42 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum42').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4334,9 +6794,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4346,21 +6806,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_42"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_42"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_42"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4370,33 +6854,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_42"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_42"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_42"
+			text = "[GetPlayer.Custom('bag_wtp_quota_42')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_42"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4406,9 +6926,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4421,15 +6941,15 @@ types BagWtpSumCells {
 
 	# slaves_goods
 	type bag_wtp_sum_row43 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum43').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4439,9 +6959,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4451,21 +6971,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_43"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_43"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_43"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_43"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4475,33 +7019,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_43"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_43"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_43"
+			text = "[GetPlayer.Custom('bag_wtp_quota_43')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_43"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_43"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4511,9 +7091,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4526,15 +7106,15 @@ types BagWtpSumCells {
 
 	# steel
 	type bag_wtp_sum_row44 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum44').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4544,9 +7124,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4556,21 +7136,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_44"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_44"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_44"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_44"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4580,33 +7184,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_44"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_44"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_44"
+			text = "[GetPlayer.Custom('bag_wtp_quota_44')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_44"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_44"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4616,9 +7256,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4631,15 +7271,15 @@ types BagWtpSumCells {
 
 	# tar
 	type bag_wtp_sum_row45 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum45').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4649,9 +7289,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4661,21 +7301,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_45"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_45"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_45"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_45"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4685,33 +7349,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_45"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_45"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_45"
+			text = "[GetPlayer.Custom('bag_wtp_quota_45')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_45"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_45"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4721,9 +7421,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4736,15 +7436,15 @@ types BagWtpSumCells {
 
 	# tools
 	type bag_wtp_sum_row46 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum46').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4754,9 +7454,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4766,21 +7466,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_46"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_46"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_46"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_46"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4790,33 +7514,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_46"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_46"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_46"
+			text = "[GetPlayer.Custom('bag_wtp_quota_46')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_46"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_46"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4826,9 +7586,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4841,15 +7601,15 @@ types BagWtpSumCells {
 
 	# weaponry
 	type bag_wtp_sum_row47 = hbox {
-		size = { 1298 26 }
+		size = { 1284 26 }
 		spacing = 6
 		visible = "[GetGlobalVariable('bag_wtp_sum47').IsSet]"
 		using = bg_number_container_bckg
 
 		text_single = {
-			size = { 216 26 }
+			size = { 180 26 }
 			autoresize = no
-			maximumsize = { 216 26 }
+			maximumsize = { 180 26 }
 			align = left|vcenter
 			fontsize = 14
 			fontsize_min = 10
@@ -4859,9 +7619,9 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 52 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 15
 			fontsize_min = 10
@@ -4871,21 +7631,45 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 110 26 }
+			size = { 56 26 }
 			autoresize = no
-			maximumsize = { 110 26 }
+			maximumsize = { 56 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
-			tooltip = "bag_wtp_sum_sides_tt"
-			text = "bag_wtp_sum_sides_47"
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_nb_47"
 		}
 
 		text_single = {
-			size = { 74 26 }
+			size = { 50 26 }
 			autoresize = no
-			maximumsize = { 74 26 }
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_town_47"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_rural_47"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4895,33 +7679,69 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 54 26 }
+			size = { 44 26 }
 			autoresize = no
-			maximumsize = { 54 26 }
+			maximumsize = { 44 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_rgo_tt"
-			text = "bag_wtp_sum_rgo_47"
+			text = "—"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 58 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_qraw_47"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_quota_tt"
-			text = "bag_wtp_sum_quota_47"
+			text = "[GetPlayer.Custom('bag_wtp_quota_47')]"
 		}
 
 		text_single = {
-			size = { 64 26 }
+			size = { 66 26 }
 			autoresize = no
-			maximumsize = { 64 26 }
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_qt_47"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_qr_47"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
 			align = center|vcenter
 			fontsize = 13
 			fontsize_min = 10
@@ -4931,15 +7751,673 @@ types BagWtpSumCells {
 		}
 
 		text_single = {
-			size = { 620 26 }
+			size = { 420 26 }
 			autoresize = no
-			maximumsize = { 620 26 }
+			maximumsize = { 420 26 }
 			align = left|vcenter
 			fontsize = 13
 			fontsize_min = 10
 			elide = right
 			tooltip = "bag_wtp_sum_why_tt"
 			text = "[GetPlayer.Custom('bag_wtp_why_47')]"
+		}
+
+	}
+
+	# fishing_village
+	type bag_wtp_sum_vrow1 = hbox {
+		size = { 1284 26 }
+		spacing = 6
+		visible = "[GreaterThan_int32(GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv1'),'(int32)0')]"
+		using = bg_number_container_bckg
+
+		text_single = {
+			size = { 180 26 }
+			autoresize = no
+			maximumsize = { 180 26 }
+			align = left|vcenter
+			fontsize = 14
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_name_tt"
+			text = "bag_wtp_village_fishing_village"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 15
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_n_tt"
+			text = "#Y [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn1')|0]#!"
+		}
+
+		text_single = {
+			size = { 56 26 }
+			autoresize = no
+			maximumsize = { 56 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn1')|0]"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn1')|0]"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_places_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv1')|0]"
+		}
+
+		text_single = {
+			size = { 44 26 }
+			autoresize = no
+			maximumsize = { 44 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 58 26 }
+			autoresize = no
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_qcapr')|0]"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_quota_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_qcapr')|0]"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bq1')|0]"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_gain_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 420 26 }
+			autoresize = no
+			maximumsize = { 420 26 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_why_tt"
+			text = "bag_wtp_why_village"
+		}
+
+	}
+
+	# forest_village
+	type bag_wtp_sum_vrow2 = hbox {
+		size = { 1284 26 }
+		spacing = 6
+		visible = "[GreaterThan_int32(GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv2'),'(int32)0')]"
+		using = bg_number_container_bckg
+
+		text_single = {
+			size = { 180 26 }
+			autoresize = no
+			maximumsize = { 180 26 }
+			align = left|vcenter
+			fontsize = 14
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_name_tt"
+			text = "bag_wtp_village_forest_village"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 15
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_n_tt"
+			text = "#Y [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn2')|0]#!"
+		}
+
+		text_single = {
+			size = { 56 26 }
+			autoresize = no
+			maximumsize = { 56 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn2')|0]"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn2')|0]"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_places_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv2')|0]"
+		}
+
+		text_single = {
+			size = { 44 26 }
+			autoresize = no
+			maximumsize = { 44 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 58 26 }
+			autoresize = no
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_qcapr')|0]"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_quota_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_qcapr')|0]"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bq2')|0]"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_gain_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 420 26 }
+			autoresize = no
+			maximumsize = { 420 26 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_why_tt"
+			text = "bag_wtp_why_village"
+		}
+
+	}
+
+	# market_village
+	type bag_wtp_sum_vrow3 = hbox {
+		size = { 1284 26 }
+		spacing = 6
+		visible = "[GreaterThan_int32(GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv3'),'(int32)0')]"
+		using = bg_number_container_bckg
+
+		text_single = {
+			size = { 180 26 }
+			autoresize = no
+			maximumsize = { 180 26 }
+			align = left|vcenter
+			fontsize = 14
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_name_tt"
+			text = "bag_wtp_village_market_village"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 15
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_n_tt"
+			text = "#Y [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn3')|0]#!"
+		}
+
+		text_single = {
+			size = { 56 26 }
+			autoresize = no
+			maximumsize = { 56 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn3')|0]"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 50 26 }
+			autoresize = no
+			maximumsize = { 50 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bn3')|0]"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_places_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_ngv3')|0]"
+		}
+
+		text_single = {
+			size = { 44 26 }
+			autoresize = no
+			maximumsize = { 44 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 58 26 }
+			autoresize = no
+			maximumsize = { 58 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_qcapr')|0]"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_quota_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_qcapr')|0]"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 66 26 }
+			autoresize = no
+			maximumsize = { 66 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_bq3')|0]"
+		}
+
+		text_single = {
+			size = { 52 26 }
+			autoresize = no
+			maximumsize = { 52 26 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_gain_tt"
+			text = "—"
+		}
+
+		text_single = {
+			size = { 420 26 }
+			autoresize = no
+			maximumsize = { 420 26 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_why_tt"
+			text = "bag_wtp_why_village"
+		}
+
+	}
+
+	# Заголовки столбцов, теми же ширинами, что и строки.
+	type bag_wtp_sum_head_row = hbox {
+		size = { 1284 22 }
+		spacing = 6
+
+		text_single = {
+			size = { 180 22 }
+			autoresize = no
+			maximumsize = { 180 22 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_name_tt"
+			text = "bag_wtp_sum_col_name"
+		}
+
+		text_single = {
+			size = { 52 22 }
+			autoresize = no
+			maximumsize = { 52 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_n_tt"
+			text = "bag_wtp_sum_col_n"
+		}
+
+		text_single = {
+			size = { 56 22 }
+			autoresize = no
+			maximumsize = { 56 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_nb_tt"
+			text = "bag_wtp_sum_col_nb"
+		}
+
+		text_single = {
+			size = { 50 22 }
+			autoresize = no
+			maximumsize = { 50 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_town_tt"
+			text = "bag_wtp_sum_col_town"
+		}
+
+		text_single = {
+			size = { 50 22 }
+			autoresize = no
+			maximumsize = { 50 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rural_tt"
+			text = "bag_wtp_sum_col_rural"
+		}
+
+		text_single = {
+			size = { 52 22 }
+			autoresize = no
+			maximumsize = { 52 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_places_tt"
+			text = "bag_wtp_sum_col_places"
+		}
+
+		text_single = {
+			size = { 44 22 }
+			autoresize = no
+			maximumsize = { 44 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_rgo_tt"
+			text = "bag_wtp_sum_col_rgo"
+		}
+
+		text_single = {
+			size = { 58 22 }
+			autoresize = no
+			maximumsize = { 58 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qraw_tt"
+			text = "bag_wtp_sum_col_qraw"
+		}
+
+		text_single = {
+			size = { 66 22 }
+			autoresize = no
+			maximumsize = { 66 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_quota_tt"
+			text = "bag_wtp_sum_col_quota"
+		}
+
+		text_single = {
+			size = { 66 22 }
+			autoresize = no
+			maximumsize = { 66 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qt_tt"
+			text = "bag_wtp_sum_col_qt"
+		}
+
+		text_single = {
+			size = { 66 22 }
+			autoresize = no
+			maximumsize = { 66 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_qr_tt"
+			text = "bag_wtp_sum_col_qr"
+		}
+
+		text_single = {
+			size = { 52 22 }
+			autoresize = no
+			maximumsize = { 52 22 }
+			align = center|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_gain_tt"
+			text = "bag_wtp_sum_col_gain"
+		}
+
+		text_single = {
+			size = { 420 22 }
+			autoresize = no
+			maximumsize = { 420 22 }
+			align = left|vcenter
+			fontsize = 13
+			fontsize_min = 10
+			elide = right
+			tooltip = "bag_wtp_sum_why_tt"
+			text = "bag_wtp_sum_col_why"
 		}
 
 	}
@@ -4997,5 +8475,8 @@ types BagWtpSumCells {
 		bag_wtp_sum_row45 = {}
 		bag_wtp_sum_row46 = {}
 		bag_wtp_sum_row47 = {}
+		bag_wtp_sum_vrow1 = {}
+		bag_wtp_sum_vrow2 = {}
+		bag_wtp_sum_vrow3 = {}
 	}
 }

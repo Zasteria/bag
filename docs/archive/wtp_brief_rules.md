@@ -38,3 +38,27 @@ chronology**, shelved at his word; the journal is `WTP PRESS`. **«Расшир�
 формула раздачи — [`plan_as_reservation.md`](../investigations/plan_as_reservation.md);
 второй режим — [`plan_specialisation.md`](../investigations/plan_specialisation.md);
 доли и стороны — [`plan_share_sides.md`](../investigations/plan_share_sides.md).
+
+## Специализация и сводка по товарам
+
+**«Специализация» — второй режим плана, кнопка на странице мода**: провинция
+отдаёт лучшую грамоту всем своим городам, а ячейку получает тот, кто платит
+больше всех ([`plan_specialisation.md`](../investigations/plan_specialisation.md)).
+**Закрыта как есть, и редкость в неё не добавлять.** Конвейер тот же, что у
+обычного плана, — земля, пометки город/село, лимиты, слоты, редактор поверх, —
+меняется только середина.
+
+**Сводка по товарам — иконка в окне плана**: строка на товар и причина
+остановки. Она и есть инструмент, которым читается всякая правка раздачи:
+столбцы «Домиков» и «Мест» — то, по чему прогон говорит, сдвинулось ли что-то.
+
+## Четыре правила счёта, выписанные из брифа
+
+**Never gate the plan on `generate.fed_floor`**; **the bonus counts RGOs only**;
+**one method per slot**
+([`production_ladder.md`](../investigations/production_ladder.md)).
+**A right's gate is its own `potential`, never `has_advance`**
+([`town_rights.md`](../investigations/town_rights.md)). **An entry is a
+building and a location holds one of each**
+([`whole_map_plan.md`](../investigations/whole_map_plan.md)).
+

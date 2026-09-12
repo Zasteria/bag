@@ -4,71 +4,55 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## Работа: `where_to_produce` — резервация по стеснённости, потом перетасовка
+## Работа: `where_to_produce` — построено всё, остался прогон
 
-**Он выбрал порядок, 2026-09-07: сначала резервация, потом перетасовка.**
-Проект первой написан целиком и его не надо выводить заново:
-**[`investigations/plan_reservation.md`](investigations/plan_reservation.md)** —
-правило, три места в коде, что оно должно дать в числах и по какому признаку его
-снимать. Перетасовка описана там же, в конце, и берётся **после** прогона первой.
+**Раздача закрыта прогоном 2026-09-08**
+([`archive/wtp_brief_plan_rules.md`](archive/wtp_brief_plan_rules.md)).
+**Перетасовка, шаг 7 и шаг 8 построены**; фильтр «Из плана — сюда», кнопка
+житницы и «снести лишнее» видены в игре, автострой и здания чужих модов — нет.
+Устройство всего, что мод делает в чужих окнах, и правила, которые дороже
+прочих, — [`investigations/wtp_integration.md`](investigations/wtp_integration.md);
+про `_plan_*` — [`plan_gaps.md`](investigations/plan_gaps.md) и
+[`plan_as_reservation.md`](investigations/plan_as_reservation.md).
 
-**Что читать про `_plan_*`:**
-[`investigations/plan_gaps.md`](investigations/plan_gaps.md) — открытое и
-закрытое; [`plan_as_reservation.md`](investigations/plan_as_reservation.md) —
-как устроена раздача уровнями; [`wtp_practice_plan.md`](investigations/wtp_practice_plan.md)
-— порядок шагов; [`wtp_editor_design.md`](investigations/wtp_editor_design.md) —
-правила редактора. Больше ничего.
+**Три числа в диагностике существуют затем, чтобы не гадать**, и все три обязаны
+быть тем, чем названы: `FOREIGN ... unbuildable=` — ноль; `EXT ... moved=` —
+ноль; `CM found/were_on/touched` — что сделало последнее нажатие отмашки.
 
-### Что стоит и работает — шаги 0–6 плюс три вещи 2026-09-07
+**Цена чужих модов измерена**: 241 → 656 методов, `in_game` 11 → 18 МБ,
+`check_script` 1.8 минуты. Загрузка, по его слову, «как обычно». Если станет
+дорого — резать по `country_potential`, а не по категории.
 
-Земля, ранжирование, план, редактор, слоты, «Расширить» — всё видено в игре.
-**Раздача уровнями**: круг поднимает уровень на единицу, товар берёт не больше
-одного домика за круг, полоса выгоды решает «где», а не «сколько». **Сводка** —
-иконка в окне плана: строка на товар и причина остановки. **Специализация** —
-кнопка на странице мода
-([`plan_specialisation.md`](investigations/plan_specialisation.md), закрыта как
-есть, редкость в неё не добавлять).
+**Продовольственный потенциал стоит в строке каждой локации с
+продовольственным сырьём** — то же число, что красит режим карты CM, но своим
+значением: формула списана генератором, мод без CM от этого не ломается.
 
-**Два прогона на северной Германии приняли всё это.** 416 локаций, 1380 зданий на
-1380 мест, кругов 89 при пределе 150. Только городские товары легли в **15…17**,
-умеющие в село — в **50…65** считая РГО; ниже только рыба (39) и судовые припасы
-(38), потому что 42 прибрежные локации заняты рыбацкими деревнями на 93 %.
-`iron` с лучшей выгодой **ноль** взял 39 мест из 43 — полосы выгоды действительно
-перестали решать «сколько».
+### Идея, названная 2026-09-09 и не построенная: грамоты из плана
 
-**Три правила, которые переживают всё:** состояние редактора — редакторово, и
-свежий план его не читает; работа с `.gui` начинается с
-[`pitfalls/windows.md`](pitfalls/windows.md); локация держит по одной деревне
-каждого из четырёх видов, а две одинаковых — нет.
+Он хочет выдавать грамоты по плану и предложил подсунуть в список приоритетов CM
+абстрактную строку «право из плана», у которой CM спросил бы, что лежит в ячейке
+этого города. **Так нельзя, и это факт из его кода**: `cm_run_auto_town_rights`
+идёт по `cm_auto_town_rights_list` и выдаёт `scope:cm_town_right` — ровно то, что
+лежит в строке; ветки «спроси у мода» там нет, как нет `default` в его `switch`
+возможностей. **CM расширяем там, где он сам это предусмотрел.**
 
-### The share, and the tiers, as they stand
+**Но цель достижима короче, и всё нужное уже стоит**: право города план держит на
+локации (`_plan_right`), `grant_town_rights` — обычный эффект в скоупе локации,
+ворота (`has_max_town_rights`, `can_grant_town_rights`, `price:grant_town_rights`)
+читаются из скрипта. Это ещё одна **отмашка** той же формы, что автострой: три
+кнопки — локация, провинция, весь план. Производственные права в списке CM и так
+намеренно выключены. Работа небольшая: новых механизмов не нужно ни одного.
 
-A good builds while under the **level**, its **total quota** and the **cap of the
-side it builds on**; the scarce tiers are a **share of the ground** (2…32 %) with
-1/2/4/8/16 as floors, counted **per side** since 2026-09-07. Side quotas alone and
-output weights were rejected on numbers
-([`investigations/plan_share_sides.md`](investigations/plan_share_sides.md)).
+**Просить один прогон, и он закрывает всё разом:**
 
-### Порядок работ, и он его: 1 — резервация, 2 — перетасовка, 3 — шаги 7 и 8
-
-Ни один из трёх не начинать раньше предыдущего. **Просить у него один прогон на
-пункт**: «Пересчитать» на северной Германии и «Диагностика» — этого хватает,
-чтобы сказать, работает правка или снимается.
-
-### Шаги 7 и 8 — чужие моды, и они последние
-
-**His order, 2026-09-04: «доработать все начатые функции мода и потом уже
-пытаться интегрировать его в функционал CM и glorp».** 7 is the plan shown in
-the location panel, inside Glorp UI's own interface. 8 stamps the plan onto
-Construction Manager, gated on CM being present — and the space the goods icons
-used to hold in the plan rows is the space he is keeping for CM's links.
-**A session taking either one re-reads those mods' files** — `python3
-tools/refs.py` for the version, grep for the name. He also offered `cheatmenu` and
-Advanced Auto Build's interface for `reference/`
-([`CONVENTIONS.md`](CONVENTIONS.md)).
-
-**Instrument before the third theory** and **do not spend his run on a guess** —
-[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
+1. «Пересчитать» → «Перетасовать» → «Диагностика», и отдельно «Расширить».
+   Ждём: домиков ровно столько же, `по сторонам` ровно 528/852, ни один домик
+   грамоты не тронут, `unbuildable` и `moved` — нули.
+2. **Чужие здания.** Держава, которой ND что-то даёт: её здания в плане есть,
+   чужих нет. И галочка мода на «Технической» — снять, пересчитать, вернуть.
+3. **Автострой.** Иконка со стрелками в ряду локации: галочки автостроя у
+   домиков плана включаются разом, второе нажатие снимает. То же по провинции и
+   по всему плану.
 
 ## The job: `mods.bat`, and one run to confirm it
 

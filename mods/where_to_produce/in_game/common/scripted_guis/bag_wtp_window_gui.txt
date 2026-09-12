@@ -297,6 +297,29 @@ bag_wtp_plan_refresh = {
 	}
 }
 
+# «Перетасовать» — ручной этап после плана.
+#
+# **Домиков не меняет вовсе**: обмен это две пары «убрать/поставить», у каждого
+# товара как был домик, так и остаётся. Меняются только места, и только когда
+# паре от этого лучше обоим вместе.
+#
+# **Ручной, а не часть «Пересчитать»**: зонд намерил потолок прибавки в два
+# процента, и платить за обход всех провинций на каждом плане незачем. Его
+# слова, 2026-09-09: «сделай кнопку „Перетасовать“, чтобы оно работало ручным
+# этапом после создания плана».
+bag_wtp_plan_reshuffle = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_plan_shuffle = yes
+		bag_wtp_plan_show = yes
+	}
+}
+
 # ---------------------------------------------------------------- the editor
 #
 # **Everything the editor does is here and nothing of it is on the settings
@@ -733,4 +756,111 @@ bag_wtp_close_summary_window = {
 	effect = {
 		bag_wtp_close_summary_window_effect = yes
 	}
+}
+
+# ---- шаг 8: отмашка на галочки автостроя Construction Manager --------------
+#
+# **Кнопка не делает ничего сама.** Одно нажатие переключает галочки автостроя CM
+# у тех домиков плана, что в этой локации правда могут стоять, — и на этом мод
+# заканчивается. «Только ссылка на другие ссылки», 2026-09-09.
+#
+# **Одна кнопка, два смысла**: не все галочки группы стоят — нажатие ставит все;
+# стоят все — снимает. Что именно, решает `_cm_decide` на самом нажатии, а не
+# кадр за кадром: строк в окне сорок.
+#
+# **Видны только когда CM в игре.** Список `cm_priority_features_list` заводит он
+# сам на старте; без CM кнопки не рисуются — это лучше, чем кнопка, которая
+# нажимается и молчит.
+
+# Scope: country
+bag_wtp_cm_present = {
+	scope = country
+
+	is_shown = { has_variable_list = cm_priority_features_list }
+	effect = { }
+}
+
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_cm_press_loc = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_cm_press_loc_do = yes }
+}
+
+# Scope: country, ждёт scope:wtp_location — любую локацию нужной провинции
+bag_wtp_cm_press_prov = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_cm_press_prov_do = yes }
+}
+
+# Scope: country
+bag_wtp_cm_press_all = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_cm_press_all_do = yes }
+}
+
+# ---- снос лишнего и режим житницы -----------------------------------------
+#
+# **Снос трогает только тот список зданий, которым план строит.** Гарнизона,
+# порта и университета в нём нет вовсе, поэтому «снесла не то» невозможно по
+# построению, а не по проверке.
+
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_raze_press_loc = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_raze_press_loc_do = yes }
+}
+
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_raze_press_prov = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_raze_press_prov_do = yes }
+}
+
+# Scope: country
+bag_wtp_raze_press_all = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_raze_press_all_do = yes }
+}
+
+# Локация, которой CM предлагает режим житницы: только там наша кнопка и рисуется.
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_food_here = {
+	scope = country
+
+	is_shown = { scope:wtp_location = { bag_wtp_is_food_loc = yes } }
+	effect = { }
+}
+
+# Scope: country, ждёт scope:wtp_location
+bag_wtp_food_press_loc = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = { bag_wtp_food_press_loc_do = yes }
 }

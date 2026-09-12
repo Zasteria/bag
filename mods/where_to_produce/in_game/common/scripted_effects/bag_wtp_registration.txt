@@ -22,6 +22,13 @@
 bag_wtp_register = {
 	cmf_register_mod = { mod_id = bag_wtp }
 
+	# **Что стране по зубам сейчас** -- по числу на здание, для фишки «Из плана —
+	# сюда»: план «на конец» ставит верхнюю ступень лестницы, а показать надо ту,
+	# которую можно построить. Здесь, а не только в «Пересчитать», потому что
+	# `cmf_on_mod_registration` срабатывает и на загрузке сохранения: иначе после
+	# загрузки фишка считала бы недоступным вообще всё, пока не пересчитан план.
+	bag_wtp_set_bavail = yes
+
 	# ---- «Земля» -----------------------------------------------------------
 	#
 	# Where to look. Continents rather than the world's seventy-seven regions:
@@ -30,6 +37,15 @@ bag_wtp_register = {
 	# the rebuild** -- it was already one job on one page.
 	bag_wtp_register_zone_list = yes
 	bag_wtp_register_region_lists = yes
+
+	# ---- «Техническая»: моды, из которых взяты здания ----------------------
+	#
+	# Его слово, 2026-09-09: «список модов из которых наш мод подхватил
+	# какие-либо сооружения… мы можем нажать галочку включить или выключить
+	# использование этих зданий в наших планах». Снятая галочка не убирает
+	# здание из файлов — скрипт написан на сборке, — а закрывает ему ворота
+	# `_avail_` и `_reach_`, то есть и «на сейчас», и «на конец».
+	bag_wtp_register_source_list = yes
 
 	# ---- «Расчёты» — three functions, three doors --------------------------
 	#
@@ -137,6 +153,7 @@ bag_wtp_register = {
 	bag_wtp_init_counters = yes
 	bag_wtp_rebuild_zone = yes
 	bag_wtp_rebuild_regions = yes
+	bag_wtp_rebuild_sources = yes
 	# Which urban rights this country may ever hold, as one variable per right:
 	# a `visible` in a window cannot ask a trigger, and a unique right nobody
 	# can take is a cell that must not be there to click.

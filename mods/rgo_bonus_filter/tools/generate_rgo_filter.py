@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Generate the RGO bonus predicate from EU5 game data.
 
 The interface knows which buildings gain production efficiency from raw
@@ -202,25 +202,58 @@ def render(by_good: dict[str, list[str]]) -> str:
         out.append("}")
         out.append("")
 
-    # Two entry points, because the two panels come at the question from
-    # opposite ends. The buildings panel of a location filters building types
-    # against a fixed location, so the type arrives as root. The build panel
-    # filters locations against a fixed building type, so the type comes from
-    # the global variable its probe writes.
-    for name, holder in (
-        ("bag_rgo_location_feeds_root", "root"),
-        ("bag_rgo_location_feeds_build_type", "global_var:bag_rgo_build_type"),
+    # The build panel filters locations against a fixed building type, so the
+    # type comes from the global variable its probe writes. This is the pair
+    # that has been seen working on screen.
+    out.append("# True when this location's raw material feeds the building "
+               "type being built.")
+    out.append("# Scope: location")
+    out.append("bag_rgo_location_feeds_build_type = {")
+    out.append("\tOR = {")
+    for good in by_good:
+        out.append("\t\tAND = {")
+        out.append("\t\t\traw_material = goods:%s" % good)
+        out.append("\t\t\tglobal_var:bag_rgo_build_type = "
+                   "{ bag_rgo_consumes_%s = yes }" % good)
+        out.append("\t\t}")
+    out.append("\t}")
+    out.append("}")
+    out.append("")
+
+    # **И обратная пара -- та, что не работала, и теперь известно почему.**
+    #
+    # Панель зданий локации фильтрует типы против фиксированной локации, и
+    # прежняя форма спрашивала тип через `root`, как обещает комментарий игры в
+    # `58_building_type.txt`. Прогон 2026-09-09 (`where_to_produce`, фишка «Из
+    # плана — сюда») показал, что `root` в фильтре -- **не** отфильтровываемый
+    # объект: фишка на `root` не оставила ни одного здания при заведомо
+    # заполненных данных, а всё, что спрашивает неявный `this`, работает. Игра и
+    # сама пишет «root is player» в `06_country.txt`; про `scope:target` тот же
+    # комментарий уже был неправ.
+    #
+    # Поэтому вопрос «потребляет ли этот тип сырьё G» задаётся **до** смены
+    # скоупа, неявным `this`, а на локацию уходит уже литерал. Заодно это
+    # дешевле прежнего: обход провинции идёт только по тем нескольким видам
+    # сырья, которые этот тип действительно потребляет, а не по всем на каждую
+    # локацию.
+    for name, inside in (
+        ("bag_rgo_has_local_bonus",
+         "province = { any_location_in_province = { raw_material = goods:%s } }"),
+        ("bag_rgo_has_local_bonus_here", "raw_material = goods:%s"),
     ):
-        out.append("# True when this location's raw material feeds %s." % (
-            "the building type in root" if holder == "root" else "the building type being built"
-        ))
-        out.append("# Scope: location")
+        out.append("# %s" % (
+            "Which building types gain from a raw material anywhere in the "
+            "province the panel is showing." if name.endswith("bonus") else
+            "Same, but only the location on screen counts."))
+        out.append("# Scope: building_type")
         out.append("%s = {" % name)
+        out.append("\thas_global_variable = bag_view_location")
         out.append("\tOR = {")
         for good in by_good:
             out.append("\t\tAND = {")
-            out.append("\t\t\traw_material = goods:%s" % good)
-            out.append("\t\t\t%s = { bag_rgo_consumes_%s = yes }" % (holder, good))
+            out.append("\t\t\tbag_rgo_consumes_%s = yes" % good)
+            out.append("\t\t\tglobal_var:bag_view_location = { %s }"
+                       % (inside % good))
             out.append("\t\t}")
         out.append("\t}")
         out.append("}")

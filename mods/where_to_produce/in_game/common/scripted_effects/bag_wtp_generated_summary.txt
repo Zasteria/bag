@@ -426,7 +426,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_4 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_4 = yes bag_wtp_plan_can_rural_4 = yes } }
 			set_global_variable = { name = bag_wtp_wsp4 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -461,6 +461,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt4 < global_var:bag_wtp_pqt4 } }
 			set_global_variable = { name = bag_wtp_wr4 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr4 < global_var:bag_wtp_pqr4 } }
+			set_global_variable = { name = bag_wtp_wr4 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -642,7 +646,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_rural_6 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_6 = yes bag_wtp_plan_can_rural_6 = yes } }
 			set_global_variable = { name = bag_wtp_wsp6 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -673,6 +677,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn6 < global_var:bag_wtp_pq6 } }
 			set_global_variable = { name = bag_wtp_wr6 value = 3 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnt6 < global_var:bag_wtp_pqt6 } }
+			set_global_variable = { name = bag_wtp_wr6 value = 4 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnr6 < global_var:bag_wtp_pqr6 } }
@@ -968,7 +976,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_9 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_9 = yes bag_wtp_plan_can_rural_9 = yes } }
 			set_global_variable = { name = bag_wtp_wsp9 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -1003,6 +1011,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt9 < global_var:bag_wtp_pqt9 } }
 			set_global_variable = { name = bag_wtp_wr9 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr9 < global_var:bag_wtp_pqr9 } }
+			set_global_variable = { name = bag_wtp_wr9 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -1290,7 +1302,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_rural_12 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_12 = yes bag_wtp_plan_can_rural_12 = yes } }
 			set_global_variable = { name = bag_wtp_wsp12 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -1321,6 +1333,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pn12 < global_var:bag_wtp_pq12 } }
 			set_global_variable = { name = bag_wtp_wr12 value = 3 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnt12 < global_var:bag_wtp_pqt12 } }
+			set_global_variable = { name = bag_wtp_wr12 value = 4 }
 		}
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnr12 < global_var:bag_wtp_pqr12 } }
@@ -1506,7 +1522,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_14 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_14 = yes bag_wtp_plan_can_rural_14 = yes } }
 			set_global_variable = { name = bag_wtp_wsp14 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -1541,6 +1557,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt14 < global_var:bag_wtp_pqt14 } }
 			set_global_variable = { name = bag_wtp_wr14 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr14 < global_var:bag_wtp_pqr14 } }
+			set_global_variable = { name = bag_wtp_wr14 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -1938,7 +1958,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_18 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_18 = yes bag_wtp_plan_can_rural_18 = yes } }
 			set_global_variable = { name = bag_wtp_wsp18 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -1973,6 +1993,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt18 < global_var:bag_wtp_pqt18 } }
 			set_global_variable = { name = bag_wtp_wr18 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr18 < global_var:bag_wtp_pqr18 } }
+			set_global_variable = { name = bag_wtp_wr18 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -2590,7 +2614,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_24 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_24 = yes bag_wtp_plan_can_rural_24 = yes } }
 			set_global_variable = { name = bag_wtp_wsp24 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -2625,6 +2649,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt24 < global_var:bag_wtp_pqt24 } }
 			set_global_variable = { name = bag_wtp_wr24 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr24 < global_var:bag_wtp_pqr24 } }
+			set_global_variable = { name = bag_wtp_wr24 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -3234,7 +3262,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_30 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_30 = yes bag_wtp_plan_can_rural_30 = yes } }
 			set_global_variable = { name = bag_wtp_wsp30 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -3269,6 +3297,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt30 < global_var:bag_wtp_pqt30 } }
 			set_global_variable = { name = bag_wtp_wr30 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr30 < global_var:bag_wtp_pqr30 } }
+			set_global_variable = { name = bag_wtp_wr30 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -3988,7 +4020,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_37 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_37 = yes bag_wtp_plan_can_rural_37 = yes } }
 			set_global_variable = { name = bag_wtp_wsp37 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -4023,6 +4055,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt37 < global_var:bag_wtp_pqt37 } }
 			set_global_variable = { name = bag_wtp_wr37 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr37 < global_var:bag_wtp_pqr37 } }
+			set_global_variable = { name = bag_wtp_wr37 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -4314,7 +4350,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_40 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_40 = yes bag_wtp_plan_can_rural_40 = yes } }
 			set_global_variable = { name = bag_wtp_wsp40 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -4349,6 +4385,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt40 < global_var:bag_wtp_pqt40 } }
 			set_global_variable = { name = bag_wtp_wr40 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr40 < global_var:bag_wtp_pqr40 } }
+			set_global_variable = { name = bag_wtp_wr40 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -4526,7 +4566,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_42 = yes bag_wtp_plan_can_rural_42 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_42 = yes } }
 			set_global_variable = { name = bag_wtp_wsp42 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -4561,10 +4601,6 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt42 < global_var:bag_wtp_pqt42 } }
 			set_global_variable = { name = bag_wtp_wr42 value = 4 }
-		}
-		else_if = {
-			limit = { NOT = { global_var:bag_wtp_pnr42 < global_var:bag_wtp_pqr42 } }
-			set_global_variable = { name = bag_wtp_wr42 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.
@@ -4746,7 +4782,7 @@ bag_wtp_plan_summary = {
 		# начала бы отвечать про землю, которой в плане нет.
 		every_in_global_list = {
 			variable = bag_wtp_plan_touched
-			limit = { OR = { bag_wtp_plan_can_town_44 = yes } }
+			limit = { OR = { bag_wtp_plan_can_town_44 = yes bag_wtp_plan_can_rural_44 = yes } }
 			set_global_variable = { name = bag_wtp_wsp44 value = 1 }
 		}
 		# **«Мест не осталось» -- это два разных ответа, и владелец поймал их
@@ -4781,6 +4817,10 @@ bag_wtp_plan_summary = {
 		else_if = {
 			limit = { NOT = { global_var:bag_wtp_pnt44 < global_var:bag_wtp_pqt44 } }
 			set_global_variable = { name = bag_wtp_wr44 value = 4 }
+		}
+		else_if = {
+			limit = { NOT = { global_var:bag_wtp_pnr44 < global_var:bag_wtp_pqr44 } }
+			set_global_variable = { name = bag_wtp_wr44 value = 5 }
 		}
 	}
 	# Пометки редактора перекрывают всё: это ответ игроку про его же решение.

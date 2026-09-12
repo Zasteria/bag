@@ -27,35 +27,32 @@ rank and outlives a save.**
 
 ## Where it stands
 
-**Never gate the plan on `generate.fed_floor`**; **the bonus counts RGOs only**;
-**one method per slot**
-([`production_ladder.md`](../../docs/investigations/production_ladder.md)).
-**A right's gate is its own `potential`, never `has_advance`**
-([`town_rights.md`](../../docs/investigations/town_rights.md)). **An entry is a
-building and a location holds one of each**
-([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
-**Равномерность держит уровень, а не квота**: круг поднимает `_plan_lvl` на
-единицу, товар берёт не больше одного домика за круг, и **полоса выгоды решает
-«где», а не «сколько»**; покрытие — это круг 1, открытая лестница — сухой круг
-([`plan_as_reservation.md`](../../docs/investigations/plan_as_reservation.md)).
-**Второй режим — «Специализация»**: провинция отдаёт лучшую грамоту всем
-городам, ячейка — тому, кто платит больше всех
-([`plan_specialisation.md`](../../docs/investigations/plan_specialisation.md)).
-**Локация держит по одной деревне каждого вида** — четыре `is_village = yes`
-рядом законны, а две одинаковых нет, и это тот же запрет на повтор здания, что
-был всегда ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
-**Сводка по товарам** — иконка в окне плана: строка на товар и причина
-остановки. **Весов город/село нет и не будет**, и **выхлоп сторону не различает**
-([`plan_share_sides.md`](../../docs/investigations/plan_share_sides.md)).
-
-**Правила редактора, доливки и рядов — выписаны**:
-[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md). Устройство —
+**Как устроена раздача — уровень, два котла, деревня-товар, три равенства** —
+[`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md);
+закрыто прогоном 2026-09-08 и с тех пор не менялось. **Правила редактора,
+доливки, рядов, «Специализации» и сводки**:
+[`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md),
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**Дальше, порядок его**: резервация по стеснённости
-([`plan_reservation.md`](../../docs/investigations/plan_reservation.md) —
-правило, три места в коде, предсказание), перетасовка внутри провинции, шаги 7–8.
+**Выгода от земли — свойство ПРОВИНЦИИ, а не локации** (`_g<n>` спрашивает
+`any_location_in_province_definition`), значит внутри провинции менять нечего. **«Перетасовать» — ручная кнопка**, переезд **между** провинциями; сельский
+домик меняется и с деревней, но её выгоду обмен намеренно не спрашивает
+([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)). **Дальше**: шаги 7–8.
+
+**Всё, что мод делает в чужих окнах** — галочки плана в списке зданий локации,
+отмашка на автострой CM, кнопки житницы и «снести лишнее», и чтение зданий чужих
+модов генератором — [`wtp_integration.md`](../../docs/investigations/wtp_integration.md).
+Три правила оттуда, которые дороже прочих: **`root` в фильтре — не сам объект**;
+**`_stands_<здание>` слушается тумблера ранга, поэтому не годится ни для чего,
+что делает игра**; **мод ничего не делает периодически** — это его требование.
+
+**Мод строит и зданиями чужих модов**, а «Техническая» держит список этих модов
+с галочкой на каждый: снятая закрывает их зданиям ворота `_avail_`/`_reach_`, а
+не убирает их из файлов.
+
+**Условие внутри значения ключа локализации ломает клетку** — выбирает
+диспетчер `customizable_localization`.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is

@@ -269,6 +269,7 @@ bag_wtp_drop_good = {
 # Scope: country
 bag_wtp_zone_changed = {
 	bag_wtp_rebuild_zone = yes
+	bag_wtp_rebuild_sources = yes
 	bag_wtp_rebuild_regions = yes
 }
 

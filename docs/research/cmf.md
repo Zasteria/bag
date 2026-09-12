@@ -389,6 +389,67 @@ types the player ticked and stages them in every owned location, checking only
 build-queue slots and `cm_location_can_auto_build`. An addon that must ignore the
 profit gates should stage there rather than invent a queue.
 
+**Auto Town Rights is a priority walk with no delegation point.**
+`cm_run_auto_town_rights` walks `cm_auto_town_rights_list` — an ordered list of
+`town_rights_type` values built from its CMM list — and for each right walks
+owned locations, granting where `has_max_town_rights = no`,
+`cm_can_grant_specific_town_right_at_location` and affordability allow, then pays
+`price:grant_town_rights`. The right granted is `scope:cm_town_right` and nothing
+else: there is no branch where another mod could say "ask me which right this
+town wants". Structurally the same fact as the feature dispatcher's `switch` with
+no default branch — **CM is extensible where it chose to be, and a marker entry
+in one of its lists is not one of those places.** An addon that wants a
+per-location right grants it itself: `grant_town_rights` is a plain location
+effect, and the gates above are readable from script.
+
+**The granary mode is a location variable too.** CM's per-location food toggle
+(`cm_set_auto_food_for_location`) sets `cm_auto_food_location_enabled` on the
+location and pins it with the `cm_auto_food_locked_location` modifier; a second
+pair, the country's `cm_auto_food_rgo_types_enabled` against the location's
+`cm_auto_food_location_excluded`, is the mass form, and that one also passes
+through CM's own river filter. So the manual opt-in reads in one word, and the
+mass form does not without repeating a trigger of CM's.
+
+**The auto-build tick box is three variables, and that is the whole of it.** The
+two-up-arrows icon (`gfx/interface/icons/flat_icons/mass_upgrade.dds`) beside a
+building in the production panel is CM's, drawn by
+`cm_auto_expand_existing_building_button` for a standing building and
+`cm_auto_expand_new_building_button` for a type not built yet. Both write the
+same state, which is per **location and building type**:
+
+| variable | scope | meaning |
+| --- | --- | --- |
+| `cm_auto_expand_registered_building_types` | location | ticked here |
+| `cm_mass_auto_expand_building_types` | country | ticked everywhere |
+| `cm_auto_expand_excluded_building_types` | location | untick, against the mass list |
+
+So it is **on** when the location's registered list holds the type, or the
+country's mass list holds it and the location's excluded list does not. Turning
+it on means: mass list holds the type → remove it from the location's excluded
+list; otherwise → add it to the location's registered list. Off is the mirror.
+`cm_apply_auto_expand_toggle` is the original, and it takes `scope:cm_set_off` to
+set rather than flip. An addon that wants to arm a set of buildings hands CM this
+and stops — CM's own monthly cycle then decides when and what to build.
+
+**Feeding that queue needs no CM name at all — write its variables.** A call to a
+scripted effect or trigger CM does not ship breaks in a place nobody looks
+(`PITFALLS.md`), and an addon has to survive CM being absent. Variables have no
+such problem: `add_to_variable_list = { name = cm_q_ungated_locations target =
+<location> }` on the country, `cm_q_ungated_building_types` on the location,
+`cm_q_staged` up by one, and `cm_should_construct` set — the queue window hangs
+off that variable, not off who wrote it. Mirror
+`cm_stage_location_and_type_to_queue` exactly, including clearing the location's
+`cm_q_done_ungated_types` the first time it is added. With CM absent, the writes
+land in variables nobody reads.
+
+**But the monthly leaf order decides whether it survives.** CM's dispatcher is a
+leaf of `cmf_monthly_human_country_pulse` and *starts by clearing every queue*.
+Another mod's leaf on the same pulse runs before or after it depending on file
+merge order, which nothing in CMF or the game guarantees. Staging before CM's
+leaf is erased in the same tick, and on screen that is indistinguishable from
+"there was nothing to build" — so an addon that stages here has to print its own
+count and let a run say which side of the dispatcher it landed on.
+
 **The gates it would be skipping** are `cm_should_rgo_auto_expand` and its
 building equivalent: gold on hand, nothing already under construction, a metric
 gate (`cm_priority_min_profit` per feature) and a discount gate

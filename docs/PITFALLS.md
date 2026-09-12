@@ -22,6 +22,9 @@ searches like everything else:
 - [`pitfalls/shipping.md`](pitfalls/shipping.md) — putting a mod out and getting
   it loaded: workshop tags, the app id, load order, `metadata.json`, and
   overriding somebody else's override.
+- [`pitfalls/cmm.md`](pitfalls/cmm.md) — CMF and its macros: a call that fails
+  silently, a list that loses its fifty-first row, a setting numbered from the
+  wrong end.
 
 ## Script
 
@@ -31,6 +34,50 @@ same way — a value edited in the wrong copy simply has no effect, with nothing
 screen or in `error.log` to say which copy the game reads. Two shipped in one day
 on 2026-09-06, both from a generator adding a reader that already existed forty
 lines further down. `check_script.py` reports them now.
+
+**A `building_type` filter receives the object as `this` — not `scope:target`,
+and not `root` either.** Vanilla's `58_building_type.txt` promises both and has
+neither: reading `scope:target` logs an error on every pass of the list, and
+reading `root` logs nothing and matches nothing, which is worse. Measured
+2026-09-09 — a chip on `target = root` left the list empty while its probe held
+the location and the list it read was populated on 454 locations; the only other
+`root` reader here is `rgo_bonus_filter`'s location-panel pair, the one that had
+never worked; `06_country.txt` says "root is player" in its own header. **Ask
+`this` before any scope change**, literal on the far side, one `AND` branch per
+object — a generator's job. `building` and `location` scoped filters do get
+`scope:target`.
+
+**One predicate in two places will drift, and the copy that decides is the one
+nobody edits.** `_reach_<n>` — "could this country ever have this method" — was
+computed twice: once to write the trigger, once to decide whether to ask it. The
+writer learnt about `country_potential`; the asker did not, so 429 triggers were
+generated correct and never consulted, and a Tibetan atelier stood in Westphalia.
+Both now call `method_gates`. The symptom is the worst kind: the fix looks
+present in the generated files.
+
+**A partial report read as a whole one is a wrong answer with a number attached.**
+`WTP BLDG ... built=0` covers only *multi-good* buildings; concluding "no foreign
+building was placed" from it was reading an absence in a subset as a fact about
+the plan. The rule this repository already has — an empty result is a fact about
+the tree, never about the game — applies to its own diagnostics too.
+
+**`local_<x>_building_levels` names a building, not a good — and the two look
+alike.** `local_fine_cloth_guild_building_levels` raises the level cap of
+`fine_cloth_guild`; stripping `_guild` turns it into the good `fine_cloth`, and
+the charter then reads as "favours fine cloth" and pulls in every building that
+makes it — a Tibetan atelier the bonus will never touch. Caught by the owner on
+2026-09-09. A per-building bonus has to stay attached to its building: derive the
+good from the building, and gate on the winning method being that building's.
+
+**A trigger that models what the player *means* must never gate what the game will
+*do*.** `where_to_produce`'s `_stands_<building>` deliberately obeys the mod's own
+rank override — that is the whole point of a plan that says «I will make this
+village a town». Ask it before queueing a real construction order and the game is
+handed a town building for a village. The owner named this before it was built,
+2026-09-09: «чтобы не вышло так, что я просто переключил в плане тумблер и сделал
+село городом, а на самом деле там всё ещё село». Anything the engine acts on asks
+the engine: `can_build_building` at the location, plus the country's own answer
+for the advance.
 
 **A scripted trigger answers the question its first caller needed, not the one
 its name promises.** `bag_wtp_plan_right_fits_<k>` reads as «может ли эта грамота
@@ -65,24 +112,11 @@ perfectly good *scope* to read through, and to iterate from.
 and voids the whole trigger — `where_to_produce`'s «only where the building can
 stand» filtered nothing for two loads. `trigger_else = { always = no }` closes it.
 
-**A CMM macro called *without* an argument CMF declares fails exactly like one
-called with an argument it does not.** `cmm_register_settings_list` declares
-`is_ordered`, the call omitted it, `$is_ordered$` stayed in the pasted text, and
-every list registration died where it stood — taking everything after it in the
-same effect, with no error anywhere. `check_cmm.py` now reports both directions.
-
 **A condition copied out of a game file carries the game's comments with it.**
 `copperworking`'s `potential` has a commented-out clause under the live one;
 folded onto one line for a generated trigger, the `#` swallowed everything after
 it — closing braces included — and the file was unbalanced. **Strip `#` to end of
 line, per line, before collapsing anything the game wrote.**
-
-**`cmf_on_mod_registration` fires every time the mod page is opened.** Not on a
-new game, a save load and a country transfer only, whatever it reads like:
-`where_to_produce`'s registration ended with a `clear_rows`, and the result the
-player had just computed was gone by the time he reached the button that reopens
-it. Registration is for making things exist. Anything it destroys, it destroys on
-a schedule nobody chose.
 
 **A call to a name nothing defines is not reported where you would look.** The
 patch that was to write `bag_wtp_right_row_is_worth_it` died half way; the
@@ -150,18 +184,6 @@ the other locations of the same provinces. Any pass that filters inside the loop
 has to ask for enough iterations to reach the rows it wants, and say in a comment
 what the ratio is.
 
-**A CMM macro called with an argument CMF does not declare fails silently and
-takes the rest of its effect with it.** `step` where CMF declares `step_value`
-meant the setting never entered CMM's maps; syncing its alias then errored, and
-everything after it in the same effect was skipped — including four other
-settings. Symptom: an interface that renders perfectly and does nothing.
-`python3 tools/check_cmm.py mods/<mod>/in_game/common` checks a whole mod against
-whichever CMF is in `reference/`.
-
-**Dropdown options are numbered from one.** Registering with `default_index = 0`
-put the stored value out of range, so nothing the player picked matched any
-branch. Symptom: menu looks correctly filled in, nothing downstream reacts.
-
 **A comment saying a trigger was confirmed is not a confirmation.**
 `gates.py` gated 492 religious aspect hints on `country_religion = religion:X`,
 under a comment reading "confirmed in common/religious_aspects". It is not there
@@ -178,11 +200,6 @@ qualifying for them. It was found the day a checker started comparing every
 trigger name in the file against what exists. **Put the confirmation in a
 checker, not in a comment** — a comment records what someone believed once, and
 a checker re-establishes it on every run.
-
-**A `building_type` filter receives `root` and nothing else.** Not
-`scope:target`, whatever the comment at the top of vanilla's
-`58_building_type.txt` says. Reading it logs an error on every pass of the list.
-`building` and `location` scoped filters do get it.
 
 **Numeric-looking keys are not all goods.** `debug_max_profit = -1` on the
 plantations was being counted as an input, turning four recipes' total input
@@ -203,32 +220,6 @@ recomputed constantly rather than when the thing it describes changes. Compute
 on a pulse into a variable and let the row read the variable; the same five
 values inside one tooltip cost nothing, so it is the number of rows drawing them
 that matters, not the values themselves.
-
-**A formatted list field needs its format keys or it prints their names.**
-`cmm_set_list_field_format` and `cmm_set_list_field_conditional_format` make the
-widget read `<mod>__<setting>__<field>_prefix` and `_postfix`, and for the
-conditional one also `_prefix_high` / `_postfix_high` / `_prefix_low` /
-`_postfix_low`. CMF decides whether a key exists by comparing `Localize(key)`
-against the key itself, so a missing one is not an error — it renders as its own
-name, in the column, where a number should be. `cm__auto_build_list__min_discount_*`
-shows the full set.
-
-**A CMM list silently loses every row past the fiftieth.** CMF initialises list
-items through an unrolled chain ending at item 50, so a list registered at 74
-shows 50 rows and says nothing about the rest. Split into several lists — and
-give each its own output, since `cmm_build_list_bool_list` clears the list it
-builds into and a shared one would keep only the last.
-
-**Asking a variable map for a key it does not hold is an error, not false.** A
-CMM setting sitting at its registered default may never have been written to the
-`cmm` map, so `"variable_map(cmm|flag:<mod>__<setting>)" >= 1` as a plain gate
-can take the whole effect down on a new game. Guard it with
-`is_key_in_variable_map` and decide what the absence means.
-
-**`item = var:x` inside a CMM list macro dies at load** with "More than one
-colon in event target link" — the macro pastes it verbatim. Ordinals into
-`cmm_set_list_data_value` and friends have to be literals; generate a switch that
-turns a counter into one.
 
 ## Never invent a name for something the game already names
 

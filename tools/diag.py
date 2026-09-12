@@ -505,6 +505,138 @@ def digest(lines: list[str]) -> list[str]:
         out.append("Земля: %d зданий на %d мест (%d%% заполнено), локаций %s, "
                    "провинций %s" % (placed, rooms, round(100 * placed / rooms),
                                      field(pas, "used_locs"), field(pas, "provs")))
+        # **И по сторонам отдельно.** Доля стороны растёт, пока на ней есть
+        # свободные комнаты, поэтому «сколько занято из скольких» на каждой
+        # стороне -- это первое, на что смотреть, если товары стоят ниже своего
+        # потолка: полная сторона объясняет это без всякой формулы.
+        share = first("WTP SHARE")
+        fills = re.findall(r"rooms=(\d+) filled=(\d+)", share or "")
+        if len(fills) == 2:
+            out.append("  по сторонам: город %s из %s, село %s из %s%s"
+                       % (fills[0][1], fills[0][0], fills[1][1], fills[1][0],
+                          "" if all(a == b for a, b in fills)
+                          else " -- сторона не заполнилась, смотри «упёрлись»"))
+    # **Потолок перетасовки, одной строкой.** Зонд считает верхнюю границу:
+    # сколько выгоды подняла бы перетасовка внутри провинции, если бы каждый
+    # домик мог встать на лучшее место своей провинции. Настоящий обмен столько
+    # не даст никогда -- два домика не встанут в одну локацию, -- но если
+    # граница мала, механизм строить незачем. Владелец, 2026-09-09: «пусть
+    # покажет короткий результат, на сколько может быть увеличена выгода».
+    sh = first("WTP SHUFFLE")
+    bound, gain_now = field(sh, "bound"), field(sh, "gain_now")
+    if bound is not None and gain_now:
+        out.append("Перетасовка: потолок прибавки %d из %d, это +%d%% выгоды "
+                   "(домиков не тронет, только места). Ниже своей лучшей "
+                   "провинции стоят %s; из них %d%% приходится на города с "
+                   "грамотой -- там переезд тянет всю пачку."
+                   % (bound, gain_now, round(100 * bound / gain_now),
+                      plural(field(sh, "moves") or 0, "домик", "домика", "домиков"),
+                      round(100 * (field(sh, "in_charter_towns") or 0)
+                            / bound) if bound else 0))
+        # **Проверка самого зонда.** Выгода -- свойство провинции, а не локации:
+        # `_g<n>` спрашивает `any_location_in_province_definition`. Значит внутри
+        # провинции разницы быть не может, и всё, что здесь не ноль, -- ошибка
+        # зонда, а не запас. Первая версия давала 18 244, сравнивая городскую
+        # выгоду с сельской (2026-09-09).
+        same = field(sh, "same_province")
+        if same:
+            out.append("  !! внутри провинции насчитано %d, а должно быть 0 -- "
+                       "зонд врёт, числу выше верить нельзя" % same)
+        vb, vm = field(sh, "villages"), field(sh, "village_moves")
+        if vb:
+            out.append("  деревни: ещё %d потолка (+%d%%) у %s -- обмен их выгоду "
+                       "намеренно не спрашивает, они едут туда, где освободилось"
+                       % (vb, round(100 * vb / gain_now),
+                          plural(vm or 0, "деревни", "деревень", "деревень")))
+    # **И что кнопка сделала на самом деле.** Строка выше -- потолок зонда,
+    # а это уже переставленное. Ноль обменов при ненулевом потолке -- отказ
+    # механизма, и его не видно ни на карте, ни в окне: домики просто стоят
+    # там же, где стояли. Числа у кнопки свои (`_ps_*`), потому что счётчики
+    # доливки стирает открытие окна редактора.
+    ran = first("WTP EDIT shuffle")
+    hit = re.search(r"button rounds=(-?\d+) swaps=(-?\d+) gain=(-?\d+)"
+                    r" \| rights rounds=(-?\d+) swaps=(-?\d+)", ran or "")
+    if hit:
+        br, bs, bg, rr, rs = (int(x) for x in hit.groups())
+        if br or rr:
+            out.append("Кнопка «Перетасовать»: грамот переставлено %s за %s, "
+                       "домиков обменено %s за %s, выгоды %+d"
+                       % (rs, plural(rr, "круг", "круга", "кругов"),
+                          bs, plural(br, "круг", "круга", "кругов"), bg))
+        else:
+            out.append("Кнопку «Перетасовать» не нажимали — плану это не мешает, "
+                       "но выгода в нём та, что дала раздача.")
+    # **Чужие моды: сколько их зданий в пуле и сколько из них доступно тебе.**
+    # Прогон 2026-09-09 показал Вестфалии японскую кузню — пул был общий, а не
+    # её. «Ноль своих» теперь значит «эти моды ничего не дают этой державе», а
+    # не «мод их не увидел», и различает это одно число.
+    src = first("WTP SOURCES")
+    if src:
+        off = [pair.split("=")[0] for pair in src.split()[2:]
+               if "=" in pair and pair.split("=")[1] == "0"]
+        if off:
+            out.append("  выключено галочкой в настройках: %d мод(ов) — их "
+                       "здания в план не идут вовсе" % len(off))
+
+    fr = first("WTP FOREIGN")
+    if fr:
+        pool, mine = field(fr, "pool"), field(fr, "mine")
+        bad = field(fr, "unbuildable")
+        out.append("Здания чужих модов: %s в пуле, доступно этой державе %s%s"
+                   % (pool, mine,
+                      " — то есть эти моды ей зданий не дают, и это не поломка"
+                      if not mine else ""))
+        if bad:
+            out.append("  !! %s стоят в плане, не будучи доступными державе — "
+                       "это дыра в воротах «на конец», а не особенность"
+                       % plural(bad, "вид", "вида", "видов"))
+
+    raze = field(first("WTP RAZE"), "last")
+    if raze:
+        out.append("«Снести лишнее»: последнее нажатие снесло %s"
+                   % plural(raze, "здание", "здания", "зданий"))
+
+    # **Житницы CM.** Локация в этом режиме остаётся в земле и в РГО, но мест не
+    # даёт: «мест» в шапке станет меньше, и это вычет, а не потеря.
+    gr = field(first("WTP GRANARY"), "n")
+    if gr:
+        out.append("Житницы CM: %s — план в них ничего не ставит и их мест не "
+                   "считает; РГО и выгода провинции от них остаются"
+                   % plural(gr, "локация", "локации", "локаций"))
+
+    # **Шаг 8: что сделало последнее нажатие отмашки.** Одноразовая кнопка, и
+    # числа от неё одноразовые: сколько галочек нашлось в группе, сколько уже
+    # стояло, сколько переключено. `found=0` — это «в группе нечему стоять», а
+    # не «кнопка не работает», и различить их можно только числом.
+    cm = first("WTP CM ")
+    if cm:
+        present, found = field(cm, "present"), field(cm, "found")
+        were, touched, off = (field(cm, "were_on"), field(cm, "touched"),
+                              field(cm, "off"))
+        if not present:
+            out.append("Автострой CM: Construction Manager не в игре — кнопок "
+                       "отмашки нет, и это правильно")
+        elif found is None or (not found and not touched):
+            out.append("Автострой CM: кнопку отмашки не нажимали")
+        elif not found:
+            out.append("Автострой CM: в группе не нашлось ни одного домика "
+                       "плана, который тут может стоять — галочкам некуда встать")
+        else:
+            out.append("Автострой CM: %s в группе, из них уже стояло %s, "
+                       "нажатие %s %s"
+                       % (plural(found, "галочка", "галочки", "галочек"),
+                          were or 0, "сняло" if off else "поставило",
+                          plural(touched or 0, "штуку", "штуки", "штук")))
+
+    # **Фишки в панели локации, шаг 7.** «Из плана — сюда» умеет работать только
+    # если панель производства записала, какую локацию она показывает. Ноль
+    # здесь и пустой список в игре — это одна и та же причина, а не две.
+    view = field(first("WTP FILTER"), "view_location")
+    if view is not None:
+        out.append("Фишка «Из плана — сюда»: локация панели %s"
+                   % ("записана — фишка может фильтровать" if view else
+                      "не записана — фишка оставит пустой список; "
+                      "если панель производства локации открывали, проба не сработала"))
     fed, total = field(gain, "fed"), field(gain, "gain_total")
     if fed is not None and placed:
         out.append("Выгода от места: %d зданий из %d (%d%%) что-то получают от "
@@ -531,23 +663,117 @@ def digest(lines: list[str]) -> list[str]:
         out.append("Против прошлого плана изменилось локаций: %d%s"
                    % (moved, "" if moved else " — ни одной"))
 
-    counts = {}
+    # **Одна таблица равномерности, и в ней сложено всё.** Владелец,
+    # 2026-09-07: «почему я должен смотреть на цифры аля 13 и думать, а сколько
+    # там РГО к этому… я хочу, чтобы все домики встали в равное количество и
+    # при этом получили наибольшую выгоду». Значит число товара -- это
+    # `домики + РГО`, всегда, и разрыв между лучшим и худшим печатается сам,
+    # вместе с тем, что его держит.
+    goods = []
     for line in lines:
-        if line.startswith("WTP G") and " | ng=" in line:
-            name = line.split()[2]
-            n = field(line.split("| ng=")[1], "n")
-            if n is not None:
-                counts[name] = n
-    if counts:
-        placed_goods = {g: n for g, n in counts.items() if n}
-        order = sorted(placed_goods.items(), key=lambda kv: -kv[1])
-        share = sorted(placed_goods.values())
-        half = share[len(share) // 2]
-        out.append("Товары: поставлено %d из %d, что земля вообще может делать; "
-                   "на товар от %d до %d зданий, посередине %d"
-                   % (len(placed_goods), len(counts), share[0], share[-1], half))
-        out.append("  больше всех: " + ", ".join("%s %d" % kv for kv in order[:6]))
-        out.append("  меньше всех: " + ", ".join("%s %d" % kv for kv in order[-6:]))
+        if not (line.startswith("WTP G") and " | ng=" in line):
+            continue
+        tail = line.split("| ng=")[1]
+        n, q, rgo = field(tail, "n"), field(tail, "q"), field(tail, "rgo")
+        # **Товар, которого эта земля не умеет вовсе, в равномерность не
+        # входит.** `ng=0` -- не «недобрал», а «нечем»: хлопок в Германии не
+        # растёт, и строка про разрыв, считающая его нулём, врёт про план.
+        if n is None or q is None or rgo is None or not field("ng=" + tail, "ng"):
+            continue
+        rural = re.search(r"\| R m=(\d+)", line)
+        where = ("квота" if q - n <= 2
+                 else "город" if rural and rural.group(1) == "0"
+                 else "земля")
+        qt, qr = field(tail, "qt"), field(tail, "qr")
+        goods.append((line.split()[2], n, rgo, n + rgo, where, qt, qr,
+                      field(tail, "qraw")))
+    if goods:
+        show = lambda g: "%s %d+%d=%d" % (g[0], g[1], g[2], g[3])
+        out.append("Равномерность — домиков + РГО = всего у товара:")
+        for where, why in (("квота", "их остановила своя квота, это и есть ровно"),
+                           ("земля", "им не хватило земли, а не квоты"),
+                           ("город", "их держит потолок городской стороны")):
+            part = sorted((g for g in goods if g[4] == where), key=lambda g: -g[3])
+            if not part:
+                continue
+            span = ("%d" % part[0][3] if part[0][3] == part[-1][3]
+                    else "%d…%d" % (part[-1][3], part[0][3]))
+            out.append("  %-6s %s на %s — %s"
+                       % (where, plural(len(part), "товар", "товара", "товаров"),
+                          span, why))
+            out.append("         " + ", ".join(show(g) for g in part[:5])
+                       + (", …" if len(part) > 5 else ""))
+        # **Доли по сторонам и до скидки за РГО.** Доля до скидки -- это ровно
+        # три числа на всю таблицу: доля города, доля села и их сумма у тех,
+        # кто умеет обе стороны. Всё, что ниже, объясняется РГО или стеснённой
+        # стороной, у которой потолка нет вовсе.
+        caps_t = [g[5] for g in goods if g[5] is not None]
+        caps_r = [g[6] for g in goods if g[6]]
+        raws = sorted({g[7] for g in goods if g[7]})
+        if raws:
+            out.append("  доля до вычета РГО: %s — больше чисел тут и не должно "
+                       "быть, это доля города, доля села и их сумма"
+                       % ", ".join(str(r) for r in raws))
+        if caps_t:
+            out.append("  потолки после вычета: город %d…%d, село %d…%d — "
+                       "разница от РГО и от стеснённой стороны, у которой "
+                       "потолка нет вовсе"
+                       % (min(caps_t), max(caps_t),
+                          min(caps_r or [0]), max(caps_r or [0])))
+        best, worst = max(goods, key=lambda g: g[3]), min(goods, key=lambda g: g[3])
+        out.append("  разрыв %d: %s против %s — и держит его «%s»"
+                   % (best[3] - worst[3], show(best), show(worst), worst[4]))
+
+    # **Общие здания против своего потолка.** Здание, которое умеет несколько
+    # товаров, -- один слот на всех них, и без своего потолка оно встаёт втрое
+    # или впятеро чаще однотоварного домика. Пара «встало / потолок» говорит,
+    # он ли связал: равные числа -- да, меньшее первое -- земля кончилась
+    # раньше.
+    caps = [(l.split()[2], field(l, "built"), field(l, "cap")) for l in lines
+            if l.startswith("WTP BLDG ")]
+    caps = [(b, n, q) for b, n, q in caps if n is not None and q]
+    if caps:
+        out.append("Общие здания против своего потолка (%d): " % caps[0][2]
+                   + ", ".join("%s %d%s" % (b, n, "" if n < q - 1 else " — упёрлось")
+                               for b, n, q in sorted(caps, key=lambda r: -r[1])
+                               if n or q))
+
+    # **Одно здание, за которое спорят несколько товаров.** Локация держит одно
+    # здание каждого вида, поэтому рыбацкая деревня -- это один слот на рыбу,
+    # судовые припасы и гончарку разом. Товар с виду «недобрал», а на деле его
+    # место занял сосед по зданию, и никакая раздача мест не создаст. Строки
+    # `SHARED` статические, числа берутся из строк `G<n>` того же отчёта.
+    per_good: dict[str, dict[str, str]] = {}
+    for line in lines:
+        found = re.match(r"WTP G\d+ (\S+) \w+ \| T ([^|]*)\| R ([^|]*)\|", line)
+        if found:
+            per_good[found.group(1)] = {"T": found.group(2), "R": found.group(3)}
+    shared = []
+    for line in lines:
+        found = re.match(r"WTP SHARED ([TR]) (\S+) slots=(\S+) only=(\S+) also=(\S+)",
+                         line)
+        if not found:
+            continue
+        side, building, witness, only, also = found.groups()
+        if witness not in per_good:
+            continue
+        slots = field(per_good[witness][side], "w")
+        mine = [g for g in only.split(",") if g in per_good]
+        used = sum(field(per_good[g][side], "p") or 0 for g in mine)
+        if slots:
+            shared.append((building, slots, used, mine,
+                           [] if also == "-" else also.split(",")))
+    if shared:
+        out.append("Одно здание на несколько товаров — тут товар «недобирает» "
+                   "из-за соседа по зданию, а не из-за формулы:")
+        for building, slots, used, mine, also in sorted(
+                shared, key=lambda row: -row[2] / row[1]):
+            tail = (", и туда же метят " + ", ".join(also)) if also else ""
+            out.append("  %s: %s, %s %s %d (%d%%)%s"
+                       % (building, plural(slots, "место", "места", "мест"),
+                          "/".join(mine),
+                          "занял" if len(mine) == 1 else "заняли", used,
+                          round(100 * used / slots), tail))
 
     rights = [(line.split()[3], field(line, "given")) for line in lines
               if line.startswith("WTP RIGHT")]

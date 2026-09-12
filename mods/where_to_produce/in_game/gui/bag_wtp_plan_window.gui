@@ -144,6 +144,44 @@ types BagWtpPlanTypes {
 					tooltip = "bag_wtp_plan_prov_sum_tt"
 				}
 
+				# **Шаг 8: отмашка на всю провинцию.** Одно нажатие переключает
+				# галочки автостроя CM у домиков плана во всех её локациях —
+				# и больше ничего: дальше решает CM.
+				button_regular = {
+					size = { 40 40 }
+					tooltip = "bag_wtp_cm_prov_tt"
+					visible = "[GetScriptedGui('bag_wtp_cm_present').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					icon = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
+						alpha = 0.35
+						visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_cm_lit_prov').IsSet)]"
+					}
+					icon = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
+						visible = "[Location.MakeScope.GetVariable('bag_wtp_cm_lit_prov').IsSet]"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_cm_press_prov').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+				}
+
+				# **Снос лишнего в этой провинции.**
+				button_regular = {
+					size = { 40 40 }
+					tooltip = "bag_wtp_raze_prov_tt"
+					icon = {
+						size = { 24 24 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/disable_icon.dds"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_raze_press_prov').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+				}
+
 				widget = { layoutpolicy_horizontal = expanding size = { -1 40 } }
 			}
 		}
@@ -397,6 +435,84 @@ types BagWtpPlanTypes {
 					}
 				}
 			}
+		}
+
+		# **Продовольственный потенциал локации** — формула режима карты
+		# Construction Manager, переписанная под себя на сборке. Ячейка пуста
+		# там, где сырьё не продовольственное: `_food_pot` там просто не стоит.
+		widget = {
+			size = { 56 42 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_food_pot_tt"
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_food_pot').IsSet]"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				size = { 52 26 }
+				align = center|nobaseline
+				fontsize = 13
+				text = "bag_wtp_food_pot_value"
+			}
+		}
+
+		# **Шаг 8: отмашка на эту локацию.**
+		button_regular = {
+			size = { 40 42 }
+			tooltip = "bag_wtp_cm_loc_tt"
+			visible = "[GetScriptedGui('bag_wtp_cm_present').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+			icon = {
+				size = { 26 26 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
+				alpha = 0.35
+				visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_cm_lit').IsSet)]"
+			}
+			icon = {
+				size = { 26 26 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
+				visible = "[Location.MakeScope.GetVariable('bag_wtp_cm_lit').IsSet]"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_cm_press_loc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		# **Снос лишнего в этой локации.**
+		button_regular = {
+			size = { 40 42 }
+			tooltip = "bag_wtp_raze_loc_tt"
+			icon = {
+				size = { 24 24 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/flat_icons/disable_icon.dds"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_raze_press_loc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		# **Режим житницы CM**, и только там, где CM его предлагает.
+		button_regular = {
+			size = { 40 42 }
+			tooltip = "bag_wtp_food_loc_tt"
+			visible = "[GetScriptedGui('bag_wtp_food_here').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+			icon = {
+				size = { 24 24 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/unit_view/food.dds"
+				alpha = 0.35
+				visible = "[Not(Location.MakeScope.GetVariable('cm_auto_food_location_enabled').IsSet)]"
+			}
+			icon = {
+				size = { 24 24 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "gfx/interface/icons/unit_view/food.dds"
+				visible = "[Location.MakeScope.GetVariable('cm_auto_food_location_enabled').IsSet]"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_food_press_loc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 		}
 
 		widget = { layoutpolicy_horizontal = expanding size = { -1 30 } }
@@ -661,17 +777,17 @@ window = {
 				spacing = 8
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_area"
 					description = "bag_wtp_map_pick_area_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_area" }
 					tooltip = "bag_wtp_map_pick_area_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -681,17 +797,17 @@ window = {
 				}
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_province"
 					description = "bag_wtp_map_pick_province_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_province" }
 					tooltip = "bag_wtp_map_pick_province_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -701,17 +817,17 @@ window = {
 				}
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_location"
 					description = "bag_wtp_map_pick_location_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_location" }
 					tooltip = "bag_wtp_map_pick_location_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -721,17 +837,17 @@ window = {
 				}
 
 				action_button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					title = "bag_wtp_map_pick_market"
 					description = "bag_wtp_map_pick_market_desc"
 					actor = "[Player]"
 					left_action = { action_name = "bag_wtp_select_market" }
 					tooltip = "bag_wtp_map_pick_market_desc"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -747,14 +863,14 @@ window = {
 				# plain button and not a map action, because there is nothing
 				# to click on the map — the answer is already known.
 				button_regular = {
-					size = { 128 34 }
+					size = { 116 34 }
 					tooltip = "bag_wtp_pick_my_land_tt"
 					text_single = {
-						size = { 120 30 }
+						size = { 108 30 }
 						parentanchor = center
 						widgetanchor = center
 						autoresize = no
-						maximumsize = { 120 30 }
+						maximumsize = { 108 30 }
 						fontsize = 14
 						fontsize_min = 10
 						align = center|nobaseline
@@ -770,9 +886,9 @@ window = {
 				# a ranking's, and a plan that redrew itself on every click
 				# would make the picker unusable. Press «План» again.
 				text_single = {
-					size = { 190 34 }
+					size = { 120 34 }
 					autoresize = no
-					maximumsize = { 190 34 }
+					maximumsize = { 120 34 }
 					align = right|vcenter
 					fontsize = 12
 					fontsize_min = 9
@@ -784,6 +900,42 @@ window = {
 				# The plan is remade only when he says so, which is the whole
 				# point of the button: he may flip a hundred town markers
 				# before he wants an answer.
+				# **Шаг 8: отмашка на весь план.**
+				button_regular = {
+					size = { 44 42 }
+					tooltip = "bag_wtp_cm_all_tt"
+					visible = "[GetScriptedGui('bag_wtp_cm_present').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					icon = {
+						size = { 30 30 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
+						alpha = 0.35
+						visible = "[Not(GetGlobalVariable('bag_wtp_cm_lit_all').IsSet)]"
+					}
+					icon = {
+						size = { 30 30 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
+						visible = "[GetGlobalVariable('bag_wtp_cm_lit_all').IsSet]"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_cm_press_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				# **Снос лишнего по всему плану.**
+				button_regular = {
+					size = { 44 42 }
+					tooltip = "bag_wtp_raze_all_tt"
+					icon = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						texture = "gfx/interface/icons/flat_icons/disable_icon.dds"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_raze_press_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
 				button_regular = {
 					size = { 150 42 }
 					tooltip = "bag_wtp_plan_refresh_tt"

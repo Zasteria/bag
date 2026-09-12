@@ -450,6 +450,29 @@ window = {
 					tooltip = "bag_wtp_edit_extend_tt"
 				}
 
+				# **«Перетасовать» стоит в редакторе, а не в окне плана.** Она
+				# меняет места, а не количества, и смотреть на её работу идут в
+				# «Показать изменения» — в это же окно. Его слова, 2026-09-09:
+				# «кнопка „перетасовать“ в общем плане, а кнопка показать
+				# изменений — в редакторе. Тогда уж лучше переместить».
+				button_regular = {
+					size = { 180 34 }
+					tooltip = "bag_wtp_plan_reshuffle_tt"
+					text_single = {
+						size = { 166 26 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 166 26 }
+						fontsize = 13
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_plan_reshuffle"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_plan_reshuffle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
 				button_regular = {
 					size = { 190 34 }
 					tooltip = "bag_wtp_edit_extend_tt"
