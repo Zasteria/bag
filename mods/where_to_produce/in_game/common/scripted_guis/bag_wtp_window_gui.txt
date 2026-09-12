@@ -292,7 +292,16 @@ bag_wtp_plan_refresh = {
 	}
 
 	effect = {
-		bag_wtp_plan_run = yes
+		# **Галочка решает, какой из двух расчётов это будет.** Обе половины
+		# кончаются одним и тем же окном, и `bag_wtp_spec_ran` в нём говорит,
+		# чем посчитано то, что в нём лежит.
+		if = {
+			limit = { has_global_variable = bag_wtp_plan_spec }
+			bag_wtp_spec_run = yes
+		}
+		else = {
+			bag_wtp_plan_run = yes
+		}
 		bag_wtp_plan_show = yes
 	}
 }
@@ -641,6 +650,34 @@ bag_wtp_toggle_plan_rights = {
 		}
 		else = {
 			set_global_variable = { name = bag_wtp_plan_rights value = 1 }
+		}
+	}
+}
+
+# «Специализация» — тумблер того же «Пересчитать», а не своя кнопка.
+#
+# **Он отменил своё же требование, поиграв**, 2026-09-12: «Кнопка "считать"
+# специализацию — просто делает свой расчёт в том же окне, что и общий план, и
+# если я захочу в этом же окне нажать "пересчитать" — он просто сделает базовый
+# общий план, а не специализацию. Это натолкнуло меня на то, что нужно просто
+# добавить галочку "специализация" в общий план, а не делать для неё отдельную
+# кнопку CMF.» Раньше режим выбирался тем, какую кнопку на странице мода
+# нажали, а окно потом показывало результат обеих — и «Пересчитать» в нём
+# всегда значило обычный план.
+bag_wtp_toggle_plan_spec = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { has_global_variable = bag_wtp_plan_spec }
+			remove_global_variable = bag_wtp_plan_spec
+		}
+		else = {
+			set_global_variable = { name = bag_wtp_plan_spec value = 1 }
 		}
 	}
 }

@@ -14,7 +14,7 @@ descriptions in a window header** — that is the control's tooltip — and
 | --- | --- | --- | --- |
 | 1 | **Choose the ground** | «Земля» on the mod page, or the map buttons in any window | `_zone_*`, `_region_*` |
 | 2 | **One good or right → the best locations for it**, by what local RGOs pay | the ranking window: circles pick it, «Искать локации» runs it | `_score_*`, `_rank_*`, `_pick_*` |
-| 3 | **A whole plan for that ground** — every production where it pays | the plan window: the caps and both switches there, «Пересчитать» runs it | `_plan_*` |
+| 3 | **A whole plan for that ground** — every production where it pays | the plan window: the caps and **three** switches there, «Пересчитать» runs it | `_plan_*` |
 | 4 | **Editing that plan afterwards**, one building at a time | the editor window, and only there | `_edit_*` |
 
 **3 and 4 are separate and the traffic runs one way**: nothing the editor holds
@@ -27,18 +27,25 @@ rank and outlives a save.**
 
 ## Where it stands
 
+**Его список после партии — [`wtp_backlog.md`](../../docs/investigations/wtp_backlog.md),
+и он открыт.** 1, 2, 3, 5, 8 построены 2026-09-12 и прогона не видели; 4, 6, 7,
+9 — нет. **CM и Glorp UI сняты с плейсета**: житница это переживает, **отмашка
+автостроя — нет**, ванильная замена ей живёт только в интерфейсе
+(`ToggleAutoExpandBuilding`). **«Специализация» — галочка в окне плана**;
+**девять провинций и больше — одна грамота на провинцию** (`_plan_grant_step`);
+две карты CM перенесены файлом (`bag_wtp_food.txt`).
 
-**Как устроена раздача — уровень, два котла, деревня-товар, три равенства** —
-[`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md);
-закрыто прогоном 2026-09-08 и с тех пор не менялось. **Правила редактора,
-доливки, рядов, «Специализации» и сводки**:
+
+**Раздача — уровень, два котла, деревня-товар, три равенства** —
+[`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md),
+закрыто прогоном 2026-09-08. **Редактор, доливка, ряды, «Специализация», сводка**:
 [`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md),
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
 **Выгода от земли — свойство ПРОВИНЦИИ, а не локации** (`_g<n>` спрашивает
-`any_location_in_province_definition`), значит внутри провинции менять нечего. **«Перетасовать» — ручная кнопка**, переезд **между** провинциями; сельский
-домик меняется и с деревней, но её выгоду обмен намеренно не спрашивает
-([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)). **Дальше**: шаги 7–8.
+`any_location_in_province_definition`), значит внутри провинции менять нечего;
+«Перетасовать» — ручной переезд **между** ними
+([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
 
 **Всё, что мод делает в чужих окнах** — галочки плана в списке зданий локации,
 отмашка на автострой CM, кнопки житницы и «снести лишнее», и чтение зданий чужих
@@ -46,13 +53,6 @@ rank and outlives a save.**
 Три правила оттуда, которые дороже прочих: **`root` в фильтре — не сам объект**;
 **`_stands_<здание>` слушается тумблера ранга, поэтому не годится ни для чего,
 что делает игра**; **мод ничего не делает периодически** — это его требование.
-
-**Мод строит и зданиями чужих модов**, а «Техническая» держит список этих модов
-с галочкой на каждый: снятая закрывает их зданиям ворота `_avail_`/`_reach_`, а
-не убирает их из файлов.
-
-**Условие внутри значения ключа локализации ломает клетку** — выбирает
-диспетчер `customizable_localization`.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
 touching any `.gui`, the checklist is

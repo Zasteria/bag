@@ -450,7 +450,137 @@ def method_gates(method: eu5data.Method) -> list[str]:
     source = source_of(method.building)
     if source:
         gates.append(f"global_var:{MOD_ID}_src{source} = 1")
+    # **И собственный `allow` метода.** Кастильское сукно не запирает ни одно
+    # продвижение и ни один `country_potential` здания -- запирает переменная
+    # державы внутри самого метода, и без этой строки «Мериносовая шерсть»
+    # стояла кандидатом у любой страны на свете (`method_allows`).
+    own_allow, _ = method_allow_gates(method)
+    if own_allow:
+        gates.append(own_allow)
     return gates
+
+
+def method_allows() -> dict[str, str]:
+    """Метод -> его собственный `allow`, одной строкой. Их семь на всю сборку.
+
+    **Ворота бывают на методе, а не только на здании, и этого никто не читал.**
+    Владелец, поиграв, 2026-09-12: «тонкое сукно показывает, что расчитывает на
+    метод "Мериносовая шерсть", которая очевидно доступна хер пойми кому, но
+    точно не мне». «Мериносовая шерсть» -- `spanish_cloth_workshop_maintenance`,
+    и он заперт не продвижением и не `country_potential` здания, а собственным
+
+        allow = { custom_tooltip = { text = has_unlocked_spanish_cloth_industry
+                                     has_variable = spanish_cloth_industry } }
+
+    `method_gates()` смотрел только на продвижения метода и на
+    `country_potential` **здания**, поэтому метод стоял в таблице без единых
+    ворот у любой державы на свете.
+
+    **Класс маленький и посчитан**: собственный `allow` несут семь блоков на всю
+    сборку, но пять из них -- крепостные житницы, которые не производят ничего
+    и методами не являются вовсе. Остаются два кастильских суконных. Читается
+    тем же способом, каким склеивается игра: `common/building_types` каждого
+    мода поверх игровой.
+    """
+    out: dict[str, str] = {}
+    folders = [refs.GAME_COMMON / "building_types"] + [
+        common / "building_types" for _folder, _name, common in refs.mod_sources()]
+    for folder in folders:
+        if not folder.is_dir():
+            continue
+        for path in sorted(folder.glob("*.txt")):
+            if "readme" in path.name.lower():
+                continue
+            text = path.read_text(encoding="utf-8-sig", errors="replace")
+            for match in re.finditer(r"(?m)^\t\t([a-z0-9_]+)\s*=\s*\{", text):
+                body = eu5data._braced(text, match.end() - 1)
+                # `produced` ключом, а не словом: пять крепостных житниц несут
+                # `allow` и не производят ничего -- `is_produced_in_market`
+                # внутри их условия ловился поиском по подстроке, и они попадали
+                # сюда, не будучи методами вовсе.
+                if not re.search(r"(?m)^\t\t\tproduced\s*=", body):
+                    continue
+                if not re.search(r"(?m)^\t\t\tallow\s*=\s*\{", body):
+                    continue
+                allow = eu5data._braced(body, body.index("{", body.index("allow")))
+                out[match.group(1)] = " ".join(allow[1:-1].split())
+    return out
+
+
+METHOD_ALLOWS = method_allows()
+# Что из `allow` метода переведено и куда. Ворота страны идут в `_avail_`/
+# `_reach_`, ворота локации -- рядом с `_stands_<здание>`; непереведённое не
+# гадается, а печатается в конце сборки, чтобы следующий чужой `allow` был
+# виден, а не тих.
+UNREAD_ALLOWS: dict[str, str] = {}
+
+
+def method_country_gate(key: str) -> str | None:
+    """Страновая половина `allow` метода, или `None`.
+
+    **Переводится только то, что переводится без догадок** -- то же правило, что
+    у `building_reach`. `has_variable = X`, в обёртке `custom_tooltip` или без
+    неё, это переменная державы: кастильская промышленность приходит событием
+    (`flavor_cas`), а не продвижением, поэтому «когда-нибудь» для неё значит
+    ровно то же, что «сейчас», и ворота одни на обе стороны.
+
+    **Скоуп выбран, а не измерен.** Сам `allow` спрашивает `scope:target`, когда
+    хочет локацию, -- значит по умолчанию он не в локации; переменная,
+    выдаваемая национальным событием, живёт на державе. Если окажется иначе,
+    метод исчезнет у всех, включая Кастилию, -- и это единственное, что в этой
+    правке может ошибиться.
+    """
+    body = METHOD_ALLOWS.get(key)
+    if not body:
+        return None
+    one = re.fullmatch(r"custom_tooltip = \{ text = [a-z0-9_]+ (has_variable = [a-z0-9_]+) \}", body)
+    if one:
+        return one.group(1)
+    if re.fullmatch(r"has_variable = [a-z0-9_]+", body):
+        return body
+    return None
+
+
+def method_location_gate(key: str) -> str | None:
+    """Локационная половина `allow` метода, или `None`.
+
+    Пять крепостных житниц спрашивают `scope:target ?= { market ?= {
+    is_produced_in_market = goods:X } }`. `scope:target` у метода -- локация, в
+    которой его собираются запустить, и внутренность этого блока сама игра
+    пишет как условие локации: `nd_msa_plantation_estate` несёт ровно
+    `market ?= { is_produced_in_market = goods:pepper }` в своём
+    `location_potential`. Поэтому перевод -- содержимое блока, слово в слово.
+    """
+    body = METHOD_ALLOWS.get(key)
+    if not body:
+        return None
+    inner = re.fullmatch(r"scope:target \?= \{(.*)\}", body)
+    if inner:
+        return " ".join(inner.group(1).split())
+    return None
+
+
+def method_allow_gates(method: eu5data.Method) -> tuple[str | None, str | None]:
+    """Обе половины `allow` всех частей метода -- страновая и локационная.
+
+    У пары `base+improvement` частей две, и `allow` может нести любая: ключ
+    метода это склейка, а `allow` объявлен на имени части.
+    """
+    country, location = [], []
+    for part in method.parts:
+        if part.key not in METHOD_ALLOWS:
+            continue
+        one = method_country_gate(part.key)
+        two = method_location_gate(part.key)
+        if one:
+            country.append(one)
+        elif two:
+            location.append(two)
+        else:
+            UNREAD_ALLOWS[part.key] = METHOD_ALLOWS[part.key]
+    join = lambda parts: (parts[0] if len(parts) == 1 else
+                          " ".join(f"AND = {{ {p} }}" for p in parts)) if parts else None
+    return join(country), join(location)
 
 
 def building_reach(building: str) -> str | None:
@@ -544,6 +674,14 @@ def method_advances(method: eu5data.Method) -> list[str]:
 # and a rule would quietly take in whatever the next patch adds.
 ALWAYS_AVAILABLE = ("gun_smith", "cannon_maker")
 
+# **С какого числа провинций грамота становится свойством провинции, а не города.**
+# Владелец, 2026-09-12, поиграв: «Меня вообще не устраивает то, когда в одной
+# провинции у меня 2-4 вида городского права. Теперь делаем так. Если на
+# выбранной земле 9 или больше провинций — расчёт идёт строго 1 гор. право на
+# провинцию.» Порог считается по **провинциям выбранной земли**
+# (`_plan_provn`), а не по локациям, и это его число, а не выведенное.
+RIGHT_PROV_MIN = 9
+
 
 def write(path: Path, body: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -555,13 +693,40 @@ def write(path: Path, body: str) -> None:
 
 
 def methods(game: eu5data.Game) -> list[eu5data.Method]:
-    """Every method that could gain something from an RGO.
+    """Every method the game has, and the filter that used to be here is gone.
 
-    A method with no raw-material input can never take the bonus, so scoring it
-    would be scoring a zero.
+    **Это оно съело лесопилку.** Здесь стояло
+
+        rows = [m for m in game.methods if m.raw_inputs(game.raw_goods)]
+
+    -- «метод без сырьевого входа бонус взять не может, значит считать в нём
+    нечего», -- и `lumber_mill` из `tools = 0.417` и вегетации ни одного
+    сырьевого входа не имеет. Метод выбрасывался, здание не попадало в файлы
+    мода ни разу, и владелец, поиграв, увидел ровно то, что из этого следует:
+    «выбрав древесину в окне редактора и попытаться увеличить его кол-во -- мод
+    напишет, что "товар стоит везде где может". Однако... его стоит в целом 0.»
+    (2026-09-12). **И он сам же назвал класс**: «раз он не понял это с таким
+    простым зданием, значит вполне может быть такое и с какими-то другими».
+
+    **Класс измерен: 15 методов из 705** на сборке с чужими модами --
+    `lumber_mill` (лесоматериалы), `forest_village` (дичь, и это одна из
+    четырёх деревень), два перегонных (спиртное), `slave_market`, `shoen`,
+    `iron_mill/steel_tools` и шесть зданий ND. Ни одного товара целиком это не
+    лишало -- лишало лучшего способа его делать.
+
+    **Считать в них есть что, и ветка для этого уже написана.** У такого метода
+    `shares()` пуст, поэтому `_g<n>` выходит нулём везде -- `values_file` эту
+    ветку знает и подписывает её «a recipe no RGO can feed», -- а `fed_floor`
+    равен базе, то есть земля кормит его всегда и нигде не лучше. Это и есть
+    честный ответ про лесопилку: ей ничего не нужно, кроме леса, и её
+    `location_potential` уже спрашивается через `_stands_<здание>`.
+
+    **Порядок внутри товара это не ломает**: `_m` -- выпуск, и лесопилка (1.0)
+    бьёт `shoen` (0.6) и `nd_liv_dampfsagewerk` (0.48) без всякого бонуса.
+    Ровно та же логика, по которой `fed_floor` не считает против метода вход,
+    который РГО достать не могут: сделанное сырьём не бывает.
     """
-    rows = [m for m in game.methods if m.raw_inputs(game.raw_goods)]
-    return sorted(rows, key=lambda m: (m.produced, m.building, m.key))
+    return sorted(game.methods, key=lambda m: (m.produced, m.building, m.key))
 
 
 def fed_floor(method: eu5data.Method, game: eu5data.Game) -> float:
@@ -595,6 +760,16 @@ def fed_floor(method: eu5data.Method, game: eu5data.Game) -> float:
     """
     shares = sorted(v for good, v in method.shares().items()
                     if good in game.raw_goods)
+    # **Рецепт, которому сырьё не нужно вовсе, проходит всегда -- и сказать это
+    # надо числом, а не нулём.** Потолок у него нуль, половина нуля нуль, и
+    # формула ниже возвращает ровно базу -- а `keep()` сравнивает **строго**
+    # (`var:_try > floor`), так что метод не проходил бы собственный пол ни в
+    # одном ответе с полом. Это второй замок на той же двери, за которой сидела
+    # лесопилка: снять фильтр в `methods()` и оставить это -- значит починить
+    # наполовину. Земля кормит такой рецепт настолько, насколько его вообще
+    # можно кормить, поэтому пол ниже любого мыслимого `_m`.
+    if not shares:
+        return -1.0
     sums = {0.0}
     for share in shares:
         sums |= {s + share for s in sums}
@@ -1115,6 +1290,11 @@ def triggers_file(rows, split, game) -> str:
         source = source_of(method.building)
         if source:
             extra += f"\n\tglobal_var:{MOD_ID}_src{source} = 1"
+        # Страновая половина `allow` самого метода -- та же, что в `_reach_`:
+        # она не про возраст, а про то, случилось ли с этой державой событие.
+        own_allow, _ = method_allow_gates(method)
+        if own_allow:
+            extra += f"\n\t{own_allow}"
         out.append(f"{MOD_ID}_avail_{index} = {{\n"
                    f"\tcan_build_building = building_type:{method.building}{extra}\n}}\n")
 
@@ -1202,6 +1382,24 @@ def triggers_file(rows, split, game) -> str:
 \t}}
 }}
 """)
+
+    # **Ворота локации, которые метод несёт сам.** Пять крепостных житниц
+    # спрашивают рынок локации: пшеничная стоит только там, где рынок даёт
+    # пшеницу. `_stands_<здание>` -- про здание и общий на все его методы,
+    # поэтому этим пяти нужен свой: `_mstands_<n>`, и `score_file` спрашивает
+    # его вместо `_stands_` ровно там, где он написан (`method_allows`).
+    own = {index: method_allow_gates(method)[1]
+           for index, method in enumerate(rows, start=1)}
+    own = {index: gate for index, gate in own.items() if gate}
+    if own:
+        out.append(f"\n# The {len(own)} method(s) whose own `allow` asks something "
+                   f"of the location.\n# Scope: location\n")
+    for index, gate in own.items():
+        method = rows[index - 1]
+        out.append(f"# {method.building} / {method.key}\n"
+                   f"{MOD_ID}_mstands_{index} = {{\n"
+                   f"\t{MOD_ID}_stands_{method.building} = yes\n"
+                   f"\t{gate}\n}}\n")
 
     return "".join(out)
 
@@ -2047,7 +2245,12 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # override the rank alone. `{MOD_ID}_stands_<building>` splits them
             # where it can and asks the game as before where it cannot
             # (`triggers_file`, and `docs/SETTLED.md` for what it cost to find).
-            stands = f" {MOD_ID}_stands_{rows[method_index - 1].building} = yes"
+            # **И `_mstands_<n>` там, где метод несёт собственный `allow` про
+            # локацию**: пшеничная житница крепости стоит не везде, где стоит
+            # крепость, а там, где её рынок даёт пшеницу (`method_allows`).
+            stands = (f" {MOD_ID}_mstands_{method_index} = yes"
+                      if method_allow_gates(rows[method_index - 1])[1] else
+                      f" {MOD_ID}_stands_{rows[method_index - 1].building} = yes")
             # **Every answer below is an end-game one, and the one thing even the
             # end cannot bring is an advance this country may never take.**
             # `_reach_<n>` is `always = yes` for all but thirteen methods, so the
@@ -3015,13 +3218,20 @@ def plan_loc_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 
-def grant_bundle_blocks(rights, order, groups, substitute, tab: str) -> str:
+def grant_bundle_blocks(rights, order, groups, substitute, tab: str,
+                        level_counter: bool = True) -> str:
     """The charter's own buildings, put down on a town that has just taken it.
 
-    **Written once and emitted twice.** The even plan's grant pass and the
-    specialisation's province-wide one place the identical bundle, keyed on the
-    identical `_rbest_k` -- two copies would be two places for the substitute
-    rule and the three counters to drift apart.
+    **Written once and emitted three times.** The even plan's grant pass, its
+    province-wide twin and the specialisation's place the identical bundle,
+    keyed on the identical `_rbest_k` -- three copies would be three places for
+    the substitute rule and the three counters to drift apart.
+
+    **`level_counter` -- единственное, чем отличается провинциальный проход.**
+    `_rn<k>` это лестница уровней и делитель доли, и в нём считаются те
+    единицы, между которыми грамоты делят поровну: города в обычном проходе и
+    **провинции** в провинциальном. Поэтому там он прибавляется один раз на
+    провинцию, снаружи обхода её городов, а здесь его нет вовсе.
     """
     out = []
     for k, right in enumerate(rights, start=1):
@@ -3046,14 +3256,15 @@ def grant_bundle_blocks(rights, order, groups, substitute, tab: str) -> str:
             else:
                 lines.append(f"{tab}\t{MOD_ID}_plan_try_town_{i} = yes\n")
         adds = "".join(lines)
+        level = (f"{tab}\tchange_global_variable = {{ name = {MOD_ID}_rn{k} add = 1 }}\n"
+                 if level_counter else "")
         out.append(f"""{tab}if = {{
 {tab}\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
 {adds}{tab}\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
 {tab}\t# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
 {tab}\t# `_rgiven<k>` is the same number for the dump, kept apart so that changing
 {tab}\t# what the plan counts never quietly changes what the report prints.
-{tab}\tchange_global_variable = {{ name = {MOD_ID}_rn{k} add = 1 }}
-{tab}\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
+{level}{tab}\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
 {tab}\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
 {tab}}}
 """)
@@ -4288,7 +4499,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     level_bands = "".join(
         f"\t\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
         f"\t\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
-        f"\t\t{MOD_ID}_plan_grant_pass = yes\n"
+        f"\t\t{MOD_ID}_plan_grant_step = yes\n"
         for band in PLAN_BANDS)
     # The same ladder once more, off the loop, for a ground where the guard below
     # cut the levels short. `_rlevel` jumps to the quota so the count is the one
@@ -4315,7 +4526,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # charter fits on merit still ends with one.
     grant_passes += (f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
                      f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
-                     f"\t{MOD_ID}_plan_grant_pass = yes\n")
+                     f"\t{MOD_ID}_plan_grant_step = yes\n")
     out.append(f"""
 # Urban rights, before any good is placed and only in towns.
 #
@@ -4350,7 +4561,16 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# by that, so a country with three rights available spreads over three and not
 \t# over the {len(rights)} the game defines.
 \tset_global_variable = {{ name = {MOD_ID}_rgrant value = 0 }}
-{grant_counts}\tset_global_variable = {{ name = {MOD_ID}_rquota value = global_var:{MOD_ID}_plan_towns }}
+{grant_counts}\t# **Квота делит то, между чем грамоты и делятся.** Города -- в обычном
+\t# режиме, провинции -- когда их {RIGHT_PROV_MIN} и больше и грамота стала
+\t# свойством провинции: делить провинциальные грамоты на число городов
+\t# значило бы выдать каждой грамоте в несколько раз больше провинций, чем
+\t# земля держит, и лестница уровней выродилась бы в первый же круг.
+\tset_global_variable = {{ name = {MOD_ID}_rquota value = global_var:{MOD_ID}_plan_towns }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_provn >= {RIGHT_PROV_MIN} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rquota value = global_var:{MOD_ID}_plan_provn }}
+\t}}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_rgrant > 0 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_rquota divide = {MOD_ID}_rgrant_value }}
@@ -4415,6 +4635,117 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     substitute = market_inputs(game)
     out.append(grant_bundle_blocks(rights, order, groups, substitute, "\t\t"))
     out.append("\t}\n}\n")
+
+    # ---- одна грамота на провинцию ----------------------------------------
+    #
+    # Провинциальный близнец прохода выше. Всё, что делает лестницу лестницей --
+    # полосы, уровни, квота, открывающий проход, -- то же самое и читается из тех
+    # же глобалок; меняются ровно две вещи: **кого обходим** (представителей
+    # провинций вместо городов) и **чем платит земля** (средняя `_rq<k>` по тем
+    # городам провинции, которым грамота вообще подходит, вместо числа одного
+    # города).
+    #
+    # Средняя, а не сумма, по той же причине, по какой она средняя в
+    # «Специализации»: сумма выбирала бы грамоту числом городов, а не тем, что
+    # под ними лежит.
+    #
+    # **Второй раз провинция не берёт, и сторожа для этого не нужно.** Выдача
+    # ставит связку каждому городу провинции, значит `_load` у них уже не ноль,
+    # значит на следующем круге `_sprn` у этой провинции выйдет нулём при любой
+    # грамоте и `_sprk` останется нулём. Тот же сторож, что у обычного прохода,
+    # и ровно та же строка.
+    prov_picks = ""
+    for k, right in enumerate(rights, start=1):
+        prov_picks += f"""\t\t# {right.key}
+\t\tset_global_variable = {{ name = {MOD_ID}_sprt value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sprn value = 0 }}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tis_target_in_global_variable_list = {{ name = {MOD_ID}_candidates target = this }}
+\t\t\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\t\t\tvar:{MOD_ID}_load = 0
+\t\t\t\t\t{MOD_ID}_plan_right_fits_{k} = yes
+\t\t\t\t}}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_sprt add = {MOD_ID}_rq{k} }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_sprn add = 1 }}
+\t\t\t}}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tglobal_var:{MOD_ID}_sprn > 0
+\t\t\t\tscope:{MOD_ID}_country = {{ {MOD_ID}_plan_right_gate_{k} = yes }}
+\t\t\t}}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_sprt divide = {MOD_ID}_sprn_value }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_sprt > global_var:{MOD_ID}_sprv
+\t\t\t\t\tglobal_var:{MOD_ID}_sprt >= global_var:{MOD_ID}_rband
+\t\t\t\t\tOR = {{
+\t\t\t\t\t\tglobal_var:{MOD_ID}_ropen = 1
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rn{k} < global_var:{MOD_ID}_rlevel
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sprv value = global_var:{MOD_ID}_sprt }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_sprk value = {k} }}
+\t\t\t}}
+\t\t}}
+"""
+    prov_level = "".join(
+        f"\t\t\tif = {{\n\t\t\t\tlimit = {{ global_var:{MOD_ID}_sprk = {k} }}\n"
+        f"\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rn{k} add = 1 }}\n\t\t\t}}\n"
+        for k in range(1, len(rights) + 1))
+    out.append(f"""
+# Один круг провинциальной раздачи: каждая ещё пустая провинция берёт ту
+# грамоту, за которую её города платят в среднем больше всего, и отдаёт её всем
+# своим городам разом.
+#
+# **`-1`, а не ноль, как начальное лучшее** -- по той же причине, что и в
+# обычном проходе: земля, за которую ни одна грамота не платит ничего, всё
+# равно должна получить ту, что ей хоть как-то подходит.
+#
+# **`_rn<k>` здесь считает провинции**, поэтому он прибавляется один раз
+# снаружи обхода городов, а связка выкладывается без него.
+# Scope: country
+{MOD_ID}_plan_grant_pass_prov = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_prov_locs
+\t\tset_global_variable = {{ name = {MOD_ID}_sprv value = -1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_sprk value = 0 }}
+{prov_picks}\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_sprk > 0 }}
+{prov_level}\t\t\tprovince_definition = {{
+\t\t\t\tevery_location_in_province_definition = {{
+\t\t\t\t\tlimit = {{
+\t\t\t\t\t\tis_target_in_global_variable_list = {{ name = {MOD_ID}_candidates target = this }}
+\t\t\t\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\t\t\t\tvar:{MOD_ID}_load = 0
+\t\t\t\t\t}}
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = global_var:{MOD_ID}_sprk }}
+{grant_bundle_blocks(rights, order, groups, substitute, chr(9) * 5, level_counter=False)}\t\t\t\t\tremove_variable = {MOD_ID}_rbest_k
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t}}
+}}
+
+# **Чем раздаются грамоты -- городами или провинциями.** Его слово, 2026-09-12:
+# «Если на выбранной земле {RIGHT_PROV_MIN} или больше провинций -- расчёт идёт строго 1 гор.
+# право на провинцию». Порог по провинциям выбранной земли; ниже него ничего не
+# меняется, и маленькая земля планируется ровно как планировалась.
+#
+# **Одна развилка на всю лестницу, а не на каждый её шаг.** Полосы и уровни
+# зовут этот шаг, поэтому переключать гранулярность посреди раздачи нечем -- и
+# незачем.
+# Scope: country
+{MOD_ID}_plan_grant_step = {{
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_provn >= {RIGHT_PROV_MIN} }}
+\t\t{MOD_ID}_plan_grant_pass_prov = yes
+\t}}
+\telse = {{ {MOD_ID}_plan_grant_pass = yes }}
+}}
+""")
 
     # ---- the quota ---------------------------------------------------------
     #
@@ -12431,6 +12762,15 @@ def main() -> int:
     if dropped:
         print(f"{len(dropped)} building(s) of other mods left out: they make no "
               f"good the game itself has, and the picker list stops at {LIST_CAP}")
+    # **Чужой `allow`, который никто не перевёл, обязан быть виден.** Он
+    # заперт для игрока и открыт для мода -- ровно та тишина, которой в этом
+    # моде уже стоила «Мериносовая шерсть». Гадать за него нельзя, молчать о
+    # нём тоже.
+    if UNREAD_ALLOWS:
+        print(f"{len(UNREAD_ALLOWS)} method allow(s) not translated into a gate "
+              f"-- the method is offered to everyone:")
+        for key, body in sorted(UNREAD_ALLOWS.items()):
+            print(f"  {key}: {body}")
     print(f"{len(rows)} methods scored, {rural} of them in a village, "
           f"{len(split['raw'])} raw + {len(split['made'])} made goods, "
           f"{len(CONTINENTS)} continents, {RESULT_ROWS} provinces ranked, "
