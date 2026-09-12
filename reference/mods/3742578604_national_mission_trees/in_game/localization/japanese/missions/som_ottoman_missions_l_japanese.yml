@@ -1,0 +1,583 @@
+﻿l_japanese:
+ # === ミッションパック ===
+ som_ottoman_mission_pack: "オスマン帝国の台頭"
+ som_ottoman_mission_pack_desc: "辺境のベイリクから、世界最強のスルタン国へ。アナトリアを統一し、ルメリアへ渡り、永遠の都コンスタンティノープルを玉座とせよ。"
+ som_ottoman_mission_pack_BUTTON_TOOLTIP:0 "ミッションを達成してオスマン帝国を築け。"
+ som_ottoman_mission_pack_CRITERIA_DESCRIPTION:0 "オスマン帝国としてミッションを達成し、帝国的偉大さを実現せよ。"
+
+ # === フェーズ1 ===
+ som_tur_secure_bursa: "ビティニア三都市の掌握"
+ som_tur_secure_bursa_desc: "ブルサ、イズニク、イズニコミドの三都市はオスマン国家の礎である。いずれの都市も支配度50%以上を達成し、確固たる統治基盤を築け。"
+
+ som_tur_frontier_warriors: "辺境戦士の結束"
+ som_tur_frontier_warriors_desc: "ベイリクを切り開いたガーズィー戦士たちを王朝に結びつけよ。彼らの戦闘精神こそ我らの最大の武器である。"
+
+ som_tur_bursa_bazaar: "ブルサのバザール"
+ som_tur_bursa_bazaar_desc: "ブルサはシルクロードの要衝に位置する。その市場を発展させ、東西交易から富を引き出せ。"
+
+ # === フェーズ2 ===
+ som_tur_cross_the_straits: "海峡を渡れ"
+ som_tur_cross_the_straits_desc: "ガリポリとヨーロッパへの渡航路——この門を押さえれば、ルメリアの富と土地が手の届く場所に来る。"
+
+ som_tur_anatolian_heartland: "アナトリアの掌握"
+ som_tur_anatolian_heartland_desc: "アンカラを確保し、アナトリアの中核地帯としての発展の道筋を定めよ。この地で何を産するかが、帝国の将来を左右するだろう。"
+
+ som_ottoman_events.18.t: "アナトリアの中核 — アンカラの将来"
+ som_ottoman_events.18.d: "アナトリアの中核都市アンカラが帝国の手に収まった。この地をどのような産業の中心地として育てるか、宮廷では議論が続いている。古くからの織物の伝統を活かすか、絹の生産に乗り出すか、あるいは鮮やかな染料の栽培で名を上げるか。"
+ som_ottoman_events.18.a: "織物業をさらに発展させる"
+ som_ottoman_events.18.b: "桑を植え、絹の生産を始める"
+ som_ottoman_events.18.c: "染料植物の栽培を振興する"
+
+ som_tur_vassalize_beyliks: "ベイリク諸国の征服"
+ som_tur_vassalize_beyliks_desc: "他のアナトリアのベイリクは膝を屈するか、滅ぼされるかだ。統一されたアナトリアのみが東西の強国に対抗できる。"
+
+ # === フェーズ3 ===
+ som_tur_siege_constantinople: "コンスタンティノープルの陥落"
+ som_tur_siege_constantinople_desc: "東ローマ帝国の座、永遠の都をオスマンの大砲と鉄の前に落とせ。その征服が帝国の誕生を世界に告げるだろう。"
+
+ som_tur_devshirme_system: "デヴシルメ制度"
+ som_tur_devshirme_system_desc: "精鋭兵士を育成するデヴシルメ制度を制度化せよ。イェニチェリ軍団はスルタンの剣となる。"
+
+ som_tur_kanun_law: "カーヌーン法典"
+ som_tur_kanun_law_desc: "帝国には剣以上のものが必要だ。シャリーアと並ぶ帝国法カーヌーンを体系化し、全臣民をスルタンの裁きに縛れ。"
+
+ som_tur_mediterranean_ambition: "地中海の覇者"
+ som_tur_mediterranean_ambition_desc: "我が艦隊が航路を制せよ。海峡を掌握し、エーゲ海を支配し、地中海をオスマンの湖とせよ。"
+
+ som_tur_sultan_of_sultans: "スルタンたちのスルタン"
+ som_tur_sultan_of_sultans_desc: "パーディシャー、ハーンのハーン、ローマの皇帝——あらゆる称号が汝のものだ。オスマン帝国は世界最強の国家として君臨する。"
+
+ # === モディファイア ===
+ STATIC_MODIFIER_NAME_som_tur_bursa_secured: "ブルサ確保"
+ STATIC_MODIFIER_DESC_som_tur_bursa_secured: "ブルサはオスマン朝の最初の首都として1326年にオルハン・ガーズィーが定めた地だ。古代ビザンツのプルサを引き継いだこの都市は、シルクロードから届く絹・香辛料の集散地として急速に発展し、オスマン建築の初期の傑作であるウル・ジャーミィ（大モスク）をはじめ多くの壮麗な建築を擁する。"
+
+ STATIC_MODIFIER_NAME_som_tur_ghazi_warriors: "ガーズィー戦士"
+ STATIC_MODIFIER_DESC_som_tur_ghazi_warriors: "「ガーズィー（聖戦士）」とはイスラムの名において不信仰者と戦う者を指す称号だ。オスマン朝初代のオスマン・ガーズィーをはじめ、辺境の戦士たちはこの聖なる使命感をもってビザンツ帝国の弱体化した国境地帯に侵攻し続けた。この宗教的熱狂がオスマン拡大の精神的原動力だった。"
+
+ # === イベント ===
+ som_ottoman_events.1.t: "ブルサ — オスマンの揺り籠"
+ som_ottoman_events.1.d: "ブルサ、イズニク、イズニコミドがオスマンの手に落ちた。かつてビザンツ帝国の要衝であったブルサの街には、ギリシャ正教徒、アルメニア人、ユダヤ人、そして新たな支配者であるトルコ系ムスリムが混在している。スルタンの宮廷はいま問われている——この多様な民を、いかにしてオスマン国家に統合するか、と。"
+ som_ottoman_events.1.a: "イスラムとトルコの旗のもとに統合せよ"
+ som_ottoman_events.1.a.tt: "ブルサのPOPの多くがスンニ派・トルコ文化へと変化する。"
+ STATIC_MODIFIER_NAME_som_tur_bursa_silk_trade: "ブルサの絹織物産業"
+ STATIC_MODIFIER_DESC_som_tur_bursa_silk_trade: "かつてコンスタンティノープルの宮廷を彩った絹織物は、今やブルサの工房で生み出される。ビザンツ滅亡後、帝都の職人や商人がブルサへと流入し、この地はイタリア諸都市にも劣らぬ高級生地の一大産地へと変貌した。スルタンの宮廷も、ヴェネツィアやジェノヴァの商人も、ブルサの絹を求めてやってくる。"
+
+ # === イベント2: ブルサの絹織物 ===
+ som_ottoman_events.2.t: "ブルサ — 東方の絹都市"
+ som_ottoman_events.2.d: "ブルサのバザールは繁栄し、絹織物の取引で溢れかえっている。かつてコンスタンティノープルに独占されていた高級絹織物の生産が、今やこの地で花開こうとしている。フィレンツェやミラノが西方の生地産業を支配するように、ブルサは東方における高級絹の都市となりえる。スルタンは職人への庇護を約束し、この地の絹産業を帝国の礎とすることを宣言した。"
+ som_ottoman_events.2.a: "ブルサを東方の絹都市として発展させよ"
+ som_ottoman_events.2.a.tt: "ブルサが東方随一の絹都市となる。"
+
+ # === イベント3: スミルナの掌握 ===
+ som_ottoman_events.3.t: "スミルナ — エーゲ海の交易港"
+ som_ottoman_events.3.d: "スミルナは古来よりエーゲ海交易の要衝として栄えてきた。ギリシャ人、アルメニア人、ユダヤ人の商人たちが軒を連ね、東西交易の品々が港に荷揚げされる。この都市を掌握したオスマンは、アナトリアとヨーロッパを結ぶ交易路の一端を手に入れた。スルタンの命により、スミルナの商業区が整備され、さらなる交易の拡大が図られる。"
+ som_ottoman_events.3.a: "スミルナの商業を振興せよ"
+ som_ottoman_events.3.a.tt: "スミルナの商業区が整備される。"
+
+ # === イベント4: コンスタンティノープルの陥落 ===
+ som_ottoman_events.4.t: "コンスタンティノープルの陥落"
+ som_ottoman_events.4.d: "ついにコンスタンティノープルが陥ちた。千年の歴史を誇る東ローマ帝国最後の皇帝コンスタンティノス11世は城壁で戦死し、メフメト2世の軍は都市へと入城した。かつてハギア・ソフィアの鐘が響き渡ったこの地に、今やアザーンが鳴り渡る。スルタンは都市をコンスタンティニエ（كُسطَنطينيه）と改め、帝都へと変えることを宣言した。"
+ som_ottoman_events.4.a: "都市をオスマンのものとして整備せよ"
+ som_ottoman_events.4.a.tt: "コンスタンティノープルのほぼ全POPがスンニ派・トルコ文化へと変化する。"
+
+ # === 北部パック ===
+ som_ottoman_north_pack: "バルカンへの道"
+ som_ottoman_north_pack_desc: "コンスタンティノープルを手に入れた今、バルカン半島の諸国はオスマンの前に膝を屈さなければならない。ブルガリア、セルビア、ハンガリーを征服し、ウィーンの門に至れ。"
+ som_ottoman_north_pack_BUTTON_TOOLTIP:0 "北部征服ミッションを達成せよ。"
+ som_ottoman_north_pack_CRITERIA_DESCRIPTION:0 "バルカンからウィーンまでを征服せよ。"
+
+ som_tur_edirne_base: "エディルネの整備"
+ som_tur_edirne_base_desc: "エディルネはコンスタンティノープル以前のオスマンの首都であった。この都市を北部征服の拠点として整備し、行政基盤を固めよ。"
+ som_tur_edirne_base_tooltip: "edirneを確保し支配度60%以上にする"
+
+ som_tur_conquer_bulgaria: "ブルガリア征服"
+ som_tur_conquer_bulgaria_desc: "タルノヴォはかつてブルガリア第二帝国の栄光ある首都であった。この都市を陥落させ、バルカン北部への道を開け。"
+ som_tur_conquer_bulgaria_tooltip: "tarnovoを確保する"
+
+ som_tur_conquer_serbia: "セルビア征服"
+ som_tur_conquer_serbia_desc: "ノヴォ・ブルドはバルカン最大の銀山を持ち、スコピエはマケドニアへの要衝である。両都市を確保してバルカン南部を掌握せよ。"
+ som_tur_conquer_serbia_tooltip: "novo_brdo・skopjeを確保する"
+
+ som_tur_balkan_dominance: "バルカン制圧"
+ som_tur_balkan_dominance_desc: "テッサロニキとアテネを確保し、バルカン半島全域をオスマンの支配下に置け。ギリシャの遺産がオスマン帝国に吸収される。"
+ som_tur_balkan_dominance_tooltip: "thessaloniki・athensを確保する"
+
+ som_tur_conquer_hungary: "ハンガリー侵攻"
+ som_tur_conquer_hungary_desc: "モハーチの野で敵軍を打ち砕き、ブダを占領せよ。ドナウ川がオスマン帝国の北の境界線となる。"
+ som_tur_conquer_hungary_tooltip: "budaを確保し陸軍40以上にする"
+
+ som_tur_siege_vienna: "ウィーン包囲"
+ som_tur_siege_vienna_desc: "ウィーンの城壁の前にオスマンの旗を翻せ。世界はオスマン帝国の力を目の当たりにするだろう。"
+ som_tur_siege_vienna_tooltip: "viennaを確保し陸軍50以上・正統性85以上にする"
+
+ # === 南部パック ===
+ som_ottoman_south_pack: "南方への覇道"
+ som_ottoman_south_pack_desc: "アナトリアを完全に統一し、シリアとエジプトを征服し、聖地を掌握し、紅海を制せよ。オスマン帝国こそイスラム世界の守護者である。"
+ som_ottoman_south_pack_BUTTON_TOOLTIP:0 "南部征服ミッションを達成せよ。"
+ som_ottoman_south_pack_CRITERIA_DESCRIPTION:0 "アナトリアからエジプト・聖地まで征服せよ。"
+
+ som_tur_anatolia_unified: "アナトリア統一"
+ som_tur_anatolia_unified_desc: "トレビゾンドとエルズルムを征服し、アナトリア全域をオスマンの支配下に置け。ポントゥス山脈の向こうに帝国の境界が定まる。"
+ som_tur_anatolia_unified_tooltip: "trebizond・erzurumを確保する"
+
+ som_tur_conquer_syria: "シリア進出"
+ som_tur_conquer_syria_desc: "アレッポとダマスカスを征服せよ。シリアはイスラム世界の学術と交易の中心地であり、その掌握は帝国の威信を高める。"
+ som_tur_conquer_syria_tooltip: "aleppo・damascusを確保する"
+
+ som_tur_defeat_mamluks: "マムルーク朝制圧"
+ som_tur_defeat_mamluks_desc: "マムルーク朝と戦争中にカイロを占領せよ。占領の成功がオスマン優位の和平を実現し、マムルークを属国化できる。"
+ som_tur_defeat_mamluks_tooltip: "戦争中にcairoを占領する（陸軍35以上）"
+
+ som_tur_holy_cities: "聖地の掌握"
+ som_tur_holy_cities_desc: "エルサレムを確保し、スルタンがカリフ位を継承することを宣言せよ。二つの聖地の守護者としてオスマンはイスラム世界の頂点に立つ。"
+ som_tur_holy_cities_tooltip: "jerusalemを確保し聖職者満足度60%以上にする"
+
+ som_tur_red_sea_dominance: "紅海の制海"
+ som_tur_red_sea_dominance_desc: "アレクサンドリアを確保し、紅海の交易路を掌握せよ。インド洋交易の富がオスマン帝国の国庫を満たす。"
+ som_tur_red_sea_dominance_tooltip: "alexandriaを確保し海軍25以上・造船所15以上にする"
+
+ som_tur_age_of_suleiman: "パクス・オトマーナ"
+ som_tur_age_of_suleiman_desc: "南方への覇道が完成した。オスマン帝国はバルカンからエジプトまで、ボスポラスから紅海まで支配する世界帝国となった。これはスレイマン大帝の遺産である。"
+ som_tur_age_of_suleiman_tooltip: "ロケーション数600以上・月収3000以上"
+
+ # === イベント5〜11 ===
+ som_ottoman_events.5.t: "タルノヴォの陥落"
+ som_ottoman_events.5.d: "かつてブルガリア第二帝国の栄光ある首都であったタルノヴォが陥落した。バルカン山脈の向こうに広がる豊かな土地がオスマンの手に渡る。スルタンの軍はブルガリアの教会をモスクへと改め、新たな秩序を打ち立てる。"
+ som_ottoman_events.5.a: "ブルガリアをオスマンの一部として整備せよ"
+ som_ottoman_events.5.a.tt: "タルノヴォのPOPが全てスンニ派へと変化する。"
+
+ som_ottoman_events.6.t: "バルカンの覇者"
+ som_ottoman_events.6.d: "テッサロニキとアテネが陥落し、バルカン半島全域がオスマンの旗の下に統一された。アレクサンドロスの故郷、ソクラテスの都市、ビザンツの遺産——これら全てが今やスルタンのものとなった。"
+ som_ottoman_events.6.a: "バルカンをオスマン帝国に統合せよ"
+ som_ottoman_events.6.a.tt: "バルカン半島全域に秩序が確立される。"
+
+ som_ottoman_events.7.t: "ウィーンの門前にて"
+ som_ottoman_events.7.d: "オスマン軍の天幕がウィーンの城壁の前に広がった。ヨーロッパ全土が震え上がる。皇帝の軍も枢機卿の祈りも、スルタンの前進を止めることはできなかった。オスマン帝国はヨーロッパの心臓部にその力を刻みつけた。"
+ som_ottoman_events.7.a: "ヨーロッパに帝国の力を示せ"
+ som_ottoman_events.7.a.tt: "ウィーン包囲の戦訓が帝国軍に刻まれる。"
+
+ som_ottoman_events.8.t: "ダマスカス入城"
+ som_ottoman_events.8.d: "ダマスカス——ウマイヤ朝カリフの座、シルクロードの要衝、イスラム世界の学術の中心地——がオスマンの手に落ちた。大モスクにアザーンが響き渡り、商人たちは新しい支配者のもとで商いを続ける。スルタンはシリアの豊かな交易網を帝国のものとした。"
+ som_ottoman_events.8.a: "ダマスカスの商業を帝国のものとせよ"
+ som_ottoman_events.8.a.tt: "ダマスカスに商業区が建設され、交易収入が増加する。"
+
+ som_ottoman_events.9.t: "マルジュ・ダービクの勝利"
+ som_ottoman_events.9.d: "マルジュ・ダービクの野でオスマンの大砲がマムルーク騎兵を蹂躙した。マムルーク朝スルタン・カンスーフ・ガウリーは戦死し、数世紀にわたってエジプトとシリアを支配してきたマムルーク朝が崩壊した。カイロの城塞にオスマンの旗が翻る。"
+ som_ottoman_events.9.a: "マムルークを白紙講和でエヤレトとして臣従させよ"
+ som_ottoman_events.9.a.tt: "マムルーク朝がオスマンのエヤレトとなる。上納金2倍、外交併合速度2倍。"
+
+ som_ottoman_events.10.t: "カリフ位の継承"
+ som_ottoman_events.10.d: "エルサレムを掌握したスルタンは、最後のアッバース朝カリフの継承者からカリフ位を受け継いだ。預言者の後継者として、オスマンのスルタンは今やイスラム世界全体の宗教的指導者となった。メッカとメディナの守護者、二つの聖地の主。これがオスマン帝国の最高位である。"
+ som_ottoman_events.10.a: "カリフとして世界に宣言せよ"
+ som_ottoman_events.10.a.tt: "スルタンがカリフ位を継承し、イスラム世界の宗教的権威となる。"
+
+ som_ottoman_events.11.t: "パクス・オトマーナ"
+ som_ottoman_events.11.d: "パクス・オトマーナ——オスマンの平和が到来した。北はウィーンの城門から南はモロッコの大西洋岸まで、東はペルシャ湾のホルムズから西は地中海の全域まで。三大陸を一つの意志のもとに統べるオスマン帝国。かつてローマがパクス・ロマーナを世界に与えたように、今やオスマンが世界に平和と秩序をもたらす。歴史はこの時代を永遠に記憶するだろう。"
+ som_ottoman_events.11.a: "パクス・オトマーナを世界に宣言せよ"
+ som_ottoman_events.11.a.tt: "永続的な紅海交易モディファイア、大威信・大正統性ボーナス、月収×36の金が付与される。"
+
+ # === 新モディファイア ===
+ STATIC_MODIFIER_NAME_som_tur_edirne_administration: "エディルネの行政基盤"
+ STATIC_MODIFIER_DESC_som_tur_edirne_administration: "古代のハドリアノポリスを引き継いだエディルネは、1363年にムラト1世がバルカン征服の拠点として首都に定めた。コンスタンティノープル征服（1453年）まで約90年間オスマン帝国の首都として機能し、スルタン・メフメト2世が産声を上げた地でもある。"
+
+ STATIC_MODIFIER_NAME_som_tur_balkan_order: "バルカン秩序"
+ STATIC_MODIFIER_DESC_som_tur_balkan_order: "コソボの戦い（1389年）でセルビア王国を打ち破り、ニコポリス（1396年）でヨーロッパ十字軍連合を壊滅させたオスマン軍はバルカン半島を完全に掌握した。デヴシルメ制度によってバルカンのキリスト教徒の子弟をイェニチェリ（新兵）として徴発したこの支配体制は、征服地の人的資源を帝国の軍事力に転換した。"
+
+ STATIC_MODIFIER_NAME_som_tur_danube_frontier: "ドナウ辺境"
+ STATIC_MODIFIER_DESC_som_tur_danube_frontier: "ドナウ川はローマ帝国時代から「文明の境界線」とされてきた大河だ。オスマン帝国にとってこの川の制御はハンガリー・ワラキア・モルドヴァへの軍事力投射の前提条件だった。1521年のベオグラード征服と1526年のモハーチの戦いでのハンガリー壊滅はこのドナウ前進基地あってこそ実現した。"
+
+ STATIC_MODIFIER_NAME_som_tur_anatolia_unified_mod: "アナトリア完全統一"
+ STATIC_MODIFIER_DESC_som_tur_anatolia_unified_mod: "アナトリア（小アジア）はオスマン帝国の心臓部だ。1402年のアンカラの戦いでティムールに敗れて一時崩壊した帝国が、メフメト1世の再統一によって再建された経験が示すように、アナトリア全域の掌握なくしてオスマン帝国の安定はない。"
+
+ STATIC_MODIFIER_NAME_som_tur_caliph_successor: "カリフの後継者"
+ STATIC_MODIFIER_DESC_som_tur_caliph_successor: "1517年のエジプト征服でセリム1世が最後のアッバース朝カリフからカリフ位を引き継いで以来、オスマン・スルタンはスンナ派イスラム世界の宗教的最高権威を兼ねた。「二聖モスクの護衛者（ハーディム・アル＝ハラマイン・アシュ＝シャリーファイン）」の称号はメッカ・メディナの守護者を意味する。"
+
+ STATIC_MODIFIER_NAME_som_tur_red_sea_trade: "街道による帝国の統合"
+ STATIC_MODIFIER_DESC_som_tur_red_sea_trade: "紅海はインド・東南アジアの香辛料・絹・染料がヨーロッパへ向かう黄金の航路だった。ポルトガルがアフリカ南端を回る新航路を開いた後も、カイロとアレクサンドリアを経由する紅海ルートはその価値を保ち続け、オスマン帝国はこの交易路の最大の受益者となった。"
+
+ # === クリミア・黒海 ===
+ som_tur_fate_of_crimea: "クリミアの運命"
+ som_tur_fate_of_crimea_desc: "クリミア半島はジェノヴァ商人のカッファをはじめ、黒海北岸の交易を支配する要衝である。この地を確保し、黒海交易をオスマンの手に握れ。"
+ som_tur_fate_of_crimea_tooltip: "クリミア地域に3都市以上を所有する"
+
+ som_tur_black_sea_dominance: "黒海の支配"
+ som_tur_black_sea_dominance_desc: "クリミアを掌握し、エディルネを整備し、アナトリアを統一した今、黒海はオスマンの内海と化した。コンスタンティノープルのRGOを発展させ、完全な黒海覇権を確立せよ。このミッションの達成により、コンスタンティノープルの絹の独占都市特権が解放される。"
+ som_tur_black_sea_dominance_tooltip: "クリミア3都市 + コンスタンティノープルのRGO10以上・開発度40以上 → 絹の独占都市特権が解放"
+
+ # === イタリア ===
+ som_tur_italy_south: "南イタリア征服"
+ som_tur_italy_south_desc: "ナポリとシチリアを征服し、地中海の制海権をオスマンのものとせよ。古来よりの交易都市が帝国の富をもたらす。"
+ som_tur_italy_south_tooltip: "naples・palermo確保"
+
+ som_tur_italy_north: "イタリア制圧"
+ som_tur_italy_north_desc: "ローマ、フィレンツェ、ミラノを征服し、イタリア半島を完全掌握せよ。教皇の都市、メディチ家の都市、ヴィスコンティの都市——全てがスルタンのものとなる。"
+ som_tur_italy_north_tooltip: "rome・florence・milano確保"
+
+ # === アラビア・ペルシャ湾 ===
+ som_tur_arabia_conquest: "アラビア半島の掌握"
+ som_tur_arabia_conquest_desc: "メッカ、メディナ、スエズを掌握し、イスラム世界の聖地とインド洋への出口を完全に支配せよ。"
+ som_tur_arabia_conquest_tooltip: "mecca・medina・suez確保"
+
+ som_tur_persian_gulf: "ペルシャ湾の制海"
+ som_tur_persian_gulf_desc: "ホルムズを掌握し、ペルシャ湾の交易路を支配せよ。インド洋交易の富がオスマンの国庫に流れ込む。"
+ som_tur_persian_gulf_tooltip: "hormuz確保・海軍30以上"
+
+ # === 北アフリカ ===
+ som_tur_north_africa: "マグレブ征服"
+ som_tur_north_africa_desc: "チュニス、アルジェ、トリポリを征服し、地中海南岸をオスマンの支配下に置け。バルバリア海賊もスルタンの旗の下に従う。"
+ som_tur_north_africa_tooltip: "tunis・algiers・tripoli確保"
+
+ som_tur_morocco: "モロッコ征服"
+ som_tur_morocco_desc: "フェズとマラケシュを征服し、北アフリカ全域をオスマン帝国の版図に加えよ。大西洋の岸辺までがスルタンの領土となる。"
+ som_tur_morocco_tooltip: "fez・marrakesh確保"
+
+ # === FINAL更新 ===
+ som_tur_age_of_suleiman_desc: "パクス・オトマーナ——オスマンの平和。北はウィーン、南はアラビア・モロッコまで、三大陸にまたがる世界帝国が完成した。かつてローマがパクス・ロマーナを世界に与えたように、オスマンは平和と秩序を三大陸に広める。ウィーン包囲、ペルシャ湾制覇、モロッコ征服の3つ全てを達成することが求められる。"
+
+ # === イベント12〜17 ===
+ som_ottoman_events.12.t: "黒海 — オスマンの内海"
+ som_ottoman_events.12.d: "クリミア、エディルネ、アナトリアの三方からの包囲が完成し、黒海はついにオスマン帝国の内海となった。かつてジェノヴァの商船が往来したこの海に、今やオスマンの艦隊だけが君臨する。コンスタンティノープルの繁栄と黒海交易が一体となり、帝国に莫大な富をもたらすだろう。"
+ som_ottoman_events.12.a: "黒海をオスマンの湖とせよ"
+ som_ottoman_events.12.a.tt: "黒海がオスマンの内海となる。"
+
+ som_ottoman_events.13.t: "ナポリとシチリア — 地中海の宝石"
+ som_ottoman_events.13.d: "ナポリとパレルモが陥落した。かつてアラゴン王家が支配し、ノルマン人が征服したこの豊かな地が今やオスマンの手に渡った。地中海の中央部を掌握したことで、ヴェネツィアとジェノヴァの交易独占は終わりを告げる。"
+ som_ottoman_events.13.a: "南イタリアをオスマン帝国に組み込め"
+ som_ottoman_events.13.a.tt: "南イタリアの交易がオスマンのものとなる。"
+
+ som_ottoman_events.14.t: "ローマ入城 — 帝国の頂点"
+ som_ottoman_events.14.d: "ローマの門が開かれた。ペトロの墓の上に建てられた教皇の都市、フィレンツェのメディチ家の富、ミラノの鎧工房——全てがスルタンのものとなった。東西ローマ帝国の後継者として、オスマンのスルタンは今やヨーロッパ全土の覇者と名乗ることができる。"
+ som_ottoman_events.14.a: "イタリアをオスマン帝国の宝庫とせよ"
+ som_ottoman_events.14.a.tt: "イタリア半島全域がスルタンの支配下に入る。"
+
+ som_ottoman_events.15.t: "アラビア半島の掌握"
+ som_ottoman_events.15.d: "メッカとメディナ、スエズの港がオスマンの手に落ちた。イスラム最聖地の守護者として、そして紅海とインド洋の交易を独占する支配者として、オスマンのスルタンは地上のいかなる君主をも超える権威を持つ。年間十万のハッジ巡礼者がスルタンの慈悲に感謝を捧げる。"
+ som_ottoman_events.15.a: "アラビアをイスラム世界の心臓部として整備せよ"
+ som_ottoman_events.15.a.tt: "アラビア半島とイスラムの聖地が帝国に統合される。"
+
+ som_ottoman_events.16.t: "マグレブ制圧"
+ som_ottoman_events.16.d: "チュニス、アルジェ、トリポリが陥落し、地中海南岸の全てがオスマンの旗の下に統一された。バルバリア海賊の首領たちはスルタンに臣従し、その船はオスマン艦隊の一部として地中海を制する。"
+ som_ottoman_events.16.a: "マグレブをオスマン帝国に統合せよ"
+ som_ottoman_events.16.a.tt: "地中海南岸がオスマンの旗の下に統一される。"
+
+ som_ottoman_events.17.t: "フェズとマラケシュ — アトラスの向こうへ"
+ som_ottoman_events.17.d: "モロッコの古都フェズとマラケシュが陥落した。大西洋の岸辺まで達したオスマンの軍旗は、今や既知の世界の果てに翻る。三大陸を支配するオスマン帝国——これは人類史上かつてなかった帝国である。"
+ som_ottoman_events.17.a: "大西洋まで帝国の旗を立てよ"
+ som_ottoman_events.17.a.tt: "大西洋の岸辺まで帝国の旗が翻る。"
+
+ # === 新モディファイア ===
+ STATIC_MODIFIER_NAME_som_tur_crimea_dominance: "クリミア支配"
+ STATIC_MODIFIER_DESC_som_tur_crimea_dominance: "クリミア半島のカッファ（現在のフェオドシア）はジェノヴァが経営する黒海最大の奴隷市場だった。1475年にメフメト2世が征服したことでオスマン帝国は黒海を「内海」として掌握した。クリミア・ハン国はオスマンの属国として、ウクライナ・ロシアへの奴隷狩りを担う重要な軍事パートナーとなった。"
+
+ STATIC_MODIFIER_NAME_som_tur_black_sea_master: "黒海の覇者"
+ STATIC_MODIFIER_DESC_som_tur_black_sea_master: "黒海を「オスマンの湖」とすることはコンスタンティノープル征服から始まったメフメト2世の大戦略の核心だった。ジェノヴァの拠点カッファ・クリミアの制圧・モルドヴァの従属化により、黒海は完全にオスマンの内海となった。これによりヴェネツィア・ジェノヴァの東方交易独占は終わりを告げた。"
+
+ STATIC_MODIFIER_NAME_som_tur_italy_south_mod: "南イタリアの支配"
+ STATIC_MODIFIER_DESC_som_tur_italy_south_mod: "1480年にメフメト2世はイタリア南端のオトラントを占領し、ヨーロッパ・キリスト教世界に衝撃を与えた。スルタンの死によって撤退したが、このオトラント攻略はイタリア征服の序章だった。ナポリとシチリアを手中に収めることは地中海の制海権を完全にオスマンが握ることを意味する。"
+
+ STATIC_MODIFIER_NAME_som_tur_italy_north_mod: "イタリア覇権"
+ STATIC_MODIFIER_DESC_som_tur_italy_north_mod: "メフメト2世はコンスタンティノープルを征服した後、自らを「ローマ皇帝（カイサル・イ・ルーム）」と称した。ローマそのものを征服することでオスマン朝はローマ帝国の正式な後継者としての主張を完成させることができる。ルネサンスの宝庫イタリアの富と文化がオスマン帝国のものとなる。"
+
+ STATIC_MODIFIER_NAME_som_tur_arabia_mod: "アラビアの守護者"
+ STATIC_MODIFIER_DESC_som_tur_arabia_mod: "「両聖モスクの守護者」——メッカとメディナはイスラムの最も神聖な二つの地だ。1517年にセリム1世がエジプト・ヒジャーズを征服してこれらの地を手中に収め、オスマン・スルタンはスンナ派イスラム世界全体の宗教的保護者となった。毎年ハッジ（メッカ巡礼）を守護する義務と栄誉がスルタンに与えられた。"
+
+ STATIC_MODIFIER_NAME_som_tur_gulf_trade: "ペルシャ湾の商業支配"
+ STATIC_MODIFIER_DESC_som_tur_gulf_trade: "ホルムズ海峡はインド・東南アジアからの香辛料・絹がペルシャ湾を通過する際の唯一の出入口だ。この「世界の咽喉部」を掌握することは、ポルトガルがアフリカ回りで確立しようとしていたインド洋交易ルートに対抗する決定的な切り札となる。"
+
+ STATIC_MODIFIER_NAME_som_tur_maghreb_mod: "マグレブの支配"
+ STATIC_MODIFIER_DESC_som_tur_maghreb_mod: "バルバリア（北アフリカ）はハイレッディン・バルバロッサ（赤髭）率いるオスマン海軍の重要な根拠地となった。チュニス・アルジェリア・トリポリは地中海を航行するスペイン・ポルトガルの商船を脅かすバルバリア海賊の巣窟であり、オスマンはこれを取り込んで西地中海での海軍力を大幅に強化した。"
+
+ STATIC_MODIFIER_NAME_som_tur_africa_final_mod: "アフリカ覇権"
+ STATIC_MODIFIER_DESC_som_tur_africa_final_mod: "モロッコはサアド朝がスペインとポルトガルの進出に抵抗する最後の砦だった。地中海の「対岸」を完全に掌握することでオスマン帝国はかつてのローマ帝国さえ超える地中海制覇を達成する。サハラ以北のアフリカはオスマンの内陸海交易圏の一部となる。"
+ som_tur_silk_monopoly_unlock_tt: "コンスタンティノープルの絹の独占都市特権が解放される。"
+ som_tur_breadbasket_unlock_tt: "帝国のパン籠都市特権が解放される。"
+
+ STATIC_MODIFIER_NAME_som_tur_silk_production: "絹産業の振興"
+ STATIC_MODIFIER_DESC_som_tur_silk_production: "ビザンツ帝国は6世紀に修道士がコンスタンティノープルへ養蚕技術を密輸したことで中国の絹独占を破った。この技術はオスマン征服後もブルサを中心に受け継がれ、オスマン宮廷の衣装から輸出品まで帝国経済の重要な柱となった。"
+
+ STATIC_MODIFIER_NAME_som_tur_ankara_fine_cloth: "アンカラの織物業"
+ STATIC_MODIFIER_DESC_som_tur_ankara_fine_cloth: "アンカラの名産アンゴラ（アンゴラヤギの毛）は中世から知られた高級素材だ。繊細な繊維から作られる布地は遠くヨーロッパまで輸出され、オスマン帝国の交易品の中でも特に高い評価を得た。「アンゴラ」という名はこの都市名に由来する。"
+
+ STATIC_MODIFIER_NAME_som_tur_ankara_silk: "アンカラの絹産業"
+ STATIC_MODIFIER_DESC_som_tur_ankara_silk: "アンカラ周辺の高原では養蚕に適した桑の栽培が盛んだった。ブルサと並ぶアナトリアの絹産地として、アンカラの生糸はコンスタンティノープルの職人たちに供給され、豪奢なオスマン宮廷衣装を生み出す原料となった。"
+
+ STATIC_MODIFIER_NAME_som_tur_ankara_dyes: "アンカラの染料業"
+ STATIC_MODIFIER_DESC_som_tur_ankara_dyes: "アナトリアは古代から多様な染料植物の産地だった。アカネ（赤）・大青（藍）・サフラン（黄）などの染料植物がアンカラ周辺で栽培され、オスマン絨毯と染め布の鮮やかな色彩を生み出した。トルコ絨毯の名声はこの豊かな染料文化に負うところが大きい。"
+
+ STATIC_MODIFIER_NAME_som_tur_edirne_dyes: "エディルネの染料業"
+ STATIC_MODIFIER_DESC_som_tur_edirne_dyes: "トラキア地方は古代ギリシャ・ローマ時代から染料植物の名産地だった。エディルネ周辺で栽培されるアカネ・インジゴなどの植物はオスマン帝国の染色産業を支え、コンスタンティノープルのバザールで取引される布地の鮮やかな色彩の源となった。"
+
+ STATIC_MODIFIER_NAME_som_tur_novo_brdo_silver: "ノヴォ・ブルドの銀山"
+ STATIC_MODIFIER_DESC_som_tur_novo_brdo_silver: "ノヴォ・ブルド（「新しい山」の意）はセルビア北部に位置し、14〜15世紀にバルカン半島最大の銀・金産地として栄えた。年間6トンにも達した銀産出量はセルビア王国の繁栄を支えたが、1455年にメフメト2世がこれを征服してオスマン帝国の主要な貴金属供給地とした。"
+
+ # === 属国タイプ ===
+ eyalet: "エヤレト"
+ eyalet_desc: "オスマン帝国の直轄地に準ずる属国。通常の封臣よりも強い支配を受け、上納金は2倍、外交併合の速度も2倍となる。"
+# ============================================================
+ # === ビザンツ帝国ミッションパック ===
+ # ============================================================
+
+ # PHASE 1
+
+ # PHASE 2
+
+ # PHASE 3
+
+ # PHASE 4
+
+ # PHASE 5
+
+ # PHASE 6
+
+ # PHASE 7
+
+ # FINAL
+
+ # === イベント ===
+
+ # === モディファイア ===
+
+ # ビザンツ追加ミッション
+
+ # === シスマ分岐ミッション ===
+
+ # イベント11〜18
+
+ # モディファイア
+
+ # === 信仰の選択 ===
+
+ # === Event 22 ===
+
+ som_ottoman_events.20.t: "黒海制覇"
+ som_ottoman_events.20.d: "黒海はかつてジェノヴァが商業を独占する「ジェノヴァの湖」だった。しかしオスマン艦隊がクリミアとカッファを制圧し、ボスポラス海峡を掌握した今、黒海は「オスマンの内海」となった。1475年のカッファ陥落により、最後のジェノヴァ拠点も消え、黒海沿岸の全交易はオスマンの管理下に入った。ヴェネツィアとジェノヴァが300年間支配した東地中海の交易覇権は、ここに終焉を告げた。"
+ som_ottoman_events.20.a: "黒海はオスマンの内海となった"
+ som_ottoman_events.30.t: "ウィーンの門前"
+ som_ottoman_events.30.d: "1529年、スレイマン大帝の軍はついにウィーンに到達した。神聖ローマ帝国の心臓部に迫る30万のオスマン軍はキリスト教世界全体に衝撃を与えた。城壁は激しく砲撃されたが、早期の冬と補給線の限界が攻略を妨げた——しかし今回は違う。「ウィーンを落とせば欧州は我らのもの」——スルタンの言葉が軍全体に響き渡る。"
+ som_ottoman_events.30.a: "ウィーンを制し、欧州の覇者となれ"
+ som_ottoman_events.99.t: "スレイマン大帝の時代"
+ som_ottoman_events.99.d: "オスマン帝国はついに「スレイマン大帝の時代」に到達した。バルカンからアラビア、クリミアから北アフリカまで——かつてのローマ帝国さえ超える広大な版図が一人のスルタンの命令で動く。「立法者（カーヌーニー）」と呼ばれたスレイマンの時代、帝国は法典の整備・芸術の繁栄・軍事的絶頂を同時に達成した。イスタンブールのモスク・宮殿・バザールは世界最大の都市の栄光を示す。オスマン帝国は世界史上最も偉大な帝国の一つとなった。"
+ som_ottoman_events.99.a: "偉大なるオスマン帝国の黄金時代が始まる"
+
+ som_tur_ghazi_tradition: "ガーズィーの伝統"
+ som_tur_ghazi_tradition_desc: "「ガーズィー（聖戦士）」——イスラムの名のもとに不信仰者と戦う者の称号だ。オスマン朝初代のオスマン・ガーズィーをはじめ、辺境の戦士たちはこの宗教的使命感をもってビザンツ帝国の国境地帯に侵攻し続けた。この聖戦の精神がオスマン朝の軍事的台頭を支える精神的原動力となった。貴族（ノブルス）の満足度と軍事力を高め、ガーズィーの伝統を固めよ。"
+ som_tur_ghazi_tradition_tooltip: "陸軍規模1以上、貴族身分の満足度0.60以上"
+ som_tur_edirne_capital: "エディルネの城塞化"
+ som_tur_edirne_capital_desc: "古代のハドリアノポリスを引き継いだエディルネは、1363年にムラト1世がバルカン征服の拠点として首都に定めた。コンスタンティノープル征服（1453年）まで約90年間オスマン帝国の首都として機能し、スルタン・メフメト2世が産声を上げた地でもある。この都市を強化された要塞として整備し、ルメリア征服の足がかりとせよ。"
+ som_tur_edirne_capital_tooltip: "エディルネを領有し、要塞（fortress）レベル3以上"
+ som_tur_aegean_dominance: "エーゲ海の掌握"
+ som_tur_aegean_dominance_desc: "エーゲ海はヴェネツィアとジェノヴァが覇権を競う交易の十字路だ。スミルナ（イズミル）を核とするエーゲ海東岸を掌握し、海軍力を増強することで、地中海全体への進出の足がかりとなる。オスマン海軍の黎明期に艦隊を整備し、この重要な海峡を支配せよ。"
+ som_tur_aegean_dominance_tooltip: "エーゲ海諸島エリア（aegean_archipelago_area）を自国または属国が15ロケーション以上領有している"
+
+ som_tur_janissary_corps: "イェニチェリ軍団の創設"
+ som_tur_janissary_corps_desc: "14世紀中頃、オルハン1世の子ムラト1世がイェニチェリを創設した。「新しい兵（イェニ・チェリ）」と呼ばれたこの部隊は、征服した地域のキリスト教徒の少年を強制徴用して育成した常備歩兵軍だ。俸給を受け取り、厳しく訓練されたイェニチェリはオスマン軍の精鋭として、コンスタンティノープル陥落をはじめ数々の歴史的戦闘で決定的な役割を果たした。"
+ som_tur_janissary_corps_tooltip: "陸軍規模2以上、毎月の正統性0.05以上"
+ som_tur_devshirme_system: "デヴシルメ制度"
+ som_tur_devshirme_system_desc: "「デヴシルメ（少年徴用）」はバルカン半島のキリスト教徒の少年を強制的に集め、オスマン式に改宗・教育してイェニチェリや宮廷官僚として育てる制度だ。この制度により血縁や部族に縛られない皇帝直属の官僚・軍人層が生まれ、オスマン帝国の中央集権化を支えた。スルタンへの絶対忠誠が求められたが、その代わり最高位の大宰相にまで昇進できる道が開かれていた。"
+ som_tur_devshirme_system_tooltip: "総人口200以上、ルメリア地域に3以上のロケーションを所有する"
+ som_tur_elite_guard: "親衛隊の強化"
+ som_tur_elite_guard_desc: "スルタンの親衛隊はイェニチェリの中でも特に優れた者から選ばれ、宮殿の守衛と戦場での旗手を務めた。彼らの存在はオスマン宮廷における秩序と規律の象徴だ。軍規を厳格に維持し、訓練を積み重ねることで帝国軍の中核となる親衛隊を育成せよ。"
+ som_tur_elite_guard_tooltip: "陸軍規模10以上、正統性70以上"
+ som_tur_kanun_i_osmani: "カーヌーン・イ・オスマーニー"
+ som_tur_kanun_i_osmani_desc: "「スレイマン大帝の法典（カーヌーン・イ・オスマーニー）」はオスマン帝国が独自に発展させた世俗法体系だ。「カーヌーニー（立法者）」と呼ばれたスレイマン1世がその整備を完成させたが、その基礎は14〜15世紀に既に形成されていた。シャリーア（イスラム法）を補完するこの法典は、税制・刑法・行政を網羅し、帝国統治の法的基盤となった。"
+ som_tur_kanun_i_osmani_tooltip: "正統性90以上、安定度30以上"
+ som_tur_imperial_army: "帝国軍の完成"
+ som_tur_imperial_army_desc: "イェニチェリ・シパーヒー・アゼップ（歩兵）・アクンジュ（軽騎兵）——オスマン帝国は複数の異なる軍種を組み合わせた複合軍事システムを発展させた。規律ある常備軍と火器の積極的採用が、16世紀のオスマン軍を当時世界最強の軍事力の一つに仕立て上げた。スルタンは陸軍の近代化と規模拡大を完成させ、真の帝国軍を手中に収める。"
+ som_tur_imperial_army_tooltip: "陸軍規模30以上、軍事的伝統40以上"
+ som_tur_timar_system: "ティマール封土制の整備"
+ som_tur_timar_system_desc: "ティマール制はオスマン帝国の根幹をなす土地制度だ。スルタンが征服地の土地をシパーヒー騎兵に「ティマール（封土）」として与え、その代わりに騎兵は軍役を義務付けられる。中世ヨーロッパの封建制に似ているが、オスマンのティマールは世襲ではなく皇帝の管理下に置かれた。この制度が大規模な常備軍を維持するための財政基盤となった。"
+ som_tur_timar_system_tooltip: "30以上のロケーションを所有し、月収税収10以上"
+ som_tur_sipahi_cavalry: "シパーヒー騎兵団"
+ som_tur_sipahi_cavalry_desc: "シパーヒー（「騎兵」の意）はティマール制に基づくオスマン帝国の主力騎兵部隊だ。封土を与えられた地方貴族が武装騎兵として軍役を果たすこの制度は、15〜16世紀のオスマン軍の主力を形成した。鎧を纏い槍と剣で武装したシパーヒーの突撃は、ヨーロッパの騎兵部隊に匹敵する戦力だった。"
+ som_tur_sipahi_cavalry_tooltip: "重騎兵規模2以上、貴族身分の満足度0.65以上"
+ som_tur_eyalet_system: "エヤレット制度"
+ som_tur_eyalet_system_desc: "エヤレット（州）はオスマン帝国の最大の行政単位だ。総督（ベイレルベイ）が派遣されて統治するこの制度は、広大な帝国を中央から統治する仕組みの核心をなした。ルメリア・アナドル・エジプト・シリアなど各エヤレットは独自の軍事力と行政機構を持ち、スルタンの代理として機能した。"
+ som_tur_eyalet_system_tooltip: "80以上のロケーションを所有し、裁判所5箇所以上"
+ som_tur_grand_vizier: "大宰相制度"
+ som_tur_grand_vizier_desc: "大宰相（サドラザム）はオスマン帝国でスルタンに次ぐ最高の行政長官だ。「高い門（バーブ・アーリー）」とも呼ばれるその府邸がオスマン帝国の行政の中心となり、ヨーロッパでは「オスマン政府」を指す「崇高な門（スブリーム・ポルト）」の語源となった。優れた大宰相はスルタンを補佐し、広大な帝国を実質的に統治した。"
+ som_tur_grand_vizier_tooltip: "月収50以上、正統性80以上、総人口500以上"
+ som_tur_imperial_bureaucracy: "帝国官僚制の完成"
+ som_tur_imperial_bureaucracy_desc: "オスマン帝国の官僚制はデヴシルメ出身者と伝統的なトルコ・イスラム系官人が混在する複合的なシステムだった。各省庁（ディヴァーン）が専門的な行政機能を担い、文書による記録と中央集権的な情報管理が帝国統治を支えた。15〜16世紀のオスマン官僚制はその時代で最も洗練された行政システムの一つだった。"
+ som_tur_imperial_bureaucracy_tooltip: "200以上のロケーションを所有し、裁判所15箇所以上"
+ som_tur_new_capital: "コンスタンティニエの開発"
+ som_tur_new_capital_desc: "コンスタンティノープルを征服したメフメト2世は都市を「コンスタンティニエ」と改名し、積極的な再開発を推進した。廃墟と化していた地区への人口移住の強制・市場の整備・インフラ再建——スルタンの意志のもとで都市は急速に発展した。かつてビザンツ帝国が誇った「世界最大の都市」の栄光を、今度はオスマン帝国の手で取り戻す。"
+ som_tur_new_capital_tooltip: "コンスタンティノープルを自国が直接所有し、開発度が30以上"
+ som_tur_grand_bazaar: "グランドバザールの整備"
+ som_tur_grand_bazaar_desc: "コンスタンティノープルのグランドバザール（カパルチャルシュ）はメフメト2世の命令で1455〜61年に建設された世界最古の屋根付き市場の一つだ。4,000の店舗を擁するこの迷宮のような市場は、絹・香辛料・宝石・陶磁器・武器があふれる地中海世界最大の商業拠点となった。毎日数万人の商人と客が行き交うこの市場がイスタンブールの商業的心臓部となった。"
+ som_tur_grand_bazaar_tooltip: "コンスタンティノープルのRGO規模が5以上、コンスタンティノープルにアントレポ（entrepot）が建設されている"
+ som_tur_suleiman_mosque: "スレイマニエ・モスクの建設"
+ som_tur_suleiman_mosque_desc: "スレイマン大帝が建築家スィナンに命じて1557年に完成させたスレイマニエ・モスクは、オスマン建築の最高傑作と称される。4本の宣礼塔（ミナレット）が聳えるこの壮麗なモスクはコンスタンティノープルの丘の上に建ち、市内のどこからも見える帝国の象徴だ。附属施設（クッリイェ）にはマドラサ（神学校）・病院・商業施設・霊廟が含まれ、都市生活の中心となった。"
+ som_tur_suleiman_mosque_tooltip: "コンスタンティノープルに寺院（temple）とアートスクール（art_school）が建設されている"
+ som_tur_topkapi_palace: "トプカプ宮殿"
+ som_tur_topkapi_palace_desc: "トプカプ宮殿はメフメト2世がコンスタンティノープル征服後に建設した帝国の中枢だ。ボスポラス海峡と金角湾と、マルマラ海を一望する岬の上に建つこの宮殿は、スルタンの居所・政府の中枢・ハレム・国家宝物庫のすべてを兼ねた。400年間にわたってオスマン帝国の権力の中心として機能したトプカプ宮殿は、帝国の栄光の象徴となった。"
+ som_tur_topkapi_palace_tooltip: "コンスタンティノープルに要塞（fort）を所有し、総人口1500以上、月収100以上"
+ som_tur_city_of_worlds_desire: "世界の欲する都市"
+ som_tur_city_of_worlds_desire_desc: "ビザンツ帝国の人々はコンスタンティノープルを「世界の欲する都市（ポリ・エフィメリ・ペリポテトス）」と呼んだ。オスマン征服後も、この都市は真に世界最大かつ最も輝かしい都市の一つであり続けた。50万人を超える人口を誇り、アジアとヨーロッパを結ぶ唯一の橋として機能するイスタンブールは、オスマン帝国の繁栄の象徴そのものだ。"
+ som_tur_city_of_worlds_desire_tooltip: "コンスタンティノープルの総人口200以上、月収200以上"
+ som_tur_ulema_authority: "ウラマーの権威"
+ som_tur_ulema_authority_desc: "ウラマー（イスラム学者）はオスマン帝国における宗教・司法・教育の中枢を担う知識人階層だ。カーディー（裁判官）・ムフティー（法律顧問）・マドラサ（神学校）教師として帝国のあらゆる場所で活動するウラマーは、スルタンの権威に宗教的正当性を与えると同時に、シャリーア（イスラム法）の番人として機能した。"
+ som_tur_ulema_authority_tooltip: "聖職者身分の満足度0.65以上、毎月の正統性0.05以上"
+ som_tur_millet_system: "ミッレト制度"
+ som_tur_millet_system_desc: "「ミッレト（民族・宗教共同体）」制度はオスマン帝国の非イスラム教徒の臣民（ジンミー）を各自の宗教的コミュニティとして自治的に統治する仕組みだ。ギリシャ正教のルーム・ミッレト、アルメニア使徒教会ミッレト、ユダヤ教ミッレトなど、各宗教共同体は独自の裁判所・学校・慈善施設を持ち、宗教的指導者が共同体を代表した。この寛容的な統治が多様な民族・宗教を含む帝国の安定を可能にした。"
+ som_tur_millet_system_tooltip: "異端への寛容度0以上、異教への寛容度0以上、50以上のロケーションを所有する"
+ som_tur_kadi_courts: "カーディー裁判制度"
+ som_tur_kadi_courts_desc: "カーディー（イスラム法裁判官）はオスマン帝国の司法制度の基盤だ。スルタンから直接任命されるカーディーは、相続・婚姻・財産紛争・刑事案件を担当し、都市から農村まで帝国全土で法の支配を実現した。カーディーが記録した「シジル（裁判台帳）」は後世に残る膨大な歴史的記録となり、当時の社会の様子を伝えている。"
+ som_tur_kadi_courts_tooltip: "寺院（temple）を8箇所以上所有し、正統性75以上"
+ som_tur_sufi_culture: "スーフィー文化"
+ som_tur_sufi_culture_desc: "スーフィー教団（タリーカ）はオスマン帝国の宗教文化に深く根付いていた。メヴレヴィー教団（旋回舞踊で有名）・ベクタシー教団（イェニチェリの精神的支柱）・ナクシュバンディー教団など、各教団はそれぞれの霊性と伝統を持ちながらも帝国社会の一翼を担った。スーフィーの神秘主義は芸術・詩・音楽に多大な影響を与え、オスマン文化の豊かさを形作った。"
+ som_tur_sufi_culture_tooltip: "毎月の威信0.20以上、大学（university）を3箇所以上所有する"
+ som_tur_cultural_synthesis: "文化的融合"
+ som_tur_cultural_synthesis_desc: "オスマン帝国は征服した文化を破壊するのではなく吸収・融合させた。ビザンツの行政システム・アラブの学術・ペルシャの宮廷文化・トルコの軍事伝統が融合して独自の「オスマン文化」が生まれた。この文化的包容性が帝国の統治を豊かにし、多様な民族・宗教・言語を持つ臣民を「オスマン人」として統合する基盤となった。"
+ som_tur_cultural_synthesis_tooltip: "毎月の威信0.30以上、総人口800以上、正統性85以上"
+ som_tur_bursa_silk_industry: "ブルサ絹産業"
+ som_tur_bursa_silk_industry_desc: "ブルサはオスマン帝国の最初の首都として1326年に設定され、14世紀から絹の国際交易の中心地として発展した。ビザンツ帝国が独占していた絹産業の技術と職人がブルサに集まり、高品質の絹织物が生産されてヨーロッパ・中東に輸出された。「絹の都市」として知られるブルサの繁栄はオスマン帝国初期の経済的基盤となった。"
+ som_tur_bursa_silk_industry_tooltip: "絹（silk）または高級生地（fine_cloth）を一定量以上生産している"
+ som_tur_silk_road: "絹街道の掌握"
+ som_tur_silk_road_desc: "中国からイスタンブールまで延びる絹街道は、オスマン帝国にとって最重要の交易路だ。トレビゾンドはカスピ海・中央アジアからの商品がアナトリアに流入する玄関口であり、この港市を掌握することで絹街道東部の交易を制御できる。タブリーズ・サマルカンドからの絹・香辛料・染料がオスマンの市場を潤す。"
+ som_tur_silk_road_tooltip: "アンカラを自国が所有し、トレビゾンドを自国または属国が領有し、月収30以上"
+ som_tur_ankara_prosperity: "アンカラの繁栄"
+ som_tur_ankara_prosperity_desc: "アンカラはアナトリア高原の交通の要衝であり、古来から商業都市として栄えてきた。アンゴラヤギの毛から作られる高品質の繊維産業、染料植物の栽培、そして東西を結ぶ交易路——これらがアンカラを帝国内陸部の重要な経済拠点にした。「アンゴラ」という名称はこの都市名に由来している。"
+ som_tur_ankara_prosperity_tooltip: "アンカラを自国が直接所有し、アンカラのRGO規模が5以上"
+ som_tur_trade_routes: "帝国交易路の整備"
+ som_tur_trade_routes_desc: "オスマン帝国の版図が広がるにつれ、帝国内の交易路の整備が急務となった。キャラバンサライ（隊商宿）の整備・街道の舗装・橋の建設・海賊取り締まりによる海上交易の安全確保——これらがオスマン帝国内の商業活動を活発化させた。コンスタンティノープルを中心とする放射状の交易網が形成され、帝国全体の経済統合が進んだ。"
+ som_tur_trade_routes_tooltip: "月収80以上、100以上のロケーションを所有し、市場の中心地（market center）を5以上保有する"
+ som_tur_commercial_empire: "商業帝国の確立"
+ som_tur_commercial_empire_desc: "アレッポ・アレクサンドリア・コンスタンティノープル——オスマン帝国はアジア・アフリカ・ヨーロッパを結ぶ世界交易の三大拠点を掌握した。インドの香辛料・中国の絹・ヨーロッパの金銀がオスマン領を通過し、帝国は世界交易の仲介者として莫大な富を蓄積した。ポルトガルのアフリカ周航路開拓はこの地位を脅かしたが、オスマンは長くアジア・ヨーロッパ間の交易の要衝であり続けた。"
+ som_tur_commercial_empire_tooltip: "月収200以上、アレッポとアレクサンドリアを自国または属国が領有している"
+ STATIC_MODIFIER_NAME_som_tur_janissary_mod: "イェニチェリ軍団"
+ STATIC_MODIFIER_DESC_som_tur_janissary_mod: "14世紀に創設されたイェニチェリはオスマン帝国最精鋭の常備歩兵だ。デヴシルメ制度で徴用されたキリスト教徒の少年が改宗・訓練されてスルタン直属の戦士となり、コンスタンティノープル陥落をはじめ数々の歴史的勝利の立役者となった。"
+ STATIC_MODIFIER_NAME_som_tur_devshirme_mod: "デヴシルメ制度"
+ STATIC_MODIFIER_DESC_som_tur_devshirme_mod: "バルカン半島のキリスト教徒の少年を強制徴用し、オスマン式に育て上げるデヴシルメ制度は、血縁・部族に縛られないスルタン直属の官僚・軍人層を生み出した。最高位の大宰相さえもデヴシルメ出身者が占める事例が多く、能力主義的な人材登用を可能にした。"
+ STATIC_MODIFIER_NAME_som_tur_elite_guard_mod: "親衛隊の精鋭化"
+ STATIC_MODIFIER_DESC_som_tur_elite_guard_mod: "イェニチェリの中から選ばれたスルタン親衛隊は帝国で最も訓練を積んだ戦士たちだ。彼らの存在はオスマン軍の核心として戦場での決定的な役割を果たし続けた。"
+ STATIC_MODIFIER_NAME_som_tur_kanun_mod: "カーヌーン法典"
+ STATIC_MODIFIER_DESC_som_tur_kanun_mod: "シャリーア（イスラム法）を補完するカーヌーン（世俗法）の整備によって、オスマン帝国は宗教法と世俗法を組み合わせた独自の法体系を確立した。この二元的法体系が多様な宗教・文化背景を持つ臣民を統治する法的枠組みとなった。"
+ STATIC_MODIFIER_NAME_som_tur_imperial_army_mod: "帝国軍の完成"
+ STATIC_MODIFIER_DESC_som_tur_imperial_army_mod: "イェニチェリ・シパーヒー・火砲を組み合わせたオスマン帝国の複合軍事システムは16世紀に絶頂に達した。規律・火力・機動力を兼ね備えたこの軍隊は当時世界最強の軍事力の一つとして「オスマンの脅威」としてヨーロッパ全体を震撼させた。"
+ STATIC_MODIFIER_NAME_som_tur_timar_mod: "ティマール制"
+ STATIC_MODIFIER_DESC_som_tur_timar_mod: "征服地の土地をシパーヒー騎兵への封土（ティマール）として分配することで、オスマン帝国は大規模な常備軍を財政的に維持することを可能にした。世襲でない点がヨーロッパ封建制と異なり、皇帝の管理下に置かれた土地は功績に応じて再分配された。"
+ STATIC_MODIFIER_NAME_som_tur_sipahi_mod: "シパーヒー騎兵"
+ STATIC_MODIFIER_DESC_som_tur_sipahi_mod: "ティマールを与えられた地方騎士・シパーヒーはオスマン軍の主力騎兵部隊を形成した。鎧と槍で武装した彼らの突撃は戦場での決定的な打撃力となり、バルカン半島からアナトリアまでの征服を支えた。"
+ STATIC_MODIFIER_NAME_som_tur_eyalet_mod: "エヤレット制度"
+ STATIC_MODIFIER_DESC_som_tur_eyalet_mod: "総督（ベイレルベイ）が治めるエヤレット（州）制度はオスマン帝国の広大な版図を効率的に統治する仕組みだ。各エヤレットは帝国の縮図として独自の軍事力・行政機構を持ち、スルタンの意志を地方に伝達する役割を担った。"
+ STATIC_MODIFIER_NAME_som_tur_vizier_mod: "大宰相制度"
+ STATIC_MODIFIER_DESC_som_tur_vizier_mod: "スルタンに次ぐ最高行政長官・大宰相が主宰する「ディヴァーン（帝国評議会）」が帝国の政策決定の中枢となった。崇高な門とも呼ばれるその府邸がヨーロッパでは「オスマン政府」の代名詞となり、外交交渉の相手方として認識された。"
+ STATIC_MODIFIER_NAME_som_tur_bureaucracy_mod: "帝国官僚制"
+ STATIC_MODIFIER_DESC_som_tur_bureaucracy_mod: "デヴシルメ出身者とトルコ・イスラム系官人が混在するオスマン帝国の複合官僚制は、当時世界で最も洗練された行政システムの一つだった。文書主義と中央集権的情報管理が広大な帝国の効率的な統治を支えた。"
+ STATIC_MODIFIER_NAME_som_tur_new_capital_mod: "コンスタンティノープル首都化"
+ STATIC_MODIFIER_DESC_som_tur_new_capital_mod: "千年の古都コンスタンティノープルが「コンスタンティニエ（イスタンブール）」として帝国の新首都となった。メフメト2世はここにローマとビザンツの後継者としての帝国を建設することを宣言し、多様な民族・商人の移住を促進して都市の再興を図った。"
+ STATIC_MODIFIER_NAME_som_tur_grand_bazaar_mod: "グランドバザール"
+ STATIC_MODIFIER_DESC_som_tur_grand_bazaar_mod: "1455〜61年に建設されたイスタンブールのグランドバザールは世界最古・最大の屋根付き市場の一つだ。4,000の店舗にアジア・ヨーロッパ・アフリカの商品があふれるこの市場が地中海世界の商業の中心となった。"
+ STATIC_MODIFIER_NAME_som_tur_mosque_mod: "スレイマニエ・モスク"
+ STATIC_MODIFIER_DESC_som_tur_mosque_mod: "建築家スィナンが設計したスレイマニエ・モスクはオスマン建築の最高傑作だ。4本のミナレットと巨大なドームを持つこの壮麗な建築は、コンスタンティノープルの丘の上から帝国の栄光を全世界に示した。"
+ STATIC_MODIFIER_NAME_som_tur_topkapi_mod: "トプカプ宮殿"
+ STATIC_MODIFIER_DESC_som_tur_topkapi_mod: "ボスポラス・金角湾・マルマラ海を一望する岬に建つトプカプ宮殿は、400年間オスマン帝国の権力の中心として機能した。スルタンの居所・政府・ハレム・宝物庫を兼ねるこの複合施設が帝国統治の象徴となった。"
+ STATIC_MODIFIER_NAME_som_tur_ulema_mod: "ウラマーの権威"
+ STATIC_MODIFIER_DESC_som_tur_ulema_mod: "カーディー・ムフティー・マドラサ教師として帝国全土で活動するウラマーがスルタンの権威に宗教的正当性を与えた。シャリーアの解釈権を持つウラマーは帝国の道徳的・法的秩序の守護者として機能した。"
+ STATIC_MODIFIER_NAME_som_tur_millet_mod: "ミッレト制度"
+ STATIC_MODIFIER_DESC_som_tur_millet_mod: "ギリシャ正教・アルメニア・ユダヤの各宗教共同体が独自の自治機構を持つミッレト制度は、オスマン帝国が多様な非イスラム教徒の臣民を安定的に統治することを可能にした。各ミッレトの宗教的指導者がコミュニティを代表してスルタンと交渉した。"
+ STATIC_MODIFIER_NAME_som_tur_kadi_mod: "カーディー裁判制度"
+ STATIC_MODIFIER_DESC_som_tur_kadi_mod: "スルタンから直接任命されるカーディー（イスラム法裁判官）が帝国全土で法の支配を実現した。シジル（裁判台帳）に記録された無数の判決が後世に残る歴史的記録となり、当時のオスマン社会の実態を生き生きと伝えている。"
+ STATIC_MODIFIER_NAME_som_tur_sufi_mod: "スーフィー文化"
+ STATIC_MODIFIER_DESC_som_tur_sufi_mod: "メヴレヴィー・ベクタシー・ナクシュバンディーなどのスーフィー教団が帝国の宗教文化に深く根付いた。神秘主義的な霊性と芸術・詩・音楽の融合がオスマン文化の豊かさを形作り、異なる宗教・文化間の橋渡し役ともなった。"
+ STATIC_MODIFIER_NAME_som_tur_synthesis_mod: "文化的融合"
+ STATIC_MODIFIER_DESC_som_tur_synthesis_mod: "ビザンツ行政・アラブ学術・ペルシャ宮廷文化・トルコ軍事伝統の融合から生まれたオスマン文化は、多様な起源を持ちながらも独自の統一性を持つ文明を形成した。この文化的包容性が帝国の長期的安定と栄光の基盤となった。"
+ STATIC_MODIFIER_NAME_som_tur_bursa_silk_trade: "ブルサ絹産業"
+ STATIC_MODIFIER_DESC_som_tur_bursa_silk_trade: "オスマン帝国の最初の首都ブルサは14世紀から「絹の都市」として知られた。高品質の絹织物がヨーロッパ・中東に輸出され、ブルサの繁栄は帝国初期の経済的基盤となった。"
+ STATIC_MODIFIER_NAME_som_tur_silk_road_mod: "絹街道の掌握"
+ STATIC_MODIFIER_DESC_som_tur_silk_road_mod: "トレビゾンドを経由するカスピ海・中央アジアとの交易路を掌握することで、東方からの絹・香辛料・染料が安定的にオスマン市場に供給されるようになった。"
+ STATIC_MODIFIER_NAME_som_tur_trade_empire_mod: "帝国交易路"
+ STATIC_MODIFIER_DESC_som_tur_trade_empire_mod: "キャラバンサライの整備・街道の整備・海賊取り締まりによって帝国内の交易活動が活発化した。コンスタンティノープルを中心とする放射状の交易網が経済的統合をもたらした。"
+ STATIC_MODIFIER_NAME_som_tur_commercial_mod: "商業帝国"
+ STATIC_MODIFIER_DESC_som_tur_commercial_mod: "アレッポ・アレクサンドリア・コンスタンティノープルという世界交易の三大拠点を掌握したオスマン帝国は、アジア・アフリカ・ヨーロッパを結ぶ商業帝国として莫大な富を蓄積した。"
+ STATIC_MODIFIER_NAME_som_tur_istanbul_glory_mod: "世界の欲する都市"
+ STATIC_MODIFIER_DESC_som_tur_istanbul_glory_mod: "イスタンブールは「世界の欲する都市」として古来から称えられてきた。オスマン征服後も世界最大かつ最も輝かしい都市の一つとして、アジアとヨーロッパをつなぐ唯一の橋として機能し続けた。"
+ som_ottoman_events.50.t: "世界の欲する都市"
+ som_ottoman_events.50.d: "コンスタンティノープル——いやイスタンブールはいまや真に「世界の欲する都市」となった。人口50万を超えるこの大都市は、ヨーロッパとアジアを結ぶ唯一の橋として機能し、全世界の商品が集まる地球上で最も重要な交易拠点だ。スレイマニエ・モスクの優美なシルエットとトプカプ宮殿の壮麗な姿がボスポラス海峡に映える。スルタンの宮廷では詩人・哲学者・建築家・科学者が競い合い、オスマン文明は絶頂を迎えた。この偉大な都市は百年後も千年後も、人類の遺産として輝き続けるだろう。"
+ som_ottoman_events.50.a: "イスタンブールよ、永遠に輝け！"
+ STATIC_MODIFIER_NAME_som_tur_constantinople_dev_mod: "コンスタンティニエの再開発"
+ STATIC_MODIFIER_DESC_som_tur_constantinople_dev_mod: "メフメト2世の命令によるコンスタンティニエ（イスタンブール）の積極的再開発が進んでいる。新住民の移住・市場の整備・建築の復元によって、かつての帝都が新たな輝きを取り戻しつつある。繁栄と行政効率の向上がオスマン帝国の中心都市を強化する。"
+
+ STATIC_MODIFIER_NAME_som_tur_trebizond_trade_mod: "トレビゾンドの交易拠点"
+ STATIC_MODIFIER_DESC_som_tur_trebizond_trade_mod: "黒海南岸の要衝トレビゾンドがオスマン帝国の絹街道ターミナルとして整備された。中央アジア・カスピ海からの商品がここを通じてアナトリアに流入し、地中海交易網と接続する。接近交易源（local_proximity_source）の強化と交易拠点の力・商人容量が向上する。"
+ STATIC_MODIFIER_NAME_som_tur_commercial_empire_mod: "商業帝国"
+ STATIC_MODIFIER_DESC_som_tur_commercial_empire_mod: "アレッポ・アレクサンドリア・コンスタンティノープルという世界交易の三大拠点を掌握したオスマン帝国は、商人あたり交易数（global_trades_per_burgher）と生産効率（global_production_efficiency）が向上し、交易覇権を確立した。"
+ STATIC_MODIFIER_NAME_som_tur_silk_monopoly_unlock_mod: "コンスタンティノープル絹独占権"
+ STATIC_MODIFIER_DESC_som_tur_silk_monopoly_unlock_mod: "コンスタンティノープル（イスタンブール）に「コンスタンティノープルによる絹の独占」都市特権が付与可能となった。これはかつてビザンツ帝国が誇った帝都の絹製造独占権を復興するものだ。"
+ STATIC_MODIFIER_NAME_som_tur_grand_bazaar_loc_mod: "グランドバザールの整備"
+ STATIC_MODIFIER_DESC_som_tur_grand_bazaar_loc_mod: "コンスタンティノープルのグランドバザール（カパルチャルシュ）が帝国最大の商業拠点として整備された。商人容量・市民交易・RGO最大規模が大幅に向上し、イスタンブールは世界商業の中心都市として機能する。"
+
+ som_ottoman_events.19.t: "スミルナの商業的運命"
+ som_ottoman_events.19.d: "スミルナ（イズミル）はエーゲ海東岸最大の港市だ。古来よりギリシャ人植民者が開いたこの都市は、アナトリア内陸部と地中海を結ぶ交易の玄関口として繁栄してきた。オスマン帝国がこの都市を掌握した今、スミルナの将来をいかなる方向に導くか——活発な商業都市として商人を誘致するか、あるいは海軍力の増強に活用するか——スルタンの決断が問われる。"
+ som_ottoman_events.19.a: "スミルナに商人街区を整備し、交易の中心地として発展させる"
+ som_ottoman_events.19.b: "スミルナに造船所を建設し、エーゲ海における海軍力の足がかりとする"
+ STATIC_MODIFIER_NAME_som_tur_anatolian_heartland_mod: "アナトリアの掌握"
+ STATIC_MODIFIER_DESC_som_tur_anatolian_heartland_mod: "コニャ・シヴァス・トレビゾンドという三都市の掌握によってアナトリア全域が帝国の実効支配下に入った。首都からの距離に関わらず統合速度が向上し、帝国各地からの税収効率も改善される。"
+ STATIC_MODIFIER_NAME_som_tur_crimea_dominance: "クリミアの制海権"
+ STATIC_MODIFIER_DESC_som_tur_crimea_dominance: "クリミア半島とカッファを掌握することで黒海北岸の制海権を確立した。私掠船（プライヴァティア）の雇用コストが低下し、私掠船の耐久性が向上する。黒海は「オスマンの湖」としての地位を確立しつつある。"
+ STATIC_MODIFIER_NAME_som_tur_aegean_shipbuilding_mod: "エーゲ海の造船技術"
+ STATIC_MODIFIER_DESC_som_tur_aegean_shipbuilding_mod: "エーゲ海の島々を掌握したことで、各島の造船技術・海軍の知識・熟練した船員がオスマン海軍に流入した。艦船の維持費が低下し、軽艦船の戦闘力と航行速度が向上する。"
+ som_tur_ghazi_tradition_tooltip: "（削除済み）"
+
+ STATIC_MODIFIER_NAME_som_tur_aleppo_learning_mod: "アレッポの学問"
+ STATIC_MODIFIER_DESC_som_tur_aleppo_learning_mod: "アレッポはシリア最大の知的・文化的中心地だ。著名なマドラサ・図書館・学者がここに集まり、オスマン帝国がこの都市を掌握したことでアラブ世界の学術がオスマンに流入する。"
+ STATIC_MODIFIER_NAME_som_tur_damascus_learning_mod: "ダマスカスの学問"
+ STATIC_MODIFIER_DESC_som_tur_damascus_learning_mod: "ダマスカスは世界最古の継続する居住都市の一つだ。ウマイヤ朝以来のイスラム学術の蓄積を誇るこの都市の知的遺産がオスマン帝国に流入する。"
+ STATIC_MODIFIER_NAME_som_tur_caliph_successor: "カリフの継承"
+ STATIC_MODIFIER_DESC_som_tur_caliph_successor: "聖地を掌握したオスマン・スルタンはイスラム世界の守護者となった。異端・異教への寛容度が向上し、他宗教に対する戦争の得点効率も上昇する。"
+ STATIC_MODIFIER_NAME_som_tur_aegean_shipbuilding_mod: "エーゲ海の造船技術"
+ STATIC_MODIFIER_DESC_som_tur_aegean_shipbuilding_mod: "エーゲ海の島々を掌握したことで各島の造船技術・熟練船大工がオスマン帝国に流入した。艦船建造速度が向上し、軽艦船の戦闘力と航行速度が改善される。"
+
+ som_ottoman_events.61.t: "マルジュ・ダービクの戦い"
+ som_ottoman_events.61.d: "1516年、スルタン・セリム1世はアレッポ北方のマルジュ・ダービク平野でマムルーク朝スルタン・カーンスーフ・アル＝ガウリーの軍を壊滅させた。カーンスーフ自身が戦場で倒れ、シリア全土がオスマンの支配下に入った。カイロを占領した今、マムルーク朝の運命はオスマンの手の中にある。"
+ som_ottoman_events.61.a: "マムルーク朝を和平によりエヤレットとして取り込む"
+ som_ottoman_events.61.b: "和平を結び独立を認める"
+
+ STATIC_MODIFIER_NAME_som_tur_edirne_trade_mod: "エディルネの交易拠点"
+ STATIC_MODIFIER_DESC_som_tur_edirne_trade_mod: "エディルネ（ハドリアノポリス）はルメリアの交易の中心都市だ。バルカン半島と小アジアを結ぶこの都市が染料・絹・高級生地の生産拠点として整備され、オスマン帝国の初期財政を支える。"
+ STATIC_MODIFIER_NAME_som_tur_novo_brdo_silver_mod: "ノヴォ・ブルドの銀山"
+ STATIC_MODIFIER_DESC_som_tur_novo_brdo_silver_mod: "ノヴォ・ブルド（「新しい丘」）はバルカン半島最大の銀山を擁する都市だ。1450年代のオスマン征服後もその豊かな鉱山は帝国の財政に貢献し続けた。月次繁栄と人口増加も促進される。"
+ som_tur_cross_the_straits_tooltip: "チャナッカレ（canakkale）を自国または属国が領有し、艦船5以上"
+ som_tur_edirne_capital_tooltip: "エディルネ（edirne）を自国または属国が領有している"
+ som_tur_conquer_bulgaria_tooltip: "タルノヴォ（tarnovo）を自国または属国が領有している"
+ som_tur_siege_constantinople_tooltip: "コンスタンティノープルを自国が直接所有している"
+ som_tur_conquer_serbia_tooltip: "ノヴォ・ブルド（novo_brdo）を自国または属国が領有している"
+
+ STATIC_MODIFIER_NAME_som_tur_hungarian_march_mod: "ハンガリーの進軍"
+ STATIC_MODIFIER_DESC_som_tur_hungarian_march_mod: "ブダの陥落によりハンガリー王国は実質的に崩壊した。オスマン帝国はドナウ川を越えてウィーンに迫る広大な中欧の領土を手に入れた。しかしこの征服はさらなる抵抗を生む——ハプスブルク家との長い戦いの序章に過ぎない。オスマン兵士の士気がこれまでになく高まっている。"
+ STATIC_MODIFIER_NAME_som_tur_italy_north_mod: "イタリア半島の支配"
+ STATIC_MODIFIER_DESC_som_tur_italy_north_mod: "ローマ・フィレンツェ・ミラノというイタリアの三大都市を掌握したオスマン帝国は、ルネサンス文化の中心地を支配下に置いた。多様なイタリア人・ラテン語文化圏の住民をオスマン帝国に同化させる施策が加速する。"
+ STATIC_MODIFIER_NAME_som_tur_maghreb_mod: "マグレブの制海権"
+ STATIC_MODIFIER_DESC_som_tur_maghreb_mod: "チュニスとアルジェを掌握することで地中海西部の制海権を確立した。オスマン海軍の封鎖効率が向上し、地中海における先制攻撃能力が増大する。バルバリア海賊の拠点を利用した西地中海支配が現実となる。"
+ som_tur_conquer_hungary_tooltip: "ブダ（buda）を自国または属国が領有している"
+ som_tur_siege_vienna_tooltip: "ウィーン（vienna）を自国または属国が領有し、陸軍規模50以上"
+ som_tur_italy_north_tooltip: "ローマ（rome）・フィレンツェ（florence）・ミラノ（milan）を自国または属国が領有している"
+
+ som_tur_devshirme_system_tooltip: "総人口が1000ポップ以上（約100万人）"
+ som_tur_kanun_i_osmani_tooltip: "オスマン帝国が帝国ランクであり、勢力投射が15以上"
+ som_tur_eyalet_system_tooltip: "80以上のロケーションを所有し、城塞（castle）を10箇所以上保有する"
+ som_tur_grand_vizier_tooltip: "月収300以上、総人口4000ポップ以上（約400万人）"
+ som_tur_imperial_bureaucracy_tooltip: "600以上のロケーションを所有し、現在の日付が1500年以降"
+ som_tur_italy_north_tooltip: "ローマ（rome）・フィレンツェ（florence）・ミラノ（milano）を自国または属国が領有している"
+
+ som_tur_silk_road_revival: "シルクロードの復興"
+ som_tur_silk_road_revival_desc: "タブリーズはペルシャと中央アジアを結ぶシルクロードの西端の要衝だ。イル・ハン国の首都として栄えたこの都市を掌握することで、オスマン帝国は絹・香辛料・宝石を運ぶシルクロードの交易を直接支配できる。黒海から中央アジアまでを結ぶ広大な交易網が復興し、帝国の商業力が飛躍的に高まる。"
+ som_tur_silk_road_revival_tooltip: "タブリーズ（tabriz）を自国または属国が領有している"
+ STATIC_MODIFIER_NAME_som_tur_silk_road_revival_mod: "シルクロードの復興"
+ STATIC_MODIFIER_DESC_som_tur_silk_road_revival_mod: "タブリーズの掌握によってシルクロードの西端をオスマン帝国が完全に支配した。交易範囲が拡大し、原材料の産出が増加し、商品の販売効率も向上する。中国からイスタンブールまでの壮大な交易路が再び繁栄の時代を迎える。"
+ som_tur_cultural_synthesis_tooltip: "劇場（theater）または歌劇場（opera_house）を40箇所以上保有している"
+ som_tur_arabia_conquest_tooltip: "メディナ（medina）とメッカ（mecca）を自国または属国が領有している"
+ som_tur_city_of_worlds_desire_desc: "コンスタンティノープル——いやイスタンブールはいまや真に「世界の欲する都市」となった。人口50万を超えるこの大都市は、ヨーロッパとアジアを結ぶ唯一の橋として機能し、全世界の商品が集まる地球上で最も重要な交易拠点だ。この偉大な都市がオスマン帝国の中心として機能する今、かつてビザンツ帝国が誇った帝国のパン籠の権利がオスマン帝国でも利用可能となった。"
+
+ som_tur_true_rome: "真のローマ帝国"
+ som_tur_true_rome_desc: "バルカン・アナトリア・アラブ・エジプト・北アフリカ・イタリア——かつてローマ帝国が支配したほぼ全ての地がオスマンの旗の下に統一された。メフメト2世はコンスタンティノープル征服後に「カイセル（皇帝）」の称号を自ら名乗った。その遺志を受け継ぎ、今こそオスマン帝国が真のローマの後継者として歴史に刻まれる時だ。ユスティニアヌスのコルプス・ユリスを復活させ、水道システムを拡充し、広大な帝国を一つの法と文明で結べ。"
+ som_tur_true_rome_tooltip: "自国が3000以上のロケーションを直接保有している"
+ STATIC_MODIFIER_NAME_som_tur_true_rome_mod: "真のローマ帝国"
+ STATIC_MODIFIER_DESC_som_tur_true_rome_mod: "オスマン帝国はローマの後継者として、道路網の整備（首都からの距離コスト削減）、文化的多様性の受容（文化収容力増加）、ユスティニアヌス法典の復興（新コルプス・ユリス・キウィリス）、水道システムの拡充を実現した。"
+ som_ottoman_events.50.breadbasket_tt: "【帝国のパン籠】の都市特権が利用可能になった"
+
+ som_ottoman_mission_pack: "オスマン帝国の台頭"
+ som_ottoman_mission_pack_DESCRIPTION:0 "1337年、アナトリア北西部の小さなトルコ系君候国として始まったオスマン朝。ブルサ・イズニク・イズミットという三都市を掌握したこの小国は、わずか数世代のうちにバルカン・アナトリア・アラブ世界・エジプト・北アフリカ・イタリアにまたがる大帝国へと変貌する。ガーズィー（聖戦士）の精神で国境を押し広げ、コンスタンティノープルを陥落させ、スレイマン大帝の黄金時代を実現せよ。そして——真のローマ帝国として歴史に君臨せよ。"
+ som_ottoman_mission_pack_CRITERIA_DESCRIPTION:0 "オスマン帝国として、バルカン・アナトリア・アラブ・地中海を征服し、国内統治を整備し、スレイマン大帝の時代を実現せよ。"
+ som_ottoman_mission_pack_BUTTON_TOOLTIP:0 "ミッションを達成してオスマン帝国の台頭を完成させよ。"
+ som_ottoman_mission_pack_BUTTON_DETAILS:0 "1337年の小君候国から世界帝国へ！"

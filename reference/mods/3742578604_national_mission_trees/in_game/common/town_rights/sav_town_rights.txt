@@ -1,0 +1,45 @@
+﻿# =============================================================================
+# SAV Custom Town Rights
+# =============================================================================
+
+franchises = {
+	kept_at_conquest = no
+
+	location_modifier = {
+		local_migration_speed = 0.50
+		local_peasant_enfranchisment = 0.10
+		local_trades_per_burgher = 1.00
+	}
+
+	potential = {
+		root = {
+			has_or_had_tag = SAV
+		}
+	}
+
+	allow = {
+	}
+
+	color = map_sardinia
+}
+
+patria_legis = {
+	kept_at_conquest = no
+
+	location_modifier = {
+		local_monthly_prosperity = 0.002
+		local_pop_promotion_speed_modifier = 0.20
+		local_production_efficiency = 0.05
+	}
+
+	potential = {
+		root = {
+			has_or_had_tag = SAV
+		}
+	}
+
+	allow = {
+	}
+
+	color = map_sardinia
+}

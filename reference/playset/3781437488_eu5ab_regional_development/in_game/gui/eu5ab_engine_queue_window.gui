@@ -1,0 +1,291 @@
+﻿# Hidden engine-value bridge. Every candidate is routed to exactly one
+# emergency/feature phase before GUI-only actual values are queried.
+widget = {
+	name = "eu5ab_engine_queue_window"
+	visible = "[EqualTo_CFixedPoint('(CFixedPoint)0', '(CFixedPoint)0')]"
+	position = { -10000 1 }
+	widget = {
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_1_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_1 }
+			state = {
+				name = eu5ab_q_validate_round_1
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_1')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_1')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_1
+			}
+			state = {
+				name = eu5ab_q_validate_check_1
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_1
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_1_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_1 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_1_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_1_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_1 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_2_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_2 }
+			state = {
+				name = eu5ab_q_validate_round_2
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_2')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_2')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_2
+			}
+			state = {
+				name = eu5ab_q_validate_check_2
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_2
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_2_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_2 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_2_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_2_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_2 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_3_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_3 }
+			state = {
+				name = eu5ab_q_validate_round_3
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_3')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_3')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_3
+			}
+			state = {
+				name = eu5ab_q_validate_check_3
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_3
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_3_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_3 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_3_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_3_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_3 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_4_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_4 }
+			state = {
+				name = eu5ab_q_validate_round_4
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_4')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_4')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_4
+			}
+			state = {
+				name = eu5ab_q_validate_check_4
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_4
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_4_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_4 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_4_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_4_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_4 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_5_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_5 }
+			state = {
+				name = eu5ab_q_validate_round_5
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_5')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_5')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_5
+			}
+			state = {
+				name = eu5ab_q_validate_check_5
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_5
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_5_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_5 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_5_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_5_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_5 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_6_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_6 }
+			state = {
+				name = eu5ab_q_validate_round_6
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_6')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_6')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_6
+			}
+			state = {
+				name = eu5ab_q_validate_check_6
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_6
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_6_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_6 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_6_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_6_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_6 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_7_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_7 }
+			state = {
+				name = eu5ab_q_validate_round_7
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_7')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_7')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_7
+			}
+			state = {
+				name = eu5ab_q_validate_check_7
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_7
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_7_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_7 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_7_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_7_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_7 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_phase_8_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_validate_round_8 }
+			state = {
+				name = eu5ab_q_validate_round_8
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_candidate_8')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_validate_rgo_8')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_validate_check_8
+			}
+			state = {
+				name = eu5ab_q_validate_check_8
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_validate_round_8
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_8_rgo_locations')]"
+			item = { widget = { datacontext = "[Scope.GetLocation]" state = { name = eu5ab_q_validate_rgo_8 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_rgo').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } } }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_phase_8_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_phase_8_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_validate_candidate_8 on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_should_fire').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_fire_build')]" next = eu5ab_q_confirm_round }
+			state = { name = eu5ab_q_confirm_round duration = 0.25 on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_confirm_build')]" next = eu5ab_q_confirm_check }
+			state = { name = eu5ab_q_confirm_check duration = 0.15 on_finish = "[GetScriptedGui('eu5ab_gui_queue_confirm_sync').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" next = eu5ab_q_confirm_round }
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_approved_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_approved_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_probe_approved on_finish = "[GetScriptedGui('eu5ab_gui_queue_probe_approved').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).End)]" } state = { name = eu5ab_q_fire_build on_finish = "[BuildOrExpandBuildingDefault(BuildingType.Self, Location.Self)]" } state = { name = eu5ab_q_confirm_build on_finish = "[GetScriptedGui('eu5ab_gui_queue_confirm_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).End)]" } } }
+				}
+			}
+		}
+	}
+}
