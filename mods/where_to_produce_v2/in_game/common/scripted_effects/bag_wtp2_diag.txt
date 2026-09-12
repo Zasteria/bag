@@ -1,0 +1,38 @@
+﻿# «Диагностика» -- одно нажатие, всё, что мод знает, в `debug.log`.
+#
+# **Она стоит здесь с первой сборки, хотя докладывать ей почти нечего.** Это
+# намеренно: правило репозитория -- «причину не угадывать, а мерить», и место
+# под пробу должно существовать раньше, чем появится то, что придётся мерить.
+# Сегодня она отвечает ровно на один вопрос -- «нажатие вообще дошло, и вот
+# какая земля выбрана», -- и этого достаточно, чтобы отличить «мод не
+# зарегистрировался» от «мод жив, а кнопка молчит».
+#
+# **Ни одного `[THIS...]` ниже.** `debug_log` печатается вне скоупа эффекта:
+# число попадает в строку только через `GuiScope.SetRoot(GetPlayer.MakeScope)`
+# и скриптовое значение, поэтому все числа здесь -- `bag_wtp2_dg*`.
+# `docs/pitfalls/diagnosis.md` -- остальные три правила про `debug_log`.
+#
+# **Она ничего не меняет.** Читает то, что оставил выбор, пишет только свой
+# счётчик нажатий. Нажать её можно в любой момент, и это не может повлиять на
+# следующее показание.
+#
+# Scope: country
+bag_wtp2_diag = {
+	change_global_variable = { name = bag_wtp2_diag_runs add = 1 }
+
+	debug_log_date = yes
+	error_log = "WTP2 the report is in debug.log, tag WTP2, version 1."
+	debug_log = "WTP2 ==== BEGIN v1 ==== everything to the next END is one press."
+
+	debug_log = "WTP2 BUILD stamp=[Localize('bag_wtp2_build')] -- the same six characters the Техническая tab shows"
+
+	# Проба, которая отделяет «число не то» от «числа вообще не доезжают».
+	# Если здесь не 12345, всякое число ниже неверно, и виновата дорога, а не
+	# то, что она несёт.
+	debug_log = "WTP2 SELFTEST global-through-player=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg0')|0] (expect 12345; anything else and every number below is wrong)"
+
+	debug_log = "WTP2 GROUND continents=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg1')|0] regions=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg2')|0] picked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg3')|0] presses=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg4')|0]"
+
+	debug_log = "WTP2 NOTE no plan exists yet: both Расчёты buttons open a window and compute nothing."
+	debug_log = "WTP2 ==== END v1 ===="
+}

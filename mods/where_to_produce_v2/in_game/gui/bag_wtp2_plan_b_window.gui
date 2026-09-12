@@ -1,0 +1,90 @@
+﻿# «План 2» -- второе окно расчёта, и оно открывается вместо первого, а не рядом с ним.
+#
+# **Форма окна взята у игры, а не придумана.** `ai_settings_menu.gui` -- свободное
+# окно ровно этого вида: `size` и `using = bg_window_default_alt` стоят **на самом
+# `window`**, а `vbox` лежит в нём напрямую. Лишний `widget` между ними держит
+# свою ширину, и шапка внутри него не тянется за окном -- это чинилось трижды
+# свойствами самой шапки и не чинилось.
+#
+# **Внутри пусто, и это не заготовка «на потом», а нынешнее состояние мода.**
+# Окно существует, открывается своей кнопкой, несёт полосу выбора земли и
+# говорит, что расчёта нет. Всё, что появится, появится в нижней коробке.
+
+window = {
+	name = "bag_wtp2_plan_b_window"
+	datacontext = "[GetPlayer]"
+	allow_outside = yes
+	alwaystransparent = no
+	parentanchor = center
+	widgetanchor = center
+	position = { 100 100 }
+	movable = yes
+	size = { 1100 620 }
+	using = bg_window_default_alt
+
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp2_plan_b_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp2_plan_b_open').IsSet]"
+
+	widget = {
+		parentanchor = right
+		position = { -5 5 }
+		size = { 40 40 }
+		ui_direction_button_holder_right = {}
+		button_close_alt = {
+			blockoverride "close_on_action" {
+				on_action = "[GetScriptedGui('bag_wtp2_close_plan_b_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+			}
+		}
+	}
+
+	vbox = {
+		using = window_margin_alt
+
+		# `layoutpolicy_horizontal = expanding` на шапке -- без неё шапка держит
+		# ширину своего типа, что бы ни делало окно. Все окна игры несут эту
+		# строку; все окна прошлого мода её потеряли, и это был третий раз.
+		window_header_alt = {
+			blockoverride "header_text" { text = "bag_wtp2_plan_b_title" }
+			blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			using = bg_secondary_inner_alt
+			margin = { 12 12 }
+			spacing = 8
+
+			# ---- земля ------------------------------------------------------
+			text_single = {
+				size = { 1040 22 }
+				autoresize = no
+				align = left|vcenter
+				fontsize = 15
+				elide = right
+				text = "bag_wtp2_ground_head"
+			}
+
+			bag_wtp2_ground_row = {}
+
+			# Пустая полоса вместо разделителя: `divider_light` в игре нет, а
+			# выдуманное имя типа -- это виджет, который не создаётся, и ни
+			# одной строки в логе. Проверено по `reference/game/in_game/gui`.
+			widget = { layoutpolicy_horizontal = expanding size = { -1 6 } }
+
+			# ---- то, чего ещё нет -------------------------------------------
+			text_multi = {
+				layoutpolicy_horizontal = expanding
+				autoresize = yes
+				maximumsize = { 1040 120 }
+				align = left
+				text = "bag_wtp2_plan_b_empty"
+			}
+
+			widget = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+			}
+		}
+	}
+}

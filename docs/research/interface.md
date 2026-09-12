@@ -351,6 +351,44 @@ written for the question *why does a panel open instantly in vanilla and with a
 hitch under the playset*; the answer it gives is in
 [`../investigations/panel_hitch.md`](../investigations/panel_hitch.md).
 
+## Число, которое движок отдаёт только интерфейсу, — как его получает скрипт
+
+**Прочитано в коде Construction Manager 2.3.0 (dev), в игре не проверено.** Это
+ответ на то, из-за чего `where_to_produce` намеренно не моделировал стоимость
+постройки: `GetBuildOrExpandBuildingCost`, `GetBuildingTypeProfitInLocation`,
+`GetBuildingTypeIncomeToOwnerInLocation`, `CanBuildOrExpandBuilding`,
+`CanUpgradeToBuilding`, `GetMarketAccess`, `GetTotalIncome`,
+`GetRGOProfitPerLevel` — функции данных, а не скриптовые триггеры: из скрипта их
+не видно вовсе.
+
+**Дорога одна и она через `AddScope`:**
+
+```
+GetScriptedGui('cm_ab_score_build').IsShown(GuiScope.SetRoot(Location.MakeScope)
+    .AddScope('cm_cost',  MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self)))
+    .AddScope('cm_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self)))
+    .End)
+```
+
+а scripted GUI объявляет `saved_scopes = { cm_cost cm_can_build ... }` и читает
+их как `scope:cm_cost`. `MakeScopeValue` и `MakeScopeBool` — обёртки, без них
+число не становится скоупом.
+
+**Отсюда два следствия.** Первое: такое число доступно **только там, где есть
+виджет** с нужным `datacontext`, — то есть в открытом окне или всегда живом
+scripted widget, а не в проходе по миру из эффекта. Второе: CM поэтому и устроен
+как «окно очереди считает, скрипт потом одобряет»
+(`cm_queue_approval_effects.txt`), а не как один проход.
+
+## Долгий расчёт без фриза — батчами по тикам драйвера
+
+**Тоже из CM 2.3.0 (dev), по коду.** Два приёма, оба про то, чтобы тяжёлый проход
+не был одним нажатием: `cm_proximity_finder_effects.txt` считает пачку
+кандидатов за тик всегда живого виджета, пока не кончатся, и кеширует результат;
+`cm_slice_effects.txt` берёт за цикл не всю страну, а вращающееся подмножество
+рынков (`@cm_slice_location_budget = 300`), так что цена прохода у огромной
+державы такая же, как у средней.
+
 ## Карта глобалок с ключом-скоупом — и почему это зацепка для пикера
 
 **Найдено 2026-09-05, не проверено в игре.** Движок держит полноценные

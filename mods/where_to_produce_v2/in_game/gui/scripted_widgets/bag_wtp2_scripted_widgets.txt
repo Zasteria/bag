@@ -1,0 +1,2 @@
+﻿gui/bag_wtp2_plan_a_window.gui = bag_wtp2_plan_a_window
+gui/bag_wtp2_plan_b_window.gui = bag_wtp2_plan_b_window

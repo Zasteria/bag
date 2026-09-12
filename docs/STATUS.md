@@ -1,4 +1,4 @@
-﻿# Where the seven mods stand
+﻿# Where the eight mods stand
 
 One line each, and a link to the brief. **Read the brief for the mod the task is
 about and no others** — `mods/<mod>/CLAUDE.md` is 300–800 tokens and holds the
@@ -12,7 +12,8 @@ state, the commands, and what fails silently in that mod.
 | [`nd_ru`](../mods/nd_ru/CLAUDE.md) | in progress; 4 174 keys, 10.2% | everything except Westphalia and the override itself |
 | [`rgo_bonus_filter`](../mods/rgo_bonus_filter/CLAUDE.md) | working, in use, nothing outstanding | the location-panel chip |
 | [`goods_target`](../mods/goods_target/CLAUDE.md) | paused, half working, four faults known | anything on the monthly pulse |
-| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | **Шаги 0–6 закрыты и видены в игре** на северной Германии: 416 локаций, 1380 зданий на 1380 мест. **Полосы выгоды не решают «сколько»** — товар останавливает своя квота | **Раздача принята 2026-09-08** ([`archive/wtp_brief_plan_rules.md`](archive/wtp_brief_plan_rules.md)). **«Перетасовать» построена и не прогнана**: кнопка в окне редактора, переезд **между** провинциями, первым проходом меняются местами сами грамоты, домики грамот не трогаются ([`plan_gaps.md`](investigations/plan_gaps.md)). **Шаг 7 видён в игре**: две галочки в списке зданий локации, ступень берётся та, что по зубам. **Шаг 8 построен и не прогнан**: отмашка на автострой CM, кнопка житницы, «снести лишнее» — по три группы каждая; план строит и зданиями чужих модов (241 → 656 методов, 18 МБ) ([`investigations/wtp_integration.md`](investigations/wtp_integration.md)). **Всё построено; остался прогон**, и одна идея разобрана: грамоты из плана через список приоритетов CM невозможны (там нет точки делегирования), своя отмашка сделает то же. **Окна — свой чек-лист**, [`pitfalls/windows.md`](pitfalls/windows.md) |
+| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | **Первая версия, заменяется.** Построено всё — ранг, план, «Специализация», редактор, грамоты, шаги 7–8; игралось, и по итогам игры владелец решил собирать мод заново. Состояние на день решения — [`archive/wtp_v1_status.md`](archive/wtp_v1_status.md) | по документам оставалось несколько прогонов, но **его слово 2026-09-12: 90% из этого уже прогонялось или неактуально** — сверять с ним, не с документами |
+| [`where_to_produce_v2`](../mods/where_to_produce_v2/CLAUDE.md) | **Скелет, 2026-09-12.** Выбор земли перенесён и работает по коду первой версии; «План 1» и «План 2» — две кнопки, открывающие два пустых окна; диагностика на месте и почти ничего не докладывает. **Ни один расчёт не построен**, и чем они считают — следующее решение | **всё: в игре не было ни разу.** Ждут прогона: страница мода на трёх вкладках, оба окна, полоса выбора земли, четыре пикера, режим карты (economy, индекс 3) и «Диагностика» |
 
 `where_to_produce` is the second attempt at a question the first one failed at
 without ever being tested. Why the first was removed, and the lesson that shaped

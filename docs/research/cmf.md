@@ -219,6 +219,10 @@ Construction Manager 2.2.12 uses one engine effect this repository had not seen:
 scope, which turns off the game's own building automation. It appears in no
 vanilla file in `reference/`, so CM is the only evidence for it.
 
+### Dev-сборки CMF и Construction Manager в дереве
+
+Что в них нового и чего нет — [`dev_builds.md`](dev_builds.md).
+
 ### What a list field needs from localization
 
 A field's column header is `<mod>__<setting>__<field>_name`, its hover is

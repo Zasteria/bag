@@ -1,0 +1,173 @@
+﻿# Выбор земли на карте -- через собственный целевой пикер игры.
+#
+# **`select_trigger` внутри generic action -- это то, что рисует панель с
+# поиском, сортируемым списком и подсветкой карты**, и клик по карте выбирает
+# то же, что строка списка. Другого канала «щёлкнуть по карте» у мода нет
+# вовсе, и панель закрывается после каждого выбора -- это её собственный
+# жизненный цикл, а не поломка (`docs/SETTLED.md`).
+#
+# **Ограничение по владению -- не движка.** Advanced Auto Build сужает свой
+# пикер `interaction_source_list`, поэтому умеет предложить только свою землю.
+# Здесь этого нет намеренно: весь смысл -- планировать землю до того, как она
+# твоя.
+#
+# **Каждое действие переключает.** Выбор живёт в скрипте, каждый клик добавляет
+# или убирает, поэтому «готово» -- это просто закрыть панель.
+#
+# **`scope:actor`, а не тот скоуп, в котором открывается блок.** Эффект generic
+# action не выполняется в скоупе страны: ваниль оборачивает каждый свой в
+# `scope:actor`. Без этого всё, что спрашивает страну, тихо отвечает «нет» и
+# возвращается, ничего не сделав -- отказ, который не пишет в лог ни строки.
+
+bag_wtp2_select_location = {
+	type = owncountry
+	show_in_gui_list = no
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { always = yes }
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = location
+		target_flag = bag_wtp2_target
+		name = bag_wtp2_choose_location
+		map_mode = bag_wtp2_selection
+		bottom_widget = bag_wtp2_select_footer
+		column = { data = name }
+		column = { data = population }
+		visible = {
+			is_ownable = yes
+			bag_wtp2_in_zone = yes
+		}
+		enabled = { always = yes }
+		tooltip_msg_key = bag_wtp2_choose_location_tt
+	}
+
+	effect = {
+		scope:bag_wtp2_target ?= {
+			bag_wtp2_toggle_one = yes
+		}
+	}
+
+	ai_will_do = { value = 0 }
+}
+
+bag_wtp2_select_province = {
+	type = owncountry
+	show_in_gui_list = no
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { always = yes }
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = province
+		target_flag = bag_wtp2_target
+		name = bag_wtp2_choose_province
+		map_mode = bag_wtp2_selection
+		bottom_widget = bag_wtp2_select_footer
+		column = { data = name }
+		column = { data = population }
+		visible = {
+			any_location_in_province = {
+				is_ownable = yes
+				bag_wtp2_in_zone = yes
+			}
+		}
+		enabled = { always = yes }
+		tooltip_msg_key = bag_wtp2_choose_province_tt
+	}
+
+	effect = {
+		scope:bag_wtp2_target ?= {
+			bag_wtp2_toggle_province_scope = yes
+		}
+	}
+
+	ai_will_do = { value = 0 }
+}
+
+bag_wtp2_select_area = {
+	type = owncountry
+	show_in_gui_list = no
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { always = yes }
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = area
+		target_flag = bag_wtp2_target
+		name = bag_wtp2_choose_area
+		map_mode = bag_wtp2_selection
+		bottom_widget = bag_wtp2_select_footer
+		column = { data = name }
+		column = { data = population }
+		visible = {
+			any_location_in_area = {
+				is_ownable = yes
+				bag_wtp2_in_zone = yes
+			}
+		}
+		enabled = { always = yes }
+		tooltip_msg_key = bag_wtp2_choose_area_tt
+	}
+
+	effect = {
+		scope:bag_wtp2_target ?= {
+			bag_wtp2_toggle_area_scope = yes
+		}
+	}
+
+	ai_will_do = { value = 0 }
+}
+
+# **Рынок рисуется на карте**, что установил двадцать седьмой прогон первого
+# мода: наведение обводит его границы, клик берёт его целиком. Чего он требует
+# отдельно -- это названных кандидатов (`interaction_source_list`), и список
+# этот -- **все рынки мира**, а не те, в которых страна уже присутствует:
+# сузить его до своих значит сделать соседский рынок некликабельным, а именно
+# он и нужен тому, кто планирует завоевание.
+bag_wtp2_select_market = {
+	type = owncountry
+	show_in_gui_list = no
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { always = yes }
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = market
+		target_flag = bag_wtp2_target
+		interaction_source_list = {
+			every_market_in_world = {
+				add_to_list = source
+			}
+		}
+		name = bag_wtp2_choose_market
+		none_available_msg_key = bag_wtp2_no_markets
+		map_mode = bag_wtp2_selection
+		bottom_widget = bag_wtp2_select_footer
+		column = { data = name }
+		visible = {
+			any_location_in_market = {
+				is_ownable = yes
+				bag_wtp2_in_zone = yes
+			}
+		}
+		enabled = { always = yes }
+		tooltip_msg_key = bag_wtp2_choose_market_tt
+	}
+
+	effect = {
+		scope:bag_wtp2_target ?= {
+			bag_wtp2_toggle_market_scope = yes
+		}
+	}
+
+	ai_will_do = { value = 0 }
+}

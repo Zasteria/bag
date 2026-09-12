@@ -40,6 +40,7 @@ GENERATORS = (
     ("rgo_bonus_filter", "mods/rgo_bonus_filter/tools/generate_rgo_filter.py"),
     ("goods_target", "mods/goods_target/tools/generate.py"),
     ("where_to_produce", "mods/where_to_produce/tools/generate.py"),
+    ("where_to_produce_v2", "mods/where_to_produce_v2/tools/generate.py"),
     ("auto_build_ru", "mods/auto_build_ru/tools/generate_ru.py"),
     ("nd_ru", "mods/nd_ru/tools/generate_ru.py"),
     ("ru_loc_fix", "mods/ru_loc_fix/tools/generate.py"),

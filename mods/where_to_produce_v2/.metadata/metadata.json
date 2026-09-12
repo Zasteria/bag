@@ -1,0 +1,23 @@
+﻿{
+    "name": "Where To Produce 2",
+    "id": "bag.where_to_produce_v2",
+    "version": "0.0.1",
+    "game_id": "eu5",
+    "supported_game_version": "1.3.*",
+    "short_description": "A planning tool, rebuilt. Pick the ground on the map, then run one of two plans over it.",
+    "tags": [
+        "Trade and Economics",
+        "Utilities",
+        "1.3"
+    ],
+    "relationships": [
+        {
+            "rel_type": "dependency",
+            "id": "community_mod_framework",
+            "display_name": "Community Mod Framework",
+            "resource_type": "mod",
+            "version": "2.*"
+        }
+    ],
+    "game_custom_data": {}
+}
