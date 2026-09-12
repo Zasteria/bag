@@ -56,7 +56,6 @@ KNOWN = {
     "construction_manager": ("romaimperator.construction_manager", "construction manager"),
     "glorp_ui": ("glorp.ui", "glorp"),
     "national_destinies": ("trin.national_destinies", "national destinies"),
-    "auto_build": ("eu5ab", "auto build"),
 }
 
 

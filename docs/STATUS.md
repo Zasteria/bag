@@ -1,4 +1,4 @@
-﻿# Where the eight mods stand
+﻿# Where the seven mods stand
 
 One line each, and a link to the brief. **Read the brief for the mod the task is
 about and no others** — `mods/<mod>/CLAUDE.md` is 300–800 tokens and holds the
@@ -8,12 +8,11 @@ state, the commands, and what fails silently in that mod.
 | --- | --- | --- |
 | [`glorpui_hints`](../mods/glorpui_hints/CLAUDE.md) | confirmed in game; ready to publish once `mods.bat` can install it | the religious-aspect gate |
 | [`ru_loc_fix`](../mods/ru_loc_fix/CLAUDE.md) | working; repairs the base game's own Russian markup, 207 keys | rounds two and three |
-| [`auto_build_ru`](../mods/auto_build_ru/CLAUDE.md) | done and confirmed; 1269 keys | the 0.9.3 work, 28 keys |
+| [`auto_build_ru`](../mods/auto_build_ru/CLAUDE.md) | done and confirmed; 1269 keys. **Пересобрать нельзя**: Advanced Auto Build убран из дерева 2026-09-12, а генератор читает его английские ключи | the 0.9.3 work, 28 keys |
 | [`nd_ru`](../mods/nd_ru/CLAUDE.md) | in progress; 4 174 keys, 10.2% | everything except Westphalia and the override itself |
 | [`rgo_bonus_filter`](../mods/rgo_bonus_filter/CLAUDE.md) | working, in use, nothing outstanding | the location-panel chip |
 | [`goods_target`](../mods/goods_target/CLAUDE.md) | paused, half working, four faults known | anything on the monthly pulse |
-| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | **Первая версия, заменяется.** Построено всё — ранг, план, «Специализация», редактор, грамоты, шаги 7–8; игралось, и по итогам игры владелец решил собирать мод заново. Состояние на день решения — [`archive/wtp_v1_status.md`](archive/wtp_v1_status.md) | по документам оставалось несколько прогонов, но **его слово 2026-09-12: 90% из этого уже прогонялось или неактуально** — сверять с ним, не с документами |
-| [`where_to_produce_v2`](../mods/where_to_produce_v2/CLAUDE.md) | **Выбор земли и первый расчёт, 2026-09-12.** План по городским правам: формула снята с карты прав CM 2.3.0 (dev) и сверена по числам, две эпохи, список провинций с раскрытием в локации, свой режим карты. «План 2» пуст | **всё: в игре не было ни разу.** Ждут прогона страница мода, выбор земли, оба режима карты, «Текущая эпоха» / «Последняя эпоха», раскрытие строки и «Диагностика» |
+| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | **Единственная версия, и работа идёт в ней.** Построено всё — ранг, план, «Специализация», редактор, грамоты, шаги 7–8; он играл с модом и пришёл со списком проблем логики, интерфейса и удобства — списка в документах нет, спросить у него. Попытка построить вторую версию закрыта в день начала ([`archive/wtp2_failed.md`](archive/wtp2_failed.md)); состояние на тот день — [`archive/wtp_v1_status.md`](archive/wtp_v1_status.md) | **его слово 2026-09-12: 90% из того, что документы звали непрогнанным, уже прогонялось или неактуально** — сверять с ним, не с документами |
 
 `where_to_produce` is the second attempt at a question the first one failed at
 without ever being tested. Why the first was removed, and the lesson that shaped
