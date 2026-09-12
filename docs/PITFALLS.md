@@ -6,6 +6,10 @@ none of them raise an error you would notice.
 
 Scan this whenever something silently does nothing.
 
+**«Возьми этот инструмент» — это `cp` и замена префикса, а не новый код**, и
+«соберём заново по подобию» оплачивается его прогонами:
+[`archive/wtp2_failed.md`](archive/wtp2_failed.md), 2026-09-12.
+
 Two subjects outgrew this file and have their own, which `tools/kb.py`
 searches like everything else:
 

@@ -4,6 +4,17 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
+## Вторая версия мода закрыта, работа возвращается в первую
+
+**2026-09-12: `where_to_produce_v2` построен и удалён в тот же день**
+([`archive/wtp2_failed.md`](archive/wtp2_failed.md)). Его решение: править
+готовую первую версию, а не строить рядом новую. **Чужой инструмент, который
+просят «взять», — копировать файлами, а не воспроизводить формулой.**
+
+**С чего начинать следующую работу по `where_to_produce`:** он играл с модом и
+пришёл со списком — «проблемы с логикой мода, с интерфейсом, с удобством».
+Списка в документах нет, и выдумывать его нельзя: спросить у него.
+
 ## Работа: `where_to_produce` — построено всё, остался прогон
 
 **Раздача закрыта прогоном 2026-09-08**

@@ -62,7 +62,7 @@
     .\tools\sync_workshop.ps1
 
 .EXAMPLE
-    .\tools\sync_workshop.ps1 -Only national_destinies auto_build
+    .\tools\sync_workshop.ps1 -Only national_destinies construction_manager
 
 .EXAMPLE
     .\tools\sync_workshop.ps1 -SteamCmd C:\steamcmd\steamcmd.exe -Login myaccount

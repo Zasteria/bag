@@ -45,7 +45,9 @@ What it can do, in the order the work actually happens:
 4. **Move a mod between those two**, which is the only decision in here that
    changes what this repository watches: promoting one adds it to
    `tools/workshop_mods.txt` and it starts arriving whole and getting checked
-   daily on GitHub; demoting one puts it back in the text-only tree.
+   daily on GitHub; demoting one puts it back in the text-only tree; forgetting
+   one deletes the copy and the daily check, leaving the Steam subscription
+   alone.
 
 5. **Commit and push**, to whatever branch he says, `main` included.
 
@@ -839,6 +841,56 @@ def demote(mod: Mod, world: World) -> None:
     say("потому что в playset лежит только текст.")
 
 
+def forget(mod: Mod, world: World) -> None:
+    """Убрать копию мода из репозитория совсем -- и из reference, и из playset.
+
+    **Третья дверь рядом с `promote` и `demote`, и она никуда не ведёт.** Те две
+    перекладывают копию между двумя деревьями; эта удаляет её. Нужна была ровно
+    затем, зачем и появилась: 2026-09-12 владелец убрал Advanced Auto Build --
+    «он говнище и больше не пригодится, всё самое нужное из него давно было
+    взято», -- и сделать это из меню было нечем.
+
+    **Подписка Steam не трогается.** Файлы в `steamapps/workshop/content` --
+    его, не наши: мод остаётся установленным и играется как играл. Удаляется
+    копия в этом репозитории и строка в `tools/workshop_mods.txt`, то есть
+    ежедневная проверка обновлений.
+
+    **Что на него опиралось, сломается**, и молча: генератор, читающий чужие
+    английские ключи, после этого не соберётся. Поэтому спрашивается имя, а не
+    «да/нет», -- то же, что делает сама мастерская, когда удаляет предмет.
+    """
+    say()
+    say("Это удалит копию %s из репозитория:" % mod.name)
+    if mod.folder is not None:
+        say("  %s" % mod.folder)
+    if mod.key:
+        say("  и строку «%s» из tools/workshop_mods.txt — проверка обновлений прекратится" % mod.key)
+    say()
+    say("Подписка Steam не трогается: мод останется установленным и в игре.")
+    say("Всё, что читало его файлы отсюда, сломается — генераторы переводов в том числе.")
+    say()
+    if ask("Впиши имя мода, чтобы подтвердить (Enter — отмена): ").strip() != mod.name.strip():
+        say("Отменено.")
+        return
+
+    if mod.key or mod.id:
+        lines = workshop.MANIFEST.read_text(encoding="utf-8").splitlines()
+        kept = [line for line in lines if not line.strip().startswith(mod.id)]
+        if len(kept) != len(lines):
+            workshop.MANIFEST.write_text("\n".join(kept) + "\n", encoding="utf-8")
+            say("  убрано из tools/workshop_mods.txt")
+
+    if mod.folder is not None and mod.folder.exists():
+        shutil.rmtree(mod.folder, ignore_errors=True)
+        say("  удалено: %s" % mod.folder)
+    else:
+        say("  копии в репозитории и не было")
+
+    say()
+    say("Готово. Проверь `python3 tools/refresh.py`: генератор, который читал")
+    say("этот мод, теперь падает, и его надо убрать из списка или вернуть копию.")
+
+
 # ------------------------------------------------- our own mods, into the game
 
 # A mod folder here is two things at once: what the game loads, and what this
@@ -1241,6 +1293,8 @@ def screen_list(world: World, configured: dict) -> None:
         else:
             say("  1  отправить в reference (целиком, с проверкой обновлений)")
         say("  2  скачать свежую версию в Steam")
+        if mod.where != UNTRACKED:
+            say("  3  убрать копию из репозитория совсем (подписку Steam не трогает)")
         say("  0  назад")
         choice = ask("> ")
         if choice == "1":
@@ -1252,6 +1306,9 @@ def screen_list(world: World, configured: dict) -> None:
             world.mods = gather(configured).mods
         elif choice == "2":
             download(configured, [mod], world.content)
+        elif choice == "3" and mod.where != UNTRACKED:
+            forget(mod, world)
+            world.mods = gather(configured).mods
 
 
 def screen_publish() -> None:
@@ -1436,7 +1493,7 @@ def menu(configured: dict) -> int:
         say("=" * 62)
         say("  1  Обновить моды в Steam: сверить сборки, скачать, заменить")
         say("  2  Обновить копии в репозитории (reference / playset)")
-        say("  3  Мои моды: список, что где лежит, перенос между ними")
+        say("  3  Мои моды: список, что где лежит, перенос между ними и удаление")
         say("  4  Поставить наши моды в игру")
         say("  5  Готов ли наш мод к мастерской")
         say("  6  Забрать диагностику из игры")
