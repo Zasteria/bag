@@ -185,4 +185,25 @@ bag_wtp2_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp2_diag_runs } }
 		set_global_variable = { name = bag_wtp2_diag_runs value = 0 }
 	}
+	# Счётчики прохода по городским правам. Окно печатает все три с момента,
+	# когда его можно открыть, то есть до первого нажатия.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp2_tr_runs } }
+		set_global_variable = { name = bag_wtp2_tr_runs value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp2_tr_row_count } }
+		set_global_variable = { name = bag_wtp2_tr_row_count value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp2_tr_loc_count } }
+		set_global_variable = { name = bag_wtp2_tr_loc_count value = 0 }
+	}
+	# Какой эпохой считает проход. Существует заранее, потому что ворота эпохи
+	# спрашивают его сравнением, а сравнение с несуществующей глобалкой -- это
+	# тихое «нет» для всех двухсот методов разом.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp2_tr_end } }
+		set_global_variable = { name = bag_wtp2_tr_end value = 0 }
+	}
 }

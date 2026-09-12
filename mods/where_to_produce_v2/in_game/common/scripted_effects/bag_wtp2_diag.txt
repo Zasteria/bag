@@ -33,6 +33,12 @@ bag_wtp2_diag = {
 
 	debug_log = "WTP2 GROUND continents=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg1')|0] regions=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg2')|0] picked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg3')|0] presses=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg4')|0]"
 
-	debug_log = "WTP2 NOTE no plan exists yet: both Расчёты buttons open a window and compute nothing."
+	# Городские права. Три числа, и каждое отделяет одну неудачу от другой:
+	# ноль провинций при непустом выборе -- проход не дошёл до земли;
+	# провинции есть, а локаций ноль -- определение обошли, но не посчитали;
+	# всё есть, а покрытия нули -- считает, но земля ничего не кормит.
+	debug_log = "WTP2 RIGHTS runs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg5')|0] provinces=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg6')|0] locations=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg7')|0] end_age=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp2_dg8')|0]"
+
+	debug_log = "WTP2 NOTE the only pass that exists is the town-rights one; Расчёты 2 opens an empty window."
 	debug_log = "WTP2 ==== END v1 ===="
 }

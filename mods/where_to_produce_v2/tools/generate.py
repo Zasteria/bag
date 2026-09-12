@@ -35,7 +35,11 @@ MOD = Path(__file__).resolve().parent.parent
 REPO = MOD.parent.parent
 sys.path.insert(0, str(REPO / "tools"))
 
+import eu5data  # noqa: E402
 import refs  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import rights as tr  # noqa: E402
 
 MOD_ID = "bag_wtp2"
 TAB_ZONE = "zone"
@@ -55,6 +59,12 @@ ZONE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp2_generated_zone.txt"
 REGION_OUT = MOD / "in_game/common/scripted_effects/bag_wtp2_generated_regions.txt"
 TRIGGER_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp2_generated_triggers.txt"
 SGUI_OUT = MOD / "in_game/common/scripted_guis/bag_wtp2_generated_scripted_gui.txt"
+TR_VALUES_OUT = MOD / "in_game/common/script_values/bag_wtp2_generated_tr_values.txt"
+TR_EFFECTS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp2_generated_tr_effects.txt"
+TR_TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp2_generated_tr_triggers.txt"
+TR_LOC_OUT = MOD / "in_game/common/customizable_localization/bag_wtp2_generated_tr_loc.txt"
+TR_MAP_OUT = MOD / "in_game/gfx/map/map_modes/bag_wtp2_rights.txt"
+TR_NAMES_OUT = MOD / "main_menu/localization/%s/bag_wtp2_tr_names_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
 
@@ -290,6 +300,28 @@ def main() -> int:
     write(TRIGGER_OUT, trigger_file())
     write(SGUI_OUT, sgui_file(by_continent))
 
+    # ---- городские права -----------------------------------------------
+    #
+    # **Ваниль и только ваниль.** Расчёт снят с карты CM, которая считает по
+    # игре; чужие моды сюда не кладутся, пока об этом не попросят -- это одна
+    # строка (`eu5data.load_game()` без аргументов кладёт `reference/mods`
+    # поверх игровой), и цена ей -- методы чужих модов в покрытиях.
+    game = eu5data.load_game(refs.GAME_COMMON, [])
+    potentials = eu5data.location_potentials([refs.GAME_COMMON / "building_types"])
+    adv_building, adv_method = tr.advance_unlocks([refs.GAME / "in_game/common/advances"])
+    rights, boosted, options = tr.collect(game, potentials, adv_building, adv_method)
+
+    write(TR_VALUES_OUT, tr.values_file(game, rights, boosted, options))
+    write(TR_TRIGGERS_OUT, tr.triggers_file(game, rights, options))
+    write(TR_EFFECTS_OUT, tr.effects_file(game, rights, boosted, options))
+    write(TR_LOC_OUT, tr.loc_file(rights))
+    write(TR_MAP_OUT, tr.mapmode_file(rights))
+    for language in LOC_LANGUAGES:
+        rows = tr.loc_keys(language, rights)
+        write(Path(str(TR_NAMES_OUT) % (language, language)),
+              f"l_{language}:\n" + "".join(f' {k}: "{v}"\n' for k, v in rows))
+    methods_total = sum(len(v) for v in options.values())
+
     # The stamp's own files are written after the hash is taken, so it cannot
     # hash itself.
     stamped = sorted(
@@ -309,6 +341,8 @@ def main() -> int:
     print(f"build {stamp}, hashed from {len(stamped)} files")
     print(f"{sum(len(v) for v in by_continent.values())} regions in "
           f"{len(by_continent)} lists, {len(CONTINENTS)} continents")
+    print(f"{len(rights)} town rights over {len(boosted)} goods, "
+          f"{methods_total} production methods scored")
     return 0
 
 

@@ -17,3 +17,7 @@ bag_wtp2_dg1 = { value = global_var:bag_wtp2_zone_count }
 bag_wtp2_dg2 = { value = global_var:bag_wtp2_region_count }
 bag_wtp2_dg3 = { value = global_var:bag_wtp2_picked_count }
 bag_wtp2_dg4 = { value = global_var:bag_wtp2_diag_runs }
+bag_wtp2_dg5 = { value = global_var:bag_wtp2_tr_runs }
+bag_wtp2_dg6 = { value = global_var:bag_wtp2_tr_row_count }
+bag_wtp2_dg7 = { value = global_var:bag_wtp2_tr_loc_count }
+bag_wtp2_dg8 = { value = global_var:bag_wtp2_tr_end }

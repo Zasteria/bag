@@ -1,14 +1,159 @@
-﻿# «План 1» -- первое из двух окон расчёта. Чем он будет считать, ещё не решено.
+﻿# «План — городские права»: какое право специализации подходит какой провинции.
 #
-# **Форма окна взята у игры, а не придумана.** `ai_settings_menu.gui` -- свободное
-# окно ровно этого вида: `size` и `using = bg_window_default_alt` стоят **на самом
-# `window`**, а `vbox` лежит в нём напрямую. Лишний `widget` между ними держит
-# свою ширину, и шапка внутри него не тянется за окном -- это чинилось трижды
-# свойствами самой шапки и не чинилось.
+# **Расчёт снят с карты городских прав Construction Manager** и воспроизведён в
+# генераторе (`tools/rights.py`); окно только показывает то, что проход оставил
+# на локациях. Строка -- определение провинции, разворачивается в свои локации.
 #
-# **Внутри пусто, и это не заготовка «на потом», а нынешнее состояние мода.**
-# Окно существует, открывается своей кнопкой, несёт полосу выбора земли и
-# говорит, что расчёта нет. Всё, что появится, появится в нижней коробке.
+# **Форма окна взята у игры**, `ai_settings_menu.gui`: `size` и
+# `using = bg_window_default_alt` стоят на самом `window`, `vbox` лежит в нём
+# напрямую, между ними не бывает ничего. `docs/pitfalls/windows.md` -- весь
+# чек-лист, и каждая строка в нём кем-то оплачена.
+#
+# **Ширина.** Ряд провинции 540, ряд локации 540, полоса земли 935; окно 1100,
+# то есть запас 1060 -- считается вычитанием из коробки, а не прибавлением к
+# ряду.
+
+types BagWtp2RightsTypes {
+
+	# Одна локация развёрнутой провинции. Покрытие у всех локаций определения
+	# одно, а различает их местность здания, своя РГО и уже стоящее усиление --
+	# поэтому право и процент печатаются у каждой свои.
+	type bag_wtp2_tr_loc_row = hbox {
+		# Озёра, моря и непроходимое лежат в `GetLocations` и землёй не являются.
+		# Родитель несёт `ignoreinvisible`, так что скрытый ряд места не держит.
+		visible = "[Location.IsPossibleToOwn]"
+		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
+		spacing = 0
+		using = bg_number_container_bckg
+
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.Self)]"
+
+		widget = { size = { 30 28 } }
+
+		widget = {
+			size = { 30 28 }
+			icon = {
+				size = { 16 16 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[Location.GetRankIcon]"
+				tooltipwidget = { using = location_simple_tooltip }
+			}
+		}
+
+		text_single = {
+			size = { 210 28 }
+			autoresize = no
+			maximumsize = { 210 28 }
+			align = left|vcenter
+			fontsize = 13
+			elide = right
+			text = "[Location.GetName]"
+		}
+
+		text_single = {
+			size = { 180 28 }
+			autoresize = no
+			maximumsize = { 180 28 }
+			align = left|vcenter
+			fontsize = 13
+			elide = right
+			text = "bag_wtp2_tr_right_cell"
+		}
+
+		text_single = {
+			size = { 90 28 }
+			autoresize = no
+			maximumsize = { 90 28 }
+			align = right|vcenter
+			fontsize = 13
+			elide = right
+			text = "bag_wtp2_tr_pct_cell"
+			tooltip = "bag_wtp2_tr_pct_tt"
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
+	}
+
+	# Одна провинция: ответ одной строкой, локации под ней по нажатию.
+	type bag_wtp2_tr_prov_row = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 32 }
+		spacing = 0
+		using = bg_number_container_bckg
+
+		button_regular = {
+			size = { 30 28 }
+			parentanchor = vcenter
+			tooltip = "bag_wtp2_tr_expand_tt"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 14
+				text = "bag_wtp2_tr_expand_mark"
+			}
+			onclick = "[GetScriptedGui('bag_wtp2_tr_press_row').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp2_row', Location.MakeScope).End)]"
+		}
+
+		text_single = {
+			size = { 240 32 }
+			autoresize = no
+			maximumsize = { 240 32 }
+			align = left|vcenter
+			fontsize = 14
+			elide = right
+			text = "[Location.GetProvinceDefinition.GetName]"
+		}
+
+		text_single = {
+			size = { 180 32 }
+			autoresize = no
+			maximumsize = { 180 32 }
+			align = left|vcenter
+			fontsize = 14
+			elide = right
+			text = "bag_wtp2_tr_right_cell"
+		}
+
+		text_single = {
+			size = { 90 32 }
+			autoresize = no
+			maximumsize = { 90 32 }
+			align = right|vcenter
+			fontsize = 14
+			elide = right
+			text = "bag_wtp2_tr_pct_cell"
+			tooltip = "bag_wtp2_tr_pct_tt"
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 32 } }
+	}
+
+	# Строка и её раскрытие. **Датамодель локаций лежит в своей коробке**, а не
+	# рядом со строкой: статический ребёнок в коробке с `datamodel` -- это форма,
+	# которая роняла игру четыре сборки подряд.
+	type bag_wtp2_tr_prov_entry = vbox {
+		layoutpolicy_horizontal = expanding
+		spacing = 2
+
+		bag_wtp2_tr_prov_row = {}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 1
+			ignoreinvisible = yes
+			visible = "[Location.MakeScope.GetVariable('bag_wtp2_tr_open').IsSet]"
+			datamodel = "[Location.GetProvinceDefinition.GetLocations]"
+			item = {
+				bag_wtp2_tr_loc_row = {
+					datacontext = "[Scope.GetLocation]"
+				}
+			}
+		}
+	}
+}
 
 window = {
 	name = "bag_wtp2_plan_a_window"
@@ -40,9 +185,6 @@ window = {
 	vbox = {
 		using = window_margin_alt
 
-		# `layoutpolicy_horizontal = expanding` на шапке -- без неё шапка держит
-		# ширину своего типа, что бы ни делало окно. Все окна игры несут эту
-		# строку; все окна прошлого мода её потеряли, и это был третий раз.
 		window_header_alt = {
 			blockoverride "header_text" { text = "bag_wtp2_plan_a_title" }
 			blockoverride "window_header_alt_color_texture" { using = color_production_texture }
@@ -55,7 +197,6 @@ window = {
 			margin = { 12 12 }
 			spacing = 8
 
-			# ---- земля ------------------------------------------------------
 			text_single = {
 				size = { 1040 22 }
 				autoresize = no
@@ -67,23 +208,151 @@ window = {
 
 			bag_wtp2_ground_row = {}
 
-			# Пустая полоса вместо разделителя: `divider_light` в игре нет, а
-			# выдуманное имя типа -- это виджет, который не создаётся, и ни
-			# одной строки в логе. Проверено по `reference/game/in_game/gui`.
-			widget = { layoutpolicy_horizontal = expanding size = { -1 6 } }
+			widget = { layoutpolicy_horizontal = expanding size = { -1 4 } }
 
-			# ---- то, чего ещё нет -------------------------------------------
+			# **Две эпохи -- две кнопки, и каждая считает заново.** Ступень товара
+			# по дороге меняет сырьё, поэтому «что подходит сейчас» и «что
+			# подойдёт в конце» -- два разных ответа, а не один с поправкой.
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 8
+
+				button_regular = {
+					size = { 190 34 }
+					tooltip = "bag_wtp2_tr_now_tt"
+					text_single = {
+						size = { 180 30 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 180 30 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp2_tr_now"
+					}
+					onclick = "[GetScriptedGui('bag_wtp2_tr_press_now').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				button_regular = {
+					size = { 190 34 }
+					tooltip = "bag_wtp2_tr_end_tt"
+					text_single = {
+						size = { 180 30 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 180 30 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp2_tr_end"
+					}
+					onclick = "[GetScriptedGui('bag_wtp2_tr_press_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				# **Окно обязано говорить, каким режимом посчитано то, что в нём
+				# лежит.** Два ответа выглядят одинаково, и без этой строки
+				# «почему в плане гончарная мельница» — вопрос без ответа.
+				widget = {
+					size = { 150 34 }
+					text_single = {
+						parentanchor = vcenter
+						autoresize = yes
+						fontsize = 13
+						visible = "[GetScriptedGui('bag_wtp2_tr_is_end').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = "bag_wtp2_tr_mode_end"
+					}
+					text_single = {
+						parentanchor = vcenter
+						autoresize = yes
+						fontsize = 13
+						visible = "[Not(GetScriptedGui('bag_wtp2_tr_is_end').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+						text = "bag_wtp2_tr_mode_now"
+					}
+				}
+
+				widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+
+				text_single = {
+					size = { 380 34 }
+					autoresize = no
+					maximumsize = { 380 34 }
+					align = right|vcenter
+					fontsize = 13
+					fontsize_min = 10
+					elide = right
+					text = "bag_wtp2_tr_summary"
+					tooltip = "bag_wtp2_tr_summary_tt"
+				}
+			}
+
+			# Шапка таблицы. Ширины обязаны совпадать с рядом провинции.
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 0
+
+				widget = { size = { 30 20 } }
+
+				text_single = {
+					size = { 240 20 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 12
+					elide = right
+					text = "bag_wtp2_tr_head_prov"
+				}
+
+				text_single = {
+					size = { 180 20 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 12
+					elide = right
+					text = "bag_wtp2_tr_head_right"
+				}
+
+				text_single = {
+					size = { 90 20 }
+					autoresize = no
+					align = right|vcenter
+					fontsize = 12
+					elide = right
+					text = "bag_wtp2_tr_head_pct"
+				}
+
+				widget = { layoutpolicy_horizontal = expanding size = { -1 20 } }
+			}
+
 			text_multi = {
 				layoutpolicy_horizontal = expanding
 				autoresize = yes
-				maximumsize = { 1040 120 }
-				align = left
-				text = "bag_wtp2_plan_a_empty"
+				maximumsize = { 1040 60 }
+				align = center
+				visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp2_tr_rows')))]"
+				text = "bag_wtp2_tr_empty"
 			}
 
-			widget = {
+			scrollbox = {
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
+				blockoverride "scrollbox_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = preferred
+						margin = { 10 8 }
+						margin_right = 20
+						spacing = 3
+						datamodel = "[GetGlobalList('bag_wtp2_tr_rows')]"
+						item = {
+							bag_wtp2_tr_prov_entry = {
+								datacontext = "[Scope.GetLocation]"
+							}
+						}
+					}
+				}
 			}
 		}
 	}
