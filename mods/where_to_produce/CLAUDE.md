@@ -4,10 +4,10 @@
 
 «Ты постоянно смешиваешь функции плана и редактирования» — его слова.
 
-**The mod page is three tabs and three buttons that only open windows**, every
-setting inside the window of its function. **Two rules of his**: **no
-descriptions in a window header** — that is the control's tooltip — and
-**anything technical belongs on «Техническая»**
+**The mod page is three tabs and buttons that only open windows**, every setting
+inside the window of its function. **Two rules of his**: **no descriptions in a
+window header** — that is the control's tooltip — and **anything technical
+belongs on «Техническая»**
 ([`wtp_menu_rebuild.md`](../../docs/investigations/wtp_menu_rebuild.md)).
 
 | # | what | where | files |
@@ -18,12 +18,10 @@ descriptions in a window header** — that is the control's tooltip — and
 | 4 | **Editing that plan afterwards**, one building at a time | the editor window, and only there | `_edit_*` |
 
 **Деревня — сущность, а не товар, и правило обязано стоять в обоих местах**:
-ворота плана её из товара выбрасывали, ворота редактора — нет (2026-09-12). У
-редактора свой `own_groups`; деревни стоят в той же сетке «+1/−1» под номерами
-`len(order) + k`, значком со своей глобалки `_vbt<k>`.
+ворота плана её из товара выбрасывали, ворота редактора — нет (2026-09-12).
+У редактора свой `own_groups`; деревня стоит в той же сетке «+1/−1».
 
-**Триггер живёт только в `common/scripted_triggers`** — `_is_food_loc` лежал в
-файле эффектов, и кнопка житницы показывалась везде (ловит `check_script.py`).
+**Триггер живёт только в `common/scripted_triggers`** (ловит `check_script.py`).
 **Ворота постановки после плана врут**: всё, что читается **после** раздачи,
 спрашивает факт (`_pm<n> > 0`), а не `_plan_can_*`. Два прогона: 09-03 и 09-13.
 
@@ -38,20 +36,22 @@ rank and outlives a save.**
 ## Where it stands
 
 **Его список — [`wtp_backlog.md`](../../docs/investigations/wtp_backlog.md), и он
-открыт.** Построено всё, кроме 7, 9 и **ванильной отмашки автостроя** (CM снят
+открыт.** Построено всё, кроме 9 и **ванильной отмашки автостроя** (CM снят
 с плейсета, замена ей живёт только в интерфейсе: `ToggleAutoExpandBuilding`).
-**«Специализация» — галочка в окне плана**; **девять провинций и больше — одна
-грамота на провинцию**; **житница заполняется сама**; сводка — две страницы;
-**окно замены** (`_swap_*`) правит одну локацию списком зданий и зовёт те же
-`_edit_place_*` / `_edit_remove_*`.
+Что именно сделано и что смотреть в игре — там же, в конце.
 
+**Карта «Лучшее городское право» перенесена из CM dev целиком** (`_trmm_*`,
+[`wtp_town_right_map.md`](../../docs/investigations/wtp_town_right_map.md)):
+эталон, с которым сверять наш счёт прав, и три отличия его расчёта от нашего —
+там же. Проход за клеймом `_trmm_stamp`, и клеймо обязательно: **регистрация
+CMF идёт на каждое открытие страницы мода**, а не только на загрузке.
 
 **Раздача, редактор, доливка, ряды, «Специализация», сводка** —
 [`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md),
 [`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md),
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
-**Выгода от земли — свойство ПРОВИНЦИИ** (`_g<n>`), значит внутри провинции
-менять нечего ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
+**Выгода от земли — свойство ПРОВИНЦИИ** (`_g<n>`): внутри провинции менять
+нечего.
 
 **Чужие окна** —
 [`wtp_integration.md`](../../docs/investigations/wtp_integration.md): **`root` в

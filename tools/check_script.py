@@ -72,9 +72,14 @@ WRITTEN = (
     # **`remove_variable` is not a write.** A variable only ever removed and read
     # is precisely the fault: the rename that broke both plan buttons left the
     # window's flag with a reader, a remover, and nobody to set it.
-    re.compile(r'(?:set|change)(?:_global)?_variable(?:_list)?\s*=\s*'
+    # **A local is a write too.** `local_var:x` matches the `var:` arm of
+    # BEING_READ below -- nothing stands in front of `var:` there -- so unless
+    # `set_local_variable` counts, every staged local reads as never set. The
+    # town-rights map copy staged nineteen of them and all nineteen were
+    # reported as faults.
+    re.compile(r'(?:set|change)(?:_global|_local)?_variable(?:_list)?\s*=\s*'
                r'\{\s*name\s*=\s*(\w+)'),
-    re.compile(r'add_to(?:_global)?_variable_list\s*=\s*\{\s*name\s*=\s*(\w+)'),
+    re.compile(r'add_to(?:_global|_local)?_variable_list\s*=\s*\{\s*name\s*=\s*(\w+)'),
     # CMF owns these: a setting alias and a list it builds are written by the
     # framework, and the mod only ever reads them back.
     re.compile(r'(?:alias|list_name)\s*=\s*(\w+)'),

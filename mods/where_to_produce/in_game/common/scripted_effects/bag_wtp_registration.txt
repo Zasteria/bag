@@ -112,6 +112,17 @@ bag_wtp_register = {
 		group_id = tech
 	}
 
+	# «Пересчитать карту прав». Проход карты городских прав идёт сам на первой
+	# загрузке и больше не идёт никогда: он читает сырьё провинций и модификаторы
+	# вывода, а они меняются по ходу партии. Эта кнопка сбрасывает клеймо и
+	# считает заново -- нажимать, когда карта отстала от игры.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = trmm
+		tab_id = tech
+		group_id = tech
+	}
+
 	# Every picker folded shut, once, the first time this player sees the page.
 	# Five region lists and the continent list all open is a page to scroll
 	# rather than a page to read; after this the player's own folding is his.
@@ -149,6 +160,19 @@ bag_wtp_register = {
 	# index and no circle, and a chosen good the player cannot see is the fault
 	# this mod has paid for twice.
 	bag_wtp_sync_sel = yes
+
+	# Карта «Лучшее городское право», перенесённая из CM: один проход по всем
+	# определениям провинций, за клеймом, ровно как у него. Регистрация CMF
+	# срабатывает и при каждом открытии страницы мода, поэтому без клейма это был
+	# бы полный проход по карте на каждое открытие; с клеймом второй раз не делает
+	# ничего. Пересчёт вручную -- кнопка «Пересчитать карту прав» на «Технической».
+	if = {
+		limit = { NOT = { bag_wtp_trmm_data_is_current = yes } }
+		bag_wtp_trmm_recompute_all = yes
+		# Проход синхронный, так что недосчитанного состояния, которое клеймо
+		# заверило бы, не бывает.
+		set_global_variable = { name = bag_wtp_trmm_stamp value = bag_wtp_trmm_version_value }
+	}
 
 	# **Nothing here throws the answer away.** This runs on CMF's registration
 	# hook, and the fifteenth run showed that hook firing again every time the

@@ -120,6 +120,14 @@ bag_wtp_on_button = {
 		limit = { var:cmf_callback = flag:bag_wtp__diag }
 		bag_wtp_diag = yes
 	}
+
+	# Пересчёт карты городских прав. Полный проход по определениям провинций --
+	# секунды, а не мгновение, поэтому он кнопка, а не что-то периодическое.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__trmm }
+		bag_wtp_trmm_recompute_all = yes
+		set_global_variable = { name = bag_wtp_trmm_stamp value = bag_wtp_trmm_version_value }
+	}
 }
 
 # Every change of the borders re-ranks, so the window answers as the plan is
