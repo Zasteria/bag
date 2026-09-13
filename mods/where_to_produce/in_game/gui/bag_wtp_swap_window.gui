@@ -53,7 +53,7 @@ types BagWtpSwapTypes {
 				parentanchor = center
 				widgetanchor = center
 				tooltip = "bag_wtp_swap_drop_tt"
-				onclick = "[GetScriptedGui('bag_wtp_swap_drop').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', GetGlobalVariable('bag_wtp_swap_loc').GetLocation.MakeScope).AddScope('wtp_bt', BuildingType.MakeScope).End)]"
+				onclick = "[GetScriptedGui('bag_wtp_swap_drop').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_bt', BuildingType.MakeScope).End)]"
 				text_single = {
 					parentanchor = center
 					widgetanchor = center
@@ -99,7 +99,7 @@ types BagWtpSwapTypes {
 				parentanchor = center
 				widgetanchor = center
 				tooltip = "bag_wtp_swap_put_tt"
-				onclick = "[GetScriptedGui('bag_wtp_swap_put').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', GetGlobalVariable('bag_wtp_swap_loc').GetLocation.MakeScope).AddScope('wtp_bt', BuildingType.MakeScope).End)]"
+				onclick = "[GetScriptedGui('bag_wtp_swap_put').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_bt', BuildingType.MakeScope).End)]"
 				text_single = {
 					parentanchor = center
 					widgetanchor = center
@@ -154,6 +154,16 @@ window = {
 			margin = { 12 12 }
 			spacing = 6
 
+			# **Локация берётся один раз и здесь.** Первый заход читал её в
+			# каждом месте заново — `GetGlobalVariable(...).GetLocation.MakeScope
+			# .GetList(...)` — и оба списка вышли пустыми при непустой локации
+			# (его скриншот 2026-09-13: имя в заголовке есть, списков нет).
+			# Имя печаталось той же цепочкой без `MakeScope`, то есть ломалось
+			# именно повторное превращение в скоуп. Теперь `datacontext` даёт
+			# `Location`, и дальше стоит ровно та форма, которой строка плана
+			# рисует эти же списки с самого начала: `Location.MakeScope.GetList`.
+			datacontext = "[GetGlobalVariable('bag_wtp_swap_loc').GetLocation]"
+
 			# Какая локация правится. Имя, а не номер: окно открывается из
 			# строки плана, и перепутать строку легко.
 			text_single = {
@@ -163,7 +173,7 @@ window = {
 				align = left|vcenter
 				fontsize = 14
 				elide = right
-				raw_text = "[GetGlobalVariable('bag_wtp_swap_loc').GetLocation.GetName]"
+				raw_text = "[Location.GetName]"
 			}
 
 			hbox = {
@@ -176,6 +186,9 @@ window = {
 					layoutpolicy_vertical = expanding
 					spacing = 4
 
+					# **Число рядом с заголовком -- зонд, а не украшение.** Пустой
+					# список и оборванная цепочка данных выглядят на экране
+					# одинаково; это число разделяет их одним взглядом.
 					text_single = {
 						size = { 380 22 }
 						autoresize = no
@@ -196,7 +209,7 @@ window = {
 								margin = { 6 4 }
 								margin_right = 16
 								spacing = 3
-								datamodel = "[GetGlobalVariable('bag_wtp_swap_loc').GetLocation.MakeScope.GetList('bag_wtp_row_builds')]"
+								datamodel = "[Location.MakeScope.GetList('bag_wtp_row_builds')]"
 								item = {
 									bag_wtp_swap_here_entry = {
 										datacontext = "[Scope.GetBuildingType]"
@@ -230,7 +243,7 @@ window = {
 							size = { 114 24 }
 							down = "[GetGlobalVariable('bag_wtp_swap_sift').IsSet]"
 							tooltip = "bag_wtp_swap_sift_tt"
-							onclick = "[GetScriptedGui('bag_wtp_swap_sift').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', GetGlobalVariable('bag_wtp_swap_loc').GetLocation.MakeScope).End)]"
+							onclick = "[GetScriptedGui('bag_wtp_swap_sift').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 							text_single = {
 								parentanchor = center
 								widgetanchor = center
@@ -250,7 +263,7 @@ window = {
 								margin = { 6 4 }
 								margin_right = 16
 								spacing = 3
-								datamodel = "[GetGlobalVariable('bag_wtp_swap_loc').GetLocation.MakeScope.GetList('bag_wtp_swap_can')]"
+								datamodel = "[Location.MakeScope.GetList('bag_wtp_swap_can')]"
 								item = {
 									bag_wtp_swap_can_entry = {
 										datacontext = "[Scope.GetBuildingType]"

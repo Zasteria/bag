@@ -3517,7 +3517,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {src}{tab}\t\tscope:{MOD_ID}_country = {{ can_build_building = building_type:{building} }}
 {tab}\t}}
 {tab}\tadd_to_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }}
-{tab}\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = raw_material }}
 {tab}\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
 {tab}\tchange_global_variable = {{ name = {MOD_ID}_plan_placed add = 1 }}
 {tab}\tchange_global_variable = {{ name = {MOD_ID}_gran_put add = 1 }}
@@ -4665,14 +4664,20 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                     f"var:{MOD_ID}_plan_right = {k} }}\n{inside}\t\t}}\n")
     rest = "".join(row_entry(index, good, "\t\t")
                    for index, good in enumerate(order, start=1))
-    # **И домики житницы, последними в обеих строках сразу.** У них нет своего
-    # товара: в `_row_goods` идёт сырьё самой локации, потому что житница по
-    # определению стоит на продовольственном РГО, а обе строки обязаны идти
-    # индекс в индекс (`ROWPAIR` в диагностике это и проверяет).
+    # **Домики житницы -- свой список, и пару строк они не трогают.**
+    #
+    # Сначала они шли в `_row_goods`/`_row_builds` парой «сырьё локации --
+    # домик», и это сломало инвариант: `add_to_variable_list` кладёт один и тот
+    # же товар один раз, а домиков житница ставит несколько, так что списки
+    # разъезжались по длине. Прогон 2026-09-13 это и намерил:
+    # `WTP ROWPAIR rows=37 mismatched=7`, при семи ожидаемых нулях.
+    #
+    # Своего товара у этих домиков нет вовсе -- они ничего не производят, --
+    # поэтому им и не место в паре. `_row_gran` рисуется в строке отдельным
+    # датамоделем, как деревни в списке изменений.
     gran_rows = "".join(f"""\t\tif = {{
 \t\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{b} }} }}
-\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_goods target = raw_material }}
-\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_builds target = building_type:{b} }}
+\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_gran target = building_type:{b} }}
 \t\t}}
 """ for b in granary_buildings())
     out.append(f"""
@@ -4683,6 +4688,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tclear_variable_list = {MOD_ID}_row_goods
 \t\tclear_variable_list = {MOD_ID}_row_builds
+\t\tclear_variable_list = {MOD_ID}_row_gran
 {bundles}{rest}{gran_rows}\t}}
 }}
 
@@ -4772,7 +4778,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     gran_clear = "".join(f"""\tif = {{
 \t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_builds target = building_type:{b} }} }}
 \t\tremove_list_variable = {{ name = {MOD_ID}_plan_builds target = building_type:{b} }}
-\t\tremove_list_variable = {{ name = {MOD_ID}_plan_goods target = raw_material }}
 \t\tchange_variable = {{ name = {MOD_ID}_load subtract = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed subtract = 1 }}
 \t}}
@@ -10439,9 +10444,15 @@ def swap_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 }}
 
 # Список заново: {SWAP_MAX} кругов или пока не кончатся кандидаты.
-# Scope: country, ждёт scope:wtp_location
+#
+# **Локация берётся из глобалки, а не из скоупа.** Кнопки внутри окна живут в
+# типе строки датамодели: скоуп там -- здание, а локацию пришлось бы тащить
+# через `GetGlobalVariable(...).GetLocation.MakeScope`, и ровно эта цепочка
+# 2026-09-13 вернула пустые списки при непустой локации. `global_var:X = {{ }}`
+# как переход в скоуп -- форма самой игры (`character_death_pulses.txt`).
+# Scope: country
 {MOD_ID}_swap_rebuild = {{
-\tscope:wtp_location = {{
+\tglobal_var:{MOD_ID}_swap_loc = {{
 \t\tclear_variable_list = {MOD_ID}_swap_can
 \t\tset_variable = {{ name = {MOD_ID}_swap_more value = 1 }}
 \t\tset_variable = {{ name = {MOD_ID}_swap_k value = 0 }}
@@ -10500,9 +10511,9 @@ def swap_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # стоит здесь ради одного из них, и какого именно -- знает `_edit_remove_*`
 # через `_pm<n>`. Спрашивать это здесь значило бы держать второй экземпляр того
 # же знания.
-# Scope: country, ждёт scope:wtp_location и scope:wtp_bt
+# Scope: country, ждёт scope:wtp_bt
 {MOD_ID}_swap_drop_effect = {{
-\tscope:wtp_location = {{
+\tglobal_var:{MOD_ID}_swap_loc = {{
 {drop}\t}}
 \t{MOD_ID}_plan_rows = yes
 \t{MOD_ID}_swap_rebuild = yes
@@ -10512,16 +10523,16 @@ def swap_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 #
 # `_edit_place_*` сам спрашивает и ворота (`_edit_fits_*`), и комнату, поэтому
 # нажатие в полной локации просто ничего не делает -- места освобождает «×».
-# Scope: country, ждёт scope:wtp_location и scope:wtp_bt
+# Scope: country, ждёт scope:wtp_bt
 {MOD_ID}_swap_put_effect = {{
-\tscope:wtp_location = {{
+\tglobal_var:{MOD_ID}_swap_loc = {{
 {put}\t}}
 \t{MOD_ID}_plan_rows = yes
 \t{MOD_ID}_swap_rebuild = yes
 }}
 
 # «Отсеять» -- тумблер, и список пересобирается тут же.
-# Scope: country, ждёт scope:wtp_location
+# Scope: country
 {MOD_ID}_swap_sift_effect = {{
 \tif = {{
 \t\tlimit = {{ has_global_variable = {MOD_ID}_swap_sift }}
@@ -13106,6 +13117,12 @@ types BagWtpSumCells {
 \t\tsize = {{ {RSUM_ROW_W} 26 }}
 \t\tspacing = {SUM_SPACING}
 \t\tusing = bg_number_container_bckg
+\t\t# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+\t\t# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+\t\t# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+\t\t# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+\t\t# ставит её `_refresh_rights` по `potential` самой грамоты.
+\t\tvisible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{k}').IsSet]"
 
 {cells}\t}}
 

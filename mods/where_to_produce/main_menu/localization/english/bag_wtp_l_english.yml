@@ -469,9 +469,9 @@
  # ---- окно замены домика ----
  bag_wtp_swap_window_title: "Replace a building in this location"
  bag_wtp_swap_open_tt: "Replace the buildings in this location.\n\nOpens the location's own window: on the left what the plan holds here, on the right what may stand here, by descending gain from the province's raw materials.\n\nThe button is there only while the editor window is open, and never on a breadbasket: those are filled by a round of their own and undone by one press of the breadbasket mark."
- bag_wtp_swap_head_here: "Standing here"
+ bag_wtp_swap_head_here: "Standing here ([GetDataModelSize(Location.MakeScope.GetList('bag_wtp_row_builds'))|W])"
  bag_wtp_swap_head_here_tt: "What the plan holds in this location. «−» takes a building out at once — the freed room can be filled from the right-hand list."
- bag_wtp_swap_head_can: "May be put here"
+ bag_wtp_swap_head_can: "May be put here ([GetDataModelSize(Location.MakeScope.GetList('bag_wtp_swap_can'))|W])"
  bag_wtp_swap_head_can_tt: "Buildings that may stand in this location, by descending gain from the province's raw materials. «+» puts one into a free room; with no room, take something out on the left first."
  bag_wtp_swap_sift: "Sift"
  bag_wtp_swap_sift_tt: "Drop from the list everything the province's raw materials pay nothing for."

@@ -8427,6 +8427,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok1').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -8507,6 +8513,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok2').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -8587,6 +8599,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok3').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -8667,6 +8685,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok4').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -8747,6 +8771,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok5').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -8827,6 +8857,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok6').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -8907,6 +8943,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok7').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -8987,6 +9029,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok8').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -9067,6 +9115,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok9').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -9147,6 +9201,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok10').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -9227,6 +9287,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok11').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -9307,6 +9373,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok12').IsSet]"
 
 		text_single = {
 			size = { 300 26 }
@@ -9387,6 +9459,12 @@ types BagWtpSumCells {
 		size = { 1050 26 }
 		spacing = 6
 		using = bg_number_container_bckg
+		# **Грамота, которой этой державе не видать, в сводку не идёт вовсе.**
+		# Его слово 2026-09-13: «у него как ни странно не должно быть никаких
+		# прав Константинополя и остальных не для его державы». `_right_ok<k>` --
+		# та же переменная, которой окно поиска гасит клетку недоступной грамоты;
+		# ставит её `_refresh_rights` по `potential` самой грамоты.
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok13').IsSet]"
 
 		text_single = {
 			size = { 300 26 }

@@ -2143,7 +2143,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:farming_village }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2161,7 +2160,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:irrigation_systems }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:irrigation_systems }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2179,7 +2177,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:pound_lock_canal_infrastructure }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pound_lock_canal_infrastructure }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2197,7 +2194,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:windmill }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:windmill }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2215,7 +2211,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:aqueduct_system }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:aqueduct_system }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2233,7 +2228,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:trade_company_local_venture }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:trade_company_local_venture }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2251,7 +2245,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:pomor_outpost }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pomor_outpost }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2269,7 +2262,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:polders }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:polders }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2287,7 +2279,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:terraces }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:terraces }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2305,7 +2296,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:incamisana }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:incamisana }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2323,7 +2313,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:bund }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bund }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2341,7 +2330,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:great_valley_complex }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:great_valley_complex }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2359,7 +2347,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:khmer_baray }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:khmer_baray }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2377,7 +2364,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:bubu_building }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bubu_building }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2395,7 +2381,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:fulani_cattle_rearing_pen }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fulani_cattle_rearing_pen }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2414,7 +2399,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_adu_acequia }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_adu_acequia }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2433,7 +2417,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_aeg_shaduf_network }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aeg_shaduf_network }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2452,7 +2435,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_aia_falaj_system }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aia_falaj_system }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2471,7 +2453,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_bah_baoli }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bah_baoli }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2490,7 +2471,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_bej_gold_camp }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_gold_camp }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2509,7 +2489,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_bej_camel_market }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_camel_market }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2528,7 +2507,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_bng_delta_bund }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bng_delta_bund }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2547,7 +2525,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_bnh_qanat_works }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_qanat_works }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2566,7 +2543,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_byz_imperial_cistern }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_byz_imperial_cistern }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2585,7 +2561,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_cda_almadraba }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cda_almadraba }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2604,7 +2579,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_cpt_miqyas }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_miqyas }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2623,7 +2597,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_cpt_deir_estate }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_deir_estate }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2642,7 +2615,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_dec_baoli }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dec_baoli }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2661,7 +2633,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_egy_irrigation_works }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_egy_irrigation_works }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2680,7 +2651,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_guj_vav }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_guj_vav }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2699,7 +2669,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_inc_imperial_qullqa }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_inc_imperial_qullqa }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2718,7 +2687,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_iro_longhouse }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_iro_longhouse }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2737,7 +2705,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_irq_nahrawan_headworks }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_nahrawan_headworks }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2756,7 +2723,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_irq_dulab_works }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_dulab_works }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2775,7 +2741,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_kaz_aul_encampment }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_aul_encampment }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2794,7 +2759,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_kaz_livestock_market }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_livestock_market }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2813,7 +2777,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_koa_grain_warehouse }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_koa_grain_warehouse }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2832,7 +2795,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_lbe_kilolo_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_kilolo_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2851,7 +2813,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_liv_getreidelager }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_liv_getreidelager }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2870,7 +2831,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_lmb_marcita }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_marcita }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2889,7 +2849,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_lmb_naviglio }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_naviglio }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2908,7 +2867,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_may_cenote_shrine }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_may_cenote_shrine }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2927,7 +2885,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_maz_szlachta_manor }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_maz_szlachta_manor }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2946,7 +2903,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_mca_highland_terrace }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_highland_terrace }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2965,7 +2921,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_mlc_tin_mine_office }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mlc_tin_mine_office }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -2984,7 +2939,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_mor_imperial_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mor_imperial_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3003,7 +2957,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_msi_earth_shrine }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_earth_shrine }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3022,7 +2975,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_mtm_sawah_terrace }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_sawah_terrace }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3041,7 +2993,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_mtm_lumbung_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_lumbung_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3060,7 +3011,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_mtp_mwari_shrine }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtp_mwari_shrine }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3079,7 +3029,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_ned_waterschap }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ned_waterschap }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3098,7 +3047,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_ntr_rua_kumara }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ntr_rua_kumara }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3117,7 +3065,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_nub_saqia }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nub_saqia }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3136,7 +3083,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_nus_gudang_rempah }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nus_gudang_rempah }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3155,7 +3101,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_occ_jac_de_la_dralha }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_jac_de_la_dralha }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3174,7 +3119,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_out_dest_granary_of_two_cities }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_out_dest_granary_of_two_cities }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3193,7 +3137,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_pgr_pepper_warehouse }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pgr_pepper_warehouse }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3212,7 +3155,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_pue_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pue_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3231,7 +3173,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_pun_doab_canal }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pun_doab_canal }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3250,7 +3191,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_rjp_baoli }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rjp_baoli }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3269,7 +3209,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_rus_fur_post }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_fur_post }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3288,7 +3227,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_rus_ostrog_fort }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_ostrog_fort }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3307,7 +3245,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_sar_piedmont_monte_frumentario }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_piedmont_monte_frumentario }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3326,7 +3263,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_sca_sildesalteri }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sca_sildesalteri }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3345,7 +3281,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_sia_khlong }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_khlong }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3364,7 +3299,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_sia_rong_si }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_rong_si }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3383,7 +3317,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_soe_imperial_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soe_imperial_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3402,7 +3335,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_soi_limestone_well }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_limestone_well }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3421,7 +3353,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_soi_geledi_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_geledi_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3440,7 +3371,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_soi_imperial_cistern }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_imperial_cistern }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3459,7 +3389,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_svb_baray }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_baray }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3478,7 +3407,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_swi_dairy_cooperative }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swi_dairy_cooperative }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3497,7 +3425,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_tib_communal_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tib_communal_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3516,7 +3443,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_ukr_sloboda }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ukr_sloboda }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3535,7 +3461,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_usa_land_grant_college }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_usa_land_grant_college }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3554,7 +3479,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_vjn_tungabhadra_anicut }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_vjn_tungabhadra_anicut }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -3573,7 +3497,6 @@ bag_wtp_food_press_loc_do = {
 					scope:bag_wtp_country = { can_build_building = building_type:nd_yua_steppe_granary }
 				}
 				add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_yua_steppe_granary }
-				add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 				change_variable = { name = bag_wtp_load add = 1 }
 				change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 				change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -104742,6 +104665,7 @@ bag_wtp_plan_rows = {
 		variable = bag_wtp_plan_touched
 		clear_variable_list = bag_wtp_row_goods
 		clear_variable_list = bag_wtp_row_builds
+		clear_variable_list = bag_wtp_row_gran
 		if = {
 			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 1 }
 			if = {
@@ -117319,388 +117243,311 @@ bag_wtp_plan_rows = {
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:farming_village }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:farming_village }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:irrigation_systems } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:irrigation_systems }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:irrigation_systems }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pound_lock_canal_infrastructure } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pound_lock_canal_infrastructure }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:pound_lock_canal_infrastructure }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:windmill } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:windmill }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:windmill }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:aqueduct_system } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:aqueduct_system }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:aqueduct_system }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:trade_company_local_venture } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:trade_company_local_venture }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:trade_company_local_venture }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pomor_outpost } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pomor_outpost }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:pomor_outpost }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:polders } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:polders }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:polders }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:terraces } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:terraces }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:terraces }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:incamisana } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:incamisana }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:incamisana }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bund } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:bund }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:bund }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:great_valley_complex } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:great_valley_complex }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:great_valley_complex }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:khmer_baray } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:khmer_baray }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:khmer_baray }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bubu_building } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:bubu_building }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:bubu_building }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fulani_cattle_rearing_pen } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fulani_cattle_rearing_pen }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:fulani_cattle_rearing_pen }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_adu_acequia } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_adu_acequia }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_adu_acequia }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aeg_shaduf_network } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_aeg_shaduf_network }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_aeg_shaduf_network }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aia_falaj_system } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_aia_falaj_system }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_aia_falaj_system }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bah_baoli } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_bah_baoli }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_bah_baoli }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_gold_camp } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_bej_gold_camp }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_bej_gold_camp }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_camel_market } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_bej_camel_market }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_bej_camel_market }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bng_delta_bund } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_bng_delta_bund }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_bng_delta_bund }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_qanat_works } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_bnh_qanat_works }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_bnh_qanat_works }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_byz_imperial_cistern } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_byz_imperial_cistern }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_byz_imperial_cistern }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cda_almadraba } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_cda_almadraba }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_cda_almadraba }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_miqyas } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_cpt_miqyas }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_cpt_miqyas }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_deir_estate } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_cpt_deir_estate }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_cpt_deir_estate }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dec_baoli } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_dec_baoli }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_dec_baoli }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_egy_irrigation_works } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_egy_irrigation_works }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_egy_irrigation_works }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_guj_vav } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_guj_vav }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_guj_vav }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_inc_imperial_qullqa } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_inc_imperial_qullqa }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_inc_imperial_qullqa }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_iro_longhouse } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_iro_longhouse }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_iro_longhouse }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_nahrawan_headworks } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_irq_nahrawan_headworks }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_irq_nahrawan_headworks }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_dulab_works } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_irq_dulab_works }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_irq_dulab_works }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_aul_encampment } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_kaz_aul_encampment }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_kaz_aul_encampment }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_livestock_market } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_kaz_livestock_market }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_kaz_livestock_market }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_koa_grain_warehouse } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_koa_grain_warehouse }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_koa_grain_warehouse }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_kilolo_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_lbe_kilolo_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_lbe_kilolo_granary }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_liv_getreidelager } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_liv_getreidelager }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_liv_getreidelager }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_marcita } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_lmb_marcita }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_lmb_marcita }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_naviglio } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_lmb_naviglio }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_lmb_naviglio }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_may_cenote_shrine } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_may_cenote_shrine }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_may_cenote_shrine }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_maz_szlachta_manor } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_maz_szlachta_manor }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_maz_szlachta_manor }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_highland_terrace } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_mca_highland_terrace }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_mca_highland_terrace }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mlc_tin_mine_office } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_mlc_tin_mine_office }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_mlc_tin_mine_office }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mor_imperial_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_mor_imperial_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_mor_imperial_granary }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_earth_shrine } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_msi_earth_shrine }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_msi_earth_shrine }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_sawah_terrace } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_mtm_sawah_terrace }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_mtm_sawah_terrace }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_lumbung_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_mtm_lumbung_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_mtm_lumbung_granary }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtp_mwari_shrine } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_mtp_mwari_shrine }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_mtp_mwari_shrine }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ned_waterschap } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_ned_waterschap }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_ned_waterschap }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ntr_rua_kumara } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_ntr_rua_kumara }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_ntr_rua_kumara }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nub_saqia } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_nub_saqia }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_nub_saqia }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nus_gudang_rempah } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_nus_gudang_rempah }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_nus_gudang_rempah }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_jac_de_la_dralha } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_occ_jac_de_la_dralha }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_occ_jac_de_la_dralha }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_out_dest_granary_of_two_cities } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_out_dest_granary_of_two_cities }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_out_dest_granary_of_two_cities }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pgr_pepper_warehouse } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_pgr_pepper_warehouse }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_pgr_pepper_warehouse }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pue_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_pue_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_pue_granary }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pun_doab_canal } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_pun_doab_canal }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_pun_doab_canal }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rjp_baoli } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_rjp_baoli }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_rjp_baoli }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_fur_post } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_rus_fur_post }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_rus_fur_post }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_ostrog_fort } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_rus_ostrog_fort }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_rus_ostrog_fort }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_piedmont_monte_frumentario } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_sar_piedmont_monte_frumentario }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_sar_piedmont_monte_frumentario }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sca_sildesalteri } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_sca_sildesalteri }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_sca_sildesalteri }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_khlong } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_sia_khlong }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_sia_khlong }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_rong_si } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_sia_rong_si }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_sia_rong_si }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soe_imperial_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_soe_imperial_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_soe_imperial_granary }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_limestone_well } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_soi_limestone_well }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_soi_limestone_well }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_geledi_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_soi_geledi_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_soi_geledi_granary }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_imperial_cistern } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_soi_imperial_cistern }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_soi_imperial_cistern }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_baray } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_svb_baray }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_svb_baray }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swi_dairy_cooperative } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_swi_dairy_cooperative }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_swi_dairy_cooperative }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tib_communal_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_tib_communal_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_tib_communal_granary }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ukr_sloboda } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_ukr_sloboda }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_ukr_sloboda }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_usa_land_grant_college } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_usa_land_grant_college }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_usa_land_grant_college }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_vjn_tungabhadra_anicut } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_vjn_tungabhadra_anicut }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_vjn_tungabhadra_anicut }
 		}
 		if = {
 			limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_yua_steppe_granary } }
-			add_to_variable_list = { name = bag_wtp_row_goods target = raw_material }
-			add_to_variable_list = { name = bag_wtp_row_builds target = building_type:nd_yua_steppe_granary }
+			add_to_variable_list = { name = bag_wtp_row_gran target = building_type:nd_yua_steppe_granary }
 		}
 	}
 }
@@ -117731,7 +117578,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:farming_village }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117749,7 +117595,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:irrigation_systems }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:irrigation_systems }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117767,7 +117612,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:pound_lock_canal_infrastructure }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pound_lock_canal_infrastructure }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117785,7 +117629,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:windmill }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:windmill }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117803,7 +117646,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:aqueduct_system }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:aqueduct_system }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117821,7 +117663,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:trade_company_local_venture }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:trade_company_local_venture }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117839,7 +117680,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:pomor_outpost }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:pomor_outpost }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117857,7 +117697,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:polders }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:polders }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117875,7 +117714,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:terraces }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:terraces }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117893,7 +117731,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:incamisana }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:incamisana }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117911,7 +117748,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:bund }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bund }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117929,7 +117765,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:great_valley_complex }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:great_valley_complex }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117947,7 +117782,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:khmer_baray }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:khmer_baray }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117965,7 +117799,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:bubu_building }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:bubu_building }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -117983,7 +117816,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:fulani_cattle_rearing_pen }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:fulani_cattle_rearing_pen }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118002,7 +117834,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_adu_acequia }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_adu_acequia }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118021,7 +117852,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_aeg_shaduf_network }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aeg_shaduf_network }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118040,7 +117870,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_aia_falaj_system }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aia_falaj_system }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118059,7 +117888,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_bah_baoli }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bah_baoli }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118078,7 +117906,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_bej_gold_camp }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_gold_camp }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118097,7 +117924,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_bej_camel_market }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_camel_market }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118116,7 +117942,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_bng_delta_bund }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bng_delta_bund }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118135,7 +117960,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_bnh_qanat_works }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_qanat_works }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118154,7 +117978,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_byz_imperial_cistern }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_byz_imperial_cistern }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118173,7 +117996,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_cda_almadraba }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cda_almadraba }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118192,7 +118014,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_cpt_miqyas }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_miqyas }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118211,7 +118032,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_cpt_deir_estate }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_deir_estate }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118230,7 +118050,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_dec_baoli }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dec_baoli }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118249,7 +118068,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_egy_irrigation_works }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_egy_irrigation_works }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118268,7 +118086,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_guj_vav }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_guj_vav }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118287,7 +118104,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_inc_imperial_qullqa }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_inc_imperial_qullqa }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118306,7 +118122,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_iro_longhouse }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_iro_longhouse }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118325,7 +118140,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_irq_nahrawan_headworks }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_nahrawan_headworks }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118344,7 +118158,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_irq_dulab_works }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_dulab_works }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118363,7 +118176,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_kaz_aul_encampment }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_aul_encampment }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118382,7 +118194,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_kaz_livestock_market }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_livestock_market }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118401,7 +118212,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_koa_grain_warehouse }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_koa_grain_warehouse }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118420,7 +118230,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_lbe_kilolo_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_kilolo_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118439,7 +118248,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_liv_getreidelager }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_liv_getreidelager }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118458,7 +118266,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_lmb_marcita }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_marcita }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118477,7 +118284,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_lmb_naviglio }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_naviglio }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118496,7 +118302,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_may_cenote_shrine }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_may_cenote_shrine }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118515,7 +118320,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_maz_szlachta_manor }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_maz_szlachta_manor }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118534,7 +118338,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_mca_highland_terrace }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_highland_terrace }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118553,7 +118356,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_mlc_tin_mine_office }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mlc_tin_mine_office }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118572,7 +118374,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_mor_imperial_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mor_imperial_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118591,7 +118392,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_msi_earth_shrine }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_earth_shrine }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118610,7 +118410,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_mtm_sawah_terrace }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_sawah_terrace }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118629,7 +118428,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_mtm_lumbung_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_lumbung_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118648,7 +118446,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_mtp_mwari_shrine }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtp_mwari_shrine }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118667,7 +118464,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_ned_waterschap }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ned_waterschap }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118686,7 +118482,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_ntr_rua_kumara }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ntr_rua_kumara }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118705,7 +118500,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_nub_saqia }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nub_saqia }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118724,7 +118518,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_nus_gudang_rempah }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nus_gudang_rempah }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118743,7 +118536,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_occ_jac_de_la_dralha }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_jac_de_la_dralha }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118762,7 +118554,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_out_dest_granary_of_two_cities }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_out_dest_granary_of_two_cities }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118781,7 +118572,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_pgr_pepper_warehouse }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pgr_pepper_warehouse }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118800,7 +118590,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_pue_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pue_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118819,7 +118608,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_pun_doab_canal }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pun_doab_canal }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118838,7 +118626,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_rjp_baoli }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rjp_baoli }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118857,7 +118644,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_rus_fur_post }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_fur_post }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118876,7 +118662,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_rus_ostrog_fort }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_ostrog_fort }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118895,7 +118680,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_sar_piedmont_monte_frumentario }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_piedmont_monte_frumentario }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118914,7 +118698,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_sca_sildesalteri }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sca_sildesalteri }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118933,7 +118716,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_sia_khlong }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_khlong }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118952,7 +118734,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_sia_rong_si }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_rong_si }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118971,7 +118752,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_soe_imperial_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soe_imperial_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -118990,7 +118770,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_soi_limestone_well }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_limestone_well }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119009,7 +118788,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_soi_geledi_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_geledi_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119028,7 +118806,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_soi_imperial_cistern }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_imperial_cistern }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119047,7 +118824,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_svb_baray }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_baray }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119066,7 +118842,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_swi_dairy_cooperative }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swi_dairy_cooperative }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119085,7 +118860,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_tib_communal_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tib_communal_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119104,7 +118878,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_ukr_sloboda }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ukr_sloboda }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119123,7 +118896,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_usa_land_grant_college }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_usa_land_grant_college }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119142,7 +118914,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_vjn_tungabhadra_anicut }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_vjn_tungabhadra_anicut }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119161,7 +118932,6 @@ bag_wtp_plan_fill_granaries = {
 				scope:bag_wtp_country = { can_build_building = building_type:nd_yua_steppe_granary }
 			}
 			add_to_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_yua_steppe_granary }
-			add_to_variable_list = { name = bag_wtp_plan_goods target = raw_material }
 			change_variable = { name = bag_wtp_load add = 1 }
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_gran_put add = 1 }
@@ -119178,539 +118948,462 @@ bag_wtp_clear_granary_here = {
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:farming_village } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:farming_village }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:irrigation_systems } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:irrigation_systems }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pound_lock_canal_infrastructure } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:pound_lock_canal_infrastructure }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:windmill } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:windmill }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:aqueduct_system } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:aqueduct_system }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:trade_company_local_venture } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:trade_company_local_venture }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:pomor_outpost } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:pomor_outpost }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:polders } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:polders }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:terraces } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:terraces }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:incamisana } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:incamisana }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bund } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:bund }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:great_valley_complex } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:great_valley_complex }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:khmer_baray } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:khmer_baray }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:bubu_building } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:bubu_building }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fulani_cattle_rearing_pen } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:fulani_cattle_rearing_pen }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_adu_acequia } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_adu_acequia }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aeg_shaduf_network } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_aeg_shaduf_network }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_aia_falaj_system } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_aia_falaj_system }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bah_baoli } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_bah_baoli }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_gold_camp } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_bej_gold_camp }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bej_camel_market } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_bej_camel_market }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bng_delta_bund } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_bng_delta_bund }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bnh_qanat_works } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_bnh_qanat_works }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_byz_imperial_cistern } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_byz_imperial_cistern }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cda_almadraba } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_cda_almadraba }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_miqyas } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_cpt_miqyas }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_cpt_deir_estate } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_cpt_deir_estate }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_dec_baoli } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_dec_baoli }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_egy_irrigation_works } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_egy_irrigation_works }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_guj_vav } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_guj_vav }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_inc_imperial_qullqa } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_inc_imperial_qullqa }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_iro_longhouse } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_iro_longhouse }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_nahrawan_headworks } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_irq_nahrawan_headworks }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_irq_dulab_works } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_irq_dulab_works }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_aul_encampment } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_kaz_aul_encampment }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kaz_livestock_market } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_kaz_livestock_market }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_koa_grain_warehouse } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_koa_grain_warehouse }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lbe_kilolo_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_lbe_kilolo_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_liv_getreidelager } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_liv_getreidelager }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_marcita } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_lmb_marcita }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_lmb_naviglio } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_lmb_naviglio }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_may_cenote_shrine } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_may_cenote_shrine }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_maz_szlachta_manor } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_maz_szlachta_manor }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mca_highland_terrace } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_mca_highland_terrace }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mlc_tin_mine_office } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_mlc_tin_mine_office }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mor_imperial_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_mor_imperial_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_msi_earth_shrine } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_msi_earth_shrine }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_sawah_terrace } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_mtm_sawah_terrace }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtm_lumbung_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_mtm_lumbung_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_mtp_mwari_shrine } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_mtp_mwari_shrine }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ned_waterschap } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_ned_waterschap }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ntr_rua_kumara } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_ntr_rua_kumara }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nub_saqia } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_nub_saqia }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_nus_gudang_rempah } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_nus_gudang_rempah }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_occ_jac_de_la_dralha } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_occ_jac_de_la_dralha }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_out_dest_granary_of_two_cities } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_out_dest_granary_of_two_cities }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pgr_pepper_warehouse } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_pgr_pepper_warehouse }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pue_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_pue_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_pun_doab_canal } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_pun_doab_canal }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rjp_baoli } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_rjp_baoli }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_fur_post } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_rus_fur_post }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_rus_ostrog_fort } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_rus_ostrog_fort }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sar_piedmont_monte_frumentario } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_sar_piedmont_monte_frumentario }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sca_sildesalteri } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_sca_sildesalteri }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_khlong } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_sia_khlong }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_sia_rong_si } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_sia_rong_si }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soe_imperial_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_soe_imperial_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_limestone_well } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_soi_limestone_well }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_geledi_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_soi_geledi_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_soi_imperial_cistern } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_soi_imperial_cistern }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_svb_baray } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_svb_baray }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_swi_dairy_cooperative } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_swi_dairy_cooperative }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_tib_communal_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_tib_communal_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_ukr_sloboda } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_ukr_sloboda }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_usa_land_grant_college } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_usa_land_grant_college }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_vjn_tungabhadra_anicut } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_vjn_tungabhadra_anicut }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}
 	if = {
 		limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_yua_steppe_granary } }
 		remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_yua_steppe_granary }
-		remove_list_variable = { name = bag_wtp_plan_goods target = raw_material }
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 	}

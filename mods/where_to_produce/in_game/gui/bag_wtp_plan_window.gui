@@ -434,6 +434,23 @@ types BagWtpPlanTypes {
 						}
 					}
 				}
+
+				# **Домики житницы — свой список, и не случайно.** Своего товара
+				# у них нет, а `_row_goods` и `_row_builds` обязаны идти индекс
+				# в индекс: пара «сырьё локации — домик» ломала это, как только
+				# житница ставила больше одного домика (`ROWPAIR mismatched=7`,
+				# прогон 2026-09-13). Третий список ничего не обещает попарно.
+				hbox = {
+					parentanchor = left
+					widgetanchor = left
+					spacing = 2
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_row_gran')]"
+					item = {
+						bag_wtp_plan_building_entry = {
+							datacontext = "[Scope.GetBuildingType]"
+						}
+					}
+				}
 			}
 		}
 

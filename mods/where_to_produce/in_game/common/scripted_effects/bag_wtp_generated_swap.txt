@@ -8069,9 +8069,15 @@ bag_wtp_swap_pass = {
 }
 
 # Список заново: 24 кругов или пока не кончатся кандидаты.
-# Scope: country, ждёт scope:wtp_location
+#
+# **Локация берётся из глобалки, а не из скоупа.** Кнопки внутри окна живут в
+# типе строки датамодели: скоуп там -- здание, а локацию пришлось бы тащить
+# через `GetGlobalVariable(...).GetLocation.MakeScope`, и ровно эта цепочка
+# 2026-09-13 вернула пустые списки при непустой локации. `global_var:X = { }`
+# как переход в скоуп -- форма самой игры (`character_death_pulses.txt`).
+# Scope: country
 bag_wtp_swap_rebuild = {
-	scope:wtp_location = {
+	global_var:bag_wtp_swap_loc = {
 		clear_variable_list = bag_wtp_swap_can
 		set_variable = { name = bag_wtp_swap_more value = 1 }
 		set_variable = { name = bag_wtp_swap_k value = 0 }
@@ -8105,9 +8111,9 @@ bag_wtp_swap_close_effect = {
 # стоит здесь ради одного из них, и какого именно -- знает `_edit_remove_*`
 # через `_pm<n>`. Спрашивать это здесь значило бы держать второй экземпляр того
 # же знания.
-# Scope: country, ждёт scope:wtp_location и scope:wtp_bt
+# Scope: country, ждёт scope:wtp_bt
 bag_wtp_swap_drop_effect = {
-	scope:wtp_location = {
+	global_var:bag_wtp_swap_loc = {
 		if = {
 			limit = { scope:wtp_bt = building_type:ablaq_palace }
 			bag_wtp_edit_remove_town_18 = yes
@@ -9925,9 +9931,9 @@ bag_wtp_swap_drop_effect = {
 #
 # `_edit_place_*` сам спрашивает и ворота (`_edit_fits_*`), и комнату, поэтому
 # нажатие в полной локации просто ничего не делает -- места освобождает «×».
-# Scope: country, ждёт scope:wtp_location и scope:wtp_bt
+# Scope: country, ждёт scope:wtp_bt
 bag_wtp_swap_put_effect = {
-	scope:wtp_location = {
+	global_var:bag_wtp_swap_loc = {
 		if = {
 			limit = { scope:wtp_bt = building_type:ablaq_palace }
 			bag_wtp_edit_place_town_18 = yes
@@ -11730,7 +11736,7 @@ bag_wtp_swap_put_effect = {
 }
 
 # «Отсеять» -- тумблер, и список пересобирается тут же.
-# Scope: country, ждёт scope:wtp_location
+# Scope: country
 bag_wtp_swap_sift_effect = {
 	if = {
 		limit = { has_global_variable = bag_wtp_swap_sift }

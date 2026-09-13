@@ -705,7 +705,7 @@ bag_wtp_swap_close = {
 
 bag_wtp_swap_drop = {
 	scope = country
-	saved_scopes = { wtp_location wtp_bt }
+	saved_scopes = { wtp_bt }
 
 	is_shown = {
 		always = yes
@@ -718,7 +718,7 @@ bag_wtp_swap_drop = {
 
 bag_wtp_swap_put = {
 	scope = country
-	saved_scopes = { wtp_location wtp_bt }
+	saved_scopes = { wtp_bt }
 
 	is_shown = {
 		always = yes
@@ -731,7 +731,6 @@ bag_wtp_swap_put = {
 
 bag_wtp_swap_sift = {
 	scope = country
-	saved_scopes = { wtp_location }
 
 	is_shown = {
 		always = yes
