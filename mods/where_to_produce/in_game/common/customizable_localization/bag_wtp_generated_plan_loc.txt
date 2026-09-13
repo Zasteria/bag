@@ -1956,6 +1956,14 @@ bag_wtp_edit_last_label = {
 	# кода операции: одного товара, за который её ставят, у неё нет -- есть
 	# здание, которое встало или ушло.
 	text = {
+		trigger = {
+			global_var:bag_wtp_edit_done = 1
+			global_var:bag_wtp_edit_op = 5
+			global_var:bag_wtp_edit_evicted = 1
+		}
+		localization_key = bag_wtp_edit_last_vill_over
+	}
+	text = {
 		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_op = 5 }
 		localization_key = bag_wtp_edit_last_vill_add
 	}

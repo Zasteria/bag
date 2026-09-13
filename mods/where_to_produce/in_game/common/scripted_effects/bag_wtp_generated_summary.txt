@@ -5169,7 +5169,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_1 = yes
+			bag_wtp_plan_right_won_1 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit1 add = 1 }
 		if = {
@@ -5201,7 +5201,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_2 = yes
+			bag_wtp_plan_right_won_2 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit2 add = 1 }
 		if = {
@@ -5233,7 +5233,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_3 = yes
+			bag_wtp_plan_right_won_3 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit3 add = 1 }
 		if = {
@@ -5265,7 +5265,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_4 = yes
+			bag_wtp_plan_right_won_4 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit4 add = 1 }
 		if = {
@@ -5297,7 +5297,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_5 = yes
+			bag_wtp_plan_right_won_5 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit5 add = 1 }
 		if = {
@@ -5329,7 +5329,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_6 = yes
+			bag_wtp_plan_right_won_6 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit6 add = 1 }
 		if = {
@@ -5361,7 +5361,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_7 = yes
+			bag_wtp_plan_right_won_7 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit7 add = 1 }
 		if = {
@@ -5393,7 +5393,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_8 = yes
+			bag_wtp_plan_right_won_8 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit8 add = 1 }
 		if = {
@@ -5425,7 +5425,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_9 = yes
+			bag_wtp_plan_right_won_9 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit9 add = 1 }
 		if = {
@@ -5457,7 +5457,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_10 = yes
+			bag_wtp_plan_right_won_10 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit10 add = 1 }
 		if = {
@@ -5489,7 +5489,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_11 = yes
+			bag_wtp_plan_right_won_11 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit11 add = 1 }
 		if = {
@@ -5521,7 +5521,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_12 = yes
+			bag_wtp_plan_right_won_12 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit12 add = 1 }
 		if = {
@@ -5553,7 +5553,7 @@ bag_wtp_plan_summary = {
 		variable = bag_wtp_candidates
 		limit = {
 			bag_wtp_plan_is_town = yes
-			bag_wtp_plan_right_fits_13 = yes
+			bag_wtp_plan_right_won_13 = yes
 		}
 		change_global_variable = { name = bag_wtp_rfit13 add = 1 }
 		if = {

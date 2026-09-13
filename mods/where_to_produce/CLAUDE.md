@@ -4,7 +4,7 @@
 
 «Ты постоянно смешиваешь функции плана и редактирования» — его слова.
 
-**The mod page is three tabs and four buttons that only open windows**, every
+**The mod page is three tabs and three buttons that only open windows**, every
 setting inside the window of its function. **Two rules of his**: **no
 descriptions in a window header** — that is the control's tooltip — and
 **anything technical belongs on «Техническая»**
@@ -17,14 +17,19 @@ descriptions in a window header** — that is the control's tooltip — and
 | 3 | **A whole plan for that ground** — every production where it pays | the plan window: the caps and **three** switches there, «Пересчитать» runs it | `_plan_*` |
 | 4 | **Editing that plan afterwards**, one building at a time | the editor window, and only there | `_edit_*` |
 
-**Деревня — сущность, а не товар, и это правило обязано стоять в обоих местах**:
-ворота плана выбрасывали её из товара, ворота редактора — нет, и «+1» на дичь
-втыкал лесную деревню (2026-09-12). У редактора свой `own_groups`, а три
-универсальные деревни стоят своей строкой «+1/−1» под номерами `len(order) + k`.
+**Деревня — сущность, а не товар, и правило обязано стоять в обоих местах**:
+ворота плана её из товара выбрасывали, ворота редактора — нет (2026-09-12). У
+редактора свой `own_groups`; деревни стоят в той же сетке «+1/−1» под номерами
+`len(order) + k`, значком со своей глобалки `_vbt<k>`.
+
+**Триггер живёт только в `common/scripted_triggers`** — `_is_food_loc` лежал в
+файле эффектов, и кнопка житницы показывалась везде (ловит `check_script.py`).
+**Ворота постановки после плана врут**: всё, что читается **после** раздачи,
+спрашивает факт (`_pm<n> > 0`), а не `_plan_can_*`. Два прогона: 09-03 и 09-13.
 
 **3 and 4 are separate and the traffic runs one way**: nothing the editor holds
-is ever read by 3. Crossed once and reverted. **The test: «не нужен», then a
-fresh plan — it must be ordinary.**
+is ever read by 3. **The test: «не нужен», then a fresh plan — it must be
+ordinary.**
 
 **Before touching any `_plan_*`:
 [`plan_gaps.md`](../../docs/investigations/plan_gaps.md).** **The tick is the
@@ -32,28 +37,25 @@ rank and outlives a save.**
 
 ## Where it stands
 
-**Его список после партии — [`wtp_backlog.md`](../../docs/investigations/wtp_backlog.md),
-и он открыт.** 1, 2, 3, 4, 5, 8 построены; 6, 7, 9 — нет, как и **ванильная
-отмашка автостроя** (CM снят с плейсета, замена ей живёт только в интерфейсе:
-`ToggleAutoExpandBuilding`). **«Специализация» — галочка в окне плана**;
-**девять провинций и больше — одна грамота на провинцию** (`_plan_grant_step`);
-**житница сама заполняется** тем, что растит еду или РГО, и её кнопка в
-редакторе меняет локацию сразу; сводка — две страницы, вторая по грамотам.
+**Его список — [`wtp_backlog.md`](../../docs/investigations/wtp_backlog.md), и он
+открыт.** Построено всё, кроме 7, 9 и **ванильной отмашки автостроя** (CM снят
+с плейсета, замена ей живёт только в интерфейсе: `ToggleAutoExpandBuilding`).
+**«Специализация» — галочка в окне плана**; **девять провинций и больше — одна
+грамота на провинцию**; **житница заполняется сама**; сводка — две страницы;
+**окно замены** (`_swap_*`) правит одну локацию списком зданий и зовёт те же
+`_edit_place_*` / `_edit_remove_*`.
 
 
-**Раздача — уровень, два котла, деревня-товар, три равенства** —
-[`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md).
-**Редактор, доливка, ряды, «Специализация», сводка** —
+**Раздача, редактор, доливка, ряды, «Специализация», сводка** —
+[`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md),
 [`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md),
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
+**Выгода от земли — свойство ПРОВИНЦИИ** (`_g<n>`), значит внутри провинции
+менять нечего ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
 
-**Выгода от земли — свойство ПРОВИНЦИИ, а не локации** (`_g<n>`), значит внутри
-провинции менять нечего ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
-
-**Всё, что мод делает в чужих окнах** —
-[`wtp_integration.md`](../../docs/investigations/wtp_integration.md). Три правила
-оттуда дороже прочих: **`root` в фильтре — не сам объект**; **`_stands_<здание>`
-слушается тумблера ранга, поэтому не годится ни для чего, что делает игра**;
+**Чужие окна** —
+[`wtp_integration.md`](../../docs/investigations/wtp_integration.md): **`root` в
+фильтре — не сам объект**; **`_stands_<здание>` слушается тумблера ранга**;
 **мод ничего не делает периодически**.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before

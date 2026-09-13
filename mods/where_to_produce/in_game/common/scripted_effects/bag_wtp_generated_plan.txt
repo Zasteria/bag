@@ -2100,27 +2100,6 @@ bag_wtp_set_bavail = {
 	}
 }
 
-# **Там, где локация правда добывает еду, и нигде больше.**
-#
-# Здесь стоял список сырья, списанный у CM, и ранг сельского поселения. Его
-# слово 2026-09-13: «во первых убери её от туда, где не добывается еда при
-# помощи РГО. По сути она должна быть только там, где стоит число из
-# потенциального кормления».
-#
-# **Это и есть та же самая проверка, буква в букву**: `_food_pot` ставится на
-# локации ровно тогда, когда `_food_potential` больше нуля, то есть когда у её
-# сырья есть продовольственная ценность. Один факт -- одно место, где он
-# считается; два списка разошлись бы, и один из них уже расходился (дичи в
-# списке CM нет, а в потенциале она есть).
-#
-# `_is_food_loc` больше ни о чём не спрашивает: ранг убран вместе со списком.
-# Городская житница отдаст свои места тому, что в городе стоять может, -- а
-# если ничего не может, круг положит туда ноль домиков и соврать ему нечем.
-# Scope: location
-bag_wtp_is_food_loc = {
-	has_variable = bag_wtp_food_pot
-}
-
 # Переключить режим житницы для этой локации.
 #
 # **Переменная CM пишется по-прежнему, и это не рудимент.** Мод её и читает
@@ -145151,4 +145130,10 @@ bag_wtp_open_plan_window_effect = {
 	remove_variable = bag_wtp_right_open
 	bag_wtp_hide_results = yes
 	set_variable = { name = bag_wtp_plan_open value = 1 }
+}
+# Scope: country
+bag_wtp_init_vbt = {
+	set_global_variable = { name = bag_wtp_vbt1 value = building_type:fishing_village }
+	set_global_variable = { name = bag_wtp_vbt2 value = building_type:forest_village }
+	set_global_variable = { name = bag_wtp_vbt3 value = building_type:market_village }
 }

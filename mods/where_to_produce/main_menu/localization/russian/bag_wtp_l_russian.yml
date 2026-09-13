@@ -441,10 +441,6 @@
  bag_wtp_fp_red_legend_key: "3.75 (низкий)"
  bag_wtp_fp_black_legend_key: "0 (нет)"
 
- bag_wtp_edit_villages_head: "Универсальные деревни — они сущность, а не товар"
- bag_wtp_vcell_tt: "Деревня умеет несколько товаров и занимает одно место на все них, поэтому в плане она считается сама по себе, а не как товар.\n\n«+1» ставит ещё одну там, где земля платит ей больше всего; если свободной комнаты нет — вытесняет наименее нужный домик, по тем же правилам, что и товар.\n\n«−1» снимает ту, что стоит хуже всех. Освободившееся место достаётся товару, а не другой деревне: доливка ходит по товарам.\n\nЗамка и «не нужен» у деревни нет — доливка её назад не поставит."
- bag_wtp_edit_last_vill_add: "Последнее нажатие: +1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] → [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName]."
- bag_wtp_edit_last_vill_drop: "Последнее нажатие: −1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] ← [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName]."
 
  # ---- вторая страница сводки: грамоты ----
  bag_wtp_sum_page_goods: "Товары"
@@ -468,3 +464,21 @@
  bag_wtp_rwhy_off: "грамоты в этом плане не раздавались — галочка снята"
  bag_wtp_rwhy_quota: "выбрала свою квоту"
  bag_wtp_rwhy_beaten: "в остальных городах её перебили те, кому земля платит больше"
+ bag_wtp_edit_last_vill_over: "Последнее нажатие: +1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetIcon] [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] → [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName] — вместо [GetGlobalVariable('bag_wtp_ev_esg_s').GetGoods.GetIcon] [GetGlobalVariable('bag_wtp_ev_esg_s').GetGoods.GetName]."
+ bag_wtp_edit_last_vill_add: "Последнее нажатие: +1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetIcon] [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] → [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName] — в свободное место, ничего не вытеснено."
+ bag_wtp_edit_last_vill_drop: "Последнее нажатие: −1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetIcon] [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] ← [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName]."
+ bag_wtp_vcell_tt: "Универсальная деревня: она умеет несколько товаров и занимает одно место на все них, поэтому в плане считается сама по себе, а не как товар.\n\n«+1» ставит ещё одну там, где земля платит ей больше всего; если свободной комнаты нет — вытесняет наименее нужный домик, по тем же правилам, что и товар.\n\n«−1» снимает ту, что стоит хуже всех. Освободившееся место достаётся товару: доливка ходит по товарам.\n\nЗамка и «не нужен» у деревни нет — доливка её назад не поставит."
+
+ # ---- окно замены домика ----
+ bag_wtp_swap_window_title: "Заменить домик в локации"
+ bag_wtp_swap_open_tt: "Заменить домики в этой локации.\n\nОткрывает окно локации: слева то, что план тут держит, справа то, что сюда можно поставить — по убыванию выгоды от сырья провинции.\n\nКнопка есть только при открытом окне редактора и не на житницах: их заполняет свой круг, и снимается это одним нажатием пометки житницы."
+ bag_wtp_swap_head_here: "Стоит здесь"
+ bag_wtp_swap_head_here_tt: "Домики, которые план держит в этой локации. «−» снимает домик сразу же — освободившееся место можно занять из правого списка."
+ bag_wtp_swap_head_can: "Можно поставить"
+ bag_wtp_swap_head_can_tt: "Домики, которые в этой локации могут стоять, по убыванию выгоды от сырья провинции. «+» ставит домик в свободное место; если мест нет, сначала снимите что-нибудь слева."
+ bag_wtp_swap_sift: "Отсеять"
+ bag_wtp_swap_sift_tt: "Убрать из списка всё, чему сырьё этой провинции не платит ничего."
+ bag_wtp_swap_drop_tt: "Снять этот домик с локации."
+ bag_wtp_swap_put_tt: "Поставить этот домик в свободное место локации."
+ bag_wtp_swap_done: "Готово"
+ bag_wtp_swap_done_tt: "Закрыть окно. Сохранять нечего: каждое нажатие «−» и «+» меняет план сразу же, ровно как «−1» и «+1» в редакторе."

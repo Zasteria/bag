@@ -5320,6 +5320,18 @@ bag_wtp_plan_right_fits_1 = {
 	}
 }
 
+# constantinopolitan_silk_monopoly_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_1 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm29 > 0
+		var:bag_wtp_pm30 > 0
+		var:bag_wtp_pm18 > 0
+	}
+}
+
 # flemish_cloth_industries_right: cloth, fine_cloth. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_2 = {
@@ -5336,6 +5348,17 @@ bag_wtp_plan_right_fits_2 = {
 	}
 }
 
+# flemish_cloth_industries_right: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_2 = {
+	bag_wtp_is_granary = no
+	OR = {
+		AND = { var:bag_wtp_pm29 > 0 OR = { var:bag_wtp_pm29 = 84 var:bag_wtp_pm29 = 85 var:bag_wtp_pm29 = 86 } }
+		AND = { var:bag_wtp_pm30 > 0 OR = { var:bag_wtp_pm30 = 158 var:bag_wtp_pm30 = 159 var:bag_wtp_pm30 = 160 var:bag_wtp_pm30 = 161 var:bag_wtp_pm30 = 162 var:bag_wtp_pm30 = 163 var:bag_wtp_pm30 = 164 var:bag_wtp_pm30 = 165 var:bag_wtp_pm30 = 166 var:bag_wtp_pm30 = 167 var:bag_wtp_pm30 = 168 var:bag_wtp_pm30 = 169 } }
+	}
+}
+
 # royal_artisan_rights: furniture, leather, pottery. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_3 = {
@@ -5344,6 +5367,18 @@ bag_wtp_plan_right_fits_3 = {
 		bag_wtp_plan_can_town_32 = yes
 		bag_wtp_plan_can_town_36 = yes
 		bag_wtp_plan_can_town_42 = yes
+	}
+}
+
+# royal_artisan_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_3 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm32 > 0
+		var:bag_wtp_pm36 > 0
+		var:bag_wtp_pm42 > 0
 	}
 }
 
@@ -5358,6 +5393,18 @@ bag_wtp_plan_right_fits_4 = {
 	}
 }
 
+# royal_book_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_4 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm27 > 0
+		var:bag_wtp_pm4 > 0
+		var:bag_wtp_pm40 > 0
+	}
+}
+
 # royal_brewing_rights: beer, liquor, wine. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_5 = {
@@ -5369,12 +5416,34 @@ bag_wtp_plan_right_fits_5 = {
 	}
 }
 
+# royal_brewing_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_5 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm26 > 0
+		var:bag_wtp_pm37 > 0
+		var:bag_wtp_pm24 > 0
+	}
+}
+
 # royal_jewelry_rights: jewelry. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_6 = {
 	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_34 = yes
+	}
+}
+
+# royal_jewelry_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_6 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm34 > 0
 	}
 }
 
@@ -5388,6 +5457,17 @@ bag_wtp_plan_right_fits_7 = {
 	}
 }
 
+# royal_masonry_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_7 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm33 > 0
+		var:bag_wtp_pm38 > 0
+	}
+}
+
 # royal_naval_rights: naval_supplies, tar. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_8 = {
@@ -5395,6 +5475,17 @@ bag_wtp_plan_right_fits_8 = {
 	OR = {
 		bag_wtp_plan_can_town_39 = yes
 		bag_wtp_plan_can_town_45 = yes
+	}
+}
+
+# royal_naval_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_8 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm39 > 0
+		var:bag_wtp_pm45 > 0
 	}
 }
 
@@ -5409,12 +5500,34 @@ bag_wtp_plan_right_fits_9 = {
 	}
 }
 
+# royal_textile_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_9 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm29 > 0
+		var:bag_wtp_pm4 > 0
+		var:bag_wtp_pm30 > 0
+	}
+}
+
 # royal_tooling_rights: tools. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_10 = {
 	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_46 = yes
+	}
+}
+
+# royal_tooling_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_10 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm46 > 0
 	}
 }
 
@@ -5429,12 +5542,34 @@ bag_wtp_plan_right_fits_11 = {
 	}
 }
 
+# royal_weaponry_rights: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_11 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm28 > 0
+		var:bag_wtp_pm31 > 0
+		var:bag_wtp_pm47 > 0
+	}
+}
+
 # scandinavian_bergslag_privileges: tools. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_12 = {
 	bag_wtp_is_granary = no
 	OR = {
 		bag_wtp_plan_can_town_46 = yes
+	}
+}
+
+# scandinavian_bergslag_privileges: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_12 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm46 > 0
 	}
 }
 
@@ -5445,6 +5580,17 @@ bag_wtp_plan_right_fits_13 = {
 	OR = {
 		bag_wtp_plan_can_town_39 = yes
 		bag_wtp_plan_can_town_45 = yes
+	}
+}
+
+# scandinavian_tar_privileges: подходил ли этот город хоть одним товаром связки -- факт, а не
+# ворота. Читается сводкой после плана, когда ворота уже врут.
+# Scope: location
+bag_wtp_plan_right_won_13 = {
+	bag_wtp_is_granary = no
+	OR = {
+		var:bag_wtp_pm39 > 0
+		var:bag_wtp_pm45 > 0
 	}
 }
 

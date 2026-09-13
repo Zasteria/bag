@@ -134,6 +134,9 @@ bag_wtp_register = {
 	bag_wtp_edit_init_slots = yes
 
 	bag_wtp_init_counters = yes
+	# Типы зданий деревень в глобалках: без них ячейка редактора рисует значок
+	# со скоупа, которого нет, и вместо значка встаёт пустота.
+	bag_wtp_init_vbt = yes
 	bag_wtp_rebuild_zone = yes
 	bag_wtp_rebuild_regions = yes
 	bag_wtp_rebuild_sources = yes

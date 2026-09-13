@@ -438,10 +438,6 @@
  bag_wtp_fp_red_legend_key: "3.75 (low)"
  bag_wtp_fp_black_legend_key: "0 (none)"
 
- bag_wtp_edit_villages_head: "Universal villages — an entity, not a good"
- bag_wtp_vcell_tt: "A village makes several goods and takes one room for all of them, so the plan counts it as itself rather than as a good.\n\n«+1» puts another one where the ground pays it most; with no free room it evicts the least needed building, by the same rules a good obeys.\n\n«−1» takes out the one standing worst. The freed room goes to a good, not to another village: the fill walks goods.\n\nA village has no pin and no «not needed» — the fill will not put it back."
- bag_wtp_edit_last_vill_add: "Last press: +1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] → [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName]."
- bag_wtp_edit_last_vill_drop: "Last press: −1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] ← [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName]."
 
  # ---- вторая страница сводки: грамоты ----
  bag_wtp_sum_page_goods: "Goods"
@@ -465,3 +461,21 @@
  bag_wtp_rwhy_off: "charters were not dealt in this plan — the box is clear"
  bag_wtp_rwhy_quota: "it took its whole quota"
  bag_wtp_rwhy_beaten: "in the other towns it was beaten by charters the ground pays more for"
+ bag_wtp_edit_last_vill_over: "Last press: +1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetIcon] [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] → [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName] — in place of [GetGlobalVariable('bag_wtp_ev_esg_s').GetGoods.GetIcon] [GetGlobalVariable('bag_wtp_ev_esg_s').GetGoods.GetName]."
+ bag_wtp_edit_last_vill_add: "Last press: +1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetIcon] [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] → [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName] — into a free room, nothing displaced."
+ bag_wtp_edit_last_vill_drop: "Last press: −1 [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetIcon] [GetGlobalVariable('bag_wtp_edit_vill_s').GetBuildingType.GetName] ← [GetGlobalVariable('bag_wtp_ev_loc').GetLocation.GetName]."
+ bag_wtp_vcell_tt: "A universal village: it makes several goods and takes one room for all of them, so the plan counts it as itself rather than as a good.\n\n«+1» puts another one where the ground pays it most; with no free room it displaces the least needed building, by the same rules a good obeys.\n\n«−1» takes out the one standing worst. The freed room goes to a good: the fill walks goods.\n\nA village has no pin and no «not needed» — the fill will not put it back."
+
+ # ---- окно замены домика ----
+ bag_wtp_swap_window_title: "Replace a building in this location"
+ bag_wtp_swap_open_tt: "Replace the buildings in this location.\n\nOpens the location's own window: on the left what the plan holds here, on the right what may stand here, by descending gain from the province's raw materials.\n\nThe button is there only while the editor window is open, and never on a breadbasket: those are filled by a round of their own and undone by one press of the breadbasket mark."
+ bag_wtp_swap_head_here: "Standing here"
+ bag_wtp_swap_head_here_tt: "What the plan holds in this location. «−» takes a building out at once — the freed room can be filled from the right-hand list."
+ bag_wtp_swap_head_can: "May be put here"
+ bag_wtp_swap_head_can_tt: "Buildings that may stand in this location, by descending gain from the province's raw materials. «+» puts one into a free room; with no room, take something out on the left first."
+ bag_wtp_swap_sift: "Sift"
+ bag_wtp_swap_sift_tt: "Drop from the list everything the province's raw materials pay nothing for."
+ bag_wtp_swap_drop_tt: "Take this building out of the location."
+ bag_wtp_swap_put_tt: "Put this building into a free room of the location."
+ bag_wtp_swap_done: "Done"
+ bag_wtp_swap_done_tt: "Close the window. There is nothing to save: every «−» and «+» changes the plan at once, exactly as «−1» and «+1» do in the editor."

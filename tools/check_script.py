@@ -314,6 +314,50 @@ def problems(root: Path) -> list[str]:
     return found
 
 
+TRIGGER_ONLY = re.compile(
+    r"^\s*(has_variable|has_global_variable|always|OR|AND|NOT|NOR|NAND|"
+    r"is_target_in_variable_list|is_target_in_global_variable_list|"
+    r"var:|global_var:|location_rank|raw_material|vegetation|topography|climate|"
+    r"can_build_building|has_building|exists|owner|region|continent|market|"
+    r"province_definition|scope:|#|\{|\}|$)")
+
+
+def misplaced_triggers(root: Path) -> list[str]:
+    """A block in `scripted_effects/` whose body is nothing but conditions.
+
+    **Это стоило трёх недель тихой поломки.** `bag_wtp_is_food_loc` -- обычный
+    триггер из одной строки -- лежал в файле эффектов, потому что генератор
+    писал его рядом с эффектом, который им пользуется. Игра в
+    `common/scripted_effects` триггеров не заводит: кнопка житницы показывалась
+    на каждой локации подряд, `error.log` молчал, а условие переписывали дважды,
+    потому что виновным считали его. Владелец, 2026-09-13, во второй раз:
+    «кнопка житниц всё так же на всех локациях отображается».
+
+    **Ложные срабатывания невозможны по построению**: эффект, который только
+    зовёт другие эффекты, пишет `foo = yes`, и `TRIGGER_ONLY` такую строку не
+    пропускает. Флагуется только блок, в котором нет ни одной строки, кроме
+    условий.
+    """
+    found: list[str] = []
+    folder = root / "in_game/common/scripted_effects"
+    if not folder.is_dir():
+        return found
+    for path in sorted(folder.glob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        for match in re.finditer(r"(?m)^([a-z0-9_]+)\s*=\s*\{", text):
+            end = _brace_end(text, match.end() - 1)
+            body = text[match.end():end - 1]
+            lines = [line for line in body.splitlines() if line.strip()]
+            if lines and all(TRIGGER_ONLY.match(line) for line in lines):
+                line_no = text[:match.start()].count("\n") + 1
+                found.append(
+                    f"{path.relative_to(REPO)}:{line_no}: `{match.group(1)}` is a "
+                    f"trigger and lives in `scripted_effects/` — the game reads "
+                    f"triggers only from `scripted_triggers/`, so every caller "
+                    f"of it silently answers something else")
+    return found
+
+
 def unresolved_interface(root: Path) -> list[str]:
     """Every name a window says, checked against the thing that has to define it.
 
@@ -971,6 +1015,7 @@ def main(argv: list[str]) -> int:
             continue
         root = root if root.is_absolute() else REPO / root
         found = (problems(root) + unresolved(root, known) + unwritten(root)
+                 + misplaced_triggers(root)
                  + unresolved_script_values(root)
                  + duplicate_definitions(root)
                  + frameless_windows(root)
