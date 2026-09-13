@@ -1,5 +1,5 @@
-﻿# Две карты Construction Manager, перенесённые целиком: «Житницы» и
-# «Потенциал продовольствия за уровень РГО».
+﻿# Карта Construction Manager «Потенциал продовольствия за уровень РГО»,
+# перенесённая целиком.
 #
 # **Скопировано файлом, а не переписано формулой.** Его слово, 2026-09-12, когда
 # он снял CM с плейсета: «Достань от туда карту и ту функцию, которая вычисляет
@@ -13,8 +13,8 @@
 # которых без CM в игре нет:
 #
 #   cm_location_food_potential (значение)  -> bag_wtp_fp_value
-#   cm_location_is_auto_food_active        -> bag_wtp_is_granary
-#   cm_breadbasket / cm_location_food_potential (режимы) -> bag_wtp_*
+#   cm_location_is_auto_food_active        -> bag_wtp_is_granary (штриховка)
+#   cm_location_food_potential (режим)     -> bag_wtp_food_potential_map
 #
 # `bag_wtp_fp_value` — то же самое число: его формула уже списана генератором в
 # `bag_wtp_generated_foodpot.txt`, поэтому карта без CM красит ровно тем, чем
@@ -25,11 +25,10 @@
 # перекраситься; наш мод режимами не переключает, а перекраску решает
 # `color_refresh_counters` ниже.
 #
-# **Одна строка добавлена, и она не его**: `color_refresh_counters = { Day }` у
-# «Житниц». Режим карты перекрашивается по счётчикам, которые называет, а
-# переменная, записанная скриптом, счётчиком не является — это `bag_wtp_plan`
-# уже стоило прогона. Без этой строки пометка житницы появлялась бы на карте не
-# тогда, когда её ставят.
+# **«Житницы» перенесены и убраны обратно 2026-09-12**, в тот же день: «режим
+# карты "житницы" мне не нужен в целом, меня интересовала только карта
+# "Потенциал продовольствия"». Штриховка помеченных житницей осталась здесь —
+# она часть этой карты у него же.
 
 # Zoom steps and gradient constants mirror vanilla's own, from the @zoom_step_* group and the
 # @flatmap_far_* / @data_* groups ("Map mode that works well with data and heatmaps"):
@@ -56,113 +55,6 @@
 @data_edge_color_mult = 				0
 @data_before_lighting_blend = 			@flatmap_far_before_lighting_blend
 @data_after_lighting_blend = 			@flatmap_far_after_lighting_blend
-
-bag_wtp_breadbasket = {
-	map_color = {
-		if = { limit = { is_land = no }
-			value = define:NMapColors|WATER_MAP_COLOR
-		}
-		else_if = {
-			limit = {
-				owner ?= scope:actor
-				bag_wtp_is_granary = yes
-			}
-			value = define:NMapColors|MAP_COLOR_HIGH
-		}
-		else_if = { limit = { owner ?= scope:actor }
-			value = rgb { 220 220 200 }
-		}
-		else_if = { limit = { exists = owner }
-			value = rgb { 110 100 90 }
-		}
-		else = {
-			value = rgb { 90 90 90 }
-		}
-	}
-
-	legend_key = {
-		desc = "bag_wtp_breadbasket_enabled_legend_key"
-		color = define:NMapColors|MAP_COLOR_HIGH
-	}
-
-	legend_key = {
-		desc = "bag_wtp_breadbasket_owned_legend_key"
-		color = rgb { 220 220 200 }
-	}
-
-	legend_key = {
-		desc = "bag_wtp_breadbasket_foreign_legend_key"
-		color = rgb { 110 100 90 }
-	}
-
-	legend_key = {
-		desc = "bag_wtp_breadbasket_uncolonized_legend_key"
-		color = rgb { 90 90 90 }
-	}
-
-	tooltip_key = {
-		if = { limit = { is_land = no }
-			value = MAPMODE_BAG_WTP_BREADBASKET_TT_WATER
-		}
-		else_if = {
-			limit = {
-				owner ?= scope:actor
-				bag_wtp_is_granary = yes
-			}
-			value = MAPMODE_BAG_WTP_BREADBASKET_TT_ENABLED
-		}
-		else_if = { limit = { owner ?= scope:actor }
-			value = MAPMODE_BAG_WTP_BREADBASKET_TT_OWNED
-		}
-		else_if = { limit = { exists = owner }
-			value = MAPMODE_BAG_WTP_BREADBASKET_TT_FOREIGN
-		}
-		else = {
-			value = MAPMODE_BAG_WTP_BREADBASKET_TT_UNCOLONIZED
-		}
-	}
-
-	small_map_names = location
-	medium_map_names = country
-	large_map_names = country
-
-	small_tooltip_context = location
-	medium_tooltip_context = location
-	large_tooltip_context = location
-
-	fill_in_impassable = yes
-	flatmap_behaviour = Always
-	use_fow = no
-
-	category = economy
-	index = 0
-
-	map_markers = {
-		all = no
-	}
-
-	gradient_parameters = {
-		zoom_step = @zoom_step_near
-
-		gradient_alpha_inside = 	@data_gradient_alpha_inside
-		gradient_alpha_outside = 	@data_gradient_alpha_outside
-		gradient_width = 			@data_gradient_width
-		gradient_color_mult =		@data_gradient_color_mult
-		edge_width = 				@data_edge_width
-		edge_sharpness = 			@data_edge_sharpness
-		edge_alpha = 				@data_edge_alpha
-		edge_color_mult = 			@data_edge_color_mult
-		before_lighting_blend =		@data_before_lighting_blend
-		after_lighting_blend =		@data_after_lighting_blend
-	}
-
-	refresh_colors_on_selection_change = yes
-	color_and_names_refresh_counters = { LocationOwnerChanged }
-	# Не его строка: пометка житницы -- переменная, записанная скриптом, а такую
-	# карта сама не замечает. `Day` -- то же, чем перекрашиваются `bag_wtp_plan`
-	# и `bag_wtp_selection`.
-	color_refresh_counters = { Day }
-}
 
 bag_wtp_food_potential_map = {
 	map_color = {

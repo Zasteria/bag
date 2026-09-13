@@ -581,6 +581,23 @@ window = {
 				bag_wtp_edit_row5 = {}
 			}
 
+			# **Три универсальные деревни — своя строка.** Деревня у этого мода
+			# сущность, а не товар: она умеет несколько товаров и занимает одно
+			# место на все них, поэтому из сетки товаров она вышла целиком
+			# (2026-09-12, «+1» на дичь втыкал лесную деревню) и получила
+			# строку, в которой её можно поднять и опустить прямо.
+			text_single = {
+				size = { 700 22 }
+				autoresize = no
+				align = left|vcenter
+				fontsize = 13
+				elide = right
+				text = "bag_wtp_edit_villages_head"
+				tooltip = "bag_wtp_vcell_tt"
+			}
+
+			bag_wtp_edit_village_row = {}
+
 			# **The charters, and he asked for them here by name**, 2026-09-06:
 			# «можно сделать аналогично, удобно и добавить в том числе туда
 			# редактирование по городским правам». Same cell as a good — «−1»,

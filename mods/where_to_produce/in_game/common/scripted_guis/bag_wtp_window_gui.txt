@@ -654,6 +654,35 @@ bag_wtp_toggle_plan_rights = {
 	}
 }
 
+# Какая страница сводки на экране: товары или грамоты.
+#
+# **Глобалка, а не переменная страны.** `visible` в окне читает
+# `GetGlobalVariable(...).IsSet`, и это единственная форма, которой обе половины
+# и обе кнопки отвечают одинаково.
+bag_wtp_sum_page_goods = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		remove_global_variable = bag_wtp_sum_page
+	}
+}
+
+bag_wtp_sum_page_rights = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		set_global_variable = { name = bag_wtp_sum_page value = 1 }
+	}
+}
+
 # «Специализация» — тумблер того же «Пересчитать», а не своя кнопка.
 #
 # **Он отменил своё же требование, поиграв**, 2026-09-12: «Кнопка "считать"

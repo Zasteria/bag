@@ -3544,13 +3544,6 @@ bag_wtp_edit_fits_rural_6 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm6 = 278
-				var:bag_wtp_prm6 = 279
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-		}
-		AND = {
-			OR = {
 				var:bag_wtp_prm6 = 280
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kry_shilat_khaneh } }
@@ -4039,12 +4032,6 @@ bag_wtp_edit_fits_rural_23 = {
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest } }
 		}
-		AND = {
-			OR = {
-				var:bag_wtp_prm23 = 648
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-		}
 	}
 }
 
@@ -4151,12 +4138,6 @@ bag_wtp_edit_fits_rural_26 = {
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
 	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm26 = 17
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm26 = 23
@@ -4289,12 +4270,6 @@ bag_wtp_edit_fits_rural_34 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm34 = 328
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-		}
-		AND = {
-			OR = {
 				var:bag_wtp_prm34 = 341
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_kon_palm_oil_press } }
@@ -4325,12 +4300,6 @@ bag_wtp_edit_fits_rural_36 = {
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
 	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm36 = 386
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm36 = 388
@@ -4443,12 +4412,6 @@ bag_wtp_edit_fits_rural_39 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm39 = 464
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-		}
-		AND = {
-			OR = {
 				var:bag_wtp_prm39 = 470
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_fin_sahalaitos } }
@@ -4482,28 +4445,8 @@ bag_wtp_edit_fits_rural_40 = {
 # Scope: location
 bag_wtp_edit_fits_rural_41 = { always = no }
 
-# pottery, village side, room not asked.
 # Scope: location
-bag_wtp_edit_fits_rural_42 = {
-	var:bag_wtp_prm42 > 0
-	bag_wtp_is_granary = no
-	bag_wtp_plan_is_town = no
-	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
-	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm42 = 495
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
-		}
-		AND = {
-			OR = {
-				var:bag_wtp_prm42 = 496
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-		}
-	}
-}
+bag_wtp_edit_fits_rural_42 = { always = no }
 
 # slaves_goods, village side, room not asked.
 # Scope: location
@@ -4590,18 +4533,6 @@ bag_wtp_edit_fits_rural_46 = {
 	OR = {
 		AND = {
 			OR = {
-				var:bag_wtp_prm46 = 575
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-		}
-		AND = {
-			OR = {
-				var:bag_wtp_prm46 = 579
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-		}
-		AND = {
-			OR = {
 				var:bag_wtp_prm46 = 581
 			}
 			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:nd_bno_diamond_workshop } }
@@ -4647,18 +4578,6 @@ bag_wtp_edit_fits_rural_47 = {
 	bag_wtp_plan_is_town = no
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
 	OR = {
-		AND = {
-			OR = {
-				var:bag_wtp_prm47 = 611
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
-		}
-		AND = {
-			OR = {
-				var:bag_wtp_prm47 = 612
-			}
-			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
-		}
 		AND = {
 			OR = {
 				var:bag_wtp_prm47 = 636
@@ -4975,6 +4894,99 @@ bag_wtp_edit_locked_47 = {
 		var:bag_wtp_plan_right = 11
 	}
 }
+
+# fishing_village: ворота редактора, «комната» снята.
+# Scope: location
+bag_wtp_edit_fits_rural_48 = {
+	var:bag_wtp_vw1 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+	OR = {
+		AND = {
+			var:bag_wtp_vw1 = 6
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
+		}
+		AND = {
+			var:bag_wtp_vw1 = 39
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
+		}
+		AND = {
+			var:bag_wtp_vw1 = 42
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
+		}
+	}
+}
+
+# fishing_village в городе не стоит вовсе.
+# Scope: location
+bag_wtp_edit_fits_town_48 = { always = no }
+
+# forest_village: ворота редактора, «комната» снята.
+# Scope: location
+bag_wtp_edit_fits_rural_49 = {
+	var:bag_wtp_vw2 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+	OR = {
+		AND = {
+			var:bag_wtp_vw2 = 23
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } }
+		}
+		AND = {
+			var:bag_wtp_vw2 = 36
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
+		}
+		AND = {
+			var:bag_wtp_vw2 = 46
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
+		}
+		AND = {
+			var:bag_wtp_vw2 = 47
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
+		}
+	}
+}
+
+# forest_village в городе не стоит вовсе.
+# Scope: location
+bag_wtp_edit_fits_town_49 = { always = no }
+
+# market_village: ворота редактора, «комната» снята.
+# Scope: location
+bag_wtp_edit_fits_rural_50 = {
+	var:bag_wtp_vw3 > 0
+	bag_wtp_is_granary = no
+	bag_wtp_plan_is_town = no
+	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+	OR = {
+		AND = {
+			var:bag_wtp_vw3 = 26
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
+		}
+		AND = {
+			var:bag_wtp_vw3 = 34
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
+		}
+		AND = {
+			var:bag_wtp_vw3 = 42
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
+		}
+		AND = {
+			var:bag_wtp_vw3 = 46
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
+		}
+		AND = {
+			var:bag_wtp_vw3 = 47
+			NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
+		}
+	}
+}
+
+# market_village в городе не стоит вовсе.
+# Scope: location
+bag_wtp_edit_fits_town_50 = { always = no }
 
 # constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk. **A method, not a free room** --
 # see the comment in `editor_file`; this is what «+1» and «−1» on a charter ask.

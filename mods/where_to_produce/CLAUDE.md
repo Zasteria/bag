@@ -17,6 +17,11 @@ descriptions in a window header** — that is the control's tooltip — and
 | 3 | **A whole plan for that ground** — every production where it pays | the plan window: the caps and **three** switches there, «Пересчитать» runs it | `_plan_*` |
 | 4 | **Editing that plan afterwards**, one building at a time | the editor window, and only there | `_edit_*` |
 
+**Деревня — сущность, а не товар, и это правило обязано стоять в обоих местах**:
+ворота плана выбрасывали её из товара, ворота редактора — нет, и «+1» на дичь
+втыкал лесную деревню (2026-09-12). У редактора свой `own_groups`, а три
+универсальные деревни стоят своей строкой «+1/−1» под номерами `len(order) + k`.
+
 **3 and 4 are separate and the traffic runs one way**: nothing the editor holds
 is ever read by 3. Crossed once and reverted. **The test: «не нужен», then a
 fresh plan — it must be ordinary.**
@@ -28,37 +33,33 @@ rank and outlives a save.**
 ## Where it stands
 
 **Его список после партии — [`wtp_backlog.md`](../../docs/investigations/wtp_backlog.md),
-и он открыт.** 1, 2, 3, 5, 8 построены 2026-09-12 и прогона не видели; 4, 6, 7,
-9 — нет. **CM и Glorp UI сняты с плейсета**: житница это переживает, **отмашка
-автостроя — нет**, ванильная замена ей живёт только в интерфейсе
-(`ToggleAutoExpandBuilding`). **«Специализация» — галочка в окне плана**;
+и он открыт.** 1, 2, 3, 4, 5, 8 построены; 6, 7, 9 — нет, как и **ванильная
+отмашка автостроя** (CM снят с плейсета, замена ей живёт только в интерфейсе:
+`ToggleAutoExpandBuilding`). **«Специализация» — галочка в окне плана**;
 **девять провинций и больше — одна грамота на провинцию** (`_plan_grant_step`);
-две карты CM перенесены файлом (`bag_wtp_food.txt`).
+**житница сама заполняется** тем, что растит еду или РГО, и её кнопка в
+редакторе меняет локацию сразу; сводка — две страницы, вторая по грамотам.
 
 
 **Раздача — уровень, два котла, деревня-товар, три равенства** —
-[`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md),
-закрыто прогоном 2026-09-08. **Редактор, доливка, ряды, «Специализация», сводка**:
+[`archive/wtp_brief_plan_rules.md`](../../docs/archive/wtp_brief_plan_rules.md).
+**Редактор, доливка, ряды, «Специализация», сводка** —
 [`archive/wtp_brief_rules.md`](../../docs/archive/wtp_brief_rules.md),
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**Выгода от земли — свойство ПРОВИНЦИИ, а не локации** (`_g<n>` спрашивает
-`any_location_in_province_definition`), значит внутри провинции менять нечего;
-«Перетасовать» — ручной переезд **между** ними
-([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
+**Выгода от земли — свойство ПРОВИНЦИИ, а не локации** (`_g<n>`), значит внутри
+провинции менять нечего ([`plan_gaps.md`](../../docs/investigations/plan_gaps.md)).
 
-**Всё, что мод делает в чужих окнах** — галочки плана в списке зданий локации,
-отмашка на автострой CM, кнопки житницы и «снести лишнее», и чтение зданий чужих
-модов генератором — [`wtp_integration.md`](../../docs/investigations/wtp_integration.md).
-Три правила оттуда, которые дороже прочих: **`root` в фильтре — не сам объект**;
-**`_stands_<здание>` слушается тумблера ранга, поэтому не годится ни для чего,
-что делает игра**; **мод ничего не делает периодически** — это его требование.
+**Всё, что мод делает в чужих окнах** —
+[`wtp_integration.md`](../../docs/investigations/wtp_integration.md). Три правила
+оттуда дороже прочих: **`root` в фильтре — не сам объект**; **`_stands_<здание>`
+слушается тумблера ранга, поэтому не годится ни для чего, что делает игра**;
+**мод ничего не делает периодически**.
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before
-touching any `.gui`, the checklist is
-[`pitfalls/windows.md`](../../docs/pitfalls/windows.md)** — every rule in it this
-mod paid for, most of them twice.
+any `.gui`: [`pitfalls/windows.md`](../../docs/pitfalls/windows.md)** — every
+rule in it this mod paid for, most twice.
 
-**Not to be attempted again**: eight, rejected
+**Not to be attempted again**: eight
 ([`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md)). **The answer
 lives on the location.** **Built by** `generate.py`.

@@ -6793,6 +6793,96 @@ bag_wtp_edit_scan_47 = {
 	}
 }
 
+# fishing_village: что каждая локация запросит за ещё одну такую деревню.
+# Scope: country
+bag_wtp_edit_scan_48 = {
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		if = {
+			limit = { bag_wtp_edit_fits_rural_48 = yes }
+			if = {
+				limit = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = var:bag_wtp_vb1 }
+				change_variable = { name = bag_wtp_esv add = 1000 }
+			}
+			else_if = {
+				limit = { var:bag_wtp_esw >= 0 var:bag_wtp_esg > 0 }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = var:bag_wtp_vb1 }
+				change_variable = { name = bag_wtp_esv subtract = var:bag_wtp_esw }
+			}
+		}
+	}
+}
+
+# fishing_village сюда, и обратно. **Обёртки, а не вторая копия правил**: ставит и
+# снимает деревню то же, что делает это в плане, — иначе счётчики разъехались бы.
+# Scope: location
+bag_wtp_edit_place_rural_48 = { bag_wtp_plan_try_village_1 = yes }
+# Scope: location
+bag_wtp_edit_remove_rural_48 = { bag_wtp_plan_drop_village_1 = yes }
+
+# forest_village: что каждая локация запросит за ещё одну такую деревню.
+# Scope: country
+bag_wtp_edit_scan_49 = {
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		if = {
+			limit = { bag_wtp_edit_fits_rural_49 = yes }
+			if = {
+				limit = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = var:bag_wtp_vb2 }
+				change_variable = { name = bag_wtp_esv add = 1000 }
+			}
+			else_if = {
+				limit = { var:bag_wtp_esw >= 0 var:bag_wtp_esg > 0 }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = var:bag_wtp_vb2 }
+				change_variable = { name = bag_wtp_esv subtract = var:bag_wtp_esw }
+			}
+		}
+	}
+}
+
+# forest_village сюда, и обратно. **Обёртки, а не вторая копия правил**: ставит и
+# снимает деревню то же, что делает это в плане, — иначе счётчики разъехались бы.
+# Scope: location
+bag_wtp_edit_place_rural_49 = { bag_wtp_plan_try_village_2 = yes }
+# Scope: location
+bag_wtp_edit_remove_rural_49 = { bag_wtp_plan_drop_village_2 = yes }
+
+# market_village: что каждая локация запросит за ещё одну такую деревню.
+# Scope: country
+bag_wtp_edit_scan_50 = {
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		if = {
+			limit = { bag_wtp_edit_fits_rural_50 = yes }
+			if = {
+				limit = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = var:bag_wtp_vb3 }
+				change_variable = { name = bag_wtp_esv add = 1000 }
+			}
+			else_if = {
+				limit = { var:bag_wtp_esw >= 0 var:bag_wtp_esg > 0 }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = var:bag_wtp_vb3 }
+				change_variable = { name = bag_wtp_esv subtract = var:bag_wtp_esw }
+			}
+		}
+	}
+}
+
+# market_village сюда, и обратно. **Обёртки, а не вторая копия правил**: ставит и
+# снимает деревню то же, что делает это в плане, — иначе счётчики разъехались бы.
+# Scope: location
+bag_wtp_edit_place_rural_50 = { bag_wtp_plan_try_village_3 = yes }
+# Scope: location
+bag_wtp_edit_remove_rural_50 = { bag_wtp_plan_drop_village_3 = yes }
+
 # clay out of this location, town side.
 #
 # **Every counter the plan keeps is walked back**, because the report and the
@@ -11463,13 +11553,6 @@ bag_wtp_edit_remove_rural_6 = {
 		remove_list_variable = { name = bag_wtp_plan_goods target = goods:fish }
 		if = {
 			limit = { OR = {
-				var:bag_wtp_prm6 = 278
-				var:bag_wtp_prm6 = 279
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:fishing_village }
-		}
-		if = {
-			limit = { OR = {
 				var:bag_wtp_prm6 = 280
 			} }
 			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_kry_shilat_khaneh }
@@ -12323,12 +12406,6 @@ bag_wtp_edit_remove_rural_23 = {
 			} }
 			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:eng_royal_forest }
 		}
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm23 = 648
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:forest_village }
-		}
 		change_variable = { name = bag_wtp_load subtract = 1 }
 		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
 		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
@@ -12504,12 +12581,6 @@ bag_wtp_edit_remove_rural_26 = {
 			bag_wtp_plan_is_town = no
 		}
 		remove_list_variable = { name = bag_wtp_plan_goods target = goods:beer }
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm26 = 17
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:market_village }
-		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm26 = 23
@@ -12722,12 +12793,6 @@ bag_wtp_edit_remove_rural_34 = {
 		remove_list_variable = { name = bag_wtp_plan_goods target = goods:jewelry }
 		if = {
 			limit = { OR = {
-				var:bag_wtp_prm34 = 328
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:market_village }
-		}
-		if = {
-			limit = { OR = {
 				var:bag_wtp_prm34 = 341
 			} }
 			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_kon_palm_oil_press }
@@ -12778,12 +12843,6 @@ bag_wtp_edit_remove_rural_36 = {
 			bag_wtp_plan_is_town = no
 		}
 		remove_list_variable = { name = bag_wtp_plan_goods target = goods:leather }
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm36 = 386
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:forest_village }
-		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm36 = 388
@@ -12965,12 +13024,6 @@ bag_wtp_edit_remove_rural_39 = {
 		remove_list_variable = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 		if = {
 			limit = { OR = {
-				var:bag_wtp_prm39 = 464
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:fishing_village }
-		}
-		if = {
-			limit = { OR = {
 				var:bag_wtp_prm39 = 470
 			} }
 			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_fin_sahalaitos }
@@ -13031,52 +13084,6 @@ bag_wtp_edit_remove_rural_40 = {
 		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr40 }
 		if = {
 			limit = { var:bag_wtp_pr40 > 0 }
-			change_global_variable = { name = bag_wtp_plan_fed subtract = 1 }
-		}
-	}
-}
-
-# pottery out of this location, village side.
-#
-# **Every counter the plan keeps is walked back**, because the report and the
-# next edit both read them: the load, the total placed, this good's own count,
-# and the two gain counters the header prints.
-# Scope: location
-bag_wtp_edit_remove_rural_42 = {
-	if = {
-		limit = {
-			is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
-			# **The side is asked here too, and it was not.** `call()` emits both
-			# variants and the town one came first, so a village location had its
-			# *town* gain subtracted from `_plan_gain` and its building matched
-			# against `_pm<n>` instead of `_prm<n>`. Placement has always asked --
-			# `_edit_fits_*` carries `bag_wtp_plan_is_town` -- and the two halves
-			# of one edit have to agree about what kind of place this is.
-			bag_wtp_plan_is_town = no
-		}
-		remove_list_variable = { name = bag_wtp_plan_goods target = goods:pottery }
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm42 = 495
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:fishing_village }
-		}
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm42 = 496
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:market_village }
-		}
-		change_variable = { name = bag_wtp_load subtract = 1 }
-		change_global_variable = { name = bag_wtp_plan_placed subtract = 1 }
-		# **И счётчик комнат своей стороны.** Постановка его растит, снятие обязано
-		# уменьшать: без этого обмен считался как две постановки, и «по сторонам»
-		# вышло 578 из 528 (прогон 2026-09-09).
-		change_global_variable = { name = bag_wtp_plan_pr subtract = 1 }
-		change_global_variable = { name = bag_wtp_pn42 subtract = 1 }
-		change_global_variable = { name = bag_wtp_plan_gain subtract = var:bag_wtp_pr42 }
-		if = {
-			limit = { var:bag_wtp_pr42 > 0 }
 			change_global_variable = { name = bag_wtp_plan_fed subtract = 1 }
 		}
 	}
@@ -13247,18 +13254,6 @@ bag_wtp_edit_remove_rural_46 = {
 		remove_list_variable = { name = bag_wtp_plan_goods target = goods:tools }
 		if = {
 			limit = { OR = {
-				var:bag_wtp_prm46 = 575
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:forest_village }
-		}
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm46 = 579
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:market_village }
-		}
-		if = {
-			limit = { OR = {
 				var:bag_wtp_prm46 = 581
 			} }
 			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:nd_bno_diamond_workshop }
@@ -13327,18 +13322,6 @@ bag_wtp_edit_remove_rural_47 = {
 			bag_wtp_plan_is_town = no
 		}
 		remove_list_variable = { name = bag_wtp_plan_goods target = goods:weaponry }
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm47 = 611
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:forest_village }
-		}
-		if = {
-			limit = { OR = {
-				var:bag_wtp_prm47 = 612
-			} }
-			remove_list_variable = { name = bag_wtp_plan_builds target = building_type:market_village }
-		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 636
@@ -13427,6 +13410,9 @@ bag_wtp_edit_count_held = {
 	if = { limit = { global_var:bag_wtp_edit_good = 45 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn45 } }
 	if = { limit = { global_var:bag_wtp_edit_good = 46 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn46 } }
 	if = { limit = { global_var:bag_wtp_edit_good = 47 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn47 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 48 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_bn1 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 49 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_bn2 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 50 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_bn3 } }
 }
 
 
@@ -15665,6 +15651,30 @@ bag_wtp_edit_scan_pass = {
 				change_global_variable = { name = bag_wtp_edit_fitn add = 1 }
 			}
 		}
+		if = {
+			limit = { global_var:bag_wtp_edit_good = 48 }
+			every_in_global_list = {
+				variable = bag_wtp_candidates
+				limit = { OR = { bag_wtp_edit_fits_town_48 = yes bag_wtp_edit_fits_rural_48 = yes } }
+				change_global_variable = { name = bag_wtp_edit_fitn add = 1 }
+			}
+		}
+		if = {
+			limit = { global_var:bag_wtp_edit_good = 49 }
+			every_in_global_list = {
+				variable = bag_wtp_candidates
+				limit = { OR = { bag_wtp_edit_fits_town_49 = yes bag_wtp_edit_fits_rural_49 = yes } }
+				change_global_variable = { name = bag_wtp_edit_fitn add = 1 }
+			}
+		}
+		if = {
+			limit = { global_var:bag_wtp_edit_good = 50 }
+			every_in_global_list = {
+				variable = bag_wtp_candidates
+				limit = { OR = { bag_wtp_edit_fits_town_50 = yes bag_wtp_edit_fits_rural_50 = yes } }
+				change_global_variable = { name = bag_wtp_edit_fitn add = 1 }
+			}
+		}
 		if = { limit = { global_var:bag_wtp_edit_good = 1 } bag_wtp_edit_scan_1 = yes }
 		if = { limit = { global_var:bag_wtp_edit_good = 2 } bag_wtp_edit_scan_2 = yes }
 		if = { limit = { global_var:bag_wtp_edit_good = 3 } bag_wtp_edit_scan_3 = yes }
@@ -15712,6 +15722,9 @@ bag_wtp_edit_scan_pass = {
 		if = { limit = { global_var:bag_wtp_edit_good = 45 } bag_wtp_edit_scan_45 = yes }
 		if = { limit = { global_var:bag_wtp_edit_good = 46 } bag_wtp_edit_scan_46 = yes }
 		if = { limit = { global_var:bag_wtp_edit_good = 47 } bag_wtp_edit_scan_47 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 48 } bag_wtp_edit_scan_48 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 49 } bag_wtp_edit_scan_49 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 50 } bag_wtp_edit_scan_50 = yes }
 	# **Two counts, because two different things read as «не дало правило».**
 	# `_edit_fitn` is how many locations could hold this good at all -- the
 	# ground's own answer, and 0 means it already stands everywhere this land
@@ -15984,7 +15997,6 @@ bag_wtp_edit_add = {
 			}
 			if = { limit = { var:bag_wtp_esg = 42 }
 				bag_wtp_edit_remove_town_42 = yes
-				bag_wtp_edit_remove_rural_42 = yes
 			}
 			if = { limit = { var:bag_wtp_esg = 43 }
 				bag_wtp_edit_remove_town_43 = yes
@@ -16180,7 +16192,6 @@ bag_wtp_edit_add = {
 				}
 				if = { limit = { global_var:bag_wtp_edit_good = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_edit_good = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -16201,6 +16212,15 @@ bag_wtp_edit_add = {
 				if = { limit = { global_var:bag_wtp_edit_good = 47 }
 					bag_wtp_edit_place_town_47 = yes
 					bag_wtp_edit_place_rural_47 = yes
+				}
+				if = { limit = { global_var:bag_wtp_edit_good = 48 }
+					bag_wtp_edit_place_rural_48 = yes
+				}
+				if = { limit = { global_var:bag_wtp_edit_good = 49 }
+					bag_wtp_edit_place_rural_49 = yes
+				}
+				if = { limit = { global_var:bag_wtp_edit_good = 50 }
+					bag_wtp_edit_place_rural_50 = yes
 				}
 			}
 			if = {
@@ -16367,7 +16387,6 @@ bag_wtp_edit_add = {
 					}
 					if = { limit = { var:bag_wtp_esg = 42 }
 						bag_wtp_edit_place_town_42 = yes
-						bag_wtp_edit_place_rural_42 = yes
 					}
 					if = { limit = { var:bag_wtp_esg = 43 }
 						bag_wtp_edit_place_town_43 = yes
@@ -17184,6 +17203,36 @@ bag_wtp_edit_drop = {
 				}
 			}
 		}
+		if = {
+			limit = { global_var:bag_wtp_edit_good = 48 global_var:bag_wtp_bn1 > 0 }
+			every_in_global_list = {
+				variable = bag_wtp_candidates
+				limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:fishing_village } }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = 1000 }
+				change_variable = { name = bag_wtp_esv subtract = var:bag_wtp_vb1 }
+			}
+		}
+		if = {
+			limit = { global_var:bag_wtp_edit_good = 49 global_var:bag_wtp_bn2 > 0 }
+			every_in_global_list = {
+				variable = bag_wtp_candidates
+				limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:forest_village } }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = 1000 }
+				change_variable = { name = bag_wtp_esv subtract = var:bag_wtp_vb2 }
+			}
+		}
+		if = {
+			limit = { global_var:bag_wtp_edit_good = 50 global_var:bag_wtp_bn3 > 0 }
+			every_in_global_list = {
+				variable = bag_wtp_candidates
+				limit = { is_target_in_variable_list = { name = bag_wtp_plan_builds target = building_type:market_village } }
+				set_variable = { name = bag_wtp_esc value = 1 }
+				set_variable = { name = bag_wtp_esv value = 1000 }
+				change_variable = { name = bag_wtp_esv subtract = var:bag_wtp_vb3 }
+			}
+		}
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			limit = { var:bag_wtp_esc = 1 }
@@ -17368,7 +17417,6 @@ bag_wtp_edit_drop = {
 			}
 			if = { limit = { global_var:bag_wtp_edit_good = 42 }
 				bag_wtp_edit_remove_town_42 = yes
-				bag_wtp_edit_remove_rural_42 = yes
 			}
 			if = { limit = { global_var:bag_wtp_edit_good = 43 }
 				bag_wtp_edit_remove_town_43 = yes
@@ -17389,6 +17437,15 @@ bag_wtp_edit_drop = {
 			if = { limit = { global_var:bag_wtp_edit_good = 47 }
 				bag_wtp_edit_remove_town_47 = yes
 				bag_wtp_edit_remove_rural_47 = yes
+			}
+			if = { limit = { global_var:bag_wtp_edit_good = 48 }
+				bag_wtp_edit_remove_rural_48 = yes
+			}
+			if = { limit = { global_var:bag_wtp_edit_good = 49 }
+				bag_wtp_edit_remove_rural_49 = yes
+			}
+			if = { limit = { global_var:bag_wtp_edit_good = 50 }
+				bag_wtp_edit_remove_rural_50 = yes
 			}
 			# The room is free now; the good furthest below its share takes it.
 			bag_wtp_edit_fill_room = yes
@@ -18709,7 +18766,6 @@ bag_wtp_edit_fill_room = {
 	}
 	if = { limit = { var:bag_wtp_esg = 42 }
 		bag_wtp_edit_place_town_42 = yes
-		bag_wtp_edit_place_rural_42 = yes
 	}
 	if = { limit = { var:bag_wtp_esg = 43 }
 		bag_wtp_edit_place_town_43 = yes
@@ -20387,7 +20443,6 @@ bag_wtp_edit_reshuffle_round = {
 					}
 					if = { limit = { var:bag_wtp_fillg = 42 }
 						bag_wtp_edit_remove_town_42 = yes
-						bag_wtp_edit_remove_rural_42 = yes
 					}
 					if = { limit = { var:bag_wtp_fillg = 43 }
 						bag_wtp_edit_remove_town_43 = yes
@@ -20565,7 +20620,6 @@ bag_wtp_edit_reshuffle_round = {
 					}
 					if = { limit = { global_var:bag_wtp_rs_ag = 42 }
 						bag_wtp_edit_place_town_42 = yes
-						bag_wtp_edit_place_rural_42 = yes
 					}
 					if = { limit = { global_var:bag_wtp_rs_ag = 43 }
 						bag_wtp_edit_place_town_43 = yes
@@ -20745,7 +20799,6 @@ bag_wtp_edit_reshuffle_round = {
 						}
 						if = { limit = { global_var:bag_wtp_rs_ag = 42 }
 							bag_wtp_edit_remove_town_42 = yes
-							bag_wtp_edit_remove_rural_42 = yes
 						}
 						if = { limit = { global_var:bag_wtp_rs_ag = 43 }
 							bag_wtp_edit_remove_town_43 = yes
@@ -20923,7 +20976,6 @@ bag_wtp_edit_reshuffle_round = {
 						}
 						if = { limit = { global_var:bag_wtp_rs_bg = 42 }
 							bag_wtp_edit_place_town_42 = yes
-							bag_wtp_edit_place_rural_42 = yes
 						}
 						if = { limit = { global_var:bag_wtp_rs_bg = 43 }
 							bag_wtp_edit_place_town_43 = yes
@@ -23132,7 +23184,6 @@ bag_wtp_plan_move_t1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -23310,7 +23361,6 @@ bag_wtp_plan_move_t1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -23491,7 +23541,6 @@ bag_wtp_plan_move_t1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -23669,7 +23718,6 @@ bag_wtp_plan_move_t1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -23936,7 +23984,6 @@ bag_wtp_plan_move_r1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -24114,7 +24161,6 @@ bag_wtp_plan_move_r1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -24295,7 +24341,6 @@ bag_wtp_plan_move_r1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -24473,7 +24518,6 @@ bag_wtp_plan_move_r1 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -24763,7 +24807,6 @@ bag_wtp_plan_move_t2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -24941,7 +24984,6 @@ bag_wtp_plan_move_t2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -25122,7 +25164,6 @@ bag_wtp_plan_move_t2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -25300,7 +25341,6 @@ bag_wtp_plan_move_t2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -25567,7 +25607,6 @@ bag_wtp_plan_move_r2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -25745,7 +25784,6 @@ bag_wtp_plan_move_r2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -25926,7 +25964,6 @@ bag_wtp_plan_move_r2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -26104,7 +26141,6 @@ bag_wtp_plan_move_r2 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -26394,7 +26430,6 @@ bag_wtp_plan_move_t3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -26572,7 +26607,6 @@ bag_wtp_plan_move_t3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -26753,7 +26787,6 @@ bag_wtp_plan_move_t3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -26931,7 +26964,6 @@ bag_wtp_plan_move_t3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -27198,7 +27230,6 @@ bag_wtp_plan_move_r3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -27376,7 +27407,6 @@ bag_wtp_plan_move_r3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -27557,7 +27587,6 @@ bag_wtp_plan_move_r3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -27735,7 +27764,6 @@ bag_wtp_plan_move_r3 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -28026,7 +28054,6 @@ bag_wtp_plan_move_t4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -28204,7 +28231,6 @@ bag_wtp_plan_move_t4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -28385,7 +28411,6 @@ bag_wtp_plan_move_t4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -28563,7 +28588,6 @@ bag_wtp_plan_move_t4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -28831,7 +28855,6 @@ bag_wtp_plan_move_r4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -29009,7 +29032,6 @@ bag_wtp_plan_move_r4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -29190,7 +29212,6 @@ bag_wtp_plan_move_r4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -29368,7 +29389,6 @@ bag_wtp_plan_move_r4 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -29658,7 +29678,6 @@ bag_wtp_plan_move_t5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -29836,7 +29855,6 @@ bag_wtp_plan_move_t5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -30017,7 +30035,6 @@ bag_wtp_plan_move_t5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -30195,7 +30212,6 @@ bag_wtp_plan_move_t5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -30462,7 +30478,6 @@ bag_wtp_plan_move_r5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -30640,7 +30655,6 @@ bag_wtp_plan_move_r5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -30821,7 +30835,6 @@ bag_wtp_plan_move_r5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -30999,7 +31012,6 @@ bag_wtp_plan_move_r5 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -31289,7 +31301,6 @@ bag_wtp_plan_move_t6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -31467,7 +31478,6 @@ bag_wtp_plan_move_t6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -31648,7 +31658,6 @@ bag_wtp_plan_move_t6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -31826,7 +31835,6 @@ bag_wtp_plan_move_t6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -32093,7 +32101,6 @@ bag_wtp_plan_move_r6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -32271,7 +32278,6 @@ bag_wtp_plan_move_r6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -32452,7 +32458,6 @@ bag_wtp_plan_move_r6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -32630,7 +32635,6 @@ bag_wtp_plan_move_r6 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -32920,7 +32924,6 @@ bag_wtp_plan_move_t7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -33098,7 +33101,6 @@ bag_wtp_plan_move_t7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -33279,7 +33281,6 @@ bag_wtp_plan_move_t7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -33457,7 +33458,6 @@ bag_wtp_plan_move_t7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -33724,7 +33724,6 @@ bag_wtp_plan_move_r7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -33902,7 +33901,6 @@ bag_wtp_plan_move_r7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -34083,7 +34081,6 @@ bag_wtp_plan_move_r7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -34261,7 +34258,6 @@ bag_wtp_plan_move_r7 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -34551,7 +34547,6 @@ bag_wtp_plan_move_t8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -34729,7 +34724,6 @@ bag_wtp_plan_move_t8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -34910,7 +34904,6 @@ bag_wtp_plan_move_t8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -35088,7 +35081,6 @@ bag_wtp_plan_move_t8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -35355,7 +35347,6 @@ bag_wtp_plan_move_r8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -35533,7 +35524,6 @@ bag_wtp_plan_move_r8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -35714,7 +35704,6 @@ bag_wtp_plan_move_r8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -35892,7 +35881,6 @@ bag_wtp_plan_move_r8 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -36182,7 +36170,6 @@ bag_wtp_plan_move_t9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -36360,7 +36347,6 @@ bag_wtp_plan_move_t9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -36541,7 +36527,6 @@ bag_wtp_plan_move_t9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -36719,7 +36704,6 @@ bag_wtp_plan_move_t9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -36986,7 +36970,6 @@ bag_wtp_plan_move_r9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -37164,7 +37147,6 @@ bag_wtp_plan_move_r9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -37345,7 +37327,6 @@ bag_wtp_plan_move_r9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -37523,7 +37504,6 @@ bag_wtp_plan_move_r9 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -37813,7 +37793,6 @@ bag_wtp_plan_move_t10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -37991,7 +37970,6 @@ bag_wtp_plan_move_t10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -38172,7 +38150,6 @@ bag_wtp_plan_move_t10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -38350,7 +38327,6 @@ bag_wtp_plan_move_t10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -38617,7 +38593,6 @@ bag_wtp_plan_move_r10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -38795,7 +38770,6 @@ bag_wtp_plan_move_r10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -38976,7 +38950,6 @@ bag_wtp_plan_move_r10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -39154,7 +39127,6 @@ bag_wtp_plan_move_r10 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -39444,7 +39416,6 @@ bag_wtp_plan_move_r11 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -39622,7 +39593,6 @@ bag_wtp_plan_move_r11 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -39803,7 +39773,6 @@ bag_wtp_plan_move_r11 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -39981,7 +39950,6 @@ bag_wtp_plan_move_r11 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -40271,7 +40239,6 @@ bag_wtp_plan_move_t12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -40449,7 +40416,6 @@ bag_wtp_plan_move_t12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -40630,7 +40596,6 @@ bag_wtp_plan_move_t12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -40808,7 +40773,6 @@ bag_wtp_plan_move_t12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -41075,7 +41039,6 @@ bag_wtp_plan_move_r12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -41253,7 +41216,6 @@ bag_wtp_plan_move_r12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -41434,7 +41396,6 @@ bag_wtp_plan_move_r12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -41612,7 +41573,6 @@ bag_wtp_plan_move_r12 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -41902,7 +41862,6 @@ bag_wtp_plan_move_t13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -42080,7 +42039,6 @@ bag_wtp_plan_move_t13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -42261,7 +42219,6 @@ bag_wtp_plan_move_t13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -42439,7 +42396,6 @@ bag_wtp_plan_move_t13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -42706,7 +42662,6 @@ bag_wtp_plan_move_r13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -42884,7 +42839,6 @@ bag_wtp_plan_move_r13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -43065,7 +43019,6 @@ bag_wtp_plan_move_r13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -43243,7 +43196,6 @@ bag_wtp_plan_move_r13 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -43533,7 +43485,6 @@ bag_wtp_plan_move_t14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -43711,7 +43662,6 @@ bag_wtp_plan_move_t14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -43892,7 +43842,6 @@ bag_wtp_plan_move_t14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -44070,7 +44019,6 @@ bag_wtp_plan_move_t14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -44337,7 +44285,6 @@ bag_wtp_plan_move_r14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -44515,7 +44462,6 @@ bag_wtp_plan_move_r14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -44696,7 +44642,6 @@ bag_wtp_plan_move_r14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -44874,7 +44819,6 @@ bag_wtp_plan_move_r14 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -45164,7 +45108,6 @@ bag_wtp_plan_move_t15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -45342,7 +45285,6 @@ bag_wtp_plan_move_t15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -45523,7 +45465,6 @@ bag_wtp_plan_move_t15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -45701,7 +45642,6 @@ bag_wtp_plan_move_t15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -45968,7 +45908,6 @@ bag_wtp_plan_move_r15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -46146,7 +46085,6 @@ bag_wtp_plan_move_r15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -46327,7 +46265,6 @@ bag_wtp_plan_move_r15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -46505,7 +46442,6 @@ bag_wtp_plan_move_r15 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -46795,7 +46731,6 @@ bag_wtp_plan_move_t16 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -46973,7 +46908,6 @@ bag_wtp_plan_move_t16 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -47154,7 +47088,6 @@ bag_wtp_plan_move_t16 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -47332,7 +47265,6 @@ bag_wtp_plan_move_t16 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -47599,7 +47531,6 @@ bag_wtp_plan_move_t17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -47777,7 +47708,6 @@ bag_wtp_plan_move_t17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -47958,7 +47888,6 @@ bag_wtp_plan_move_t17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -48136,7 +48065,6 @@ bag_wtp_plan_move_t17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -48403,7 +48331,6 @@ bag_wtp_plan_move_r17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -48581,7 +48508,6 @@ bag_wtp_plan_move_r17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -48762,7 +48688,6 @@ bag_wtp_plan_move_r17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -48940,7 +48865,6 @@ bag_wtp_plan_move_r17 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -49231,7 +49155,6 @@ bag_wtp_plan_move_t18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -49409,7 +49332,6 @@ bag_wtp_plan_move_t18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -49590,7 +49512,6 @@ bag_wtp_plan_move_t18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -49768,7 +49689,6 @@ bag_wtp_plan_move_t18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -50036,7 +49956,6 @@ bag_wtp_plan_move_r18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -50214,7 +50133,6 @@ bag_wtp_plan_move_r18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -50395,7 +50313,6 @@ bag_wtp_plan_move_r18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -50573,7 +50490,6 @@ bag_wtp_plan_move_r18 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -50863,7 +50779,6 @@ bag_wtp_plan_move_t19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -51041,7 +50956,6 @@ bag_wtp_plan_move_t19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -51222,7 +51136,6 @@ bag_wtp_plan_move_t19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -51400,7 +51313,6 @@ bag_wtp_plan_move_t19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -51667,7 +51579,6 @@ bag_wtp_plan_move_r19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -51845,7 +51756,6 @@ bag_wtp_plan_move_r19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -52026,7 +51936,6 @@ bag_wtp_plan_move_r19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -52204,7 +52113,6 @@ bag_wtp_plan_move_r19 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -52494,7 +52402,6 @@ bag_wtp_plan_move_t20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -52672,7 +52579,6 @@ bag_wtp_plan_move_t20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -52853,7 +52759,6 @@ bag_wtp_plan_move_t20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -53031,7 +52936,6 @@ bag_wtp_plan_move_t20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -53298,7 +53202,6 @@ bag_wtp_plan_move_r20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -53476,7 +53379,6 @@ bag_wtp_plan_move_r20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -53657,7 +53559,6 @@ bag_wtp_plan_move_r20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -53835,7 +53736,6 @@ bag_wtp_plan_move_r20 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -54125,7 +54025,6 @@ bag_wtp_plan_move_t21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -54303,7 +54202,6 @@ bag_wtp_plan_move_t21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -54484,7 +54382,6 @@ bag_wtp_plan_move_t21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -54662,7 +54559,6 @@ bag_wtp_plan_move_t21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -54929,7 +54825,6 @@ bag_wtp_plan_move_r21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -55107,7 +55002,6 @@ bag_wtp_plan_move_r21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -55288,7 +55182,6 @@ bag_wtp_plan_move_r21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -55466,7 +55359,6 @@ bag_wtp_plan_move_r21 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -55756,7 +55648,6 @@ bag_wtp_plan_move_t22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -55934,7 +55825,6 @@ bag_wtp_plan_move_t22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -56115,7 +56005,6 @@ bag_wtp_plan_move_t22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -56293,7 +56182,6 @@ bag_wtp_plan_move_t22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -56560,7 +56448,6 @@ bag_wtp_plan_move_r22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -56738,7 +56625,6 @@ bag_wtp_plan_move_r22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -56919,7 +56805,6 @@ bag_wtp_plan_move_r22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -57097,7 +56982,6 @@ bag_wtp_plan_move_r22 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -57387,7 +57271,6 @@ bag_wtp_plan_move_r23 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -57565,7 +57448,6 @@ bag_wtp_plan_move_r23 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -57746,7 +57628,6 @@ bag_wtp_plan_move_r23 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -57924,7 +57805,6 @@ bag_wtp_plan_move_r23 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -58215,7 +58095,6 @@ bag_wtp_plan_move_t24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -58393,7 +58272,6 @@ bag_wtp_plan_move_t24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -58574,7 +58452,6 @@ bag_wtp_plan_move_t24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -58752,7 +58629,6 @@ bag_wtp_plan_move_t24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -59020,7 +58896,6 @@ bag_wtp_plan_move_r24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -59198,7 +59073,6 @@ bag_wtp_plan_move_r24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -59379,7 +59253,6 @@ bag_wtp_plan_move_r24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -59557,7 +59430,6 @@ bag_wtp_plan_move_r24 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -59847,7 +59719,6 @@ bag_wtp_plan_move_r25 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -60025,7 +59896,6 @@ bag_wtp_plan_move_r25 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -60206,7 +60076,6 @@ bag_wtp_plan_move_r25 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -60384,7 +60253,6 @@ bag_wtp_plan_move_r25 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -60675,7 +60543,6 @@ bag_wtp_plan_move_t26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -60853,7 +60720,6 @@ bag_wtp_plan_move_t26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -61034,7 +60900,6 @@ bag_wtp_plan_move_t26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -61212,7 +61077,6 @@ bag_wtp_plan_move_t26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -61480,7 +61344,6 @@ bag_wtp_plan_move_r26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -61658,7 +61521,6 @@ bag_wtp_plan_move_r26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -61839,7 +61701,6 @@ bag_wtp_plan_move_r26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -62017,7 +61878,6 @@ bag_wtp_plan_move_r26 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -62308,7 +62168,6 @@ bag_wtp_plan_move_t27 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -62486,7 +62345,6 @@ bag_wtp_plan_move_t27 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -62667,7 +62525,6 @@ bag_wtp_plan_move_t27 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -62845,7 +62702,6 @@ bag_wtp_plan_move_t27 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -63113,7 +62969,6 @@ bag_wtp_plan_move_t28 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -63291,7 +63146,6 @@ bag_wtp_plan_move_t28 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -63472,7 +63326,6 @@ bag_wtp_plan_move_t28 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -63650,7 +63503,6 @@ bag_wtp_plan_move_t28 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -63918,7 +63770,6 @@ bag_wtp_plan_move_t29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -64096,7 +63947,6 @@ bag_wtp_plan_move_t29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -64277,7 +64127,6 @@ bag_wtp_plan_move_t29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -64455,7 +64304,6 @@ bag_wtp_plan_move_t29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -64723,7 +64571,6 @@ bag_wtp_plan_move_r29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -64901,7 +64748,6 @@ bag_wtp_plan_move_r29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -65082,7 +64928,6 @@ bag_wtp_plan_move_r29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -65260,7 +65105,6 @@ bag_wtp_plan_move_r29 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -65551,7 +65395,6 @@ bag_wtp_plan_move_t30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -65729,7 +65572,6 @@ bag_wtp_plan_move_t30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -65910,7 +65752,6 @@ bag_wtp_plan_move_t30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -66088,7 +65929,6 @@ bag_wtp_plan_move_t30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -66356,7 +66196,6 @@ bag_wtp_plan_move_r30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -66534,7 +66373,6 @@ bag_wtp_plan_move_r30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -66715,7 +66553,6 @@ bag_wtp_plan_move_r30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -66893,7 +66730,6 @@ bag_wtp_plan_move_r30 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -67184,7 +67020,6 @@ bag_wtp_plan_move_t31 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -67362,7 +67197,6 @@ bag_wtp_plan_move_t31 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -67543,7 +67377,6 @@ bag_wtp_plan_move_t31 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -67721,7 +67554,6 @@ bag_wtp_plan_move_t31 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -67989,7 +67821,6 @@ bag_wtp_plan_move_t32 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -68167,7 +67998,6 @@ bag_wtp_plan_move_t32 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -68348,7 +68178,6 @@ bag_wtp_plan_move_t32 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -68526,7 +68355,6 @@ bag_wtp_plan_move_t32 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -68794,7 +68622,6 @@ bag_wtp_plan_move_t33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -68972,7 +68799,6 @@ bag_wtp_plan_move_t33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -69153,7 +68979,6 @@ bag_wtp_plan_move_t33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -69331,7 +69156,6 @@ bag_wtp_plan_move_t33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -69599,7 +69423,6 @@ bag_wtp_plan_move_r33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -69777,7 +69600,6 @@ bag_wtp_plan_move_r33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -69958,7 +69780,6 @@ bag_wtp_plan_move_r33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -70136,7 +69957,6 @@ bag_wtp_plan_move_r33 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -70427,7 +70247,6 @@ bag_wtp_plan_move_t34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -70605,7 +70424,6 @@ bag_wtp_plan_move_t34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -70786,7 +70604,6 @@ bag_wtp_plan_move_t34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -70964,7 +70781,6 @@ bag_wtp_plan_move_t34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -71232,7 +71048,6 @@ bag_wtp_plan_move_r34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -71410,7 +71225,6 @@ bag_wtp_plan_move_r34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -71591,7 +71405,6 @@ bag_wtp_plan_move_r34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -71769,7 +71582,6 @@ bag_wtp_plan_move_r34 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -72059,7 +71871,6 @@ bag_wtp_plan_move_t35 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -72237,7 +72048,6 @@ bag_wtp_plan_move_t35 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -72418,7 +72228,6 @@ bag_wtp_plan_move_t35 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -72596,7 +72405,6 @@ bag_wtp_plan_move_t35 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -72864,7 +72672,6 @@ bag_wtp_plan_move_t36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -73042,7 +72849,6 @@ bag_wtp_plan_move_t36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -73223,7 +73029,6 @@ bag_wtp_plan_move_t36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -73401,7 +73206,6 @@ bag_wtp_plan_move_t36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -73669,7 +73473,6 @@ bag_wtp_plan_move_r36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -73847,7 +73650,6 @@ bag_wtp_plan_move_r36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -74028,7 +73830,6 @@ bag_wtp_plan_move_r36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -74206,7 +74007,6 @@ bag_wtp_plan_move_r36 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -74497,7 +74297,6 @@ bag_wtp_plan_move_t37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -74675,7 +74474,6 @@ bag_wtp_plan_move_t37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -74856,7 +74654,6 @@ bag_wtp_plan_move_t37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -75034,7 +74831,6 @@ bag_wtp_plan_move_t37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -75302,7 +75098,6 @@ bag_wtp_plan_move_r37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -75480,7 +75275,6 @@ bag_wtp_plan_move_r37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -75661,7 +75455,6 @@ bag_wtp_plan_move_r37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -75839,7 +75632,6 @@ bag_wtp_plan_move_r37 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -76130,7 +75922,6 @@ bag_wtp_plan_move_t38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -76308,7 +76099,6 @@ bag_wtp_plan_move_t38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -76489,7 +76279,6 @@ bag_wtp_plan_move_t38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -76667,7 +76456,6 @@ bag_wtp_plan_move_t38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -76935,7 +76723,6 @@ bag_wtp_plan_move_r38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -77113,7 +76900,6 @@ bag_wtp_plan_move_r38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -77294,7 +77080,6 @@ bag_wtp_plan_move_r38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -77472,7 +77257,6 @@ bag_wtp_plan_move_r38 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -77763,7 +77547,6 @@ bag_wtp_plan_move_t39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -77941,7 +77724,6 @@ bag_wtp_plan_move_t39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -78122,7 +77904,6 @@ bag_wtp_plan_move_t39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -78300,7 +78081,6 @@ bag_wtp_plan_move_t39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -78568,7 +78348,6 @@ bag_wtp_plan_move_r39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -78746,7 +78525,6 @@ bag_wtp_plan_move_r39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -78927,7 +78705,6 @@ bag_wtp_plan_move_r39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -79105,7 +78882,6 @@ bag_wtp_plan_move_r39 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -79396,7 +79172,6 @@ bag_wtp_plan_move_t40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -79574,7 +79349,6 @@ bag_wtp_plan_move_t40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -79755,7 +79529,6 @@ bag_wtp_plan_move_t40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -79933,7 +79706,6 @@ bag_wtp_plan_move_t40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -80201,7 +79973,6 @@ bag_wtp_plan_move_r40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -80379,7 +80150,6 @@ bag_wtp_plan_move_r40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -80560,7 +80330,6 @@ bag_wtp_plan_move_r40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -80738,7 +80507,6 @@ bag_wtp_plan_move_r40 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -81028,7 +80796,6 @@ bag_wtp_plan_move_t41 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -81206,7 +80973,6 @@ bag_wtp_plan_move_t41 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -81387,7 +81153,6 @@ bag_wtp_plan_move_t41 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -81565,7 +81330,6 @@ bag_wtp_plan_move_t41 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -81833,7 +81597,6 @@ bag_wtp_plan_move_t42 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -82011,7 +81774,6 @@ bag_wtp_plan_move_t42 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -82192,7 +81954,6 @@ bag_wtp_plan_move_t42 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -82370,7 +82131,6 @@ bag_wtp_plan_move_t42 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -82637,7 +82397,6 @@ bag_wtp_plan_move_t43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -82815,7 +82574,6 @@ bag_wtp_plan_move_t43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -82996,7 +82754,6 @@ bag_wtp_plan_move_t43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -83174,7 +82931,6 @@ bag_wtp_plan_move_t43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -83441,7 +83197,6 @@ bag_wtp_plan_move_r43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -83619,7 +83374,6 @@ bag_wtp_plan_move_r43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -83800,7 +83554,6 @@ bag_wtp_plan_move_r43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -83978,7 +83731,6 @@ bag_wtp_plan_move_r43 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -84268,7 +84020,6 @@ bag_wtp_plan_move_t44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -84446,7 +84197,6 @@ bag_wtp_plan_move_t44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -84627,7 +84377,6 @@ bag_wtp_plan_move_t44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -84805,7 +84554,6 @@ bag_wtp_plan_move_t44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -85072,7 +84820,6 @@ bag_wtp_plan_move_r44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -85250,7 +84997,6 @@ bag_wtp_plan_move_r44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -85431,7 +85177,6 @@ bag_wtp_plan_move_r44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -85609,7 +85354,6 @@ bag_wtp_plan_move_r44 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -85900,7 +85644,6 @@ bag_wtp_plan_move_t45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -86078,7 +85821,6 @@ bag_wtp_plan_move_t45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -86259,7 +86001,6 @@ bag_wtp_plan_move_t45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -86437,7 +86178,6 @@ bag_wtp_plan_move_t45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -86705,7 +86445,6 @@ bag_wtp_plan_move_r45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -86883,7 +86622,6 @@ bag_wtp_plan_move_r45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -87064,7 +86802,6 @@ bag_wtp_plan_move_r45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -87242,7 +86979,6 @@ bag_wtp_plan_move_r45 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -87533,7 +87269,6 @@ bag_wtp_plan_move_t46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -87711,7 +87446,6 @@ bag_wtp_plan_move_t46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -87892,7 +87626,6 @@ bag_wtp_plan_move_t46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -88070,7 +87803,6 @@ bag_wtp_plan_move_t46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -88338,7 +88070,6 @@ bag_wtp_plan_move_r46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -88516,7 +88247,6 @@ bag_wtp_plan_move_r46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -88697,7 +88427,6 @@ bag_wtp_plan_move_r46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -88875,7 +88604,6 @@ bag_wtp_plan_move_r46 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -89166,7 +88894,6 @@ bag_wtp_plan_move_t47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -89344,7 +89071,6 @@ bag_wtp_plan_move_t47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -89525,7 +89251,6 @@ bag_wtp_plan_move_t47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -89703,7 +89428,6 @@ bag_wtp_plan_move_t47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -89971,7 +89695,6 @@ bag_wtp_plan_move_r47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -90149,7 +89872,6 @@ bag_wtp_plan_move_r47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -90330,7 +90052,6 @@ bag_wtp_plan_move_r47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 42 }
 					bag_wtp_edit_remove_town_42 = yes
-					bag_wtp_edit_remove_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_ag = 43 }
 					bag_wtp_edit_remove_town_43 = yes
@@ -90508,7 +90229,6 @@ bag_wtp_plan_move_r47 = {
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 42 }
 					bag_wtp_edit_place_town_42 = yes
-					bag_wtp_edit_place_rural_42 = yes
 				}
 				if = { limit = { global_var:bag_wtp_mv_bg = 43 }
 					bag_wtp_edit_place_town_43 = yes
@@ -92438,7 +92158,6 @@ bag_wtp_edit_take_worst = {
 	}
 	if = { limit = { var:bag_wtp_esg = 42 }
 		bag_wtp_edit_remove_town_42 = yes
-		bag_wtp_edit_remove_rural_42 = yes
 	}
 	if = { limit = { var:bag_wtp_esg = 43 }
 		bag_wtp_edit_remove_town_43 = yes
@@ -97832,6 +97551,242 @@ bag_wtp_edit_minus_47 = {
 	bag_wtp_edit_pin_47 = yes
 }
 
+# «+1» на fishing_village.
+# Scope: country
+bag_wtp_edit_plus_48 = {
+	set_global_variable = { name = bag_wtp_edit_good value = 48 }
+	set_global_variable = { name = bag_wtp_edit_vill_s value = building_type:fishing_village }
+	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
+	bag_wtp_edit_add = yes
+	# **После, а не до**: `_edit_add` ставит `_edit_op = 1` сам, и код деревни
+	# обязан пережить его, иначе строка нажатия назовёт товар, которого нет.
+	set_global_variable = { name = bag_wtp_edit_op value = 5 }
+}
+
+# «−1» на fishing_village.
+# Scope: country
+bag_wtp_edit_minus_48 = {
+	set_global_variable = { name = bag_wtp_edit_good value = 48 }
+	set_global_variable = { name = bag_wtp_edit_vill_s value = building_type:fishing_village }
+	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
+	bag_wtp_edit_drop = yes
+	set_global_variable = { name = bag_wtp_edit_op value = 6 }
+}
+
+# «+1» на forest_village.
+# Scope: country
+bag_wtp_edit_plus_49 = {
+	set_global_variable = { name = bag_wtp_edit_good value = 49 }
+	set_global_variable = { name = bag_wtp_edit_vill_s value = building_type:forest_village }
+	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
+	bag_wtp_edit_add = yes
+	# **После, а не до**: `_edit_add` ставит `_edit_op = 1` сам, и код деревни
+	# обязан пережить его, иначе строка нажатия назовёт товар, которого нет.
+	set_global_variable = { name = bag_wtp_edit_op value = 5 }
+}
+
+# «−1» на forest_village.
+# Scope: country
+bag_wtp_edit_minus_49 = {
+	set_global_variable = { name = bag_wtp_edit_good value = 49 }
+	set_global_variable = { name = bag_wtp_edit_vill_s value = building_type:forest_village }
+	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
+	bag_wtp_edit_drop = yes
+	set_global_variable = { name = bag_wtp_edit_op value = 6 }
+}
+
+# «+1» на market_village.
+# Scope: country
+bag_wtp_edit_plus_50 = {
+	set_global_variable = { name = bag_wtp_edit_good value = 50 }
+	set_global_variable = { name = bag_wtp_edit_vill_s value = building_type:market_village }
+	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
+	bag_wtp_edit_add = yes
+	# **После, а не до**: `_edit_add` ставит `_edit_op = 1` сам, и код деревни
+	# обязан пережить его, иначе строка нажатия назовёт товар, которого нет.
+	set_global_variable = { name = bag_wtp_edit_op value = 5 }
+}
+
+# «−1» на market_village.
+# Scope: country
+bag_wtp_edit_minus_50 = {
+	set_global_variable = { name = bag_wtp_edit_good value = 50 }
+	set_global_variable = { name = bag_wtp_edit_vill_s value = building_type:market_village }
+	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
+	bag_wtp_edit_drop = yes
+	set_global_variable = { name = bag_wtp_edit_op value = 6 }
+}
+
+# Всё плановое с этой локации долой: товары, деревни, грамота.
+# Scope: location
+bag_wtp_edit_wipe_here = {
+	bag_wtp_edit_remove_town_1 = yes
+	bag_wtp_edit_remove_rural_1 = yes
+	bag_wtp_edit_remove_town_2 = yes
+	bag_wtp_edit_remove_rural_2 = yes
+	bag_wtp_edit_remove_town_3 = yes
+	bag_wtp_edit_remove_rural_3 = yes
+	bag_wtp_edit_remove_town_4 = yes
+	bag_wtp_edit_remove_rural_4 = yes
+	bag_wtp_edit_remove_town_5 = yes
+	bag_wtp_edit_remove_rural_5 = yes
+	bag_wtp_edit_remove_town_6 = yes
+	bag_wtp_edit_remove_rural_6 = yes
+	bag_wtp_edit_remove_town_7 = yes
+	bag_wtp_edit_remove_rural_7 = yes
+	bag_wtp_edit_remove_town_8 = yes
+	bag_wtp_edit_remove_rural_8 = yes
+	bag_wtp_edit_remove_town_9 = yes
+	bag_wtp_edit_remove_rural_9 = yes
+	bag_wtp_edit_remove_town_10 = yes
+	bag_wtp_edit_remove_rural_10 = yes
+	bag_wtp_edit_remove_rural_11 = yes
+	bag_wtp_edit_remove_town_12 = yes
+	bag_wtp_edit_remove_rural_12 = yes
+	bag_wtp_edit_remove_town_13 = yes
+	bag_wtp_edit_remove_rural_13 = yes
+	bag_wtp_edit_remove_town_14 = yes
+	bag_wtp_edit_remove_rural_14 = yes
+	bag_wtp_edit_remove_town_15 = yes
+	bag_wtp_edit_remove_rural_15 = yes
+	bag_wtp_edit_remove_town_16 = yes
+	bag_wtp_edit_remove_town_17 = yes
+	bag_wtp_edit_remove_rural_17 = yes
+	bag_wtp_edit_remove_town_18 = yes
+	bag_wtp_edit_remove_rural_18 = yes
+	bag_wtp_edit_remove_town_19 = yes
+	bag_wtp_edit_remove_rural_19 = yes
+	bag_wtp_edit_remove_town_20 = yes
+	bag_wtp_edit_remove_rural_20 = yes
+	bag_wtp_edit_remove_town_21 = yes
+	bag_wtp_edit_remove_rural_21 = yes
+	bag_wtp_edit_remove_town_22 = yes
+	bag_wtp_edit_remove_rural_22 = yes
+	bag_wtp_edit_remove_rural_23 = yes
+	bag_wtp_edit_remove_town_24 = yes
+	bag_wtp_edit_remove_rural_24 = yes
+	bag_wtp_edit_remove_rural_25 = yes
+	bag_wtp_edit_remove_town_26 = yes
+	bag_wtp_edit_remove_rural_26 = yes
+	bag_wtp_edit_remove_town_27 = yes
+	bag_wtp_edit_remove_town_28 = yes
+	bag_wtp_edit_remove_town_29 = yes
+	bag_wtp_edit_remove_rural_29 = yes
+	bag_wtp_edit_remove_town_30 = yes
+	bag_wtp_edit_remove_rural_30 = yes
+	bag_wtp_edit_remove_town_31 = yes
+	bag_wtp_edit_remove_town_32 = yes
+	bag_wtp_edit_remove_town_33 = yes
+	bag_wtp_edit_remove_rural_33 = yes
+	bag_wtp_edit_remove_town_34 = yes
+	bag_wtp_edit_remove_rural_34 = yes
+	bag_wtp_edit_remove_town_35 = yes
+	bag_wtp_edit_remove_town_36 = yes
+	bag_wtp_edit_remove_rural_36 = yes
+	bag_wtp_edit_remove_town_37 = yes
+	bag_wtp_edit_remove_rural_37 = yes
+	bag_wtp_edit_remove_town_38 = yes
+	bag_wtp_edit_remove_rural_38 = yes
+	bag_wtp_edit_remove_town_39 = yes
+	bag_wtp_edit_remove_rural_39 = yes
+	bag_wtp_edit_remove_town_40 = yes
+	bag_wtp_edit_remove_rural_40 = yes
+	bag_wtp_edit_remove_town_41 = yes
+	bag_wtp_edit_remove_town_42 = yes
+	bag_wtp_edit_remove_town_43 = yes
+	bag_wtp_edit_remove_rural_43 = yes
+	bag_wtp_edit_remove_town_44 = yes
+	bag_wtp_edit_remove_rural_44 = yes
+	bag_wtp_edit_remove_town_45 = yes
+	bag_wtp_edit_remove_rural_45 = yes
+	bag_wtp_edit_remove_town_46 = yes
+	bag_wtp_edit_remove_rural_46 = yes
+	bag_wtp_edit_remove_town_47 = yes
+	bag_wtp_edit_remove_rural_47 = yes
+	bag_wtp_plan_drop_village_1 = yes
+	bag_wtp_plan_drop_village_2 = yes
+	bag_wtp_plan_drop_village_3 = yes
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 1 }
+		change_global_variable = { name = bag_wtp_rgiven1 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn1 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 2 }
+		change_global_variable = { name = bag_wtp_rgiven2 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn2 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 3 }
+		change_global_variable = { name = bag_wtp_rgiven3 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn3 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 4 }
+		change_global_variable = { name = bag_wtp_rgiven4 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn4 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 5 }
+		change_global_variable = { name = bag_wtp_rgiven5 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn5 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 6 }
+		change_global_variable = { name = bag_wtp_rgiven6 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn6 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 7 }
+		change_global_variable = { name = bag_wtp_rgiven7 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn7 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 8 }
+		change_global_variable = { name = bag_wtp_rgiven8 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn8 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 9 }
+		change_global_variable = { name = bag_wtp_rgiven9 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn9 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 10 }
+		change_global_variable = { name = bag_wtp_rgiven10 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn10 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 11 }
+		change_global_variable = { name = bag_wtp_rgiven11 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn11 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 12 }
+		change_global_variable = { name = bag_wtp_rgiven12 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn12 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	if = {
+		limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 13 }
+		change_global_variable = { name = bag_wtp_rgiven13 subtract = 1 }
+		change_global_variable = { name = bag_wtp_rn13 subtract = 1 }
+		change_global_variable = { name = bag_wtp_plan_rightn subtract = 1 }
+	}
+	remove_variable = bag_wtp_plan_right
+}
+
 # Slot 1: the plan as it stands now, kept under a name of its own.
 # Scope: country
 bag_wtp_edit_store_1 = {
@@ -98370,7 +98325,6 @@ bag_wtp_edit_load_1 = {
 			}
 			if = { limit = { is_target_in_variable_list = { name = bag_wtp_sl1_goods target = goods:pottery } }
 				bag_wtp_plan_try_town_42 = yes
-				bag_wtp_plan_try_rural_42 = yes
 			}
 			if = { limit = { is_target_in_variable_list = { name = bag_wtp_sl1_goods target = goods:slaves_goods } }
 				bag_wtp_plan_try_town_43 = yes
@@ -99222,7 +99176,6 @@ bag_wtp_edit_load_2 = {
 			}
 			if = { limit = { is_target_in_variable_list = { name = bag_wtp_sl2_goods target = goods:pottery } }
 				bag_wtp_plan_try_town_42 = yes
-				bag_wtp_plan_try_rural_42 = yes
 			}
 			if = { limit = { is_target_in_variable_list = { name = bag_wtp_sl2_goods target = goods:slaves_goods } }
 				bag_wtp_plan_try_town_43 = yes
@@ -100074,7 +100027,6 @@ bag_wtp_edit_load_3 = {
 			}
 			if = { limit = { is_target_in_variable_list = { name = bag_wtp_sl3_goods target = goods:pottery } }
 				bag_wtp_plan_try_town_42 = yes
-				bag_wtp_plan_try_rural_42 = yes
 			}
 			if = { limit = { is_target_in_variable_list = { name = bag_wtp_sl3_goods target = goods:slaves_goods } }
 				bag_wtp_plan_try_town_43 = yes

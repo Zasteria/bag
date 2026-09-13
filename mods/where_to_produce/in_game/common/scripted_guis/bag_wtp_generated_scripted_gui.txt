@@ -2632,6 +2632,102 @@ bag_wtp_pick_skip_47 = {
 	}
 }
 
+# «{'plus': '+1', 'minus': '−1'}[what]» на fishing_village, из его собственной ячейки
+# редактора. Деревня -- сущность, а не товар, поэтому у неё своя строка и свой
+# номер в том же `_edit_good`.
+bag_wtp_pick_plus_48 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_48 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» на fishing_village, из его собственной ячейки
+# редактора. Деревня -- сущность, а не товар, поэтому у неё своя строка и свой
+# номер в том же `_edit_good`.
+bag_wtp_pick_minus_48 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_48 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» на forest_village, из его собственной ячейки
+# редактора. Деревня -- сущность, а не товар, поэтому у неё своя строка и свой
+# номер в том же `_edit_good`.
+bag_wtp_pick_plus_49 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_49 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» на forest_village, из его собственной ячейки
+# редактора. Деревня -- сущность, а не товар, поэтому у неё своя строка и свой
+# номер в том же `_edit_good`.
+bag_wtp_pick_minus_49 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_49 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» на market_village, из его собственной ячейки
+# редактора. Деревня -- сущность, а не товар, поэтому у неё своя строка и свой
+# номер в том же `_edit_good`.
+bag_wtp_pick_plus_50 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_50 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» на market_village, из его собственной ячейки
+# редактора. Деревня -- сущность, а не товар, поэтому у неё своя строка и свой
+# номер в том же `_edit_good`.
+bag_wtp_pick_minus_50 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_50 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
 # «{'plus': '+1', 'minus': '−1'}[what]» on the constantinopolitan_silk_monopoly_rights charter, from its own
 # cell in the editor. **A charter is moved, never added**: «+1» takes the town
 # where it would earn most away from a charter that has more than its share,

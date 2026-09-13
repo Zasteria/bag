@@ -26562,42 +26562,97 @@ bag_wtp_show_short47 = { value = global_var:bag_wtp_short47 }
 # How many towns hold constantinopolitan_silk_monopoly_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven1 = { value = global_var:bag_wtp_rgiven1 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit1 = { value = global_var:bag_wtp_rfit1 }
+bag_wtp_show_rtop1 = { value = global_var:bag_wtp_rtop1 }
 # How many towns hold flemish_cloth_industries_right right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven2 = { value = global_var:bag_wtp_rgiven2 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit2 = { value = global_var:bag_wtp_rfit2 }
+bag_wtp_show_rtop2 = { value = global_var:bag_wtp_rtop2 }
 # How many towns hold royal_artisan_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven3 = { value = global_var:bag_wtp_rgiven3 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit3 = { value = global_var:bag_wtp_rfit3 }
+bag_wtp_show_rtop3 = { value = global_var:bag_wtp_rtop3 }
 # How many towns hold royal_book_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven4 = { value = global_var:bag_wtp_rgiven4 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit4 = { value = global_var:bag_wtp_rfit4 }
+bag_wtp_show_rtop4 = { value = global_var:bag_wtp_rtop4 }
 # How many towns hold royal_brewing_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven5 = { value = global_var:bag_wtp_rgiven5 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit5 = { value = global_var:bag_wtp_rfit5 }
+bag_wtp_show_rtop5 = { value = global_var:bag_wtp_rtop5 }
 # How many towns hold royal_jewelry_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven6 = { value = global_var:bag_wtp_rgiven6 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit6 = { value = global_var:bag_wtp_rfit6 }
+bag_wtp_show_rtop6 = { value = global_var:bag_wtp_rtop6 }
 # How many towns hold royal_masonry_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven7 = { value = global_var:bag_wtp_rgiven7 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit7 = { value = global_var:bag_wtp_rfit7 }
+bag_wtp_show_rtop7 = { value = global_var:bag_wtp_rtop7 }
 # How many towns hold royal_naval_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven8 = { value = global_var:bag_wtp_rgiven8 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit8 = { value = global_var:bag_wtp_rfit8 }
+bag_wtp_show_rtop8 = { value = global_var:bag_wtp_rtop8 }
 # How many towns hold royal_textile_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven9 = { value = global_var:bag_wtp_rgiven9 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit9 = { value = global_var:bag_wtp_rfit9 }
+bag_wtp_show_rtop9 = { value = global_var:bag_wtp_rtop9 }
 # How many towns hold royal_tooling_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven10 = { value = global_var:bag_wtp_rgiven10 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit10 = { value = global_var:bag_wtp_rfit10 }
+bag_wtp_show_rtop10 = { value = global_var:bag_wtp_rtop10 }
 # How many towns hold royal_weaponry_rights right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven11 = { value = global_var:bag_wtp_rgiven11 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit11 = { value = global_var:bag_wtp_rfit11 }
+bag_wtp_show_rtop11 = { value = global_var:bag_wtp_rtop11 }
 # How many towns hold scandinavian_bergslag_privileges right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven12 = { value = global_var:bag_wtp_rgiven12 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit12 = { value = global_var:bag_wtp_rfit12 }
+bag_wtp_show_rtop12 = { value = global_var:bag_wtp_rtop12 }
 # How many towns hold scandinavian_tar_privileges right now, printed in its own cell.
 # Scope: country
 bag_wtp_show_rgiven13 = { value = global_var:bag_wtp_rgiven13 }
+# Сколько городов этой земли ей вообще подходят, и сколько платит
+# лучший из них -- вторая страница сводки.
+bag_wtp_show_rfit13 = { value = global_var:bag_wtp_rfit13 }
+bag_wtp_show_rtop13 = { value = global_var:bag_wtp_rtop13 }
+# Квота грамот: сколько городов (или провинций) приходится на одну.
+# Scope: country
+bag_wtp_show_rquota = { value = global_var:bag_wtp_rquota }
 # clay в сводке: город, село, мест на земле, доля, лучшая выгода.
 # Scope: country
 bag_wtp_show_pnt1 = { value = global_var:bag_wtp_pnt1 }

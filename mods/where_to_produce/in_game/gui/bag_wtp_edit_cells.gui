@@ -5194,6 +5194,193 @@ types BagWtpEditCells {
 		widget = { size = { 127 28 } }
 	}
 
+	# Универсальные деревни: по ячейке на каждую.
+	type bag_wtp_edit_village_row = hbox {
+		spacing = 14
+		ignoreinvisible = no
+
+		widget = {
+			size = { 264 32 }
+			hbox = {
+				spacing = 1
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_vcell_tt"
+						onclick = "[GetScriptedGui('bag_wtp_pick_minus_48').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_minus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 206 32 }
+					alwaystransparent = no
+					tooltip = "bag_wtp_vcell_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						size = { 206 32 }
+						align = center|vcenter
+						fontsize = 14
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_vcell_1"
+					}
+				}
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_vcell_tt"
+						onclick = "[GetScriptedGui('bag_wtp_pick_plus_48').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_plus"
+						}
+					}
+				}
+			}
+		}
+
+		widget = {
+			size = { 264 32 }
+			hbox = {
+				spacing = 1
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_vcell_tt"
+						onclick = "[GetScriptedGui('bag_wtp_pick_minus_49').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_minus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 206 32 }
+					alwaystransparent = no
+					tooltip = "bag_wtp_vcell_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						size = { 206 32 }
+						align = center|vcenter
+						fontsize = 14
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_vcell_2"
+					}
+				}
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_vcell_tt"
+						onclick = "[GetScriptedGui('bag_wtp_pick_plus_49').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_plus"
+						}
+					}
+				}
+			}
+		}
+
+		widget = {
+			size = { 264 32 }
+			hbox = {
+				spacing = 1
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_vcell_tt"
+						onclick = "[GetScriptedGui('bag_wtp_pick_minus_50').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_minus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 206 32 }
+					alwaystransparent = no
+					tooltip = "bag_wtp_vcell_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						size = { 206 32 }
+						align = center|vcenter
+						fontsize = 14
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_vcell_3"
+					}
+				}
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_vcell_tt"
+						onclick = "[GetScriptedGui('bag_wtp_pick_plus_50').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_plus"
+						}
+					}
+				}
+			}
+		}
+		expand = {}
+	}
+
 	# Места 1..5: какая грамота на каком, решает `_rslot<p>`.
 	#
 	# **Ряд гаснет целиком по своему первому месту.** Места заполняются подряд, так
